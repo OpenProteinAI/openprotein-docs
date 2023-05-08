@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  title: Open protein
+  sidebar:
+    style: "docked"
+    logo: 'logo.svg'
+    search: true
+    contents:
+      - section: "Basics"
+        contents:
+          - jupyter-notebook-exemple.qmd
+      - section: "Prots2prot"
+        contents:
+          - prots2prot-tutorial.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

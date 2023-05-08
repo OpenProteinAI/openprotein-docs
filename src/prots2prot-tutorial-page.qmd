@@ -1,0 +1,6 @@
+---
+title: "Designing de novo variant libraries"
+---
+
+
+{{< include prots2prot/p2p_chorismate_mutase.md >}}
