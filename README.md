@@ -1,6 +1,6 @@
 # User documentation 
 
-[Quarto](https://quarto.org/){target="_blank"} was used to develop this app
+[Quarto](https://quarto.org/) was used to develop this app
 
 ## Running the documentation app locally 
 First you will need to:
