@@ -4,16 +4,29 @@ project:
 website:
   title: Open protein
   sidebar:
-    style: "docked"
     logo: 'logo.svg'
+    style: "docked"
     search: true
     contents:
       - section: "Basics"
         contents:
-          - jupyter-notebook-exemple.qmd
+          - introduction-page.qmd
+          - account-page.qmd
+      - section: "Project"
+        contents:
+          - dataset-page.qmd
+          - visualizations-page.qmd
+          - job-status-page.qmd
+          - predictions-page.qmd
+          - design-page.qmd
+          - library-page.qmd
+      - section: "Walkthroughs"
+        contents:
+          - demo-datasets-page.qmd
+          - mutagenesis-page.qmd
       - section: "Prots2prot"
         contents:
-          - prots2prot-tutorial.qmd
+          - prots2prot-tutorial-page.qmd
 
 format:
   html:

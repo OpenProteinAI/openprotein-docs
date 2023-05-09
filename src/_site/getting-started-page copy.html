@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Open protein – getting-started-page-copy</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting-started-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">At a glance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to OpenProtein</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./account-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Account</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./job-status-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Job status</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Prots2prot</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-tutorial-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Designing <em>de novo</em> variant libraries using Prots2prot</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough" id="toc-ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough" class="nav-link active" data-scroll-target="#ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough">ML-guided mutagenesis and sequence-to-function modeling walkthrough</a>
+  <ul class="collapse">
+  <li><a href="#upload-a-dataset" id="toc-upload-a-dataset" class="nav-link" data-scroll-target="#upload-a-dataset">Upload a dataset</a></li>
+  <li><a href="#job-status" id="toc-job-status" class="nav-link" data-scroll-target="#job-status">Job status</a></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
+  <li><a href="#model-diagnostics-and-cross-validation" id="toc-model-diagnostics-and-cross-validation" class="nav-link" data-scroll-target="#model-diagnostics-and-cross-validation">Model diagnostics and cross validation</a></li>
+  <li><a href="#make-predictions-and-analyze-single" id="toc-make-predictions-and-analyze-single" class="nav-link" data-scroll-target="#make-predictions-and-analyze-single">Make predictions and analyze single</a>
+  <ul class="collapse">
+  <li><a href="#running-a-prediction" id="toc-running-a-prediction" class="nav-link" data-scroll-target="#running-a-prediction">Running a prediction</a></li>
+  <li><a href="#examining-predict-results" id="toc-examining-predict-results" class="nav-link" data-scroll-target="#examining-predict-results">Examining predict results</a></li>
+  </ul></li>
+  <li><a href="#designing-optimized-variants" id="toc-designing-optimized-variants" class="nav-link" data-scroll-target="#designing-optimized-variants">Designing optimized variants</a>
+  <ul class="collapse">
+  <li><a href="#running-the-design-tool" id="toc-running-the-design-tool" class="nav-link" data-scroll-target="#running-the-design-tool">Running the design tool</a></li>
+  </ul></li>
+  <li><a href="#examining-design-results" id="toc-examining-design-results" class="nav-link" data-scroll-target="#examining-design-results">Examining design results</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough" class="level1">
+<h1>ML-guided mutagenesis and sequence-to-function modeling walkthrough</h1>
+<p>This section is intended as a simple walkthrough of the OpenProtein.AI web app and the tools it provides for analyzing mutagenesis datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants. This walkthrough uses a deep mutational scanning dataset of an aliphatic amide hydrolase from Pseudomonas aeruginosa generated by [Wrenbeck et al.] (https://doi.org/10.1038/ncomms15695).</p>
+<p>You may download the dataset <a href="https://doc.openprotein.ai/demo">here</a>.</p>
+<section id="upload-a-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="upload-a-dataset">Upload a dataset</h2>
+<p>After creating your <a href="https://doc.openprotein.ai/project">project</a>, you will be prompted to upload a dataset. You can do so by clicking “Upload dataset” in the navigation panel or the project landing page will open a file explorer from which you can select your dataset file.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/06_upload_main.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>We’ll use AMIE_PSEAE_Whitehead, a deep mutational scanning dataset from <a href="https://doi.org/10.1038/ncomms15695">Wrenbeck et al</a> which is included as a demo dataset with this walkthrough. This dataset has activity measurements for <a href="https://www.uniprot.org/uniprotkb/P11436/entry">single substitution mutants of aliphatic amidase from Pseudomonas aeruginosa</a> on three substrates (acetamide, isobutyramide, and propionamide). This enzyme catalyzes the hydrolysis of short-chain aliphatic amides into carboxylates and ammonia.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/07_new_upload.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>By default, it will be the name of your uploaded file but you have the option of renaming your dataset . You can also add an optional description. If you selected the wrong file by accident, the “Change…” button will take you back to the file explorer to select a different file.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A note on mutagenesis dataset formats</p>
+<p>A Mutagenesis dataset is expected to be uploaded as a CSV formatted table. It should have one column containing the full sequence of each variant and additional columns with measurement values associated with each variant.</p>
+<p>It’s ok if some of the variants are missing measurements.</p>
+<p>Your sequence variants can also be specified using typical mutation codes (e.g., M1A or R25L, encoding an M-&gt;A substitution at position 1 or R-&gt;L substitution at position 25, respectively). If your table has mutation codes, you will also need to specify the full wildtype sequence in the “Sequence options” dropdown. The app will use this to enumerate the full sequence of each variant.</p>
+</div>
+</div>
+<p>The app will try to auto-detect your sequence column based on the column name. If it can’t find the column, you can manually select it in the “Sequence options” dropdown.</p>
+<p>!C<a href="./main_tutorial_images/08_seq_options.png">aption</a></p>
+<p>If your table has variants encoded using mutant codes, you need to include the wildtype sequence of your protein.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/09_wild_type.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>When you click “Upload,” your dataset will appear in the Datasets section of the navigation panel and you will be redirected to a new page for your dataset.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/28_walk_main.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+<section id="job-status" class="level2">
+<h2 class="anchored" data-anchor-id="job-status">Job status</h2>
+<p>View the status of your jobs in the jobs panel on the right side of the page.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/12_job_status.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<p>The UMAP creates a 2D visualization of the manifold of your sequence variants that best reflects the similarities between your sequences in the high-dimensional feature space. You may find out more about UMAPs <a href="https://doc.openprotein.ai/design">here</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/10_umap.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>In this case, we see a star-like pattern, which reflects the fact that this dataset is single variants of the central wildtype sequence. Mutagenesis datasets with higher diversity or that are generated in less systematic ways (e.g., via selection), will tend to display different cluster structures in the UMAP plot.</p>
+<p>The points are colored by their corresponding property values in your dataset. The “UMAP options” panel allows you to change the color scheme, reverse the color scheme, and toggle between multiple properties.</p>
+<p>In the meantime, you can select properties to view a joint plot showing pairwise relationships between them in your dataset.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/11_jp.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>The “Dataset” tab will show your mutagenesis dataset table, allows some simple filtering and sorting of the variants, and allows you to download your dataset as a CSV with the “Export…” button.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/29_dataset_table.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Training model on mutagenesis dataset Next, we will train sequence-to-function prediction models on your mutagenesis dataset to predict your property(ies). These models can be used later on to make predictions for new sequence variants and to design libraries of optimized sequences. Click “Train a model…” to open the model training options panel. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/13_train.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Click “Start training” and you’ll see two new jobs added to your jobs panel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/30_job_status.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Once your models finish training, they will appear in the models panel. Your models will be named according to the name you entered in the training options and the property each model predicts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/31_model_status.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+<section id="model-diagnostics-and-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="model-diagnostics-and-cross-validation">Model diagnostics and cross validation</h2>
+<p>The app will also automatically evaluate the predictive performance of these models using cross validation once the models finish training. Navigate to the “Diagnostics” tab to see training curves and cross validation of the models.</p>
+<p>For cross validation, we split your variants into 5-folds, and, for each fold, fit the model on the other 4, then make predictions on the heldout fold. The cross validation plots show the predicted properties versus your actual measured properties for each variant in your dataset when it was heldout. Here, we can see that the model predictions correlate strongly with the ground truth measurements, indicating that these models are able to accurately predict substrate activity for unseen sequence variants.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/32_cross_valid.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+<section id="make-predictions-and-analyze-single" class="level2">
+<h2 class="anchored" data-anchor-id="make-predictions-and-analyze-single">Make predictions and analyze single</h2>
+<p>variant properties</p>
+<p>Once you have trained models, these models can be used to predict those properties for sequence variants of interest. This allows you to explore specific variants and see their predicted properties and also to examine the predicted properties of all single substitution variants of a parent sequence.</p>
+<section id="running-a-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="running-a-prediction">Running a prediction</h3>
+<p>Click “Predict sequence…” or right click a sequence in the variants table and select “Predict this sequence” to go to the prediction page. Here, we sort by isobutyramide activity and select the variant with highest activity to analyze single site variants of.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/14_predict_table.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>This page allows you to enter an arbitrary variant sequence and make property predictions for that sequence and all single variants of it using your trained models.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/33_predict_seq.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Click “Run a new prediction…”, select your models, and click run. This may take a few minutes if the system is busy. Feel free to navigate away. Next time you come back to this sequence, the prediction results will be stored so they can be retrieved quickly later.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/34_predict_seq_run.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+<section id="examining-predict-results" class="level3">
+<h3 class="anchored" data-anchor-id="examining-predict-results">Examining predict results</h3>
+<p>When the predict job completes, you’ll see a table with predicted property values and standard deviations for your query sequence. You’ll also see a heatmap showing the favorability of each single substitution mutant of your query sequence based on their predicted properties.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Important: open the “Show heatmap options” drawer. Here, you can edit the definition of the variant score based on the predicted property values. You can set whether a property should be greater than, less than, or as close as possible to a target value which you can set for each property. You can also toggle properties on and off using the check marks and change how the individual properties are weighted in the score. See the note on design criteria below in the “Design optimized variants” section for more information. The right side of the panel shows the relationship between variant scores and the color map. You can change the min, mid, and max values to adjust the color scaling of the heatmap.</p>
+</div>
+</div>
+<p>For this dataset, let’s look for variants likely to have activity &gt;1 on all three substrates. We also set the min score for the colormap to -20 to get better color resolution of the possible variants.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/35_color_map.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Since we started with a high activity sequence, we can see that most variants are predicted to be less likely to achieve our design criteria. These are colored red by default.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/36_heatmap_main.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>There’s only one variant that our models predict are more likely to achieve the design objective than, which is colored blue. Hovering that cell of the heatmap will show more information about it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/37_heatmap_para.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>You can look for variants that might be better for other design objectives by editing the scoring criteria in the heatmap options drawer. For example, if we look only at isobutyramide, we can find some other substitutions that might be beneficial.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/38_heatmap_var.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>You can download the single site predictions as a CSV table with the “Export” button.</p>
+</section>
+</section>
+<section id="designing-optimized-variants" class="level2">
+<h2 class="anchored" data-anchor-id="designing-optimized-variants">Designing optimized variants</h2>
+<p>Predict is useful if you want to understand the predicted properties and single mutant potentials for some specific sequences. But what if you don’t know what the best base sequence is or want to design a library of higher order mutants that optimally trade off your properties and explore sequence space? That’s what the design module is for.</p>
+<section id="running-the-design-tool" class="level3">
+<h3 class="anchored" data-anchor-id="running-the-design-tool">Running the design tool</h3>
+<p>Return to the dataset page and select “Create a design…” This will take you to a new page where you can define your design objectives and then the platform will search for sequence variants most likely to achieve those objectives.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/18_parameter.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Here, we want to look for variants likely to have activity &gt;1 on all substrates. You can edit the name of this design run in the name text box. We’ve changed it to “AMIE all &gt;1.” You can also specify specific positions within the sequence to mutate. If you don’t, all positions will be considered. The single site potentials found on the predict page can be a useful way to identify a limited number of positions, but we’ll just consider all positions here. You can also set the design algorithm to find optimal variants at shells of similarity to your dataset by selecting the “Use number of mutations criteria” option. This can be helpful if you want to explore tradeoffs between the number of mutations in each variant and the predicted properties. When a criteria is set for multiple properties, the algorithm will search for variants that fall along the Pareto front of those criteria. More information on the design criteria can be found here.</p>
+<p>By default, the design algorithm will run for 10 steps. If you want to generate more candidate sequences and give the algorithm more time to find, potentially, better variants, this can be increased. Let’s set it to 20.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/19_iteration.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Then click “Generate design” to start the algorithm. This will save the design so it’s accessible from the navigation panel. It can take some time for the algorithm to run. Once it starts, you’ll be able to see results as they are generated by the algorithm.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/39_generate_design.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="examining-design-results" class="level2">
+<h2 class="anchored" data-anchor-id="examining-design-results">Examining design results</h2>
+<p>As results are being generated and once the algorithm finishes, you’ll see the variant sequences generated by the design process overlaid on the UMAP. You can adjust the color settings and change the property the new points are colored by in the color options panel. The designed sequences are colored by predicted property.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/40_design_result.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>You can view histograms comparing the expected property distributions for the designs against your original library and joint plots for all of the properties in the “Histogram” and “Joint plot” tabs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/41_design_hist.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/42_design_jp.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>Note that these show all sequences in the design table, not just the best.</p>
+<p>Below the plots, you can see the table of the generated sequences. The design algorithm may not generate all unique sequences at every step, so you can filter the table to only show unique sequences using the option in “Advanced filters.” You can sort the sequences by predicted property and the score assigned to each according to your design criteria. For score, larger (closer to zero) is better.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/43_advanced_filt.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>The filter icon next to each column name also allows you to set simple filters that can be applied to the designs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./main_tutorial_images/44_filter.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Caption</figcaption>
+</figure>
+</div>
+<p>You can now download designs and save as a library accordingly.</p>
+<p>That’s it! Now you can download your designed sequence variants to perform any additional analysis and synthesize your library!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
