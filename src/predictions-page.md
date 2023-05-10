@@ -11,7 +11,10 @@ format:
 On the 'Dataset' tab, click on 'Start training'. You can name your model
 and select which properties you want to be able to predict. We'll call
 our model "Model" and fit it for all three properties here.
-![](/main_tutorial_images/13_train.png)
+
+<p align="center">
+<img src="/main_tutorial_images/13_train.png" width="500">
+</p>
 
 After model training is complete, the app will automatically evaluate
 the predictive performance using cross-validation. To view the training

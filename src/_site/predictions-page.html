@@ -236,7 +236,10 @@ ul.task-list li input[type="checkbox"] {
 <h1>Predictions</h1>
 <section id="training-models" class="level2">
 <h2 class="anchored" data-anchor-id="training-models">Training model(s)</h2>
-<p>On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here. <img src="./main_tutorial_images/13_train.png" class="img-fluid"></p>
+<p>On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.</p>
+<p align="center">
+<img src="./main_tutorial_images/13_train.png" width="500">
+</p>
 <p>After model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.</p>
 <p>Cross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.</p>
 <p>What does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants.</p>

@@ -31,7 +31,10 @@ sequence of each variant.
 
 Upon first login, you will be prompted to create a project. You can name
 the project and include a description for your reference.
-![](/main_tutorial_images/05_new_project.png)
+
+<p align="center">
+<img src="/main_tutorial_images/05_new_project.png" width="500">
+</p>
 
 ## Uploading a dataset
 
@@ -47,17 +50,23 @@ add an optional description to provide more information about your
 dataset. To change the selected file, you can click on the "Change..."
 button to return to the file explorer and select a different file.
 
-![](/main_tutorial_images/07_new_upload.png)
+<p align="center">
+<img src="/main_tutorial_images/07_new_upload.png" width="500">
+</p>
 
 The application will automatically detect the column where your
 sequences are based on the column name. If the column cannot be found,
 you can manually select it from the \"Sequence options\" dropdown.
 
-![](/main_tutorial_images/08_seq_options.png)
+<p align="center">
+<img src="/main_tutorial_images/09_wild_type.png" width="500">
+</p>
 
 If your table encodes variants using mutant codes, please ensure that
 you include the wildtype sequence of your protein.
 
-![](/main_tutorial_images/09_wild_type.png)
+<p align="center">
+<img src="/main_tutorial_images/08_seq_options.png" width="500">
+</p>
 
 Once you're ready, click "Upload" to initiate the upload process.

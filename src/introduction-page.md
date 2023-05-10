@@ -22,7 +22,9 @@ here. Our system automatically creates a UMAP, joint plot and histogram.
 You will be able to upload multiple datasets. Learn more about
 [uploading your datasets](dataset-page.md#uploading-a-dataset).
 
-![](main_tutorial_images/07_new_upload.png)
+<p align="center">
+<img src="main_tutorial_images/07_new_upload.png" width="500">
+</p>
 
 ## Designs
 

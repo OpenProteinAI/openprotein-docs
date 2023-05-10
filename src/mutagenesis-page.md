@@ -35,7 +35,9 @@ substrates (acetamide, isobutyramide, and propionamide). This enzyme
 catalyzes the hydrolysis of short-chain aliphatic amides into
 carboxylates and ammonia.
 
-![](/main_tutorial_images/07_new_upload.png)
+<p align="center">
+<img src="/main_tutorial_images/07_new_upload.png" width="500">
+</p>
 
 By default, it will be the name of your uploaded file but you have the
 option of renaming your dataset . You can also add an optional
@@ -63,12 +65,16 @@ The app will try to auto-detect your sequence column based on the column
 name. If it can't find the column, you can manually select it in the
 "Sequence options" dropdown.
 
-![](/main_tutorial_images/08_seq_options.png)
+<p align="center">
+<img src="/main_tutorial_images/08_seq_options.png" width="500">
+</p>
 
 If your table has variants encoded using mutant codes, you need to
 include the wildtype sequence of your protein.
 
-![](/main_tutorial_images/09_wild_type.png)
+<p align="center">
+<img src="/main_tutorial_images/09_wild_type.png" width="500">
+</p>
 
 When you click "Upload," your dataset will appear in the Datasets
 section of the navigation panel and you will be redirected to a new page
@@ -81,7 +87,9 @@ for your dataset.
 View the status of your jobs in the jobs panel on the right side of the
 page.
 
-![](/main_tutorial_images/12_job_status.png)
+<p align="center">
+<img src="/main_tutorial_images/12_job_status.png" width="450">
+</p>
 
 ## Visualizations
 
@@ -121,18 +129,24 @@ options panel. You can name your model and select which properties you
 want to be able to predict. We'll call our model "Model" and fit it for
 all three properties here.
 
-![](/main_tutorial_images/13_train.png)
+<p align="center">
+<img src="/main_tutorial_images/13_train.png" width="500">
+</p>
 
 Click "Start training" and you'll see two new jobs added to your jobs
 panel.
 
-![](/main_tutorial_images/30_job_status.png)
+<p align="center">
+<img src="/main_tutorial_images/30_job_status.png" width="350">
+</p>
 
 Once your models finish training, they will appear in the models panel.
 Your models will be named according to the name you entered in the
 training options and the property each model predicts.
 
-![](/main_tutorial_images/31_model_status.png)
+<p align="center">
+<img src="/main_tutorial_images/31_model_status.png" width="400">
+</p>
 
 ## Model diagnostics and cross validation
 
@@ -268,7 +282,9 @@ generate more candidate sequences and give the algorithm more time to
 find, potentially, better variants, this can be increased. Let's set it
 to 20.
 
-![](/main_tutorial_images/19_iteration.png)
+<p align="center">
+<img src="/main_tutorial_images/19_iteration.png" width="400">
+</p>
 
 Then click "Generate design" to start the algorithm. This will save the
 design so it's accessible from the navigation panel. It can take some
@@ -310,7 +326,9 @@ score, larger (closer to zero) is better.
 The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
-![](/main_tutorial_images/44_filter.png)
+<p align="center">
+<img src="/main_tutorial_images/44_filter.png" width="350">
+</p>
 
 You can now download designs and save as a library accordingly.
 

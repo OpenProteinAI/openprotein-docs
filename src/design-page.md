@@ -22,7 +22,9 @@ The design algorithm is set to run for 10 steps by default. However, to
 generate more candidate sequences and allow the algorithm more time to
 find potentially better variants, this number can be increased.
 
-![](/main_tutorial_images/19_iteration.png)
+<p align="center">
+<img src="/main_tutorial_images/19_iteration.png" width="450">
+</p>
 
 After adjusting the settings, click "Generate design" to initiate the
 algorithm. The design will be saved and can be accessed from the
@@ -100,7 +102,9 @@ score, larger (closer to zero) is better.
 The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
-![](/main_tutorial_images/24_filter.png)
+<p align="center">
+<img src="/main_tutorial_images/24_filter.png" width="350">
+</p>
 
 ## Exporting results
 
