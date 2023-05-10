@@ -10,23 +10,23 @@ website:
     contents:
       - section: "Basics"
         contents:
-          - introduction-page.qmd
-          - account-page.qmd
+          - introduction-page.md
+          - account-page.md
       - section: "Project"
         contents:
-          - dataset-page.qmd
-          - visualizations-page.qmd
-          - job-status-page.qmd
-          - predictions-page.qmd
-          - design-page.qmd
-          - library-page.qmd
+          - dataset-page.md
+          - visualizations-page.md
+          - job-status-page.md
+          - predictions-page.md
+          - design-page.md
+          - library-page.md
       - section: "Walkthroughs"
         contents:
-          - demo-datasets-page.qmd
-          - mutagenesis-page.qmd
+          - demo-datasets-page.md
+          - mutagenesis-page.md
       - section: "Prots2prot"
         contents:
-          - prots2prot-tutorial-page.qmd
+          - prots2prot-tutorial-page.md
 
 format:
   html:

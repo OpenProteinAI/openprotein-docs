@@ -10,6 +10,7 @@ format:
 
 A dataset is expected to be uploaded as a CSV formatted table. It should
 have the following columns: 
+
 * the full sequence of each variant and 
 * additional columns with measurement values associated with each variant.
 

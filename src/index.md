@@ -15,16 +15,16 @@ capabilities of the prots2prot model.
 
 ## Introduction to OpenProtein
 
-This [article](introduction-page.qmd) gives an overview of the platform and its features. It is a good place to start to learn how to use the platform and 
+This [article](introduction-page.md) gives an overview of the platform and its features. It is a good place to start to learn how to use the platform and 
 what it can offer. 
 
 ## Demo datasets
 
-This [article](demo-datasets-page.qmd) consists of links to download the walkthrough dataset and several other demo datasets.
+This [article](demo-datasets-page.md) consists of links to download the walkthrough dataset and several other demo datasets.
 
 ## ML-guided mutagenesis and sequence-to-function modeling walkthrough
 
-A simple [walkthrough](mutagenesis-page.qmd) of the OpenProtein.AI web app and the tools it provides for analyzing mutagenesis datasets, training
+A simple [walkthrough](mutagenesis-page.md) of the OpenProtein.AI web app and the tools it provides for analyzing mutagenesis datasets, training
 sequence-to-function prediction models, using those models to predict
 properties for new sequences, and designing optimized libraries of
 sequence variants. This walkthrough uses a deep mutational scanning
