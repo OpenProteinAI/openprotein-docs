@@ -1,10 +1,10 @@
 ---
+title: Introduction to OpenProtein
+title-block-style: none
 format:
   html:
     code-fold: true
 ---
-
-# Introduction to OpenProtein
 
 This article includes a high-level summary of core features, along with links to explore more
 documentation for each area.

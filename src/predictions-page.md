@@ -1,10 +1,9 @@
 ---
+title: Predictions
 format:
   html:
     code-fold: true
 ---
-
-# Predictions 
 
 ## Training model(s)
 

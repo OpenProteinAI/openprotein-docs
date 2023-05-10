@@ -1,10 +1,9 @@
 ---
+title: Designing *de novo* variant libraries using Prots2prot
 format:
   html:
     code-fold: true
 ---
-
-# Designing *de novo* variant libraries using Prots2prot
 
 Prots2prot is a generative protein language model that allows you to design protein sequences *de novo*, without functional measurements of your protein of interest. This means that you can use the model to generate single substitution, combinatorial variant libraries, or a bespoke high-diversity library, **prior to making any measurements**. 
 

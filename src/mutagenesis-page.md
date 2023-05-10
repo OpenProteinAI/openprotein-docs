@@ -1,10 +1,9 @@
 ---
+title: ML-guided mutagenesis and sequence-to-function modeling walkthrough
 format:
   html:
     code-fold: true
 ---
-
-# ML-guided mutagenesis and sequence-to-function modeling walkthrough
 
 This section is intended as a simple walkthrough of the OpenProtein.AI
 web app and the tools it provides for analyzing mutagenesis datasets,
@@ -327,7 +326,7 @@ The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
 <p align="center">
-<img src="/main_tutorial_images/44_filter.png" width="350">
+<img src="/main_tutorial_images/44_filter.png" width="35y77  0">
 </p>
 
 You can now download designs and save as a library accordingly.

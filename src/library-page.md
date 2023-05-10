@@ -1,10 +1,9 @@
 ---
+title: Libraries
 format:
   html:
     code-fold: true
 ---
-
-# Libraries
 
 ## Saving sequence variants as a library
 

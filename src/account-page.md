@@ -1,10 +1,9 @@
 ---
+title: Account
 format:
   html:
     code-fold: true
 ---
-
-# Account
 
 ## Logging into your account
 

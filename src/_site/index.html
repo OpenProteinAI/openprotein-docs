@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Open protein</title>
+<title>Open Protein AI - User Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Open Protein AI - User Guide</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -144,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./job-status-page.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Job status</span></a>
+ <span class="menu-text">Job Status</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -217,24 +218,38 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance">At a glance</a>
-  <ul class="collapse">
+  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance">At a glance</a></li>
   <li><a href="#introduction-to-openprotein" id="toc-introduction-to-openprotein" class="nav-link" data-scroll-target="#introduction-to-openprotein">Introduction to OpenProtein</a></li>
   <li><a href="#demo-datasets" id="toc-demo-datasets" class="nav-link" data-scroll-target="#demo-datasets">Demo datasets</a></li>
   <li><a href="#ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough" id="toc-ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough" class="nav-link" data-scroll-target="#ml-guided-mutagenesis-and-sequence-to-function-modeling-walkthrough">ML-guided mutagenesis and sequence-to-function modeling walkthrough</a></li>
   <li><a href="#generative-modeling-and-variant-fitness-prediction-with-prots2prot" id="toc-generative-modeling-and-variant-fitness-prediction-with-prots2prot" class="nav-link" data-scroll-target="#generative-modeling-and-variant-fitness-prediction-with-prots2prot">Generative modeling and variant fitness prediction with prots2prot</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Open Protein AI - User Guide</h1>
+</div>
 
 
-<section id="at-a-glance" class="level1">
-<h1>At a glance</h1>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="at-a-glance" class="level2">
+<h2 class="anchored" data-anchor-id="at-a-glance">At a glance</h2>
 <p>This user guide provides a basic overview of the OpenProtein.AI web app. You can create your first project, upload a dataset, and then use the OpenProtein.AI tools to analyze that dataset, train sequence-to-function prediction models, predict properties for new sequences, and design optimized libraries. It also overviews the generative modeling capabilities of the prots2prot model.</p>
+</section>
 <section id="introduction-to-openprotein" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-to-openprotein">Introduction to OpenProtein</h2>
 <p>This <a href="./introduction-page.html">article</a> gives an overview of the platform and its features. It is a good place to start to learn how to use the platform and what it can offer.</p>
@@ -252,7 +267,6 @@ ul.task-list li input[type="checkbox"] {
 <p>Prots2prot is a guidable, retrieval-augmented generative model of protein sequences. It conditions on homologues or protein family representatives to predict variant effects and allow diverse sequence design de novo. Prots2prot can be used to score and rank arbitrary sequence variants, exhaustively map single substitution mutations, and design bespoke, potentially high diversity, and novel sequences. Prots2prot can be used to score and design substitutions, insertions, deletions, and high order combinations thereof.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

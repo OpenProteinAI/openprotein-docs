@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Open protein – prots2prot-tutorial-page</title>
+<title>Designing de novo variant libraries using Prots2prot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -144,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./job-status-page.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Job status</span></a>
+ <span class="menu-text">Job Status</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -217,23 +218,33 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#designing-de-novo-variant-libraries-using-prots2prot" id="toc-designing-de-novo-variant-libraries-using-prots2prot" class="nav-link active" data-scroll-target="#designing-de-novo-variant-libraries-using-prots2prot">Designing <em>de novo</em> variant libraries using Prots2prot</a>
-  <ul class="collapse">
-  <li><a href="#generating-single-substitution-libraries" id="toc-generating-single-substitution-libraries" class="nav-link" data-scroll-target="#generating-single-substitution-libraries">Generating single-substitution libraries</a></li>
+  <li><a href="#generating-single-substitution-libraries" id="toc-generating-single-substitution-libraries" class="nav-link active" data-scroll-target="#generating-single-substitution-libraries">Generating single-substitution libraries</a></li>
   <li><a href="#generating-high-diversity-libraries" id="toc-generating-high-diversity-libraries" class="nav-link" data-scroll-target="#generating-high-diversity-libraries">Generating high-diversity libraries</a></li>
   <li><a href="#how-good-are-my-libraries" id="toc-how-good-are-my-libraries" class="nav-link" data-scroll-target="#how-good-are-my-libraries">How good are my libraries?</a></li>
   <li><a href="#prioritizing-variants-in-an-existing-library" id="toc-prioritizing-variants-in-an-existing-library" class="nav-link" data-scroll-target="#prioritizing-variants-in-an-existing-library">Prioritizing variants in an existing library</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Designing <em>de novo</em> variant libraries using Prots2prot</h1>
+</div>
 
 
-<section id="designing-de-novo-variant-libraries-using-prots2prot" class="level1">
-<h1>Designing <em>de novo</em> variant libraries using Prots2prot</h1>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
 <p>Prots2prot is a generative protein language model that allows you to design protein sequences <em>de novo</em>, without functional measurements of your protein of interest. This means that you can use the model to generate single substitution, combinatorial variant libraries, or a bespoke high-diversity library, <strong>prior to making any measurements</strong>.</p>
 <p>Prots2prot controls sequence generation via a <strong>prompt</strong>, which is defined as a set of sequences that encodes information about the local fitness landscape and co-evolutionary patterns of your given protein of interest. One way to build this prompt is by using a multiple sequence alignment (MSA) of your protein of interest using sequences across evolutionary lineages. Because these sequences share an evolutionary relationship, they contain information about the local fitness landscape of the protein. Prots2prot is able to infer the evolutionary process driving the generation of these sequences, and hence not only sample new sequences, but also score the likelihood of seeing a given sequence under this process.</p>
 <p>Chorismate mutase is a important enzyme involved in the biosynthesis of aromatic amino acids. Specifically, it catalyzes the conversion of chorismate to prephenate. In this tutorial, we will use Prots2prot to generate a prospective <em>de novo</em> variant library for chorismate mutase.</p>
@@ -336,7 +347,6 @@ ul.task-list li input[type="checkbox"] {
 <p>We can also use Prot2prot to prioritize variants in an existing library.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

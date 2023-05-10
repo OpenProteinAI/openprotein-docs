@@ -1,10 +1,9 @@
 ---
+title: Demo datasets
 format:
   html:
     code-fold: true
 ---
-
-# Demo datasets
 
 ## Aliphatic amidase (AMIE_PSEAE)
 

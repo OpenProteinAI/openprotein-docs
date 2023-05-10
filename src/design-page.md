@@ -1,9 +1,9 @@
 ---
+title: Design
 format:
   html:
     code-fold: true
 ---
-# Design 
 
 ## Running the Design tool
 

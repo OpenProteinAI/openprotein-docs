@@ -1,10 +1,11 @@
 ---
+title: Open Protein AI - User Guide
 format:
   html:
     code-fold: true
 ---
 
-# At a glance
+## At a glance
 
 This user guide provides a basic overview of the OpenProtein.AI web app.
 You can create your first project, upload a dataset, and then use the

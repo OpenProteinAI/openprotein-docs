@@ -1,10 +1,9 @@
 ---
+title: Visualizations
 format:
   html:
     code-fold: true
 ---
-
-# Visualizations
 
 OpenProtein offers a suite of visualizations which also allows
 customizations: 
