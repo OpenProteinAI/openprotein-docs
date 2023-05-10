@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to OpenProtein</title>
+<title>Prots2prot Tools</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction-page.html">Basics</a></li><li class="breadcrumb-item"><a href="./introduction-page.html">Introduction to OpenProtein</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prots2prot-introduction-page.html">Prots2prot</a></li><li class="breadcrumb-item"><a href="./prots2prot-tools-page.html">Prots2prot Tools</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link active">
+  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to OpenProtein</span></a>
   </div>
 </li>
@@ -202,6 +202,24 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./prots2prot-introduction-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-defining-prompts-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-tools-page.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Prots2prot Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./prots2prot-tutorial-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Designing <em>de novo</em> variant libraries using Prots2prot</span></a>
   </div>
@@ -218,10 +236,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#projects" id="toc-projects" class="nav-link active" data-scroll-target="#projects">Projects</a></li>
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
-  <li><a href="#designs" id="toc-designs" class="nav-link" data-scroll-target="#designs">Designs</a></li>
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#scoring-sequences-with-prots2prot" id="toc-scoring-sequences-with-prots2prot" class="nav-link active" data-scroll-target="#scoring-sequences-with-prots2prot">Scoring sequences with prots2prot</a></li>
+  <li><a href="#single-site-analysis" id="toc-single-site-analysis" class="nav-link" data-scroll-target="#single-site-analysis">Single site analysis</a></li>
+  <li><a href="#generate-novel-sequences" id="toc-generate-novel-sequences" class="nav-link" data-scroll-target="#generate-novel-sequences">Generate novel sequences</a></li>
   </ul>
 </nav>
     </div>
@@ -230,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to OpenProtein</h1>
+<h1 class="title">Prots2prot Tools</h1>
 </div>
 
 
@@ -245,25 +262,33 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This article includes a high-level summary of core features, along with links to explore more documentation for each area.</p>
-<section id="projects" class="level2">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<p>This is the overall folder where your datasets, designs and libraries will be housed in. You can create more than 1 project. Learn more about <a href="./dataset-page.html#creating-a-project">projects</a>.</p>
+<section id="scoring-sequences-with-prots2prot" class="level2">
+<h2 class="anchored" data-anchor-id="scoring-sequences-with-prots2prot">Scoring sequences with prots2prot</h2>
+<p>Click “Create query” to go to the query tool. This tool allows you to score arbitrary sequences defined in a fasta or CSV file. It will calculate the log-likelihood of each sequence conditioned on the sequence context defined by the prompt.</p>
+<p><img src="p2p_images/48_query_input.png" class="img-fluid"></p>
+<p>This tool is useful if you want to score, prioritize, or rank specific sequence variants of interest. For example, you could score homologous sequences mined from a database, perform a synthetic alanine scan or deletion scan, or enumerate combinatorial mutations at specific sites.</p>
+<p>Clicking “Run” will start the job. This could take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.</p>
+<p><img src="p2p_images/49_prots_result.png" class="img-fluid"></p>
+<p>The results are presented as a table, which can be sorted and downloaded. You can further explore the local fitness landscape of each sequence by using the quick links to the ‘Single site analysis’ page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the “Add sequences” button.</p>
 </section>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>Once you have uploaded your datasets, you will be able to view them here. Our system automatically creates a UMAP, joint plot and histogram. You will be able to upload multiple datasets. Learn more about <a href="./dataset-page.html#uploading-a-dataset">uploading your datasets</a>.</p>
-<p align="center">
-<img src="main_tutorial_images/07_new_upload.png" width="500">
-</p>
+<section id="single-site-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="single-site-analysis">Single site analysis</h2>
+<p>Click “Single site analysis” to go to the single site analysis tool. This tool will score all single substitution variants of a parent sequence, conditioned on the prompt, and present the results in a heatmap.</p>
+<p><img src="p2p_images/50_single_site.png" class="img-fluid"></p>
+<p>Results can be downloaded as a table using the “Export” button. The single site page will also show the highest scoring variants and sites in tables below the heatmap for quick reference. The parameters used to run the single site analysis can be found in the “Single site details” tab.</p>
+<p><img src="p2p_images/51_ss_heatmap.png" class="img-fluid"></p>
+<p>Clicking on a variant in the heatmap will open the “Run new” drawer and fill in that variant to provide a quick link to run single site analysis on that variant as the parent sequence using the same prompt. You can also enter an arbitrary sequence in “Run new” to run single site analysis for other sequences without respecifying the prompt.</p>
+<p><img src="p2p_images/52_ss_example.png" class="img-fluid"></p>
+<p>Single site analysis is useful if you want to understand the local fitness landscape of a protein, identify promising single substitution variants, identify hotspots for mutagenesis, and design combinatorial variant libraries.</p>
 </section>
-<section id="designs" class="level2">
-<h2 class="anchored" data-anchor-id="designs">Designs</h2>
-<p>The design module allows you to create the best base sequences based on specific properties. Once you have run the design tool, you can find your optimized sequences in this module. Learn more about <a href="./design-page.html">Design</a></p>
-</section>
-<section id="libraries" class="level2">
-<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
-<p>The Libraries module allows you to store your design sequences for easy reference. Learn more about <a href="./library-page.html">Libraries</a>.</p>
+<section id="generate-novel-sequences" class="level2">
+<h2 class="anchored" data-anchor-id="generate-novel-sequences">Generate novel sequences</h2>
+<p>Click “Generate sequences” to go to the sequence generation tool. This tool allows you to sample novel protein sequences conditioned on the sequence context provided by your prompt sequences. This tool offers a way to explore and efficiently generate functional sequences from the fitness landscape around your prompt sequences. Generate is ideal for designing high diversity, bespoke protein sequence libraries and can sample non-trivial and variable length sequences.</p>
+<p><img src="p2p_images/53_generate_seq.png" class="img-fluid"></p>
+<p>The sampling behaviour can be controlled by tuning your prompt and through the sampling options provided. In particular, “temperature,” “top-p,” and “top-k” provide the ability to focus sampling around highly likely sequences by adjusting these parameters.</p>
+<p>Generated sequences are presented in a table similar to the Query results above.</p>
+<p><img src="p2p_images/54_generate_results.png" class="img-fluid"></p>
+<p>The table can be downloaded using the “Export” button and local fitness landscapes are quickly accessible via the single site analysis buttons for each sequence.</p>
 
 
 </section>

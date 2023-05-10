@@ -1,6 +1,5 @@
 ---
 title: Introduction to OpenProtein
-title-block-style: none
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Designing *de novo* variant libraries using Prots2prot
+title: 'Tutorial: Designing de novo variant libraries using Prots2prot'
 format:
   html:
     code-fold: true

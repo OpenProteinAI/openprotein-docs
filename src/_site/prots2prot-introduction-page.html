@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to OpenProtein</title>
+<title>Introduction to Prots2prot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction-page.html">Basics</a></li><li class="breadcrumb-item"><a href="./introduction-page.html">Introduction to OpenProtein</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prots2prot-introduction-page.html">Prots2prot</a></li><li class="breadcrumb-item"><a href="./prots2prot-introduction-page.html">Introduction to Prots2prot</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link active">
+  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to OpenProtein</span></a>
   </div>
 </li>
@@ -202,6 +202,24 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./prots2prot-introduction-page.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction to Prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-defining-prompts-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-tools-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./prots2prot-tutorial-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Designing <em>de novo</em> variant libraries using Prots2prot</span></a>
   </div>
@@ -218,10 +236,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#projects" id="toc-projects" class="nav-link active" data-scroll-target="#projects">Projects</a></li>
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
-  <li><a href="#designs" id="toc-designs" class="nav-link" data-scroll-target="#designs">Designs</a></li>
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#accessing-prots2prot" id="toc-accessing-prots2prot" class="nav-link active" data-scroll-target="#accessing-prots2prot">Accessing prots2prot</a></li>
   </ul>
 </nav>
     </div>
@@ -230,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to OpenProtein</h1>
+<h1 class="title">Introduction to Prots2prot</h1>
 </div>
 
 
@@ -245,25 +260,17 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This article includes a high-level summary of core features, along with links to explore more documentation for each area.</p>
-<section id="projects" class="level2">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<p>This is the overall folder where your datasets, designs and libraries will be housed in. You can create more than 1 project. Learn more about <a href="./dataset-page.html#creating-a-project">projects</a>.</p>
-</section>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>Once you have uploaded your datasets, you will be able to view them here. Our system automatically creates a UMAP, joint plot and histogram. You will be able to upload multiple datasets. Learn more about <a href="./dataset-page.html#uploading-a-dataset">uploading your datasets</a>.</p>
-<p align="center">
-<img src="main_tutorial_images/07_new_upload.png" width="500">
-</p>
-</section>
-<section id="designs" class="level2">
-<h2 class="anchored" data-anchor-id="designs">Designs</h2>
-<p>The design module allows you to create the best base sequences based on specific properties. Once you have run the design tool, you can find your optimized sequences in this module. Learn more about <a href="./design-page.html">Design</a></p>
-</section>
-<section id="libraries" class="level2">
-<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
-<p>The Libraries module allows you to store your design sequences for easy reference. Learn more about <a href="./library-page.html">Libraries</a>.</p>
+<p>Prots2prot is a generative protein language model that allows controllable design of protein sequences and variant effect prediction. This model is controlled by providing it with a prompt, a set of sequences that represent homologues, family members, or some other grouping of related sequences that represent your protein of interest. We provide tools for creating these prompts from multiple sequence alignments (MSAs) and for using homology search to build MSAs from a seed sequence.</p>
+<p>Given a <em>prompt</em>, you can</p>
+<ul>
+<li><p>Score arbitrary sequences you provide to predict sequence fitness and rank variants. This works for substitutions and indels and allows high order variants.</p></li>
+<li><p>Map the fitness of all single substitution variants. This is useful for designing single mutant libraries, but also for identifying mutable hotspots and designing combinatorial variant libraries.</p></li>
+<li><p>Generate novel, bespoke, high order variants by sampling from the model. This is especially useful for synthetic diversification and exploring the full and potentially diverse sequence space of your protein.</p></li>
+</ul>
+<section id="accessing-prots2prot" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-prots2prot">Accessing prots2prot</h2>
+<p><img src="p2p_images/45_access_prots.png" class="img-fluid"></p>
+<p>Prots2prot tools can be found in the “Prots2prot…” dropdown menu in the header bar of the OpenProtein.AI web app.</p>
 
 
 </section>

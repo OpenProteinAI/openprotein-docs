@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to OpenProtein</title>
+<title>Using Prots2prot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction-page.html">Basics</a></li><li class="breadcrumb-item"><a href="./introduction-page.html">Introduction to OpenProtein</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prots2prot-introduction-page.html">Prots2prot</a></li><li class="breadcrumb-item"><a href="./prots2prot-defining-prompts-page.html">Using Prots2prot</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link active">
+  <a href="./introduction-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to OpenProtein</span></a>
   </div>
 </li>
@@ -202,6 +202,24 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./prots2prot-introduction-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-defining-prompts-page.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using Prots2prot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prots2prot-tools-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./prots2prot-tutorial-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Designing <em>de novo</em> variant libraries using Prots2prot</span></a>
   </div>
@@ -218,10 +236,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#projects" id="toc-projects" class="nav-link active" data-scroll-target="#projects">Projects</a></li>
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
-  <li><a href="#designs" id="toc-designs" class="nav-link" data-scroll-target="#designs">Designs</a></li>
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#defining-the-prompt" id="toc-defining-the-prompt" class="nav-link active" data-scroll-target="#defining-the-prompt">Defining the prompt</a></li>
+  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history">History</a></li>
+  <li><a href="#scoring-sequences-with-prots2prot" id="toc-scoring-sequences-with-prots2prot" class="nav-link" data-scroll-target="#scoring-sequences-with-prots2prot">Scoring sequences with prots2prot</a></li>
   </ul>
 </nav>
     </div>
@@ -230,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to OpenProtein</h1>
+<h1 class="title">Using Prots2prot</h1>
 </div>
 
 
@@ -245,25 +262,46 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This article includes a high-level summary of core features, along with links to explore more documentation for each area.</p>
-<section id="projects" class="level2">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<p>This is the overall folder where your datasets, designs and libraries will be housed in. You can create more than 1 project. Learn more about <a href="./dataset-page.html#creating-a-project">projects</a>.</p>
+<section id="defining-the-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-prompt">Defining the prompt</h2>
+<p><img src="p2p_images/46_prompt.png" class="img-fluid"></p>
+<p>The prompt defines the target sequence distribution. It provides the prots2prot model with information about sequence constraints, local fitness landscape, and co-evolutionary patterns, from which prots2prot will infer a generative model over protein sequences. The prompt definition tools allow you to specify and control what sequences are used to define this generative context.</p>
+<p>The primary way to define a prompt is to provide a seed sequence, which could be your parent sequence, or some other sequence representing the space of proteins within which you would like to sample or explore.</p>
+<p>To use this option, check the “Use first sequence as seed to generate MSA” box. The seed sequence will then be used to build out a multiple sequence alignment of naturally occurring homologous sequences from which the prompt sequences will be randomly selected. You may also provide your own set of homologous sequences as an MSA, from which the prompt will be created.</p>
+<p><em>Note:</em> if you provide your own MSA, the system will consider the first sequence as the seed sequence.</p>
+<p>This sampling process is controlled by the sampling strategy, homology level, and maximum and minimum similarity parameters. These are set to reasonable values by default, which we have found to perform well across a wide range of protein families. These can be tuned, however, to control the diversity of sequences that will be modeled by prots2prot.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Descriptions">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descriptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Sampling strategy</em> - this parameter defines the sampling strategy used for selecting prompt sequences from the homologues found by homology search, or from the provided MSA. We recommend using the default “Neighbors” method.</p>
+<p><em>Homology level</em> - this parameter controls the identity level at which two sequences are considered “neighbors” - that is, redundant - in the MSA. This is equivalent to the homology level used to calculate the number of effective sequences in protein families.</p>
+<p><em>Maximum similarity</em> - the maximum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity greater than this to the seed will be included.</p>
+<p><em>Minimum similarity</em> - the minimum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity less than this to the seed will be included. This is useful for creating prompts that are highly focused on the local sequence space around the seed.</p>
+</div>
+</div>
+<p>If your protein comes from a highly diverse family or you wish to explore a large and diverse set of variants, then adjusting the homology level to be lower will select higher diversity prompt sequences and thus generate higher diversity sequence distributions. On the other hand, if you wish to have more focused generation, then using a higher homology level and setting a minimum similarity threshold can help to ensure that the prompt focuses on the local sequence landscape around your seed.</p>
+<p><em>Ensembling</em> - instead of using a single prompt, multiple randomly sampled prompts can be used together by ensembling. We’ve found that this consistently improves performance when predicting variant effects by a small amount, but it will also make predictions and sampling take more time. To build an ensemble prompt, set the number of prompts to ensemble to a number &gt;1. Three to five are generally enough, but we allow up to 15 prompts to be ensemble. There are diminishing returns to adding more prompts to the ensemble.</p>
 </section>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>Once you have uploaded your datasets, you will be able to view them here. Our system automatically creates a UMAP, joint plot and histogram. You will be able to upload multiple datasets. Learn more about <a href="./dataset-page.html#uploading-a-dataset">uploading your datasets</a>.</p>
-<p align="center">
-<img src="main_tutorial_images/07_new_upload.png" width="500">
-</p>
+<section id="history" class="level2">
+<h2 class="anchored" data-anchor-id="history">History</h2>
+<p><img src="p2p_images/47_history.png" class="img-fluid"></p>
+<p>The prots2prot history page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job. It also provides quick access to the specific prots2prot tools in the bottom bar: * Create query * single site analysis * generate sequences.</p>
 </section>
-<section id="designs" class="level2">
-<h2 class="anchored" data-anchor-id="designs">Designs</h2>
-<p>The design module allows you to create the best base sequences based on specific properties. Once you have run the design tool, you can find your optimized sequences in this module. Learn more about <a href="./design-page.html">Design</a></p>
-</section>
-<section id="libraries" class="level2">
-<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
-<p>The Libraries module allows you to store your design sequences for easy reference. Learn more about <a href="./library-page.html">Libraries</a>.</p>
+<section id="scoring-sequences-with-prots2prot" class="level2">
+<h2 class="anchored" data-anchor-id="scoring-sequences-with-prots2prot">Scoring sequences with prots2prot</h2>
+<p>Click “Create query” to go to the query tool. This tool allows you to score arbitrary sequences defined in a fasta or CSV file. It will calculate the log-likelihood of each sequence conditioned on the sequence context defined by the prompt.</p>
+<p><img src="p2p_images/48_query_input.png" class="img-fluid"></p>
+<p>This tool is useful if you want to score, prioritize, or rank specific sequence variants of interest. For example, you could score homologous sequences mined from a database, perform a synthetic alanine scan or deletion scan, or enumerate combinatorial mutations at specific sites.</p>
+<p>Clicking “run” will start the job. This could take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.</p>
+<p><img src="p2p_images/49_prots_result.png" class="img-fluid"></p>
+<p>The results are presented as a table, which can be sorted and downloaded. You can further explore the local fitness landscape of each sequence by using the quick links to the Single site analysis page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the “Add sequences” button.</p>
 
 
 </section>

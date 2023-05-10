@@ -1,4 +1,9 @@
-# Introduction to prots2prot
+---
+title: Introduction to Prots2prot
+format:
+  html:
+    code-fold: true
+---
 
 Prots2prot is a generative protein language model that allows controllable design of protein sequences and variant effect prediction. This model is controlled by providing it with a prompt, a set of sequences that represent homologues, family members, or some other grouping of related sequences that represent your protein of interest. We provide tools for creating these prompts from multiple sequence alignments (MSAs) and for using homology search to build MSAs from a seed sequence.
 
@@ -12,6 +17,6 @@ Given a *prompt*, you can
 
 ## Accessing prots2prot
 
-![](45_access_prots.png)
+![](p2p_images/45_access_prots.png)
 
 Prots2prot tools can be found in the “Prots2prot…” dropdown menu in the header bar of the OpenProtein.AI web app.
