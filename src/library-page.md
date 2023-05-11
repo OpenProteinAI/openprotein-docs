@@ -14,7 +14,7 @@ You can also save your library within the app. Click the "Save as
 library..." button and enter a name for your library.
 
 <p align="center">
-<img src="/main_tutorial_images/26_save_library.png" width="500">
+  <img src="/main_tutorial_images/26_save_library.png" width="500">
 </p>
 
 This will take you to a new page with the sequence variants you

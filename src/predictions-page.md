@@ -12,7 +12,7 @@ and select which properties you want to be able to predict. We'll call
 our model "Model" and fit it for all three properties here.
 
 <p align="center">
-<img src="/main_tutorial_images/13_train.png" width="500">
+  <img src="/main_tutorial_images/13_train.png" width="500">
 </p>
 
 After model training is complete, the app will automatically evaluate

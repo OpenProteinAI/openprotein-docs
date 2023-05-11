@@ -16,7 +16,7 @@ Chorismate mutase is a important enzyme involved in the biosynthesis of aromatic
 To generate single-substitution libraries, we can use the **Single site analysis** prediction tool. This tool generates and scores all single-substitution variants of the given query sequence. 
 
 <p align="center">
-<img src="p2p_images/01_button.png" width="300">
+  <img src="p2p_images/01_button.png" width="300">
 </p>
 
 First, define the query sequence for which we wish to generate all single substutions. 
@@ -63,7 +63,7 @@ Congratulations! You have now created your first *de novo* variant library using
 To generate high-diversity libraries, we can use the **Generate sequences** tool. 
 
 <p align="center">
-<img src="p2p_images/08_button.png" width="300">
+  <img src="p2p_images/08_button.png" width="300">
 </p>
 
 As in the single-site analysis tool, we have to specify the prompt. We will again use the sequence for chorismate mutase in *E. coli*. to seed the MSA. Since chorismate mutase is a relatively short protein, we will set the maximum generated protein length to 200. We also set the number of sequences to generate to 100. Hitting run then dispatches the generate job. 
@@ -93,7 +93,7 @@ Let's evaluate Prot2prot's scores against actual activity measurements for a hig
 To evaluate query sequences against a given MSA, we can use the **Create query** tool. 
 
 <p align="center">
-<img src="p2p_images/12_button.png" width="300">
+  <img src="p2p_images/12_button.png" width="300">
 </p>
 
 ## Prioritizing variants in an existing library

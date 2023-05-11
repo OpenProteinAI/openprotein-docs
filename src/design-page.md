@@ -23,7 +23,7 @@ generate more candidate sequences and allow the algorithm more time to
 find potentially better variants, this number can be increased.
 
 <p align="center">
-<img src="/main_tutorial_images/19_iteration.png" width="450">
+  <img src="/main_tutorial_images/19_iteration.png" width="450">
 </p>
 
 After adjusting the settings, click "Generate design" to initiate the
@@ -103,7 +103,7 @@ The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
 <p align="center">
-<img src="/main_tutorial_images/24_filter.png" width="350">
+  <img src="/main_tutorial_images/24_filter.png" width="350">
 </p>
 
 ## Exporting results

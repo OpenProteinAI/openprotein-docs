@@ -18,7 +18,7 @@ Given a *prompt*, you can
 ## Accessing prots2prot
 
 <p align="center">
-<img src="p2p_images/45_access_prots.png" width="350">
+  <img src="p2p_images/45_access_prots.png" width="350">
 </p>
 
 Prots2prot tools can be found in the “Prots2prot…” dropdown menu in the header bar of the OpenProtein.AI web app.
