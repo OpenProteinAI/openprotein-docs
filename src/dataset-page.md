@@ -46,7 +46,7 @@ file explorer where you can select your dataset file.
 You have the option to edit the name of your dataset to your preference.
 By default, the name of the uploaded file is used. Additionally, you can
 add an optional description to provide more information about your
-dataset. To change the selected file, you can click on the "Change..."
+dataset.To change the selected file, you can click on the "Change..."
 button to return to the file explorer and select a different file.
 
 <p align="center">
@@ -54,15 +54,15 @@ button to return to the file explorer and select a different file.
 </p>
 
 The application will automatically detect the column where your
-sequences are based on the column name. If the column cannot be found,
-you can manually select it from the \"Sequence options\" dropdown.
+sequences are based on the column name.If the column cannot be found, you can manually 
+input column type for each column.
 
 <p align="center">
   <img src="/main_tutorial_images/09_wild_type.png" width="500">
 </p>
 
 If your table encodes variants using mutant codes, please ensure that
-you include the wildtype sequence of your protein.
+you include the wildtype sequence of your protein under 'Parent sequence'.
 
 <p align="center">
   <img src="/main_tutorial_images/08_seq_options.png" width="500">

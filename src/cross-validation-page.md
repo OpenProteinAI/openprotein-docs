@@ -1,11 +1,9 @@
 ---
-title: ML-guided mutagenesis and sequence-to-function modeling walkthrough
+title: Model diagnostics and cross validation
 format:
   html:
     code-fold: true
 ---
-
-## Model diagnostics and cross validation
 
 The app will also automatically evaluate the predictive performance of
 these models using cross validation once the models finish training.

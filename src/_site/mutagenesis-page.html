@@ -171,12 +171,35 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Walkthroughs</span></a>
+ <span class="menu-text">Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./models-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Training model(s)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross-validation-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model diagnostics and cross validation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Walkthroughs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./demo-datasets-page.html" class="sidebar-item-text sidebar-link">
@@ -193,13 +216,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">Prots2prot</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./prots2prot-introduction-page.html" class="sidebar-item-text sidebar-link">
@@ -239,7 +262,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#upload-a-dataset" id="toc-upload-a-dataset" class="nav-link active" data-scroll-target="#upload-a-dataset">Upload a dataset</a></li>
   <li><a href="#job-status" id="toc-job-status" class="nav-link" data-scroll-target="#job-status">Job status</a></li>
   <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
-  <li><a href="#model-diagnostics-and-cross-validation" id="toc-model-diagnostics-and-cross-validation" class="nav-link" data-scroll-target="#model-diagnostics-and-cross-validation">Model diagnostics and cross validation</a></li>
   <li><a href="#make-predictions-and-analyze-single-variant-properties" id="toc-make-predictions-and-analyze-single-variant-properties" class="nav-link" data-scroll-target="#make-predictions-and-analyze-single-variant-properties">Make predictions and analyze single variant properties</a>
   <ul class="collapse">
   <li><a href="#running-a-prediction" id="toc-running-a-prediction" class="nav-link" data-scroll-target="#running-a-prediction">Running a prediction</a></li>
@@ -340,12 +362,6 @@ Note
 <img src="./main_tutorial_images/31_model_status.png" width="400">
 </p>
 </section>
-<section id="model-diagnostics-and-cross-validation" class="level2">
-<h2 class="anchored" data-anchor-id="model-diagnostics-and-cross-validation">Model diagnostics and cross validation</h2>
-<p>The app will also automatically evaluate the predictive performance of these models using cross validation once the models finish training. Navigate to the “Diagnostics” tab to see training curves and cross validation of the models.</p>
-<p>For cross validation, we split your variants into 5-folds, and, for each fold, fit the model on the other 4, then make predictions on the heldout fold. The cross validation plots show the predicted properties versus your actual measured properties for each variant in your dataset when it was heldout. Here, we can see that the model predictions correlate strongly with the ground truth measurements, indicating that these models are able to accurately predict substrate activity for unseen sequence variants.</p>
-<p><img src="./main_tutorial_images/32_cross_valid.png" class="img-fluid"></p>
-</section>
 <section id="make-predictions-and-analyze-single-variant-properties" class="level2">
 <h2 class="anchored" data-anchor-id="make-predictions-and-analyze-single-variant-properties">Make predictions and analyze single variant properties</h2>
 <p>Once you have trained models, these models can be used to predict those properties for sequence variants of interest. This allows you to explore specific variants and see their predicted properties and also to examine the predicted properties of all single substitution variants of a parent sequence.</p>
@@ -413,7 +429,7 @@ Note
 <p><img src="./main_tutorial_images/43_advanced_filt.png" class="img-fluid"></p>
 <p>The filter icon next to each column name also allows you to set simple filters that can be applied to the designs.</p>
 <p align="center">
-<img src="./main_tutorial_images/44_filter.png" width="35y77  0">
+<img src="./main_tutorial_images/44_filter.png" width="350">
 </p>
 <p>You can now download designs and save as a library accordingly.</p>
 <p>That’s it! Now you can download your designed sequence variants to perform any additional analysis and synthesize your library!</p>

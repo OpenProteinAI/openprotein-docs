@@ -147,24 +147,6 @@ training options and the property each model predicts.
   <img src="/main_tutorial_images/31_model_status.png" width="400">
 </p>
 
-## Model diagnostics and cross validation
-
-The app will also automatically evaluate the predictive performance of
-these models using cross validation once the models finish training.
-Navigate to the "Diagnostics" tab to see training curves and cross
-validation of the models.
-
-For cross validation, we split your variants into 5-folds, and, for each
-fold, fit the model on the other 4, then make predictions on the heldout
-fold. The cross validation plots show the predicted properties versus
-your actual measured properties for each variant in your dataset when it
-was heldout. Here, we can see that the model predictions correlate
-strongly with the ground truth measurements, indicating that these
-models are able to accurately predict substrate activity for unseen
-sequence variants.
-
-![](/main_tutorial_images/32_cross_valid.png)
-
 ## Make predictions and analyze single variant properties
 
 Once you have trained models, these models can be used to predict those
@@ -326,7 +308,7 @@ The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
 <p align="center">
-  <img src="/main_tutorial_images/44_filter.png" width="35y77  0">
+  <img src="/main_tutorial_images/44_filter.png" width="350">
 </p>
 
 You can now download designs and save as a library accordingly.

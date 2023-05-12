@@ -1,11 +1,9 @@
 ---
-title: Predictions
+title:  Training model(s)
 format:
   html:
     code-fold: true
 ---
-
-## Training model(s)
 
 On the 'Dataset' tab, click on 'Start training'. You can name your model
 and select which properties you want to be able to predict. We'll call

@@ -116,14 +116,14 @@
     "href": "dataset-page.html#uploading-a-dataset",
     "title": "Dataset",
     "section": "Uploading a dataset",
-    "text": "Uploading a dataset\nYou can upload your dataset by clicking on the ‘Upload dataset’ button in the navigation panel or the project landing page. This will open a file explorer where you can select your dataset file.\n\nYou have the option to edit the name of your dataset to your preference. By default, the name of the uploaded file is used. Additionally, you can add an optional description to provide more information about your dataset. To change the selected file, you can click on the “Change…” button to return to the file explorer and select a different file.\n\n\n\nThe application will automatically detect the column where your sequences are based on the column name. If the column cannot be found, you can manually select it from the \"Sequence options\" dropdown.\n\n\n\nIf your table encodes variants using mutant codes, please ensure that you include the wildtype sequence of your protein.\n\n\n\nOnce you’re ready, click “Upload” to initiate the upload process."
+    "text": "Uploading a dataset\nYou can upload your dataset by clicking on the ‘Upload dataset’ button in the navigation panel or the project landing page. This will open a file explorer where you can select your dataset file.\n\nYou have the option to edit the name of your dataset to your preference. By default, the name of the uploaded file is used. Additionally, you can add an optional description to provide more information about your dataset.To change the selected file, you can click on the “Change…” button to return to the file explorer and select a different file.\n\n\n\nThe application will automatically detect the column where your sequences are based on the column name.If the column cannot be found, you can manually input column type for each column.\n\n\n\nIf your table encodes variants using mutant codes, please ensure that you include the wildtype sequence of your protein under ‘Parent sequence’.\n\n\n\nOnce you’re ready, click “Upload” to initiate the upload process."
   },
   {
     "objectID": "predictions-page.html",
     "href": "predictions-page.html",
     "title": "Predictions",
     "section": "",
-    "text": "On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.\n\n\n\nAfter model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.\nCross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.\nWhat does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants."
+    "text": "This page allows you to enter an arbitrary variant sequence and make property predictions for that sequence and all single variants of it using your trained models. Click “Predict sequence…” or right click a sequence in the variants table and select “Predict this sequence” to go to the prediction page.\n\nClick “Run a new prediction…”, select your models, and click run. This may take a few minutes to run if the system is busy. Feel free to navigate away."
   },
   {
     "objectID": "predictions-page.html#training-models",
@@ -136,8 +136,8 @@
     "objectID": "predictions-page.html#running-a-prediction",
     "href": "predictions-page.html#running-a-prediction",
     "title": "Predictions",
-    "section": "Running a prediction",
-    "text": "Running a prediction\nThis page allows you to enter an arbitrary variant sequence and make property predictions for that sequence and all single variants of it using your trained models. Click “Predict sequence…” or right click a sequence in the variants table and select “Predict this sequence” to go to the prediction page.\n\nClick “Run a new prediction…”, select your models, and click run. This may take a few minutes to run if the system is busy. Feel free to navigate away."
+    "section": "",
+    "text": "This page allows you to enter an arbitrary variant sequence and make property predictions for that sequence and all single variants of it using your trained models. Click “Predict sequence…” or right click a sequence in the variants table and select “Predict this sequence” to go to the prediction page.\n\nClick “Run a new prediction…”, select your models, and click run. This may take a few minutes to run if the system is busy. Feel free to navigate away."
   },
   {
     "objectID": "predictions-page.html#prediction-results",
@@ -432,5 +432,33 @@
     "title": "Using Prots2prot",
     "section": "Scoring sequences with prots2prot",
     "text": "Scoring sequences with prots2prot\nClick “Create query” to go to the query tool. This tool allows you to score arbitrary sequences defined in a fasta or CSV file. It will calculate the log-likelihood of each sequence conditioned on the sequence context defined by the prompt.\n\nThis tool is useful if you want to score, prioritize, or rank specific sequence variants of interest. For example, you could score homologous sequences mined from a database, perform a synthetic alanine scan or deletion scan, or enumerate combinatorial mutations at specific sites.\nClicking “run” will start the job. This could take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.\n\nThe results are presented as a table, which can be sorted and downloaded. You can further explore the local fitness landscape of each sequence by using the quick links to the Single site analysis page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the “Add sequences” button."
+  },
+  {
+    "objectID": "cross-validation-page.html",
+    "href": "cross-validation-page.html",
+    "title": "Model diagnostics and cross validation",
+    "section": "",
+    "text": "The app will also automatically evaluate the predictive performance of these models using cross validation once the models finish training. Navigate to the “Diagnostics” tab to see training curves and cross validation of the models.\nFor cross validation, we split your variants into 5-folds, and, for each fold, fit the model on the other 4, then make predictions on the heldout fold. The cross validation plots show the predicted properties versus your actual measured properties for each variant in your dataset when it was heldout. In the example below, we can see that the model predictions correlate strongly with the ground truth measurements, indicating that these models are able to accurately predict substrate activity for unseen sequence variants."
+  },
+  {
+    "objectID": "cross-validation-page.html#model-diagnostics-and-cross-validation",
+    "href": "cross-validation-page.html#model-diagnostics-and-cross-validation",
+    "title": "ML-guided mutagenesis and sequence-to-function modeling walkthrough",
+    "section": "",
+    "text": "The app will also automatically evaluate the predictive performance of these models using cross validation once the models finish training. Navigate to the “Diagnostics” tab to see training curves and cross validation of the models.\nFor cross validation, we split your variants into 5-folds, and, for each fold, fit the model on the other 4, then make predictions on the heldout fold. The cross validation plots show the predicted properties versus your actual measured properties for each variant in your dataset when it was heldout. In the example below, we can see that the model predictions correlate strongly with the ground truth measurements, indicating that these models are able to accurately predict substrate activity for unseen sequence variants."
+  },
+  {
+    "objectID": "models-page.html",
+    "href": "models-page.html",
+    "title": "Training model(s)",
+    "section": "",
+    "text": "On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.\n\n\n\nAfter model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.\nCross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.\nWhat does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants."
+  },
+  {
+    "objectID": "models-page.html#training-models",
+    "href": "models-page.html#training-models",
+    "title": "Models",
+    "section": "",
+    "text": "On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.\n\n\n\nAfter model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.\nCross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.\nWhat does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants."
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Job Status</title>
+<title>Training model(s)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dataset-page.html">Project</a></li><li class="breadcrumb-item"><a href="./job-status-page.html">Job Status</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./models-page.html">Models</a></li><li class="breadcrumb-item"><a href="./models-page.html">Training model(s)</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./job-status-page.html" class="sidebar-item-text sidebar-link active">
+  <a href="./job-status-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Job Status</span></a>
   </div>
 </li>
@@ -179,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./models-page.html" class="sidebar-item-text sidebar-link">
+  <a href="./models-page.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Training model(s)</span></a>
   </div>
 </li>
@@ -262,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Job Status</h1>
+<h1 class="title">Training model(s)</h1>
 </div>
 
 
@@ -277,10 +277,13 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>View the status of your Prediction and Design jobs in the jobs panel on the right side of the page. Upon submitting jobs, you may navigate away from the page. You may access the results through this panel.</p>
+<p>On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.</p>
 <p align="center">
-<img src="./main_tutorial_images/12_job_status.png" width="400">
+<img src="./main_tutorial_images/13_train.png" width="500">
 </p>
+<p>After model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.</p>
+<p>Cross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.</p>
+<p>What does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants.</p>
 
 
 

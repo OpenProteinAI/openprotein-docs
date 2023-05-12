@@ -171,12 +171,35 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Walkthroughs</span></a>
+ <span class="menu-text">Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./models-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Training model(s)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cross-validation-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model diagnostics and cross validation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Walkthroughs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./demo-datasets-page.html" class="sidebar-item-text sidebar-link">
@@ -193,13 +216,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">Prots2prot</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./prots2prot-introduction-page.html" class="sidebar-item-text sidebar-link">
@@ -236,8 +259,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#training-models" id="toc-training-models" class="nav-link active" data-scroll-target="#training-models">Training model(s)</a></li>
-  <li><a href="#running-a-prediction" id="toc-running-a-prediction" class="nav-link" data-scroll-target="#running-a-prediction">Running a prediction</a></li>
+  <li><a href="#running-a-prediction" id="toc-running-a-prediction" class="nav-link active" data-scroll-target="#running-a-prediction">Running a prediction</a></li>
   <li><a href="#prediction-results" id="toc-prediction-results" class="nav-link" data-scroll-target="#prediction-results">Prediction results</a></li>
   <li><a href="#heatmaps" id="toc-heatmaps" class="nav-link" data-scroll-target="#heatmaps">Heatmaps</a></li>
   </ul>
@@ -263,16 +285,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="training-models" class="level2">
-<h2 class="anchored" data-anchor-id="training-models">Training model(s)</h2>
-<p>On the ‘Dataset’ tab, click on ‘Start training’. You can name your model and select which properties you want to be able to predict. We’ll call our model “Model” and fit it for all three properties here.</p>
-<p align="center">
-<img src="./main_tutorial_images/13_train.png" width="500">
-</p>
-<p>After model training is complete, the app will automatically evaluate the predictive performance using cross-validation. To view the training curves and cross-validation results, navigate to the “Diagnostics” tab.</p>
-<p>Cross-validation is a reliable method to estimate the expected performance of the models in predicting properties for new variants. The app splits your variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties versus the actual measured properties for each held-out variant.</p>
-<p>What does it mean: A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants.</p>
-</section>
 <section id="running-a-prediction" class="level2">
 <h2 class="anchored" data-anchor-id="running-a-prediction">Running a prediction</h2>
 <p>This page allows you to enter an arbitrary variant sequence and make property predictions for that sequence and all single variants of it using your trained models. Click “Predict sequence…” or right click a sequence in the variants table and select “Predict this sequence” to go to the prediction page.</p>

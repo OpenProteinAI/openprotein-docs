@@ -20,6 +20,10 @@ website:
           - predictions-page.md
           - design-page.md
           - library-page.md
+      - section: "Models"
+        contents:
+          - models-page.md
+          - cross-validation-page.md
       - section: "Walkthroughs"
         contents:
           - demo-datasets-page.md

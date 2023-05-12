@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Job Status</title>
+<title>Model diagnostics and cross validation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dataset-page.html">Project</a></li><li class="breadcrumb-item"><a href="./job-status-page.html">Job Status</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./models-page.html">Models</a></li><li class="breadcrumb-item"><a href="./cross-validation-page.html">Model diagnostics and cross validation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./job-status-page.html" class="sidebar-item-text sidebar-link active">
+  <a href="./job-status-page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Job Status</span></a>
   </div>
 </li>
@@ -185,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cross-validation-page.html" class="sidebar-item-text sidebar-link">
+  <a href="./cross-validation-page.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Model diagnostics and cross validation</span></a>
   </div>
 </li>
@@ -262,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Job Status</h1>
+<h1 class="title">Model diagnostics and cross validation</h1>
 </div>
 
 
@@ -277,10 +277,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>View the status of your Prediction and Design jobs in the jobs panel on the right side of the page. Upon submitting jobs, you may navigate away from the page. You may access the results through this panel.</p>
-<p align="center">
-<img src="./main_tutorial_images/12_job_status.png" width="400">
-</p>
+<p>The app will also automatically evaluate the predictive performance of these models using cross validation once the models finish training. Navigate to the “Diagnostics” tab to see training curves and cross validation of the models.</p>
+<p>For cross validation, we split your variants into 5-folds, and, for each fold, fit the model on the other 4, then make predictions on the heldout fold. The cross validation plots show the predicted properties versus your actual measured properties for each variant in your dataset when it was heldout. In the example below, we can see that the model predictions correlate strongly with the ground truth measurements, indicating that these models are able to accurately predict substrate activity for unseen sequence variants.</p>
+<p><img src="./main_tutorial_images/32_cross_valid.png" class="img-fluid"></p>
 
 
 
