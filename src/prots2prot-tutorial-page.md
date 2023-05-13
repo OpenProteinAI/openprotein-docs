@@ -40,7 +40,7 @@ Alternatively, if you already have an MSA or some other set of sequences that yo
 
 And that's all we need for the analysis! Click `Run` at the bottom of the page to generate and score all single site variant libraries. There are several other advanced options that we may want to play with after our initial run. However, the default options have been tuned to generate a reasonable starter library. 
 
-When the run is complete, navigate to the Results tab to inspect the output of the run. At the top of the page is a summary detailing the score for the query sequence, as well as the number of sites and number of variants expected to improve over the input. The full results are presented as a heatmap, which you can mouse over for more detail. For convenience, the tables at the bottom of the page list the top 5 variants and sites. 
+When the run is complete, navigate to the `Result` tab to inspect the output of the run. At the top of the page is a summary detailing the score for the query sequence, as well as the number of sites and number of variants expected to improve over the input. The full results are presented as a heatmap, which you can mouse over for more detail. For convenience, the tables at the bottom of the page list the top 5 variants and sites. 
 
 ::: {.callout-note} 
 The score assigned by Prots2prot is the log likelihood of the sequence under the model. This means that the larger (less negative) the score, the higher the probability of observing the sequence given the model. 
@@ -48,11 +48,11 @@ The score assigned by Prots2prot is the log likelihood of the sequence under the
 
 As we can see, position 40 seems like a promising candidate for mutagenesis, with many mutations such as `L>D`, `L>E` and `L>A` all improving over the query sequence. 
 
-![Results](p2p_images/05_results.gif)
+![Inspect the results](p2p_images/05_results.gif)
 
 The full results are available for export either as a csv or as a png. To do so, you can use the export button located at the top right hand corner of the page. Alternatively, you can also start a new single-site run against the same prompt either by selecting a particular variant sequence in the heatmap or in the table. Then, start a new single site analysis using `Run new...`. 
 
-![Export](p2p_images/06_export_and_run_new.gif)
+![Export or start a new analysis](p2p_images/06_export_and_run_new.gif)
 
 Congratulations! You have now created your first *de novo* variant library using Prots2prot! 
 
@@ -81,7 +81,6 @@ As in the single-site analysis tool, we have to specify the prompt. We will agai
 TSENPLLALREKISALDEKLLALLAERRELAVEVGKAKLLSHRPVRDI
 DRERDLLERLITLGKAHHLDAHYITRLFQLIIEDSVLTQQALLQQH
 ```
-
 
 ![Generate sequences](p2p_images/09_generate_sequences.gif)
 
@@ -115,7 +114,9 @@ To evaluate query sequences against a given MSA, we can use the **Create query**
   <img src="p2p_images/12_button.png" width="300">
 </p>
 
-First, provide the set of variant sequences that you wish score as the query input. The app expects the input in the form of a headerless csv file with the sequences in the first column. You can either download the raw data from [supplementary table 2](https://www.science.org/doi/suppl/10.1126/science.aba3304/suppl_file/aba3304_table_s2.xlsx) in the paper and munge it yourself, or use the pre-formatted version provided [here](https://docs.google.com/spreadsheets/d/1dCX0Rsd2KSuNpZrRxm77jxVked2KR2Jd-lvoJKwDd_s/edit?usp=sharing). Note that the activity measurement column is the last column ("norm r.e."). This is the normalized relative enrichment score that measures chorismate mutase catalytic activity as reported by their assay.
+First, provide the set of variant sequences that you wish score as the query input. The app expects the input in the form of a headerless csv file with the sequences in the first column. You can either download the raw data from [supplementary table 2](https://www.science.org/doi/suppl/10.1126/science.aba3304/suppl_file/aba3304_table_s2.xlsx) in the paper and munge it yourself, or use the pre-formatted version provided [here](https://drive.google.com/uc?export=download&id=1vYIjxEq_JUSwgkAcpAED9kzTvi_8euzu). Note that the activity measurement column is the last column ("norm r.e."). This is the normalized relative enrichment score that measures chorismate mutase catalytic activity as reported by their assay.
+
+https://drive.google.com/uc?export=download&id=1vYIjxEq_JUSwgkAcpAED9kzTvi_8euzu
 
 ![Upload variant sequences as query input](p2p_images/13_query_variants.gif)
 
@@ -148,7 +149,5 @@ When we compare Prots2prot performance against the evolutionary model by Russ et
 In their work, Russ et al. fit a model that scores and generates sequences specifically for the chorismate mutase family. 
 
 Prots2prot generalizes to all families, meaning that in just a few clicks, you can score and generate sequences not only for chorismate mutase, but also for __any protein family__ you are interested in, simply by defining a suitable prompt! 
-
-To find out more about generating sequences, head over to the tutorial on [Generating libraries using Prots2prot](). 
 
 :::
