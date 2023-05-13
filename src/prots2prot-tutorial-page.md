@@ -129,7 +129,7 @@ DRERDLLERLITLGKAHHLDAHYITRLFQLIIEDSVLTQQALLQQH
 ```
 
 ::: {.callout-note}
-Ensembling more prompts improves prediction performance and reduces stochasticity from the prompt sampling. However, it also takes longer to run. In addition, increasing the ensemble number also has diminishing returns. 
+Ensembling more prompts improves prediction performance and reduces stochasticity from the prompt sampling. However, increasing the ensemble number has diminishing returns, while also taking longer to run. In general, we recommend using 3-5. 
 :::
 
 ![Set the prompt definition](p2p_images/14_query_prompt.gif)
