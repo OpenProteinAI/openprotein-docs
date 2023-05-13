@@ -3,12 +3,13 @@ title: Demo datasets
 format:
   html:
     code-fold: true
+bibliography: references.bib
 ---
 
 ## Aliphatic amidase (AMIE_PSEAE)
 
 This dataset is a single mutation site saturating dataset from
-[Wrenbeck et al.](https://doi.org/10.1038/ncomms15695){target="_blank"} containing
+@Wrenbeck2017-bk containing
 activity measurements for enzyme variants against three different
 substrates. The parent sequence is AMIE_PSEAE (UniProt identifier
 P11436).
@@ -20,7 +21,7 @@ P11436).
 
 This dataset contains binding affinity measurements to the target for a
 random mutagenesis library containing single, double, and triple mutants
-of an antibody heavy chain variable region from [Li et al.](https://doi.org/10.1101/2022.10.07.502662){target="_blank"}. Mutations were limited to
+of an antibody heavy chain variable region from @Li2022-te. Mutations were limited to
 CDRs 1, 2, and 3. Measurements are log base 10 of the binding Kd in nM.
 
 7,476 entries with 1 property.
@@ -30,8 +31,7 @@ CDRs 1, 2, and 3. Measurements are log base 10 of the binding Kd in nM.
 
 This dataset contains binding affinity measurements to the target for a
 random mutagenesis library containing single, double, and triple mutants
-of an antibody light chain variable region from [Li et
-al.](https://doi.org/10.1101/2022.10.07.502662){target="_blank"}. Mutations were limited
+of an antibody light chain variable region from @Li2022-te. Mutations were limited
 to CDRs 1, 2, and 3. Measurements are log base 10 of the binding Kd in
 nM.
 
@@ -39,8 +39,7 @@ nM.
 
 ## Aminoglycoside 3\'-phosphotransferase (KKA2_KLEPN)
 
-This is a single mutation site saturating dataset from [Melnikov et
-al.](https://doi.org/10.1093/nar/gku511){target="_blank"} containing measurements of E.
+This is a single mutation site saturating dataset from @Melnikov2014-hw. containing measurements of E.
 coli growth in the presence of six different antibiotics. This protein
 is a kinase that confers antibiotic resistance, hence, growth measures
 the activity of the kinase on these antibiotic substrates. The parent
