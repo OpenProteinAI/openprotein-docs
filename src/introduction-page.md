@@ -1,0 +1,37 @@
+---
+title: Introduction to OpenProtein
+format:
+  html:
+    code-fold: true
+---
+
+This article includes a high-level summary of core features, along with links to explore more
+documentation for each area.
+
+## Projects
+
+This is the overall folder where your datasets, designs and libraries
+will be housed in. You can create more than 1 project. Learn more about
+[projects](dataset-page.md#creating-a-project).
+
+## Datasets
+
+Once you have uploaded your datasets, you will be able to view them
+here. Our system automatically creates a UMAP, joint plot and histogram.
+You will be able to upload multiple datasets. Learn more about
+[uploading your datasets](dataset-page.md#uploading-a-dataset).
+
+<p align="center">
+  <img src="main_tutorial_images/07_new_upload.png" width="500">
+</p>
+
+## Designs
+
+The design module allows you to create the best base sequences based on
+specific properties. Once you have run the design tool, you can find
+your optimized sequences in this module. Learn more about [Design](design-page.md)
+
+## Libraries
+
+The Libraries module allows you to store your design sequences for easy
+reference. Learn more about [Libraries](library-page.md).

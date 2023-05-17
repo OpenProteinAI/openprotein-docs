@@ -1,0 +1,45 @@
+project:
+  type: website
+
+website:
+  favicon: favicon.svg
+  sidebar:
+    logo: 'logo.svg'
+    style: "docked"
+    search: true
+    contents:
+      - section: "Basics"
+        contents:
+          - introduction-page.md
+          - account-page.md
+      - section: "Project"
+        contents:
+          - dataset-page.md
+          - visualizations-page.md
+          - job-status-page.md
+          - predictions-page.md
+          - design-page.md
+          - library-page.md
+      - section: "Models"
+        contents:
+          - models-page.md
+          - cross-validation-page.md
+      - section: "Walkthroughs"
+        contents:
+          - demo-datasets-page.md
+          - mutagenesis-page.md
+      - section: "Prots2prot"
+        contents:
+          - prots2prot-introduction-page.md
+          - prots2prot-defining-prompts-page.md
+          - prots2prot-tools-page.md
+          - prots2prot-tutorial-page.md
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
