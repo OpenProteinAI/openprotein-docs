@@ -29,11 +29,14 @@ jobs:
         echo $bucket; \
         echo "bucket=$bucket" >> $GITHUB_OUTPUT
       id: bucket_name
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id:${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key:${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Sync to S3
       env:
         AWS_S3_BUCKET: ${{ steps.bucket_name.outputs.bucket }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       shell: bash
       run: |
         aws s3 sync src/_site s3://${AWS_S3_BUCKET}
