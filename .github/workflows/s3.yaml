@@ -1,0 +1,35 @@
+name: Sync to bucket
+
+on:
+  push:
+    branches:
+    - prod
+    - develop
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+    - name: Render Quarto Project
+      uses: quarto-dev/quarto-actions/render@v2
+    - name: Get bucket name
+      shell: bash
+      run: |
+        branch=$(echo ${GITHUB_REF#refs/heads/}); \
+        if [ $branch == 'develop' ]; \
+        then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-dev; \
+        elif [ $branch == 'prod' ]; \
+        then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-prod; \
+        else exit 1; fi; \
+        echo $bucket; \
+        echo "bucket=$bucket" >> $GITHUB_OUTPUT
+      id: bucket_name
+    - name: Sync to S3
+      env:
+        AWS_S3_BUCKET: ${{ steps.bucket_name.outputs.bucket }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: aws s3 sync _site s3://$AWS_S3_BUCKET
