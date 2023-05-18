@@ -3,7 +3,7 @@ name: Sync to bucket
 on:
   push:
     branches:
-    - prod
+    - main
     - develop
 
 jobs:
