@@ -23,7 +23,7 @@ jobs:
         branch=$(echo ${GITHUB_REF#refs/heads/}); \
         if [ $branch == 'develop' ]; \
         then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-dev; \
-        elif [ $branch == 'prod' ]; \
+        elif [ $branch == 'main ]; \
         then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-prod; \
         else exit 1; fi; \
         echo $bucket; \
