@@ -34,4 +34,6 @@ jobs:
         AWS_S3_BUCKET: ${{ steps.bucket_name.outputs.bucket }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: aws s3 sync _site s3://$AWS_S3_BUCKET
+      shell: bash
+      run: |
+        aws s3 sync _site s3://${AWS_S3_BUCKET}
