@@ -1,0 +1,34 @@
+---
+title: Getting started
+format:
+  html:
+    code-fold: true
+---
+
+## Job system
+Our endpoints follow an asynchronous POST and GET framework. Once you initiate a task via our POST endpoints, the system schedules the job. This means that even for tasks that may take a while to complete, your request will return immediately. Instead of waiting for the final results, you will receive a job ID in response to your initial request.
+
+This job ID is a unique identifier that you can use to track your job. You can use this job ID with our GET endpoints to query the status of your task.
+
+If the job is still in progress, the API will return a response indicating that the job is not yet complete. Once the job has completed, a call to the same endpoint with your job ID will allow you to retrieve your results. You can also use the /jobs endpoints to poll the status of a job before fetching all the results.
+
+Our API is designed this way to ensure that you are not kept waiting for long tasks to complete and can track and manage your tasks at your convenience.
+
+Remember, your job ID is unique and essential for retrieving the results of your task. Please keep a note of this ID once you initiate a task.
+
+## Other user material
+
+There is a comprehensive [User Guide](https://docs.openprotein.ai/){target="_blank"}. with descriptions of each workflow.
+
+We also provide demos of core workflows:
+
+* [Making predictions based on measured properties](mutagenesis-page.md)
+* More coming soon!
+
+Lastly, we have demo datasets that can be used to gain familiarity with our workflows.
+We encourage you to peruse these resources before starting your workflows for the optimal experience.
+
+## Contact Us
+
+* [OpenProtein - Website](https://www.openprotein.ai/){target="_blank"}
+* [Send email to OpenProtein](mailto:support@ne47.bi){target="_blank"}

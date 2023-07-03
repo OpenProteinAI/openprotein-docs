@@ -1,0 +1,51 @@
+---
+title: PoET
+format:
+  html:
+    code-fold: true
+---
+
+## Endpoints
+
+### Align
+Endpoints to perform multiple sequence alignment (MSA) workflows for PoET. See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
+
+You can create a multiple sequence alignment from a seed sequence, upload a custom MSA, or even upload your own prompt for use with PoET endpoints!
+
+### PoET
+
+Endpoints to call our generative Protein Evolutionary Transformer (PoET) model for de novo generation of proteins, evaluation of protein fitness, and single site mutant analysis of proteins. These workflows are all possible without prior wetlab data, and therefore do not require assaydata to be pre-loaded!
+
+Note that PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But you can use whatever collection of sequences your workflow requires!
+
+See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a> for more information.
+
+## /api/v1/poet
+
+```{=html}
+<script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
+<script>
+  window.onload = function() {
+    const ui = SwaggerUIBundle({
+      url: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+      dom_id: "#swagger-ui",
+      config: {
+        deepLinking: true,
+        tagsSorter: "alpha",
+        docExpansion: "list",
+      },
+      requestInterceptor: (request) => {
+        if (!request.url.includes("openapi.json")) {
+          // Modify the request URL for other endpoints
+          request.url = "https://dev.api.openprotein.ai" + request.url;
+        }
+        return request;
+      },
+    });
+  };
+</script>
+<!-- <script src="css/swagger-ui-bundle.js"></script> -->
+
+<link rel="stylesheet" href="css/swagger-ui.css">
+<div id="swagger-ui"></div>
+```

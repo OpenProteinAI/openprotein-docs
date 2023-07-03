@@ -1,0 +1,41 @@
+---
+title: Embeddings
+format:
+  html:
+    code-fold: true
+---
+
+## Endpoints
+
+### Embeddings
+Endpoints to calculate embeddings for protein sequences.
+
+## /api/v1/
+
+```{=html}
+<script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
+<script>
+  window.onload = function() {
+    const ui = SwaggerUIBundle({
+      url: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+      dom_id: "#swagger-ui",
+      config: {
+        deepLinking: true,
+        tagsSorter: "alpha",
+        docExpansion: "list",
+      },
+      requestInterceptor: (request) => {
+        if (!request.url.includes("openapi.json")) {
+          // Modify the request URL for other endpoints
+          request.url = "https://dev.api.openprotein.ai" + request.url;
+        }
+        return request;
+      },
+    });
+  };
+</script>
+<!-- <script src="css/swagger-ui-bundle.js"></script> -->
+
+<link rel="stylesheet" href="css/swagger-ui.css">
+<div id="swagger-ui"></div>
+```
