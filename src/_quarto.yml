@@ -1,5 +1,7 @@
 project:
   type: website
+  preview: 
+    port: 5001
 
 website:
   favicon: favicon.svg
@@ -7,39 +9,49 @@ website:
     logo: 'logo.svg'
     style: "docked"
     search: true
+    collapse-level: 1
     contents:
-      - section: "Basics"
+      - section: Basics
         contents:
           - introduction-page.md
           - account-page.md
-      - section: "Project"
+      - section: App
         contents:
-          - dataset-page.md
-          - visualizations-page.md
-          - job-status-page.md
-          - predictions-page.md
-          - design-page.md
-          - library-page.md
-      - section: "Models"
-        contents:
-          - models-page.md
-          - cross-validation-page.md
+          - section: Project
+            contents:
+              - dataset-page.md
+              - visualizations-page.md
+              - job-status-page.md
+              - predictions-page.md
+              - design-page.md
+              - library-page.md
+          - section: Models
+            contents:
+              - models-page.md
+              - cross-validation-page.md
+              - mutagenesis-page.md
+          - section: PoET
+            contents:
+              - poet-introduction-page.md
+              - poet-defining-prompts-page.md
+              - poet-tools-page.md
       - section: "Walkthroughs"
         contents:
           - demo-datasets-page.md
           - mutagenesis-page.md
-      - section: "PoET"
-        contents:
-          - poet-introduction-page.md
-          - poet-defining-prompts-page.md
-          - poet-tools-page.md
           - poet-tutorial-page.md
           - poet-thiolase-codehidden.ipynb
+      - section: "API docs"
+        contents:
+          - api-introduction.qmd
+          - api-workflow.qmd
+          - api-poet.qmd
+          - api-embeddings.qmd
+    
 
 format:
   html:
     theme: cosmo
-    css: styles.css
     toc: true
 
 
