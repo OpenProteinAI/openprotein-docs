@@ -11,25 +11,29 @@ website:
     search: true
     collapse-level: 1
     contents:
-      - section: Basics
+      - section: Getting Started
         contents:
           - introduction-page.md
           - account-page.md
-      - section: App
+      - section: Modules
         contents:
           - section: Project
             contents:
+            - section: "Dataset"
+              contents:
               - dataset-page.md
               - visualizations-page.md
-              - job-status-page.md
-              - predictions-page.md
+            - predictions-page.md
+            - section: "Design"
+              contents:
               - design-page.md
               - library-page.md
-          - section: Models
-            contents:
-              - models-page.md
-              - cross-validation-page.md
-              - mutagenesis-page.md
+            - section: Models
+              contents:
+                - models-page.md
+                - cross-validation-page.md
+                - mutagenesis-page.md
+          - job-status-page.md
           - section: PoET
             contents:
               - poet-introduction-page.md
@@ -44,7 +48,7 @@ website:
       - section: "API docs"
         contents:
           - api-introduction.qmd
-          - api-workflow.qmd
+          - api-project.qmd
           - api-poet.qmd
           - api-embeddings.qmd
     

@@ -1,5 +1,5 @@
 ---
-title: Workflow
+title: Project
 format:
   html:
     code-fold: true
