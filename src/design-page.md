@@ -1,5 +1,5 @@
 ---
-title: Design
+title: Creating your designs
 format:
   html:
     code-fold: true
