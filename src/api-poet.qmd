@@ -44,7 +44,6 @@ See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">
     });
   };
 </script>
-<!-- <script src="css/swagger-ui-bundle.js"></script> -->
 
 <link rel="stylesheet" href="css/swagger-ui.css">
 <div id="swagger-ui"></div>
