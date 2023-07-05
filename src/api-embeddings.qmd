@@ -829,7 +829,7 @@ Endpoints to calculate embeddings for protein sequences.
           'Access-Control-Allow-Origin': '*'
         }
           const requestPath = request.url.split('/').slice(3).join('/')
-          request.url = "http://dev.api.openprotein.ai/" + requestPath
+          request.url = "https://dev.api.openprotein.ai/" + requestPath
        
         return request;
       },
