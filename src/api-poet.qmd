@@ -27,7 +27,7 @@ See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">
 <script>
   window.onload = function() {
     const ui = SwaggerUIBundle({
-      url: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+      url: "http://dev.api.openprotein.ai/api/v1/poet/openapi.json",
       dom_id: "#swagger-ui",
       config: {
         deepLinking: true,
@@ -37,7 +37,7 @@ See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">
       requestInterceptor: (request) => {
         if (!request.url.includes("openapi.json")) {
           // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai" + request.url;
+          request.url = "http://dev.api.openprotein.ai" + request.url;
         }
         return request;
       },
