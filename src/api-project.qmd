@@ -45,7 +45,7 @@ Endpoints to query job status for asynchronous jobs.
 <script>
   window.onload = function() {
     const ui = SwaggerUIBundle({
-      url: "https://dev.api.openprotein.ai/api/v1/openapi.json",
+      url: "http://dev.api.openprotein.ai/api/v1/openapi.json",
       dom_id: "#swagger-ui",
       config: {
         deepLinking: true,
@@ -55,7 +55,7 @@ Endpoints to query job status for asynchronous jobs.
       requestInterceptor: (request) => {
         if (!request.url.includes("openapi.json")) {
           // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai" + request.url;
+          request.url = "http://dev.api.openprotein.ai" + request.url;
         }
         return request;
       },

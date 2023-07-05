@@ -17,7 +17,7 @@ Endpoints to calculate embeddings for protein sequences.
 <script>
   window.onload = function() {
     const ui = SwaggerUIBundle({
-      url: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+      url: "http://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
       dom_id: "#swagger-ui",
       config: {
         deepLinking: true,
@@ -25,9 +25,13 @@ Endpoints to calculate embeddings for protein sequences.
         docExpansion: "list",
       },
       requestInterceptor: (request) => {
+        request.header = {
+          ...request.header,
+          'Access-Control-Allow-Origin': '*'
+        }
         if (!request.url.includes("openapi.json")) {
           // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai" + request.url;
+          request.url = "http://dev.api.openprotein.ai" + request.url;
         }
         return request;
       },
