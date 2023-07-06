@@ -21,6 +21,10 @@
     align-items: cente;
     
   }
+.swagger-ui .opblock-body pre.microlight {
+  color: #fff !important;
+  background-color: #333 !important;
+}
 
  .swagger-ui .servers-title {
     display: none;
@@ -45,4 +49,13 @@
   
   .swagger-ui .opblock-tag {
     margin-bottom: 1rem !important;
+  }
+
+  p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
+    background-color: #333 !important;
+    color: #fff !important;
+  }
+
+  code span {
+    color: #fff !important;
   }

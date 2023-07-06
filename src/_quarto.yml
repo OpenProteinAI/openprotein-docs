@@ -32,13 +32,12 @@ website:
               contents:
                 - models-page.md
                 - cross-validation-page.md
-                - mutagenesis-page.md
-          - job-status-page.md
           - section: PoET
             contents:
               - poet-introduction-page.md
               - poet-defining-prompts-page.md
               - poet-tools-page.md
+          - job-status-page.md
       - section: "Walkthroughs"
         contents:
           - demo-datasets-page.md
