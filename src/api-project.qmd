@@ -53,16 +53,18 @@ Endpoints to query job status for asynchronous jobs.
         docExpansion: "list",
       },
       requestInterceptor: (request) => {
-        if (!request.url.includes("openapi.json")) {
+        const requestPath = request.url.split('/').slice(3).join('/')
+        if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
           // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai" + request.url;
+          request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
+        } else if (!request.url.includes("openapi.json")) {
+          request.url = "https://dev.api.openprotein.ai/" + requestPath
         }
         return request;
       },
     });
   };
 </script>
-<!-- <script src="css/swagger-ui-bundle.js"></script> -->
 
 <link rel="stylesheet" href="css/swagger-ui.css">
 <div id="swagger-ui"></div>
