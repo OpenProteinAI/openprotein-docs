@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: Introduction
 format:
   html:
     code-fold: true
@@ -16,19 +16,10 @@ Our API is designed this way to ensure that you are not kept waiting for long ta
 
 Remember, your job ID is unique and essential for retrieving the results of your task. Please keep a note of this ID once you initiate a task.
 
-## Other user material
+## Getting started 
 
-There is a comprehensive [User Guide](https://docs.openprotein.ai/){target="_blank"}. with descriptions of each workflow.
+You can start to explore our endpoints at:
 
-We also provide demos of core workflows:
-
-* [Making predictions based on measured properties](mutagenesis-page.md)
-* More coming soon!
-
-Lastly, we have demo datasets that can be used to gain familiarity with our workflows.
-We encourage you to peruse these resources before starting your workflows for the optimal experience.
-
-## Contact Us
-
-* [OpenProtein - Website](https://www.openprotein.ai/){target="_blank"}
-* [Send email to OpenProtein](mailto:support@ne47.bi){target="_blank"}
+  * [PoET](api-poet.qmd)
+  * [Project](api-project.qmd)
+  * [Embedding](api-embeddings.qmd)
