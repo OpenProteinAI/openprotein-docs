@@ -3,6 +3,7 @@ title: Project
 format:
   html:
     code-fold: true
+    css: './css/code-swagger.css'
 ---
 
 ## Endpoints
