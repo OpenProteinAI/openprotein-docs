@@ -32,6 +32,6 @@ COPY --from=build /build/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN chmod -R 755 /var/www/html/app
 
-EXPOSE 5001
+EXPOSE 5002
 
 CMD ["nginx", "-g", "daemon off;"]
