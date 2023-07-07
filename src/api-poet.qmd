@@ -5,11 +5,9 @@ format:
     code-fold: true
 ---
 
-## Endpoints
 
 ### Align
-Endpoints to perform multiple sequence alignment (MSA) workflows for PoET. See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
-
+Endpoints to perform multiple sequence alignment (MSA) workflows for PoET.
 You can create a multiple sequence alignment from a seed sequence, upload a custom MSA, or even upload your own prompt for use with PoET endpoints!
 
 ### PoET
@@ -18,9 +16,9 @@ Endpoints to call our generative Protein Evolutionary Transformer (PoET) model f
 
 Note that PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But you can use whatever collection of sequences your workflow requires!
 
-See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a> for more information.
+See the [User Guide](./poet-introduction-page.md) for more information
 
-## /api/v1/poet
+## Endpoints
 
 ```{=html}
 <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
