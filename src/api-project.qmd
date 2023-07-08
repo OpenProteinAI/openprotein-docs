@@ -5,67 +5,64 @@ format:
     code-fold: true
 ---
 
-## Endpoints
-
 ### Assaydata
-Endpoints to upload your dataset to OpenProtein's engineering platform for train, predict and evaluate tasks. See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
+Endpoints to upload your dataset to OpenProtein's engineering platform for train, predict and evaluate tasks. See the [User Guide](./dataset-page.md).
 Format your data as 2 column CSV:
 
   * The full sequence of each variant (mutation codes are also accepted)
   * 1+ columns with your measured properties (missing values are acceptable)
 
 ### Train
-Endpoints to train a model(s) on your measured properties to enable predictions for new sequences! See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
-These workflows will additionally perform <a href="https://docs.openprotein.ai/cross-validation-page.html">cross-validation</a> on your models to estimate uncertainty.
+Endpoints to train a model(s) on your measured properties to enable predictions for new sequences! See the [User Guide](./models-page.md).
+These workflows will additionally perform cross-validation on your models to estimate uncertainty.
 Note: A trained model is required before you can utilize predict or design endpoints.
 
 ### Predict
-Endpoints for predicting properties on arbitary sequences with your OpenProtein trained models! Please see the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
+Endpoints for predicting properties on arbitary sequences with your OpenProtein trained models! Please see the [User Guide](./predictions-page.md).
 You can make predictions for single sequences as well as single mutant variants of the sequence.
 Note that you must first train a model with the train endpoints (see above).
 
 ### Design
-Endpoints to design new sequences based on your stated objectives and our genetic algorithm! See the <a href="https://docs.openprotein.ai/" rel="noreferrer" target="_blank">User Guide</a>.
+Endpoints to design new sequences based on your stated objectives and our genetic algorithm! See the [User Guide](./design-page.md).
 Note that these endpoints require you to first upload your datasets via assaydata endpoints.
-You may also require trained models from the train endpoints for full utility.
-
-### Workflow/embeddings
-Endpoints to create umap visualizations of embeddings!
-
-### Embeddings
-Endpoints to calculate embeddings for protein sequences.
+You may also require trained models from the train endpoints for full utility
 
 ### Jobs
 Endpoints to query job status for asynchronous jobs.
+You can use these to check the status (PENDING, RUNNING, SUCCEEDED) of your jobs as well as some limited metadata (eg. job creation date).
 
-## /api/v1/
+## Endpoints
 
 ```{=html}
-<script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
-<script>
-  window.onload = function() {
-    const ui = SwaggerUIBundle({
-      url: "https://dev.api.openprotein.ai/api/v1/openapi.json",
-      dom_id: "#swagger-ui",
-      config: {
-        deepLinking: true,
-        tagsSorter: "alpha",
-        docExpansion: "list",
-      },
-      requestInterceptor: (request) => {
-        const requestPath = request.url.split('/').slice(3).join('/')
-        if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
-          // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
-        } else if (!request.url.includes("openapi.json")) {
-          request.url = "https://dev.api.openprotein.ai/" + requestPath
-        }
-        return request;
-      },
-    });
-  };
-</script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
+  <script>
+    window.onload = function() {
+      const ui = SwaggerUIBundle({
+        url: "https://dev.api.openprotein.ai/api/v1/openapi.json",
+        dom_id: "#swagger-ui",
+        config: {
+          deepLinking: true,
+          tagsSorter: "alpha",
+          docExpansion: "list",
+        },
+        requestInterceptor: (request) => {
+          const requestPath = request.url.split('/').slice(3).join('/')
+          if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
+            // Modify the request URL for other endpoints
+            request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
+          } else if (!request.url.includes("openapi.json")) {
+            request.url = "https://dev.api.openprotein.ai/" + requestPath
+          }
+          return request;
+        },
+      });
+    };
+  </script>
+  <script type="module">
+    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
 
-<link rel="stylesheet" href="css/swagger-ui.css">
-<div id="swagger-ui"></div>
+    addSwaggerEndpointsToTOC(5);
+  </script>
+  <link rel="stylesheet" href="css/swagger-ui.css">
+  <div id="swagger-ui"></div>
 ```

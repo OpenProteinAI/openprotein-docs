@@ -19,48 +19,48 @@ Remember, your job ID is unique and essential for retrieving the results of your
 ## Getting started 
 
 ```{=html}
-<table class="table table-bordered">
-  <!-- <caption>As described in the section above, Quarto tables are great.</caption> -->
-  <thead>
-    <tr>
-      <th scope="col">Sections</th>
-      <th scope="col">Description</th>
-      <th scope="col">Endpoints</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr scope="row">
-      <td class="p-3"><a href="./api-project.qmd">Projects</a></td>
-      <td class="p-3">This section includes endpoints for tasks under ‘Projects’ which allows users to analyze datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants.</td>
-      <td class="pe-5 pt-3">
-        <ul>
-          <li>Assaydata</li>
-          <li>Train</li>
-          <li>Predict</li>
-          <li>Design</li>
-          <li>Jobs</li>
-          <li>Embeddings</li>
-        </ul>
-    </tr>
-    <tr scope="row">
-      <td class="p-3"><a href="./api-poet.qmd">PoET</a></td>
-      <td class="p-3">This section includes the endpoints for tasks under ‘PoET’ where users can design protein sequences de novo, without functional measurements of the protein of interest. Here, users can generate single substitution, combinatorial variant libraries, or a bespoke high-diversity library.</td>
-      <td class="pe-5 pt-3">
-        <ul>
-          <li>Align</li>
-          <li>PoET</li>
-        </ul>
-    </tr>
-    <tr scope="row">
-      <td class="p-3" style="min-width:10rem"><a href="./api-embeddings.qmd">Embeddings</a></td>
-      <td class="p-3">This section includes the endpoints for calculating embeddings for protein sequences.</td>
-      <td class="pe-5 pt-3">
-        <ul>
-          <li>Embeddings</li>
-          <li>Svd</li>
-        </ul>
-    </tr>
-    
-  </tbody>
-</table>
+  <table class="table table-bordered">
+    <!-- <caption>As described in the section above, Quarto tables are great.</caption> -->
+    <thead>
+      <tr>
+        <th scope="col">Sections</th>
+        <th scope="col">Description</th>
+        <th scope="col">Endpoints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr scope="row">
+        <td class="p-3"><a href="./api-project.qmd">Projects</a></td>
+        <td class="p-3">This section includes endpoints for tasks under ‘Projects’ which allows users to analyze datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants.</td>
+        <td class="pe-5 pt-3">
+          <ul>
+            <li>Assaydata</li>
+            <li>Train</li>
+            <li>Predict</li>
+            <li>Design</li>
+            <li>Jobs</li>
+            <li>Embeddings</li>
+          </ul>
+      </tr>
+      <tr scope="row">
+        <td class="p-3"><a href="./api-poet.qmd">PoET</a></td>
+        <td class="p-3">This section includes the endpoints for tasks under ‘PoET’ where users can design protein sequences de novo, without functional measurements of the protein of interest. Here, users can generate single substitution, combinatorial variant libraries, or a bespoke high-diversity library.</td>
+        <td class="pe-5 pt-3">
+          <ul>
+            <li>Align</li>
+            <li>PoET</li>
+          </ul>
+      </tr>
+      <tr scope="row">
+        <td class="p-3" style="min-width:10rem"><a href="./api-embeddings.qmd">Embeddings</a></td>
+        <td class="p-3">This section includes the endpoints for calculating embeddings for protein sequences.</td>
+        <td class="pe-5 pt-3">
+          <ul>
+            <li>Embeddings</li>
+            <li>Svd</li>
+          </ul>
+      </tr>
+      
+    </tbody>
+  </table>
 ```
