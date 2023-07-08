@@ -22,7 +22,6 @@ These models are based on the ESM2 language model, with different version having
 ```{=html}
 <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
 <script>
-  
   window.onload = function() {
     const ui = SwaggerUIBundle({
       url: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
@@ -41,7 +40,11 @@ These models are based on the ESM2 language model, with different version having
     });
   };
 </script>
+<script type="module">
+  import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
 
+  addSwaggerEndpointsToTOC(0);
+</script>
 <link rel="stylesheet" href="css/swagger-ui.css">
 <div id="swagger-ui"></div>
 ```

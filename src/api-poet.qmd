@@ -20,32 +20,38 @@ See the [User Guide](./poet-introduction-page.md) for more information
 
 ## Endpoints
 
-```{=html}
-<script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
-<script>
-  window.onload = function() {
-    const ui = SwaggerUIBundle({
-      url: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
-      dom_id: "#swagger-ui",
-      config: {
-        deepLinking: true,
-        tagsSorter: "alpha",
-        docExpansion: "list",
-      },
-      requestInterceptor: (request) => {
-        const requestPath = request.url.split('/').slice(3).join('/')
-        if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
-          // Modify the request URL for other endpoints
-          request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
-        } else if (!request.url.includes("openapi.json")) {
-          request.url = "https://dev.api.openprotein.ai/" + requestPath
-        }
-        return request;
-      },
-    });
-  };
-</script>
 
-<link rel="stylesheet" href="css/swagger-ui.css">
-<div id="swagger-ui"></div>
+```{=html}
+  <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
+  <script>
+    window.onload = function() {
+      const ui = SwaggerUIBundle({
+        url: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+        dom_id: "#swagger-ui",
+        config: {
+          deepLinking: true,
+          tagsSorter: "alpha",
+          docExpansion: "list",
+        },
+        requestInterceptor: (request) => {
+          const requestPath = request.url.split('/').slice(3).join('/')
+          if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
+            // Modify the request URL for other endpoints
+            request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
+          } else if (!request.url.includes("openapi.json")) {
+            request.url = "https://dev.api.openprotein.ai/" + requestPath
+          }
+          return request;
+        },
+      });
+    };
+  </script>
+  <script src="./utils/addSwaggerEndpointsToTOC.js"></script>
+  <script type="module">
+    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
+
+    addSwaggerEndpointsToTOC(2);
+  </script>
+  <link rel="stylesheet" href="css/swagger-ui.css">
+  <div id="swagger-ui"></div>
 ```
