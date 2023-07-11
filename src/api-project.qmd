@@ -27,10 +27,6 @@ Endpoints to design new sequences based on your stated objectives and our geneti
 Note that these endpoints require you to first upload your datasets via assaydata endpoints.
 You may also require trained models from the train endpoints for full utility
 
-### Jobs
-Endpoints to query job status for asynchronous jobs.
-You can use these to check the status (PENDING, RUNNING, SUCCEEDED) of your jobs as well as some limited metadata (eg. job creation date).
-
 ## Endpoints
 
 ```{=html}
