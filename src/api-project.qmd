@@ -43,10 +43,7 @@ You may also require trained models from the train endpoints for full utility
         },
         requestInterceptor: (request) => {
           const requestPath = request.url.split('/').slice(3).join('/')
-          if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
-            // Modify the request URL for other endpoints
-            request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
-          } else if (!request.url.includes("openapi.json")) {
+          if (!request.url.includes("openapi.json")) {
             request.url = "https://dev.api.openprotein.ai/" + requestPath
           }
           return request;

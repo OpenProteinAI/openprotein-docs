@@ -1,8 +1,5 @@
 ---
 title: Introduction
-format:
-  html:
-    code-fold: true
 ---
 
 Here's a quick overview of our jobs system, and steps to access auth credentials for our APIs. You'll find more exhaustive details on our endpoints at [Project](./api-project.qmd) and [PoET](./api-poet.qmd), serving our core and generative workflows respectively.
@@ -11,9 +8,9 @@ Here's a quick overview of our jobs system, and steps to access auth credentials
 
 Our endpoints follow an asynchronous POST and GET framework. Once you initiate a task via our POST endpoints, the system schedules the job. This means that even for tasks that may take a while to complete, your request will return immediately.
 
-The POST response will contain a job ID (<span style="background-color: rgba(0,0,0,.05); color: rgba(153, 47, 237, 1); font-weight: 600; padding: 5px 7px; border-radius: 4px">job_id</span>) in its response json. This job ID is a unique identifier that allows you to track your job. You can use this same job ID with our GET endpoints to monitor the progress of your task. Please note that only you can access your jobs, a different user cannot access your jobs even with your specific job ID.
+The POST response will contain a job ID (`job_id`) in its response json. This job ID is a unique identifier that allows you to track your job. You can use this same job ID with our GET endpoints to monitor the progress of your task. Please note that only you can access your jobs, a different user cannot access your jobs even with your specific job ID.
 
-Whilst your job is underway, the API will indicate the status as <span style="background-color: rgba(0,0,0,.05); color: rgba(153, 47, 237, 1); font-weight: 600; padding: 5px 7px; border-radius: 4px">PENDING</span>. Once the job has concluded (<span style="background-color: rgba(0,0,0,.05); color: rgba(153, 47, 237, 1); font-weight: 600; padding: 5px 7px; border-radius: 4px">SUCCESS</span>), you can retrieve your results by invoking the same endpoint using your job ID in the payload (see specific endpoint details for more guidance). The <span style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px">/api/v1/jobs/JOB_ID</span> endpoint is at your disposal to check the status of a job before obtaining all the results.
+Whilst your job is underway, the API will indicate the status as `PENDING`. Once the job has concluded (`SUCCESS`), you can retrieve your results by invoking the same endpoint using your job ID in the payload (see specific endpoint details for more guidance). The `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of a job before obtaining all the results.
 
 This design ensures that long-running tasks don't keep you waiting, and ensures you can always get the results of a job back at a later date.
 
@@ -24,78 +21,51 @@ Remember, your job ID is both unique and crucial for fetching the results of you
 ### Steps to Log in
 
 #### On this page
-You can log in directly on this page using the <span style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px">Authorize</span> button. This action will let you browse the API documentation and execute test queries directly in your browser.
+You can log in directly on this page using the Authorize</span> button. This action will let you browse the API documentation and execute test queries directly in your browser.
 
 #### Within your IDE
-For programmatic authorization, retrieve an access token through our <span style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px">/login</span> endpoint, then include this in the header of your subsequent requests to authorize access. A Python example using the Requests library is provided below:
-```{=html}
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px;margin: 1em auto;">import requests</div> 
+For programmatic authorization, retrieve an access token through our /login</span> endpoint, then include this in the header of your subsequent requests to authorize access. A Python example using the Requests library is provided below:
 
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
+
+```python
+  import requests
+
   # Get the access token using your login credentials:
-  <br/>
   r = requests.post("https://openprotein.ai/api/v1/login/user-access-token", data={"username": your_username, "password": your_password})
-  <br/>
   assert r.status_code==200
-</div> 
 
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
   # Build the authorization header for subsequent requests
-  <br/>
   auth_header = {'Authorization': '{} {}'.format(r.json()['token_type'], r.json()['access_token'])}
-</div> 
 
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
   # Make authorized requests to our endpoints, for instance:
-  <br/>
   example_request = requests.get("https://openprotein.ai/api/v1/jobs", headers=auth_header)
-  <br/>
   print(f"Example request has status {example_request.status_code}")
-</div> 
 ```
 For easier usage, consider using session management:
 
-```{=html}
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
-  with requests.Session() as sess:
-  <br/>
-  &emsp;&emsp; sess.headers.update(auth_header)
-</div> 
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
-  example_request = requests.get("https://openprotein.ai/api/v1/jobs")
-  <br/>
-  print(f"Example request has status {example_request.status_code}")
-</div>
+```python
+with requests.Session() as sess:
+    sess.headers.update(auth_header)
+example_request = requests.get("https://openprotein.ai/api/v1/jobs")
+print(f"Example request has status {example_request.status_code}")
 ```
+
 ## Jobs
 Endpoints to track job status for asynchronous jobs.
 Use these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and view basic metadata (e.g., job creation date).
 Here is a simple example where we submit an MSA (multiple sequence alignment) request and then fetch the result:
 
-```{=html}
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
-  # Example of jobs 
-  <br/>
-  seed_sequence  = "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGG
-  PGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN"
-  <br/>
-  # Human INS sequence
-  <br/>
-  example_request = requests.post("https://openprotein.ai/api/v1/poet/align/msa", files={"msa_file":seed_sequence.encode()}, headers=auth_header)
-  <br/>
-  job_id = example_request.json()['job_id']
-  <br/>
-  print(f"Example request has status {example_request.status_code} and jobid {job_id}")
-</div> 
-<div style="background-color: rgba(0,0,0,.05); color:rgba(153, 47, 237, 1) ; font-weight: 600; padding: 5px 7px; border-radius: 4px; margin: 1em auto;">
-  # will be PENDING and then SUCCESS
-  <br/>
-  response = requests.get("http://openprotein.ai/api/v1/poet/align/msa", params={"job_id":job_id}, headers=auth_header)
-  <br/>
-  print("status", response.headers['job_status'])
-  <br/>
-  print("Generated MSA: ", response.text)
-</div>
+```python
+# Example of jobs 
+seed_sequence  = "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN" # Human INS sequence
+example_request = requests.post("https://openprotein.ai/api/v1/poet/align/msa", files={"msa_file":seed_sequence.encode()}, headers=auth_header)
+job_id = example_request.json()['job_id']
+print(f"Example request has status {example_request.status_code} and jobid {job_id}")
+
+# will be PENDING and then SUCCESS
+response = requests.get("http://openprotein.ai/api/v1/poet/align/msa", params={"job_id":job_id}, headers=auth_header)
+print("status", response.headers['job_status'])
+print("Generated MSA: ", response.text)
 ```
 
 ## Endpoints
@@ -114,18 +84,16 @@ Here is a simple example where we submit an MSA (multiple sequence alignment) re
         },
         requestInterceptor: (request) => {
           const requestPath = request.url.split('/').slice(3).join('/')
-          if (!request.url.includes("openapi.json") && request.url.includes("access-token")) {
+          if (!request.url.includes("openapi.json")) {
             // Modify the request URL for other endpoints
-            request.url = "https://dev.api.openprotein.ai/api/v1/" + requestPath
-          } else if (!request.url.includes("openapi.json")) {
             request.url = "https://dev.api.openprotein.ai/" + requestPath
-          }
+          } 
           return request;
         },
       });
     };
   </script>
-  <script src="./utils/addSwaggerEndpointsToTOC.js"></script>
+
   <script type="module">
     import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
 
@@ -133,6 +101,7 @@ Here is a simple example where we submit an MSA (multiple sequence alignment) re
   </script>
   <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
+   
 ```
 ## Getting started 
 
