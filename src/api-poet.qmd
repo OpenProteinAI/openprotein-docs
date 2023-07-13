@@ -5,6 +5,7 @@ format:
     code-fold: true
 ---
 
+Protein Evolutionary Transformer (PoET) is a machine learning model that generates and identifies protein sequence variants with improved function and stability. PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But PoET can accept any collection of sequences!
 
 ### Align
 Endpoints to perform multiple sequence alignment (MSA) workflows for PoET.

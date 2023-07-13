@@ -15,7 +15,7 @@ website:
         contents:
           - introduction-page.md
           - account-page.md
-      - section: Modules
+      - section: Using the App
         contents:
           - section: Project
             contents:
@@ -46,7 +46,8 @@ website:
           - poet-thiolase-codehidden.ipynb
       - section: "API docs"
         contents:
-          - api-introduction.qmd
+          - api-overview.qmd
+          - api-authentication-and-jobs.qmd
           - api-project.qmd
           - api-poet.qmd
           - api-embeddings.qmd
