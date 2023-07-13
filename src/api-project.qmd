@@ -8,26 +8,24 @@ format:
 This section provides detailed information about the endpoints available within the 'Project' module. These endpoints enable users to leverage the functionalities offered by the module and perform various actions programmatically. Using these endpoints, access features like train a model, make predictions, design sequences based on properties and check on job statuses.
 
 ### Assaydata
-Endpoints to upload your dataset to OpenProtein's engineering platform for train, predict and evaluate tasks. See the [User Guide](./dataset-page.md).
-Format your data as 2 column CSV:
+Endpoints to upload a dataset to OpenProtein’s engineering platform for training, predicting and evaluating tasks. The expected format of each dataset as 2 column CSV:
 
   * The full sequence of each variant (mutation codes are also accepted)
   * 1+ columns with your measured properties (missing values are acceptable)
 
 ### Train
-Endpoints to train a model(s) on your measured properties to enable predictions for new sequences! See the [User Guide](./models-page.md).
-These workflows will additionally perform cross-validation on your models to estimate uncertainty.
-Note: A trained model is required before you can utilize predict or design endpoints.
+Endpoints to train a model(s) on your measured properties to enable predictions for new sequences! These workflows will additionally perform cross-validation on specific models to estimate uncertainty. 
+
+::: {.callout-note} 
+A trained model is required before predict or design endpoints can be utilized.
+:::
+
 
 ### Predict
-Endpoints for predicting properties on arbitary sequences with your OpenProtein trained models! Please see the [User Guide](./predictions-page.md).
-You can make predictions for single sequences as well as single mutant variants of the sequence.
-Note that you must first train a model with the train endpoints (see above).
+Endpoints for predicting properties on arbitrary sequences with your OpenProtein trained models! Make predictions for single sequences as well as single mutant variants of the sequence. 
 
 ### Design
-Endpoints to design new sequences based on your stated objectives and our genetic algorithm! See the [User Guide](./design-page.md).
-Note that these endpoints require you to first upload your datasets via assaydata endpoints.
-You may also require trained models from the train endpoints for full utility
+Endpoints to design new sequences based on your stated objectives and our genetic algorithm! These endpoints will require datasets to be uploaded via assaydata endpoints. 
 
 ## Endpoints
 
