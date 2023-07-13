@@ -34,14 +34,14 @@ When embarking on the first project, it is essential to choose the appropriate m
 
 <div class="callout-tip-container">
 ::: {.callout-tip} 
-## To create a design you will need:
+## To create a design, you will need:
   * Dataset with mesurements
   * Target design objectives
 :::
 ::: {.callout-tip} 
-## To use PoET you will need:
-  * Dataset with mesurements
-  * Target design objectives
+## To use PoET, you will need:
+  * Seed sequence
+  * Query (optional)
 :::
 </div>
 
@@ -53,4 +53,4 @@ To learn how to interact with the platform’s functionality via API, view more 
 
 ## What’s next?
 
-For the next steps, initiate a project or run a job via PoET. If you are looking for more in depth information, take a look at our walkthrough section and learn how to do more specific things like exploring a dataset, setting design criteria, and defining prompts.
+For the next steps, initiate a [project](./dataset-page.md) or run a job via [PoET](./poet-introduction-page.md). If you are looking for more in depth information, take a look at our [walkthrough](./demo-datasets-page.md) section and learn how to do more specific things like exploring a dataset, setting design criteria, and defining prompts.
