@@ -21,10 +21,10 @@ It is important to note to retain the unique job IDs provided upon initiating a 
 ### Steps to Log in
 
 #### On this page
-You can log in directly on this page using the Authorize</span> button. This action will let you browse the API documentation and execute test queries directly in your browser.
+Login directly on this page using the `Authorize` button. This action will allow browsing of the API documentation and execute test queries directly in the browser.
 
 #### Within your IDE
-For programmatic authorization, retrieve an access token through our /login</span> endpoint, then include this in the header of your subsequent requests to authorize access. A Python example using the Requests library is provided below:
+For programmatic authorization, retrieve an access token through our `/login` endpoint, then include this in the header of subsequent requests to authorize access. A Python example using the Requests library is provided below:
 
 
 ```python
@@ -51,9 +51,7 @@ print(f"Example request has status {example_request.status_code}")
 ```
 
 ## Jobs
-Endpoints to track job status for asynchronous jobs.
-Use these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and view basic metadata (e.g., job creation date).
-Here is a simple example where we submit an MSA (multiple sequence alignment) request and then fetch the result:
+Endpoints to track job status for asynchronous jobs. Use these to verify the status (`PENDING`, `RUNNING`, `SUCCESS`) of jobs and view basic metadata (e.g., job creation date). Here is a simple example where we submit an MSA (multiple sequence alignment) request and then fetch the result:
 
 ```python
 # Example of jobs 
