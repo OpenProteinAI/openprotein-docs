@@ -5,6 +5,8 @@ format:
     code-fold: true
 ---
 
+This section provides detailed information about the endpoints available within the 'Project' module. These endpoints enable users to leverage the functionalities offered by the module and perform various actions programmatically. Using these endpoints, access features like train a model, make predictions, design sequences based on properties and check on job statuses.
+
 ### Assaydata
 Endpoints to upload your dataset to OpenProtein's engineering platform for train, predict and evaluate tasks. See the [User Guide](./dataset-page.md).
 Format your data as 2 column CSV:
@@ -54,7 +56,7 @@ You may also require trained models from the train endpoints for full utility
   <script type="module">
     import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
 
-    addSwaggerEndpointsToTOC(5);
+    addSwaggerEndpointsToTOC(4);
   </script>
   <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
