@@ -5,17 +5,16 @@ title: Authentication and Jobs
 Here’s a quick overview of our jobs system, and steps to access auth credentials for our APIs. Find more details on our endpoints at [Project](./api-project.qmd) and [PoET](./api-poet.qmd), serving our core and generative workflows respectively.
 
 
-## Navigating the Job System
+## Job System
 
-Our endpoints follow an asynchronous POST and GET framework. Once you initiate a task via our POST endpoints, the system schedules the job. This means that even for tasks that may take a while to complete, your request will return immediately.
+The API endpoints operate on an asynchronous `POST` and `GET` framework. By initiating a task through our `POST` endpoints, the system schedules the job and promptly returns a response. This approach ensures that tasks, even those with longer processing times, do not require immediate waiting. Instead, upon initiating a task, a unique `job ID` is provided as a response.
 
-The POST response will contain a job ID (`job_id`) in its response json. This job ID is a unique identifier that allows you to track your job. You can use this same job ID with our GET endpoints to monitor the progress of your task. Please note that only you can access your jobs, a different user cannot access your jobs even with your specific job ID.
+The `job ID` serves as a unique identifier for tracking each job. Utilizing this ID with our `GET` endpoints allows for querying the task's status. If the job is still in progress, the API will indicate that the job is in progress. Once the job has completed, the same endpoint can be used with the `job ID` to retrieve the results. Additionally, the `/jobs` endpoints are available for polling the status of a task before retrieving all the results.
 
-Whilst your job is underway, the API will indicate the status as `PENDING`. Once the job has concluded (`SUCCESS`), you can retrieve your results by invoking the same endpoint using your job ID in the payload (see specific endpoint details for more guidance). The `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of a job before obtaining all the results.
+The API follows this design to ensure efficient task management without unnecessary waiting times.
 
-This design ensures that long-running tasks don't keep you waiting, and ensures you can always get the results of a job back at a later date.
+It is important to note to retain the unique job IDs provided upon initiating a task, as it is necessary for retrieving the corresponding results.
 
-Remember, your job ID is both unique and crucial for fetching the results of your task. So, ensure to keep a note of it when you initiate a task.
 
 ## Login
 
