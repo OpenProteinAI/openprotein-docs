@@ -24,16 +24,8 @@ A trained model is required before predict or design endpoints can be utilized.
 ### Predict
 Endpoints for predicting properties on arbitrary sequences with your OpenProtein trained models! Make predictions for single sequences as well as single mutant variants of the sequence. 
 
-::: {.callout-note} 
-A trained model is required before predict endpoints can be utilized.
-:::
-
 ### Design
 Endpoints to design new sequences based on your stated objectives and our genetic algorithm! These endpoints will require datasets to be uploaded via assaydata endpoints. 
-
-::: {.callout-note} 
-A trained model is required before design endpoints can be utilized
-:::
 
 ## Endpoints
 
