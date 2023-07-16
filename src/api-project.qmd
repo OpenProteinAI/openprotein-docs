@@ -31,10 +31,14 @@ Endpoints to design new sequences based on your stated objectives and our geneti
 
 ```{=html}
   <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
-  <script>
-    window.onload = function() {
+  <script type="module">
+    import getSwaggerJson from './utils/getSwaggerJson.js'
+    window.onload = async function() {
+      // get swagerSpecs manipulated 
+      const swagerSpecs = await getSwaggerJson('project')
+
       const ui = SwaggerUIBundle({
-        url: "https://dev.api.openprotein.ai/api/v1/openapi.json",
+        spec: swagerSpecs,
         dom_id: "#swagger-ui",
         config: {
           deepLinking: true,

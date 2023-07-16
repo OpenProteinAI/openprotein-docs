@@ -70,10 +70,14 @@ print("Generated MSA: ", response.text)
 
 ```{=html}
   <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
-  <script>
-    window.onload = function() {
+  <script type="module">
+    import getSwaggerJson from './utils/getSwaggerJson.js'
+    window.onload = async function() {
+      // get swagerSpecs manipulated 
+      const swagerSpecs = await getSwaggerJson('auth');
+      
       const ui = SwaggerUIBundle({
-        url: "https://dev.api.openprotein.ai/openapi.json",
+        spec: swagerSpecs,
         dom_id: "#swagger-ui",
         config: {
           deepLinking: true,

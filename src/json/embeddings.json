@@ -1,0 +1,851 @@
+{
+    "schemes": [],
+    "swagger": "2.0",
+    "info": {
+        "description": "The Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models. <br/>\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/model/metadata`. <br/>\nCurrently, we support the following models:\n- **Prot-seq**: A proprietary Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref50w**: A proprietary Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. <br/> These are based on the ESM1 language model, with different versions having different model parameters and training data. [More info](https://github.com/facebookresearch/esm).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. <br/> These models are based on the ESM2 language model, with different version having different model parameters and training data. [More info](https://github.com/facebookresearch/esm). <br/><br/>",
+        "title": "Embeddings API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "",
+    "basePath": "",
+    "paths": {
+        "/api/v1/embeddings/models": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "List all models available for generating embeddings from your protein sequences.",
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "List embedding models",
+                "responses": {
+                    "200": {
+                        "description": "Available models",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/models/{model_id}": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Get model metadata. Including:\u003cbr/\u003e\u003cul\u003e\u003cli\u003e\u003cb\u003eModelId:\u003c/b\u003e A string identifier for the model\u003c/li\u003e\u003cli\u003e\u003cb\u003eMaxSequenceLength:\u003c/b\u003e The maximum sequence length that the model can handle.\u003c/li\u003e\u003cli\u003e\u003cb\u003eDimension:\u003c/b\u003e The dimension of the model's output, which is 1024 for the \"prot-seq\" model.\u003c/li\u003e\u003cli\u003e\u003cb\u003eOutputTypes:\u003c/b\u003e The types of output that this model can generate. e.g. attention maps (\"attn\"), embeddings (\"embed\"), and logits (\"logits\").\u003c/li\u003e\u003cli\u003e\u003cb\u003ePrimaryTokens:\u003c/b\u003e The primary tokens that the model recognizes.\u003c/li\u003e\u003c/ul\u003e",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Get model metadata",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of model to get metadata for",
+                        "name": "model_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Model metadata",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModelMetadata"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/models/{model_id}/attn": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Use an OpenProtein model to create attention maps of your sequences. \u003cbr/\u003eYou can see available models with  \u003ccode\u003e/embeddings/models\u003c/code\u003e endpoints.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Request attn",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name of model to use",
+                        "name": "model_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Sequence to calculate attn embeddings for",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Sequences"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Attn request created and pending",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/models/{model_id}/embed": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Create embeddings for your protein sequences using an OpenProtein model. \u003cbr/\u003eYou can view available models with the \u003ccode\u003e/embeddings/models\u003c/code\u003e endpoint. \u003cbr/\u003eNote that the request parameters should include \u003ccode\u003esequences\u003c/code\u003e with your sequences and optionally \u003ccode\u003ereduction\u003c/code\u003e with the type of embedding reduction to compute (e.g. MEAN).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Create embeddings",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name of model to use",
+                        "name": "model_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Embeddings request parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EmbeddingsInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Embeddings request created and pending",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/models/{model_id}/logits": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Create logits job on your protein sequences, requires an existing model that supports logits.\u003cbr/\u003eYou can view available models with the \u003ccode\u003e/embeddings/models\u003c/code\u003e endpoint.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Request logits",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "model ID to use",
+                        "name": "model_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Protein sequences",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Sequences"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Logits request created and pending",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/svd": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "List SVDs available. \u003cbr/\u003e You may need to create an SVD first with POST \u003ccode\u003eembeddings/svd\u003c/code\u003e to see results here.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "svd"
+                ],
+                "summary": "List SVDs",
+                "responses": {
+                    "200": {
+                        "description": "List of SVDs",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SVDMetadataOutput"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Create SVD from sequence embeddings. Requires a model_id, you can see available models with the \u003ccode\u003e/embeddings/models\u003c/code\u003e endpoint. SVD inputs must include:\u003cbr/\u003e\u003cul\u003e\u003cli\u003e\u003cb\u003emodel_id:\u003c/b\u003e the model id - SVD will be computed on the embeddings from this model\u003c/li\u003e\u003cli\u003e\u003cb\u003en_components:\u003c/b\u003e the number of SVD components output\u003c/li\u003e\u003cli\u003e\u003cb\u003ereduction:\u003c/b\u003e the reduction type to apply to the embeddings prior to SVD(currently only MEAN supported)\u003c/li\u003e\u003cli\u003e\u003cb\u003esequences:\u003c/b\u003e the protein sequences, as a list\u003c/li\u003e\u003c/ul\u003e",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "svd"
+                ],
+                "summary": "Request SVD",
+                "parameters": [
+                    {
+                        "description": "SVD request parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SVDInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "SVD request created and pending",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/svd/{svd_id}": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Get SVD job metadata. Including SVD dimension and sequence lengths. \u003cbr/\u003eRequires a successful SVD job from POST \u003ccode\u003e/svd\u003c/code\u003e.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "svd"
+                ],
+                "summary": "Get SVD metadata",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "SVD ID from a successful POST \u003ccode\u003e/svd\u003c/code\u003e request.",
+                        "name": "svd_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SVD metadata",
+                        "schema": {
+                            "$ref": "#/definitions/models.SVDMetadataOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/svd/{svd_id}/embed": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Create embeddings from your sequences and run an existing SVD on the result. Use \u003ccode\u003eembeddings/svd/list\u003c/code\u003e to see the SVD models you have previously created with POST \u003ccode\u003eembeddings/svd\u003c/code\u003e.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "svd"
+                ],
+                "summary": "Create embeddings and run existing SVD.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of SVD model to use",
+                        "name": "svd_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Protein sequences",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Sequences"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Embeddings SVD request created and pending",
+                        "schema": {
+                            "$ref": "#/definitions/models.Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Get results from completed POST /embeddings requests. \u003cbr/\u003eSupply a page_size for the number of results to return, and a page_offset for the number of rows to skip.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Get results for /embeddings jobs.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job ID to fetch",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "number of rows to skip: int default",
+                        "name": "page_offset",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "number of rows to fetch: int default",
+                        "name": "page_size",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request results",
+                        "schema": {
+                            "$ref": "#/definitions/models.Results"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/{id}/sequences": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Get sequences used in a previous request. Requires a job ID from a successful \u003ccode\u003e/embeddings\u003c/code\u003e job.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Get sequences used in a request",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job ID of sequences to fetch",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request sequences",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/embeddings/{id}/{sequence}": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": []
+                    }
+                ],
+                "description": "Get result for a sequence from completed POST /embeddings request encoded as a numpy array. Result is a file that can be decoded with `numpy.load`.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "embeddings"
+                ],
+                "summary": "Get result for a sequence in a /embeddings job.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job ID to fetch",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "sequence for which to retrieve result",
+                        "name": "sequence",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result encoded as numpy array",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.EmbeddingsInput": {
+            "type": "object",
+            "required": [
+                "sequences"
+            ],
+            "properties": {
+                "reduction": {
+                    "description": "e.g. MEAN, nil",
+                    "type": "string",
+                    "example": "MEAN"
+                },
+                "sequences": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.Job": {
+            "type": "object",
+            "properties": {
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "job_id": {
+                    "type": "string",
+                    "example": "8f4fa427-4e74-4d22-ab01-5a7743411add"
+                },
+                "job_type": {
+                    "type": "string",
+                    "example": "/embeddings/embed"
+                },
+                "num_records": {
+                    "type": "integer"
+                },
+                "prerequisite_job_id": {
+                    "type": "string",
+                    "example": "e3bdf5ab-7201-485f-862e-fd6226f791a2"
+                },
+                "progress_counter": {
+                    "type": "integer"
+                },
+                "start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "PENDING"
+                }
+            }
+        },
+        "models.ModelDescription": {
+            "type": "object",
+            "properties": {
+                "citation_title": {
+                    "type": "string"
+                },
+                "doi": {
+                    "type": "string"
+                },
+                "summary": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ModelMetadata": {
+            "type": "object",
+            "required": [
+                "description",
+                "dimension",
+                "input_tokens",
+                "max_sequence_length",
+                "model_id",
+                "output_tokens",
+                "output_types",
+                "token_descriptions"
+            ],
+            "properties": {
+                "model_id": {
+                    "type": "string",
+                    "x-order": "1",
+                    "example": "prot-seq"
+                },
+                "description": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.ModelDescription"
+                        }
+                    ],
+                    "x-order": "2"
+                },
+                "max_sequence_length": {
+                    "type": "integer",
+                    "x-order": "3"
+                },
+                "dimension": {
+                    "type": "integer",
+                    "x-order": "4",
+                    "example": 1024
+                },
+                "output_types": {
+                    "description": "`EmbeddingsOutput`s supported by the model",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "x-order": "5",
+                    "example": [
+                        "attn",
+                        "embed",
+                        "logits"
+                    ]
+                },
+                "input_tokens": {
+                    "description": "List of valid input tokens.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "x-order": "6",
+                    "example": [
+                        "A",
+                        "R",
+                        "N"
+                    ]
+                },
+                "output_tokens": {
+                    "description": "List of output tokens ordered by token id. Use this to decode logits.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "x-order": "7",
+                    "example": [
+                        "A",
+                        "R",
+                        "N"
+                    ]
+                },
+                "token_descriptions": {
+                    "description": "Description of all tokens.\nDescriptions are ordered by token id. The `n`'th item describes the token(s) represented by token id `n`.\nSome token ids can represent multiple tokens.",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/models.Token"
+                        }
+                    },
+                    "x-order": "8"
+                }
+            }
+        },
+        "models.Result": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "returned on API"
+                },
+                "sequence": {
+                    "type": "string"
+                },
+                "shape": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "models.Results": {
+            "type": "object",
+            "properties": {
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "job_id": {
+                    "type": "string",
+                    "example": "8f4fa427-4e74-4d22-ab01-5a7743411add"
+                },
+                "job_type": {
+                    "type": "string",
+                    "example": "/embeddings/embed"
+                },
+                "num_records": {
+                    "type": "integer"
+                },
+                "prerequisite_job_id": {
+                    "type": "string",
+                    "example": "e3bdf5ab-7201-485f-862e-fd6226f791a2"
+                },
+                "progress_counter": {
+                    "type": "integer"
+                },
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Result"
+                    }
+                },
+                "start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "PENDING"
+                }
+            }
+        },
+        "models.SVDInput": {
+            "type": "object",
+            "required": [
+                "model_id",
+                "sequences"
+            ],
+            "properties": {
+                "model_id": {
+                    "type": "string"
+                },
+                "n_components": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "example": 1024
+                },
+                "reduction": {
+                    "description": "e.g. MEAN, nil",
+                    "type": "string",
+                    "example": "MEAN"
+                },
+                "sequences": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.SVDMetadataOutput": {
+            "type": "object",
+            "required": [
+                "model_id"
+            ],
+            "properties": {
+                "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "dimension": {
+                    "description": "used to inform shape of output",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "model_id": {
+                    "type": "string"
+                },
+                "n_components": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "example": 1024
+                },
+                "reduction": {
+                    "description": "e.g. MEAN, nil",
+                    "type": "string",
+                    "example": "MEAN"
+                },
+                "sequence_length": {
+                    "description": "used to check if input emb features will match",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "PENDING"
+                }
+            }
+        },
+        "models.Sequences": {
+            "type": "object",
+            "required": [
+                "sequences"
+            ],
+            "properties": {
+                "sequences": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.Token": {
+            "type": "object",
+            "required": [
+                "description",
+                "id",
+                "primary",
+                "token"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Token ID",
+                    "type": "integer",
+                    "x-order": "1"
+                },
+                "token": {
+                    "description": "The token's string representation",
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "primary": {
+                    "description": "When a token id represents multiple tokens, this flag indicates whether or not\nthis is the primary token represented by the token id",
+                    "type": "boolean",
+                    "x-order": "3"
+                },
+                "description": {
+                    "description": "Meaning of this token",
+                    "type": "string",
+                    "x-order": "4"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "OAuth2Password": {
+            "type": "oauth2",
+            "flow": "password",
+            "tokenUrl": "/api/v1/login/access-token"
+        }
+    }
+}
