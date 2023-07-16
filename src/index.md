@@ -11,10 +11,10 @@ This section serves as a guide for users who are new to the OpenProtein.AI platf
 
 ::: {.callout-tip} 
 ## New to our platform? Here’s how to get started!
-* Sign up for an account
-* Get a quick overview of OpenProtein.AI’s capabilities 
-* Jump right into your first protein design project in our web app by following our step-by-step tutorials
-* Learn about interacting with our API service 
+* Get a [quick overview](./introduction-page.md) of OpenProtein.AI’s capabilities 
+* [Sign up](./account-page.md) for an account
+* Jump right into your first protein design project in our web app by following our [step-by-step tutorial](./design-page.md)
+* Learn about interacting with our [API service](./api-overview.qmd)
 :::
 
 ## Using the app
