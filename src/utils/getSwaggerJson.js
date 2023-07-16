@@ -162,57 +162,52 @@ const apiTagsAuth = [
 export default async function getSwaggerJson(swaggerType) {
   let apiPathToShow = [];
   let apiSchemasToShow = [];
-  let urlToFetch = "";
   let swagerSpecs = {};
   if (swaggerType === "project") {
     // get the full swagger specs
-    urlToFetch = "https://dev.api.openprotein.ai/api/v1/openapi.json";
-    swagerSpecs = await (await fetch(urlToFetch)).json();
+    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/openapi.json")).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathProject;
     apiSchemasToShow = apiSchemasProject;
     swagerSpecs.tags = apiTagsProject;
   } else if (swaggerType === "poet") {
     // get the full swagger specs
-    urlToFetch = "https://dev.api.openprotein.ai/api/v1/poet/openapi.json";
-    swagerSpecs = await (await fetch(urlToFetch)).json();
+    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/poet/openapi.json")).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathPoet;
     apiSchemasToShow = apiSchemasPoet;
     swagerSpecs.tags = apiTagsPoet;
   } else if (swaggerType === "auth") {
-    urlToFetch = "https://dev.api.openprotein.ai/openapi.json";
-    swagerSpecs = await (await fetch(urlToFetch)).json();
+    // get the full swagger specs
+    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/openapi.json")).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathAuth;
     apiSchemasToShow = apiSchemasAuth;
     swagerSpecs.tags = apiTagsAuth;
   }
   
-  const pathsToShow = {};
-  for (const pakthKey in swagerSpecs.paths) {
+  const filteredPathsToShow = {};
+  for (const pathKey in swagerSpecs.paths) {
     apiPathToShow.forEach((pathToShow) => {
-      if (pathToShow === pakthKey) {
-        pathsToShow[pathToShow] = swagerSpecs.paths[pathToShow];
+      if (pathToShow === pathKey) {
+        filteredPathsToShow[pathToShow] = swagerSpecs.paths[pathToShow];
       }
     });
   }
 
-  swagerSpecs.paths = pathsToShow;
+  swagerSpecs.paths = filteredPathsToShow;
 
-  const schemasToShow = {};
+  const filteredSchemasToShow = {};
   for (const schemaKey in swagerSpecs.components.schemas) {
     apiSchemasToShow.forEach((schemaKeyToShow) => {
       if (schemaKeyToShow === schemaKey) {
-        schemasToShow[schemaKeyToShow] =
+        filteredSchemasToShow[schemaKeyToShow] =
           swagerSpecs.components.schemas[schemaKeyToShow];
       }
     });
   }
 
-  swagerSpecs.components.schemas = schemasToShow;
-
-  console.log(swagerSpecs);
+  swagerSpecs.components.schemas = filteredSchemasToShow;
 
   return swagerSpecs;
 }
