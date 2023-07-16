@@ -20,7 +20,8 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
 ```{=html}
   <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
   <script type="module">
-    import getSwaggerJson from './utils/getSwaggerJson.js'
+    import getSwaggerJson from './utils/getSwaggerJson.js';
+    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
     window.onload = async function() {
       // get swagerSpecs manipulated 
       const swagerSpecs = await getSwaggerJson('poet');
@@ -41,12 +42,8 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
           return request;
         },
       })
+      addSwaggerEndpointsToTOC(2);
     };
-  </script>
-  <script type="module">
-    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
-
-    addSwaggerEndpointsToTOC(2);
   </script>
   <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
