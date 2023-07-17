@@ -8,9 +8,9 @@ OpenProtein.AI is a powerful platform that leverages state-of-the-art machine le
 
 We offer multiple toolsets to get a project started, including:
 
-* Projects: a set of tools to analyze your sequences that have measured properties. Projects can be used to train machine learning models to predict properties of new, unmeasured sequences and create design de novo sequences that follow user-specified constraints. 
-* PoET: Our generative model trained on millions of evolutionary sequences. PoET is able to use evolutionary context (e.g. from an MSA) to score the fitness landscape of sequences without wet lab measurements. 
-* Embeddings: Accessible via APIs, our embedding service enables calculation of raw embeddings on protein sequences using a number of proprietary and open-source models.
+* **Projects**: a set of tools to analyze your sequences that have measured properties. Projects can be used to train machine learning models to predict properties of new, unmeasured sequences and create design de novo sequences that follow user-specified constraints. 
+* **PoET**: Our generative model trained on millions of evolutionary sequences. PoET is able to use evolutionary context (e.g. from an MSA) to score the fitness landscape of sequences without wet lab measurements. 
+* **Embeddings**: Accessible via APIs, our embedding service enables calculation of raw embeddings on protein sequences using a number of proprietary and open-source models.
 
 Each of these workflows offers unique functionalities to help you engineer better proteins! 
 

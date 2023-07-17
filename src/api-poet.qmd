@@ -19,10 +19,15 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
 
 ```{=html}
   <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
-  <script>
-    window.onload = function() {
+  <script type="module">
+    import getSwaggerJson from './utils/getSwaggerJson.js';
+    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
+    window.onload = async function() {
+      // get swagerSpecs manipulated 
+      const swagerSpecs = await getSwaggerJson('poet');
+      
       const ui = SwaggerUIBundle({
-        url: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+        spec: swagerSpecs,
         dom_id: "#swagger-ui",
         config: {
           deepLinking: true,
@@ -36,14 +41,9 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
           }
           return request;
         },
-      });
+      })
+      addSwaggerEndpointsToTOC(2);
     };
-  </script>
-  <script src="./utils/addSwaggerEndpointsToTOC.js"></script>
-  <script type="module">
-    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
-
-    addSwaggerEndpointsToTOC(2);
   </script>
   <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
