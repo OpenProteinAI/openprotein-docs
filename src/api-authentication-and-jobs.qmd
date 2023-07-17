@@ -1,5 +1,10 @@
 ---
 title: Authentication and Jobs 
+format:
+  html:
+    code-fold: true
+    include-in-header: 
+      - api-header.html
 ---
 
 Here’s a quick overview of our jobs system, and steps to access auth credentials for our APIs. Find more details on our endpoints at [Project](./api-project.qmd) and [PoET](./api-poet.qmd), serving our core and generative workflows respectively.
@@ -69,7 +74,6 @@ print("Generated MSA: ", response.text)
 ## Endpoints
 
 ```{=html}
-  <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
   <script type="module">
     import getSwaggerJson from './utils/getSwaggerJson.js'
     import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';

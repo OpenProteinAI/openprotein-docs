@@ -3,6 +3,8 @@ title: PoET
 format:
   html:
     code-fold: true
+    include-in-header: 
+      - api-header.html
 ---
 
 Protein Evolutionary Transformer (`PoET`) is a machine learning model that generates and identifies protein sequence variants with improved function and stability. PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But `PoET` can accept any collection of sequences!
@@ -17,11 +19,13 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
 ## Endpoints
 
 
+
+
 ```{=html}
-  <script src="https://unpkg.com/swagger-ui-dist@5.1/swagger-ui-bundle.js"></script>
   <script type="module">
-    import getSwaggerJson from './utils/getSwaggerJson.js';
-    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
+    import getSwaggerJson from "./utils/getSwaggerJson.js"
+    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js'
+
     window.onload = async function() {
       // get swagerSpecs manipulated 
       const swagerSpecs = await getSwaggerJson('poet');
