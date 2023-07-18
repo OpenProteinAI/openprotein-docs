@@ -5,7 +5,7 @@ window.onload = async function () {
   // get swagerSpecs manipulated
   const swagerSpecs = await getSwaggerJson("project");
 
-  const ui = SwaggerUIBundle({
+  SwaggerUIBundle({
     spec: swagerSpecs,
     dom_id: "#swagger-ui",
     config: {
