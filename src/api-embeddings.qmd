@@ -4,7 +4,7 @@ format:
   html:
     code-fold: true
     include-in-header: 
-      - api-header.html
+      - shared/api-header.html
 ---
 
 The Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models. <br/>\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/model/metadata`. <br/>
@@ -23,7 +23,7 @@ These models are based on the ESM2 language model, with different version having
 
 ```{=html}
 <script type="module">
-  import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js';
+  import addSwaggerEndpointsToTOC from './js/addSwaggerEndpointsToTOC.js';
   window.onload = function() {
     const ui = SwaggerUIBundle({
       url: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",

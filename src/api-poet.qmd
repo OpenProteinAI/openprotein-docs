@@ -4,7 +4,7 @@ format:
   html:
     code-fold: true
     include-in-header: 
-      - api-header.html
+      - shared/api-header.html
 ---
 
 Protein Evolutionary Transformer (`PoET`) is a machine learning model that generates and identifies protein sequence variants with improved function and stability. PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But `PoET` can accept any collection of sequences!
@@ -23,8 +23,8 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
 
 ```{=html}
   <script type="module">
-    import getSwaggerJson from "./utils/getSwaggerJson.js"
-    import addSwaggerEndpointsToTOC from './utils/addSwaggerEndpointsToTOC.js'
+    import getSwaggerJson from "./js/getSwaggerJson.js"
+    import addSwaggerEndpointsToTOC from './js/addSwaggerEndpointsToTOC.js'
 
     window.onload = async function() {
       // get swagerSpecs manipulated 
@@ -43,6 +43,7 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
           if (!request.url.includes("openapi.json")) {
             request.url = "https://dev.api.openprotein.ai/" + requestPath
           }
+          request.headers['Access-Control-Allow-Headers'] = '*';
           return request;
         },
       })
