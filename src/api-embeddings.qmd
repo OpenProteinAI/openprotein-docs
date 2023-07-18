@@ -23,6 +23,5 @@ These models are based on the ESM2 language model, with different version having
 
 ```{=html}
 <script type="module" src="./js/swaggerEmbeddings.js"></script>
-<link rel="stylesheet" href="css/swagger-ui.css">
 <div id="swagger-ui"></div>
 ```

@@ -36,6 +36,5 @@ A trained model is required before design endpoints can be utilized.
 
 ```{=html}
   <script type="module" src="./js/swaggerProject.js"></script>
-  <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
 ```

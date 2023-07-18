@@ -1,6 +1,3 @@
-import getSwaggerJson from "./getSwaggerJson.js";
-import addSwaggerEndpointsToTOC from "./addSwaggerEndpointsToTOC.js";
-
 window.onload = async function () {
   // get swagerSpecs manipulated
   const swagerSpecs = await getSwaggerJson("auth");

@@ -20,6 +20,5 @@ Endpoints to call our generative `PoET` model for de novo generation of proteins
 
 ```{=html}
   <script type="module" src="./js/swaggerPoet.js"></script>
-  <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
 ```

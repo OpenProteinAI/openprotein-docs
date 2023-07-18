@@ -75,7 +75,5 @@ print("Generated MSA: ", response.text)
 
 ```{=html}
   <script type="module" src="./js/swaggerAuth.js"></script>
-  <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
-   
 ```
