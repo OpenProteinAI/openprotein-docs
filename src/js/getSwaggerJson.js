@@ -184,6 +184,10 @@ export default async function getSwaggerJson(swaggerType) {
     apiPathToShow = apiPathAuth;
     apiSchemasToShow = apiSchemasAuth;
     swagerSpecs.tags = apiTagsAuth;
+  } else if (swaggerType === "embeddings") {
+    // get the full swagger specs
+    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json")).json();
+    return swagerSpecs;
   }
   
   const filteredPathsToShow = {};
