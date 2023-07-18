@@ -74,34 +74,7 @@ print("Generated MSA: ", response.text)
 ## Endpoints
 
 ```{=html}
-  <script type="module">
-    import getSwaggerJson from './js/getSwaggerJson.js'
-    import addSwaggerEndpointsToTOC from './js/addSwaggerEndpointsToTOC.js';
-
-    window.onload = async function() {
-      // get swagerSpecs manipulated 
-      const swagerSpecs = await getSwaggerJson('auth');
-      
-      const ui = SwaggerUIBundle({
-        spec: swagerSpecs,
-        dom_id: "#swagger-ui",
-        config: {
-          deepLinking: true,
-          tagsSorter: "alpha",
-          docExpansion: "list",
-        },
-        requestInterceptor: (request) => {
-          const requestPath = request.url.split('/').slice(3).join('/')
-          if (!request.url.includes("openapi.json")) {
-            // Modify the request URL for other endpoints
-            request.url = "https://dev.api.openprotein.ai/" + requestPath
-          } 
-          return request;
-        },
-      });
-      addSwaggerEndpointsToTOC(4);
-    };
-  </script>
+  <script type="module" src="./js/swaggerAuth.js"></script>
   <link rel="stylesheet" href="css/swagger-ui.css">
   <div id="swagger-ui"></div>
    
