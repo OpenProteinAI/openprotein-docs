@@ -4,9 +4,9 @@ project:
     port: 5001
 
 website:
-  favicon: favicon.svg
+  favicon: './shared/favicon.svg'
   sidebar:
-    logo: 'logo.svg'
+    logo: './shared/logo.svg'
     style: "docked"
     search: true
     collapse-level: 1
