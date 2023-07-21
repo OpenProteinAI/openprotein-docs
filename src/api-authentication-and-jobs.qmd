@@ -33,18 +33,18 @@ For programmatic authorization, retrieve an access token through our `/login` en
 
 
 ```python
-  import requests
+import requests
 
-  # Get the access token using your login credentials:
-  r = requests.post("https://openprotein.ai/api/v1/login/user-access-token", data={"username": your_username, "password": your_password})
-  assert r.status_code==200
+# Get the access token using your login credentials:
+r = requests.post("https://openprotein.ai/api/v1/login/user-access-token", data={"username": your_username, "password": your_password})
+assert r.status_code==200
 
-  # Build the authorization header for subsequent requests
-  auth_header = {'Authorization': '{} {}'.format(r.json()['token_type'], r.json()['access_token'])}
+# Build the authorization header for subsequent requests
+auth_header = {'Authorization': '{} {}'.format(r.json()['token_type'], r.json()['access_token'])}
 
-  # Make authorized requests to our endpoints, for instance:
-  example_request = requests.get("https://openprotein.ai/api/v1/jobs", headers=auth_header)
-  print(f"Example request has status {example_request.status_code}")
+# Make authorized requests to our endpoints, for instance:
+example_request = requests.get("https://openprotein.ai/api/v1/jobs", headers=auth_header)
+print(f"Example request has status {example_request.status_code}")
 ```
 For easier usage, consider using session management:
 
@@ -60,7 +60,7 @@ Endpoints to track job status for asynchronous jobs. Use these to verify the sta
 
 ```python
 # Example of jobs 
-seed_sequence  = "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN" # Human INS sequence
+seed_sequence = "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN" # Human INS sequence
 example_request = requests.post("https://openprotein.ai/api/v1/poet/align/msa", files={"msa_file":seed_sequence.encode()}, headers=auth_header)
 job_id = example_request.json()['job_id']
 print(f"Example request has status {example_request.status_code} and jobid {job_id}")
