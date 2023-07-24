@@ -1,5 +1,5 @@
 
-export default addSwaggerEndpointsToTOC = (endpointPosition) => {
+export default function addSwaggerEndpointsToTOC(endpointPosition) {
   // Get table of content and add new ul element to the li of Endpoints
   const tocContainer = document.querySelector("#TOC ul");
   const tocEndpoints = tocContainer.querySelectorAll("li")[endpointPosition];
