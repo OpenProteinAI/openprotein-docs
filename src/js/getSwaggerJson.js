@@ -159,7 +159,7 @@ const apiTagsAuth = [
   },
 ];
 
-export default getSwaggerJson = async (swaggerType) => {
+export default async function getSwaggerJson (swaggerType) {
   let apiPathToShow = [];
   let apiSchemasToShow = [];
   let swagerSpecs = {};
