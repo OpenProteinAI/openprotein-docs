@@ -1,3 +1,4 @@
+import getEnvironment from "./getEnvironment.js";
 // Project swagger data to show
 const apiSchemasProject = [
   "AssayMetadata",
@@ -159,14 +160,31 @@ const apiTagsAuth = [
   },
 ];
 
+const devFetchUrls = {
+  projectUrl: "https://dev.api.openprotein.ai/api/v1/openapi.json",
+  poetUrl: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+  authUrl: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+  embeddingsUrl: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+}
+
+const prodFetchUrls = {
+  projectUrl: "https://api.openprotein.ai/api/v1/openapi.json",
+  poetUrl: "https://api.openprotein.ai/api/v1/poet/openapi.json",
+  authUrl: "https://api.openprotein.ai/api/v1/poet/openapi.json",
+  embeddingsUrl: "https://api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+}
+
 export default async function getSwaggerJson (swaggerType) {
   let apiPathToShow = [];
   let apiSchemasToShow = [];
   let swagerSpecs = {};
 
+  const environment = getEnvironment()
+  const fetchUrls = environment === "dev" ? devFetchUrls : prodFetchUrls
+
   if (swaggerType === "project") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/openapi.json")).json();
+    swagerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathProject;
     apiSchemasToShow = apiSchemasProject;
@@ -174,7 +192,7 @@ export default async function getSwaggerJson (swaggerType) {
   }
   else if (swaggerType === "poet") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/poet/openapi.json")).json();
+    swagerSpecs = await (await fetch(fetchUrls.poetUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathPoet;
     apiSchemasToShow = apiSchemasPoet;
@@ -182,7 +200,7 @@ export default async function getSwaggerJson (swaggerType) {
   }
   else if (swaggerType === "auth") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/openapi.json")).json();
+    swagerSpecs = await (await fetch(fetchUrls.authUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathAuth;
     apiSchemasToShow = apiSchemasAuth;
@@ -190,7 +208,7 @@ export default async function getSwaggerJson (swaggerType) {
   }
   else if (swaggerType === "embeddings") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch("https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json")).json();
+    swagerSpecs = await (await fetch(fetchUrls.embeddingsUrl)).json();
     return swagerSpecs;
   }
   
