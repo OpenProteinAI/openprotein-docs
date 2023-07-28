@@ -20,6 +20,16 @@ SwaggerUIBundle({
     request.headers["Access-Control-Allow-Headers"] = "*";
     return request;
   },
+  responseInterceptor: async (res) => {
+    if (res.data.type === 'application/json5') {
+      const text = await res.data.text();
+
+      res.data = text;
+      res.text = text;
+    }
+
+    return res;
+  },
 });
 
 addSwaggerEndpointsToTOC(2);
