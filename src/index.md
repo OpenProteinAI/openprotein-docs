@@ -6,8 +6,7 @@ Welcome to OpenProtein.AI! OpenProtein.AI is a powerful platform that seamlessly
 
 ## Getting started
 
-This section serves as a guide for users who are new to the OpenProtein.AI platform. It provides essential information and step-by-step instructions to help users get acquainted with the platform's capabilities and efficiently set up their accounts.This prepares them to explore the platform's capabilities, perform specific tasks, and leverage the various tools and features provided.
-
+Explore our platform with detailed documentation and step-by-step instructions to perform specific tasks, and leverage the various tools and features provided.
 
 ::: {.callout-tip} 
 ## New to our platform? Here’s how to get started!
@@ -19,7 +18,7 @@ This section serves as a guide for users who are new to the OpenProtein.AI platf
 
 ## Using the app
 
-The App provides project and data management, sequence-to-function ML model training, sequence analysis, and sequence design capabilities through an easy-to-use interface. The app is divided into two primary modules: Projects, which provides tools for iterative protein design, and PoET, our generative protein language model for de novo design. 
+Our web application provides an easy-to-use user interface for project and data management, sequence-to-function ML model training, sequence analysis, and sequence design capabilities. The app is divided into two primary modules: Projects, which provides tools for iterative protein design, and PoET, our generative protein language model for de novo design. 
 
 Visit the App docs to learn more:
 
@@ -30,7 +29,7 @@ Visit the App docs to learn more:
 
 ## Walkthrough
 
-This section provides step-by-step guides and tutorials to demonstrate the capabilities of the OpenProtein.AI platform and its features.The walkthroughs are accompanied by demo datasets that can be used to explore the platform. Explore the demo datasets, walkthroughs, and tutorials:
+Deep dive into our platform and its offerings through step-by-step guides and tutorials.The walkthroughs are accompanied by demo datasets that can be used to explore the platform. Explore the demo datasets, walkthroughs, and tutorials:
 
 * [Demo dataset](./demo-datasets-page.md)
 * [Walkthrough: ML-guided mutagenesis and sequence-to-function modeling](./mutagenesis-page.md)
@@ -39,4 +38,4 @@ This section provides step-by-step guides and tutorials to demonstrate the capab
 
 ## API docs
 
-The API Documentation provides a comprehensive guide to the endpoints available for interacting with the system's key modules: [Projects](./api-project.qmd), [PoET](./api-poet.qmd), and [Embeddings](./api-embeddings.qmd). By referring to this documentation, users can gain a clear understanding of the available API endpoints and effectively utilize the system's functionalities programmatically.
+The API Documentation provides a comprehensive guide to the endpoints available for interacting with the system's key modules: [Projects](./api-project.qmd), [PoET](./api-poet.qmd), and [Embeddings](./api-embeddings.qmd). Gain a clear understanding of the available API endpoints and effectively utilize the system's functionalities programmatically.
