@@ -7,6 +7,8 @@ This documentation hub contains all the information needed to get started with o
 
 After understanding our workflow offerings, we recommend reading our [Authentication and Jobs](./api-authentication-and-jobs.qmd) guide, as this contains fundamental information on API authorization and our asynchronous job API structure. Afterwhich, we recommend proceeding directly to the respective workflow pages - [Projects](./api-project.qmd), [PoET](./api-poet.qmd), [Embeddings](./api-embeddings.qmd).
 
+Another way of interacting with our API is throw the [python package](./python-package/index.qmd). 
+
 ## Authentication and Jobs
 Check out the steps for user authentication as well as the endpoints for jobs. On top of login instructions, we describe how our job system is designed and how jobs can be tracked. 
 
