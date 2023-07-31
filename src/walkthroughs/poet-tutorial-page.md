@@ -18,7 +18,7 @@ Chorismate mutase is a important enzyme involved in the biosynthesis of aromatic
 To generate single-substitution libraries, we can use the **Single site analysis** prediction tool. This tool generates and scores all single-substitution variants of the given query sequence. 
 
 <p align="center">
-  <img src="p2p_images/01_button.png" width="300">
+  <img src="../p2p_images/01_button.png" width="300">
 </p>
 
 First, define the query sequence for which we wish to generate all single substutions. 
@@ -32,11 +32,11 @@ DRERDLLERLITLGKAHHLDAHYITRLFQLIIEDSVLTQQALLQQH
 ```
 
 
-![Input the query sequence](p2p_images/02_input_query.gif)
+![Input the query sequence](../p2p_images/02_input_query.gif)
 
 Alternatively, if you already have an MSA or some other set of sequences that you wish to use as the prompt, you can also drop or select your own file. 
 
-![Input the custom prompt](p2p_images/03_custom_msa.gif)
+![Input the custom prompt](../p2p_images/03_custom_msa.gif)
 
 And that's all we need for the analysis! Click `Run` at the bottom of the page to generate and score all single site variant libraries. There are several other advanced options that we may want to play with after our initial run. However, the default options have been tuned to generate a reasonable starter library. 
 
@@ -48,11 +48,11 @@ The score assigned by PoET is the log likelihood of the sequence under the model
 
 As we can see, position 40 seems like a promising candidate for mutagenesis, with many mutations such as `L>D`, `L>E` and `L>A` all improving over the query sequence. 
 
-![Inspect the results](p2p_images/05_results.gif)
+![Inspect the results](../p2p_images/05_results.gif)
 
 The full results are available for export either as a csv or as a png. To do so, you can use the export button located at the top right hand corner of the page. Alternatively, you can also start a new single-site run against the same prompt either by selecting a particular variant sequence in the heatmap or in the table. Then, start a new single site analysis using `Run new...`. 
 
-![Export or start a new analysis](p2p_images/06_export_and_run_new.gif)
+![Export or start a new analysis](../p2p_images/06_export_and_run_new.gif)
 
 Congratulations! You have now created your first *de novo* variant library using PoET! 
 
@@ -64,14 +64,14 @@ Congratulations! You have now created your first *de novo* variant library using
 
 - You started with an ok sequence, but are stuck in a local optima. This means that there may be distant sequences that have even higher activity. However, these either cannot be found via a simple greedy optimization strategy, or may take an unreasonable number of steps to reach it. 
 
-![This greedy algorithm is going in the direction of the best local improvement but is actually moving further away from the global peak.](p2p_images/07_hillclimb.gif)
+![This greedy algorithm is going in the direction of the best local improvement but is actually moving further away from the global peak.](../p2p_images/07_hillclimb.gif)
 
 - You want to hedge your bets. Unfortunately, similar sequences are likely to share other possibly unwanted, but correlated properties. For example, a set of similar sequences may all have high activity but may also all be unstable or poorly expressed. Just as with investing, it is good to diversity your portfolio. 
 
 To generate high-diversity libraries, we can use the **Generate sequences** tool. 
 
 <p align="center">
-  <img src="p2p_images/08_button.png" width="300">
+  <img src="../p2p_images/08_button.png" width="300">
 </p>
 
 As in the single-site analysis tool, we have to specify the prompt. We will again use the sequence for chorismate mutase in *E. coli*. to seed the MSA. Since chorismate mutase is a relatively short protein, we will set the maximum generated protein length to 200. We also set the number of sequences to generate to 100. Hitting run then dispatches the generate job. 
@@ -82,17 +82,17 @@ TSENPLLALREKISALDEKLLALLAERRELAVEVGKAKLLSHRPVRDI
 DRERDLLERLITLGKAHHLDAHYITRLFQLIIEDSVLTQQALLQQH
 ```
 
-![Generate sequences](p2p_images/09_generate_sequences.gif)
+![Generate sequences](../p2p_images/09_generate_sequences.gif)
 
 Navigate to the Result tab to take a look at the generated sequences. Recall that the larger (less negative) the score, the higher the likelihood of the sequence under the model. We can use the table widget to filter our sequences to have some minimum score, and then export them for further analysis. 
 
-![Filter sequences to have a minimum score](p2p_images/10_filter_sequences.gif)
+![Filter sequences to have a minimum score](../p2p_images/10_filter_sequences.gif)
 
 However, looking at the table, we can already observe that only 1 sequence has a score higher than the original query sequence that we input in the original analysis. To generate more highly-scoring sequences, we might want to lower Top-p, which reduces the randomness of the sampling by only sampling from the top most likely amino acids up to the specified cumulative frequency. We can also lower the temperature, which emphasizes higher probability amino acids during sampling by raising the probability to the power of the temperature. 
 
 Let's try setting Top-p to 0.9! Here we can see that there are a lot more high-scoring sequences. 
 
-![Set Top-p to 0.9](p2p_images/11_top_p.gif)
+![Set Top-p to 0.9](../p2p_images/11_top_p.gif)
 
 ::: {.callout-note}
 Hover the tooltips to learn about how the different parameters affect the results! Although we have set reasonable defaults for many of these parameters, we recommend that you also try playing around with them to customize your libraries. 
@@ -111,14 +111,14 @@ Let's evaluate Prot2prot's scores against actual activity measurements for chori
 To evaluate query sequences against a given MSA, we can use the **Create query** tool. 
 
 <p align="center">
-  <img src="p2p_images/12_button.png" width="300">
+  <img src="../p2p_images/12_button.png" width="300">
 </p>
 
 First, provide the set of variant sequences that you wish score as the query input. The app expects the input in the form of a headerless csv file with the sequences in the first column. You can either download the raw data from [supplementary table 2](https://www.science.org/doi/suppl/10.1126/science.aba3304/suppl_file/aba3304_table_s2.xlsx) in the paper and munge it yourself, or use the pre-formatted version provided [here](https://drive.google.com/uc?export=download&id=1vYIjxEq_JUSwgkAcpAED9kzTvi_8euzu). Note that the activity measurement column is the last column ("norm r.e."). This is the normalized relative enrichment score that measures chorismate mutase catalytic activity as reported by their assay.
 
 https://drive.google.com/uc?export=download&id=1vYIjxEq_JUSwgkAcpAED9kzTvi_8euzu
 
-![Upload variant sequences as query input](p2p_images/13_query_variants.gif)
+![Upload variant sequences as query input](../p2p_images/13_query_variants.gif)
 
 Next, set as the prompt definition the sequence encoding chorismate mutase in E. coli. Check the box to use this sequence to automatically build the MSA. We will also set the number of prompts to ensemble to 3.  
 
@@ -132,14 +132,14 @@ DRERDLLERLITLGKAHHLDAHYITRLFQLIIEDSVLTQQALLQQH
 Ensembling more prompts improves prediction performance and reduces stochasticity from the prompt sampling. However, increasing the ensemble number has diminishing returns, while also taking longer to run. In general, we recommend using 3-5. 
 :::
 
-![Set the prompt definition](p2p_images/14_query_prompt.gif)
+![Set the prompt definition](../p2p_images/14_query_prompt.gif)
 
 Now click run, and voila! After a few moments, we can review the predicted scores in the `Result` tab.  
 
 Comparing the PoET likelihood scores to the measured chorismate mutase activity, we find that PoET is extremely predictive (r = 0.522, left) even without having seen any functional measurements. This gives us confidence that high-scoring sequences generated by PoET are good candidates for testing in downstream assays. 
 
 <p align="center">
-  <img src="p2p_images/15_query_downstream.png" width="600">
+  <img src="../p2p_images/15_query_downstream.png" width="600">
 </p>
 
 When we compare PoET performance against the evolutionary model by Russ et al. (right, r = 0.436), we even find that PoET performs better! 

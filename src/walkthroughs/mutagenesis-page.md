@@ -17,7 +17,7 @@ You may download the dataset [here](demo-datasets-page.md).
 
 ## Upload a dataset
 
-After creating your [project](dataset-page.md#creating-a-project), you
+After creating your [project](../app/dataset-page.md#creating-a-project), you
 will be prompted to upload a dataset. You can do so by clicking "Upload
 dataset" in the navigation panel or the project landing page will open a
 file explorer from which you can select your dataset file.

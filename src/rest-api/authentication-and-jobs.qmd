@@ -4,10 +4,10 @@ format:
   html:
     code-fold: true
     include-in-header: 
-      - shared/api-header.html
+      - ../shared/api-header.html
 ---
 
-Here’s a quick overview of our jobs system, and steps to access auth credentials for our APIs. Find more details on our endpoints at [Project](./api-project.qmd) and [PoET](./api-poet.qmd), serving our core and generative workflows respectively.
+Here’s a quick overview of our jobs system, and steps to access auth credentials for our APIs. Find more details on our endpoints at [Project](./project.qmd) and [PoET](./poet.qmd), serving our core and generative workflows respectively.
 
 
 ## Job System
@@ -74,6 +74,6 @@ print("Generated MSA: ", response.text)
 ## Endpoints
 
 ```{=html}
-  <script type="module" src="./js/swaggerAuth.js"></script>
+  <script type="module" src="../js/swaggerAuth.js"></script>
   <div id="swagger-ui"></div>
 ```

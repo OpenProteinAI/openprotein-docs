@@ -4,7 +4,7 @@ format:
   html:
     code-fold: true
     include-in-header: 
-      - shared/api-header.html
+      - ../shared/api-header.html
 ---
 
 Tap into the ‘Project’ module’s functionality and explore all endpoints available. Effortlessly access features like model training, making predictions, designing sequences based on properties, and checking job statuses—all programmatically for a seamless and efficient experience. 
@@ -35,6 +35,6 @@ A trained model is required before design endpoints can be utilized.
 ## Endpoints
 
 ```{=html}
-  <script type="module" src="./js/swaggerProject.js"></script>
+  <script type="module" src="../js/swaggerProject.js"></script>
   <div id="swagger-ui"></div>
 ```
