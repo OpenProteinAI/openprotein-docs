@@ -7,7 +7,7 @@ format:
       - shared/api-header.html
 ---
 
-This section provides detailed information about the endpoints available within the 'Project' module. These endpoints enable users to leverage the functionalities offered by the module and perform various actions programmatically. Using these endpoints, access features like train a model, make predictions, design sequences based on properties and check on job statuses.
+Tap into the ‘Project’ module’s functionality and explore all endpoints available. Effortlessly access features like model training, making predictions, designing sequences based on properties, and checking job statuses—all programmatically for a seamless and efficient experience. 
 
 ### Assaydata
 Endpoints to upload a dataset to OpenProtein’s engineering platform for training, predicting and evaluating tasks. The expected format of each dataset as 2 column CSV:

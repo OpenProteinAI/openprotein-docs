@@ -7,8 +7,10 @@ This documentation hub contains all the information needed to get started with o
 
 After understanding our workflow offerings, we recommend reading our [Authentication and Jobs](./api-authentication-and-jobs.qmd) guide, as this contains fundamental information on API authorization and our asynchronous job API structure. Afterwhich, we recommend proceeding directly to the respective workflow pages - [Projects](./api-project.qmd), [PoET](./api-poet.qmd), [Embeddings](./api-embeddings.qmd).
 
+Another way of interacting with our API is throw the [python package](./python-package/index.qmd). 
+
 ## Authentication and Jobs
-This section contains the steps for user authentication as well as the endpoints for jobs. On top of login instructions, we describe how our job system is designed and how jobs can be tracked. 
+Check out the steps for user authentication as well as the endpoints for jobs. On top of login instructions, we describe how our job system is designed and how jobs can be tracked. 
 
 The endpoints include:
 
@@ -16,7 +18,7 @@ The endpoints include:
   * Jobs
 
 ## Projects 
-This section includes endpoints for tasks under ‘Projects’ which enables analyzing datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants.
+Kickoff your projects by using the endpoints to enable analyzing datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants.
 
 The endpoints include: 
 
@@ -28,7 +30,7 @@ The endpoints include:
   * Embeddings
 
 ## PoET
-This section includes the endpoints for tasks under ‘PoET’ where users can design protein sequences de novo, without functional measurements of the protein of interest. Here, users can generate single substitution, combinatorial variant libraries, or a bespoke high-diversity library.
+Design de novo sequences using these endpoints, without functional measurements of the protein of interest. Our proprietary models enable generation of single substitution, combinatorial variant libraries, or a high-diversity library. 
 
 The endpoints include: 
 
@@ -36,7 +38,7 @@ The endpoints include:
   * PoET
 
 ## Embeddings 
-This section includes the endpoints for calculating raw embeddings on protein sequences using a number of proprietary and open-source models. 
+Learn more about the endpoints needed to calculate raw embeddings on protein sequences here! Our platform offers a range of endpoints that harness the power of both our proprietary and open-source models.
 
 The endpoints include:
 

@@ -163,14 +163,14 @@ const apiTagsAuth = [
 const devFetchUrls = {
   projectUrl: "https://dev.api.openprotein.ai/api/v1/openapi.json",
   poetUrl: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
-  authUrl: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+  authUrl: "https://dev.api.openprotein.ai/openapi.json",
   embeddingsUrl: "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
 }
 
 const prodFetchUrls = {
   projectUrl: "https://api.openprotein.ai/api/v1/openapi.json",
   poetUrl: "https://api.openprotein.ai/api/v1/poet/openapi.json",
-  authUrl: "https://api.openprotein.ai/api/v1/poet/openapi.json",
+  authUrl: "https://api.openprotein.ai/openapi.json",
   embeddingsUrl: "https://api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
 }
 
