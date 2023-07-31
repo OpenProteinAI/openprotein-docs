@@ -5,24 +5,10 @@ project:
 
 website:
   favicon: './shared/favicon.svg'
-  navbar:
-    logo: './shared/logo.svg'
-    search: false
-    background: white
-    right:
-      - text: "Home"
-        file: index.qmd
-      - text: "Tutorials"
-        file: tutorials.qmd
-      - text: "How-To"
-        file: howto.qmd
-      - text: "Fundamentals"
-        file: fundamentals.qmd
-      - text: "Reference"
-        file: reference.qmd
-
   sidebar:
-    style: floating
+    logo: './shared/logo.svg'
+    style: "docked"
+    search: true
     collapse-level: 1
     contents:
       - section: Getting Started
@@ -69,6 +55,7 @@ website:
           - api-poet.qmd
           - api-embeddings.qmd
     
+
 format:
   html:
     theme: cosmo
