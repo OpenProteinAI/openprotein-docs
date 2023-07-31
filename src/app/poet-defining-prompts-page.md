@@ -7,7 +7,7 @@ format:
 
 ## Defining the prompt
 
-![](p2p_images/46_prompt.png)
+![](../p2p_images/46_prompt.png)
 
 The prompt defines the target sequence distribution. It provides the PoET model with information about sequence constraints, local fitness landscape, and co-evolutionary patterns, from which PoET will infer a generative model over protein sequences. The prompt definition tools allow you to specify and control what sequences are used to define this generative context.
 
@@ -37,7 +37,7 @@ If your protein comes from a highly diverse family or you wish to explore a larg
 
 ## History
 
-![](p2p_images/47_history.png)
+![](../p2p_images/47_history.png)
 
 The PoET history page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job. It also provides quick access to the specific PoET tools in the bottom bar:
 * Create query
@@ -48,12 +48,12 @@ The PoET history page allows you to view and access past jobs, sorted by created
 
 Click “Create query” to go to the query tool. This tool allows you to score arbitrary sequences defined in a fasta or CSV file. It will calculate the log-likelihood of each sequence conditioned on the sequence context defined by the prompt.
 
-![](p2p_images/48_query_input.png)
+![](../p2p_images/48_query_input.png)
 
 This tool is useful if you want to score, prioritize, or rank specific sequence variants of interest. For example, you could score homologous sequences mined from a database, perform a synthetic alanine scan or deletion scan, or enumerate combinatorial mutations at specific sites.
 
 Clicking “run” will start the job. This could take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
-![](p2p_images/49_prots_result.png)
+![](../p2p_images/49_prots_result.png)
 
 The results are presented as a table, which can be sorted and downloaded. You can further explore the local fitness landscape of each sequence by using the quick links to the Single site analysis page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the “Add sequences” button.

@@ -10,10 +10,10 @@ Explore our platform with detailed documentation and step-by-step instructions t
 
 ::: {.callout-tip} 
 ## New to our platform? Here’s how to get started!
-* Get a [quick overview](./introduction-page.md) of OpenProtein.AI’s capabilities 
-* [Sign up](./account-page.md) for an account
-* Jump right into your first protein design project in our web app by following our [step-by-step tutorial](./design-page.md)
-* Learn about interacting with our [API service](./api-overview.qmd)
+* Get a [quick overview](./getting-started/introduction-page.md) of OpenProtein.AI’s capabilities 
+* [Sign up](./getting-started/account-page.md) for an account
+* Jump right into your first protein design project in our web app by following our [step-by-step tutorial](./app/design-page.md)
+* Learn about interacting with our [API service](./rest-api/overview.qmd)
 :::
 
 ## Using the app
@@ -22,20 +22,20 @@ Our web application provides an easy-to-use user interface for project and data 
 
 Visit the App docs to learn more:
 
-* [Projects](./dataset-page.md)
-* [PoET](./poet-introduction-page.md)
-* [Job status](./job-status-page.md)
+* [Projects](./app/dataset-page.md)
+* [PoET](./app/poet-introduction-page.md)
+* [Job status](./app/job-status-page.md)
 
 
 ## Walkthrough
 
 Deep dive into our platform and its offerings through step-by-step guides and tutorials.The walkthroughs are accompanied by demo datasets that can be used to explore the platform. Explore the demo datasets, walkthroughs, and tutorials:
 
-* [Demo dataset](./demo-datasets-page.md)
-* [Walkthrough: ML-guided mutagenesis and sequence-to-function modeling](./mutagenesis-page.md)
-* [Tutorial: Designing de novo variant libraries using PoET](./poet-tutorial-page.md)
-* [Tutorial: Generating substrate specific thiolases with PoET](./poet-thiolase-codehidden.ipynb)
+* [Demo dataset](./walkthroughs/demo-datasets-page.md)
+* [Walkthrough: ML-guided mutagenesis and sequence-to-function modeling](./walkthroughs/mutagenesis-page.md)
+* [Tutorial: Designing de novo variant libraries using PoET](./walkthroughs/poet-tutorial-page.md)
+* [Tutorial: Generating substrate specific thiolases with PoET](./walkthroughs/poet-thiolase-codehidden.ipynb)
 
 ## API docs
 
-The API Documentation provides a comprehensive guide to the endpoints available for interacting with the system's key modules: [Projects](./api-project.qmd), [PoET](./api-poet.qmd), and [Embeddings](./api-embeddings.qmd). Gain a clear understanding of the available API endpoints and effectively utilize the system's functionalities programmatically.
+The API Documentation provides a comprehensive guide to the endpoints available for interacting with the system's key modules: [Projects](./rest-api/project.qmd), [PoET](./rest-api/poet.qmd), and [Embeddings](./rest-api/embeddings.qmd). Gain a clear understanding of the available API endpoints and effectively utilize the system's functionalities programmatically.

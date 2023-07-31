@@ -5,58 +5,93 @@ project:
 
 website:
   favicon: './shared/favicon.svg'
+  search:
+    location: navbar
+    type: textbox
+  navbar:
+    logo: './shared/logo.png'
+    background: white
+    search: false
+    right:
+      - text: "Getting Started"
+        file: ./getting-started/introduction-page.md
+      - text: "Using the App"
+        file: ./app/dataset-page.md
+      - text: "Walkthroughs"
+        file: ./walkthroughs/demo-datasets-page.md
+      - text: "Python API docs"
+        href: https://dev.docs.openprotein.ai/api-python/overview.html
+      - text: "REST API docs"
+        file: ./rest-api/overview.qmd
   sidebar:
-    logo: './shared/logo.svg'
-    style: "docked"
-    search: true
-    collapse-level: 1
-    contents:
-      - section: Getting Started
-        contents:
-          - introduction-page.md
-          - account-page.md
-      - section: Using the App
-        contents:
-          - section: Project
+    - id: api
+      title: "API docs"
+      background: white
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - ./rest-api/overview.qmd
+        - ./rest-api/authentication-and-jobs.qmd
+        - ./rest-api/project.qmd
+        - ./rest-api/poet.qmd
+        - ./rest-api/embeddings.qmd
+
+    - id: getting-started
+      title: "Getting Started"
+      style: "docked"
+      collapse-level: 2
+      align: left
+      contents:
+        - ./getting-started/introduction-page.md
+        - ./getting-started/account-page.md
+
+    - id: walkthroughs
+      title: "Walkthroughs"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - ./walkthroughs/demo-datasets-page.md
+        - ./walkthroughs/mutagenesis-page.md
+        - ./walkthroughs/poet-tutorial-page.md
+        - ./walkthroughs/poet-thiolase-codehidden.ipynb
+        - ./walkthroughs/core_demo.ipynb
+
+    - id: app
+      title: "Using the App"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - section: Project
+          contents:
+          - section: "Dataset"
             contents:
-            - section: "Dataset"
-              contents:
-              - dataset-page.md
-              - visualizations-page.md
-            - predictions-page.md
-            - section: "Design"
-              contents:
-              - design-page.md
-              - library-page.md
-            - section: Models
-              contents:
-                - models-page.md
-                - cross-validation-page.md
-          - section: PoET
+            - ./app/dataset-page.md
+            - ./app/visualizations-page.md
+          - ./app/predictions-page.md
+          - section: "Design"
             contents:
-              - poet-introduction-page.md
-              - poet-defining-prompts-page.md
-              - poet-tools-page.md
-          - job-status-page.md
-      - section: "Walkthroughs"
-        contents:
-          - demo-datasets-page.md
-          - mutagenesis-page.md
-          - poet-tutorial-page.md
-          - poet-thiolase-codehidden.ipynb
-      - section: "Python package"
-        contents: 
-          - python-package/core_demo.ipynb
-      - section: "API docs"
-        contents:
-          - api-overview.qmd
-          - api-authentication-and-jobs.qmd
-          - api-project.qmd
-          - api-poet.qmd
-          - api-embeddings.qmd
-    
+            - ./app/design-page.md
+            - ./app/library-page.md
+          - section: Models
+            contents:
+              - ./app/models-page.md
+              - ./app/cross-validation-page.md
+        - section: PoET
+          contents:
+            - ./app/poet-introduction-page.md
+            - ./app/poet-defining-prompts-page.md
+            - ./app/poet-tools-page.md
+        - ./app/job-status-page.md
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: [cosmo, theme.scss]
     toc: true
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 300px

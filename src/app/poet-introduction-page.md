@@ -18,7 +18,7 @@ Given a *prompt*, you can
 ## Accessing PoET
 
 <p align="center">
-  <img src="p2p_images/45_access_prots.png" width="350">
+  <img src="../p2p_images/45_access_prots.png" width="350">
 </p>
 
 PoET tools can be found in the “PoET…” dropdown menu in the header bar of the OpenProtein.AI web app.
