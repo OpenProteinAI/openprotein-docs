@@ -1,5 +1,6 @@
 import addSwaggerEndpointsToTOC from "./addSwaggerEndpointsToTOC.js";
 import getSwaggerJson from "./getSwaggerJson.js";
+import getBackendUrl from "./getBackendUrl.js";
 
 // get swagerSpecs manipulated
 const swagerSpecs = await getSwaggerJson("embeddings");
@@ -14,7 +15,8 @@ SwaggerUIBundle({
   },
   requestInterceptor: (request) => {
     const requestPath = request.url.split("/").slice(3).join("/");
-    request.url = "https://dev.api.openprotein.ai/" + requestPath;
+    const backendUrl = getBackendUrl()
+    request.url = backendUrl + requestPath;
 
     return request;
   },

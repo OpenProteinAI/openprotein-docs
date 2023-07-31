@@ -1,5 +1,6 @@
 import addSwaggerEndpointsToTOC from "./addSwaggerEndpointsToTOC.js";
 import getSwaggerJson from "./getSwaggerJson.js";
+import getBackendUrl from "./getBackendUrl.js";
 
 // get swagerSpecs manipulated
 const swagerSpecs = await getSwaggerJson("auth");
@@ -15,8 +16,9 @@ SwaggerUIBundle({
   requestInterceptor: (request) => {
     const requestPath = request.url.split("/").slice(3).join("/");
     if (!request.url.includes("openapi.json")) {
+      const backendUrl = getBackendUrl()
       // Modify the request URL for other endpoints
-      request.url = "https://dev.api.openprotein.ai/" + requestPath;
+      request.url = backendUrl + requestPath;
     }
     return request;
   },
