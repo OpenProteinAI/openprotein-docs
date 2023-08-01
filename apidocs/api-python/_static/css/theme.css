@@ -5536,7 +5536,7 @@ a:hover {
 }
 
 a:visited {
-    color: #9b59b6;
+    color: #2980b9;
 }
 
 html {
@@ -5939,7 +5939,7 @@ html {
 
 .wy-menu-vertical header,
 .wy-menu-vertical p.caption {
-    color: #55a5d9;
+    color: #2980b9;
     height: 32px;
     line-height: 32px;
     padding: 0 1.618em;
@@ -5964,17 +5964,16 @@ html {
 }
 
 .wy-menu-vertical li.current {
-    background: #e3e3e3;
+    background: rgba(240, 243, 245, 1)
 }
 
 .wy-menu-vertical li.current a {
-    color: grey;
-    border-right: 1px solid #c9c9c9;
-    padding: 0.4045em 2.427em;
+    color: rgba(74, 77, 82, 1);
+    padding: 0.6em 2.427em;
 }
 
 .wy-menu-vertical li.current a:hover {
-    background: #d6d6d6;
+    background: white;
 }
 
 .rst-content .wy-menu-vertical li tt,
@@ -6005,7 +6004,7 @@ html {
     position: relative;
     background: #fcfcfc;
     border: none;
-    padding: 0.4045em 1.618em;
+    padding: 0.6em 1.618em;
 }
 
 .wy-menu-vertical li.current>a:hover,
@@ -6204,15 +6203,16 @@ html {
 
 .wy-menu-vertical a {
     line-height: 18px;
-    padding: 0.4045em 1.618em;
-    display: block;
     position: relative;
+    padding: 0.6em 1.618em;
+    display: block;
     font-size: 90%;
-    color: #d9d9d9;
+    color: #000;
+    
 }
 
 .wy-menu-vertical a:hover {
-    background-color: #4e4a4a;
+    background-color: white;
     cursor: pointer;
 }
 
@@ -6221,13 +6221,13 @@ html {
 }
 
 .wy-menu-vertical a:active {
-    background-color: #2980b9;
+    background-color: rgba(219, 231, 255, 1);
     cursor: pointer;
     color: #fff;
 }
 
 .wy-menu-vertical a:active button.toctree-expand {
-    color: #fff;
+    color: #000;
 }
 
 .wy-side-nav-search {
@@ -6236,7 +6236,7 @@ html {
     padding: 0.809em;
     margin-bottom: 0.809em;
     z-index: 200;
-    background-color: #2980b9;
+    background-color: rgba(240, 243, 245, 1);
     text-align: center;
     color: #fcfcfc;
 }
@@ -6245,22 +6245,19 @@ html {
     width: 100%;
     border-radius: 50px;
     padding: 6px 12px;
-    border-color: #2472a4;
+    border-color: rgba(74, 77, 82, 1);
 }
 
 .wy-side-nav-search img {
     display: block;
-    margin: auto auto 0.809em;
-    height: 45px;
-    width: 45px;
-    background-color: #2980b9;
+    height: 40px;
+    width: auto;
     padding: 5px;
-    border-radius: 100%;
 }
 
 .wy-side-nav-search .wy-dropdown>a,
 .wy-side-nav-search>a {
-    color: #fcfcfc;
+    color: rgba(74, 77, 82, 1);
     font-size: 100%;
     font-weight: 700;
     display: inline-block;
@@ -6302,7 +6299,7 @@ html {
 }
 
 .wy-nav .wy-menu-vertical a {
-    color: #b3b3b3;
+    color: #000;
 }
 
 .wy-nav .wy-menu-vertical a:hover {
@@ -6358,8 +6355,7 @@ html {
     overflow-x: hidden;
     overflow-y: hidden;
     min-height: 100%;
-    color: #9b9b9b;
-    background: #343131;
+    background: rgba(240, 243, 245, 1);
     z-index: 200;
 }
 
@@ -6567,7 +6563,7 @@ footer span.commit code {
 
 @media screen and (min-width: 1100px) {
     .wy-nav-content-wrap {
-        background: rgba(0, 0, 0, 0.05);
+        background: #fcfcfc;
     }
 
     .wy-nav-content {
@@ -7905,4 +7901,8 @@ span[id*="MathJax-Span"] {
         url(fonts/Roboto-Slab-Bold.woff2?9984f4a9bda09be08e83f2506954adbe) format("woff2"),
         url(fonts/Roboto-Slab-Bold.woff?bed5564a116b05148e3b3bea6fb1162a) format("woff");
     font-display: block;
+}
+
+.logo-openprotein {
+    width: 200px;
 }
