@@ -73,7 +73,6 @@ website:
         - ./walkthroughs/mutagenesis-page.md
         - ./walkthroughs/poet-tutorial-page.md
         - ./walkthroughs/poet-thiolase-codehidden.ipynb
-        - ./walkthroughs/core_demo.ipynb
 
     - id: app
       title: "Using the App"
