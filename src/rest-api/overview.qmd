@@ -7,7 +7,7 @@ This documentation hub contains all the information needed to get started with o
 
 After understanding our workflow offerings, we recommend reading our [Authentication and Jobs](./authentication-and-jobs.qmd) guide, as this contains fundamental information on API authorization and our asynchronous job API structure. Afterwhich, we recommend proceeding directly to the respective workflow pages - [Projects](./project.qmd), [PoET](./poet.qmd), [Embeddings](./embeddings.qmd).
 
-Another method for interacting with our API is by using our Python API. Find out more [here](https://dev.docs.openprotein.ai/api-python/overview.html).
+Another method for interacting with our API is by using our Python API. Find out more [here](https://dev.docs.openprotein.ai/api-python/index.html).
 
 ## Authentication and Jobs
 Check out the steps for user authentication as well as the endpoints for jobs. On top of login instructions, we describe how our job system is designed and how jobs can be tracked. 

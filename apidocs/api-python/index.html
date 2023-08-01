@@ -30,8 +30,8 @@
 
           
           
-          <a href="#" class="icon icon-home">
-            OpenProtein-Python
+          <a href="#">
+            <img src="./logo.png" alt="OpenProtein" />
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -41,9 +41,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Welcome to the docs!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">AssayData</a></li>
 <li class="toctree-l1"><a class="reference internal" href="train.html">Train</a></li>
 <li class="toctree-l1"><a class="reference internal" href="predict.html">Predict</a></li>
@@ -57,30 +55,38 @@
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">OpenProtein-Python</a>
-      </nav>
+      <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+      <a href="index.html">OpenProtein-Python</a>
+  </nav>
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to OpenProtein’s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+  <div class="wy-nav-content">
+    <div class="rst-content">
+      <div role="navigation" aria-label="Page navigation">
+<ul class="wy-breadcrumbs">
+  <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+  <li class="breadcrumb-item active">Welcome to the docs!</li>
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://dev.docs.openprotein.ai/" rel="nofollow"> Back to documentation</a>
+  </li>
+</ul>
+<hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="welcome-to-openprotein-s-documentation">
-<h1>Welcome to OpenProtein’s documentation!<a class="headerlink" href="#welcome-to-openprotein-s-documentation" title="Permalink to this heading"></a></h1>
-<blockquote>
-<div><p>The documentation is divided into each core workflow below:</p>
-</div></blockquote>
+      <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+       <div itemprop="articleBody">
+         
+<section id="welcome-to-the-docs">
+<h1>Welcome to the docs!<a class="headerlink" href="#welcome-to-the-docs" title="Permalink to this heading"></a></h1>
+<p>Welcome to OpenProtein.AI!</p>
+<p>OpenProtein.AI is a powerful platform that seamlessly integrates state-of-the-art machine learning and generative models into protein engineering workflows.</p>
+<p>To get started, we recommend familiarizing yourself with the structure of our asynchronous job system as well as our core workflows. Easily build and deploy high-performance Bayesian protein function predictors, or apply generative protein language models to design sequence libraries, all via our integrated platform.</p>
+<p>OpenProtein.ai can also be accessed via both our <a href="https://docs.openprotein.ai/">web application</a> and <a href="http://docs.openprotein.ai/rest-api/overview.html">REST API</a></p>
+<section id="job-system">
+<h2>Job system<a class="headerlink" href="#job-system" title="Permalink to this heading"></a></h2>
+<p>The platform operates as an asynchronous POST and GET framework. By initiating a task with our python client, the system schedules the job and promptly returns a response (including a unique Job ID). This approach ensures that tasks, even those with longer processing times, do not require immediate waiting.</p>
+<p>When you submit a task, such as <code class="docutils literal notranslate"><span class="pre">session.poet.create_msa()</span></code> you will have a Future Class returned for results tracking and access. You can check a job’s status by calling the <code class="docutils literal notranslate"><span class="pre">refresh()</span></code> and <code class="docutils literal notranslate"><span class="pre">done()</span></code> methods on this Future Class. Additionally, you can call <code class="docutils literal notranslate"><span class="pre">wait()</span></code> to wait and return the results (or <code class="docutils literal notranslate"><span class="pre">get()</span></code> if results are already completed).</p>
+<p>Additionally, you can resume a workflow by <code class="docutils literal notranslate"><span class="pre">load_job</span></code> and using the unique job ID you got at task execution. <code class="docutils literal notranslate"><span class="pre">load_job</span></code> will resume your workflow by returning a Future Class for further manipulation (as above).</p>
+<p>Read on for more specific documentation, and check our demo workflows to see more!</p>
+</section>
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h2>
 <table class="docutils align-default">
@@ -127,33 +133,27 @@
 </section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="overview.html" class="btn btn-neutral float-right" title="Welcome to the docs!" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+       </div>
+      </div>
+      <footer>
 
-  <hr/>
+<hr/>
 
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, NE47.bio.</p>
-  </div>
+<div role="contentinfo">
+<p>&#169; Copyright 2023, NE47.bio.</p>
+</div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
 </footer>
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+</section>
+</div>
+<script>
+  jQuery(function () {
+      SphinxRtdTheme.Navigation.enable(true);
+  });
+</script> 
 
 </body>
 </html>
