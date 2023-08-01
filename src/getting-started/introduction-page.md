@@ -3,11 +3,6 @@ title: Introduction to OpenProtein
 format:
   html:
     code-fold: true
-sidebar:
-  - section: Getting Started
-    contents:
-      - introduction-page.md
-      - account-page.md
 ---
 OpenProtein.AI is a powerful platform that leverages state-of-the-art machine learning techniques to facilitate protein engineering and analysis.
 

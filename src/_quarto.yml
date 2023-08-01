@@ -20,10 +20,27 @@ website:
       - text: "Walkthroughs"
         file: ./walkthroughs/demo-datasets-page.md
       - text: "Python API docs"
-        href: https://dev.docs.openprotein.ai/api-python/overview.html
+        href: https://dev.docs.openprotein.ai/api-python/index.html
       - text: "REST API docs"
         file: ./rest-api/overview.qmd
   sidebar:
+    - id: main
+      background: white
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - text: "Getting Started"
+          file: ./getting-started/introduction-page.md
+        - text: "Using the App"
+          file: ./app/dataset-page.md
+        - text: "Walkthroughs"
+          file: ./walkthroughs/demo-datasets-page.md
+        - text: "Python API docs"
+          href: https://dev.docs.openprotein.ai/api-python/index.html
+        - text: "REST API docs"
+          file: ./rest-api/overview.qmd
+
     - id: api
       title: "API docs"
       background: white
@@ -39,7 +56,7 @@ website:
 
     - id: getting-started
       title: "Getting Started"
-      style: "docked"
+      style: "floating"
       collapse-level: 2
       align: left
       contents:
