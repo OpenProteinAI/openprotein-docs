@@ -6024,11 +6024,6 @@ html {
     color: #333;
 }
 
-.wy-menu-vertical li.toctree-l1.current>a {
-    border-bottom: 1px solid #c9c9c9;
-    border-top: 1px solid #c9c9c9;
-}
-
 .wy-menu-vertical .toctree-l1.current .toctree-l2>ul,
 .wy-menu-vertical .toctree-l2.current .toctree-l3>ul,
 .wy-menu-vertical .toctree-l3.current .toctree-l4>ul,
@@ -6170,7 +6165,7 @@ html {
 
 .wy-menu-vertical li.toctree-l2.current>a,
 .wy-menu-vertical li.toctree-l2.current li.toctree-l3>a {
-    background: #c9c9c9;
+    background: rgba(240, 243, 245, 1);
 }
 
 .wy-menu-vertical li.toctree-l2 button.toctree-expand {
@@ -6179,7 +6174,7 @@ html {
 
 .wy-menu-vertical li.toctree-l3.current>a,
 .wy-menu-vertical li.toctree-l3.current li.toctree-l4>a {
-    background: #bdbdbd;
+    background: rgba(240, 243, 245, 1);
 }
 
 .wy-menu-vertical li.toctree-l3 button.toctree-expand {
