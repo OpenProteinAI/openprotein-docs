@@ -6,27 +6,27 @@ project:
 website:
   favicon: './shared/favicon.svg'
   search:
-    location: navbar
+    location: sidebar
     type: textbox
   navbar:
+    background: '#F0F3F5'
     logo: './shared/logo.png'
-    background: white
     search: false
-    right:
+    left:
       - text: "Getting Started"
         file: ./getting-started/introduction-page.md
       - text: "Using the App"
         file: ./app/dataset-page.md
       - text: "Walkthroughs"
         file: ./walkthroughs/demo-datasets-page.md
-      - text: "Python API docs"
-        href: https://dev.docs.openprotein.ai/api-python/index.html
       - text: "REST API docs"
         file: ./rest-api/overview.qmd
+      - text: "Python API docs"
+        href: https://dev.docs.openprotein.ai/api-python/index.html
   sidebar:
     - id: main
-      background: white
-      style: "floating"
+      background: '#F0F3F5'
+      style: "docked"
       collapse-level: 2
       align: left
       contents:
@@ -36,15 +36,14 @@ website:
           file: ./app/dataset-page.md
         - text: "Walkthroughs"
           file: ./walkthroughs/demo-datasets-page.md
-        - text: "Python API docs"
-          href: https://dev.docs.openprotein.ai/api-python/index.html
         - text: "REST API docs"
           file: ./rest-api/overview.qmd
+        - text: "Python API docs"
+          href: https://dev.docs.openprotein.ai/api-python/index.html
 
     - id: api
       title: "API docs"
-      background: white
-      style: "floating"
+      style: "docked"
       collapse-level: 2
       align: left
       contents:
@@ -56,7 +55,7 @@ website:
 
     - id: getting-started
       title: "Getting Started"
-      style: "floating"
+      style: "docked"
       collapse-level: 2
       align: left
       contents:
@@ -65,7 +64,7 @@ website:
 
     - id: walkthroughs
       title: "Walkthroughs"
-      style: "floating"
+      style: "docked"
       collapse-level: 2
       align: left
       contents:
@@ -76,7 +75,7 @@ website:
 
     - id: app
       title: "Using the App"
-      style: "floating"
+      style: "docked"
       collapse-level: 2
       align: left
       contents:
@@ -108,6 +107,6 @@ format:
       light: [cosmo, theme.scss]
     toc: true
     grid:
-      sidebar-width: 250px
+      sidebar-width: 330px
       body-width: 900px
       margin-width: 300px

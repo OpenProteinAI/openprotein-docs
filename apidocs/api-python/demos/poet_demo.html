@@ -36,7 +36,7 @@
 
           
           
-          <a href="index.html">
+          <a href="../index.html">
             <img src="../_static/logo.png" alt="OpenProtein" />
           </a>
 <div role="search">
@@ -47,7 +47,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-             
+              
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Session management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../core_workflow.html">Asssay-based Sequence Learning</a></li>
@@ -89,7 +89,7 @@
           <li class="breadcrumb-item"><a href="../poet_workflow.html">De Novo prediction &amp; generative models (PoET)</a></li>
       <li class="breadcrumb-item active">Demo of PoET functionality</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/demos/poet_demo.ipynb.txt" rel="nofollow"> View page source</a>
+        <a href="https://dev.docs.openprotein.ai/" rel="nofollow"> Back to documentation</a>
       </li>
   </ul>
   <hr/>
@@ -129,27 +129,18 @@
 <section id="Setup">
 <h2>Setup<a class="headerlink" href="#Setup" title="Permalink to this heading"></a></h2>
 <p>Connect to the OpenProtein backend with your credentials:</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openprotein</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;secrets.config&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../secrets.config&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="n">session</span> <span class="o">=</span> <span class="n">openprotein</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">username</span><span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span> <span class="n">password</span><span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span> <span class="n">backend</span><span class="o">=</span> <span class="s2">&quot;https://dev.api.openprotein.ai/api/&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">backend</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">openprotein</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">username</span><span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span> <span class="n">password</span><span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-https://dev.api.openprotein.ai/api/
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
