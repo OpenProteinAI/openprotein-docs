@@ -8,10 +8,15 @@ RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 
-# Install quarto
+# Install quarto linux
 RUN curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v1.3.340/quarto-1.3.340-linux-amd64.deb && \
     dpkg -i quarto-1.3.340-linux-amd64.deb && \
     rm quarto-1.3.340-linux-amd64.deb
+
+# Install quarto macos
+# RUN curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v1.3.433/quarto-1.3.433-linux-arm64.deb && \
+#     dpkg -i quarto-1.3.433-linux-arm64.deb && \
+#     rm quarto-1.3.433-linux-arm64.deb
 
 COPY src /build
 
