@@ -19,4 +19,6 @@ strongly with the ground truth measurements, indicating that these
 models are able to accurately predict substrate activity for unseen
 sequence variants.
 
-![](/main_tutorial_images/32_cross_valid.png)
+<p align="center">
+  <img style="display:flex;" src="/main_tutorial_images/32_cross_valid.png" ></img>
+</p>
