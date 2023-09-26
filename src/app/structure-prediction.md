@@ -1,5 +1,5 @@
 ---
-title: Structural Prediction
+title: Structure Prediction
 format:
   html:
     code-fold: true
