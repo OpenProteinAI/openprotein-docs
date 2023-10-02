@@ -60,7 +60,7 @@ explore variants more distant from your mutagenesis dataset.
 ## Examining design results
 
 This article details the suite of visualizations methods available on
-the platform 
+the platform. 
 
 ### UMAP 
 
@@ -71,6 +71,13 @@ change the property the new points are colored by in the color options
 panel. The designed sequences are colored by predicted properties.
 
 ![](/main_tutorial_images/20_results.png)
+
+#### Viewing sequences on the UMAP: select and highlight
+In UMAP, pinpoint specific sequences by either clicking on individual points or by holding down the 'Shift' button while dragging to select multiple points. These chosen points will be highlighted in the Design Results Table.
+
+Toggle the visibility of sequences in UMAP by simply clicking the 'eye' icon in the Design Results Table.
+
+![](/main_tutorial_images/seq_select.gif)
 
 ### Histogram
 
@@ -99,12 +106,17 @@ score, larger (closer to zero) is better.
 
 ![](/main_tutorial_images/23_design_table.png)
 
+:::{.callout-note} To view where mutations have been introduced to your generated sequences, add a reference sequence and select 'Show mutations'. :::
+
 The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
 
 <p align="center">
   <img src="/main_tutorial_images/24_filter.png" width="350">
 </p>
+
+:::{.callout-note}  :::
+
 
 ## Exporting results
 
