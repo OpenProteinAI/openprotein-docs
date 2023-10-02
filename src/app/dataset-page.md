@@ -13,7 +13,9 @@ have the following columns:
 * the full sequence of each variant and 
 * additional columns with measurement values associated with each variant.
 
-![](/main_tutorial_images/03_csv_seq.png)
+<p align="center">
+  <img style="display:flex;" src="/main_tutorial_images/03_csv_seq.png" width="800" height="250"></img>
+</p>
 
 To upload your dataset to the protein engineering platform, format it as
 a CSV table with two columns: the full sequence of each variant and
@@ -24,7 +26,9 @@ If you use mutation codes, specify the full wildtype sequence in the
 "Sequence options" dropdown, and the platform will enumerate the full
 sequence of each variant.
 
-![](/main_tutorial_images/04_csv_mutant.png)
+<p align="center">
+  <img style="display:flex;" src="/main_tutorial_images/04_csv_mutant.png" width="650" height="500"></img>
+</p>
 
 ## Creating a project
 

@@ -89,6 +89,7 @@ website:
           - section: "Design"
             contents:
             - ./app/design-page.md
+            - ./app/reference-sequence.md
             - ./app/library-page.md
           - section: Models
             contents:
@@ -99,6 +100,7 @@ website:
             - ./app/poet-introduction-page.md
             - ./app/poet-defining-prompts-page.md
             - ./app/poet-tools-page.md
+        - ./app/structure-prediction.md
         - ./app/job-status-page.md
 
 format:
