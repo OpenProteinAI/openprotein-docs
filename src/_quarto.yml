@@ -22,7 +22,7 @@ website:
       - text: "REST API docs"
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
-        href: https://dev.docs.openprotein.ai/api-python/index.html
+        href: https://docs.openprotein.ai/api-python/index.html
   sidebar:
     - id: main
       background: '#F0F3F5'
@@ -39,7 +39,7 @@ website:
         - text: "REST API docs"
           file: ./rest-api/overview.qmd
         - text: "Python API docs"
-          href: https://dev.docs.openprotein.ai/api-python/index.html
+          href: https://docs.openprotein.ai/api-python/index.html
 
     - id: api
       title: "API docs"
