@@ -89,6 +89,7 @@ website:
           - section: "Design"
             contents:
             - ./app/design-page.md
+            - ./app/reference-sequence.md
             - ./app/library-page.md
           - section: Models
             contents:
