@@ -24,6 +24,7 @@ Visit the App docs to learn more:
 
 * [Projects](./app/dataset-page.md)
 * [PoET](./app/poet-introduction-page.md)
+* [Structure prediction](./app/structure-prediction.md)
 * [Job status](./app/job-status-page.md)
 
 
