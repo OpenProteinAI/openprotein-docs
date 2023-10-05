@@ -106,7 +106,9 @@ score, larger (closer to zero) is better.
 
 ![](/main_tutorial_images/23_design_table.png)
 
-:::{.callout-note} To view where mutations have been introduced to your generated sequences, add a reference sequence and select 'Show mutations'. :::
+::: {.callout-note}
+To view where mutations have been introduced to your generated sequences, add a [reference sequence](https://docs.openprotein.ai/app/reference-sequence.html) and select 'Show mutations'.
+:::
 
 The filter icon next to each column name also allows you to set simple
 filters that can be applied to the designs.
@@ -114,8 +116,6 @@ filters that can be applied to the designs.
 <p align="center">
   <img src="/main_tutorial_images/24_filter.png" width="350">
 </p>
-
-:::{.callout-note}  :::
 
 
 ## Exporting results
