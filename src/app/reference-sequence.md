@@ -1,4 +1,4 @@
-# Visualizing sequence variants using a reference sequence
+# Reference sequence
 ## What is a reference sequence?
 A reference sequence serves as the benchmark for comparing the generated results. It can either be your parent sequence or any sequence-of-interest that you want to use as a point of comparison. With this, you can view mutation sites to better understand specific variants present in your sequence libraries and designs.
 
