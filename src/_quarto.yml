@@ -4,7 +4,6 @@ project:
     port: 5001
 
 website:
-  google-analytics: "G-SS7ET8W19C"
   favicon: './shared/favicon.svg'
   search:
     location: sidebar
