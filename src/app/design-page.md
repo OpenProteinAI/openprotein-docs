@@ -22,9 +22,7 @@ The design algorithm is set to run for 10 steps by default. However, to
 generate more candidate sequences and allow the algorithm more time to
 find potentially better variants, this number can be increased.
 
-<p align="center">
-  <img src="/main_tutorial_images/19_iteration.png" width="450">
-</p>
+![](/main_tutorial_images/19_iteration.png)
 
 After adjusting the settings, click "Generate design" to initiate the
 algorithm. The design will be saved and can be accessed from the

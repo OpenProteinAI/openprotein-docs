@@ -89,6 +89,7 @@ website:
           - ./app/predictions-page.md
           - section: "Design"
             contents:
+            - ./app/project-design-objectives.md
             - ./app/design-page.md
             - ./app/reference-sequence.md
             - ./app/library-page.md
