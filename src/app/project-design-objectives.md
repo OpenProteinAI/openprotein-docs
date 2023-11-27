@@ -11,4 +11,6 @@ By creating project design objectives, you set and customize design objectives f
 
 First, you will need to upload your dataset and each property will be automatically detected and shown on your project page. Next, you can set your design objectives for the project. Your objectives should be reflected when creating a design. 
 
-![](/main_tutorial_images/proj-obj.gif)
+<p align="center">
+  <img style="display:flex;" src="/main_tutorial_images/proj_obj.gif" ></img>
+</p>
