@@ -11,7 +11,9 @@ A reference sequence serves as the benchmark for comparing the generated results
 ## Inserting your reference sequence 
 To incorporate a reference sequence into the table, click on 'Add reference sequence' and paste your sequence. It will be populated the first row of the table, while the remaining sequences will be displayed as sites where mutations have been introduced in comparison to the reference sequence. If you wish to view the full amino acid sequence, click on 'Hide mutations.'
 
-![](/main_tutorial_images/ref_seq.gif)
+<p align="center">
+  <img src="/main_tutorial_images/ref_seq.gif">
+</p>
 
 ## Editing your reference sequence 
 Click on ‘Edit reference sequence’ and input your reference sequence. Don’t forget to click on ‘Update’ to save your changes. 
