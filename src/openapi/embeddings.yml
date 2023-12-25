@@ -216,7 +216,7 @@ paths:
                   type: string
       security:
       - OAuth2Password: []
-  /api/v1/embeddings/svd:
+  /api/v1/svd:
     get:
       tags:
       - svd
@@ -262,7 +262,7 @@ paths:
       security:
       - OAuth2Password: []
       x-codegen-request-body-name: request
-  /api/v1/embeddings/svd/{svd_id}:
+  /api/v1/svd/{svd_id}:
     get:
       tags:
       - svd
@@ -303,7 +303,7 @@ paths:
           content: {}
       security:
       - OAuth2Password: []
-  /api/v1/embeddings/svd/{svd_id}/embed:
+  /api/v1/svd/{svd_id}/embed:
     post:
       tags:
       - svd
@@ -332,6 +332,176 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/svd/{svd_id}/sequences:
+    get:
+      tags:
+      - svd
+      summary: Get sequences used in a /svd/fit request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/svd/fit</code> job.
+      parameters:
+      - name: svd_id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/svd/embed/{id}/{sequence}:
+    get:
+      tags:
+      - svd
+      summary: Get result for a sequence in a /svd/embed job.
+      description: Get result for a sequence from completed POST /svd request
+        encoded as a numpy array. Result is a file that can be decoded with `numpy.load`.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID to fetch
+        required: true
+        schema:
+          type: string
+      - name: sequence
+        in: path
+        description: sequence for which to retrieve result
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Result encoded as numpy array
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - OAuth2Password: []
+  /api/v1/svd/embed/{id}/sequences:
+    get:
+      tags:
+      - svd
+      summary: Get sequences used in a /svd/embed request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/svd</code> job.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/models:
+    get:
+      tags:
+      - fold
+      summary: List fold models
+      description: List all models available for predicting structures from your protein
+        sequences.
+      responses:
+        "200":
+          description: Available models
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/models/{model_id}:
+    get:
+      tags:
+      - fold
+      summary: Get model metadata for fold models
+      description: Get model metadata. Including:<br/><ul><li><b>ModelId:</b> A string
+        identifier for the model</li><li><b>MaxSequenceLength:</b> The maximum sequence
+        length that the model can handle.</li><li><b>PrimaryTokens:</b> The primary
+        tokens that the model recognizes.</li></ul>
+      parameters:
+      - name: model_id
+        in: path
+        description: ID of model to get metadata for
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Model metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelMetadata'
+        "404":
+          description: Not Found
+          content: {}
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/{model_id}:
+    post:
+      tags:
+      - fold
+      summary: Create fold structure prediction
+      description: Create fold structure prediction request for your protein sequences.
+        <br/>Note that the request parameters should include <code>sequences</code>
+        with your sequences.
+      parameters:
+      - name: model_id
+        in: path
+        description: Name of model to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Fold request parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoldInput'
+        required: true
+      responses:
+        "202":
+          description: Fold request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
       security:
       - OAuth2Password: []
       x-codegen-request-body-name: request
@@ -393,96 +563,6 @@ paths:
                 type: array
                 items:
                   type: string
-      security:
-      - OAuth2Password: []
-  /api/v1/fold/{model_id}:
-    post:
-      tags:
-      - fold
-      summary: Create fold structure prediction
-      description: Create fold structure prediction request for your protein sequences.
-        <br/>Note that the request parameters should include <code>sequences</code>
-        with your sequences.
-      parameters:
-      - name: model_id
-        in: path
-        description: Name of model to use
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: Fold request parameters
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FoldInput'
-        required: true
-      responses:
-        "202":
-          description: Fold request created and pending
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Job'
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPError'
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPError'
-      security:
-      - OAuth2Password: []
-      x-codegen-request-body-name: request
-  /api/v1/fold/models:
-    get:
-      tags:
-      - fold
-      summary: List fold models
-      description: List all models available for predicting structures from your protein
-        sequences.
-      responses:
-        "200":
-          description: Available models
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  type: string
-      security:
-      - OAuth2Password: []
-  /api/v1/fold/models/{model_id}:
-    get:
-      tags:
-      - fold
-      summary: Get model metadata for fold models
-      description: Get model metadata. Including:<br/><ul><li><b>ModelId:</b> A string
-        identifier for the model</li><li><b>MaxSequenceLength:</b> The maximum sequence
-        length that the model can handle.</li><li><b>PrimaryTokens:</b> The primary
-        tokens that the model recognizes.</li></ul>
-      parameters:
-      - name: model_id
-        in: path
-        description: ID of model to get metadata for
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Model metadata
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ModelMetadata'
-        "404":
-          description: Not Found
-          content: {}
       security:
       - OAuth2Password: []
 components:
@@ -707,3 +787,4 @@ components:
         password:
           tokenUrl: /api/v1/login/access-token
           scopes: {}
+x-original-swagger-version: "2.0"
