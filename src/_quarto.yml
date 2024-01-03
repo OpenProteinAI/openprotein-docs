@@ -2,110 +2,85 @@ project:
   type: website
   preview: 
     port: 5001
-  resources:
-    - "openapi/*"
-
 
 website:
+  search: 
+    location: navbar
+    type: overlay
   favicon: './shared/favicon.svg'
-  search:
-    location: sidebar
-    type: textbox
+
   navbar:
     background: '#F0F3F5'
-    logo: './shared/logo.png'
-    search: false
+    logo: './shared/logo-1.png'
     left:
       - text: "Getting Started"
         file: ./getting-started/introduction-page.md
-      - text: "Using the App"
+      - text: "Our tools"
         file: ./app/dataset-page.md
       - text: "Walkthroughs"
         file: ./walkthroughs/demo-datasets-page.md
-      - text: "REST API docs"
+      - text: "REST API"
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
         href: https://docs.openprotein.ai/api-python/index.html
+      - text: "Go to app"
+        href: https://app.openprotein.ai/
+        target: _blank
+      - text: "Contact"
+        href: https://www.openprotein.ai/contact
+        target: _blank
+      
   sidebar:
     - id: main
       background: '#F0F3F5'
       style: "docked"
-      collapse-level: 2
+      collapse-level: 1
       align: left
       contents:
-        - text: "Getting Started"
-          file: ./getting-started/introduction-page.md
-        - text: "Using the App"
-          file: ./app/dataset-page.md
-        - text: "Walkthroughs"
-          file: ./walkthroughs/demo-datasets-page.md
-        - text: "REST API docs"
-          file: ./rest-api/overview.qmd
-        - text: "Python API docs"
-          href: https://docs.openprotein.ai/api-python/index.html
-
-    - id: api
-      title: "API docs"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./rest-api/overview.qmd
-        - ./rest-api/authentication-and-jobs.qmd
-        - ./rest-api/project.qmd
-        - ./rest-api/poet.qmd
-        - ./rest-api/embeddings.qmd
-
-    - id: getting-started
-      title: "Getting Started"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./getting-started/introduction-page.md
-        - ./getting-started/account-page.md
-
-    - id: walkthroughs
-      title: "Walkthroughs"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./walkthroughs/demo-datasets-page.md
-        - ./walkthroughs/mutagenesis-page.md
-        - ./walkthroughs/poet-tutorial-page.md
-        - ./walkthroughs/poet-thiolase-codehidden.ipynb
-
-    - id: app
-      title: "Using the App"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - section: Project
-          contents:
-          - section: "Dataset"
+      - section: "Getting Started"
+        contents:
+          - ./getting-started/introduction-page.md
+          - ./getting-started/account-page.md
+      - section: "Our tools"
+        contents:
+          - section: Project
             contents:
-            - ./app/dataset-page.md
-            - ./app/visualizations-page.md
-          - ./app/predictions-page.md
-          - section: "Design"
+            - section: "Dataset"
+              contents:
+              - ./app/dataset-page.md
+              - ./app/visualizations-page.md
+            - ./app/predictions-page.md
+            - section: "Design"
+              contents:
+              - ./app/project-design-objectives.md
+              - ./app/design-page.md
+              - ./app/reference-sequence.md
+              - ./app/library-page.md
+            - section: Models
+              contents:
+                - ./app/models-page.md
+                - ./app/cross-validation-page.md
+          - section: PoET
             contents:
-            - ./app/project-design-objectives.md
-            - ./app/design-page.md
-            - ./app/reference-sequence.md
-            - ./app/library-page.md
-          - section: Models
-            contents:
-              - ./app/models-page.md
-              - ./app/cross-validation-page.md
-        - section: PoET
-          contents:
-            - ./app/poet-introduction-page.md
-            - ./app/poet-defining-prompts-page.md
-            - ./app/poet-tools-page.md
-        - ./app/structure-prediction.md
-        - ./app/job-status-page.md
+              - ./app/poet-introduction-page.md
+              - ./app/poet-defining-prompts-page.md
+              - ./app/poet-tools-page.md
+          - ./app/structure-prediction.md
+          - ./app/job-status-page.md
+      - section: "Walkthroughs"
+        contents: 
+            - ./walkthroughs/demo-datasets-page.md
+            - ./walkthroughs/mutagenesis-page.md
+            - ./walkthroughs/poet-tutorial-page.md
+            - ./walkthroughs/poet-thiolase-codehidden.ipynb
+      - section: "REST API"
+        contents:
+            - ./rest-api/overview.qmd
+            - ./rest-api/authentication-and-jobs.qmd
+            - ./rest-api/project.qmd
+            - ./rest-api/poet.qmd
+            - ./rest-api/embeddings.qmd
+            - ./rest-api/structure-prediction.qmd     
 
 format:
   html:
