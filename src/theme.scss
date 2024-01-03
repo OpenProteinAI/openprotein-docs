@@ -52,7 +52,7 @@ $text-muted: #6a737b;
   right: 0;
   top: 0;
   width: auto;
-  margin-right: 7rem;
+  margin-right: 14rem;
   margin-top: 0.5rem;
  }
  .navbar-nav .nav-item:nth-last-child(2) {
@@ -61,7 +61,7 @@ $text-muted: #6a737b;
   right: 0;
   top: 0;
   width: auto;
-  margin-right: 13rem;
+  margin-right: 18rem;
   margin-top: 0.5rem; 
  }
 
@@ -72,4 +72,8 @@ $text-muted: #6a737b;
   width: auto;
   margin-right: 2rem;
   padding: 0.8rem;
+ }
+
+ .sidebar-menu-container {
+  padding-top: 0px !important;
  }

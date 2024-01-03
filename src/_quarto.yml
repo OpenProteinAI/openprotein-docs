@@ -6,13 +6,15 @@ project:
 website:
   search: 
     location: navbar
-    type: overlay
+    type: textbox
   favicon: './shared/favicon.svg'
 
   navbar:
     background: '#F0F3F5'
     logo: './shared/logo-1.png'
     left:
+      - text: "Overview"
+        file: ./index.md
       - text: "Getting Started"
         file: ./getting-started/introduction-page.md
       - text: "Our tools"
@@ -23,7 +25,7 @@ website:
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
         href: https://docs.openprotein.ai/api-python/index.html
-      - text: "Go to app"
+      - text: "Login"
         href: https://app.openprotein.ai/
         target: _blank
       - text: "Contact"
@@ -37,6 +39,8 @@ website:
       collapse-level: 1
       align: left
       contents:
+      - text: "Overview"
+        file: ./index.md
       - section: "Getting Started"
         contents:
           - ./getting-started/introduction-page.md
