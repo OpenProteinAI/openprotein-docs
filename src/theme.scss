@@ -35,10 +35,41 @@ $text-muted: #6a737b;
   border-bottom: 1px solid #dee2e6 !important;
 }
 
-.navbar-brand-container {
-  margin-right: 6rem;
+.navbar-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
 }
 
 .navbar-logo {
   max-height: 28px;
 }
+
+.navbar-nav .nav-item:nth-last-child(1) {
+  /* Add your styles here */
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 7rem;
+  margin-top: 0.5rem;
+ }
+ .navbar-nav .nav-item:nth-last-child(2) {
+  /* Add your styles here */
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 13rem;
+  margin-top: 0.5rem; 
+ }
+
+ #quarto-search {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 2rem;
+  padding: 0.8rem;
+ }
