@@ -1,5 +1,5 @@
 ---
-title: Account
+title: Account information
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Introduction to OpenProtein
+title: Get started with no code
 format:
   html:
     code-fold: true

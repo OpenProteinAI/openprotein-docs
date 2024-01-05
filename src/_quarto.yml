@@ -39,11 +39,10 @@ website:
       collapse-level: 1
       align: left
       contents:
-      - text: "Overview"
-        file: ./index.md
       - section: "Getting Started"
         contents:
-          - ./getting-started/introduction-page.md
+          - ./getting-started/get-started-with-no-code.md
+          - ./getting-started/get-started-with-our-API.md
           - ./getting-started/account-page.md
       - section: "Our tools"
         contents:
@@ -92,6 +91,6 @@ format:
       light: [cosmo, theme.scss]
     toc: true
     grid:
-      sidebar-width: 330px
+      sidebar-width: 350px
       body-width: 900px
       margin-width: 300px
