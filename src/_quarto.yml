@@ -82,18 +82,21 @@ website:
       - ./app/tutorial-examples.md
       - section: "Walkthroughs"
         contents: 
-            - ./walkthroughs/demo-datasets-page.md
-            - ./walkthroughs/mutagenesis-page.md
-            - ./walkthroughs/poet-tutorial-page.md
-            - ./walkthroughs/poet-thiolase-codehidden.ipynb
+            - ./walkthroughs/anitbody-engineering.md
+            - ./walkthroughs/enzyme-engineering.md
+      - section: "Resources"
+        contents:
+            - ./resources/faq.md
+            - ./resources/publications.md
+            - ./resources/glossary.md
+            - ./resources/site-index.md
       - section: "REST API"
         contents:
             - ./rest-api/overview.qmd
             - ./rest-api/authentication-and-jobs.qmd
             - ./rest-api/project.qmd
             - ./rest-api/poet.qmd
-            - ./rest-api/embeddings.qmd
-            - ./rest-api/structure-prediction.qmd     
+            - ./rest-api/embeddings.qmd  
 
 format:
   html:
