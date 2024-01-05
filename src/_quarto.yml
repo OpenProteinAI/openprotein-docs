@@ -11,7 +11,7 @@ website:
 
   navbar:
     background: '#F0F3F5'
-    logo: './shared/logo-1.png'
+    logo: './shared/logo.png'
     left:
       - text: "Overview"
         file: ./index.md
