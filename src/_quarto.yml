@@ -76,6 +76,9 @@ website:
                 - ./app/api-tutorials/sequence-based-learning.md
                 - ./app/api-tutorials/protein-language-models-embeddings.md
                 - ./app/api-tutorials/quantitative-decision-making-for-library-design.md
+          - section: ./app/structure-prediction.md
+            contents:
+              - ./app/using-structure-prediction.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/demo-datasets-page.md
