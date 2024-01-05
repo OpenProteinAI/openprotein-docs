@@ -46,7 +46,7 @@ $text-muted: #6a737b;
   max-height: 28px;
 }
 
-.navbar-nav .nav-item:ċ {
+.navbar-nav .nav-item:nth-last-child(1) {
   /* Add your styles here */
   position: absolute;
   right: 0;
@@ -104,6 +104,7 @@ $text-muted: #6a737b;
   height: auto !important;
   display: block;
 }
+
  [data-bs-target="#quarto-sidebar-section-5"]:first-child {
   text-decoration: underline;
 }
@@ -117,7 +118,41 @@ $text-muted: #6a737b;
   color: #4f5051
 }
  
-#quarto-sidebar-section-5 {
+#quarto-sidebar-section-8 {
+  height: auto !important;
+  display: block;
+}
+ [data-bs-target="#quarto-sidebar-section-8"]:first-child {
+  text-decoration: underline;
+}
+
+ [data-bs-target="#quarto-sidebar-section-8"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:hover {
+  cursor: default;
+  color: #4f5051
+}
+ 
+#quarto-sidebar-section-7 {
+  height: auto !important;
+  display: block;
+}
+ [data-bs-target="#quarto-sidebar-section-7"]:first-child {
+  text-decoration: underline;
+}
+
+ [data-bs-target="#quarto-sidebar-section-7"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-7"]:hover {
+  cursor: default;
+  color: #4f5051
+}
+ 
+#quarto-sidebar-section-7 {
   height: auto !important;
   display: block;
 }

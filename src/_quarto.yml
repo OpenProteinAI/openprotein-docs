@@ -61,25 +61,21 @@ website:
                 contents: 
                 - ./poet/api-tutorials/designing-new-enzymes.md
                 - ./poet/api-tutorials/substitutions-deletions.md
-          - section: Core workflow
+          - section: ./app/core-workflow.md
             contents:
+            - ./app/dataset-page.md
+            - ./app/visualizations-page.md
             - ./app/job-status-page.md
-            - section: "Dataset"
-              contents:
-              - ./app/dataset-page.md
-              - ./app/visualizations-page.md
-            - ./app/predictions-page.md
-            - section: "Design"
-              contents:
-              - ./app/project-design-objectives.md
-              - ./app/design-page.md
-              - ./app/reference-sequence.md
-              - ./app/library-page.md
-            - section: Models
-              contents:
-                - ./app/models-page.md
-                - ./app/cross-validation-page.md
-          - ./app/structure-prediction.md
+            - section: Frontend tutorials
+              contents: 
+                - ./app/front-end/model-training-evaluation.md
+                - ./app/front-end/predictions-page.md
+                - ./app/front-end/design.md
+            - section: API tutorials
+              contents: 
+                - ./app/api-tutorials/sequence-based-learning.md
+                - ./app/api-tutorials/protein-language-models-embeddings.md
+                - ./app/api-tutorials/quantitative-decision-making-for-library-design.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/demo-datasets-page.md
