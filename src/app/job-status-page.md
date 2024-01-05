@@ -1,5 +1,5 @@
 ---
-title: Job Status
+title: Core workflow history
 format:
   html:
     code-fold: true

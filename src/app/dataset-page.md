@@ -1,5 +1,5 @@
 ---
-title: Dataset upload
+title: Upload data
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 /*-- scss:defaults --*/
-$link-color: #39729E;
+$link-color: #39729e;
 $text-muted: #6a737b;
 
 /*-- scss:rules --*/
@@ -10,7 +10,7 @@ $text-muted: #6a737b;
   text-align: center;
   margin-bottom: 1em;
   font-family: $font-family-monospace;
-  font-size: .875em;
+  font-size: 0.875em;
   font-weight: 600;
   padding-top: 1em;
   border-radius: 3px;
@@ -35,10 +35,132 @@ $text-muted: #6a737b;
   border-bottom: 1px solid #dee2e6 !important;
 }
 
-.navbar-brand-container {
-  margin-right: 6rem;
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
 }
 
 .navbar-logo {
   max-height: 28px;
+}
+
+.navbar-nav .nav-item:nth-last-child(1) {
+  /* Add your styles here */
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 14rem;
+  margin-top: 0.5rem;
+}
+.navbar-nav .nav-item:nth-last-child(2) {
+  /* Add your styles here */
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 18rem;
+  margin-top: 0.5rem;
+}
+
+#quarto-search {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 2rem;
+  padding: 0.8rem;
+}
+
+.sidebar-menu-container {
+  padding-top: 0px !important;
+  padding-left: 0.5rem;
+}
+
+.sidebar-item-text {
+  &.sidebar-link {
+    &.active {
+      font-weight: 600;
+    }
+  }
+}
+
+#quarto-sidebar-section-4 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-4"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-4"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-4"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
+
+
+#quarto-sidebar-section-5 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
+
+
+#quarto-sidebar-section-8 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
+
+
+#quarto-sidebar-section-7 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-7"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-7"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-7"]:hover {
+  cursor: default;
+  color: #4f5051;
 }

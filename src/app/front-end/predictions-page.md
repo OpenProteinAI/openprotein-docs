@@ -1,5 +1,5 @@
 ---
-title: Predictions
+title: Substitution analysis with core workflow
 format:
   html:
     code-fold: true

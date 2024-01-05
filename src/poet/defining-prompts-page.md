@@ -1,5 +1,5 @@
 ---
-title: Using PoET
+title: Prompt and prompt sampling methods
 format:
   html:
     code-fold: true

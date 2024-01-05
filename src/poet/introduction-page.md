@@ -1,5 +1,5 @@
 ---
-title: Introduction to PoET
+title: PoET
 format:
   html:
     code-fold: true
