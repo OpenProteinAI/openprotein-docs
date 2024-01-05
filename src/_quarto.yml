@@ -79,6 +79,7 @@ website:
           - section: ./app/structure-prediction.md
             contents:
               - ./app/using-structure-prediction.md
+      - ./app/tutorial-examples.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/demo-datasets-page.md
