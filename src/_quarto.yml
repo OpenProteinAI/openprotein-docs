@@ -46,8 +46,24 @@ website:
           - ./getting-started/account-page.md
       - section: "Our tools"
         contents:
-          - section: Project
+          - section: ./poet/introduction-page.md
             contents:
+              - ./poet/defining-prompts-page.md
+              - ./poet/scoring-system-log-probability.md
+              - ./poet/ensembling.md
+              - ./poet/history.md
+              - section: Frontend PoET tutorials
+                contents: 
+                - ./poet/front-end/rank-sequences.md
+                - ./poet/front-end/substitution-analysis-poet.md
+                - ./poet/front-end/generate-sequences.md
+              - section: API PoET tutorials
+                contents: 
+                - ./poet/api-tutorials/designing-new-enzymes.md
+                - ./poet/api-tutorials/substitutions-deletions.md
+          - section: Core workflow
+            contents:
+            - ./app/job-status-page.md
             - section: "Dataset"
               contents:
               - ./app/dataset-page.md
@@ -63,13 +79,7 @@ website:
               contents:
                 - ./app/models-page.md
                 - ./app/cross-validation-page.md
-          - section: PoET
-            contents:
-              - ./app/poet-introduction-page.md
-              - ./app/poet-defining-prompts-page.md
-              - ./app/poet-tools-page.md
           - ./app/structure-prediction.md
-          - ./app/job-status-page.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/demo-datasets-page.md
