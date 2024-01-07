@@ -3,7 +3,6 @@ title: Core Workflow scoring and log-likelihood
 format:
   html:
     code-fold: true
-    css: ../theme.scss
 ---
 
 OpenProtein.AI uses Bayesian property predictors, which output a distribution over possible values of the property for a variant. The mean, or most likely value of the property for the sequence as predicted by the model, is what you would get from a typical regression model. The models also output a standard deviation indicating their certainty in the value of that property. OpenProtein.AI uses this distribution to calculate the probability that a sequence variant meets a given criteria and expresses it as a log-likelihood score.
