@@ -84,7 +84,7 @@ website:
           - section: Structure Prediction
             contents:
               - ./structure-prediction/using-structure-prediction.md
-      - ./core/tutorial-examples.md
+      - ./app/tutorial-examples.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/anitbody-engineering.md
