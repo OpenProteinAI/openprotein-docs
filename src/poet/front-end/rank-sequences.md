@@ -13,7 +13,7 @@ If you run into any challenges or have questions while getting started, please c
 
 ## What you need before starting
 
-This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](/prompts){target="_blank"} before diving in.
+This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](../prompts.md){target="_blank"} before diving in.
 
 You also need an input sequence, or list of sequences you want to score against the prompt.
 
@@ -35,7 +35,7 @@ Please note that if you check **Use first sequence as seed to generate MSA** whe
 
 Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
 
-Finally, set sampling method fields. We suggest starting with the default settings. If you have specific needs, see [prompt sampling parameters](/prompts){target="_blank"}.
+Finally, set sampling method fields. We suggest starting with the default settings. If you have specific needs, see [prompt sampling parameters](../prompts.md){target="_blank"}.
 
 You're ready to rank your sequences! Select **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
@@ -44,14 +44,14 @@ A 400 (Bad request) error code may be due to the following:
 | **Issue description** | **Solution** |
 | --- | --- |
 | Invalid Poet Job or Parent | Re-enter prompt and try again. |
-| Invalid prompt in prots2prot service | Reupload prompt and try again. Refer to the article about [prompts](/prompts){target="_blank"}.
+| Invalid prompt in prots2prot service | Reupload prompt and try again. Refer to the article about [prompts](../prompts.md){target="_blank"}.
 Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt. |
 | Invalid user input in align service
  | Ensure you don't have
 - a top\_p\>1
 - a non-valid amino acid
 - Maximum similarity \< minimum similarity
-If necessary, refer to the article on [sampling parameters](/prompts){target="_blank"}. |
+If necessary, refer to the article on [sampling parameters](../prompts.md#prompt-sampling-definitions){target="_blank"}. |
 | Invalid MSA (not aligned, etc) |
 - Make sure your MSAs are aligned and rebuild MSA if necessary.
 - If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens "-").

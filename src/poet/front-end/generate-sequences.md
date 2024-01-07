@@ -11,7 +11,7 @@ If you run into any challenges or have questions while getting started, please r
 
 ## What you need before starting
 
-This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](/prompts){target="_blank"} before diving in.
+This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](../prompts.md){target="_blank"} before diving in.
 
 You also need to know about sampling parameters, which are settings that regulate randomness. These include temperature, top-p, and top-k.
 
@@ -57,7 +57,7 @@ Ensure minimum and maximum similarity parameters are not filtering out all seque
 - a top\_p\>1
 - a non-valid amino acid
 - Maximum similarity \< minimum similarity
-If necessary, refer to the article on [sampling parameters](/prompts){target="_blank"}. |
+If necessary, refer to the article on [sampling parameters](../prompts.md#prompt-sampling-definitions){target="_blank"}. |
 | Invalid MSA (not aligned, etc) |
 - Make sure your MSAs are aligned and rebuild MSA if necessary.
 - If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens "-").
