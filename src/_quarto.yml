@@ -79,7 +79,7 @@ website:
               contents: 
                 - text: Model training and evaluation
                   file: ./core/front-end/core-model-train-evaluate.md
-                - ./core/front-end/predictions-page.md
+                - ./core/front-end/sub-analysis.md
                 - ./core/front-end/design-sequence.md
             - section: API tutorials
               contents: 

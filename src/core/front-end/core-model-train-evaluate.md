@@ -9,7 +9,7 @@ This tutorial teaches you how to train and compare custom sequence-to-function p
 
 ## What you need before starting
 
-Please note that this tool requires experimental data. If you don't yet have experimental data, use [PoET](/poet-tools) to generate sequences from a seed, rank sequences against a prompt, or evaluate single substitution variants.
+Please note that this tool requires experimental data. If you don't yet have experimental data, use [PoET](../../poet/introduction-page.md) to generate sequences from a seed, rank sequences against a prompt, or evaluate single substitution variants.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
@@ -63,5 +63,5 @@ We recommend using large datasets as given enough data, the model will learn the
 
 Now that you have a trained model:
 
-- use the [Design](./design-seq.md) tool to create customized protein sequences.
-- use the [Substitution Analysis](./core-sub-analysis.md) tool to evaluate single substitution variants of a sequence.
+- use the [Design](./design-sequence.md) tool to create customized protein sequences.
+- use the [Substitution Analysis](./sub-analysis.md) tool to evaluate single substitution variants of a sequence.
