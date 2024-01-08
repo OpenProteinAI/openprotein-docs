@@ -48,15 +48,20 @@ website:
         contents:
           - section: ./poet/introduction-page.md
             contents:
-              - ./poet/defining-prompts-page.md
-              - ./poet/scoring-system-log-probability.md
+              - text: Prompt and prompt sampling methods
+                file: ./poet/prompts.md
+              - text: Scoring system and log probability 
+                file: ./poet/scoring-log-likelihood.md
               - ./poet/ensembling.md
               - ./poet/history.md
               - section: Frontend PoET tutorials
                 contents: 
-                - ./poet/front-end/rank-sequences.md
-                - ./poet/front-end/substitution-analysis-poet.md
-                - ./poet/front-end/generate-sequences.md
+                - text: Rank sequences
+                  file: ./poet/front-end/rank-sequences.md
+                - text: Substitution analysis with PoET
+                  file: ./poet/front-end/substitution-analysis.md
+                - text: Generate sequences
+                  file: ./poet/front-end/generate-sequences.md
               - section: API PoET tutorials
                 contents: 
                 - ./poet/api-tutorials/designing-new-enzymes.md
@@ -74,7 +79,7 @@ website:
               contents: 
                 - text: Model training and evaluation
                   file: ./core/front-end/core-model-train-evaluate.md
-                - ./core/front-end/predictions-page.md
+                - ./core/front-end/sub-analysis.md
                 - ./core/front-end/design-sequence.md
             - section: API tutorials
               contents: 

@@ -56,4 +56,4 @@ Your **Dataset** page shows the properties of your dataset, along with a table t
 
 ![](./img/uploading-your-data/core-refseq.gif)
 
-Find more information about OpenProtein.AI's visualization options in [Visualizing your data](./img/uploading-your-data/visualizing-your-dataset).
+Find more information about OpenProtein.AI's visualization options in [Visualizing your data](./visualizing-your-data.md).
