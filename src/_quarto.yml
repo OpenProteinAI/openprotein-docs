@@ -57,15 +57,15 @@ website:
               - section: Frontend PoET tutorials
                 contents: 
                 - text: Rank sequences
-                  file: ./poet/front-end/rank-sequences.md
+                  file: ./poet/rank-sequences.md
                 - text: Substitution analysis with PoET
-                  file: ./poet/front-end/substitution-analysis.md
+                  file: ./poet/substitution-analysis.md
                 - text: Generate sequences
-                  file: ./poet/front-end/generate-sequences.md
+                  file: ./poet/generate-sequences.md
               - section: API PoET tutorials
                 contents: 
-                - ./poet/api-tutorials/designing-new-enzymes.md
-                - ./poet/api-tutorials/substitutions-deletions.md
+                - ./poet/designing-new-enzymes.md
+                - ./poet/substitutions-deletions.md
           - section: Core workflow
             contents:
             - text: Overview
@@ -78,14 +78,14 @@ website:
             - section: Frontend tutorials
               contents: 
                 - text: Model training and evaluation
-                  file: ./core/front-end/core-model-train-evaluate.md
-                - ./core/front-end/sub-analysis.md
-                - ./core/front-end/design-sequence.md
+                  file: ./core/core-model-train-evaluate.md
+                - ./core/sub-analysis.md
+                - ./core/design-sequence.md
             - section: API tutorials
               contents: 
-                - ./core/api-tutorials/sequence-based-learning.md
-                - ./core/api-tutorials/protein-language-models-embeddings.md
-                - ./core/api-tutorials/quantitative-decision-making-for-library-design.md
+                - ./core/sequence-based-learning.md
+                - ./core/protein-language-models-embeddings.md
+                - ./core/quantitative-decision-making-for-library-design.md
           - section: Structure Prediction
             contents:
               - ./structure-prediction/using-structure-prediction.md

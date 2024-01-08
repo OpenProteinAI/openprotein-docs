@@ -69,7 +69,7 @@ You can also enter an arbitrary sequence in the **Run new** drawer to run single
 
 Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button.
 
-![](../img/sub-analysis-1.png)
+![](./img/sub-analysis-1.png)
 
 Refer to the **Single site details** tab to see the parameters you used to run the substitution analysis.
 

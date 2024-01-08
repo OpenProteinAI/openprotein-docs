@@ -29,7 +29,7 @@ Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Gen
 
 Set your parameters to control sampling behavior. In particular, **temperature** , **top-p** , and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both.
 
-![](../img/sampling-parameters.png)
+![](./img/sampling-parameters.png)
 
 Add your custom MSA to the **Prompt Definition** field **.** You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
@@ -37,11 +37,11 @@ If you do not have an existing MSA, input your target protein and select **Use f
 
 Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
 
-![](../img/prompt.png)
+![](./img/prompt.png)
 
 Set sampling method fields. We suggest you start with the default settings, then adjust subsequent jobs based on your results.
 
-![](../img/sampling-methods.png)
+![](./img/sampling-methods.png)
 
 You're ready to generate a custom sequence! Select **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
@@ -74,7 +74,7 @@ Your results are presented as a table, with each generated sequence being assign
 - A negative number indicates a reduction in fitness.
 - 0 indicates equivalent fitness.
 
-![](../img/results-table.png)
+![](./img/results-table.png)
 
 Access local fitness landscapes using the substitution analysis buttons for each sequence. You can sort your results and download them using the **Export** button.
 
