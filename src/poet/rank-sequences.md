@@ -27,7 +27,7 @@ Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 Next, add your custom MSA to the **Prompt Definition** field **.** Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
-![](../img/rank-sequences.png)
+![](./img/rank-sequences.png)
 
 If you don't have an existing MSA, enter your target protein and select **Use first sequence as seed to generate MSA.** OpenProtein.AI generates an MSA by doing a homology search against Uniref using mmseqs2 with default settings from ColabFold. It then uses the MSA to create a prompt.
 
