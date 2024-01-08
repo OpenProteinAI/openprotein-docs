@@ -61,24 +61,29 @@ website:
                 contents: 
                 - ./poet/api-tutorials/designing-new-enzymes.md
                 - ./poet/api-tutorials/substitutions-deletions.md
-          - section: ./app/core-workflow.md
+          - section: Core workflow
             contents:
-            - ./app/dataset-page.md
-            - ./app/visualizations-page.md
-            - ./app/job-status-page.md
+            - text: Overview
+              file: ./core/overview.md
+            - ./core/uploading-your-data.md
+            - ./core/visualizing-your-data.md
+            - text: Scoring and log-likelihood
+              file: ./core/core-scoring-log-likelihood.md
+            - ./core/navigating-your-projects.md
             - section: Frontend tutorials
               contents: 
-                - ./app/front-end/model-training-evaluation.md
-                - ./app/front-end/predictions-page.md
-                - ./app/front-end/design.md
+                - text: Model training and evaluation
+                  file: ./core/front-end/core-model-train-evaluate.md
+                - ./core/front-end/predictions-page.md
+                - ./core/front-end/design-sequence.md
             - section: API tutorials
               contents: 
-                - ./app/api-tutorials/sequence-based-learning.md
-                - ./app/api-tutorials/protein-language-models-embeddings.md
-                - ./app/api-tutorials/quantitative-decision-making-for-library-design.md
-          - section: ./app/structure-prediction.md
+                - ./core/api-tutorials/sequence-based-learning.md
+                - ./core/api-tutorials/protein-language-models-embeddings.md
+                - ./core/api-tutorials/quantitative-decision-making-for-library-design.md
+          - section: Structure Prediction
             contents:
-              - ./app/using-structure-prediction.md
+              - ./structure-prediction/using-structure-prediction.md
       - ./app/tutorial-examples.md
       - section: "Walkthroughs"
         contents: 
