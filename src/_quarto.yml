@@ -43,7 +43,8 @@ website:
         contents:
           - ./getting-started/get-started-with-no-code.md
           - ./getting-started/get-started-with-our-API.md
-          - ./getting-started/account-page.md
+          - text: Account information
+            file: ./getting-started/account-page.md
       - section: "Our tools"
         contents:
           - section: ./poet/introduction-page.md
