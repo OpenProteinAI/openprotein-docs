@@ -1,56 +1,48 @@
 ---
-title: Get started with no code
+title: Getting started with OpenProtein.A
 format:
   html:
     code-fold: true
 ---
-OpenProtein.AI is a powerful platform that leverages state-of-the-art machine learning techniques to facilitate protein engineering and analysis.
 
-We offer multiple toolsets to get a project started, including:
+Step 1: Request [early access](https://openprotein-ai.webflow.io/early-access-form){target="_blank"}  <br/> 
+Step 2: [Log in](https://app.openprotein.ai){target="_blank"} to your account <br/> 
+Step 3: Get started using our [tools](../core/overview.md) for your protein engineering goals <br/> 
 
-* **Projects**: a set of tools to analyze your sequences that have measured properties. Projects can be used to train machine learning models to predict properties of new, unmeasured sequences and create design de novo sequences that follow user-specified constraints. 
-* **PoET**: Our generative model trained on millions of evolutionary sequences. PoET is able to use evolutionary context (e.g. from an MSA) to score the fitness landscape of sequences without wet lab measurements. 
-* **Embeddings**: Accessible via APIs, our embedding service enables calculation of raw embeddings on protein sequences using a number of proprietary and open-source models.
+::: {.callout-tip}
+## Are you a developer?
 
-Each of these workflows offers unique functionalities to help you engineer better proteins! 
-
-We offer our tools through [a web application](../app/dataset-page.md) or a suite of accessible [APIs](../rest-api/overview.qmd). Both the app and API suite contain the same functionality, so that it can suit any workflows. 
-
-## Starting your first project
-
-When embarking on the first project, it is essential to choose the appropriate module based on the dataset. 
-<style>
-.callout-tip-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  /* align-items: center; */
-}
-
-.callout-tip-container div.callout-tip.callout{
-  width: 40%;
-}
-</style>
-
-<div class="callout-tip-container">
-::: {.callout-tip} 
-## To create a design, you will need:
-  * Dataset with mesurements
-  * Target design objectives
+Visit [Get started with our API](./get-started-with-our-API.md).
 :::
-::: {.callout-tip} 
-## To use PoET, you will need:
-  * Seed sequence
-  * Query (optional)
-:::
+
+## Quick start tips
+Once you log in, you’ll see your home view and can navigate to get started with our tools.
+
+<p align="center">
+  <img src="./img/tips.png" width="700">
+</p>
+
+Do you want to...
+
+<br/>
+```{=html}
+<div class="flex-container">
+  
+  <div style="margin-left:45px;width:auto"">
+    
+  </div>
 </div>
+```
+<img src="./img/poet-icon.png"  style="float:left;margin-right:45px" width="60">
+**Make sequence predictions or designs without using any data?** <br/>
+Get started with [PoET](../poet/introduction-page.md){target="_blank"} which uses evolutionary information to generate protein sequences.
 
-For users with functional measurements, who want to extrapolate sequence - function relationships using OpenProtein’s suite of machine learning tools, this is the place to start. [Projects](../app/dataset-page.md) enable visualizing data, use existing data to predict novel sequence properties, and design new sequences with user-specified constraints. To learn how to initiate a project, please refer to our detailed step-by-step [tutorial](../walkthroughs/mutagenesis-page.md).
 
-For users who want to start de novo, without wet lab measurements, use our generative PoET workflow to score and generate sequences. PoET infers sequence fitness based on evolutionary fitness from a user-defined [prompt](../app/poet-defining-prompts-page.md), most commonly a multiple sequence alignment. For more details on PoET, please refer to our detailed step-by-step tutorial.
+<img src="./img/bar-chart.png"  style="float:left;margin-right:45px" width="60">
+**Analyze your experimental data for library design?** <br/>
+Create your first project and deploy machine learning models trained on your data <br/>
+[Learn more about Core Workflow](../core/overview.md)&emsp;&emsp;&emsp;&emsp;[Get started uploading your data](../core/uploading-your-data.md)
 
-To learn how to interact with the platform’s functionality via API, view more details [here](../rest-api/overview.qmd). The suite of API allows integrating OpenProtein.AI into specific applications or workflows which also allows access to features such as project management, PoET capabilities, and data analysis.
-
-## What’s next?
-
-For the next steps, initiate a [project](../app/dataset-page.md) or run a job via [PoET](../app/poet-introduction-page.md). If you are looking for more in depth information, take a look at our [walkthrough](../walkthroughs/demo-datasets-page.md) section and learn how to do more specific things like exploring a dataset, setting design criteria, and defining prompts.
+<img src="./img/dna-broken.png"  style="float:left;margin-right:45px" width="60">
+**Explore your protein's structure?** <br/>
+Use our [Structure Prediction tool](../structure-prediction/using-structure-prediction.md) to view and download high quality images

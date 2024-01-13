@@ -168,3 +168,14 @@ $text-muted: #6a737b;
   cursor: default;
   color: #4f5051;
 }
+
+h2 {
+  border: none;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
