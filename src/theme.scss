@@ -35,6 +35,10 @@ $text-muted: #6a737b;
   border-bottom: 1px solid #dee2e6 !important;
 }
 
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #4f5051;
+}
+
 .navbar-container {
   display: flex;
   flex-direction: column;
@@ -179,3 +183,4 @@ h2 {
   justify-content: start;
   align-items: center;
 }
+
