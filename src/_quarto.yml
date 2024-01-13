@@ -2,7 +2,9 @@ project:
   type: website
   preview: 
     port: 5001
-
+  resources:
+    - "openapi/*"
+    
 website:
   search: 
     location: navbar
