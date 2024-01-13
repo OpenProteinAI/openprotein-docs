@@ -23,7 +23,7 @@ You can also login from our [home page](https://openprotein.ai){target="_blank"}
 ::: {.callout-tip}
 ## Don’t have access yet?
 
-Request [early access](https://openprotein-ai.webflow.io/early-access-form){target="_blank"}.
+Request [early access](https://openprotein-ai.webflow.io/early-access-form){target="_blank"}
 :::
 
 ## Resetting your password

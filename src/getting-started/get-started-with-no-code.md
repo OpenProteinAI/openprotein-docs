@@ -12,10 +12,10 @@ Step 3: Get started using our [tools](../core/overview.md) for your protein engi
 ::: {.callout-tip}
 ## Are you a developer?
 
-Visit [Get started with our API](./get-started-with-our-API.md).
+Visit [Get started with our API](./get-started-with-our-API.md)
 :::
 
-## Quick start tips
+### Quick start tips
 Once you log in, you’ll see your home view and can navigate to get started with our tools.
 
 <p align="center">
