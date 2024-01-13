@@ -4,7 +4,8 @@ project:
     port: 5001
   resources:
     - "openapi/*"
-    
+    - "theme.scss"
+
 website:
   search: 
     location: navbar
@@ -18,11 +19,11 @@ website:
       - text: "Overview"
         file: ./index.md
       - text: "Getting Started"
-        file: ./getting-started/introduction-page.md
+        file: ./getting-started/get-started-with-no-code.md
       - text: "Our tools"
-        file: ./app/dataset-page.md
+        file: ./core/overview.md
       - text: "Walkthroughs"
-        file: ./walkthroughs/demo-datasets-page.md
+        file: ./walkthroughs/anitbody-engineering.md
       - text: "REST API"
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
