@@ -74,6 +74,10 @@ $text-muted: #6a737b;
   padding: 0.8rem;
 }
 
+#quarto-sidebar {
+  background-color: white;
+}
+
 .sidebar-menu-container {
   padding-top: 0px !important;
   padding-left: 0.5rem;
@@ -163,4 +167,15 @@ $text-muted: #6a737b;
 [data-bs-target="#quarto-sidebar-section-7"]:hover {
   cursor: default;
   color: #4f5051;
+}
+
+h2 {
+  border: none;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }

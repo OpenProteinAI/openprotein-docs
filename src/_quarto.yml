@@ -4,7 +4,7 @@ project:
     port: 5001
   resources:
     - "openapi/*"
-
+    
 website:
   search: 
     location: navbar
@@ -43,9 +43,12 @@ website:
       contents:
       - section: "Getting Started"
         contents:
-          - ./getting-started/get-started-with-no-code.md
-          - ./getting-started/get-started-with-our-API.md
-          - ./getting-started/account-page.md
+          - text: Get started with no code
+            file: ./getting-started/get-started-with-no-code.md
+          - text: Get started with our API
+            file: ./getting-started/get-started-with-our-API.md
+          - text: Account information
+            file: ./getting-started/account-page.md
       - section: "Our tools"
         contents:
           - section: ./poet/introduction-page.md
