@@ -155,8 +155,6 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
   color: #4f5051;
 }
 
-
-
 #quarto-sidebar-section-7 {
   height: auto !important;
   display: block;
@@ -184,5 +182,27 @@ h2 {
   flex-direction: row;
   justify-content: start;
   align-items: center;
+}
+
+
+div.callout-caution.callout {
+  border: none;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.callout.callout-style-default .callout-header[aria-expanded=false], .callout.callout-style-default .callout-header[aria-expanded=true] {
+  padding: 0px;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: white !important;
+}
+
+.step1-api p {
+  margin-bottom: 0.25rem;
+}
+
+.step4-api p {
+  margin-top: 0.25rem;
 }
 
