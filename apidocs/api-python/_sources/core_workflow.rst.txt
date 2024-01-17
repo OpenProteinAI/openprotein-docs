@@ -32,7 +32,7 @@ See the :doc:`Design documentation <design>` for more details.
 Remember that these workflows require you to first upload your datasets using the AssayData module and train your models using the Train module.
 
 .. note::
-   For a practical example of using this workflow, see the :doc:`core workflow notebook <demos/core_demo>`.
+   For a practical example of using this workflow, see the :doc:`OP models notebook <demos/core_demo>`.
 
 In addition to this documentation, we offer demos of key workflows and provide demo datasets to help you familiarize yourself with our workflows. Happy learning and exploring!
 

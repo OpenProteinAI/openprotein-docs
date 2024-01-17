@@ -1,5 +1,5 @@
 ---
-title: Core Workflow scoring and log-likelihood
+title: OP models scoring and log-likelihood
 format:
   html:
     code-fold: true

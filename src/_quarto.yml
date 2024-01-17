@@ -50,8 +50,7 @@ website:
             file: ./getting-started/get-started-with-our-API.md
           - text: Account information
             file: ./getting-started/account-page.md
-      - section:
-        text: Our tools
+      - section: Our tools
         file: ./tools/index.md
         contents:
           - section: PoET

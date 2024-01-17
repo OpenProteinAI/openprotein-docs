@@ -1,17 +1,17 @@
 ---
-title: Substitution analysis with core workflow
+title: Substitution analysis with OP models
 format:
   html:
     code-fold: true
 ---
 
-This tutorial teaches you how to use OpenProtein.AI's Core Workflow Substitution analysis tool to evaluate all single substitution variants of a given sequence. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
+This tutorial teaches you how to use OpenProtein.AI's OP models Substitution analysis tool to evaluate all single substitution variants of a given sequence. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
 
 ## What you need before starting
 
 This tool requires experimental data. If you don't yet have experimental data, use [PoET's Substitution analysis](../../poet/front-end/substitution-analysis.md) tool. For help with uploading your data, see [Uploading your data](../uploading-your-data.md).
 
-Visit [Core Workflow scoring and log-likelihood](../core-scoring-log-likelihood.md) to learn about the scoring system.
+Visit [OP models scoring and log-likelihood](../core-scoring-log-likelihood.md) to learn about the scoring system.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 

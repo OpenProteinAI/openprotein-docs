@@ -15,7 +15,7 @@ If you run into any challenges or have questions while getting started, please c
 
 ## Training your models
 
-OpenProtein.AI's Core Workflow tools use Gaussian process (GP) models. The foundational models are trained on public protein databases, and then specialize the model to the user's dataset during model evaluation.
+OpenProtein.AI's OP models tools use Gaussian process (GP) models. The foundational models are trained on public protein databases, and then specialize the model to the user's dataset during model evaluation.
 
 Train your custom models using a dataset you upload. On the dataset page, select **Train Model**.
 

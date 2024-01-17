@@ -13,7 +13,7 @@ If you run into any challenges or have questions while getting started, please c
 
 ## What you need before starting
 
-You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](../prompts.md){target="_blank"} before diving in.
+You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](./prompts.md){target="_blank"} before diving in.
 
 ## Score single substitution variants
 
@@ -43,7 +43,7 @@ Ensure minimum and maximum similarity parameters are not filtering out all seque
 - a top\_p\>1
 - a non-valid amino acid
 - Maximum similarity \< minimum similarity
-If necessary, refer to the article on [sampling parameters](../prompts.md#prompt-sampling-definitions){target="_blank"}. |
+If necessary, refer to the article on [sampling parameters](./prompts.md#prompt-sampling-definitions){target="_blank"}. |
 | Invalid MSA (not aligned, etc) |
 - Make sure your MSAs are aligned and rebuild MSA if necessary.
 - If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens "-").
@@ -73,7 +73,7 @@ Your highest scoring variants and sites are also displayed in tables below the h
 
 Refer to the **Single site details** tab to see the parameters you used to run the substitution analysis.
 
-## Troubleshooting your results
+## Fine-tuning your results
 
 If your heatmap is inconclusive, meaning that the log-likelihood scores are very close, adjust your sampling methods or **Maximum similarity to seed sequence** and **Minimum similarity to seed sequence** fields.
 
@@ -81,4 +81,4 @@ You can also improve your prompt by adding sequences or constructing a better MS
 
 ## Next steps
 
-Now that you have a list of promising variants, use [Structure Prediction](../../structure-prediction/using-structure-prediction.md){target="_blank"} to visualize their structural implications or start a project using our [Core Workflow](../../core/overview.md){target="_blank"} after acquiring data from your designs.
+Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md){target="_blank"} to visualize their structural implications or start a project using our [OP models](../opmodels/index.md){target="_blank"} after acquiring data from your designs.
