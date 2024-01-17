@@ -28,7 +28,7 @@ Predict variant effects and create initial library designs guided by evolution
 * Identify high probability variants
 * Shuffle domains
 :::
-[Learn more](../poet/introduction-page.md)
+[Learn more](../poet/index.md)
 :::
 
 ::: {.column width="5%"}

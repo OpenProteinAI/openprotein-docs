@@ -54,7 +54,8 @@ website:
         text: Our tools
         file: ./tools/index.md
         contents:
-          - section: ./poet/introduction-page.md
+          - section: PoET
+            file: ./poet/index.md
             contents:
               - text: Prompt and prompt sampling methods
                 file: ./poet/prompts.md
@@ -80,15 +81,15 @@ website:
                   href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
           - section: Optimization and Prediction Models (OP models)
             contents:
-            - text: Overview
-              file: ./opmodels/overview.md
-            - text: Upload data
-              file: ./opmodels/uploading-your-data.md
-            - text: Scoring and log-likelihood
-              file: ./opmodels/opmodels-scoring-log-likelihood.md
-            - ./opmodels/navigating-your-projects.md
-            - section: Frontend tutorials
-              contents: 
+              - text: Overview
+                file: ./opmodels/overview.md
+              - text: Upload data
+                file: ./opmodels/uploading-your-data.md
+              - text: Scoring and log-likelihood
+                file: ./opmodels/opmodels-scoring-log-likelihood.md
+              - ./opmodels/navigating-your-projects.md
+              - section: Frontend tutorials
+                contents: 
                 - text: Visualization
                   file: ./opmodels/visualizing-your-data.md
                 - text: Model training and evaluation
@@ -96,16 +97,16 @@ website:
                 - ./opmodels/sub-analysis.md
                 - text: Design
                   file: ./opmodels/design-sequence.md
-            - section: API tutorials
-              contents: 
-                - text: Getting started with sequence-based learning
-                  href: https://docs.openprotein.ai/api-python/demos/core_demo.html
-                - text: Getting started with embeddings
-                  href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
-            - ./opmodels/quantitative-decision-making-for-library-design.md
-          - section: Structure Prediction
-            contents:
-              - ./structure-prediction/using-structure-prediction.md
+              - section: API tutorials
+                contents: 
+                  - text: Getting started with sequence-based learning
+                    href: https://docs.openprotein.ai/api-python/demos/core_demo.html
+                  - text: Getting started with embeddings
+                    href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
+              - ./opmodels/quantitative-decision-making-for-library-design.md
+      - section: Structure Prediction
+        contents:
+          - ./structure-prediction/using-structure-prediction.md
       - ./tutorials/index.md
       - section: "Walkthroughs"
         contents: 

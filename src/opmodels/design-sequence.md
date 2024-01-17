@@ -11,7 +11,7 @@ This tutorial shows you how to design protein sequences based on your chosen obj
 
 Please note that this tool requires experimental data in the form of an uploaded dataset. For instructions on how to upload your data, see [Uploading your data](../uploading-your-data.md)
 
-If you don't yet have experimental data, start with our [PoET tools](../../poet/introduction-page.md).
+If you don't yet have experimental data, start with our [PoET tools](../../poet/index.md).
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 

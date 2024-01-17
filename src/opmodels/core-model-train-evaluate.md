@@ -9,7 +9,7 @@ This tutorial teaches you how to train and compare custom sequence-to-function p
 
 ## What you need before starting
 
-Please note that this tool requires experimental data. If you don't yet have experimental data, use [PoET](../../poet/introduction-page.md) to generate sequences from a seed, rank sequences against a prompt, or evaluate single substitution variants.
+Please note that this tool requires experimental data. If you don't yet have experimental data, use [PoET](../../poet/index.md) to generate sequences from a seed, rank sequences against a prompt, or evaluate single substitution variants.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
