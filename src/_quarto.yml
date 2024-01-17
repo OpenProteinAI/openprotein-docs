@@ -80,17 +80,20 @@ website:
             contents:
             - text: Overview
               file: ./opmodels/overview.md
-            - ./opmodels/uploading-your-data.md
-            - ./opmodels/visualizing-your-data.md
+            - text: Upload data
+              file: ./opmodels/uploading-your-data.md
             - text: Scoring and log-likelihood
               file: ./opmodels/opmodels-scoring-log-likelihood.md
             - ./opmodels/navigating-your-projects.md
             - section: Frontend tutorials
               contents: 
+                - text: Visualization
+                  file: ./opmodels/visualizing-your-data.md
                 - text: Model training and evaluation
                   file: ./opmodels/opmodels-model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
-                - ./opmodels/design-sequence.md
+                - text: Design
+                  file: ./opmodels/design-sequence.md
             - section: API tutorials
               contents: 
                 - text: Getting started with sequence-based learning
@@ -101,17 +104,11 @@ website:
           - section: Structure Prediction
             contents:
               - ./structure-prediction/using-structure-prediction.md
-      - ./app/tutorial-examples.md
+      - ./tutorials/index.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/anitbody-engineering.md
             - ./walkthroughs/enzyme-engineering.md
-      - section: "Resources"
-        contents:
-            - ./resources/faq.md
-            - ./resources/publications.md
-            - ./resources/glossary.md
-            - ./resources/site-index.md
       - section: "REST API"
         contents:
             - ./rest-api/overview.qmd
@@ -119,6 +116,12 @@ website:
             - ./rest-api/project.qmd
             - ./rest-api/poet.qmd
             - ./rest-api/embeddings.qmd  
+      - section: "Resources"
+        contents:
+            - ./resources/faq.md
+            - ./resources/publications.md
+            - ./resources/glossary.md
+            - ./resources/site-index.md
 
 format:
   html:
