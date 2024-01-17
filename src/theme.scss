@@ -102,6 +102,26 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
 }
 
 // Poet API tutorials
+#quarto-sidebar-section-5 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-5"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
+
+// Poet FE tutorials
 #quarto-sidebar-section-4 {
   height: auto !important;
   display: block;
@@ -120,46 +140,7 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
   color: #4f5051;
 }
 
-
-// Poet FE tutorials
-#quarto-sidebar-section-3 {
-  height: auto !important;
-  display: block;
-}
-
-[data-bs-target="#quarto-sidebar-section-3"]:first-child {
-  text-decoration: underline;
-}
-
-[data-bs-target="#quarto-sidebar-section-3"]:last-child {
-  display: none;
-}
-
-[data-bs-target="#quarto-sidebar-section-3"]:hover {
-  cursor: default;
-  color: #4f5051;
-}
-
 // FE OP tutorials
-#quarto-sidebar-section-6 {
-  height: auto !important;
-  display: block;
-}
-
-[data-bs-target="#quarto-sidebar-section-6"]:first-child {
-  text-decoration: underline;
-}
-
-[data-bs-target="#quarto-sidebar-section-6"]:last-child {
-  display: none;
-}
-
-[data-bs-target="#quarto-sidebar-section-6"]:hover {
-  cursor: default;
-  color: #4f5051;
-}
-
-// API OP tutorials
 #quarto-sidebar-section-7 {
   height: auto !important;
   display: block;
@@ -174,6 +155,25 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
 }
 
 [data-bs-target="#quarto-sidebar-section-7"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
+// API OP tutorials
+#quarto-sidebar-section-8 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:hover {
   cursor: default;
   color: #4f5051;
 }

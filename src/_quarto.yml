@@ -79,6 +79,7 @@ website:
                 - text: Substitutions and deletions
                   href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
           - section: Optimization and Prediction Models (OP models)
+            file: ./opmodels/index.md
             contents:
               - text: Overview
                 file: ./opmodels/overview.md
