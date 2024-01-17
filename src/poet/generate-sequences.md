@@ -47,22 +47,51 @@ You're ready to generate a custom sequence! Select **Run.** The job may take a f
 
 A 400 (Bad request) error code may be due to the following:
 
-| **Issue description** | **Solution** |
-| --- | --- |
-| Invalid Poet Job or Parent | Re-enter prompt and try again. |
-| Invalid prompt in prots2prot service | Reupload prompt and try again. Refer to the article about [prompts](/prompts){target="_blank"}.
-Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt. |
-| Invalid user input in align service
- | Ensure you don't have
-- a top\_p\>1
-- a non-valid amino acid
-- Maximum similarity \< minimum similarity
-If necessary, refer to the article on [sampling parameters](../prompts.md#prompt-sampling-definitions){target="_blank"}. |
-| Invalid MSA (not aligned, etc) |
-- Make sure your MSAs are aligned and rebuild MSA if necessary.
-- If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens "-").
-- If you are building from a seed sequence, try rebuilding the MSA
- |
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Issue description</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Invalid PoET Job or Parent</td>
+      <td>Re-enter prompt and try again.</td>
+    </tr>
+    <tr>
+      <td>Invalid prompt in PoET service</td>
+      <td>
+        Reupload prompt and try again. Refer to the article about <a href="./prompts.md">prompts</a>.<br>
+        Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt.
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid user input in align service </td>
+      <td>
+        Ensure you don’t have
+        <ul>
+          <li>a top_p>1</li>
+          <li>a non-valid amino acid</li>
+          <li>Maximum similarity < minimum similarity</li>
+        </ul>
+        If necessary, refer to the article on [sampling parameters](./prompts.md#prompt-sampling-definitions).
+
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid MSA (not aligned, etc)</td>
+      <td>
+        - Make sure your MSAs are aligned and rebuild MSA if necessary. <br>
+        - If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens “-”).<br>
+        - If you are building from a seed sequence, try rebuilding the MSA
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
 
 Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"} if the suggested solutions don't resolve the issue.
 
@@ -90,4 +119,4 @@ To improve scores, increase the number of the **ensemble** setting. This will re
 
 ## Next steps
 
-Now that you can generate custom sequences, use the **Structure Prediction** toolon high scoring sequences to visualize their structural implication or use **Substitution Analysis** to view possible improvements to a sequence.
+Now that you can generate custom sequences, use the [Structure Prediction](../structure-prediction/using-structure-prediction.md) tool on high scoring sequences to visualize their structural implication or use [Substitution Analysis](./substitution-analysis.md) to view possible improvements to a sequence.

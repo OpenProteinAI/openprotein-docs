@@ -5,8 +5,6 @@ format:
     code-fold: true
 ---
 
-## About PoET Substitution analysis
-
 This tutorial teaches you how to use PoET's Substitution analysis tool to score all single substitution variants of an input sequence with the given prompt. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
@@ -33,22 +31,51 @@ You're ready to analyze your variants! Select **Run.** The job may take a few mi
 
 A 400 (Bad request) error code may be due to the following:
 
-| **Issue description** | **Solution** |
-| --- | --- |
-| Invalid Poet Job or Parent | Re-enter prompt and try again. |
-| Invalid prompt in prots2prot service | Reupload prompt and try again. Refer to the article about [prompts](/prompts){target="_blank"}.
-Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt. |
-| Invalid user input in align service
- | Ensure you don't have
-- a top\_p\>1
-- a non-valid amino acid
-- Maximum similarity \< minimum similarity
-If necessary, refer to the article on [sampling parameters](./prompts.md#prompt-sampling-definitions){target="_blank"}. |
-| Invalid MSA (not aligned, etc) |
-- Make sure your MSAs are aligned and rebuild MSA if necessary.
-- If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens "-").
-- If you are building from a seed sequence, try rebuilding the MSA
- |
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Issue description</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Invalid PoET Job or Parent</td>
+      <td>Re-enter prompt and try again.</td>
+    </tr>
+    <tr>
+      <td>Invalid prompt in PoET service</td>
+      <td>
+        Reupload prompt and try again. Refer to the article about <a href="./prompts.md">prompts</a>.<br>
+        Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt.
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid user input in align service </td>
+      <td>
+        Ensure you don’t have
+        <ul>
+          <li>a top_p>1</li>
+          <li>a non-valid amino acid</li>
+          <li>Maximum similarity < minimum similarity</li>
+        </ul>
+        If necessary, refer to the article on [sampling parameters](./prompts.md#prompt-sampling-definitions).
+
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid MSA (not aligned, etc)</td>
+      <td>
+        - Make sure your MSAs are aligned and rebuild MSA if necessary. <br>
+        - If you have uploaded pre-computed MSA , confirm that formatting is correct and sequences are of equal length (use gap tokens “-”).<br>
+        - If you are building from a seed sequence, try rebuilding the MSA
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
 
 Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"} if the suggested solutions don't resolve the issue.
 
