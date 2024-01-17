@@ -1,6 +1,8 @@
 /*-- scss:defaults --*/
 $link-color: #39729e;
 $text-muted: #6a737b;
+$card-color: #EBF0F8;
+$dark-blue: #225EDB;
 
 /*-- scss:rules --*/
 
@@ -206,3 +208,140 @@ div.callout-caution.callout {
   margin-top: 0.25rem;
 }
 
+// Overview page
+#data-driven-protein-engineering h1 {
+  text-align: center;
+  margin-top: 0;
+}
+#solutions-for-your-application h1 {
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+
+.card {
+  width: 20rem;
+  border-radius: 1rem;
+  background-color: $card-color;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: none;
+}
+
+.card-body {
+  min-height: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem 0;
+  color: black;
+
+  span {
+    font-weight: 600;
+  } 
+
+  a {
+    margin: 1rem 1rem 0 0;
+  }
+}
+
+.clickable-card {
+  height: 18rem;
+  text-decoration: none;
+  color: black;
+
+
+  .title {
+    font-weight: 600;
+  }
+
+  .description {
+    font-weight: 400;
+  }
+}
+
+.clickable-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 0.25rem rgba(38,143,255,.5);
+}
+ 
+@media (min-width: 1200px) {
+  #data-driven-protein-engineering {
+    width: 130%;
+    position: relative;
+    right: 15%;
+    max-width: 1200px;
+  }
+  #solutions-for-your-application  {
+    width: 130%;
+    position: relative;
+    right: 15%;
+    max-width: 1200px;
+  }
+}
+@media (max-width: 780px) {
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+}
+
+.getting-started-container {
+  width: 100%;
+  background-color: $dark-blue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  flex-wrap: wrap;
+
+  .getting-started-title {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .learn-more {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .learn-more span {
+    color: white;
+  }
+  .learn-more a {
+    padding: 0.5rem 1rem 0.5rem 1rem; 
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    border-radius: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .learn-more {
+      align-items: start;
+      justify-content: start;
+      max-width: 20rem;
+
+      a {
+        margin: 0.5rem 1rem 0 0;
+        min-width: 8rem;
+      }
+    }
+  }
+}
