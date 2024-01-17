@@ -77,24 +77,55 @@ session.poet.create_msa()
 ### Quick start tips
 Do you want to...
 <br/>
-```{=html}
-<div class="flex-container">
-  
-  <div style="margin-left:45px;width:auto"">
-    
-  </div>
-</div>
-```
-<img src="./img/poet-icon.png"  style="float:left;margin-right:45px" width="60">
+
+:::: {.columns}
+
+::: {.column width="10%"}
+<img src="./img/poet-icon.png" height="60">
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="85%"}
 **Make sequence predictions or designs without using any data?** <br/>
 Get started with [PoET](../poet/introduction-page.md){target="_blank"} which uses evolutionary information to generate protein sequences.
+:::
 
+::::
 
-<img src="./img/bar-chart.png"  style="float:left;margin-right:45px" width="60">
+:::: {.columns}
+
+::: {.column width="10%"}
+<img src="./img/bar-chart.png" height="60">
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="85%"}
 **Analyze your experimental data for library design?** <br/>
 Create your first project and deploy machine learning models trained on your data <br/>
-[Learn more about Core Workflow](../core/overview.md)&emsp;&emsp;&emsp;&emsp;[Get started uploading your data](../core/uploading-your-data.md)
+[Learn more about OP Models](../opmodels/overview.md)&emsp;&emsp;&emsp;[Get started uploading your data](../opmodels/uploading-your-data.md)
 
-<img src="./img/dna-broken.png"  style="float:left;margin-right:45px" width="60">
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="10%"}
+<img src="./img/dna-broken.png" height="60">
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="85%"}
 **Explore your protein's structure?** <br/>
 Use our [Structure Prediction tool](../structure-prediction/using-structure-prediction.md) to view and download high quality images
+:::
+::::
