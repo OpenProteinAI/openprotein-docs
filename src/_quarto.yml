@@ -21,7 +21,7 @@ website:
       - text: "Getting Started"
         file: ./getting-started/get-started-with-no-code.md
       - text: "Our tools"
-        file: ./core/overview.md
+        file: ./opmodels/overview.md
       - text: "Walkthroughs"
         file: ./walkthroughs/anitbody-engineering.md
       - text: "REST API"
@@ -30,10 +30,10 @@ website:
         href: https://docs.openprotein.ai/api-python/index.html
       - text: "Login"
         href: https://app.openprotein.ai/
-        target: _blank
+        
       - text: "Contact"
         href: https://www.openprotein.ai/contact
-        target: _blank
+        
       
   sidebar:
     - id: main
@@ -70,28 +70,34 @@ website:
                   file: ./poet/generate-sequences.md
               - section: API PoET tutorials
                 contents: 
-                - ./poet/designing-new-enzymes.md
-                - ./poet/substitutions-deletions.md
-          - section: Core workflow
+                - text: Getting started with PoET
+                  href: https://docs.openprotein.ai/api-python/demos/poet_demo.html
+                - text: Designing new enzymes
+                  href: https://docs.openprotein.ai/api-python/demos/chorismate.html
+                - text: Substitutions and deletions
+                  href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
+          - section: Optimization and Prediction Models (OP models)
             contents:
             - text: Overview
-              file: ./core/overview.md
-            - ./core/uploading-your-data.md
-            - ./core/visualizing-your-data.md
+              file: ./opmodels/overview.md
+            - ./opmodels/uploading-your-data.md
+            - ./opmodels/visualizing-your-data.md
             - text: Scoring and log-likelihood
-              file: ./core/core-scoring-log-likelihood.md
-            - ./core/navigating-your-projects.md
+              file: ./opmodels/opmodels-scoring-log-likelihood.md
+            - ./opmodels/navigating-your-projects.md
             - section: Frontend tutorials
               contents: 
                 - text: Model training and evaluation
-                  file: ./core/core-model-train-evaluate.md
-                - ./core/sub-analysis.md
-                - ./core/design-sequence.md
+                  file: ./opmodels/opmodels-model-train-evaluate.md
+                - ./opmodels/sub-analysis.md
+                - ./opmodels/design-sequence.md
             - section: API tutorials
               contents: 
-                - ./core/sequence-based-learning.md
-                - ./core/protein-language-models-embeddings.md
-                - ./core/quantitative-decision-making-for-library-design.md
+                - text: Getting started with sequence-based learning
+                  href: https://docs.openprotein.ai/api-python/demos/core_demo.html
+                - text: Getting started with embeddings
+                  href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
+            - ./opmodels/quantitative-decision-making-for-library-design.md
           - section: Structure Prediction
             contents:
               - ./structure-prediction/using-structure-prediction.md
