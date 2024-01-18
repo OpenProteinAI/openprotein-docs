@@ -11,7 +11,7 @@ This tutorial teaches you how to use OpenProtein.AI's OP models Substitution ana
 
 This tool requires experimental data. If you don't yet have experimental data, use [PoET's Substitution analysis](../../poet/front-end/substitution-analysis.md) tool. For help with uploading your data, see [Uploading your data](../uploading-your-data.md).
 
-Visit [OP models scoring and log-likelihood](../core-scoring-log-likelihood.md) to learn about the scoring system.
+Visit [OP models scoring and log-likelihood](../scoring-log-likelihood.md) to learn about the scoring system.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 

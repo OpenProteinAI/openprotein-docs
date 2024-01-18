@@ -63,5 +63,5 @@ We recommend using large datasets as given enough data, the model will learn the
 
 Now that you have a trained model:
 
-- use the [Design](./design-sequence.md) tool to create customized protein sequences.
+- use the [Design](./design.md) tool to create customized protein sequences.
 - use the [Substitution Analysis](./sub-analysis.md) tool to evaluate single substitution variants of a sequence.

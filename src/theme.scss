@@ -348,3 +348,18 @@ div.callout-caution.callout {
     }
   }
 }
+
+// tutorials page
+
+#embeddings h2, 
+#structure-prediction h2,
+#ml-primer h2,
+#navigating-our-interface h2,
+#analyzing-your-data h2, 
+#get-familiar-with-our-api h2,
+#library-design-from-your-data h3,
+#library-design-from-your-data h2,
+#de-novo-variant-effect-prediction-and-library-generation h3,
+#de-novo-variant-effect-prediction-and-library-generation h2  {
+  margin-top: 0;
+}

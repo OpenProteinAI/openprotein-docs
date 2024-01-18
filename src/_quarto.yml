@@ -86,17 +86,17 @@ website:
               - text: Upload data
                 file: ./opmodels/uploading-your-data.md
               - text: Scoring and log-likelihood
-                file: ./opmodels/opmodels-scoring-log-likelihood.md
+                file: ./opmodels/scoring-log-likelihood.md
               - ./opmodels/navigating-your-projects.md
               - section: Frontend tutorials
                 contents: 
                 - text: Visualization
-                  file: ./opmodels/visualizing-your-data.md
+                  file: ./opmodels/visualizations.md
                 - text: Model training and evaluation
-                  file: ./opmodels/opmodels-model-train-evaluate.md
+                  file: ./opmodels/model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
                 - text: Design
-                  file: ./opmodels/design-sequence.md
+                  file: ./opmodels/design.md
               - section: API tutorials
                 contents: 
                   - text: Getting started with sequence-based learning
@@ -107,7 +107,8 @@ website:
       - section: Structure Prediction
         contents:
           - ./structure-prediction/using-structure-prediction.md
-      - ./tutorials/index.md
+      - text: Tutorials and Examples
+        file: ./tutorials/index.md
       - section: "Walkthroughs"
         contents: 
             - ./walkthroughs/anitbody-engineering.md

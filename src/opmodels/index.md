@@ -32,7 +32,7 @@ General tutorials
 :::
 
 ::: {.column width="45%"}
-* [Visualization](./visualizing-your-data.md)
+* [Visualization](./visualization.md)
 :::
 
 ::::
@@ -42,7 +42,7 @@ Using the web application
 :::: {.columns}
 
 ::: {.column width="45%"}
-* [Model training and evaluation](./core-model-train-evaluate.md)
+* [Model training and evaluation](./model-train-evaluate.md)
 * [Design](./design-sequence.md)
 :::
 
