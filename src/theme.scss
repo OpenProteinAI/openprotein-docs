@@ -363,3 +363,14 @@ div.callout-caution.callout {
 #de-novo-variant-effect-prediction-and-library-generation h2  {
   margin-top: 0;
 }
+
+// Walkthroughs page
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 33.33%;
+  margin-bottom: 2rem;
+  margin-right: 1rem;
+}

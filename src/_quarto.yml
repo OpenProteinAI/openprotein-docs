@@ -110,6 +110,7 @@ website:
       - text: Tutorials and Examples
         file: ./tutorials/index.md
       - section: "Walkthroughs"
+        file: ./walkthroughs/index.qmd
         contents: 
             - ./walkthroughs/anitbody-engineering.md
             - ./walkthroughs/enzyme-engineering.md
