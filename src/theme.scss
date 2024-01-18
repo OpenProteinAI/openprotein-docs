@@ -1,6 +1,8 @@
 /*-- scss:defaults --*/
 $link-color: #39729e;
 $text-muted: #6a737b;
+$card-color: #EBF0F8;
+$dark-blue: #225EDB;
 
 /*-- scss:rules --*/
 
@@ -99,26 +101,7 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
   }
 }
 
-#quarto-sidebar-section-4 {
-  height: auto !important;
-  display: block;
-}
-
-[data-bs-target="#quarto-sidebar-section-4"]:first-child {
-  text-decoration: underline;
-}
-
-[data-bs-target="#quarto-sidebar-section-4"]:last-child {
-  display: none;
-}
-
-[data-bs-target="#quarto-sidebar-section-4"]:hover {
-  cursor: default;
-  color: #4f5051;
-}
-
-
-
+// Poet API tutorials
 #quarto-sidebar-section-5 {
   height: auto !important;
   display: block;
@@ -137,26 +120,27 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
   color: #4f5051;
 }
 
-#quarto-sidebar-section-8 {
+
+// Poet FE tutorials
+#quarto-sidebar-section-4 {
   height: auto !important;
   display: block;
 }
 
-[data-bs-target="#quarto-sidebar-section-8"]:first-child {
+[data-bs-target="#quarto-sidebar-section-4"]:first-child {
   text-decoration: underline;
 }
 
-[data-bs-target="#quarto-sidebar-section-8"]:last-child {
+[data-bs-target="#quarto-sidebar-section-4"]:last-child {
   display: none;
 }
 
-[data-bs-target="#quarto-sidebar-section-8"]:hover {
+[data-bs-target="#quarto-sidebar-section-4"]:hover {
   cursor: default;
   color: #4f5051;
 }
 
-
-
+// FE OP tutorials
 #quarto-sidebar-section-7 {
   height: auto !important;
   display: block;
@@ -175,6 +159,25 @@ div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sideba
   color: #4f5051;
 }
 
+// API OP tutorials
+#quarto-sidebar-section-8 {
+  height: auto !important;
+  display: block;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:first-child {
+  text-decoration: underline;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:last-child {
+  display: none;
+}
+
+[data-bs-target="#quarto-sidebar-section-8"]:hover {
+  cursor: default;
+  color: #4f5051;
+}
+
 h2 {
   border: none;
 }
@@ -186,3 +189,233 @@ h2 {
   align-items: center;
 }
 
+
+div.callout-caution.callout {
+  border: none;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.callout.callout-style-default .callout-header[aria-expanded=false], .callout.callout-style-default .callout-header[aria-expanded=true] {
+  padding: 0px;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: white !important;
+}
+
+.step1-api p {
+  margin-bottom: 0.25rem;
+}
+
+.step4-api p {
+  margin-top: 0.25rem;
+}
+
+// Overview page
+#data-driven-protein-engineering h1 {
+  text-align: center;
+  margin-top: 0;
+}
+#solutions-for-your-application h1 {
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+
+.card {
+  width: 20rem;
+  border-radius: 1rem;
+  background-color: $card-color;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: none;
+}
+
+.card-body {
+  min-height: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem 0;
+  color: black;
+
+  span {
+    font-weight: 600;
+  } 
+
+  a {
+    margin: 1rem 1rem 0 0;
+  }
+}
+
+.clickable-card {
+  height: 18rem;
+  text-decoration: none;
+  color: black;
+
+
+  .title {
+    font-weight: 600;
+  }
+
+  .description {
+    font-weight: 400;
+  }
+}
+
+.clickable-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 0.25rem rgba(38,143,255,.5);
+}
+ 
+@media (min-width: 1200px) {
+  #data-driven-protein-engineering {
+    width: 130%;
+    position: relative;
+    right: 15%;
+    max-width: 1200px;
+  }
+  #solutions-for-your-application  {
+    width: 130%;
+    position: relative;
+    right: 15%;
+    max-width: 1200px;
+  }
+}
+@media (max-width: 780px) {
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+}
+
+.getting-started-container {
+  width: 100%;
+  background-color: $dark-blue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  flex-wrap: wrap;
+
+  .getting-started-title {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .learn-more {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .learn-more span {
+    color: white;
+  }
+  .learn-more a {
+    padding: 0.5rem 1rem 0.5rem 1rem; 
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    border-radius: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .learn-more {
+      align-items: start;
+      justify-content: start;
+      max-width: 20rem;
+
+      a {
+        margin: 0.5rem 1rem 0 0;
+        min-width: 8rem;
+      }
+    }
+  }
+}
+
+// tutorials page
+
+#embeddings h2, 
+#structure-prediction h2,
+#ml-primer h2,
+#navigating-our-interface h2,
+#analyzing-your-data h2, 
+#get-familiar-with-our-api h2,
+#library-design-from-your-data h3,
+#library-design-from-your-data h2,
+#de-novo-variant-effect-prediction-and-library-generation h3,
+#de-novo-variant-effect-prediction-and-library-generation h2  {
+  margin-top: 0;
+}
+
+// Walkthroughs page
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  .card {
+    width: 33.33%;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+  }
+  
+}
+
+// publications page
+.card-publication {
+  width: 100%;
+  background-color: $card-color;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  border: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-decoration: none;
+  
+  p {
+    margin: 1rem 0 0 0;
+    color: black;
+  }
+
+  b {
+    color: black;
+  }
+
+  .publication-img-container{
+    margin-right: 2rem;
+    min-width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card-publication:hover {
+  cursor: pointer;
+  
+  b {
+    color: $link-color
+  }
+
+  p {
+    color: $link-color
+  }
+}
