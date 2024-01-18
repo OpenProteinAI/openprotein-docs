@@ -370,7 +370,52 @@ div.callout-caution.callout {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 33.33%;
-  margin-bottom: 2rem;
-  margin-right: 1rem;
+  .card {
+    width: 33.33%;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+  }
+  
+}
+
+// publications page
+.card-publication {
+  width: 100%;
+  background-color: $card-color;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  border: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-decoration: none;
+  
+  p {
+    margin: 1rem 0 0 0;
+    color: black;
+  }
+
+  b {
+    color: black;
+  }
+
+  .publication-img-container{
+    margin-right: 2rem;
+    min-width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card-publication:hover {
+  cursor: pointer;
+  
+  b {
+    color: $link-color
+  }
+
+  p {
+    color: $link-color
+  }
 }
