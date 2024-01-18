@@ -3,10 +3,11 @@ title: Our easy-to-use tools facilitate the protein design process
 format:
   html:
     code-fold: true
+    toc: false
 ---
-
+<br/>
 <p align="center">
-  <img src="./img/OurTools_Diagram.png" width="80%">
+  <img src="./img/OurTools_Diagram.png" width="60%">
 </p>
 
 Our tools are standalone or can be used together at any point in your project

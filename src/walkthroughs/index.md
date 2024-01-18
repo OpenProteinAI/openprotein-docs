@@ -29,7 +29,7 @@ Browse our use case examples to apply OpenProtein.AI’s tools towards specific 
 <div class="getting-started-container" width="80%">
     <span style="color:white;font-weight:700">Learn how to make your own designs by visiting Our Tools page</span>
     <div class="learn-more">
-        <a href="./tools/index.md">Learn more</a>
+        <a href="../tools/index.md">Learn more</a>
     </div>
 </div>
 ```
