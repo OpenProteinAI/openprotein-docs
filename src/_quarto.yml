@@ -21,16 +21,15 @@ website:
       - text: "Getting Started"
         file: ./getting-started/get-started-with-no-code.md
       - text: "Our tools"
-        file: ./opmodels/overview.md
+        file: ./tools/index.md
       - text: "Walkthroughs"
-        file: ./walkthroughs/anitbody-engineering.md
+        file: ./walkthroughs/index.md
       - text: "REST API"
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
         href: https://docs.openprotein.ai/api-python/index.html
       - text: "Login"
         href: https://app.openprotein.ai/
-        
       - text: "Contact"
         href: https://www.openprotein.ai/contact
         
@@ -110,7 +109,7 @@ website:
       - text: Tutorials and Examples
         file: ./tutorials/index.md
       - section: "Walkthroughs"
-        file: ./walkthroughs/index.qmd
+        file: ./walkthroughs/index.md
         contents: 
             - ./walkthroughs/anitbody-engineering.md
             - ./walkthroughs/enzyme-engineering.md
