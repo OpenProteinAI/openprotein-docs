@@ -71,7 +71,7 @@ session.poet.create_msa()
 :::
 
 <div class="step4-api">
-  <span>Step 4: Get started using our</span> <a href="../core/overview.md"">tools</a>
+  <span>Step 4: Get started using our</span> <a href="../tools/index.md">tools</a>
 </div>
 
 ### Quick start tips
@@ -90,7 +90,7 @@ Do you want to...
 
 ::: {.column width="85%"}
 **Make sequence predictions or designs without using any data?** <br/>
-Get started with [PoET](../poet/introduction-page.md){target="_blank"} which uses evolutionary information to generate protein sequences.
+Get started with [PoET](../poet/index.md) which uses evolutionary information to generate protein sequences
 :::
 
 ::::
