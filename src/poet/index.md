@@ -27,8 +27,8 @@ Using the web application
 :::: {.columns}
 
 ::: {.column width="40%"}
-* [Prompts](./prompts.md)
-* [Scoring](./scoring-log-likelihood.md)
+* [PoET prompts and prompt sampling methods](./prompts.md)
+* [Scoring system and log probability](./scoring-log-likelihood.md)
 * [Ensembling](./ensembling.md)
 :::
 
@@ -37,9 +37,9 @@ Using the web application
 :::
 
 ::: {.column width="40%"}
-* [Rank sequences](./rank-sequences.md)
-* [Generate sequence](./generate-sequences.md)
-* [Substitution analysis](./substitution-analysis.md)
+* [Using the Rank Sequences tool](./rank-sequences.md)
+* [Using the Generate Sequences tool](./generate-sequences.md)
+* [Using the PoET Substitution Analysis tool](./substitution-analysis.md)
 :::
 
 ::::
