@@ -28,7 +28,7 @@ website:
         file: ./rest-api/overview.qmd
       - text: "Python API docs"
         href: https://docs.openprotein.ai/api-python/index.html
-      - text: "Login"
+      - text: "Log in"
         href: https://app.openprotein.ai/
       - text: "Contact"
         href: https://www.openprotein.ai/contact
