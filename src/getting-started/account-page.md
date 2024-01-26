@@ -7,14 +7,14 @@ format:
 
 ## Logging into your account
 
-Login to the [web platform](https://app.openprotein.ai){target="_blank"} with your
+Log in to the [web platform](https://app.openprotein.ai){target="_blank"} with your
 username and password.
 
 <p align="center">
   <img src="./img/login.png" width="500">
 </p>
 
-You can also login from our [home page](https://openprotein.ai){target="_blank"}.
+You can also log in from our [home page](https://openprotein.ai){target="_blank"}.
 
 <p align="center">
   <img src="./img/acct-login-homepage.png" width="500">
