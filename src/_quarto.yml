@@ -82,8 +82,7 @@ website:
             contents:
               - text: Overview
                 file: ./opmodels/overview.md
-              - text: Upload data
-                file: ./opmodels/uploading-your-data.md
+              - ./opmodels/uploading-your-data.md
               - text: Scoring and log-likelihood
                 file: ./opmodels/scoring-log-likelihood.md
               - ./opmodels/navigating-your-projects.md
