@@ -82,7 +82,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 **Tutorials**
 
 [Uploading data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizations](../opmodels/visualizations.md)<br/>
+[Visualization](../opmodels/visualization.md)<br/>
 [Designing sequences](../opmodels/design.md)<br/>
 [OP models scoring and log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
 [Using OP models’s Substitution Analysis](../opmodels/sub-analysis.md)
@@ -130,7 +130,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 **Tutorials**
 
 [Uploading data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizations](../opmodels/visualizations.md)<br/>
+[Visualization](../opmodels/visualization.md)<br/>
 :::
 ::::
 

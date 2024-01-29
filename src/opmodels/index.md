@@ -32,7 +32,7 @@ General tutorials
 :::
 
 ::: {.column width="45%"}
-* [Visualizing your data](./visualizations.md)
+* [Visualizing your data](./visualization.md)
 :::
 
 ::::

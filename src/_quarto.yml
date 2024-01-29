@@ -88,8 +88,7 @@ website:
               - ./opmodels/navigating-your-projects.md
               - section: Frontend tutorials
                 contents: 
-                - text: Visualization
-                  file: ./opmodels/visualizations.md
+                - ./opmodels/visualization.md
                 - text: Model training and evaluation
                   file: ./opmodels/model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
