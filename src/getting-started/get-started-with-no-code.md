@@ -1,5 +1,5 @@
 ---
-title: Getting started with [OpenProtein.AI](https://openprotein.ai){target="_blank"}
+title: Getting started with OpenProtein.AI
 format:
   html:
     code-fold: true
