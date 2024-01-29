@@ -11,7 +11,7 @@ If you run into any challenges or have questions while getting started, please c
 
 ## What you need before starting
 
-You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](./prompts.md){target="_blank"} before diving in.
+You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](./prompts.md) before diving in.
 
 ## Score single substitution variants
 
@@ -108,4 +108,4 @@ You can also improve your prompt by adding sequences or constructing a better MS
 
 ## Next steps
 
-Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md){target="_blank"} to visualize their structural implications or start a project using our [OP models](../opmodels/index.md){target="_blank"} after acquiring data from your designs.
+Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md) to visualize their structural implications or start a project using our [OP models](../opmodels/index.md) after acquiring data from your designs.
