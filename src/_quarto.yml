@@ -100,9 +100,9 @@ website:
                   - text: Getting started with embeddings
                     href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
               - ./opmodels/quantitative-decision-making-for-library-design.md
-      - section: Structure Prediction
-        contents:
-          - ./structure-prediction/using-structure-prediction.md
+          - section: Structure Prediction
+            contents:
+              - ./structure-prediction/using-structure-prediction.md
       - text: Tutorials and Examples
         file: ./tutorials/index.md
       - section: "Walkthroughs"
