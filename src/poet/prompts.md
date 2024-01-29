@@ -1,5 +1,5 @@
 ---
-title: PoET prompts and prompt sampling parameters
+title: Prompt and prompt sampling methods
 format:
   html:
     code-fold: true
@@ -7,7 +7,7 @@ format:
 
 ## What is a prompt?
 
-A prompt is an input instructing a Generative AI model to generate the desired response. PoET uses a prompt that is a set of related sequences. They may be homologues, family members, or some other grouping that represents your protein of interest.
+A prompt is an input instructing a Generative AI model to generate the desired response. PoET uses a prompt that is a set of related sequences. They may be homologs, family members, or some other grouping that represents your protein of interest.
 
 ## Creating a prompt
 
@@ -33,23 +33,28 @@ When a user inputs a single sequence and selects **Use first sequence as a seed*
 
 ## Prompt sampling definitions
 
-_Sampling method_: defines the sampling strategy used for selecting prompt sequences from the homologues found by homology search, or from the provided MSA. We recommend using the default "Neighbors" method.
+* _Sampling method_: defines the sampling strategy used for selecting prompt sequences from the homologs found by homology search, or from the provided MSA. The following strategies are available:
+  * Top: Select sequences based on the order in which they occur in the MSA
+  * Random: Select sequences randomly without replacement in the MSA
+  * Neighbors: Sample more diverse, less redundant sequences from the MSA by sampling each sequence with weight inversely proportional to its number of homologs in the MSA
 
-_Homology level_: this parameter controls the identity level at which two sequences are considered "neighbors" - that is, redundant - in the MSA. This is equivalent to the homology level used to calculate the number of effective sequences in protein families.
+* _Homology level_: this parameter controls the identity level at which two sequences are considered "neighbors" - that is, redundant - in the MSA. This is equivalent to the homology level used to calculate the number of effective sequences in protein families.
 
-_Maximum similarity_: the maximum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity greater than this to the seed will be included.
+* _Random seed: The seed for the random number generator used to sample from the MSA. Using the same seed with the same MSA and sampling parameters will guarantee that the same results are generated each time. Different seeds will produce different prompt samples.
 
-_Minimum similarity_: the minimum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity less than this to the seed will be included. This is useful for creating prompts that are highly focused on the local sequence space around the seed.
+* _Maximum similarity_: the maximum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity greater than this to the seed will be included.
 
-_Maximum number of sequences:_ The number of sequences sampled from the MSA to form the prompt. The same sequence will not be sampled from the MSA more than once, so the number of sequences in the prompt will never be greater than the number of sequences in the MSA.
+* _Minimum similarity_: the minimum similarity to the seed sequence allowed when selecting sequences for the prompt. No sequence with identity less than this to the seed will be included. This is useful for creating prompts that are highly focused on the local sequence space around the seed.
 
-_Maximum total number of residues:_ The maximum total number of residues in all sequences sampled from the MSA to form the prompt. For example, if this is set to 1000, sequences will be sampled from the MSA up to a maximum cumulative length of 1000 residues.
+* _Maximum number of sequences:_ The number of sequences sampled from the MSA to form the prompt. The same sequence will not be sampled from the MSA more than once, so the number of sequences in the prompt will never be greater than the number of sequences in the MSA.
+
+* _Maximum total number of residues:_ The maximum total number of residues in all sequences sampled from the MSA to form the prompt. For example, if this is set to 1000, sequences will be sampled from the MSA up to a maximum cumulative length of 1000 residues.
 
 ## Prompt sampling explained
 
 The selection of prompt sequences from the MSA is controlled by several prompt sampling parameters.
 
-The **sampling method** field defines the sampling strategy used for selecting prompt sequences from the homologues found by homology search, or from the provided MSA. We recommend using the default "Neighbors" method.
+The **sampling method** field defines the sampling strategy used for selecting prompt sequences from the homologs found by homology search, or from the provided MSA. We recommend using the default "Neighbors" method.
 
 The **homology level** field allows you to generate more or less diverse prompt sequences.
 
