@@ -92,8 +92,7 @@ website:
                 - text: Model training and evaluation
                   file: ./opmodels/model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
-                - text: Design
-                  file: ./opmodels/design.md
+                - ./opmodels/design.md
               - section: API tutorials
                 contents: 
                   - text: Getting started with sequence-based learning
