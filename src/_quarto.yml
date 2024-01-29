@@ -63,7 +63,7 @@ website:
               - ./poet/history.md
               - section: Frontend PoET tutorials
                 contents: 
-                - text: Rank sequences
+                - text: Using the rank sequences tool
                   file: ./poet/rank-sequences.md
                 - text: Substitution analysis with PoET
                   file: ./poet/substitution-analysis.md

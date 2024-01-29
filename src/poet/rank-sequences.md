@@ -1,11 +1,11 @@
 ---
-title: Using the Rank sequences tool
+title: Using the Rank Sequences tool
 format:
   html:
     code-fold: true
 ---
 
-This tutorial teaches you how to assess protein fitness by using the Rank sequences tool to score your input sequences relative to a prompt. Use this as a starting point for applications like predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for applications like predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
 
 On this page, you will learn how to score sequences to predict fitness and rank variants, then interpret and fine-tune the results.
 
@@ -19,7 +19,7 @@ You also need an input sequence, or list of sequences you want to score against 
 
 ## Rank your sequences
 
-To navigate to the tool, open the **PoET** dropdown menu then select **Rank sequences**.
+To navigate to the tool, open the **PoET** dropdown menu then select **Rank Sequences**.
 
 Add the sequence or sequences you want to score to the **Input sequence** field.
 
@@ -91,7 +91,7 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-PoET modeling returns a log-likelihood score to evaluate the fitness of the _input sequence_ relative to the _prompt_. A positive number indicates an improvement in fitness relative to the prompt, a negative number indicates a decrease in fitness relative to the prompt, and a 0 indicates equivalent fitness to the prompt.
+PoET modeling returns a relative log-likelihood score to evaluate the fitness of the input sequence relative to the prompt. The higher or less negative the score is, the more fit the sequence.
 
 The results are presented as a table. You can filter or sort the table, and download it through the user interface (UI) for further analysis.
 
