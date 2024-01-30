@@ -28,6 +28,7 @@ website:
         file: ./rest-api/overview.qmd
       - text: "Python API"
         href: https://docs.openprotein.ai/api-python/index.html
+        target: _blank
       - text: "Log in"
         href: https://app.openprotein.ai/
       - text: "Contact"
@@ -108,7 +109,8 @@ website:
       - section: "Walkthroughs"
         file: ./walkthroughs/index.md
         contents: 
-            - ./walkthroughs/anitbody-engineering.md
+            - text: Antibody Engineering
+              file: ./walkthroughs/anitbody-engineering.md
             - ./walkthroughs/enzyme-engineering.md
       - section: "REST API"
         contents:
@@ -117,6 +119,9 @@ website:
             - ./rest-api/project.qmd
             - ./rest-api/poet.qmd
             - ./rest-api/embeddings.qmd  
+      - text: "Python API"
+        href: https://docs.openprotein.ai/api-python/index.html
+        target: _blank
       - section: "Resources"
         contents:
             - ./resources/faq.md
