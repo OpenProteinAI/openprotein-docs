@@ -70,3 +70,18 @@ our [NeurIPS 2023 paper](https://arxiv.org/abs/2306.06156){target="_blank"}, inc
 * PoET is a fully autoregressive generative model, able to generate and score novel indels in addition to substitutions, and does not depend on MSAs of the input family, removing problems caused by long insertions, gappy regions, and alignment errors.
 * By learning across protein families, PoET is able to extrapolate from short context lengths allowing it to generalize well even for small protein families.
 * PoET can be sampled from and can be used to calculate the likelihood of any sequence efficiently.
+
+```{=html}
+<a href="https://arxiv.org/abs/2306.06156" class="card-publication" target="_blank" style="margin-top: 2rem">
+    <div class="publication-img-container">
+      <img src="../resources/img/neural.png" alt="Cell Systems" class="publication-img" height="71px">
+    </div>
+    <div class="publication-description">
+      <b>PoET: A generative model of protein families as sequences-of-sequences</b>
+      <p>
+        Timothy F. Truong Jr, Tristan Bepler <br/>
+        NeurIPS 2023
+      </p>
+    </div>
+  </a>
+```
