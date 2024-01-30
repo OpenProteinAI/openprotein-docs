@@ -71,7 +71,7 @@ session.poet.create_msa()
 :::
 
 <div class="step4-api">
-  <span>Step 4: Get started using our</span> <a href="../tools/index.md">tools</a>
+  <span>Step 4: Get started using </span> <a href="../tools/index.md">our tools</a>
 </div>
 
 ### Quick start tips

@@ -27,7 +27,7 @@ Do you want to... <br/>
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/poet-icon.png" height="60">
+<img src="./img/poet-icon.png" height="60px">
 :::
 
 ::: {.column width="5%"}
@@ -44,7 +44,7 @@ Get started with [PoET](../poet/index.md) which uses evolutionary information to
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/bar-chart.png" height="60">
+<img src="./img/bar-chart.png" height="60px">
 :::
 
 ::: {.column width="5%"}
@@ -63,7 +63,7 @@ Create your first project and deploy machine learning models trained on your dat
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/dna-broken.png" height="60">
+<img src="./img/dna-broken.png" height="60px">
 :::
 
 ::: {.column width="5%"}

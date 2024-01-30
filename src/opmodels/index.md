@@ -1,5 +1,5 @@
 ---
-title: Use Our Optimization And Prediction Models (OP models) To Analyze And Optimize Sequences Based On Your Data
+title: Use Our Optimization And Prediction Models (OP Models) To Analyze And Optimize Sequences Based On Your Data
 format:
   html:
     code-fold: true
@@ -8,7 +8,7 @@ format:
 Our OP Models tool allows you to use our protein large language models to learn then predict sequence-to-function relationships from your experimental data. Use your functional measurements to train machine learning models, then use these custom models to design and visualize sequences within your specified constraints.
 
 <p align="center">
-  <img src="./img/index-diagram.png" alt="OP models tool" width="80%"/>
+  <img src="./img/index-diagram.png" alt="OP Models tool" width="80%"/>
 </p>
 
 Our models provide a quantitative score that a given sequence will achieve your design objective. They also output a mean expected value of the property and a standard deviation value to indicate the confidence in that prediction. This lets you make data-driven decisions about your library selection and optimize for performance despite cost and workflow constraints.
@@ -32,6 +32,7 @@ General tutorials
 :::
 
 ::: {.column width="45%"}
+* [OP Models scoring and log-likelihood](./scoring-log-likelihood.md)
 * [Visualizing your data](./visualization.md)
 :::
 
