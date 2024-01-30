@@ -1,5 +1,5 @@
 ---
-title: Using the Rank Sequences tool
+title: Using The Rank Sequences Tool
 format:
   html:
     code-fold: true

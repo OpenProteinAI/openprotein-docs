@@ -1,5 +1,5 @@
 ---
-title: Our easy-to-use tools facilitate the protein design process
+title: Our Easy-to-use Tools Facilitate The Protein Design Process
 format:
   html:
     code-fold: true

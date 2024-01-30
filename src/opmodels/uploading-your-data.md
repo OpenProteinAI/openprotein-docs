@@ -1,5 +1,5 @@
 ---
-title: Uploading your data
+title: Uploading Your Data
 format:
   html:
     code-fold: true

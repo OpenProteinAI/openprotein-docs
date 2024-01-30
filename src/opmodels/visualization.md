@@ -1,5 +1,5 @@
 ---
-title: Visualizing your data
+title: Visualizing Your Data
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Demo datasets
+title: Demo Datasets
 format:
   html:
     code-fold: true

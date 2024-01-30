@@ -1,5 +1,5 @@
 ---
-title: Use PoET to predict high quality sequences without data
+title: Use PoET To Predict High Quality Sequences Without Data
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title:  Using the Generate Sequences tool
+title:  Using The Generate Sequences Tool
 format:
   html:
     code-fold: true
@@ -98,11 +98,7 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-Your results are presented as a table, with each generated sequence being assigned a log-likelihood score. This score indicates the fitness of the generated sequence compared to the prompt. The higher the log-likelihood score, the more fit the sequence:
-
-- A positive number indicates an improvement in fitness.
-- A negative number indicates a reduction in fitness.
-- 0 indicates equivalent fitness.
+Your results are presented as a table, with each generated sequence being assigned a log-likelihood score. This score indicates the fitness of the generated sequence compared to the prompt. The higher the log-likelihood score, the more fit the sequence.
 
 ![](./img/results-table.png)
 

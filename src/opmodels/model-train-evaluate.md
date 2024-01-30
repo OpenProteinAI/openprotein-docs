@@ -1,5 +1,5 @@
 ---
-title: Training custom models
+title: Training Custom Models
 format:
   html:
     code-fold: true

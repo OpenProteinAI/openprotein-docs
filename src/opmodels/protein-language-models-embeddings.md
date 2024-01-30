@@ -1,5 +1,5 @@
 ---
-title: Protein language models and embeddings
+title: Protein Language Models And Embeddings
 format:
   html:
     code-fold: true

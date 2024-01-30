@@ -1,5 +1,5 @@
 ---
-title: Using the PoET Substitution Analysis tool
+title: Using The PoET Substitution Analysis Tool
 format:
   html:
     code-fold: true

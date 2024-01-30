@@ -1,5 +1,5 @@
 ---
-title: Navigating your projects
+title: Navigating Your Projects
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Learn how to use our broad suite of tools with tutorials and use case examples
+title: Learn How To Use Our Broad Suite Of Tools With Tutorials And Use Case Examples
 format:
   html:
     code-fold: true

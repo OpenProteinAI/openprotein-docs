@@ -20,13 +20,13 @@ website:
         file: ./index.md
       - text: "Getting Started"
         file: ./getting-started/get-started-with-no-code.md
-      - text: "Our tools"
+      - text: "Our Tools"
         file: ./tools/index.md
       - text: "Walkthroughs"
         file: ./walkthroughs/index.md
       - text: "REST API"
         file: ./rest-api/overview.qmd
-      - text: "Python API docs"
+      - text: "Python API"
         href: https://docs.openprotein.ai/api-python/index.html
       - text: "Log in"
         href: https://app.openprotein.ai/
@@ -43,59 +43,59 @@ website:
       contents:
       - section: "Getting Started"
         contents:
-          - text: Get started with no code
+          - text: Get Started With No Code
             file: ./getting-started/get-started-with-no-code.md
-          - text: Get started with our API
+          - text: Get Started With Our API
             file: ./getting-started/get-started-with-our-API.md
-          - text: Account information
+          - text: Account Information
             file: ./getting-started/account-page.md
-      - section: Our tools
+      - section: Our Tools
         file: ./tools/index.md
         contents:
           - section: PoET
             file: ./poet/index.md
             contents:
-              - text: Prompt and prompt sampling methods
+              - text: Prompt And Prompt Sampling Methods
                 file: ./poet/prompts.md
-              - text: Scoring system and log probability 
+              - text: Scoring System And Log Probability 
                 file: ./poet/scoring-log-likelihood.md
               - ./poet/ensembling.md
               - ./poet/history.md
-              - section: Frontend PoET tutorials
+              - section: Frontend PoET Tutorials
                 contents: 
-                - text: Using the rank sequences tool
+                - text: Using The Rank Sequences Tool
                   file: ./poet/rank-sequences.md
-                - text: Substitution analysis with PoET
+                - text: Substitution Analysis With PoET
                   file: ./poet/substitution-analysis.md
-                - text: Generate sequences
+                - text: Generate Sequences
                   file: ./poet/generate-sequences.md
-              - section: API PoET tutorials
+              - section: API PoET Tutorials
                 contents: 
-                - text: Getting started with PoET
+                - text: Getting Started With PoET
                   href: https://docs.openprotein.ai/api-python/demos/poet_demo.html
-                - text: Designing new enzymes
+                - text: Designing New Enzymes
                   href: https://docs.openprotein.ai/api-python/demos/chorismate.html
-                - text: Substitutions and deletions
+                - text: Substitutions and Deletions
                   href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
-          - section: Optimization and Prediction Models (OP models)
+          - section: Optimization And Prediction Models (OP models)
             file: ./opmodels/index.md
             contents:
               - text: Overview
                 file: ./opmodels/overview.md
               - ./opmodels/uploading-your-data.md
-              - text: Scoring and log-likelihood
+              - text: Scoring And Log-likelihood
                 file: ./opmodels/scoring-log-likelihood.md
               - ./opmodels/navigating-your-projects.md
-              - section: Frontend tutorials
+              - section: Frontend Tutorials
                 contents: 
                 - ./opmodels/visualization.md
-                - text: Model training and evaluation
+                - text: Model Training And Evaluation
                   file: ./opmodels/model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
                 - ./opmodels/design.md
-              - section: API tutorials
+              - section: API Tutorials
                 contents: 
-                  - text: Getting started with sequence-based learning
+                  - text: Getting Started with Sequence-based Learning
                     href: https://docs.openprotein.ai/api-python/demos/core_demo.html
                   - text: Getting started with embeddings
                     href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
@@ -103,7 +103,7 @@ website:
           - section: Structure Prediction
             contents:
               - ./structure-prediction/using-structure-prediction.md
-      - text: Tutorials and Examples
+      - text: Tutorials And Examples
         file: ./tutorials/index.md
       - section: "Walkthroughs"
         file: ./walkthroughs/index.md
@@ -122,7 +122,6 @@ website:
             - ./resources/faq.md
             - ./resources/publications.md
             - ./resources/glossary.md
-            - ./resources/site-index.md
 
 format:
   html:

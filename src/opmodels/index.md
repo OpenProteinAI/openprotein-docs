@@ -1,5 +1,5 @@
 ---
-title: Use our Optimization and Prediction Models (OP models) to analyze and optimize sequences based on your data
+title: Use Our Optimization And Prediction Models (OP models) To Analyze And Optimize Sequences Based On Your Data
 format:
   html:
     code-fold: true

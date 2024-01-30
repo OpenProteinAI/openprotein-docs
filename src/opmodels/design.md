@@ -1,5 +1,5 @@
 ---
-title: Designing sequences
+title: Designing Sequences
 format:
   html:
     code-fold: true

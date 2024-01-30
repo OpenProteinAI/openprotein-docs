@@ -1,5 +1,5 @@
 ---
-title: 'Walkthrough: ML-guided mutagenesis and sequence-to-function modeling'
+title: 'Walkthrough: ML-guided Mutagenesis And Sequence-to-function Modeling'
 format:
   html:
     code-fold: true

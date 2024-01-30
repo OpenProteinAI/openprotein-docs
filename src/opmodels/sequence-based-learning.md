@@ -1,5 +1,5 @@
 ---
-title: Sequence-based learning
+title: Sequence-based Learning
 format:
   html:
     code-fold: true

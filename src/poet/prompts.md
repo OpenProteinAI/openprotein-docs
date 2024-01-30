@@ -1,5 +1,5 @@
 ---
-title: Prompt and prompt sampling methods
+title: Prompt And Prompt Sampling Methods
 format:
   html:
     code-fold: true
