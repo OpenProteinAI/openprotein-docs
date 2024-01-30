@@ -1,5 +1,5 @@
 ---
-title: Getting started with OpenProtein.A
+title: Getting Started With OpenProtein.AI
 format:
   html:
     code-fold: true
@@ -7,7 +7,7 @@ format:
 
 Step 1: Request [early access](https://openprotein-ai.webflow.io/early-access-form){target="_blank"}  <br/> 
 Step 2: [Log in](https://app.openprotein.ai){target="_blank"} to your account <br/> 
-Step 3: Get started using our [tools](../opmodels/overview.md) for your protein engineering goals <br/> 
+Step 3: Get started using [our tools](../tools/index.md) for your protein engineering goals <br/> 
 
 ::: {.callout-tip}
 ## Are you a developer?
@@ -27,7 +27,7 @@ Do you want to... <br/>
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/poet-icon.png" height="60">
+<img src="./img/poet-icon.png" height="60px">
 :::
 
 ::: {.column width="5%"}
@@ -36,7 +36,7 @@ Do you want to... <br/>
 
 ::: {.column width="85%"}
 **Make sequence predictions or designs without using any data?** <br/>
-Get started with [PoET](../poet/index.md){target="_blank"} which uses evolutionary information to generate protein sequences.
+Get started with [PoET](../poet/index.md) which uses evolutionary information to generate protein sequences
 :::
 
 ::::
@@ -44,7 +44,7 @@ Get started with [PoET](../poet/index.md){target="_blank"} which uses evolutiona
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/bar-chart.png" height="60">
+<img src="./img/bar-chart.png" height="60px">
 :::
 
 ::: {.column width="5%"}
@@ -54,7 +54,7 @@ Get started with [PoET](../poet/index.md){target="_blank"} which uses evolutiona
 ::: {.column width="85%"}
 **Analyze your experimental data for library design?** <br/>
 Create your first project and deploy machine learning models trained on your data <br/>
-[Learn more about OP Models](../opmodels/overview.md)&emsp;&emsp;&emsp;[Get started uploading your data](../opmodels/uploading-your-data.md)
+[Learn more about OP Models](../opmodels/index.md)&emsp;&emsp;&emsp;[Get started uploading your data](../opmodels/uploading-your-data.md)
 
 :::
 
@@ -63,7 +63,7 @@ Create your first project and deploy machine learning models trained on your dat
 :::: {.columns}
 
 ::: {.column width="10%"}
-<img src="./img/dna-broken.png" height="60">
+<img src="./img/dna-broken.png" height="60px">
 :::
 
 ::: {.column width="5%"}

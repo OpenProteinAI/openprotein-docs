@@ -17,8 +17,8 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Enhance directed evolution with zero-shot protein design</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./poet/index.md">Tools</a>
+                <a href="https://docs.openprotein.ai/api-python/poet_workflow.html" target="_blank">Examples</a>
             </div>
         </div>      
     </div>
@@ -27,8 +27,8 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Traverse the protein evolutionary fitness landscape using large language models for variant design</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./opmodels/index.md">Tools</a>
+                <a href="./tutorials/index.md#library-design-from-your-data">Examples</a>
             </div>
         </div>      
     </div>
@@ -37,8 +37,7 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Predict the structure of your designer proteins with deep learning</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./tools/index.md">Tools</a>
             </div>
         </div>      
     </div>
@@ -47,8 +46,8 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Visualize your data to better understand and communicate your results</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./opmodels/index.md">Tools</a>
+                <a href="./tutorials/index.md#analyzing-your-data">Examples</a>
             </div>
         </div>      
     </div>
@@ -57,8 +56,8 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Design cost efficient libraries to maximize ROI with limited resourcing</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./opmodels/index.md">Tools</a>
+                <a href="./tutorials/index.md#library-design-from-your-data">Examples</a>
             </div>
         </div>      
     </div>
@@ -67,8 +66,8 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Get embeddings and attention maps for integration with your ML pipeline</span>
             <div>
-                <a href="./poet/index.md" target="_blank">Tools</a>
-                <a href="https://docs.openprotein.ai/api-python/poet" target="_blank">Examples</a>
+                <a href="./opmodels/index.md">Tools</a>
+                <a href="https://docs.openprotein.ai/api-python/demos/embedding_demo.html" target="_blank">Examples</a>
             </div>
         </div>      
     </div>

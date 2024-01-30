@@ -1,5 +1,5 @@
 ---
-title: Using the structure prediction tool
+title: Using The Structure Prediction Tool
 format:
   html:
     code-fold: true

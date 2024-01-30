@@ -1,5 +1,5 @@
 ---
-title: Designing new enzymes
+title: Designing New Enzymes
 format:
   html:
     code-fold: true

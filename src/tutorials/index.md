@@ -1,5 +1,5 @@
 ---
-title: Learn how to use our broad suite of tools with tutorials and use case examples
+title: Learn How To Use Our Broad Suite Of Tools With Tutorials And Use Case Examples
 format:
   html:
     code-fold: true
@@ -81,8 +81,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Uploading data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizations](../opmodels/visualizations.md)<br/>
+[Uploading your data](../opmodels/uploading-your-data.md)<br/> 
+[Visualizing your data](../opmodels/visualization.md)<br/>
 [Designing sequences](../opmodels/design.md)<br/>
 [OP models scoring and log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
 [Using OP models’s Substitution Analysis](../opmodels/sub-analysis.md)
@@ -129,8 +129,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Uploading data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizations](../opmodels/visualizations.md)<br/>
+[Uploading your data](../opmodels/uploading-your-data.md)<br/> 
+[Visualizing your data](../opmodels/visualization.md)<br/>
 :::
 ::::
 
@@ -199,6 +199,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 **Tutorials**
 
 [PoET history](../poet/history.md)<br/>
+[Navigating your projects](../opmodels/navigating-your-projects.md)<br/>
 :::
 
 ::: {.column width="5%"}
@@ -207,9 +208,6 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 ::: {.column width="45%"}
 
-**Docs** 
-
-[Navigating your projects](../opmodels/navigating-your-projects.md)<br/>
 :::
 
 ::::

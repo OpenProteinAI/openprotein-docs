@@ -1,5 +1,5 @@
 ---
-title: Our easy-to-use tools facilitate the protein design process
+title: Our Easy-to-use Tools Facilitate The Protein Design Process
 format:
   html:
     code-fold: true
@@ -18,7 +18,7 @@ Our tools are standalone or can be used together at any point in your project
 ### PoET
 Predict variant effects and create initial library designs guided by evolution
 
-**Requires:** sequence of interest
+**Requires:** sequence of interest <br/>
 **Output:**  library designs and predictions <br/>
 
 ::: {.callout-tip}
@@ -37,10 +37,10 @@ Predict variant effects and create initial library designs guided by evolution
 :::
 
 ::: {.column width="30%"}
-### Optimization and Prediction Models (OP models)
+### Optimization and Prediction Models (OP Models)
 Design optimized variant libraries using ML models trained on your data
 
-**Requires:** data and design goals
+**Requires:** data and design goals <br/>
 **Output:** library designs and predictions <br/>
 
 ::: {.callout-tip}
@@ -62,7 +62,7 @@ Design optimized variant libraries using ML models trained on your data
 ### Structure Prediction
 View and download high quality structure predictions
 
-**Requires:** sequence of interest
+**Requires:** sequence of interest <br/>
 **Output:** web based visuals and .pdb files <br/>
 
 ::: {.callout-tip}
@@ -80,7 +80,7 @@ View and download high quality structure predictions
 <div class="getting-started-container">
     <span style="color:white;font-weight:700">See our tools in action by visiting our Walkthroughs page</span>
     <div class="learn-more">
-        <a href="./walkthroughs/index.md">Learn more</a>
+        <a href="../walkthroughs/index.md">Learn more</a>
     </div>
 </div>
 ```

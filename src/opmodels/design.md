@@ -1,5 +1,5 @@
 ---
-title: Design sequence
+title: Designing Sequences
 format:
   html:
     code-fold: true
@@ -9,9 +9,9 @@ This tutorial shows you how to design protein sequences based on your chosen obj
 
 ## What you need before getting started
 
-Please note that this tool requires experimental data in the form of an uploaded dataset. For instructions on how to upload your data, see [Uploading your data](../uploading-your-data.md)
+Please note that this tool requires experimental data in the form of an uploaded dataset. For instructions on how to upload your data, see [Uploading your data](./uploading-your-data.md)
 
-If you don't yet have experimental data, start with our [PoET tools](../../poet/index.md).
+If you don't yet have experimental data, start with our [PoET tools](../poet/index.md).
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
@@ -78,4 +78,4 @@ Reducing the design target can help the system find sequences that are likely to
 
 ## Using your designed sequences
 
-Explore your sequence's 3D structure with the [Structure Prediction](../../structure-prediction/using-structure-prediction.md) tool, or use [Substitution Analysis](./sub-analysis.md) to evaluate the single substitution variants of your sequence.
+Explore your sequence's 3D structure with the [Structure Prediction](../structure-prediction/using-structure-prediction.md) tool, or use [Substitution Analysis](./sub-analysis.md) to evaluate the single substitution variants of your sequence.

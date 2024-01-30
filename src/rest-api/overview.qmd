@@ -1,5 +1,5 @@
 ---
-title: Overview - API docs
+title: Overview - API Docs
 format:
   html:
     code-fold: true

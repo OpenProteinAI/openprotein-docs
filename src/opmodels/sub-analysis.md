@@ -1,29 +1,27 @@
 ---
-title: Substitution analysis with OP models
+title: Substitution Analysis With OP Models
 format:
   html:
     code-fold: true
 ---
 
-This tutorial teaches you how to use OpenProtein.AI's OP models Substitution analysis tool to evaluate all single substitution variants of a given sequence. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
+This tutorial teaches you how to use OpenProtein.AI’s Core Workflow Substitution analysis tool to evaluate all single substitution variants of a given sequence. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity. 
 
 ## What you need before starting
 
-This tool requires experimental data. If you don't yet have experimental data, use [PoET's Substitution analysis](../../poet/front-end/substitution-analysis.md) tool. For help with uploading your data, see [Uploading your data](../uploading-your-data.md).
+This tool requires experimental data. If you don't yet have experimental data, use [PoET's Substitution analysis](../poet/substitution-analysis.md) tool. For help with uploading your data, see [Uploading your data](./uploading-your-data.md).
 
-Visit [OP models scoring and log-likelihood](../scoring-log-likelihood.md) to learn about the scoring system.
+Visit [OP models scoring and log-likelihood](./scoring-log-likelihood.md) to learn about the scoring system.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
 ## Score single substitution variants
 
-Access this tool from your project's **Dataset** tab. Select your starting sequence, then
-
-select **Substitution Analysis**.
+Access this tool from your project's **Dataset** tab. Select your starting sequence, then select **Substitution Analysis**.
 
 ![](./img/substitution-analysis/core-SA-1.png)
 
-You can also right click a sequence in the variants table and select **Run**** substitution analysis on this sequence**.
+You can also right click a sequence in the variants table and select **Run substitution analysis on this sequence**.
 
 A new window will open, showing your input sequence. Select **Substitution Analysis** to start the job.
 
@@ -39,14 +37,10 @@ In the **Models** tab, select at least one model to run the prediction. Then sel
 
 Your results display a table and a heatmap. The table shows predicted property values and standard deviations.
 
-Hover over points on the heatmap to view the log-likelihood score for each substitution site.
-
-The higher the log-likelihood score is, the more fit the variant.
+Hover over points on the heatmap to view the log-likelihood score for each substitution site. The higher the log-likelihood score is, the more fit the variant.
 
 - A positive number indicates an improvement in fitness.
-
 - 0 indicates equivalent fitness.
-
 - A negative number indicates less fitness.
 
 Use the heatmap to view the highest ranking sequences, and explore alternative design objectives by adjusting the scoring criteria.
@@ -59,12 +53,8 @@ Substitution analysis to find higher order variants by selecting **Rerun the ana
 
 ![](./img/substitution-analysis/core-SA-5.png)
 
-Select **Export** todownload the single-site predictions as a CSV table.
-
-## Troubleshooting your results
-
-#
+Select **Export** to download the single-site predictions as a CSV table.
 
 ## Using your sequences
 
-Use the [Structure Prediction](../../structure-prediction//using-structure-prediction.md) tool to visualize and explore your sequence of interest.
+Use the [Structure Prediction](../structure-prediction/using-structure-prediction.md) tool to visualize and explore your sequence of interest.

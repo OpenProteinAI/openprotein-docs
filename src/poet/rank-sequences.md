@@ -1,11 +1,11 @@
 ---
-title: Using the Rank sequences tool
+title: Using The Rank Sequences Tool
 format:
   html:
     code-fold: true
 ---
 
-This tutorial teaches you how to assess protein fitness by using the Rank sequences tool to score your input sequences relative to a prompt. Use this as a starting point for applications like predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for applications like predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
 
 On this page, you will learn how to score sequences to predict fitness and rank variants, then interpret and fine-tune the results.
 
@@ -13,19 +13,19 @@ If you run into any challenges or have questions while getting started, please c
 
 ## What you need before starting
 
-This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](./prompts.md){target="_blank"} before diving in.
+This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](./prompts.md) before diving in.
 
 You also need an input sequence, or list of sequences you want to score against the prompt.
 
 ## Rank your sequences
 
-To navigate to the tool, open the **PoET** dropdown menu then select **Rank sequences**.
+To navigate to the tool, open the **PoET** dropdown menu then select **Rank Sequences**.
 
 Add the sequence or sequences you want to score to the **Input sequence** field.
 
 Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
-Next, add your custom MSA to the **Prompt Definition** field **.** Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
+Next, add your custom MSA to the **Prompt Definition** field . Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 ![](./img/rank-sequences.png)
 
@@ -35,7 +35,7 @@ Please note that if you check **Use first sequence as seed to generate MSA** whe
 
 Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
 
-Finally, set sampling method fields. We suggest starting with the default settings. If you have specific needs, see [prompt sampling parameters](./prompts.md){target="_blank"}.
+Finally, set sampling method fields. We suggest starting with the default settings. If you have specific needs, see [prompt sampling parameters](./prompts.md).
 
 You're ready to rank your sequences! Select **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
@@ -91,7 +91,7 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-PoET modeling returns a log-likelihood score to evaluate the fitness of the _input sequence_ relative to the _prompt_. A positive number indicates an improvement in fitness relative to the prompt, a negative number indicates a decrease in fitness relative to the prompt, and a 0 indicates equivalent fitness to the prompt.
+PoET modeling returns a relative log-likelihood score to evaluate the fitness of the input sequence relative to the prompt. The higher or less negative the score is, the more fit the sequence.
 
 The results are presented as a table. You can filter or sort the table, and download it through the user interface (UI) for further analysis.
 

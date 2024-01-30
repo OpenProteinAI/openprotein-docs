@@ -1,25 +1,25 @@
 ---
-title: Using the PoET Substitution analysis tool
+title: Using The PoET Substitution Analysis Tool
 format:
   html:
     code-fold: true
 ---
 
-This tutorial teaches you how to use PoET's Substitution analysis tool to score all single substitution variants of an input sequence with the given prompt. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
+This tutorial teaches you how to use PoET's Substitution Analysis tool to score all single substitution variants of an input sequence with the given prompt. Use this as a starting point to design single mutant or combinatorial variant libraries, and predict the strength of protein activity.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
 ## What you need before starting
 
-You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](./prompts.md){target="_blank"} before diving in.
+You need a sequence and/or a multiple sequence alignment, which OpenProtein.AI uses to build a prompt. Upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about [prompts and prompt sampling methods](./prompts.md) before diving in.
 
 ## Score single substitution variants
 
-Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Substitution analysis.**
+Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Substitution Analysis.**
 
 In the first field, enter the sequence you would like to analyze.
 
-Add your custom MSA to the **Prompt Definition** field **.** Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
+Add your custom MSA to the **Prompt Definition** field. Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 If you do not have an existing MSA, enter your target protein and select **Use first sequence as seed to generate MSA.** OpenProtein will generate an MSA by doing a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that if you check **Use first sequence as seed to generate MSA** when multiple sequences are entered, sequences after the first are ignored.
 
@@ -81,24 +81,24 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-Your results are presented as a heatmap, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the wildtype. Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness.
+Your results are presented as a heatmap in the Results tab, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness. 
 
-The heatmap colors indicate how a mutation at that site would impact the function of a variant:
+The heatmap colors indicate how a mutation at that site would impact the fitness of a variant:
 
-- Deep blue indicates improved function.
-- Red indicates reduced function.
+- Blue indicates improved fitness.
+- Red indicates reduced fitness.
 
-A site which is all blue indicates that a mutation at that site would not impact function.
+A site which is all white indicates that a mutation at that site would not impact fitness.
 
-If you want to run a substitution analysis on one of these variants as the parent sequence against your original prompt, click on the variant in the heatmap to open the **Run new** drawer, then select **Run new**.
+To run a substitution analysis using one of these variants to build a new prompt, click on the variant in the heatmap to open the **Create new Substitution Analysis** drawer, then select **Create**.
 
-You can also enter an arbitrary sequence in the **Run new** drawer to run single site analysis for other sequences without respecifying the prompt.
+You can also enter an arbitrary sequence in the **Create new Substitution Analysis** drawer to run single site analysis for other sequences without respecifying the prompt.
 
-Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button.
+Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button. 
 
 ![](./img/sub-analysis-1.png)
 
-Refer to the **Single site details** tab to see the parameters you used to run the substitution analysis.
+Refer to the **Details** tab to see the parameters you used to run the substitution analysis.
 
 ## Fine-tuning your results
 
@@ -108,4 +108,4 @@ You can also improve your prompt by adding sequences or constructing a better MS
 
 ## Next steps
 
-Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md){target="_blank"} to visualize their structural implications or start a project using our [OP models](../opmodels/index.md){target="_blank"} after acquiring data from your designs.
+Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md) to visualize their structural implications or start a project using our [OP models](../opmodels/index.md) after acquiring data from your designs.
