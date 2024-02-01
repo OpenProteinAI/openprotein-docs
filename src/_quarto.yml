@@ -103,6 +103,7 @@ website:
                     href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
               - ./opmodels/quantitative-decision-making-for-library-design.md
           - section: Structure Prediction
+            file: ./structure-prediction/index.md
             contents:
               - ./structure-prediction/using-structure-prediction.md
       - text: Tutorials And Examples
