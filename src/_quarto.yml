@@ -8,12 +8,13 @@ project:
 
 website:
   search: 
-    location: navbar
+    location: sidebar
     type: textbox
   favicon: './shared/favicon.svg'
 
   navbar:
     background: '#F0F3F5'
+    pinned: true
     logo: './shared/logo.png'
     left:
       - text: "Overview"
