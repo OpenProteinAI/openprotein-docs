@@ -37,7 +37,7 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
         <div class="card-body">
             <span>Predict the structure of your designer proteins with deep learning</span>
             <div>
-                <a href="./tools/index.md">Tools</a>
+                <a href="./structure-prediction/index.md">Tools</a>
             </div>
         </div>      
     </div>
@@ -113,7 +113,7 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
             </ul>
         </div>      
     </a>
-    <a href="./structure-prediction/using-structure-prediction.md" class="card clickable-card">
+    <a href="./structure-prediction/index.md" class="card clickable-card">
         <img class="card-icon" src="./overview-img/DocsHome_Structural Proteins.png" width="80">
         <span class="title">Structural proteins</span>
         <div>
