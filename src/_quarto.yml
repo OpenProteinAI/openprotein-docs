@@ -106,7 +106,7 @@ website:
             file: ./structure-prediction/index.md
             contents:
               - ./structure-prediction/using-structure-prediction.md
-      - text: Tutorials And Examples
+      - text: Tutorials and Examples
         file: ./tutorials/index.md
       - section: "Walkthroughs"
         file: ./walkthroughs/index.md
@@ -114,6 +114,14 @@ website:
             - text: Antibody Engineering
               file: ./walkthroughs/anitbody-engineering.md
             - ./walkthroughs/enzyme-engineering.md
+      - section: "Resources"
+        contents:
+          - text: Demo Datasets
+            file: ./resources/demo-datasets.md
+          - text: FAQ
+            file: ./resources/faq.md
+          - ./resources/publications.md
+          - ./resources/glossary.md
       - section: "REST API"
         contents:
             - ./rest-api/overview.qmd
@@ -124,14 +132,6 @@ website:
       - text: "Python API"
         href: https://docs.openprotein.ai/api-python/index.html
         target: _blank
-      - section: "Resources"
-        contents:
-          - text: Demo Datasets
-            file: ./resources/demo-datasets.md
-          - text: FAQ
-            file: ./resources/faq.md
-          - ./resources/publications.md
-          - ./resources/glossary.md
 
 format:
   html:

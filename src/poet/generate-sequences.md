@@ -115,4 +115,4 @@ To improve scores, increase the number of the **ensemble** setting. This will re
 
 ## Next steps
 
-Now that you can generate custom sequences, use the [Structure Prediction](../structure-prediction/using-structure-prediction.md) tool on high scoring sequences to visualize their structural implication or use [Substitution Analysis](./substitution-analysis.md) to view possible improvements to a sequence.
+Now that you can generate custom sequences, use the [Structure Prediction](../structure-prediction/index.md) tool on high scoring sequences to visualize their structural implication or use [Substitution Analysis](./substitution-analysis.md) to view possible improvements to a sequence.

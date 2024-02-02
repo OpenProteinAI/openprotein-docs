@@ -191,7 +191,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::
 
 ::: {.column width="75%"}
-## Navigating our interface
+## Navigating your projects tutorials should sit under "Tutorials"
 :::: {.columns}
 
 ::: {.column width="45%"}
@@ -234,7 +234,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[About PoET prompts](../poet/prompts.md)<br/>
+[PoET prompts and prompt sampling parameters](../poet/prompts.md)<br/>
 [Ensembling](../poet/ensembling.md)<br/>
 :::
 ::::
@@ -259,7 +259,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Structure prediction](../structure-prediction/using-structure-prediction.md)<br/>
+[Using The Structure Prediction Tool](../structure-prediction/using-structure-prediction.md)<br/>
 :::
 ::::
 

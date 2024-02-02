@@ -30,19 +30,19 @@ important to have a training dataset specific to your application. We
 generally recommend the following:
 
 -   A library size that contains approximately 30 variants or more. It's
-    > possible to use smaller libraries, but you'll generally want to
-    > review the cross-validation results of your model.
+    possible to use smaller libraries, but you'll generally want to
+    review the cross-validation results of your model.
 
 -   Semi-quantitative or quantitative binding data or measurements on
-    > properties of interest. Assays to consider are surface plasmon
-    > resonance (SPR), biolayer interferometry (BLI) or enzyme-linked
-    > immunosorbent assay. (ELISA).This data should be in triplicate to
-    > reduce noise contribution from assay.
+    properties of interest. Assays to consider are surface plasmon
+    resonance (SPR), biolayer interferometry (BLI) or enzyme-linked
+    immunosorbent assay. (ELISA).This data should be in triplicate to
+    reduce noise contribution from assay.
 
 -   Libraries should preferably have mutations across more than 1 site
-    > and of different types if possible. For example, alanine scanning
-    > can be complemented with substitution of other amino acids at
-    > specific sites.
+    and of different types if possible. For example, alanine scanning
+    can be complemented with substitution of other amino acids at
+    specific sites.
 
 ## Demo-ing OpenProtein.AI's Optimization and Prediction Models 
 
