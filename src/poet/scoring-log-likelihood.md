@@ -15,6 +15,7 @@ Scoring is consistent for the same prompt. We don’t recommend comparing scores
 Some tools return a heatmap, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. Hover over a site on the heatmap to view the relative log-likelihood score.
 
 The heatmap colors indicate how a mutation at that site would impact the fitness of a variant:
+
 - Blue indicates improved fitness (relative log-likelihood score > 0)
 - Red indicates reduced fitness (relative log-likelihood score < 0) 
 
