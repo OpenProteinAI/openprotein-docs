@@ -5,22 +5,21 @@ format:
     code-fold: true
 ---
 
-This tutorial teaches you how to generate functional sequences conditioned on the sequence context provided by a prompt. You will learn how to generate a sequence, then interpret and fine-tune the results. Use this as a starting point for generating a diverse library without existing experimental data.
+This tutorial teaches you how to generate functional sequences conditioned on the sequence context provided by a prompt. Use this as a starting point for applications such as generating a diverse library without existing experimental data. You will learn how to generate a sequence, then interpret and fine-tune the results.
 
 If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
 
 ## What you need before starting
 
-This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein.AI model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](./prompts.md) before diving in.
+This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](./prompts.md) before diving in.
 
 You also need to know about sampling parameters, which are settings that regulate randomness. These include temperature, top-p, and top-k.
 
-- _Top-p_ (also known as nucleus sampling) limits sampling to amino acids with sum likelihoods which do not exceed the specified value. As a result, the list of possible amino acids is dynamically selected based on the sum of likelihood scores achieving the top-p value. For example, setting a top-p of 0.8 limits sampling to amino acids summing to an 80% or greater probability. Other amino acids are ignored. 
+- _Top-p_ limits sampling to amino acids with sum likelihoods which do not exceed the specified value.The lower the top-p, the less random the output will be.
 
-- _Top-k_ limits sampling to a shortlist of amino acids, where the top-k parameter sets the size of the shortlist. For example, setting top-k to 5 means the model samples from the 5 likeliest amino acids at each position. Other amino acids are ignored.
+- _Top-k_ limits sampling to a shortlist of amino acids, where the top-k parameter sets the size of the shortlist. For example, setting top-k to 5 means the model samples from the 5 likeliest amino acids. The smaller the k, the less random the output will be.
 
-- _Temperature_  is a number used to tune the degree of randomness. A lower temperature means less randomness; a temperature of 0 will always yield the same output.
-
+- _Temperature_: Temperature is a number used to tune the degree of randomness. A lower temperature means less randomness; a temperature of 0 will always yield the same output.
 
 A note on the _Random seed_ setting: this determines the state of the random number generator for random sampling. If it is set to a specific number, the algorithm will sample the same set of sequences each time. We recommend not defining this seed unless you are reproducing a job.
 
@@ -32,7 +31,7 @@ Set your parameters to control sampling behavior. In particular, **temperature**
 
 ![](./img/sampling-parameters.png)
 
-Add your custom MSA to the **Prompt Definition** field. You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
+Add your custom MSA to the **Prompt Definition** field **.** You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 If you do not have an existing MSA, input your target protein and select **Use first sequence as seed to generate MSA.** OpenProtein will generate an MSA using a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that if you check **Use first sequence as seed to generate MSA** when multiple sequences are entered, sequences after the first are ignored.
 

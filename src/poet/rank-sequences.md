@@ -5,7 +5,7 @@ format:
     code-fold: true
 ---
 
-This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for applications like predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
 
 On this page, you will learn how to score sequences to predict fitness and rank variants, then interpret and fine-tune the results.
 
@@ -13,7 +13,7 @@ If you run into any challenges or have questions while getting started, please c
 
 ## What you need before starting
 
-This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren't already familiar with prompts, we recommend learning more about OpenProtein.AI's [prompts and prompt sampling methods](./prompts.md) before diving in.
+This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren’t already familiar with prompts, we recommend learning more about OpenProtein.AI’s [prompts and prompt sampling methods](./prompts.md) before diving in.
 
 You also need an input sequence, or list of sequences you want to score against the prompt.
 
@@ -25,7 +25,7 @@ Add the sequence or sequences you want to score to the **Input sequence** field.
 
 Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
-Next, add your custom MSA to the **Prompt Definition** field . Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
+Next, add your custom MSA to the **Prompt Definition** field. Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 ![](./img/rank-sequences.png)
 
@@ -95,7 +95,7 @@ PoET modeling returns a relative log-likelihood score to evaluate the fitness of
 
 The results are presented as a table. You can filter or sort the table, and download it through the user interface (UI) for further analysis.
 
-Explore the local fitness landscape of each sequence using the quick links to the **Substitution analysis** page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the **Add sequences** button. Details of your input sequence can be found in **Query details**.
+Explore the local fitness landscape of each sequence using the quick links to the **Substitution Analysis** page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the **Add sequences** button. Details of your input sequence can be found in **Query details**.
 
 The PoET **History** page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job.
 
@@ -107,4 +107,4 @@ To improve scores, increase the number of the **ensemble** setting. This will re
 
 ## Next steps
 
-Now that you have a list of sequence variants of interest, you can use [Structure Prediction](../structure-prediction/using-structure-prediction.md) to visualize the 3D structures of a protein sequence. You can also use [Substitution Analysis](./substitution-analysis.md) to score all single substitution variants of your parent sequence, conditioned on the prompt, and view the results in a heatmap.
+Now that you have a list of sequence variants of interest, you can use [Structure Prediction](../structure-prediction/index.md) to visualize the 3D structures of a protein sequence. You can also use [Substitution Analysis](./substitution-analysis.md) to score all single substitution variants of your parent sequence conditioned on the prompt, and view the results in a heatmap.

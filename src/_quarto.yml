@@ -15,7 +15,7 @@ website:
   navbar:
     background: '#F0F3F5'
     pinned: true
-    logo: './shared/logo.png'
+    logo: './shared/logo.svg'
     left:
       - text: "Overview"
         file: ./index.md
