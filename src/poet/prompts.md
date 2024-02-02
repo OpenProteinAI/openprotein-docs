@@ -7,7 +7,7 @@ format:
 
 ## What is a prompt?
 
-A prompt is an input instructing a Generative AI model to generate the desired response. PoET uses a prompt that is a set of related sequences. They may be homologs, family members, or some other grouping that represents your protein of interest.
+A prompt is an input that instructs a Generative AI model to generate the desired response. PoET uses a prompt made up of a set of related sequences. **These sequences** may be homologs, family members, or some other grouping that represents your protein of interest.
 
 ## Creating a prompt
 

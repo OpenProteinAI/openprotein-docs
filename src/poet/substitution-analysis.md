@@ -81,7 +81,7 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-Your results are presented as a heatmap in the Results tab, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness. 
+Your results are presented as a heatmap in the Results tab, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness.
 
 The heatmap colors indicate how a mutation at that site would impact the fitness of a variant:
 
@@ -90,7 +90,7 @@ The heatmap colors indicate how a mutation at that site would impact the fitness
 
 A site which is all white indicates that a mutation at that site would not impact fitness.
 
-To run a substitution analysis using one of these variants to build a new prompt, click on the variant in the heatmap to open the **Create new Substitution Analysis** drawer, then select **Create**.
+To run a Substitution Analysis using one of these variants to build a new prompt, click on the variant in the heatmap to open the **Create new Substitution Analysis** drawer, then select **Create**.
 
 You can also enter an arbitrary sequence in the **Create new Substitution Analysis** drawer to run single site analysis for other sequences without respecifying the prompt.
 
@@ -98,7 +98,7 @@ Your highest scoring variants and sites are also displayed in tables below the h
 
 ![](./img/sub-analysis-1.png)
 
-Refer to the **Details** tab to see the parameters you used to run the substitution analysis.
+Refer to the **Details** tab to see the parameters you used to run the Substitution Analysis.
 
 ## Fine-tuning your results
 
@@ -108,4 +108,4 @@ You can also improve your prompt by adding sequences or constructing a better MS
 
 ## Next steps
 
-Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/using-structure-prediction.md) to visualize their structural implications or start a project using our [OP models](../opmodels/index.md) after acquiring data from your designs.
+Now that you have a list of promising variants, use [Structure Prediction](../structure-prediction/index.md) to visualize their structural implications or start a project using our [OP models](../opmodels/index.md) after acquiring data from your designs.

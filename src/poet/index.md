@@ -22,11 +22,12 @@ Like large language models (LLMs) make high quality predictions for natural lang
 PoET tools can be found in the “PoET…” dropdown menu in the header bar of the OpenProtein.AI web app.
 
 ## Learn more and get started with our tutorials
-Using the web application
 
 :::: {.columns}
 
 ::: {.column width="40%"}
+About PoET concepts
+
 * [PoET prompts and prompt sampling methods](./prompts.md)
 * [Scoring system and log probability](./scoring-log-likelihood.md)
 * [Ensembling](./ensembling.md)
@@ -37,6 +38,8 @@ Using the web application
 :::
 
 ::: {.column width="40%"}
+About the tools
+
 * [Using the Rank Sequences tool](./rank-sequences.md)
 * [Using the Generate Sequences tool](./generate-sequences.md)
 * [Using the PoET Substitution Analysis tool](./substitution-analysis.md)

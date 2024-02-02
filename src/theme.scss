@@ -41,51 +41,37 @@ $dark-blue: #225EDB;
   color: #4f5051;
 }
 
-.navbar-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
-}
-
 .navbar-logo {
   max-height: 28px;
 }
 
-.navbar-nav .nav-item:nth-last-child(1) {
-  /* Add your styles here */
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto;
-  margin-right: 14rem;
-  margin-top: 0.5rem;
-}
-.navbar-nav .nav-item:nth-last-child(2) {
-  /* Add your styles here */
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto;
-  margin-right: 18rem;
-  margin-top: 0.5rem;
+.navbar-nav {
+  margin-left: 1.5rem;
 }
 
-#quarto-search {
+.navbar-nav .nav-item:nth-last-child(1) {
   position: absolute;
   right: 0;
   top: 0;
   width: auto;
   margin-right: 2rem;
-  padding: 0.8rem;
+  margin-top: 0.5rem;
+}
+.navbar-nav .nav-item:nth-last-child(2) {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  margin-right: 7rem;
+  margin-top: 0.5rem;
 }
 
-#quarto-sidebar {
-  background-color: white;
+.sidebar.sidebar-navigation>* {
+  padding-top: 0rem !important;
 }
-
-div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sidebar.sidebar-navigation:not(.rollup) {
-  background-color: white !important;
+#quarto-search {
+  margin-bottom: 1rem;
+  padding-top: 0rem;
 }
 
 .sidebar-menu-container {
@@ -418,4 +404,12 @@ div.callout-caution.callout {
   p {
     color: $link-color
   }
+}
+
+// FAQ
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed #AAAAAA;
 }
