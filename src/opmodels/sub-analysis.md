@@ -1,5 +1,5 @@
 ---
-title: Substitution Analysis With OP Models
+title: Substitution Analysis with OP Models
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Learn How To Use Our Broad Suite Of Tools With Tutorials And Use Case Examples
+title: Learn How To Use Our Broad Suite of Tools with Tutorials and Use Case Examples
 format:
   html:
     code-fold: true
@@ -27,12 +27,12 @@ format:
 
 **Tutorials**
 
-[Prompt And Prompt Sampling Methods](../poet/prompts.md)<br/>
-[PoET Scoring And Log-likelihood](../poet/scoring-log-likelihood.md)<br/>
+[Prompt and Prompt Sampling Methods](../poet/prompts.md)<br/>
+[PoET Scoring and Log-likelihood](../poet/scoring-log-likelihood.md)<br/>
 [Ensembling](../poet/ensembling.md)<br/>
-[Using The Rank Sequences Tool](../poet/rank-sequences.md)<br/> 
-[Using The Generate Sequences Tool](../poet/generate-sequences.md)<br/>
-[Using The PoET Substitution Analysis Tool](../poet/substitution-analysis.md)
+[Using the Rank Sequences Tool](../poet/rank-sequences.md)<br/> 
+[Using the Generate Sequences Tool](../poet/generate-sequences.md)<br/>
+[Using the PoET Substitution Analysis Tool](../poet/substitution-analysis.md)
 :::
 
 ::: {.column width="5%"}
@@ -84,8 +84,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 [Uploading Your Data](../opmodels/uploading-your-data.md)<br/> 
 [Visualizing Your Data](../opmodels/visualization.md)<br/>
 [Designing Sequences](../opmodels/design.md)<br/>
-[OP Models Scoring And Log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
-[Substitution Analysis With OP Models](../opmodels/sub-analysis.md)
+[OP Models Scoring and Log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
+[Substitution Analysis with OP Models](../opmodels/sub-analysis.md)
 :::
 
 ::: {.column width="5%"}
@@ -234,7 +234,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Prompt And Prompt Sampling Methods](../poet/prompts.md)<br/>
+[Prompt and Prompt Sampling Methods](../poet/prompts.md)<br/>
 [Ensembling](../poet/ensembling.md)<br/>
 :::
 ::::
@@ -259,7 +259,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Using The Structure Prediction Tool](../structure-prediction/using-structure-prediction.md)<br/>
+[Using the Structure Prediction Tool](../structure-prediction/using-structure-prediction.md)<br/>
 :::
 ::::
 

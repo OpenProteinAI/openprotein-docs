@@ -1,5 +1,5 @@
 ---
-title:  Using The Generate Sequences Tool
+title:  Using the Generate Sequences Tool
 format:
   html:
     code-fold: true

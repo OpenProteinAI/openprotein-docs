@@ -1,5 +1,5 @@
 ---
-title: Getting Started With OpenProtein.AI’s API
+title: Getting Started with OpenProtein.AI’s API
 format:
   html:
     code-fold: true
