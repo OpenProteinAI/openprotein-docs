@@ -128,7 +128,8 @@ website:
         contents:
           - text: Demo Datasets
             file: ./resources/demo-datasets.md
-          - ./resources/faq.md
+          - text: FAQ
+            file: ./resources/faq.md
           - ./resources/publications.md
           - ./resources/glossary.md
 

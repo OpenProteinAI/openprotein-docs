@@ -59,7 +59,7 @@ with data generated through phage display, yeast display, ribosome
 display or mammalian cell display libraries as well as clones isolated
 from naive or immune mice models.
 
-![](/ab-image1.png)
+![](./img/antibody/OP W1 - P1.png)
 
 We can directly use this dataset that has been formatted and ready for
 upload. You can download it
@@ -90,7 +90,7 @@ measurements.
 To begin, we will create a project in OP models by selecting **New
 Project** and naming it project "Antibody optimization 14L".
 
-![](/ab-image2.png)
+![](./img/antibody/OP W1 - P2.png)
 
 We then upload the 14L dataset by selecting **Upload dataset** and
 navigating to the CSV file in the file explorer. The platform will
@@ -102,9 +102,9 @@ verify that there are no invalid values found in the dataset or we will
 need to reformat the CSV file as per [[Uploading your
 data]{.underline}](https://docs.google.com/document/d/1cmmCp0VjtXBDy6ryv2_bOCuUC2Ex9QPLRwq3ne4ctrU/edit#heading=h.ktylddy4k14c).
 
-![](/ab-image3.png)
+![](./img/antibody/OP W1 - P3.png)
 
-![](/ab-image4.png)
+![](./img/antibody/OP W1 - P4.png)
 
 Our data is now ready for use.
 
@@ -112,7 +112,7 @@ Upon successful upload, the system will automatically perform
 preprocessing as well as queue up a Uniform Manifold Approximation and
 Projection (UMAP) job for visualization.
 
-![](/ab-image5.png)
+![](./img/antibody/OP W1 - P5.png)
 
 ### Visualizing our data
 
@@ -156,7 +156,7 @@ model specific to the targeted property. In this example, we are
 predicting for a better binder against the peptide PDVDLGDISGINAS with
 OP Models.
 
-![](/ab-image7.png)
+![](./img/antibody/OP W1 - P7.png)
 
 After training a model, we can also evaluate the impact of each
 substitution using **Substitution Analysis**. This is covered in the
@@ -187,7 +187,7 @@ having a library of ML designed variants. The platform will start to
 generate the variant library based on the criteria we provided, and the
 library should be completed within a few hours of submitting the job.
 
-![](/ab-image8.png)
+![](./img/antibody/OP W1 - P8.png)
 
 The designs from **Generate design** can be visualized and compared
 against the input dataset in our project's **Design** component. To
@@ -197,7 +197,7 @@ can set both datasets to Monocolor. Unselect and reselect **Dataset
 together, suggesting that our custom model may have uncovered a strong
 sequence to structure to function correlation.
 
-![](/ab-image9.png)
+![](./img/antibody/OP W1 - P9.png)
 
 Typically, antibody engineers restrict mutations to the
 Complementarity-determining regions (CDRs) known to bind to the epitopes
@@ -213,7 +213,7 @@ listing down the specific positions in the sequence to mutate. For
 example, here we listed positions 24-39, 56-61 and 95-102 as positions
 where we allow for mutations to occur.
 
-![](/ab-image10.png)
+![](./img/antibody/OP W1 - P10.png)
 
 Because we didn't restrict target regions, the variant library we
 created using the **Design** tool may have introduced mutations beyond
@@ -248,7 +248,7 @@ name and description before selecting **Save**. We can also export all
 or some of the results as a CSV file by selecting **Export**. The file
 is ready to send to our gene synthesis company of choice.
 
-![](/ab-image11.png)
+![](./img/antibody/OP W1 - P11.png)
 
 ## Summary and next steps
 

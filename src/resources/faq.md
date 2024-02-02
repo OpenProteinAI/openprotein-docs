@@ -28,7 +28,7 @@ If you aren't starting with experimental data, our PoET tools offer a valuable s
 ```{=html}
 <div class="divider"></div>
 ```
-
+<!-- 
 ::: {.callout-caution collapse="true" icon=false}
 ## **I received an error message when using the tools, what do I do?**
 
@@ -37,7 +37,7 @@ Please refer to our list of error messages <need to assemble comprehensive list 
 
 ```{=html}
 <div class="divider"></div>
-```
+``` -->
 
 ::: {.callout-caution collapse="true" icon=false}
 ## **What is the difference between seed sequence, parent sequence and reference sequence?**
