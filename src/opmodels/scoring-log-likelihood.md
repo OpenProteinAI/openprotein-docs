@@ -1,5 +1,5 @@
 ---
-title: OP Models Scoring And Log-likelihood
+title: OP Models Scoring and Log-likelihood
 format:
   html:
     code-fold: true

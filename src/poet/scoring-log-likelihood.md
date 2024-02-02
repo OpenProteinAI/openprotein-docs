@@ -1,5 +1,5 @@
 ---
-title: PoET Scoring And Log-likelihood
+title: PoET Scoring and Log-likelihood
 format:
   html:
     code-fold: true

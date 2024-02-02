@@ -1,5 +1,5 @@
 ---
-title: Predict your protein structure from sequence alone
+title: Predict Your Protein Structure From Sequence Alone
 format:
   html:
     code-fold: true

@@ -1,5 +1,5 @@
 ---
-title: Optimization And Prediction Models Overview
+title: Optimization and Prediction Models Overview
 format:
   html:
     code-fold: true

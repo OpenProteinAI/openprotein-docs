@@ -1,5 +1,5 @@
 ---
-title: Help With Your OpenProtein.AI Account
+title: Help with Your OpenProtein.AI Account
 format:
   html:
     code-fold: true

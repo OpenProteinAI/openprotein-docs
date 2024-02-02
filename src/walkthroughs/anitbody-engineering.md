@@ -1,5 +1,5 @@
 ---
-title: "Walkthrough: Lead Optimization Of Monoclonal Antibody To Meet Target Product Profile"
+title: "Walkthrough: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile"
 format:
   html:
     code-fold: true
