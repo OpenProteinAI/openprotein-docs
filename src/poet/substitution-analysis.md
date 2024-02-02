@@ -81,26 +81,26 @@ Please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){targ
 
 ## Interpreting your results
 
-Your results are presented as a heatmap, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. . Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness.
+Your results are presented as a heatmap in the Results tab, where each site has a relative log-likelihood score. This score indicates increased or decreased fitness relative to the sequence being analyzed. Hover over a site on the heatmap to view the relative log-likelihood score. A positive number indicates an improvement in fitness, a negative number indicates a reduction in fitness, and 0 indicates equivalent fitness.
 
-The heatmap colors indicate how a mutation at that site would impact the function of a variant:
+The heatmap colors indicate how a mutation at that site would impact the fitness of a variant:
 
-- Deep blue indicates improved function.
-- Red indicates reduced function.
+- Blue indicates improved fitness.
+- Red indicates reduced fitness.
 
-A site which is all blue indicates that a mutation at that site would not impact function.
+A site which is all white indicates that a mutation at that site would not impact fitness.
 
-If you want to run a Substitution Analysis on one of these variants as the parent sequence against your original prompt, click on the variant in the heatmap to open the **Run new** drawer, then select **Run new**.
+To run a Substitution Analysis using one of these variants to build a new prompt, click on the variant in the heatmap to open the **Create new Substitution Analysis** drawer, then select **Create**.
 
-You can also enter an arbitrary sequence in the **Run new** drawer to run single site analysis for other sequences without respecifying the prompt.
+You can also enter an arbitrary sequence in the **Create new Substitution Analysis** drawer to run single site analysis for other sequences without respecifying the prompt.
 
-Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button.
+Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button. 
 
 ![](./img/sub-analysis-1.png)
 
-Refer to the **Single site details** tab to see the parameters you used to run the Substitution Analysis.
+Refer to the **Details** tab to see the parameters you used to run the Substitution Analysis.
 
-## Troubleshooting your results
+## Fine-tuning your results
 
 If your heatmap is inconclusive, meaning that the log-likelihood scores are very close, adjust your sampling methods or **Maximum similarity to seed sequence** and **Minimum similarity to seed sequence** fields.
 

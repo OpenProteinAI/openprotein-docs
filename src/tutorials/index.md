@@ -27,12 +27,12 @@ format:
 
 **Tutorials**
 
-[PoET prompts and prompt sampling parameters](../poet/prompts.md)<br/>
-[PoET scoring and log likelihood](../poet/scoring-log-likelihood.md)<br/>
+[Prompt And Prompt Sampling Methods](../poet/prompts.md)<br/>
+[PoET Scoring And Log-likelihood](../poet/scoring-log-likelihood.md)<br/>
 [Ensembling](../poet/ensembling.md)<br/>
-[Using the Rank Sequences tool](../poet/rank-sequences.md)<br/> 
-[Using the Generate Sequences tool](../poet/generate-sequences.md)<br/>
-[Using PoET’s Substitution Analysis](../poet/substitution-analysis.md)
+[Using The Rank Sequences Tool](../poet/rank-sequences.md)<br/> 
+[Using The Generate Sequences Tool](../poet/generate-sequences.md)<br/>
+[Using The PoET Substitution Analysis Tool](../poet/substitution-analysis.md)
 :::
 
 ::: {.column width="5%"}
@@ -40,7 +40,7 @@ format:
 :::
 
 ::: {.column width="45%"}
-### Using the Python client
+### Using the Python API
 
 **Tutorials** 
 
@@ -81,11 +81,11 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Uploading your data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizing your data](../opmodels/visualization.md)<br/>
-[Designing sequences](../opmodels/design.md)<br/>
-[OP models scoring and log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
-[Using OP models’s Substitution Analysis](../opmodels/sub-analysis.md)
+[Uploading Your Data](../opmodels/uploading-your-data.md)<br/> 
+[Visualizing Your Data](../opmodels/visualization.md)<br/>
+[Designing Sequences](../opmodels/design.md)<br/>
+[OP Models Scoring And Log-likelihood](../opmodels/scoring-log-likelihood.md)<br/>
+[Substitution Analysis With OP Models](../opmodels/sub-analysis.md)
 :::
 
 ::: {.column width="5%"}
@@ -93,7 +93,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::
 
 ::: {.column width="45%"}
-### Using the Python client
+### Using the Python API
 
 **Tutorials** 
 
@@ -129,8 +129,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Uploading your data](../opmodels/uploading-your-data.md)<br/> 
-[Visualizing your data](../opmodels/visualization.md)<br/>
+[Uploading Your Data](../opmodels/uploading-your-data.md)<br/> 
+[Visualizing Your Data](../opmodels/visualization.md)<br/>
 :::
 ::::
 
@@ -157,7 +157,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[Python client](https://docs.openprotein.ai/api-python/)<br/>
+[Python API](https://docs.openprotein.ai/api-python/)<br/>
 :::
 
 ::: {.column width="5%"}
@@ -168,7 +168,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Docs** 
 
-[Python client](https://docs.openprotein.ai/api-python/)<br/>
+[Python API](https://docs.openprotein.ai/api-python/)<br/>
 :::
 
 ::::
@@ -198,8 +198,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[PoET history](../poet/history.md)<br/>
-[Navigating your projects](../opmodels/navigating-your-projects.md)<br/>
+[PoET History](../poet/history.md)<br/>
+[Navigating Your Projects](../opmodels/navigating-your-projects.md)<br/>
 :::
 
 ::: {.column width="5%"}
@@ -234,7 +234,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Tutorials**
 
-[PoET prompts and prompt sampling parameters](../poet/prompts.md)<br/>
+[Prompt And Prompt Sampling Methods](../poet/prompts.md)<br/>
 [Ensembling](../poet/ensembling.md)<br/>
 :::
 ::::
@@ -297,7 +297,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 **Docs** 
 
-[Python client](https://docs.openprotein.ai/api-python)<br/>
+[Python API](https://docs.openprotein.ai/api-python)<br/>
 :::
 
 ::::
