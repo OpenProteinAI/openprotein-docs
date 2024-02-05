@@ -113,7 +113,8 @@ website:
         contents: 
             - text: Antibody Engineering
               file: ./walkthroughs/anitbody-engineering.md
-            - ./walkthroughs/enzyme-engineering.md
+            - text: Enzyme Engineering
+              file: ./walkthroughs/enzyme-engineering.md
       - section: "Resources"
         contents:
           - text: Demo Datasets
