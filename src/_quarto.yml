@@ -87,6 +87,7 @@ website:
               - ./opmodels/uploading-your-data.md
               - text: Scoring And Log-likelihood
                 file: ./opmodels/scoring-log-likelihood.md
+              - ./opmodels/reference-sequence.md
               - ./opmodels/navigating-your-projects.md
               - section: Frontend Tutorials
                 contents: 
