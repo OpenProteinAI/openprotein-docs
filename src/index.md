@@ -25,7 +25,7 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
     <div class="card">
         <img class="card-img" src="./overview-img/DocsHome_2.png" width="300">
         <div class="card-body">
-            <span>Traverse the protein evolutionary fitness landscape using large language models for variant design</span>
+            <span>Design variants using large language models to traverse the protein evolutionary landscape</span>
             <div>
                 <a href="./opmodels/index.md">Tools</a>
                 <a href="./tutorials/index.md#library-design-from-your-data">Examples</a>
