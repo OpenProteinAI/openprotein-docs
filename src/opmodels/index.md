@@ -24,7 +24,6 @@ General tutorials
 
 ::: {.column width="45%"}
 * [Uploading your data](./uploading-your-data.md)
-* [Navigating your projects](./navigating-your-projects.md)
 :::
 
 ::: {.column width="10%"}
@@ -52,6 +51,7 @@ Using the web application
 :::
 
 ::: {.column width="45%"}
+* [Navigating your projects](./navigating-your-projects.md)
 * [Substitution analysis with OP Models](./sub-analysis.md)
 :::
 

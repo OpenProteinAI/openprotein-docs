@@ -33,11 +33,11 @@ with data generated through phage display, yeast display, ribosome display or ma
 
 ![](./img/antibody/ab-image1.png)
 
-We can directly use this dataset that has been formatted and ready for upload. You can download it [here](https://docs.openprotein.ai/walkthroughs/demo-datasets-page.html).
+We can directly use this dataset that has been formatted and ready for upload. You can download it [here](../resources/demo-datasets.md).
 
 In this dataset, the binding affinity of the antibody was measured and determined using an engineered yeast mating-based assay as described in the paper “Machine learning optimization of candidate antibody yields highly diverse sub-nanomolar affinity antibody libraries” by Li et al. (2022). We are optimizing the equilibrium dissociation constant (Kd) to perform lead optimization for better binders, specifically the property measured in the dataset is the log of the Kd. The best binder in the original library has a Kd of 29 pM. This is already a high affinity binder, but it is possible to engineer even higher affinity using the OpenProtein.AI platform. 
 
-If you wish to use your own data, ensure that the dataset is formatted as a CSV table with columns containing the full sequence of each variant and their measurement values. For more information, visit [Uploading your data]{.underline}](https://docs.openprotein.ai/opmodels/uploading-your-data).
+If you wish to use your own data, ensure that the dataset is formatted as a CSV table with columns containing the full sequence of each variant and their measurement values. For more information, visit [Uploading your data](../opmodels/uploading-your-data.md).
 
 For this walkthrough, we will focus on a single property. Our dataset has complete measurements for all variants, but the OpenProtein.AI platform can also work with datasets where some variants are missing measurements. 
 
@@ -47,7 +47,7 @@ To begin, we will create a project in OP models  by selecting **New Project** an
     <img src="./img/antibody/ab-image2.png" width="50%" >
 </p>
 
-We then upload the 14L dataset by selecting **Upload dataset** and navigating to the CSV file in the file explorer. The platform will automatically generate the data categories, but it’s important to ensure that the OpenProtein.AI platform has captured the correct names and column types. Here, we have the sequence displayed as **Sequence** and the log_kdnm as **Property** as we would have wanted. We should also verify that there are no invalid values found in the dataset or we will need to reformat the CSV file as per Uploading your data. {.underline}](https://docs.openprotein.ai/opmodels/uploading-your-data).
+We then upload the 14L dataset by selecting **Upload dataset** and navigating to the CSV file in the file explorer. The platform will automatically generate the data categories, but it’s important to ensure that the OpenProtein.AI platform has captured the correct names and column types. Here, we have the sequence displayed as **Sequence** and the log_kdnm as **Property** as we would have wanted. We should also verify that there are no invalid values found in the dataset or we will need to reformat the CSV file as per [Uploading your data](../opmodels/uploading-your-data.md).
 
 ![](./img/antibody/ab-image3.png)
 
@@ -69,8 +69,7 @@ This dataset has > 15 clusters of differing sizes, indicating that we have a fai
 
 ![](./img/antibody/ab-image6.gif)
 
-We can tweak the colors as well as explore the different clusters here to create figures for presentation. Dragging the cursor across an area to select a cluster of interest will also highlight the  corresponding sequences in the dataset table. The tutorial on[[Visualizing your
-data]{.underline}](https://docs.openprotein.ai/opmodels/visualizations.html) contains more details about other visualization options.
+We can tweak the colors as well as explore the different clusters here to create figures for presentation. Dragging the cursor across an area to select a cluster of interest will also highlight the  corresponding sequences in the dataset table. The tutorial on [Visualizing your data](../opmodels/visualization.md) contains more details about other visualization options.
 
 ### Training our custom model
 
@@ -81,8 +80,7 @@ To train the custom model, we first navigate to the dataset we had uploaded and 
 ![](./img/antibody/ab-image7.png)
 
 After training a model, we can also evaluate the impact of each
-substitution using **Substitution Analysis**. This is covered in thetutorial on [[Substitution
-Analysis]{.underline}](https://docs.openprotein.ai/opmodels/sub-analysis.html).
+substitution using **Substitution Analysis**. This is covered in thetutorial on [Substitution Analysis](../opmodels/sub-analysis.md).
 
 ### Designing our variant library
 

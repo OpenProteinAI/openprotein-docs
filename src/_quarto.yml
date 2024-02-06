@@ -57,9 +57,9 @@ website:
           - section: PoET
             file: ./poet/index.md
             contents:
-              - text: Prompt And Prompt Sampling Methods
+              - text: Prompt and Prompt Sampling Methods
                 file: ./poet/prompts.md
-              - text: Scoring System And Log Probability 
+              - text: Scoring System and Log Probability 
                 file: ./poet/scoring-log-likelihood.md
               - ./poet/ensembling.md
               - ./poet/history.md
@@ -79,19 +79,20 @@ website:
                   href: https://docs.openprotein.ai/api-python/demos/chorismate.html
                 - text: Substitutions and Deletions
                   href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
-          - section: Optimization And Prediction Models (OP models)
+          - section: Optimization and Prediction Models (OP models)
             file: ./opmodels/index.md
             contents:
               - text: Overview
                 file: ./opmodels/overview.md
               - ./opmodels/uploading-your-data.md
-              - text: Scoring And Log-likelihood
+              - text: Scoring and Log-likelihood
                 file: ./opmodels/scoring-log-likelihood.md
+              - ./opmodels/reference-sequence.md
               - ./opmodels/navigating-your-projects.md
               - section: Frontend Tutorials
                 contents: 
                 - ./opmodels/visualization.md
-                - text: Model Training And Evaluation
+                - text: Model Training and Evaluation
                   file: ./opmodels/model-train-evaluate.md
                 - ./opmodels/sub-analysis.md
                 - ./opmodels/design.md
