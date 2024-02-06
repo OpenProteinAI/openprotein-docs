@@ -5,6 +5,7 @@ $card-color: #EBF0F8;
 $dark-blue: #225EDB;
 
 /*-- scss:rules --*/
+$show-icon: true;
 
 .layout-example {
   background: $gray-500;
@@ -215,6 +216,16 @@ div.callout-caution.callout {
   flex-wrap: wrap;
 }
 
+@keyframes slideInFromLeft {
+  0% {
+   transform: translateX(-100%);
+   opacity:  0;
+ }
+  100% {
+   transform: translateX(0);
+   opacity:  1;
+ }
+}
 
 .card {
   width: 20rem;
@@ -225,23 +236,51 @@ div.callout-caution.callout {
   border: none;
 }
 
-.card-body {
-  min-height: 8.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1rem 0;
-  color: black;
+#card {
+  .card-body {
+    min-height: 8.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 0 0 0;
+    color: black;
+  
+    span {
+      font-weight: 600;
+    } 
+  
+    a {
+      text-decoration: none;
+      font-size: 14px;
+    }
+  }
 
-  span {
-    font-weight: 600;
-  } 
+  .arrow-icon-tools, .arrow-icon-example {
+    display: none;
+  }
 
-  a {
-    margin: 1rem 1rem 0 0;
+  &:hover {
+    background-color: $dark-blue;
+
+    .arrow-icon-tools {
+      display: inline;
+      animation: slideInFromLeft  0.5s forwards;
+    }
+
+    .card-body, a {
+      color: white;
+    }
+
+    .example-link:hover {
+      ~ .arrow-icon-example {
+        display: inline;
+        animation: slideInFromLeft  0.5s forwards;
+      }
+    }
   }
 }
+
 
 .clickable-card {
   height: 18rem;
