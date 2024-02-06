@@ -19,7 +19,7 @@ If you run into any challenges or have questions while getting started, please c
 
 Access this tool from your project’s **Dataset** tab. Select your starting sequence, then select **Substitution Analysis**. 
 
-![](./img/substitution-analysis/core-SA-1.png]
+![](./img/substitution-analysis/core-SA-1.png)
 
 You can also right click a sequence in the variants table and select **Run substitution analysis on this sequence**.
 
