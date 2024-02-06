@@ -7,7 +7,7 @@ format:
 
 # Data-Driven Protein Engineering
 
-OpenProtein.AI brings state-of-the-art machine learning and generative models to use in your protein engineering workflows. Our protein language models learn sequence-to-function relationships and allow you to build custom models for protein library design, constiant effect prediction and your broader engineering objectives. 
+OpenProtein.AI brings state-of-the-art machine learning and generative models to use in your protein engineering workflows. Our protein language models learn sequence-to-function relationships and allow you to build custom models for protein library design, variant effect prediction and your broader engineering objectives.
 
 Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications
 ```{=html}
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="card" id="card">
         <img class="card-img" src="./overview-img/DocsHome_2.png" width="300">
         <div class="card-body">
-            <span>Design constiants using large language models to traverse the protein evolutionary landscape</span>
+            <span>Design variants using large language models to traverse the protein evolutionary landscape</span>
             <div style="margin-top: 1rem">
                 <a href="./opmodels/index.md">Tools</a>
                 <img class="arrow-icon-tools" src="./shared/arrow-right.png">
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <img class="card-icon" src="./overview-img/DocsHome_Enzymes.png" width="80">
         <span class="title">Enzymes</span>
         <div>
-            <span class="description">Design novel constiants with desired functionality</span>
+            <span class="description">Design novel variants with desired functionality</span>
             <ul>
                 <li>Catalytic efficiency</li>
                 <li>Thermostabilty</li>
