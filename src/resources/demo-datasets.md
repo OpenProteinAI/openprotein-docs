@@ -47,3 +47,8 @@ sequence is KKA2_KLEPN (UniProt identifier P00552)
 
 5,279 entries with 6 properties.
 [Download](https://drive.google.com/uc?export=download&id=1UE0Lx9EP3tcgpFeduSrFNysBo9rX_rgT)
+
+## EstA sequences
+ This fasta file contains sequences of Bacillus subtilis Lipase EstA used in our Walkthrough, "Finding mutational hotspots and designing one-shot variant libraries" (/walkthroughs/enzyme-engineering). Common uses for lipases include food processing, cosmetics, and personal care products
+
+ Number of sequences: 5 sequences. [Download](https://drive.usercontent.google.com/u/0/uc?id=19_Q5bvyRL0vIrGsckan_peaANANAQ-wA&export=download)

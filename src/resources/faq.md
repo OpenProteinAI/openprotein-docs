@@ -1,5 +1,5 @@
 ---
-title: Got A Question?
+title: Got a Question?
 format:
   html:
     code-fold: true
