@@ -236,8 +236,9 @@ div.callout-caution.callout {
 }
 
 #card {
+  height: 29rem;
+  
   .card-body {
-    min-height: 8.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
