@@ -11,6 +11,7 @@ website:
     location: sidebar
     type: textbox
   favicon: './shared/favicon.svg'
+  site-url: "https://dev.docs.openprotein.ai/"
 
   navbar:
     background: '#F0F3F5'
