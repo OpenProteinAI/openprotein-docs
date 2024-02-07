@@ -112,10 +112,10 @@ website:
       - section: "Walkthroughs"
         file: ./walkthroughs/index.md
         contents: 
-            - text: Antibody Engineering
-              file: ./walkthroughs/anitbody-engineering.md
-            - text: Enzyme Engineering
-              file: ./walkthroughs/enzyme-engineering.md
+            - text: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile
+              file: ./walkthroughs/antibody-engineering.md
+            # - text: Enzyme Engineering
+            #   file: ./walkthroughs/enzyme-engineering.md
       - section: "Resources"
         contents:
           - text: Demo Datasets
