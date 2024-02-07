@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 ```{=html}  
-<div class="card-container card-container-start">
+<div class="card-container">
     <a href="./walkthroughs/antibody-engineering.md" class="card clickable-card" style="margin-right: 3rem">
         <img class="card-icon" src="./overview-img/DocsHome_Antibodies.png" width="80">
         <span class="title">Antibodies</span>
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </ul>
         </div>      
     </a>
-    <!-- <a href="./walkthroughs/enzyme-engineering.md" class="card clickable-card">
+    <a href="./walkthroughs/enzyme-engineering.md" class="card clickable-card">
         <img class="card-icon" src="./overview-img/DocsHome_Enzymes.png" width="80">
         <span class="title">Enzymes</span>
         <div>
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li>Expression</li>
             </ul>
         </div>      
-    </a> -->
+    </a>
     <a href="./structure-prediction/index.md" class="card clickable-card">
         <img class="card-icon" src="./overview-img/DocsHome_Structural Proteins.png" width="80">
         <span class="title">Structural proteins</span>
