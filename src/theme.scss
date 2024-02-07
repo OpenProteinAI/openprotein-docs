@@ -215,6 +215,10 @@ div.callout-caution.callout {
   flex-wrap: wrap;
 }
 
+.card-container-start{
+  justify-content: center;
+
+}
 @keyframes slideInFromLeft {
   0% {
    transform: translateX(-100%);

@@ -49,10 +49,10 @@ format:
 [Screening insertion location with PoET](https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html#Analyze-deletion-variants-of-AMIE_PSEAE)<br/>
 :::
 
-### Walkthrough
+<!-- ### Walkthrough
 
 [Finding mutational hotspots and designing one-shot variant libraries with 
-just a sequence](../walkthroughs/enzyme-engineering.md)
+just a sequence](../walkthroughs/enzyme-engineering.md) -->
 ::::
 :::
 ::::
@@ -104,7 +104,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 
 ### Walkthrough
 
-[Lead optimization for monoclonal antibody using machine learning to guide variant design to meet target product profile](../walkthroughs/anitbody-engineering.md)
+[Lead optimization for monoclonal antibody using machine learning to guide variant design to meet target product profile](../walkthroughs/antibody-engineering.md)
 ::::
 :::
 ::::
