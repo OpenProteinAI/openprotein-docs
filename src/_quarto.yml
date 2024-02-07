@@ -114,8 +114,8 @@ website:
         contents: 
             - text: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile
               file: ./walkthroughs/antibody-engineering.md
-            # - text: Enzyme Engineering
-            #   file: ./walkthroughs/enzyme-engineering.md
+            - text: Finding mutational hotspots and designing one-shot variant libraries
+              file: ./walkthroughs/enzyme-engineering.md
       - section: "Resources"
         contents:
           - text: Demo Datasets
