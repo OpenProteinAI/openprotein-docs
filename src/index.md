@@ -15,7 +15,6 @@ Get started with OpenProtein.AI and discover functional protein sequences optimi
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('#card');
     cards.forEach((card)=> {
-        console.log(card);
         const exampleLink = card.querySelector('.example-link');
         const exampleIcon = card.querySelector('.arrow-icon-example');
         const toolsIcon = card.querySelector('.arrow-icon-tools');
