@@ -6,7 +6,7 @@ format:
     toc: false
 ---
 <br/>
-<p align="center">
+<p align="center" class="tools-img">
   <img src="./img/OurTools_Diagram.png" width="60%">
 </p>
 

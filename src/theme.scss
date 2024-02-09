@@ -49,26 +49,58 @@ $dark-blue: #225EDB;
   margin-left: 1.5rem;
 }
 
-.navbar-nav .nav-item:nth-last-child(1) {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto;
-  margin-right: 2rem;
-  margin-top: 0.5rem;
+@media (min-width: 1100px) {
+  .navbar-nav .nav-item:nth-last-child(1) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    margin-right: 2rem;
+    margin-top: 0.5rem;
+  }
+  .navbar-nav .nav-item:nth-last-child(2) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    margin-right: 7rem;
+    margin-top: 0.5rem;
+  }
 }
-.navbar-nav .nav-item:nth-last-child(2) {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: auto;
-  margin-right: 7rem;
-  margin-top: 0.5rem;
+
+@media (max-width: 600px) {
+  .column {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100% !important;
+  }
+  .tools-img {
+    img {
+      width: 100% !important;
+    }
+  }
+  
+  .navbar-logo {
+    max-height: 22px;
+  }
+
+  .tutorials-img {
+    img {
+      width: 60% !important;
+    }
+  }
+}
+
+.tutorials-img {
+  img {
+    border-radius: 1rem;
+  }
 }
 
 .sidebar.sidebar-navigation>* {
   padding-top: 0rem !important;
 }
+
 #quarto-search {
   margin-bottom: 1rem;
   padding-top: 0rem;
@@ -180,6 +212,14 @@ div.callout-caution.callout {
   border: none;
   margin-top: 0rem;
   margin-bottom: 0rem;
+
+  .callout-title-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0.5rem;
+    flex: 0 1 auto !important;
+  }
 }
 
 .callout.callout-style-default .callout-header[aria-expanded=false], .callout.callout-style-default .callout-header[aria-expanded=true] {
@@ -187,6 +227,17 @@ div.callout-caution.callout {
   font-weight: 500;
   font-size: 1rem;
   background-color: white !important;
+  display: flex;
+  justify-content: start;
+}
+
+.callout .callout-title-container .flex-fill {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0.5rem;
+  width: 50px;
+  flex: 0;
 }
 
 .step1-api p {
@@ -254,9 +305,14 @@ div.callout-caution.callout {
       font-weight: 600;
     } 
   
-    a {
+    .link {
       text-decoration: none;
       font-size: 14px;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: black;
     }
   }
 
@@ -272,7 +328,7 @@ div.callout-caution.callout {
       animation: slideInFromLeft  0.5s forwards;
     }
 
-    .card-body, a {
+    .card-link, .link {
       color: white;
     }
 

@@ -9,8 +9,8 @@ format:
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/poet.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/Tutorials_01.png" width="100%"> 
 </p>
 :::
 
@@ -63,8 +63,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/design.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_02.png" width="100%"> 
 </p>
 :::
 
@@ -115,8 +115,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/data.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_03.png" width="100%"> 
 </p>
 :::
 
@@ -140,8 +140,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/api.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_04.png" width="100%"> 
 </p>
 :::
 
@@ -181,8 +181,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/nav.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_05.png" width="100%"> 
 </p>
 :::
 
@@ -220,8 +220,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/ml.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_06.png" width="100%"> 
 </p>
 :::
 
@@ -245,8 +245,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/structure.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_07.png" width="100%"> 
 </p>
 :::
 
@@ -269,8 +269,8 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::: {.columns}
 
 ::: {.column width="20%"}
-<p align="center">
-  <img src="./img/embeddings.png" width="100%"> 
+<p align="center" class="tutorials-img">
+  <img src="./img/tutorials_08.png" width="100%"> 
 </p>
 :::
 
