@@ -1,4 +1,5 @@
 ---
+pagetitle: OpenProtein.AI Guide
 sidebar: false
 format: 
   html:
@@ -46,84 +47,98 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <div class="card-container">
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_1.png">
-        <div class="card-body">
-            <span>Enhance directed evolution with zero-shot protein design</span>
-            <div style="margin-top: 1.5rem">
-                <a href="./poet/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-            <div>
-                <a href="https://docs.openprotein.ai/api-python/poet_workflow.html" target="_blank" class="example-link">Examples</a>
-                <img class="arrow-icon-example" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a href="./poet/index.md" class="card-link">
+            <img class="card-img" src="./overview-img/DocsHome_1.png">
+            <div class="card-body">
+                <span>Enhance directed evolution with zero-shot protein design</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./poet/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="https://docs.openprotein.ai/api-python/poet_workflow.html" target="_blank" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>  
+        </a>
     </div>
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_2.png" width="300">
-        <div class="card-body">
-            <span>Design variants using large language models to traverse the protein evolutionary landscape</span>
-            <div style="margin-top: 1rem">
-                <a href="./opmodels/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-            <div>
-                <a href="./tutorials/index.md#library-design-from-your-data" class="example-link">Examples</a>
-                <img class="arrow-icon-example" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a class="card-link" href="./opmodels/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_2.png" width="300">
+            <div class="card-body">
+                <span>Design variants using large language models to traverse the protein evolutionary landscape</span>
+                <div style="margin-top: 1rem">
+                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#library-design-from-your-data" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div> 
+        </a>
+             
     </div>
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_3.png" width="300">
-        <div class="card-body">
-            <span>Predict the structure of your designer proteins with deep learning</span>
-            <div style="margin-top: 1.5rem">
-                <a href="./structure-prediction/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a class="card-link" href="./structure-prediction/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_3.png" width="300">
+            <div class="card-body">
+                <span>Predict the structure of your designer proteins with deep learning</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./structure-prediction/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
     </div>
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_4.png" width="300">
-        <div class="card-body">
-            <span>Visualize your data to better understand and communicate your results</span>
-            <div style="margin-top: 1.5rem">
-                <a href="./opmodels/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-            <div>
-                <a href="./tutorials/index.md#analyzing-your-data" class="example-link">Examples</a>
-                <img class="arrow-icon-example" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a class="card-link"  href="./opmodels/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_4.png" width="300">
+            <div class="card-body">
+                <span>Visualize your data to better understand and communicate your results</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#analyzing-your-data" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
     </div>
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_5.png" width="300">
-        <div class="card-body">
-            <span>Design cost efficient libraries to maximize ROI with limited resourcing</span>
-            <div style="margin-top: 1.5rem">
-                <a href="./opmodels/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-            <div>
-                <a href="./tutorials/index.md#library-design-from-your-data" class="example-link">Examples</a>
-                <img class="arrow-icon-example" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a class="card-link" href="./opmodels/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_5.png" width="300">
+            <div class="card-body">
+                <span>Design cost efficient libraries to maximize ROI with limited resourcing</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#library-design-from-your-data" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
     </div>
     <div class="card" id="card">
-        <img class="card-img" src="./overview-img/DocsHome_6.png" width="300">
-        <div class="card-body">
-            <span>Get embeddings and attention maps for integration with your ML pipeline</span>
-            <div style="margin-top: 1.5rem">
-                <a href="./opmodels/index.md">Tools</a>
-                <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-            </div>
-            <div>
-                <a href="https://docs.openprotein.ai/api-python/demos/embedding_demo.html" target="_blank" class="example-link">Examples</a>
-                <img class="arrow-icon-example" src="./shared/arrow-right.png">
-            </div>
-        </div>      
+        <a class="card-link" href="./opmodels/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_6.png" width="300">
+            <div class="card-body">
+                <span>Get embeddings and attention maps for integration with your ML pipeline</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="https://docs.openprotein.ai/api-python/demos/embedding_demo.html" target="_blank" class=" link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        
+        </a>
     </div>
 </div>
 ```
