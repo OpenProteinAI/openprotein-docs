@@ -10,7 +10,7 @@ format:
 
 ::: {.column width="20%"}
 <p align="center" class="tutorials-img">
-  <img src="./img/Tutorials_01.png" width="100%"> 
+  <img src="./img/tutorials_01.png" width="100%"> 
 </p>
 :::
 
