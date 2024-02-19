@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
-                    <a href="./tutorials/index.md#de-novo-variant-effect-prediction-and-library-generation" class="link example-link">Examples</a>
+                    <a href="./tutorials/index.md#de-novo-protein-design-and-variant-effect-prediction" class="link example-link">Examples</a>
                     <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div>  
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
-                    <a href="./tutorials/index.md#library-design-from-your-data" class="link example-link">Examples</a>
+                    <a href="./tutorials/index.md#function-prediction-and-optimization-with-your-data" class="link example-link">Examples</a>
                     <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div> 

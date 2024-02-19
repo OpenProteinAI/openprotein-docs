@@ -19,7 +19,7 @@ format:
 :::
 
 ::: {.column width="75%"}
-## De novo variant effect prediction and library generation
+## De novo protein design and variant effect prediction
 :::: {.columns}
 
 ::: {.column width="45%"}
@@ -73,7 +73,7 @@ just a sequence](../walkthroughs/enzyme-engineering.md)
 :::
 
 ::: {.column width="75%"}
-## Library design from your data
+## Function prediction and optimization with your data
 :::: {.columns}
 
 ::: {.column width="45%"}
