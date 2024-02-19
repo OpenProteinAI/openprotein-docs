@@ -1,5 +1,5 @@
 ---
-title: Authentication and Jobs 
+title: Authentication And Jobs 
 format:
   html:
     code-fold: true

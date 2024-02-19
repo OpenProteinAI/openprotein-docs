@@ -2,108 +2,144 @@ project:
   type: website
   preview: 
     port: 5001
+  resources:
+    - "openapi/*"
+    - "theme.scss"
 
 website:
   google-analytics: "G-SS7ET8W19C"
-  favicon: './shared/favicon.svg'
-  search:
+  search: 
     location: sidebar
     type: textbox
+  favicon: './shared/favicon.svg'
+
   navbar:
     background: '#F0F3F5'
-    logo: './shared/logo.png'
-    search: false
+    pinned: true
+    logo: './shared/logo.svg'
     left:
+      - text: "Overview"
+        file: ./index.md
       - text: "Getting Started"
-        file: ./getting-started/introduction-page.md
-      - text: "Using the App"
-        file: ./app/dataset-page.md
+        file: ./getting-started/get-started-with-no-code.md
+      - text: "Our Tools"
+        file: ./tools/index.md
       - text: "Walkthroughs"
-        file: ./walkthroughs/demo-datasets-page.md
-      - text: "REST API docs"
+        file: ./walkthroughs/index.md
+      - text: "REST API"
         file: ./rest-api/overview.qmd
-      - text: "Python API docs"
+      - text: "Python API"
         href: https://docs.openprotein.ai/api-python/index.html
+        target: _blank
+      - text: "Log in"
+        href: https://app.openprotein.ai/
+      - text: "Contact"
+        href: https://www.openprotein.ai/contact
+        
+      
   sidebar:
     - id: main
       background: '#F0F3F5'
       style: "docked"
-      collapse-level: 2
+      collapse-level: 1
       align: left
       contents:
-        - text: "Getting Started"
-          file: ./getting-started/introduction-page.md
-        - text: "Using the App"
-          file: ./app/dataset-page.md
-        - text: "Walkthroughs"
-          file: ./walkthroughs/demo-datasets-page.md
-        - text: "REST API docs"
-          file: ./rest-api/overview.qmd
-        - text: "Python API docs"
-          href: https://docs.openprotein.ai/api-python/index.html
-
-    - id: api
-      title: "API docs"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./rest-api/overview.qmd
-        - ./rest-api/authentication-and-jobs.qmd
-        - ./rest-api/project.qmd
-        - ./rest-api/poet.qmd
-        - ./rest-api/embeddings.qmd
-
-    - id: getting-started
-      title: "Getting Started"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./getting-started/introduction-page.md
-        - ./getting-started/account-page.md
-
-    - id: walkthroughs
-      title: "Walkthroughs"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - ./walkthroughs/demo-datasets-page.md
-        - ./walkthroughs/mutagenesis-page.md
-        - ./walkthroughs/poet-tutorial-page.md
-        - ./walkthroughs/poet-thiolase-codehidden.ipynb
-
-    - id: app
-      title: "Using the App"
-      style: "docked"
-      collapse-level: 2
-      align: left
-      contents:
-        - section: Project
-          contents:
-          - section: "Dataset"
+      - section: "Getting Started"
+        contents:
+          - text: Get Started With No Code
+            file: ./getting-started/get-started-with-no-code.md
+          - text: Get Started With Our API
+            file: ./getting-started/get-started-with-our-API.md
+          - text: Account Information
+            file: ./getting-started/account-page.md
+      - section: Our Tools
+        file: ./tools/index.md
+        contents:
+          - section: PoET
+            file: ./poet/index.md
             contents:
-            - ./app/dataset-page.md
-            - ./app/visualizations-page.md
-          - ./app/predictions-page.md
-          - section: "Design"
+              - text: Prompt and Prompt Sampling Methods
+                file: ./poet/prompts.md
+              - text: Scoring System and Log Probability 
+                file: ./poet/scoring-log-likelihood.md
+              - ./poet/ensembling.md
+              - ./poet/history.md
+              - section: Frontend PoET Tutorials
+                contents: 
+                - text: Using The Rank Sequences Tool
+                  file: ./poet/rank-sequences.md
+                - text: Substitution Analysis With PoET
+                  file: ./poet/substitution-analysis.md
+                - text: Generate Sequences
+                  file: ./poet/generate-sequences.md
+              - section: API PoET Tutorials
+                contents: 
+                - text: Getting Started With PoET
+                  href: https://docs.openprotein.ai/api-python/demos/poet_demo.html
+                  target: _blank
+                - text: Designing New Enzymes
+                  href: https://docs.openprotein.ai/api-python/demos/chorismate.html
+                  target: _blank
+                - text: Substitutions and Deletions
+                  href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html
+                  target: _blank       
+          - section: Optimization and Prediction Models (OP models)
+            file: ./opmodels/index.md
             contents:
-            - ./app/project-design-objectives.md
-            - ./app/design-page.md
-            - ./app/reference-sequence.md
-            - ./app/library-page.md
-          - section: Models
+              - text: Overview
+                file: ./opmodels/overview.md
+              - ./opmodels/uploading-your-data.md
+              - text: Scoring and Log-likelihood
+                file: ./opmodels/scoring-log-likelihood.md
+              - ./opmodels/reference-sequence.md
+              - ./opmodels/navigating-your-projects.md
+              - section: Frontend Tutorials
+                contents: 
+                - ./opmodels/visualization.md
+                - text: Model Training and Evaluation
+                  file: ./opmodels/model-train-evaluate.md
+                - ./opmodels/sub-analysis.md
+                - ./opmodels/design.md
+              - section: API Tutorials
+                contents: 
+                  - text: Getting Started with Sequence-based Learning
+                    href: https://docs.openprotein.ai/api-python/demos/core_demo.html
+                    target: _blank
+                  - text: Getting started with embeddings
+                    href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
+                    target: _blank
+              - ./opmodels/quantitative-decision-making-for-library-design.md
+          - section: Structure Prediction
+            file: ./structure-prediction/index.md
             contents:
-              - ./app/models-page.md
-              - ./app/cross-validation-page.md
-        - section: PoET
-          contents:
-            - ./app/poet-introduction-page.md
-            - ./app/poet-defining-prompts-page.md
-            - ./app/poet-tools-page.md
-        - ./app/structure-prediction.md
-        - ./app/job-status-page.md
+              - ./structure-prediction/using-structure-prediction.md
+      - text: Tutorials and Examples
+        file: ./tutorials/index.md
+      - section: "Walkthroughs"
+        file: ./walkthroughs/index.md
+        contents: 
+            - text: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile
+              file: ./walkthroughs/antibody-engineering.md
+            - text: Finding mutational hotspots and designing one-shot variant libraries
+              file: ./walkthroughs/enzyme-engineering.md
+      - section: "Resources"
+        contents:
+          - text: Demo Datasets
+            file: ./resources/demo-datasets.md
+          - text: FAQ
+            file: ./resources/faq.md
+          - ./resources/publications.md
+          - ./resources/glossary.md
+      - section: "REST API"
+        contents:
+            - ./rest-api/overview.qmd
+            - ./rest-api/authentication-and-jobs.qmd
+            - ./rest-api/project.qmd
+            - ./rest-api/poet.qmd
+            - ./rest-api/embeddings.qmd  
+      - text: "Python API"
+        href: https://docs.openprotein.ai/api-python/index.html
+        target: _blank
 
 format:
   html:
@@ -111,6 +147,6 @@ format:
       light: [cosmo, theme.scss]
     toc: true
     grid:
-      sidebar-width: 330px
+      sidebar-width: 350px
       body-width: 900px
       margin-width: 300px
