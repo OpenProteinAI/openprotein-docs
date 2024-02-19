@@ -8,9 +8,10 @@ format:
 
 # Data-Driven Protein Engineering
 
-OpenProtein.AI brings state-of-the-art machine learning and generative models to use in your protein engineering workflows. Our protein language models learn sequence-to-function relationships and allow you to build custom models for protein library design, variant effect prediction and your broader engineering objectives.
+OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and de novo protein design tools, packaged in our easy-to-use platform.  Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale in silico screening for variant effect prediction and protein library design fast, easy, and cost effective.
 
 Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications
+
 ```{=html}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
-                    <a href="https://docs.openprotein.ai/api-python/poet_workflow.html" target="_blank" class="link example-link">Examples</a>
+                    <a href="./tutorials/index.md#de-novo-protein-design-and-variant-effect-prediction" class="link example-link">Examples</a>
                     <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div>  
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
-                    <a href="./tutorials/index.md#library-design-from-your-data" class="link example-link">Examples</a>
+                    <a href="./tutorials/index.md#function-prediction-and-optimization-with-your-data" class="link example-link">Examples</a>
                     <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div> 
@@ -92,12 +93,12 @@ document.addEventListener('DOMContentLoaded', function() {
         </a>
     </div>
     <div class="card" id="card">
-        <a class="card-link"  href="./opmodels/index.md">
+        <a class="card-link"  href="./opmodels/uploading-your-data.md#visualize-your-data">
             <img class="card-img" src="./overview-img/DocsHome_4.png" width="300">
             <div class="card-body">
                 <span>Visualize your data to better understand and communicate your results</span>
                 <div style="margin-top: 1.5rem">
-                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <a class="link" href="./opmodels/uploading-your-data.md#visualize-your-data">Tutorial</a>
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
@@ -108,12 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
         </a>
     </div>
     <div class="card" id="card">
-        <a class="card-link" href="./opmodels/index.md">
+        <a class="card-link" href="./opmodels/design.md">
             <img class="card-img" src="./overview-img/DocsHome_5.png" width="300">
             <div class="card-body">
                 <span>Design cost efficient libraries to maximize ROI with limited resourcing</span>
                 <div style="margin-top: 1.5rem">
-                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <a class="link" href="./opmodels/design.md">Tutorial</a>
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
@@ -124,16 +125,16 @@ document.addEventListener('DOMContentLoaded', function() {
         </a>
     </div>
     <div class="card" id="card">
-        <a class="card-link" href="./opmodels/index.md">
+        <a class="card-link" href="https://docs.openprotein.ai/api-python/embedding_workflow.html" target="_blank">
             <img class="card-img" src="./overview-img/DocsHome_6.png" width="300">
             <div class="card-body">
                 <span>Get embeddings and attention maps for integration with your ML pipeline</span>
                 <div style="margin-top: 1.5rem">
-                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <a class="link" href="https://docs.openprotein.ai/api-python/embedding_workflow.html" target="_blank">Python API</a>
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
                 </div>
                 <div>
-                    <a href="https://docs.openprotein.ai/api-python/demos/embedding_demo.html" target="_blank" class=" link example-link">Examples</a>
+                    <a href="https://docs.openprotein.ai/api-python/demos/Embedding_and_visualizing_antibodies.html" target="_blank" class=" link example-link">Tutorial</a>
                     <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div>      
