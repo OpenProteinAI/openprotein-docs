@@ -8,7 +8,7 @@ format:
 
 # Data-Driven Protein Engineering
 
-OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and de novo protein design tools, packaged in our easy-to-use platform.  Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale in silico screening for variant effect prediction and protein library design fast, easy, and cost effective.
+OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and *de novo* protein design tools, packaged in our easy-to-use platform.  Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale *in silico* screening for variant effect prediction and protein library design fast, easy, and cost effective.
 
 Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications
 
@@ -116,10 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="margin-top: 1.5rem">
                     <a class="link" href="./opmodels/design.md">Tutorial</a>
                     <img class="arrow-icon-tools" src="./shared/arrow-right.png">
-                </div>
-                <div>
-                    <a href="./tutorials/index.md#library-design-from-your-data" class="link example-link">Examples</a>
-                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
                 </div>
             </div>      
         </a>
