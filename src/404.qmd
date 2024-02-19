@@ -1,0 +1,8 @@
+---
+pagetitle: "404: Page not found"
+title: "404: Page not found"
+format:
+  html:
+    code-fold: true
+    toc: false
+---

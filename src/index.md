@@ -1,42 +1,194 @@
 ---
-title: Open Protein AI - User Guide
+pagetitle: OpenProtein.AI Guide
+sidebar: false
+format: 
+  html:
+    toc: false
 ---
 
-Welcome to OpenProtein.AI! OpenProtein.AI is a powerful platform that seamlessly integrates state-of-the-art machine learning and generative models into protein engineering workflows. We help you to design better proteins faster by giving you access to cutting-edge protein language models, prediction and design algorithms, as well as data management and model training tools. Easily build and deploy high-performance Bayesian protein function predictors, or apply generative protein language models to design sequence libraries, all via our integrated platform. OpenProtein.ai can be accessed via both web App and API, making it great for both biologists and protein engineers, as well as data scientists and software engineers.
+# Data-Driven Protein Engineering
 
-## Getting started
+OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and *de novo* protein design tools, packaged in our easy-to-use platform.  Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale *in silico* screening for variant effect prediction and protein library design fast, easy, and cost effective.
 
-Explore our platform with detailed documentation and step-by-step instructions to perform specific tasks, and leverage the various tools and features provided.
+Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications
 
-::: {.callout-tip} 
-## New to our platform? Here’s how to get started!
-* Get a [quick overview](./getting-started/introduction-page.md) of OpenProtein.AI’s capabilities 
-* [Sign up](./getting-started/account-page.md) for an account
-* Jump right into your first protein design project in our web app by following our [step-by-step tutorial](./app/design-page.md)
-* Learn about interacting with our [API service](./rest-api/overview.qmd)
-:::
+```{=html}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('#card');
+    cards.forEach((card)=> {
+        const exampleLink = card.querySelector('.example-link');
+        const exampleIcon = card.querySelector('.arrow-icon-example');
+        const toolsIcon = card.querySelector('.arrow-icon-tools');
 
-## Using the app
+        if (exampleLink === null) return;
+      
+        card.addEventListener('mouseenter', function() {
+            exampleIcon.style.display = 'none';
+            toolsIcon.style.display = 'inline';
+        });
 
-Our web application provides an easy-to-use user interface for project and data management, sequence-to-function ML model training, sequence analysis, and sequence design capabilities. The app is divided into two primary modules: Projects, which provides tools for iterative protein design, and PoET, our generative protein language model for de novo design. 
+        card.addEventListener('mouseleave', function() {
+            exampleIcon.style.display = 'none';
+            toolsIcon.style.display = 'none';
+        });
 
-Visit the App docs to learn more:
+        exampleLink.addEventListener('mouseenter', function() {
+            toolsIcon.style.display = 'none';
+            exampleIcon.style.display = 'inline';
+        });
+   
+        exampleLink.addEventListener('mouseleave', function() {
+            toolsIcon.style.display = 'inline';
+            exampleIcon.style.display = 'none';
+        });
 
-* [Projects](./app/dataset-page.md)
-* [PoET](./app/poet-introduction-page.md)
-* [Structure prediction](./app/structure-prediction.md)
-* [Job status](./app/job-status-page.md)
+    });
+});
+</script>
+<div class="card-container">
+    <div class="card" id="card">
+        <a href="./poet/index.md" class="card-link">
+            <img class="card-img" src="./overview-img/DocsHome_1.png">
+            <div class="card-body">
+                <span>Enhance directed evolution with zero-shot protein design</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./poet/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#de-novo-protein-design-and-variant-effect-prediction" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>  
+        </a>
+    </div>
+    <div class="card" id="card">
+        <a class="card-link" href="./opmodels/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_2.png" width="300">
+            <div class="card-body">
+                <span>Design variants using large language models to traverse the protein evolutionary landscape</span>
+                <div style="margin-top: 1rem">
+                    <a class="link" href="./opmodels/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#function-prediction-and-optimization-with-your-data" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div> 
+        </a>
+             
+    </div>
+    <div class="card" id="card">
+        <a class="card-link" href="./structure-prediction/index.md">
+            <img class="card-img" src="./overview-img/DocsHome_3.png" width="300">
+            <div class="card-body">
+                <span>Predict the structure of your designer proteins with deep learning</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./structure-prediction/index.md">Tools</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
+    </div>
+    <div class="card" id="card">
+        <a class="card-link"  href="./opmodels/uploading-your-data.md#visualize-your-data">
+            <img class="card-img" src="./overview-img/DocsHome_4.png" width="300">
+            <div class="card-body">
+                <span>Visualize your data to better understand and communicate your results</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./opmodels/uploading-your-data.md#visualize-your-data">Tutorial</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="./tutorials/index.md#analyzing-your-data" class="link example-link">Examples</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
+    </div>
+    <div class="card" id="card">
+        <a class="card-link" href="./opmodels/design.md">
+            <img class="card-img" src="./overview-img/DocsHome_5.png" width="300">
+            <div class="card-body">
+                <span>Design cost efficient libraries to maximize ROI with limited resourcing</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="./opmodels/design.md">Tutorial</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        </a>
+    </div>
+    <div class="card" id="card">
+        <a class="card-link" href="https://docs.openprotein.ai/api-python/embedding_workflow.html" target="_blank">
+            <img class="card-img" src="./overview-img/DocsHome_6.png" width="300">
+            <div class="card-body">
+                <span>Get embeddings and attention maps for integration with your ML pipeline</span>
+                <div style="margin-top: 1.5rem">
+                    <a class="link" href="https://docs.openprotein.ai/api-python/embedding_workflow.html" target="_blank">Python API</a>
+                    <img class="arrow-icon-tools" src="./shared/arrow-right.png">
+                </div>
+                <div>
+                    <a href="https://docs.openprotein.ai/api-python/demos/Embedding_and_visualizing_antibodies.html" target="_blank" class=" link example-link">Tutorial</a>
+                    <img class="arrow-icon-example" src="./shared/arrow-right.png">
+                </div>
+            </div>      
+        
+        </a>
+    </div>
+</div>
+```
+
+```{=html}  
+<div class="getting-started-container">
+    <span class="getting-started-title">Getting started</span>
+    <div class="learn-more">
+        <span>Learn more about our tools →</span>
+        <a href="./getting-started/get-started-with-no-code.md">With no code</a>
+        <a href="./getting-started/get-started-with-our-API.md">For the API</a>
+    </div>
+</div>
+```
+# Solutions for your application
 
 
-## Walkthrough
-
-Deep dive into our platform and its offerings through step-by-step guides and tutorials.The walkthroughs are accompanied by demo datasets that can be used to explore the platform. Explore the demo datasets, walkthroughs, and tutorials:
-
-* [Demo dataset](./walkthroughs/demo-datasets-page.md)
-* [Walkthrough: ML-guided mutagenesis and sequence-to-function modeling](./walkthroughs/mutagenesis-page.md)
-* [Tutorial: Designing de novo variant libraries using PoET](./walkthroughs/poet-tutorial-page.md)
-* [Tutorial: Generating substrate specific thiolases with PoET](./walkthroughs/poet-thiolase-codehidden.ipynb)
-
-## API docs
-
-The API Documentation provides a comprehensive guide to the endpoints available for interacting with the system's key modules: [Projects](./rest-api/project.qmd), [PoET](./rest-api/poet.qmd), and [Embeddings](./rest-api/embeddings.qmd). Gain a clear understanding of the available API endpoints and effectively utilize the system's functionalities programmatically.
+```{=html}  
+<div class="card-container">
+    <a href="./walkthroughs/antibody-engineering.md" class="card clickable-card">
+        <img class="card-icon" src="./overview-img/DocsHome_Antibodies.png" width="80">
+        <span class="title">Antibodies</span>
+        <div>
+            <span class="description">Optimize your antibody sequences for key properties</span>
+            <ul>
+                <li>Binding Affinity</li>
+                <li>Activity</li>
+                <li>Immunogenicity</li>
+            </ul>
+        </div>      
+    </a>
+    <a href="./walkthroughs/enzyme-engineering.md" class="card clickable-card">
+        <img class="card-icon" src="./overview-img/DocsHome_Enzymes.png" width="80">
+        <span class="title">Enzymes</span>
+        <div>
+            <span class="description">Design novel variants with desired functionality</span>
+            <ul>
+                <li>Catalytic efficiency</li>
+                <li>Thermostabilty</li>
+                <li>Expression</li>
+            </ul>
+        </div>      
+    </a>
+    <a href="./structure-prediction/index.md" class="card clickable-card">
+        <img class="card-icon" src="./overview-img/DocsHome_Structural Proteins.png" width="80">
+        <span class="title">Structural proteins</span>
+        <div>
+            <span class="description">Optimize fitness for your structural proteins of interest</span>
+            <ul>
+                <li>Stability</li>
+                <li>Expression</li>
+            </ul>
+        </div>      
+    </a>
+</div>
+```

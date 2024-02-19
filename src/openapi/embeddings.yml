@@ -1,0 +1,789 @@
+openapi: 3.0.1
+info:
+  title: Embeddings API
+  description: |-
+    The Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models. <br/>
+    You can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/model/metadata`. <br/>
+    Currently, we support the following models:
+    - **Prot-seq**: A proprietary Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.
+    - **Rotaprot-large-uniref50w**: A proprietary Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.
+    - **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.
+    - **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. <br/> These are based on the ESM1 language model, with different versions having different model parameters and training data. [More info](https://github.com/facebookresearch/esm).
+    - **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*, *esm2_t36_3B_UR50D*. <br/> These models are based on the ESM2 language model, with different version having different model parameters and training data. [More info](https://github.com/facebookresearch/esm). <br/><br/>
+  contact: {}
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /api/v1/embeddings/models:
+    get:
+      tags:
+      - embeddings
+      summary: List embedding models
+      description: List all models available for generating embeddings from your protein
+        sequences.
+      responses:
+        "200":
+          description: Available models
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/embeddings/models/{model_id}:
+    get:
+      tags:
+      - embeddings
+      summary: Get model metadata for embeddings models
+      description: "Get model metadata. Including:<br/><ul><li><b>ModelId:</b> A string\
+        \ identifier for the model</li><li><b>MaxSequenceLength:</b> The maximum sequence\
+        \ length that the model can handle.</li><li><b>Dimension:</b> The dimension\
+        \ of the model's output, which is 1024 for the \"prot-seq\" model.</li><li><b>OutputTypes:</b>\
+        \ The types of output that this model can generate. e.g. attention maps (\"\
+        attn\"), embeddings (\"embed\"), and logits (\"logits\").</li><li><b>PrimaryTokens:</b>\
+        \ The primary tokens that the model recognizes.</li></ul>"
+      parameters:
+      - name: model_id
+        in: path
+        description: ID of model to get metadata for
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Model metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelMetadata'
+        "404":
+          description: Not Found
+          content: {}
+      security:
+      - OAuth2Password: []
+  /api/v1/embeddings/models/{model_id}/attn:
+    post:
+      tags:
+      - embeddings
+      summary: Request attn
+      description: Use an OpenProtein model to create attention maps of your sequences.
+        <br/>You can see available models with  <code>/embeddings/models</code> endpoints.
+      parameters:
+      - name: model_id
+        in: path
+        description: Name of model to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Sequence to calculate attn embeddings for
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sequences'
+        required: true
+      responses:
+        "202":
+          description: Attn request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/embeddings/models/{model_id}/embed:
+    post:
+      tags:
+      - embeddings
+      summary: Create embeddings
+      description: Create embeddings for your protein sequences using an OpenProtein
+        model. <br/>You can view available models with the <code>/embeddings/models</code>
+        endpoint. <br/>Note that the request parameters should include <code>sequences</code>
+        with your sequences and optionally <code>reduction</code> with the type of
+        embedding reduction to compute (e.g. MEAN).
+      parameters:
+      - name: model_id
+        in: path
+        description: Name of model to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Embeddings request parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingsInput'
+        required: true
+      responses:
+        "202":
+          description: Embeddings request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/embeddings/models/{model_id}/logits:
+    post:
+      tags:
+      - embeddings
+      summary: Request logits
+      description: "Create logits job on your protein sequences, requires an existing\
+        \ model that supports logits.<br/>You can view available models with the <code>/embeddings/models</code>\
+        \ endpoint."
+      parameters:
+      - name: model_id
+        in: path
+        description: model ID to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Protein sequences
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sequences'
+        required: true
+      responses:
+        "202":
+          description: Logits request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/embeddings/{id}/{sequence}:
+    get:
+      tags:
+      - embeddings
+      summary: Get result for a sequence in a /embeddings job.
+      description: Get result for a sequence from completed POST /embeddings request
+        encoded as a numpy array. Result is a file that can be decoded with `numpy.load`.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID to fetch
+        required: true
+        schema:
+          type: string
+      - name: sequence
+        in: path
+        description: sequence for which to retrieve result
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Result encoded as numpy array
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - OAuth2Password: []
+  /api/v1/embeddings/{id}/sequences:
+    get:
+      tags:
+      - embeddings
+      summary: Get sequences used in a request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/embeddings</code> job.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/svd:
+    get:
+      tags:
+      - svd
+      summary: List SVDs
+      description: List SVDs available. <br/> You may need to create an SVD first
+        with POST <code>embeddings/svd</code> to see results here.
+      responses:
+        "200":
+          description: List of SVDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SVDMetadataOutput'
+      security:
+      - OAuth2Password: []
+    post:
+      tags:
+      - svd
+      summary: Request SVD
+      description: "Create SVD from sequence embeddings. Requires a model_id, you\
+        \ can see available models with the <code>/embeddings/models</code> endpoint.\
+        \ SVD inputs must include:<br/><ul><li><b>model_id:</b> the model id - SVD\
+        \ will be computed on the embeddings from this model</li><li><b>n_components:</b>\
+        \ the number of SVD components output</li><li><b>reduction:</b> the reduction\
+        \ type to apply to the embeddings prior to SVD(currently only MEAN supported)</li><li><b>sequences:</b>\
+        \ the protein sequences, as a list</li></ul>"
+      requestBody:
+        description: SVD request parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SVDInput'
+        required: true
+      responses:
+        "202":
+          description: SVD request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/svd/{svd_id}:
+    get:
+      tags:
+      - svd
+      summary: Get SVD metadata
+      description: Get SVD job metadata. Including SVD dimension and sequence lengths.
+        <br/>Requires a successful SVD job from POST <code>/svd</code>.
+      parameters:
+      - name: svd_id
+        in: path
+        description: SVD ID from a successful POST <code>/svd</code> request.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: SVD metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SVDMetadataOutput'
+      security:
+      - OAuth2Password: []
+    delete:
+      tags:
+      - svd
+      summary: Delete SVD model
+      description: Delete SVD model.
+      parameters:
+      - name: svd_id
+        in: path
+        description: SVD ID from a POST <code>/svd</code> request.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content: {}
+      security:
+      - OAuth2Password: []
+  /api/v1/svd/{svd_id}/embed:
+    post:
+      tags:
+      - svd
+      summary: Create embeddings and run existing SVD.
+      description: Create embeddings from your sequences and run an existing SVD on
+        the result. Use <code>embeddings/svd/list</code> to see the SVD models you
+        have previously created with POST <code>embeddings/svd</code>.
+      parameters:
+      - name: svd_id
+        in: path
+        description: ID of SVD model to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Protein sequences
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sequences'
+        required: true
+      responses:
+        "202":
+          description: Embeddings SVD request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/svd/{svd_id}/sequences:
+    get:
+      tags:
+      - svd
+      summary: Get sequences used in a /svd/fit request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/svd/fit</code> job.
+      parameters:
+      - name: svd_id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/svd/embed/{id}/{sequence}:
+    get:
+      tags:
+      - svd
+      summary: Get result for a sequence in a /svd/embed job.
+      description: Get result for a sequence from completed POST /svd request
+        encoded as a numpy array. Result is a file that can be decoded with `numpy.load`.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID to fetch
+        required: true
+        schema:
+          type: string
+      - name: sequence
+        in: path
+        description: sequence for which to retrieve result
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Result encoded as numpy array
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - OAuth2Password: []
+  /api/v1/svd/embed/{id}/sequences:
+    get:
+      tags:
+      - svd
+      summary: Get sequences used in a /svd/embed request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/svd</code> job.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/models:
+    get:
+      tags:
+      - fold
+      summary: List fold models
+      description: List all models available for predicting structures from your protein
+        sequences.
+      responses:
+        "200":
+          description: Available models
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/models/{model_id}:
+    get:
+      tags:
+      - fold
+      summary: Get model metadata for fold models
+      description: Get model metadata. Including:<br/><ul><li><b>ModelId:</b> A string
+        identifier for the model</li><li><b>MaxSequenceLength:</b> The maximum sequence
+        length that the model can handle.</li><li><b>PrimaryTokens:</b> The primary
+        tokens that the model recognizes.</li></ul>
+      parameters:
+      - name: model_id
+        in: path
+        description: ID of model to get metadata for
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Model metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelMetadata'
+        "404":
+          description: Not Found
+          content: {}
+      security:
+      - OAuth2Password: []
+    post:
+      tags:
+      - fold
+      summary: Create fold structure prediction
+      description: Create fold structure prediction request for your protein sequences.
+        <br/>Note that the request parameters should include <code>sequences</code>
+        with your sequences.
+      parameters:
+      - name: model_id
+        in: path
+        description: Name of model to use
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Fold request parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoldInput'
+        required: true
+      responses:
+        "202":
+          description: Fold request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+      security:
+      - OAuth2Password: []
+      x-codegen-request-body-name: request
+  /api/v1/fold/{id}/{sequence}:
+    get:
+      tags:
+      - fold
+      summary: Retrieve protein structure
+      description: Get protein structure for a submitted sequence
+      parameters:
+      - name: id
+        in: path
+        description: Job ID to fetch
+        required: true
+        schema:
+          type: string
+      - name: sequence
+        in: path
+        description: Sequence for which to retrieve result
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Result encoded in pdb format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Bad Request
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+      security:
+      - OAuth2Password: []
+  /api/v1/fold/{id}/sequences:
+    get:
+      tags:
+      - fold
+      summary: Get sequences used in a request
+      description: Get sequences used in a previous request. Requires a job ID from
+        a successful <code>/fold</code> job.
+      parameters:
+      - name: id
+        in: path
+        description: Job ID of sequences to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - OAuth2Password: []
+components:
+  schemas:
+    EmbeddingsInput:
+      required:
+      - sequences
+      type: object
+      properties:
+        reduction:
+          type: string
+          description: "e.g. MEAN, nil"
+          example: MEAN
+          default: MEAN
+        sequences:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    FoldInput:
+      required:
+      - sequences
+      type: object
+      properties:
+        sequences:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    Job:
+      type: object
+      properties:
+        created_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        job_id:
+          type: string
+          example: 8f4fa427-4e74-4d22-ab01-5a7743411add
+        job_type:
+          type: string
+          example: /embeddings/embed
+        num_records:
+          type: integer
+        prerequisite_job_id:
+          type: string
+          example: e3bdf5ab-7201-485f-862e-fd6226f791a2
+        progress_counter:
+          type: integer
+        start_date:
+          type: string
+          format: date-time
+        status:
+          type: string
+          example: PENDING
+    ModelDescription:
+      type: object
+      properties:
+        citation_title:
+          type: string
+        doi:
+          type: string
+        summary:
+          type: string
+    ModelMetadata:
+      required:
+      - description
+      - dimension
+      - input_tokens
+      - max_sequence_length
+      - model_id
+      - output_tokens
+      - output_types
+      - token_descriptions
+      type: object
+      properties:
+        description:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/ModelDescription'
+        dimension:
+          type: integer
+          example: 1024
+        input_tokens:
+          type: array
+          description: List of valid input tokens.
+          example:
+          - A
+          - R
+          - "N"
+          items:
+            type: string
+        max_sequence_length:
+          type: integer
+        model_id:
+          type: string
+          example: prot-seq
+        output_tokens:
+          type: array
+          description: List of output tokens ordered by token id. Use this to decode
+            logits.
+          example:
+          - A
+          - R
+          - "N"
+          items:
+            type: string
+        output_types:
+          type: array
+          description: '`EmbeddingsOutput`s supported by the model'
+          example:
+          - attn
+          - embed
+          - logits
+          items:
+            type: string
+          x-order: "5"
+        token_descriptions:
+          type: array
+          description: |-
+            Description of all tokens.
+            Descriptions are ordered by token id. The `n`'th item describes the token(s) represented by token id `n`.
+            Some token ids can represent multiple tokens.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Token'
+    SVDInput:
+      required:
+      - model_id
+      - sequences
+      type: object
+      properties:
+        model_id:
+          type: string
+        n_components:
+          minimum: 1
+          type: integer
+          example: 1024
+        reduction:
+          type: string
+          description: "e.g. MEAN, nil"
+          example: MEAN
+        sequences:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    SVDMetadataOutput:
+      required:
+      - model_id
+      type: object
+      properties:
+        created_date:
+          type: string
+          format: date-time
+        id:
+          type: string
+        model_id:
+          type: string
+        n_components:
+          minimum: 1
+          type: integer
+          example: 1024
+        reduction:
+          type: string
+          description: "e.g. MEAN, nil"
+          example: MEAN
+        sequence_length:
+          type: integer
+          description: used to check if input emb features will match
+        status:
+          type: string
+          example: PENDING
+    Sequences:
+      required:
+      - sequences
+      type: object
+      properties:
+        sequences:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    Token:
+      required:
+      - description
+      - id
+      - primary
+      - token
+      type: object
+      properties:
+        description:
+          type: string
+          description: Meaning of this token
+          x-order: "4"
+        id:
+          type: integer
+          description: Token ID
+          x-order: "1"
+        primary:
+          type: boolean
+          description: |-
+            When a token id represents multiple tokens, this flag indicates whether or not
+            this is the primary token represented by the token id
+          x-order: "3"
+        token:
+          type: string
+          description: The token's string representation
+          x-order: "2"
+    HTTPError:
+      type: object
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    OAuth2Password:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /api/v1/login/access-token
+          scopes: {}
+x-original-swagger-version: "2.0"

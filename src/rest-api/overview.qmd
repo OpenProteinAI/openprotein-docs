@@ -1,5 +1,8 @@
 ---
-title: Overview - API docs
+title: Overview - API Docs
+format:
+  html:
+    code-fold: true
 ---
 Welcome to the API suite! 
 
