@@ -130,7 +130,8 @@ website:
             - ./rest-api/authentication-and-jobs.qmd
             - ./rest-api/project.qmd
             - ./rest-api/poet.qmd
-            - ./rest-api/embeddings.qmd  
+            - ./rest-api/embeddings.qmd
+            - ./rest-api/fold.qmd
       - text: "Python API"
         href: https://docs.openprotein.ai/api-python/index.html
         target: _blank
