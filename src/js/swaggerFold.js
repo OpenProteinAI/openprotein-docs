@@ -42,4 +42,6 @@ SwaggerUIBundle({
   },
 });
 
+await new Promise((r) => setTimeout(r, 500));
+
 addSwaggerEndpointsToTOC(0);

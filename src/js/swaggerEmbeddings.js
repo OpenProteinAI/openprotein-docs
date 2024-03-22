@@ -18,20 +18,20 @@ SwaggerUIBundle({
     if (request.url.includes("openapi") && request.url.endsWith(".yml")) {
       return request;
     }
-    var requestPath = request.url
+    var requestPath = request.url;
     if (requestPath.startsWith("http")) {
       requestPath = requestPath.split("/").slice(3).join("/");
     }
     if (requestPath.startsWith("/")) {
-      requestPath = requestPath.slice(1)
+      requestPath = requestPath.slice(1);
     }
-    const backendUrl = getBackendUrl()
+    const backendUrl = getBackendUrl();
     request.url = backendUrl + requestPath;
 
     return request;
   },
   responseInterceptor: async (res) => {
-    if (res.data.type === 'application/json5') {
+    if (res.data.type === "application/json5") {
       const text = await res.data.text();
 
       res.data = text;
@@ -41,5 +41,7 @@ SwaggerUIBundle({
     return res;
   },
 });
+
+await new Promise((r) => setTimeout(r, 500));
 
 addSwaggerEndpointsToTOC(0);
