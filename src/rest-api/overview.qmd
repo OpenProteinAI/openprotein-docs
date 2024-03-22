@@ -48,6 +48,13 @@ The endpoints include:
 * Embeddings 
 * Svd
 
+## Fold 
+Learn more about the endpoints needed to create structure predictions on protein sequences here! Our platform offers a range of endpoints that harness the power of both our proprietary and open-source models.
+
+The endpoints include:
+
+* Fold 
+
 ## Next steps
 To start accessing our suite of APIs, refer to these articles to get started: 
 

@@ -1,0 +1,597 @@
+openapi: 3.0.2
+info:
+  title: OpenProtein Fold
+  description: |+
+    # Fold API
+    The Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.
+
+    You can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.
+
+    Currently, we support the following models:
+    - **ESMFold**: Open-sourced ESMFold model.
+    - **AlphaFold2**: Open-sourced implementation using colabfold.
+
+
+  version: 1.0.0
+servers:
+  - url: https://dev.api.openprotein.ai
+    description: Dev server
+tags:
+  - name: fold
+    description: Querying with fold models and jobs.
+  - name: fold requests
+    description: Create requests to fold protein structures
+paths:
+  /api/v1/fold/models:
+    get:
+      tags:
+        - fold
+      summary: List fold models
+      description: Get available models.
+      responses:
+        '200':
+          description: Available fold models returned.
+          content:
+            application/json:
+              schema:
+                title: Fold Models
+                description: List of available fold models.
+                type: array
+                items:
+                  type: string
+                example:
+                  - esmfold
+                  - alphafold2
+                  - ...
+      security:
+        - oauth2: []
+  /api/v1/fold/models/{model_id}:
+    get:
+      tags:
+        - fold
+      summary: Get fold model metadata
+      description: Get information about specific fold model.
+      operationId: getModelMetadata
+      parameters:
+        - name: model_id
+          description: |
+            Model ID to query.
+
+            List models to find available models.
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - esmfold
+              - alphafold2
+      responses:
+        '200':
+          description: Detailed information about model returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelMetadata'
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Model was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2: []
+  /api/v1/fold/models/esmfold:
+    post:
+      tags:
+        - fold requests
+      summary: ESMFold
+      description: Create structure prediction using ESMFold from input protein sequences.
+      requestBody:
+        description: Request for structure predictions.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESMFoldRequest'
+        required: true
+      responses:
+        '202':
+          description: ESMFold request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoldJob'
+        '400':
+          description: Validation errors in the submitted request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '429':
+          description: Too many requests. Try again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2: []
+  /api/v1/fold/models/alphafold2:
+    post:
+      tags:
+        - fold requests
+      summary: AlphaFold2
+      description: Create structure prediction using AlphaFold2 from created MSA.
+      requestBody:
+        description: Request for structure prediction.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AF2Request'
+        required: true
+      responses:
+        '202':
+          description: AlphaFold2 request created and pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoldJob'
+        '400':
+          description: Validation errors in the submitted request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '429':
+          description: Too many requests. Try again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2: []
+  /api/v1/fold/{job_id}/sequences:
+    get:
+      tags:
+        - fold
+      summary: Get sequences used in a request
+      description: Get sequences used in a previous request.
+      parameters:
+        - name: job_id
+          in: path
+          description: Job ID of sequences to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Request sequences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Fold job not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2: []
+  /api/v1/fold/{job_id}/{sequence}:
+    get:
+      tags:
+        - fold
+      summary: Retrieve protein structure
+      description: Get protein structure for a submitted sequence
+      parameters:
+        - name: job_id
+          in: path
+          description: Job ID to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: sequence
+          in: path
+          description: Sequence for which to retrieve result
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Result encoded in pdb format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: PDB result retrieval error. Contact support for assistance if persistent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Fold job not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2: []
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /api/v1/login/access-token
+          scopes: {}
+  schemas:
+    ModelID:
+      title: ModelID
+      description: ID of model to be used.
+      type: string
+    ModelDescription:
+      title: ModelDescription
+      description: Description of the model including relevant citations.
+      type: object
+      properties:
+        summary:
+          title: Summary
+          description: Summary of the model description.
+          type: string
+        citation_title:
+          title: CitationTitle
+          description: Title of the citation for the model.
+          type: string
+        doi:
+          title: DOI
+          description: DOI of the citation for the model.
+          type: string
+    Token:
+      title: TokenDetails
+      description: Details of token.
+      required:
+        - id
+        - description
+        - primary
+        - token
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Token ID
+        token:
+          type: string
+          description: The token's string representation
+        description:
+          type: string
+          description: Meaning of this token
+        primary:
+          type: boolean
+          description: When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.
+    ModelMetadata:
+      title: ModelMetadata
+      description: Metadata of protein language model.
+      required:
+        - dimension
+        - description
+        - input_tokens
+        - max_sequence_length
+        - model_id
+        - output_tokens
+        - output_types
+        - token_descriptions
+      type: object
+      properties:
+        model_id:
+          $ref: '#/components/schemas/ModelID'
+        description:
+          $ref: '#/components/schemas/ModelDescription'
+        dimension:
+          type: integer
+          description: Output dimensions of the model. Returns `-1` if irrelevant.
+        input_tokens:
+          type: array
+          description: List of valid input tokens.
+          example:
+            - A
+            - R
+            - 'N'
+          items:
+            type: string
+        max_sequence_length:
+          type: integer
+          description: Maximum sequence length supported by model.
+        output_tokens:
+          type: array
+          description: List of output tokens ordered by token id. Use this to decode logits.
+          example:
+            - A
+            - R
+            - 'N'
+          items:
+            type: string
+        output_types:
+          type: array
+          description: Outputs supported by the model.
+          items:
+            type: string
+        token_descriptions:
+          type: array
+          description: |-
+            Description of all tokens, ordered by token id. The nth item describes the token(s) represented by token id `n`.
+            Some token ids can represent multiple tokens.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Token'
+    Error:
+      title: Error
+      description: A error object providing details of the error.
+      required:
+        - detail
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: string
+    Sequence:
+      title: Sequence
+      description: Protein sequence
+      type: string
+      example: MSKGEELFTGV
+    ESMFoldRequest:
+      title: ESMFoldRequest
+      description: Request for structure prediction using ESMFold.
+      type: object
+      required:
+        - sequences
+      properties:
+        sequences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sequence'
+        num_recycles:
+          description: Number of recycles. `null` lets the system decide.
+          type: number
+          nullable: true
+          minimum: 0
+          maximum: 48
+          default: null
+          example: null
+    JobID:
+      title: JobID
+      description: ID of job.
+      type: string
+      format: uuid
+      x-order: 1
+    JobType:
+      title: JobType
+      description: Type of job.
+      type: string
+      enum:
+        - /workflow/preprocess
+        - /workflow/train
+        - /workflow/embed/umap
+        - /workflow/predict
+        - /workflow/predict/single_site
+        - /workflow/crossvalidate
+        - /workflow/evaluate
+        - /workflow/design
+        - /align/align
+        - /align/prompt
+        - /poet
+        - /poet/single_site
+        - /poet/generate
+        - /poet/score
+        - /poet/embed
+        - /poet/logits
+        - /embeddings/embed
+        - /embeddings/embed_reduced
+        - /embeddings/svd
+        - /svd/fit
+        - /svd/embed
+        - /embeddings/attn
+        - /embeddings/logits
+        - /embeddings/fold
+      x-order: 3
+    CreatedDate:
+      title: Created Date
+      description: Datetime of created object
+      type: string
+      format: date-time
+      example: '2024-01-01T12:34:56.789Z'
+      x-order: 4
+    JobStatus:
+      title: JobStatus
+      description: Status of job.
+      type: string
+      enum:
+        - PENDING
+        - RUNNING
+        - SUCCESS
+        - FAILURE
+      x-order: 7
+    Job:
+      title: Job
+      description: Job represents a job for our compute platform.
+      type: object
+      required:
+        - job_id
+        - prerequisite_job_id
+        - job_type
+        - created_date
+        - start_date
+        - end_date
+        - status
+        - progress_counter
+      properties:
+        job_id:
+          $ref: '#/components/schemas/JobID'
+        prerequisite_job_id:
+          title: PrerequisiteJobID
+          description: Prerequisite job ID.
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+          x-order: 2
+        job_type:
+          $ref: '#/components/schemas/JobType'
+        created_date:
+          $ref: '#/components/schemas/CreatedDate'
+        start_date:
+          title: StartDate
+          description: Start date of job.
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+          x-order: 5
+        end_date:
+          title: EndDate
+          description: End date of job.
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+          x-order: 6
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        progress_counter:
+          title: ProgressCounter
+          description: Counter of the progress of job from 0 to 100.
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: 0
+          x-order: 8
+    FoldJob:
+      title: FoldJob
+      allOf:
+        - $ref: '#/components/schemas/Job'
+        - title: FoldJob
+          description: FoldJob represents a fold job for our platform.
+          type: object
+          properties:
+            job_type:
+              type: string
+              example: /fold/fold
+    ValidationError:
+      title: ValidationError.yaml
+      description: An invalid object that could not be parsed.
+      type: object
+      properties:
+        detail:
+          title: ErrorDetailList
+          type: array
+          items:
+            title: ErrorDetail
+            required:
+              - loc
+              - msg
+              - type
+            type: object
+            properties:
+              loc:
+                title: Location
+                type: array
+                items:
+                  type: integer
+              msg:
+                title: Message
+                type: string
+              type:
+                title: Error Type
+                type: string
+    AF2Request:
+      title: AlphaFold2Request
+      description: Request for structure prediction using AlphaFold2.
+      type: object
+      required:
+        - msa_id
+      properties:
+        msa_id:
+          description: ID of MSA to use for fold.
+          type: string
+          format: uuid
+        num_recycles:
+          description: Number of recycles. `null` lets the system decide.
+          type: number
+          nullable: true
+          minimum: 0
+          maximum: 48
+          default: null
+          example: null
+        num_models:
+          description: Number of models.
+          type: number
+          minimum: 0
+          maximum: 5
+          default: 1
+          example: 1
+        num_relax:
+          description: Number of relax.
+          type: number
+          minimum: 0
+          maximum: 5
+          default: 0
+          example: 0
