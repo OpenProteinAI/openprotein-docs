@@ -7,7 +7,7 @@ import getBackendUrl from "./getBackendUrl.js";
 
 SwaggerUIBundle({
   // spec: swagerSpecs,
-  url: "../openapi/embeddings.yml",
+  url: "../openapi/fold.yml",
   dom_id: "#swagger-ui",
   config: {
     deepLinking: true,
