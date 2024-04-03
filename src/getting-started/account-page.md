@@ -29,7 +29,7 @@ Request [early access](https://openprotein-ai.webflow.io/early-access-form){targ
 ## Resetting your password
 
 To change your password, navigate to the account icon on the top right
-corner of the page, and click on 'Change password'.
+corner of the page, and select **Change password**.
 
 <p align="center">
   <img src="./img/change-password.png" width="700">
