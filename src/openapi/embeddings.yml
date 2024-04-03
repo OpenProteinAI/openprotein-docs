@@ -151,7 +151,28 @@ paths:
                       Some token ids can represent multiple tokens.
                     items:
                       type: array
-                      items: {}
+                      items:
+                        title: TokenDetails
+                        description: Details of token.
+                        required:
+                          - id
+                          - description
+                          - primary
+                          - token
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: Token ID
+                          token:
+                            type: string
+                            description: The token's string representation
+                          description:
+                            type: string
+                            description: Meaning of this token
+                          primary:
+                            type: boolean
+                            description: When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.
         '401':
           description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
           content:
@@ -873,140 +894,10 @@ paths:
                     type: string
       security:
         - oauth2: []
-  /api/v1/svd/embed/{job_id}/sequences:
-    get:
-      tags:
-        - svd
-      summary: Get sequences used in SVD embed request
-      description: |
-        Get sequences used in a previous svd embeddings request.
-      parameters:
-        - name: job_id
-          in: path
-          description: SVD embed's job ID of sequences to fetch
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Request sequences
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  title: Sequence
-                  description: Protein sequence
-                  type: string
-                  example: MSKGEELFTGV
-        '401':
-          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '404':
-          description: SVD embeddings job not found.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-      security:
-        - oauth2: []
-  /api/v1/svd/embed/{job_id}/{sequence}:
-    get:
-      tags:
-        - svd
-      summary: Retrieve SVD embeddings vector results
-      description: Get vector results for a submitted SVD embeddings job.
-      parameters:
-        - name: job_id
-          in: path
-          description: SVD embed's job ID to fetch
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: sequence
-          in: path
-          description: Sequence for which to retrieve result. Use `/sequences` endpoint to find sequences used in request.
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Result encoded in numpy format
-          content:
-            application/octet-stream:
-              schema:
-                type: string
-                format: binary
-                example: |
-                  \x93NUMPY\x01\x00v\x00{'descr': '<f4', 'fortran_order': False, 'shape': (0,), }
-        '400':
-          description: Vector retrieval error. Contact support for assistance if persistent.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '401':
-          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '404':
-          description: Embeddings job not found.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-      security:
-        - oauth2: []
   /api/v1/embeddings/models/prot-seq/embed:
     post:
       tags:
+        - openprotein
         - prot-seq
         - embed
       summary: prot-seq embed
@@ -1232,8 +1123,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref50w/embed:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref50w
-        - rotaprot
         - embed
       summary: rotaprot-large-uniref50w embed
       description: Create embeddings vectors representing input protein sequences using `rotaprot-large-uniref50w`.
@@ -1458,8 +1349,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref90-ft/embed:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref90-ft
-        - rotaprot
         - embed
       summary: rotaprot-large-uniref90-ft embed
       description: Create embeddings vectors representing input protein sequences using `rotaprot-large-uniref90-ft`.
@@ -1684,9 +1575,8 @@ paths:
   /api/v1/embeddings/models/esm1b_t33_650M_UR50S/embed:
     post:
       tags:
-        - esm1b_t33_650M_UR50S
         - esm1
-        - esm1b
+        - esm1b_t33_650M_UR50S
         - embed
       summary: esm1b_t33_650M_UR50S embed
       description: Create embeddings vectors representing input protein sequences using `esm1b_t33_650M_UR50S`.
@@ -1911,9 +1801,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_1/embed:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_1
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_1
         - embed
       summary: esm1v_t33_650M_UR90S_1 embed
       description: Create embeddings vectors representing input protein sequences using `esm1v_t33_650M_UR90S_1`.
@@ -2138,9 +2027,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_2/embed:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_2
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_2
         - embed
       summary: esm1v_t33_650M_UR90S_2 embed
       description: Create embeddings vectors representing input protein sequences using `esm1v_t33_650M_UR90S_2`.
@@ -2365,9 +2253,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_3/embed:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_3
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_3
         - embed
       summary: esm1v_t33_650M_UR90S_3 embed
       description: Create embeddings vectors representing input protein sequences using `esm1v_t33_650M_UR90S_3`.
@@ -2592,9 +2479,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_4/embed:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_4
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_4
         - embed
       summary: esm1v_t33_650M_UR90S_4 embed
       description: Create embeddings vectors representing input protein sequences using `esm1v_t33_650M_UR90S_4`.
@@ -2819,9 +2705,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_5/embed:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_5
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_5
         - embed
       summary: esm1v_t33_650M_UR90S_5 embed
       description: Create embeddings vectors representing input protein sequences using `esm1v_t33_650M_UR90S_5`.
@@ -3043,11 +2928,237 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
+  /api/v1/embeddings/models/esm2_t6_8M_UR50D/embed:
+    post:
+      tags:
+        - esm2
+        - esm2_t6_8M_UR50D
+        - embed
+      summary: esm2_t6_8M_UR50D embed
+      description: Create embeddings vectors representing input protein sequences using `esm2_t6_8M_UR50D`.
+      requestBody:
+        description: |-
+          Request for embeddings.
+
+          Various models may have specific arguments that are required.
+        content:
+          application/json:
+            schema:
+              title: EmbedRequest
+              description: Request for embeddings using `esm2_t6_8M_UR50D`.
+              type: object
+              required:
+                - sequences
+              properties:
+                sequences:
+                  title: Sequences
+                  type: array
+                  items:
+                    title: Sequence
+                    description: Protein sequence
+                    type: string
+                    example: MSKGEELFTGV
+        required: true
+      responses:
+        '202':
+          description: Embed request created and pending
+          content:
+            application/json:
+              schema:
+                title: EmbedJob
+                description: EmbedJob represents a embed job for our platform.
+                type: object
+                required:
+                  - job_id
+                  - prerequisite_job_id
+                  - job_type
+                  - created_date
+                  - start_date
+                  - end_date
+                  - status
+                  - progress_counter
+                properties:
+                  job_id:
+                    title: JobID
+                    description: ID of job.
+                    type: string
+                    format: uuid
+                    x-order: 1
+                  prerequisite_job_id:
+                    title: PrerequisiteJobID
+                    description: Prerequisite job ID.
+                    type: string
+                    format: uuid
+                    nullable: true
+                    example: null
+                    x-order: 2
+                  job_type:
+                    title: JobType
+                    description: Type of job.
+                    type: string
+                    enum:
+                      - /workflow/preprocess
+                      - /workflow/train
+                      - /workflow/embed/umap
+                      - /workflow/predict
+                      - /workflow/predict/single_site
+                      - /workflow/crossvalidate
+                      - /workflow/evaluate
+                      - /workflow/design
+                      - /align/align
+                      - /align/prompt
+                      - /poet
+                      - /poet/single_site
+                      - /poet/generate
+                      - /poet/score
+                      - /poet/embed
+                      - /poet/logits
+                      - /embeddings/embed
+                      - /embeddings/embed_reduced
+                      - /embeddings/svd
+                      - /svd/fit
+                      - /svd/embed
+                      - /embeddings/attn
+                      - /embeddings/logits
+                      - /embeddings/fold
+                    x-order: 3
+                    example: /embeddings/embed
+                  created_date:
+                    title: Created Date
+                    description: Datetime of created object
+                    type: string
+                    format: date-time
+                    example: '2024-01-01T12:34:56.789Z'
+                    x-order: 4
+                  start_date:
+                    title: StartDate
+                    description: Start date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 5
+                  end_date:
+                    title: EndDate
+                    description: End date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 6
+                  status:
+                    title: JobStatus
+                    description: Status of job.
+                    type: string
+                    enum:
+                      - PENDING
+                      - RUNNING
+                      - SUCCESS
+                      - FAILURE
+                    x-order: 7
+                  progress_counter:
+                    title: ProgressCounter
+                    description: Counter of the progress of job from 0 to 100.
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+                    example: 0
+                    x-order: 8
+        '400':
+          description: Validation errors in the submitted request.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '401':
+          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '422':
+          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
+          content:
+            application/json:
+              schema:
+                title: ValidationError.yaml
+                description: An invalid object that could not be parsed.
+                type: object
+                properties:
+                  detail:
+                    title: ErrorDetailList
+                    type: array
+                    items:
+                      title: ErrorDetail
+                      required:
+                        - loc
+                        - msg
+                        - type
+                      type: object
+                      properties:
+                        loc:
+                          title: Location
+                          type: array
+                          items:
+                            type: integer
+                        msg:
+                          title: Message
+                          type: string
+                        type:
+                          title: Error Type
+                          type: string
+        '429':
+          description: Too many requests. Try again later.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+      security:
+        - oauth2: []
+      x-codegen-request-body-name: request
   /api/v1/embeddings/models/esm2_t12_35M_UR50D/embed:
     post:
       tags:
-        - esm2_t12_35M_UR50D
         - esm2
+        - esm2_t12_35M_UR50D
         - embed
       summary: esm2_t12_35M_UR50D embed
       description: Create embeddings vectors representing input protein sequences using `esm2_t12_35M_UR50D`.
@@ -3272,8 +3383,8 @@ paths:
   /api/v1/embeddings/models/esm2_t30_150M_UR50D/embed:
     post:
       tags:
-        - esm2_t30_150M_UR50D
         - esm2
+        - esm2_t30_150M_UR50D
         - embed
       summary: esm2_t30_150M_UR50D embed
       description: Create embeddings vectors representing input protein sequences using `esm2_t30_150M_UR50D`.
@@ -3498,8 +3609,8 @@ paths:
   /api/v1/embeddings/models/esm2_t33_650M_UR50D/embed:
     post:
       tags:
-        - esm2_t33_650M_UR50D
         - esm2
+        - esm2_t33_650M_UR50D
         - embed
       summary: esm2_t33_650M_UR50D embed
       description: Create embeddings vectors representing input protein sequences using `esm2_t33_650M_UR50D`.
@@ -3724,8 +3835,8 @@ paths:
   /api/v1/embeddings/models/esm2_t36_3B_UR50D/embed:
     post:
       tags:
-        - esm2_t36_3B_UR50D
         - esm2
+        - esm2_t36_3B_UR50D
         - embed
       summary: esm2_t36_3B_UR50D embed
       description: Create embeddings vectors representing input protein sequences using `esm2_t36_3B_UR50D`.
@@ -3947,235 +4058,10 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
-  /api/v1/embeddings/models/esm2_t6_8M_UR50D/embed:
-    post:
-      tags:
-        - esm2_t6_8M_UR50D
-        - esm2
-        - embed
-      summary: esm2_t6_8M_UR50D embed
-      description: Create embeddings vectors representing input protein sequences using `esm2_t6_8M_UR50D`.
-      requestBody:
-        description: |-
-          Request for embeddings.
-
-          Various models may have specific arguments that are required.
-        content:
-          application/json:
-            schema:
-              title: EmbedRequest
-              description: Request for embeddings using `esm2_t6_8M_UR50D`.
-              type: object
-              required:
-                - sequences
-              properties:
-                sequences:
-                  title: Sequences
-                  type: array
-                  items:
-                    title: Sequence
-                    description: Protein sequence
-                    type: string
-                    example: MSKGEELFTGV
-        required: true
-      responses:
-        '202':
-          description: Embed request created and pending
-          content:
-            application/json:
-              schema:
-                title: EmbedJob
-                description: EmbedJob represents a embed job for our platform.
-                type: object
-                required:
-                  - job_id
-                  - prerequisite_job_id
-                  - job_type
-                  - created_date
-                  - start_date
-                  - end_date
-                  - status
-                  - progress_counter
-                properties:
-                  job_id:
-                    title: JobID
-                    description: ID of job.
-                    type: string
-                    format: uuid
-                    x-order: 1
-                  prerequisite_job_id:
-                    title: PrerequisiteJobID
-                    description: Prerequisite job ID.
-                    type: string
-                    format: uuid
-                    nullable: true
-                    example: null
-                    x-order: 2
-                  job_type:
-                    title: JobType
-                    description: Type of job.
-                    type: string
-                    enum:
-                      - /workflow/preprocess
-                      - /workflow/train
-                      - /workflow/embed/umap
-                      - /workflow/predict
-                      - /workflow/predict/single_site
-                      - /workflow/crossvalidate
-                      - /workflow/evaluate
-                      - /workflow/design
-                      - /align/align
-                      - /align/prompt
-                      - /poet
-                      - /poet/single_site
-                      - /poet/generate
-                      - /poet/score
-                      - /poet/embed
-                      - /poet/logits
-                      - /embeddings/embed
-                      - /embeddings/embed_reduced
-                      - /embeddings/svd
-                      - /svd/fit
-                      - /svd/embed
-                      - /embeddings/attn
-                      - /embeddings/logits
-                      - /embeddings/fold
-                    x-order: 3
-                    example: /embeddings/embed
-                  created_date:
-                    title: Created Date
-                    description: Datetime of created object
-                    type: string
-                    format: date-time
-                    example: '2024-01-01T12:34:56.789Z'
-                    x-order: 4
-                  start_date:
-                    title: StartDate
-                    description: Start date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 5
-                  end_date:
-                    title: EndDate
-                    description: End date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 6
-                  status:
-                    title: JobStatus
-                    description: Status of job.
-                    type: string
-                    enum:
-                      - PENDING
-                      - RUNNING
-                      - SUCCESS
-                      - FAILURE
-                    x-order: 7
-                  progress_counter:
-                    title: ProgressCounter
-                    description: Counter of the progress of job from 0 to 100.
-                    type: integer
-                    minimum: 0
-                    maximum: 100
-                    example: 0
-                    x-order: 8
-        '400':
-          description: Validation errors in the submitted request.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '401':
-          description: Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '404':
-          description: Model not found.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '422':
-          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
-          content:
-            application/json:
-              schema:
-                title: ValidationError.yaml
-                description: An invalid object that could not be parsed.
-                type: object
-                properties:
-                  detail:
-                    title: ErrorDetailList
-                    type: array
-                    items:
-                      title: ErrorDetail
-                      required:
-                        - loc
-                        - msg
-                        - type
-                      type: object
-                      properties:
-                        loc:
-                          title: Location
-                          type: array
-                          items:
-                            type: integer
-                        msg:
-                          title: Message
-                          type: string
-                        type:
-                          title: Error Type
-                          type: string
-        '429':
-          description: Too many requests. Try again later.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-      security:
-        - oauth2: []
-      x-codegen-request-body-name: request
   /api/v1/embeddings/models/poet/embed:
     post:
       tags:
+        - poet
         - poet
         - embed
       summary: poet embed
@@ -4405,6 +4291,7 @@ paths:
   /api/v1/embeddings/models/prot-seq/attn:
     post:
       tags:
+        - openprotein
         - prot-seq
         - attn
       summary: prot-seq attn
@@ -4612,8 +4499,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref50w/attn:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref50w
-        - rotaprot
         - attn
       summary: rotaprot-large-uniref50w attn
       description: Use `rotaprot-large-uniref50w` to create attention maps of your sequences.
@@ -4820,8 +4707,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref90-ft/attn:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref90-ft
-        - rotaprot
         - attn
       summary: rotaprot-large-uniref90-ft attn
       description: Use `rotaprot-large-uniref90-ft` to create attention maps of your sequences.
@@ -5028,9 +4915,8 @@ paths:
   /api/v1/embeddings/models/esm1b_t33_650M_UR50S/attn:
     post:
       tags:
-        - esm1b_t33_650M_UR50S
         - esm1
-        - esm1b
+        - esm1b_t33_650M_UR50S
         - attn
       summary: esm1b_t33_650M_UR50S attn
       description: Use `esm1b_t33_650M_UR50S` to create attention maps of your sequences.
@@ -5237,9 +5123,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_1/attn:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_1
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_1
         - attn
       summary: esm1v_t33_650M_UR90S_1 attn
       description: Use `esm1v_t33_650M_UR90S_1` to create attention maps of your sequences.
@@ -5446,9 +5331,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_2/attn:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_2
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_2
         - attn
       summary: esm1v_t33_650M_UR90S_2 attn
       description: Use `esm1v_t33_650M_UR90S_2` to create attention maps of your sequences.
@@ -5655,9 +5539,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_3/attn:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_3
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_3
         - attn
       summary: esm1v_t33_650M_UR90S_3 attn
       description: Use `esm1v_t33_650M_UR90S_3` to create attention maps of your sequences.
@@ -5864,9 +5747,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_4/attn:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_4
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_4
         - attn
       summary: esm1v_t33_650M_UR90S_4 attn
       description: Use `esm1v_t33_650M_UR90S_4` to create attention maps of your sequences.
@@ -6073,9 +5955,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_5/attn:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_5
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_5
         - attn
       summary: esm1v_t33_650M_UR90S_5 attn
       description: Use `esm1v_t33_650M_UR90S_5` to create attention maps of your sequences.
@@ -6279,11 +6160,219 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
+  /api/v1/embeddings/models/esm2_t6_8M_UR50D/attn:
+    post:
+      tags:
+        - esm2
+        - esm2_t6_8M_UR50D
+        - attn
+      summary: esm2_t6_8M_UR50D attn
+      description: Use `esm2_t6_8M_UR50D` to create attention maps of your sequences.
+      requestBody:
+        description: Request attention maps for datasets.
+        content:
+          application/json:
+            schema:
+              title: AttentionRequest
+              description: Request for attention using `esm2_t6_8M_UR50D`.
+              type: object
+              required:
+                - sequences
+              properties:
+                sequences:
+                  title: Sequences
+                  type: array
+                  items:
+                    title: Sequence
+                    description: Protein sequence
+                    type: string
+                    example: MSKGEELFTGV
+        required: true
+      responses:
+        '202':
+          description: Attention request created and pending
+          content:
+            application/json:
+              schema:
+                title: Job
+                description: Job represents a job for our compute platform.
+                type: object
+                required:
+                  - job_id
+                  - prerequisite_job_id
+                  - job_type
+                  - created_date
+                  - start_date
+                  - end_date
+                  - status
+                  - progress_counter
+                properties:
+                  job_id:
+                    title: JobID
+                    description: ID of job.
+                    type: string
+                    format: uuid
+                    x-order: 1
+                  prerequisite_job_id:
+                    title: PrerequisiteJobID
+                    description: Prerequisite job ID.
+                    type: string
+                    format: uuid
+                    nullable: true
+                    example: null
+                    x-order: 2
+                  job_type:
+                    title: JobType
+                    description: Type of job.
+                    type: string
+                    enum:
+                      - /workflow/preprocess
+                      - /workflow/train
+                      - /workflow/embed/umap
+                      - /workflow/predict
+                      - /workflow/predict/single_site
+                      - /workflow/crossvalidate
+                      - /workflow/evaluate
+                      - /workflow/design
+                      - /align/align
+                      - /align/prompt
+                      - /poet
+                      - /poet/single_site
+                      - /poet/generate
+                      - /poet/score
+                      - /poet/embed
+                      - /poet/logits
+                      - /embeddings/embed
+                      - /embeddings/embed_reduced
+                      - /embeddings/svd
+                      - /svd/fit
+                      - /svd/embed
+                      - /embeddings/attn
+                      - /embeddings/logits
+                      - /embeddings/fold
+                    x-order: 3
+                  created_date:
+                    title: Created Date
+                    description: Datetime of created object
+                    type: string
+                    format: date-time
+                    example: '2024-01-01T12:34:56.789Z'
+                    x-order: 4
+                  start_date:
+                    title: StartDate
+                    description: Start date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 5
+                  end_date:
+                    title: EndDate
+                    description: End date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 6
+                  status:
+                    title: JobStatus
+                    description: Status of job.
+                    type: string
+                    enum:
+                      - PENDING
+                      - RUNNING
+                      - SUCCESS
+                      - FAILURE
+                    x-order: 7
+                  progress_counter:
+                    title: ProgressCounter
+                    description: Counter of the progress of job from 0 to 100.
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+                    example: 0
+                    x-order: 8
+        '400':
+          description: Validation errors in the submitted request.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '422':
+          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
+          content:
+            application/json:
+              schema:
+                title: ValidationError.yaml
+                description: An invalid object that could not be parsed.
+                type: object
+                properties:
+                  detail:
+                    title: ErrorDetailList
+                    type: array
+                    items:
+                      title: ErrorDetail
+                      required:
+                        - loc
+                        - msg
+                        - type
+                      type: object
+                      properties:
+                        loc:
+                          title: Location
+                          type: array
+                          items:
+                            type: integer
+                        msg:
+                          title: Message
+                          type: string
+                        type:
+                          title: Error Type
+                          type: string
+        '429':
+          description: Too many requests. Try again later.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+      security:
+        - oauth2: []
+      x-codegen-request-body-name: request
   /api/v1/embeddings/models/esm2_t12_35M_UR50D/attn:
     post:
       tags:
-        - esm2_t12_35M_UR50D
         - esm2
+        - esm2_t12_35M_UR50D
         - attn
       summary: esm2_t12_35M_UR50D attn
       description: Use `esm2_t12_35M_UR50D` to create attention maps of your sequences.
@@ -6490,8 +6579,8 @@ paths:
   /api/v1/embeddings/models/esm2_t30_150M_UR50D/attn:
     post:
       tags:
-        - esm2_t30_150M_UR50D
         - esm2
+        - esm2_t30_150M_UR50D
         - attn
       summary: esm2_t30_150M_UR50D attn
       description: Use `esm2_t30_150M_UR50D` to create attention maps of your sequences.
@@ -6698,8 +6787,8 @@ paths:
   /api/v1/embeddings/models/esm2_t33_650M_UR50D/attn:
     post:
       tags:
-        - esm2_t33_650M_UR50D
         - esm2
+        - esm2_t33_650M_UR50D
         - attn
       summary: esm2_t33_650M_UR50D attn
       description: Use `esm2_t33_650M_UR50D` to create attention maps of your sequences.
@@ -6906,8 +6995,8 @@ paths:
   /api/v1/embeddings/models/esm2_t36_3B_UR50D/attn:
     post:
       tags:
-        - esm2_t36_3B_UR50D
         - esm2
+        - esm2_t36_3B_UR50D
         - attn
       summary: esm2_t36_3B_UR50D attn
       description: Use `esm2_t36_3B_UR50D` to create attention maps of your sequences.
@@ -7111,217 +7200,10 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
-  /api/v1/embeddings/models/esm2_t6_8M_UR50D/attn:
-    post:
-      tags:
-        - esm2_t6_8M_UR50D
-        - esm2
-        - attn
-      summary: esm2_t6_8M_UR50D attn
-      description: Use `esm2_t6_8M_UR50D` to create attention maps of your sequences.
-      requestBody:
-        description: Request attention maps for datasets.
-        content:
-          application/json:
-            schema:
-              title: AttentionRequest
-              description: Request for attention using `esm2_t6_8M_UR50D`.
-              type: object
-              required:
-                - sequences
-              properties:
-                sequences:
-                  title: Sequences
-                  type: array
-                  items:
-                    title: Sequence
-                    description: Protein sequence
-                    type: string
-                    example: MSKGEELFTGV
-        required: true
-      responses:
-        '202':
-          description: Attention request created and pending
-          content:
-            application/json:
-              schema:
-                title: Job
-                description: Job represents a job for our compute platform.
-                type: object
-                required:
-                  - job_id
-                  - prerequisite_job_id
-                  - job_type
-                  - created_date
-                  - start_date
-                  - end_date
-                  - status
-                  - progress_counter
-                properties:
-                  job_id:
-                    title: JobID
-                    description: ID of job.
-                    type: string
-                    format: uuid
-                    x-order: 1
-                  prerequisite_job_id:
-                    title: PrerequisiteJobID
-                    description: Prerequisite job ID.
-                    type: string
-                    format: uuid
-                    nullable: true
-                    example: null
-                    x-order: 2
-                  job_type:
-                    title: JobType
-                    description: Type of job.
-                    type: string
-                    enum:
-                      - /workflow/preprocess
-                      - /workflow/train
-                      - /workflow/embed/umap
-                      - /workflow/predict
-                      - /workflow/predict/single_site
-                      - /workflow/crossvalidate
-                      - /workflow/evaluate
-                      - /workflow/design
-                      - /align/align
-                      - /align/prompt
-                      - /poet
-                      - /poet/single_site
-                      - /poet/generate
-                      - /poet/score
-                      - /poet/embed
-                      - /poet/logits
-                      - /embeddings/embed
-                      - /embeddings/embed_reduced
-                      - /embeddings/svd
-                      - /svd/fit
-                      - /svd/embed
-                      - /embeddings/attn
-                      - /embeddings/logits
-                      - /embeddings/fold
-                    x-order: 3
-                  created_date:
-                    title: Created Date
-                    description: Datetime of created object
-                    type: string
-                    format: date-time
-                    example: '2024-01-01T12:34:56.789Z'
-                    x-order: 4
-                  start_date:
-                    title: StartDate
-                    description: Start date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 5
-                  end_date:
-                    title: EndDate
-                    description: End date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 6
-                  status:
-                    title: JobStatus
-                    description: Status of job.
-                    type: string
-                    enum:
-                      - PENDING
-                      - RUNNING
-                      - SUCCESS
-                      - FAILURE
-                    x-order: 7
-                  progress_counter:
-                    title: ProgressCounter
-                    description: Counter of the progress of job from 0 to 100.
-                    type: integer
-                    minimum: 0
-                    maximum: 100
-                    example: 0
-                    x-order: 8
-        '400':
-          description: Validation errors in the submitted request.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '404':
-          description: Model not found.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '422':
-          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
-          content:
-            application/json:
-              schema:
-                title: ValidationError.yaml
-                description: An invalid object that could not be parsed.
-                type: object
-                properties:
-                  detail:
-                    title: ErrorDetailList
-                    type: array
-                    items:
-                      title: ErrorDetail
-                      required:
-                        - loc
-                        - msg
-                        - type
-                      type: object
-                      properties:
-                        loc:
-                          title: Location
-                          type: array
-                          items:
-                            type: integer
-                        msg:
-                          title: Message
-                          type: string
-                        type:
-                          title: Error Type
-                          type: string
-        '429':
-          description: Too many requests. Try again later.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-      security:
-        - oauth2: []
-      x-codegen-request-body-name: request
   /api/v1/embeddings/models/prot-seq/logits:
     post:
       tags:
+        - openprotein
         - prot-seq
         - logits
       summary: prot-seq logits
@@ -7535,8 +7417,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref50w/logits:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref50w
-        - rotaprot
         - logits
       summary: rotaprot-large-uniref50w logits
       description: |-
@@ -7749,8 +7631,8 @@ paths:
   /api/v1/embeddings/models/rotaprot-large-uniref90-ft/logits:
     post:
       tags:
+        - openprotein
         - rotaprot-large-uniref90-ft
-        - rotaprot
         - logits
       summary: rotaprot-large-uniref90-ft logits
       description: |-
@@ -7963,9 +7845,8 @@ paths:
   /api/v1/embeddings/models/esm1b_t33_650M_UR50S/logits:
     post:
       tags:
-        - esm1b_t33_650M_UR50S
         - esm1
-        - esm1b
+        - esm1b_t33_650M_UR50S
         - logits
       summary: esm1b_t33_650M_UR50S logits
       description: |-
@@ -8178,9 +8059,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_1/logits:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_1
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_1
         - logits
       summary: esm1v_t33_650M_UR90S_1 logits
       description: |-
@@ -8393,9 +8273,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_2/logits:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_2
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_2
         - logits
       summary: esm1v_t33_650M_UR90S_2 logits
       description: |-
@@ -8608,9 +8487,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_3/logits:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_3
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_3
         - logits
       summary: esm1v_t33_650M_UR90S_3 logits
       description: |-
@@ -8823,9 +8701,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_4/logits:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_4
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_4
         - logits
       summary: esm1v_t33_650M_UR90S_4 logits
       description: |-
@@ -9038,9 +8915,8 @@ paths:
   /api/v1/embeddings/models/esm1v_t33_650M_UR90S_5/logits:
     post:
       tags:
-        - esm1v_t33_650M_UR90S_5
         - esm1
-        - esm1v
+        - esm1v_t33_650M_UR90S_5
         - logits
       summary: esm1v_t33_650M_UR90S_5 logits
       description: |-
@@ -9250,11 +9126,225 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
+  /api/v1/embeddings/models/esm2_t6_8M_UR50D/logits:
+    post:
+      tags:
+        - esm2
+        - esm2_t6_8M_UR50D
+        - logits
+      summary: esm2_t6_8M_UR50D logits
+      description: |-
+        Request for logits from input protein sequences using `esm2_t6_8M_UR50D`.
+
+        These logits represent the probability per amino acid for each position within the input sequences.
+      requestBody:
+        description: |-
+          Request for logits.
+
+          Various models may have specific arguments that are required.
+        content:
+          application/json:
+            schema:
+              title: LogitsRequest
+              description: Request for logits using `esm2_t6_8M_UR50D`.
+              type: object
+              required:
+                - sequences
+              properties:
+                sequences:
+                  title: Sequences
+                  type: array
+                  items:
+                    title: Sequence
+                    description: Protein sequence
+                    type: string
+                    example: MSKGEELFTGV
+        required: true
+      responses:
+        '202':
+          description: Logits request created and pending
+          content:
+            application/json:
+              schema:
+                title: Job
+                description: Job represents a job for our compute platform.
+                type: object
+                required:
+                  - job_id
+                  - prerequisite_job_id
+                  - job_type
+                  - created_date
+                  - start_date
+                  - end_date
+                  - status
+                  - progress_counter
+                properties:
+                  job_id:
+                    title: JobID
+                    description: ID of job.
+                    type: string
+                    format: uuid
+                    x-order: 1
+                  prerequisite_job_id:
+                    title: PrerequisiteJobID
+                    description: Prerequisite job ID.
+                    type: string
+                    format: uuid
+                    nullable: true
+                    example: null
+                    x-order: 2
+                  job_type:
+                    title: JobType
+                    description: Type of job.
+                    type: string
+                    enum:
+                      - /workflow/preprocess
+                      - /workflow/train
+                      - /workflow/embed/umap
+                      - /workflow/predict
+                      - /workflow/predict/single_site
+                      - /workflow/crossvalidate
+                      - /workflow/evaluate
+                      - /workflow/design
+                      - /align/align
+                      - /align/prompt
+                      - /poet
+                      - /poet/single_site
+                      - /poet/generate
+                      - /poet/score
+                      - /poet/embed
+                      - /poet/logits
+                      - /embeddings/embed
+                      - /embeddings/embed_reduced
+                      - /embeddings/svd
+                      - /svd/fit
+                      - /svd/embed
+                      - /embeddings/attn
+                      - /embeddings/logits
+                      - /embeddings/fold
+                    x-order: 3
+                  created_date:
+                    title: Created Date
+                    description: Datetime of created object
+                    type: string
+                    format: date-time
+                    example: '2024-01-01T12:34:56.789Z'
+                    x-order: 4
+                  start_date:
+                    title: StartDate
+                    description: Start date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 5
+                  end_date:
+                    title: EndDate
+                    description: End date of job.
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                    x-order: 6
+                  status:
+                    title: JobStatus
+                    description: Status of job.
+                    type: string
+                    enum:
+                      - PENDING
+                      - RUNNING
+                      - SUCCESS
+                      - FAILURE
+                    x-order: 7
+                  progress_counter:
+                    title: ProgressCounter
+                    description: Counter of the progress of job from 0 to 100.
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+                    example: 0
+                    x-order: 8
+        '400':
+          description: Validation errors in the submitted request.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+        '422':
+          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
+          content:
+            application/json:
+              schema:
+                title: ValidationError.yaml
+                description: An invalid object that could not be parsed.
+                type: object
+                properties:
+                  detail:
+                    title: ErrorDetailList
+                    type: array
+                    items:
+                      title: ErrorDetail
+                      required:
+                        - loc
+                        - msg
+                        - type
+                      type: object
+                      properties:
+                        loc:
+                          title: Location
+                          type: array
+                          items:
+                            type: integer
+                        msg:
+                          title: Message
+                          type: string
+                        type:
+                          title: Error Type
+                          type: string
+        '429':
+          description: Too many requests. Try again later.
+          content:
+            application/json:
+              schema:
+                title: Error
+                description: A error object providing details of the error.
+                required:
+                  - detail
+                type: object
+                properties:
+                  detail:
+                    title: Detail
+                    type: string
+      security:
+        - oauth2: []
+      x-codegen-request-body-name: request
   /api/v1/embeddings/models/esm2_t12_35M_UR50D/logits:
     post:
       tags:
-        - esm2_t12_35M_UR50D
         - esm2
+        - esm2_t12_35M_UR50D
         - logits
       summary: esm2_t12_35M_UR50D logits
       description: |-
@@ -9467,8 +9557,8 @@ paths:
   /api/v1/embeddings/models/esm2_t30_150M_UR50D/logits:
     post:
       tags:
-        - esm2_t30_150M_UR50D
         - esm2
+        - esm2_t30_150M_UR50D
         - logits
       summary: esm2_t30_150M_UR50D logits
       description: |-
@@ -9681,8 +9771,8 @@ paths:
   /api/v1/embeddings/models/esm2_t33_650M_UR50D/logits:
     post:
       tags:
-        - esm2_t33_650M_UR50D
         - esm2
+        - esm2_t33_650M_UR50D
         - logits
       summary: esm2_t33_650M_UR50D logits
       description: |-
@@ -9895,8 +9985,8 @@ paths:
   /api/v1/embeddings/models/esm2_t36_3B_UR50D/logits:
     post:
       tags:
-        - esm2_t36_3B_UR50D
         - esm2
+        - esm2_t36_3B_UR50D
         - logits
       summary: esm2_t36_3B_UR50D logits
       description: |-
@@ -10106,223 +10196,10 @@ paths:
       security:
         - oauth2: []
       x-codegen-request-body-name: request
-  /api/v1/embeddings/models/esm2_t6_8M_UR50D/logits:
-    post:
-      tags:
-        - esm2_t6_8M_UR50D
-        - esm2
-        - logits
-      summary: esm2_t6_8M_UR50D logits
-      description: |-
-        Request for logits from input protein sequences using `esm2_t6_8M_UR50D`.
-
-        These logits represent the probability per amino acid for each position within the input sequences.
-      requestBody:
-        description: |-
-          Request for logits.
-
-          Various models may have specific arguments that are required.
-        content:
-          application/json:
-            schema:
-              title: LogitsRequest
-              description: Request for logits using `esm2_t6_8M_UR50D`.
-              type: object
-              required:
-                - sequences
-              properties:
-                sequences:
-                  title: Sequences
-                  type: array
-                  items:
-                    title: Sequence
-                    description: Protein sequence
-                    type: string
-                    example: MSKGEELFTGV
-        required: true
-      responses:
-        '202':
-          description: Logits request created and pending
-          content:
-            application/json:
-              schema:
-                title: Job
-                description: Job represents a job for our compute platform.
-                type: object
-                required:
-                  - job_id
-                  - prerequisite_job_id
-                  - job_type
-                  - created_date
-                  - start_date
-                  - end_date
-                  - status
-                  - progress_counter
-                properties:
-                  job_id:
-                    title: JobID
-                    description: ID of job.
-                    type: string
-                    format: uuid
-                    x-order: 1
-                  prerequisite_job_id:
-                    title: PrerequisiteJobID
-                    description: Prerequisite job ID.
-                    type: string
-                    format: uuid
-                    nullable: true
-                    example: null
-                    x-order: 2
-                  job_type:
-                    title: JobType
-                    description: Type of job.
-                    type: string
-                    enum:
-                      - /workflow/preprocess
-                      - /workflow/train
-                      - /workflow/embed/umap
-                      - /workflow/predict
-                      - /workflow/predict/single_site
-                      - /workflow/crossvalidate
-                      - /workflow/evaluate
-                      - /workflow/design
-                      - /align/align
-                      - /align/prompt
-                      - /poet
-                      - /poet/single_site
-                      - /poet/generate
-                      - /poet/score
-                      - /poet/embed
-                      - /poet/logits
-                      - /embeddings/embed
-                      - /embeddings/embed_reduced
-                      - /embeddings/svd
-                      - /svd/fit
-                      - /svd/embed
-                      - /embeddings/attn
-                      - /embeddings/logits
-                      - /embeddings/fold
-                    x-order: 3
-                  created_date:
-                    title: Created Date
-                    description: Datetime of created object
-                    type: string
-                    format: date-time
-                    example: '2024-01-01T12:34:56.789Z'
-                    x-order: 4
-                  start_date:
-                    title: StartDate
-                    description: Start date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 5
-                  end_date:
-                    title: EndDate
-                    description: End date of job.
-                    type: string
-                    format: date-time
-                    nullable: true
-                    example: null
-                    x-order: 6
-                  status:
-                    title: JobStatus
-                    description: Status of job.
-                    type: string
-                    enum:
-                      - PENDING
-                      - RUNNING
-                      - SUCCESS
-                      - FAILURE
-                    x-order: 7
-                  progress_counter:
-                    title: ProgressCounter
-                    description: Counter of the progress of job from 0 to 100.
-                    type: integer
-                    minimum: 0
-                    maximum: 100
-                    example: 0
-                    x-order: 8
-        '400':
-          description: Validation errors in the submitted request.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '404':
-          description: Model not found.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-        '422':
-          description: Unexpected request format. The submitted request body cannot be validated. Double check the schema.
-          content:
-            application/json:
-              schema:
-                title: ValidationError.yaml
-                description: An invalid object that could not be parsed.
-                type: object
-                properties:
-                  detail:
-                    title: ErrorDetailList
-                    type: array
-                    items:
-                      title: ErrorDetail
-                      required:
-                        - loc
-                        - msg
-                        - type
-                      type: object
-                      properties:
-                        loc:
-                          title: Location
-                          type: array
-                          items:
-                            type: integer
-                        msg:
-                          title: Message
-                          type: string
-                        type:
-                          title: Error Type
-                          type: string
-        '429':
-          description: Too many requests. Try again later.
-          content:
-            application/json:
-              schema:
-                title: Error
-                description: A error object providing details of the error.
-                required:
-                  - detail
-                type: object
-                properties:
-                  detail:
-                    title: Detail
-                    type: string
-      security:
-        - oauth2: []
-      x-codegen-request-body-name: request
   /api/v1/embeddings/models/poet/logits:
     post:
       tags:
+        - poet
         - poet
         - logits
       summary: poet logits
@@ -10541,6 +10418,7 @@ paths:
     post:
       tags:
         - poet
+        - poet
         - score
       summary: poet score
       description: Use `poet` to score sequences.
@@ -10751,6 +10629,7 @@ paths:
   /api/v1/embeddings/models/poet/generate:
     post:
       tags:
+        - poet
         - poet
         - generate
       summary: poet generate
@@ -11013,6 +10892,28 @@ components:
           title: DOI
           description: DOI of the citation for the model.
           type: string
+    Token:
+      title: TokenDetails
+      description: Details of token.
+      required:
+        - id
+        - description
+        - primary
+        - token
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Token ID
+        token:
+          type: string
+          description: The token's string representation
+        description:
+          type: string
+          description: Meaning of this token
+        primary:
+          type: boolean
+          description: When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.
     ModelMetadata:
       title: ModelMetadata
       description: Metadata of protein language model.
@@ -11084,7 +10985,28 @@ components:
             Some token ids can represent multiple tokens.
           items:
             type: array
-            items: {}
+            items:
+              title: TokenDetails
+              description: Details of token.
+              required:
+                - id
+                - description
+                - primary
+                - token
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: Token ID
+                token:
+                  type: string
+                  description: The token's string representation
+                description:
+                  type: string
+                  description: Meaning of this token
+                primary:
+                  type: boolean
+                  description: When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.
     Error:
       title: Error
       description: A error object providing details of the error.
@@ -11408,4 +11330,16 @@ components:
                 type: string
 tags:
   - name: embeddings
-    description: Compute embeddings with our models
+    description: Run computations with our embeddings models
+  - name: svd
+    description: Fit SVDs to use for reduced embeddings
+  - name: embed
+    description: Request for embeddings
+  - name: logits
+    description: Request for logits
+  - name: attn
+    description: Request attention maps
+  - name: score
+    description: Request sequence scores
+  - name: generate
+    description: Generate sequences
