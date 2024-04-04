@@ -5,7 +5,7 @@ info:
     # Embeddings API
     The Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.
 
-    You can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.
+    You can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}`.
 
     Currently, we support the following models:
     - **Prot-seq**: A proprietary Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.
@@ -11395,7 +11395,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm1v_t33_650M_UR90S_1
     description: |-
@@ -11405,7 +11405,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm1v_t33_650M_UR90S_2
     description: |-
@@ -11415,7 +11415,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm1v_t33_650M_UR90S_3
     description: |-
@@ -11425,7 +11425,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm1v_t33_650M_UR90S_4
     description: |-
@@ -11435,7 +11435,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm1v_t33_650M_UR90S_5
     description: |-
@@ -11445,7 +11445,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm2
     description: Community based ESM2 models, with different versions having different model parameters and training data.
@@ -11457,7 +11457,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm2_t12_35M_UR50D
     description: |-
@@ -11467,7 +11467,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm2_t30_150M_UR50D
     description: |-
@@ -11477,7 +11477,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm2_t33_650M_UR50D
     description: |-
@@ -11487,7 +11487,7 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
 
   - name: esm2_t36_3B_UR50D
     description: |-
@@ -11497,4 +11497,4 @@ tags:
 
       Input Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z
 
-      Output Tokens: <cls>,<pad>,<eos>,<unk>,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,<null_0>,B,U,Z,O,.,-,<null_1>,X
+      Output Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X
