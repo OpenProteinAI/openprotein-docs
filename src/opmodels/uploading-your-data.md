@@ -15,13 +15,13 @@ Format your dataset as a CSV table with columns containing:
 
 Mutation codes denote the specific substitutions that occur at a site. For example, A20T would indicate that alanine at site 20 is substituted with threonine. You can specify multiple mutation codes per sequence by using commas between mutations. 
 
-Missing measurements are acceptable.
+Use a hyphen (-) to indicate each gap in your sequence. Missing measurements are acceptable.
 
 ![](./img/uploading-your-data/core-dataset-format.png)
 
 ## Creating a project and uploading your data
 
-If you are signing in for the first time, create a project by following the prompt on your screen. You can also select **New Project** on the main project page.
+Create a separate project for each parent sequence you use. If you are signing in for the first time, follow the prompt on your screen. You can also select **New Project** on the main project page.
 
 ![](./img/uploading-your-data/core-new-project.png)
 
@@ -50,12 +50,9 @@ Each point in the **UMAP** visualization represents a single sequence variant.
 
 ## ![](./img/uploading-your-data/core-umap.png)
 
-
-
 The **joint plot** displays the pairwise relationships between properties from your dataset. You can visually explore your data by selecting properties and viewing the distribution of individuals of each variable.
 
 ![](./img/uploading-your-data/core-jointplot.png)
-
 
 Your **Dataset** page shows the properties of your dataset, along with a table that you can filter and sort. If you want to compare your generated results against a benchmark, select **Add a reference sequence** , enter a parent sequence or sequence of interest, and select **Add**. You can update or delete reference sequences by selecting **Edit reference sequence,** choosing your desired action, then selecting **Update**. Using a reference sequence lets you view mutation sites to better understand specific substitutions present in your sequence libraries and designs.
 
