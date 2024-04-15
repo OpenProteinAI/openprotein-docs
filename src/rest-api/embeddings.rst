@@ -1,0 +1,22 @@
+Embeddings
+===========
+
+The Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.
+
+You can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/model/{model_id}`.
+
+Currently, we support the following models:
+
+- **Prot-seq**: A proprietary Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.
+- **Rotaprot-large-uniref50w**: A proprietary Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.
+- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.
+- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. `More info <https://github.com/facebookresearch/esm>`__.
+- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. `More info <https://github.com/facebookresearch/esm>`__.
+- **PoET**: OpenProtein-developed conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.
+
+Endpoints
+---------
+.. raw:: html
+
+   <script type="module" src="../js/swaggerEmbeddings.js"></script>
+   <div id="swagger-ui"></div>

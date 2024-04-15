@@ -1,18 +1,14 @@
----
-pagetitle: OpenProtein.AI Guide
-sidebar: false
-format: 
-  html:
-    toc: false
----
+OpenProtein.AI Guide
+===================
 
-# Data-Driven Protein Engineering
+Data-Driven Protein Engineering
+--------------------------------
 
-OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and *de novo* protein design tools, packaged in our easy-to-use platform.  Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale *in silico* screening for variant effect prediction and protein library design fast, easy, and cost effective.
+OpenProtein.AI provides state-of-the-art machine learning models for integration into your protein engineering workflows. Run function prediction, structure prediction, and *de novo* protein design tools, packaged in our easy-to-use platform. Train custom models or get predictions from our pre-trained foundation models and generative protein language models like AlphaFold2, ESM, and PoET. Our high performance APIs make large scale *in silico* screening for variant effect prediction and protein library design fast, easy, and cost effective.
 
-Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications
+Get started with OpenProtein.AI and discover functional protein sequences optimized to your specifications.
 
-```{=html}
+.. raw:: html
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('#card');
@@ -138,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </a>
     </div>
 </div>
-```
+
 
 ```{=html}  
 <div class="getting-started-container">

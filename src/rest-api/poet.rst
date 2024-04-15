@@ -1,24 +1,20 @@
----
-title: PoET
-format:
-  html:
-    code-fold: true
-    include-in-header: 
-      - ../shared/api-header.html
----
+PoET
+====
 
 Protein Evolutionary Transformer (`PoET`) is a machine learning model that generates and identifies protein sequence variants with improved function and stability. PoET requires a prompt, (ie. a set of sequences representing the target protein sequence distribution). This will commonly be an evolutionary context prompt in the form of filtered MSAs (Align). But `PoET` can accept any collection of sequences!
 
-### Align
+Align
+-----
 Endpoints to perform multiple sequence alignment (MSA) workflows for `PoET`. Create a multiple sequence alignment from a seed sequence, upload a custom MSA, or even upload a custom prompt for use with `PoET` endpoints!
 
-### PoET
+PoET
+----
 
-Endpoints to call our generative `PoET` model for de novo generation of proteins, evaluation of protein fitness, and single site mutant analysis of proteins. These workflows are all possible without prior wet lab data, and therefore do not require assaydata to be pre-loaded! The endpoints enable scoring and generating sequences from a prompt. 
+Endpoints to call our generative `PoET` model for de novo generation of proteins, evaluation of protein fitness, and single site mutant analysis of proteins. These workflows are all possible without prior wet lab data, and therefore do not require assaydata to be pre-loaded! The endpoints enable scoring and generating sequences from a prompt.
 
-## Endpoints
+Endpoints
+---------
+.. raw:: html
 
-```{=html}
-  <script type="module" src="../js/swaggerPoet.js"></script>
-  <div id="swagger-ui"></div>
-```
+   <script type="module" src="../js/swaggerPoet.js"></script>
+   <div id="swagger-ui"></div>

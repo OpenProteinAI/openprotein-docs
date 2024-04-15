@@ -1,10 +1,5 @@
----
-title: "Walkthrough: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile"
-format:
-  html:
-    code-fold: true
-bibliography: ./references-antibody.bib
----
+Walkthrough: Lead Optimization of Monoclonal Antibody to Meet Target Product Profile
+================================================================================
 ## Introduction
 
 Advancing and optimizing leads for improved safety and efficacy is the key focus of preclinical drug development. For example, optimizing for binding affinity is a critical aspect of the monoclonal antibody development process, but engineering monoclonal antibodies of low picomolar (pM) range is often challenging when using standard protein engineering techniques.
