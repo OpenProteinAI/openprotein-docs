@@ -30,7 +30,7 @@ The models also output a standard deviation indicating their certainty in the va
 
 To design custom sequences, navigate to your dataset, then select **Create design**. This opens a new window where you can edit the design name and define your parameters and design objectives. 
 
-[create-design.png]
+[![](./img/design/create-design.png)
 
 Set your criteria based on the experimental value you are trying to achieve. For example, if thermostability of at least 75C is important, enter >75C as one of your criteria. 
 
