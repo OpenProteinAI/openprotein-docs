@@ -138,6 +138,8 @@ sequence box to view the site number and the substitutions allowed at that site.
 | Tyrosine      | Y                  | TYR               |
 | Valine        | V                  | VAL               |
 
+:::
+
 ## Advanced options
 
 We recommend using the default 25 step design algorithm in the **Number of design steps** field.
