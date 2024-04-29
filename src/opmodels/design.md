@@ -50,13 +50,15 @@ objectives.
 
 ![](./img/design/create-design.png)
 
+### Design constraints
+
 In the **Constraints** section, the default settings allow all amino acid
-substitutions at all sites. To exclude undesirable mutations or restrict
-positions to particular amino acids, select **Enable custom design
-constraints**.
+substitutions at all sites. Select **Enable custom design
+constraints** to exclude undesirable mutations or restrict
+positions to particular amino acids.
 
 ::: {.callout-caution collapse="true" icon=false}
-## Design constraints
+Instructions for using design constraints
 
 If you have uploaded a parent sequence with your dataset, the parent sequence will auto-populate in the text box.
 
