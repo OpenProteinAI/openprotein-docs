@@ -73,7 +73,7 @@ session.poet.create_msa()
 :::
 
 <div class="step4-api">
-  <span>Step 4: Get started with our Python API docs </span> <a href="https://docs.openprotein.ai/api-python/">our tools</a>
+  <span>Step 4: Get started with our </span> <a href="https://docs.openprotein.ai/api-python/">Python API docs</a>
 </div>
 
 ### Quick start tips

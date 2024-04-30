@@ -155,7 +155,7 @@ When your criteria are set, select **Generate design**. OpenProtein.AI generates
 
 Your design results page will display a section titled **Predicted Library Performance**, followed by a section titled **Design Results**. 
 
-### Predicted results
+### Predicted library performance
 
 Under **Predicted Library Performance**, the **Number of Successes** and
 **Distribution of Outcomes** tabs contain two distinct analyses of the entire
