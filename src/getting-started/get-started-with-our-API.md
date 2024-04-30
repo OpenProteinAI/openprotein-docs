@@ -39,7 +39,8 @@ Visit [Get started with no code](./get-started-with-no-code.md)
 Use your username and password credentials generated at sign-up to authenticate your connection to 
 OpenProtein backend.
 
-```import openprotein
+```python
+import openprotein
 
 with open('secrets.config', 'r') as f:
     config = json.load(f)
