@@ -220,9 +220,3 @@ For further refinement of the prompt, you can look at the tutorial found [here](
 Consider selecting at least 10 to 30 designs designed using PoET as an initial library to serve as proof of concept for experimental validation. The data generated from the library can then be used to further enhance the enzyme using **OP Models** following the tutorial found [here](https://docs.openprotein.ai/opmodels/).
 
 You can also perform **Structure Prediction** on the specific variants, such as those with PoET **Rank Sequence** log-likelihood scores higher than the expected log-likelihood score calculated from the PSSM. This could indicate potential positive epistasis. You can align the sequences to compare or compare the predicted structures to examine if there are specific key residues.
-
-#### Citations
-
-Truong Jr, T., & Bepler, T. (2024). PoET: A generative model of protein families as sequences-of-sequences. Advances in Neural Information Processing Systems, 36. doi:10.48550/arXiv.2306.06156
-
-Lin, Z., et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. Science (American Association for the Advancement of Science), 379(6637), 1123–1130. doi:10.1126/science.ade2574
