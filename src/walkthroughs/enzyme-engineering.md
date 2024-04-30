@@ -3,6 +3,7 @@ title: "Walkthrough: Finding mutational hotspots and designing one-shot variant 
 format:
   html:
     code-fold: true
+bibliography: ./references-enzymes.bib
 ---
 
 ## Introduction
@@ -11,7 +12,7 @@ Protein engineering is used to improve the existing properties of current enzyme
 
 OpenProtein.AI uses *in silico* prediction, substitution analysis, and zero-shot library design to streamline the design-build-test-learn cycle, allowing you to accomplish your engineering goal with fewer iterations. 
 
-In this walkthrough, we’ll use PoET, OpenProtein.AI’s generative protein language model,  and other tools in the platform to analyze a protein of interest to:
+In this walkthrough, we’ll use PoET, @Truong2023, OpenProtein.AI’s generative protein language model,  and other tools in the platform to analyze a protein of interest to:
 
 - identify potential variants with improved fitness
 
@@ -58,7 +59,7 @@ We usually avoid altering the active site, unless our goal is to alter substrate
 
 ### Structural Prediction of newly designed variant
 
-We’ve combined the top 5 best variants into a single variant and named it EstA SA1. We’ll now use the **Structure Prediction** tool to predict the structure of this newly designed variant using ESMfold.
+We’ve combined the top 5 best variants into a single variant and named it EstA SA1. We’ll now use the **Structure Prediction** tool to predict the structure of this newly designed variant using ESMfold, @Science2023.
 
 Let’s copy the engineered sequence (EstA SA1) below and paste it into the sequence box under **Structure Prediction**, then select **Predict**.
 
@@ -220,6 +221,8 @@ Consider selecting at least 10 to 30 designs designed using PoET as an initial l
 
 You can also perform **Structure Prediction** on the specific variants, such as those with PoET **Rank Sequence** log-likelihood scores higher than the expected log-likelihood score calculated from the PSSM. This could indicate potential positive epistasis. You can align the sequences to compare or compare the predicted structures to examine if there are specific key residues.
 
-Citations
+#### Citations
 
-[PoET and ESMfold]
+Truong Jr, T., & Bepler, T. (2024). PoET: A generative model of protein families as sequences-of-sequences. Advances in Neural Information Processing Systems, 36. doi:10.48550/arXiv.2306.06156
+
+Lin, Z., et al. (2023). Evolutionary-scale prediction of atomic-level protein structure with a language model. Science (American Association for the Advancement of Science), 379(6637), 1123–1130. doi:10.1126/science.ade2574
