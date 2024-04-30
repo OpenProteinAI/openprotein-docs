@@ -163,6 +163,7 @@ library of predicted sequences. These analyses allow you to make informed
 decisions about the composition and scale of the library you intend to
 synthesize. To use this information effectively, it is important to keep in mind
 that:
+
 * Each plot reflects the sequences currently selected in the results table, and is updated as filters are applied.
 * The number of expected successes should be considered in relation to total library size. 
 
@@ -170,11 +171,13 @@ The histograms in the **Number of Successes** tab illustrate the number of
 successes against their corresponding probabilities for each model. Success is
 defined as sequences predicted to meet the specified design criteria. These
 plots help you:
+
 * gauge the likelihood of success across the entire library synthesis
 * quantify the expected number of sequences in your library that will meet design criteria
 * gain a nuanced perspective on the probability distribution for success
 
 Above each plot, you will find:
+
 * the value for the **Mean** or the expected number of successes
 * the value for the standard deviation (**Std Dev**) of the expected number of successes
 * the 95% confidence interval (95% CI) of the number of successes
