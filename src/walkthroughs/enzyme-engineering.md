@@ -8,7 +8,7 @@ bibliography: ./references-enzymes.bib
 
 ## Introduction
 
-Protein engineering is used to improve the existing properties of current enzymes as well as to develop new functions. Often enzymes are tuned for improved solubility, improved catalytic efficiency (k cat / Km), increased stability at higher or lower temperatures, and increased tolerance for pH changes. This usually requires multiple rounds of directed evolution to achieve the desired property.
+Protein engineering is used to improve the existing properties of current enzymes as well as to develop new functions. Often enzymes are tuned for improved solubility, improved catalytic efficiency (k~cat~ / K~m~), increased stability at higher or lower temperatures, and increased tolerance for pH changes. This usually requires multiple rounds of directed evolution to achieve the desired property.
 
 OpenProtein.AI uses *in silico* prediction, substitution analysis, and zero-shot library design to streamline the design-build-test-learn cycle, allowing you to accomplish your engineering goal with fewer iterations. 
 
@@ -89,7 +89,10 @@ To get started, we must convert the log-likelihood score of each amino acid at a
 
 ![](./img/enzymes/PoET W1 - P4.png)
 
-To calculate the relative frequency of each amino acid position, we will take the exp(PoET score) divided by sum(exp(PoET score)). E.g. =EXP(B2 - MAX($B2:$U2)) / SUM(EXP($B2:$U2 - MAX($B2:$U2)))
+To calculate the relative frequency of each amino acid position, we will take the exp(PoET score) divided by sum(exp(PoET score)). E.g. 
+```bash
+EXP(B2 - MAX($B2:$U2)) / SUM(EXP($B2:$U2 - MAX($B2:$U2)))
+```
 
 ![](./img/enzymes/PoET W1 - P5.png)
 
