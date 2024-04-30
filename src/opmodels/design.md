@@ -58,7 +58,7 @@ constraints** to exclude undesirable mutations or restrict
 positions to particular amino acids.
 
 ::: {.callout-caution collapse="true" icon=false}
-Instructions for using design constraints
+## Instructions for using design constraints
 
 If you have uploaded a parent sequence with your dataset, the parent sequence will auto-populate in the text box.
 
@@ -139,6 +139,7 @@ sequence box to view the site number and the substitutions allowed at that site.
 | Tryptophan    | W                  | TRP               |
 | Tyrosine      | Y                  | TYR               |
 | Valine        | V                  | VAL               |
+
 
 :::
 
