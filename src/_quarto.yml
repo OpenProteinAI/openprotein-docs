@@ -7,6 +7,7 @@ project:
     - "theme.scss"
 
 website:
+  google-analytics: "G-SS7ET8W19C"
   search: 
     location: sidebar
     type: textbox
@@ -75,10 +76,13 @@ website:
                 contents: 
                 - text: Getting Started With PoET
                   href: https://docs.openprotein.ai/api-python/demos/poet_demo.html
+                  target: _blank
                 - text: Designing New Enzymes
                   href: https://docs.openprotein.ai/api-python/demos/chorismate.html
+                  target: _blank
                 - text: Substitutions and Deletions
-                  href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html         
+                  href: https://docs.openprotein.ai/api-python/demos/AMIE_substitution_deletion_analysis_poet.html
+                  target: _blank       
           - section: Optimization and Prediction Models (OP models)
             file: ./opmodels/index.md
             contents:
@@ -100,8 +104,10 @@ website:
                 contents: 
                   - text: Getting Started with Sequence-based Learning
                     href: https://docs.openprotein.ai/api-python/demos/core_demo.html
+                    target: _blank
                   - text: Getting started with embeddings
                     href: https://docs.openprotein.ai/api-python/demos/embedding_demo.html
+                    target: _blank
               - ./opmodels/quantitative-decision-making-for-library-design.md
           - section: Structure Prediction
             file: ./structure-prediction/index.md
