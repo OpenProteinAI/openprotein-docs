@@ -70,6 +70,7 @@ Specify constraints for each site by either editing sites in the sequence box or
 
 Indicate specific instructions for each site in the sequence box by using
 symbols and single letter amino acid codes:
+
 * X allows all amino acid substitutions at a site. 
 * An asterisk (*) indicates that the site has specific rules for substitution
   that will be set using the **Add Rule** button.
@@ -89,17 +90,20 @@ the table to reflect the expected mutation.
 
 Select **Add Rule**, then enter the position or positions where you want the
 model to make mutations in the position field. You can enter positions as:
+
 * individual numbers, separated by a comma when specifying multiple positions (2, 5, 78)
 * a range of numbers, indicated by a dash (7-10)
 * a combination of individual numbers and ranges (2, 5, 7-10)
 
 Next, select one of **Allow**, **Do not allow**, or **Allow only** from the dropdown menu. This will dictate the rule applied to the amino acids you specify in the next field. Enter individual amino acids using:
+
 * Single letter amino acid codes like C, H, or A
 * Three letter codes like cys, his, or ala
 * Full names like cysteine, histidine, or alanine
 [View the full list of amino acids and their accepted codes](#amino-acid-table).
 
 Alternatively, select a category of amino acids from the dropdown menu. The available options are:
+
 * **Positively charged amino acids** (K, R, H)
 * **Negatively charged amino acids** (D, E)
 * **Polar amino acids** (S, T, Y, C, N, Q)
@@ -191,16 +195,19 @@ Using model Neo14-avg below as an example, synthesizing the complete library of 
 ![](./img/design/summary-plot-2.png)
 
 The histograms in the **Distribution of Outcomes** tab offer insights into the expected distribution of outcomes for the entire library. These plots help you determine:
+
 - the expected range of sequence properties.
 - the proportion of sequences predicted to be in a range of property values.
 
 Your original dataset values are shown in blue. The expected distribution of outcomes of your designed library is shown in orange. 
 
 When looking at the orange histogram:
+
 * The x-axis represents the predicted values that the sequences may attain. 
 * The y-axis denotes the proportion of sequences within the library that will reach the corresponding values. 
 
 Hover over bins on the histogram to view: 
+
 * **Binned value**, which represents the predicted range of values that the sequences are expected to achieve
 * **Proportion**, which is the proportion of sequences that will attain the binned value
 
@@ -231,6 +238,7 @@ Ami14_avg, shown in red.
 If you receive this notification, select **Generate more sequences** to continue running the design algorithm. 
 
 If no improved sequences are discovered:
+
 - Increase the library size.
 - Conduct multiple design rounds, starting with target values that align more closely with your dataset, then incrementally increase the targets to more ambitious values in subsequent rounds.
 
