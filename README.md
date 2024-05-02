@@ -10,7 +10,7 @@ First you will need to:
 
 Once that's done you should run
 ```
-quarto preview
+quarto preview src
 ```
 ## Add new pages 
 

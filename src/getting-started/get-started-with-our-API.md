@@ -39,22 +39,24 @@ Visit [Get started with no code](./get-started-with-no-code.md)
 Use your username and password credentials generated at sign-up to authenticate your connection to 
 OpenProtein backend.
 
-**OpenProtein Job System**
-
-The OpenProtein.AI platform operates with an asynchronous framework. When initiating a task using our Python client, the system schedules the job, returning a prompt response with a unique Job ID. This mechanism ensures that tasks requiring longer processing times do not necessitate immediate waiting.
-
-When you submit a task, such as using the method
-
 ```python
-session.poet.create_msa()
+import openprotein
+
+with open('secrets.config', 'r') as f:
+    config = json.load(f)
+
+session = openprotein.connect(username= config['username'], password= config['password'])
 ```
 
-a Future Class is returned for results tracking and access. You can check a job’s status using the `refresh()` and `done()` methods on this Future Class. If you wish to wait for the results, you can use the `wait()` method, or the `get()` method if the results are already completed.
-In addition, you can resume a workflow using the `load_job` function along with the unique job ID obtained during task execution. This method will return a `Future Class`, allowing you to continue from where you left off.
+**OpenProtein Job System**
+
+The OpenProtein.AI platform uses a job system to support asynchronous task execution.
+Upon initiating a task, the system will schedule a job with a unique Job ID so you can return
+at a later time for tasks with long processing times.
 
 **OpenProtein API session**
 
-Executing workflows is acheived with the OpenProtein APISession object (see openprotein.APISession())
+Executing workflows is achieved with the OpenProtein APISession object (see openprotein.APISession())
 
 ```python
 session = openprotein.connect(username="username", password="password")
@@ -71,7 +73,7 @@ session.poet.create_msa()
 :::
 
 <div class="step4-api">
-  <span>Step 4: Get started using </span> <a href="../tools/index.md">our tools</a>
+  <span>Step 4: Get started with our </span> <a href="https://docs.openprotein.ai/api-python/">Python API docs</a>
 </div>
 
 ### Quick start tips
