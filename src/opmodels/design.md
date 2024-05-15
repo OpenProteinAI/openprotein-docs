@@ -74,10 +74,9 @@ symbols and single letter amino acid codes:
 * X allows all amino acid substitutions at a site. 
 * An asterisk (*) indicates that the site has specific rules for substitution
   that will be set using the **Add Rule** button.
-* A hyphen (-) indicates a gap, meaning that no amino acid substitutions are allowed at this
-  site. 
 * An [individual amino acid code](#amino-acid-table) allows only corresponding amino acids at that
   site.
+* A hyphen (-) preserves an existing gap that is found in the parent sequence. Using a hyphen inserts a gap in the overall multiple sequence alignment, meaning that no amino acid residue will be introduced at this position. Please note that gaps are only accepted at sites that correspond with an existing gap in your uploaded dataset.
 
 Changes in the sequence box will also update the summary table. The sequence box
 does not recognize invalid characters (B, J, O, U, Z). It will display the
