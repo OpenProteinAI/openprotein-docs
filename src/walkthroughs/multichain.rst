@@ -61,16 +61,16 @@ Before getting started we generally recommend:
       complemented with substitution of other amino acids at specific
       sites.
 
--  A dataset formatted as a CSV file. See [Uploading your data](link)
+-  A dataset formatted as a CSV file. See `Uploading your data </web-app/opmodels/uploading-your-data>`_
       for more information.
 
 Multichain sequence input
 =========================
 
 We will be using the data from the single-chain variable fragment (scFv)
-library described in the paper “Machine learning optimization of
+library described in the paper `"Machine learning optimization of
 candidate antibody yields highly diverse sub-nanomolar affinity antibody
-libraries” (https://doi.org/10.1038/s41467-023-39022-2).
+libraries” <https://doi.org/10.1038/s41467-023-39022-2>`_.
 
 The scFv protein from this study consists of a heavy chain, a flexible
 linker (GGGGSX3) and a light chain.
@@ -117,11 +117,11 @@ a colon to the sequence box between the heavy chain and light chain.
 >14H + L sequence
 EVQLVETGGGLVQPGGSLRLSCAASGFTLNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSS:DVVMTQSPESLAVSLGERATISCKSSQSVLYESRNKNSVAWYQQKAGQPPKLLIYWASTRESGVPDRFSGSGSGTDFTLTISSLQAEDAAVYYCQQYHRLPLSFGGGTKVEIK
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image2.png
+.. image:: /multichain/image2.png
    :width: 6.26772in
    :height: 2.36111in
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image6.png
+.. image:: /multichain/image6.png
    :width: 6.26772in
    :height: 2.27778in
 
@@ -136,7 +136,7 @@ select **Everything** in the drop down menu above the sequence to reveal
 both chains’ sequences for easier manipulation. The structures of all
 the sequences will be shown regardless of selection.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image5.png
+.. image:: /multichain/image5.png
    :width: 6.26772in
    :height: 0.79167in
 
@@ -145,7 +145,7 @@ the N-terminus of the second subunit, we first switch tools to the
 select tool and select the two residues of interest in the sequence
 space as shown above for Polymer 1: K113 and Polymer 2: E1.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image8.png
+.. image:: /multichain/image8.png
    :width: 6.26772in
    :height: 3.52778in
 
@@ -168,7 +168,7 @@ would be useful to test different linkers as needed.
 
 EVQLVETGGGLVQPGGSLRLSCAASGFTLNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSSGGGGSGGGGSGGGGSDVVMTQSPESLAVSLGERATISCKSSQSVLYESRNKNSVAWYQQKAGQPPKLLIYWASTRESGVPDRFSGSGSGTDFTLTISSLQAEDAAVYYCQQYHRLPLSFGGGTKVEIK
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image10.png
+.. image:: /multichain/image10.png
    :width: 6.26772in
    :height: 2.29167in
 
@@ -199,7 +199,7 @@ each file to the same project. The platform will automatically generate
 the data categories, but it’s important to ensure that the
 OpenProtein.AI platform has captured the correct names and column types.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image11.png
+.. image:: /multichain/image11.png
    :width: 6.26772in
    :height: 3.55556in
 
@@ -216,7 +216,7 @@ chains as a multichain library, we can access a larger protein landscape
 across the individual clusters and sample mutations that allows us to
 access a bigger evolutionary landscape.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image3.png
+.. image:: /multichain/image3.png
    :width: 6.26772in
    :height: 1.68056in
 
@@ -235,7 +235,7 @@ to the server, the OpenProtein.AI GPUs create a custom model specific to
 the targeted property. We’ll repeat this process for all three
 libraries. The figure below shows the 14H+L combined library.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image12.png
+.. image:: /multichain/image12.png
    :width: 6.26772in
    :height: 5.33333in
 
@@ -256,7 +256,7 @@ at 25 and **Number of sequences per design step** at 1024.
 We’ll select **Generate design** to initiate our variant library design,
 which will be complete within a few hours.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image9.png
+.. image:: /multichain/image9.png
    :width: 6.26772in
    :height: 3.83333in
 
@@ -271,7 +271,7 @@ mutations. Our designed library contains a reference sequence, so we can
 select **Table Settings** and then check **Mutations only** to better
 visualize the mutations in the variants of the designed library.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image7.png
+.. image:: /multichain/image7.png
    :width: 6.26772in
    :height: 1.52778in
 
@@ -280,7 +280,7 @@ light chain in a single variant. In the five variants below, R56T A101V
 A102E on the heavy chain are found with S158L S159E Q160T W189D on the
 light chain, suggesting possible interactions.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image1.png
+.. image:: /multichain/image1.png
    :width: 6.26772in
    :height: 2.65278in
 
@@ -290,7 +290,7 @@ there may be interactions across both chains and the residues may
 co-vary together. Uncovering such potential interactions is only
 possible with multichain analysis.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image13.png
+.. image:: /multichain/image13.png
    :width: 4.30131in
    :height: 3.26528in
 
@@ -303,7 +303,7 @@ with differing properties. We see that the designed library for the
 both chains at the same time, we can achieve a better optimized design
 library.
 
-.. image:: vertopal_fb58dfa5170e448dbf623c6ca7d21f2f/media/image4.png
+.. image:: /multichain/image4.png
    :width: 6.26772in
    :height: 2.40278in
 
