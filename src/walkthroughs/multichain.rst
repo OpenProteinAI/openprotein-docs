@@ -9,8 +9,8 @@ Protein engineers must be able to work with and design multimeric
 proteins; a holistic understanding of proteins and their subunits is
 essential to creating customized protein designs. This walkthrough will
 cover designing multimeric proteins, using antibodies as our example.
-The design process for monomeric proteins is shown in [Lead optimization
-of monoclonal antibody to meet target product profile](/walkthroughs/antibody-engineering).
+The design process for monomeric proteins is shown in `Lead optimization
+of monoclonal antibody to meet target product profile </walkthroughs/antibody-engineering)>`_.
 
 When designing proteins with quaternary structures, we must account for
 the impact of mutations on interaction points between subunits.
