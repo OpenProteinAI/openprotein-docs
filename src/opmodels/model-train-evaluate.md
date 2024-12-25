@@ -11,7 +11,69 @@ This tutorial teaches you how to train and compare custom sequence-to-function p
 
 Please note that this tool requires experimental data. If you don't yet have experimental data, use [PoET](../poet/index.md) to generate sequences from a seed, rank sequences against a prompt, or evaluate single substitution variants.
 
-If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact){target="_blank"}.
+### Understanding model options
+#### Embeddings
+Embeddings capture essential patterns and relationships between protein sequences, shaping how the model interprets their properties. The recommended option is PoET, which generates embeddings tailored to specific fitness landscapes.
+1. PoET (Recommended)
+- Conditional protein language model that enables embedding, scoring and generating sequences conditioned on an input protein family of interest.
+- You will be required to input a [prompt](/web-app/poet/prompts) if this option is selected. The prompt is used to guide the model predictions based on your family of interest that you have indicated in your prompt.
+   - Reduction type will be set to ‘None’ as the default
+2. Prot Seq
+- Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Use random Fourier position embeddings and FlashAttention to enable fast inference
+3. Rotaprot Large UniRef50w
+- Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. Uses rotary relative position embeddings and FlashAttention to enable fast inference.
+4. Rotaprot Large UniRef90 Finetuned
+- Rotaprot Large UniRef50W finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.
+5. ESM1
+- Community based ESM1 models, with different versions having different model parameters and training data
+Models include:
+   - esm1b_t33_650M_UR50S
+   - esm1v_t33_650M_UR90S_1
+   - esm1v_t33_650M_UR90S_2
+   - esm1v_t33_650M_UR90S_3
+   - esm1v_t33_650M_UR90S_4
+   - esm1v_t33_650M_UR90S_5
+6. ESM2
+- Community-based ESM2 models, with different versions having different model parameters and training data
+Models include:
+   - esm2_t8_50M_UR50D
+   - esm2_t12_35M_UR50D
+   - esm2_t30_150M_UR50D
+   - esm2_t33_650M_UR50D
+   - esm2_t36_3B_UR50D
+7. ProtTrans
+- Community-based ProtTrans models
+Model include
+   -  prott5-xl
+
+#### Reduction type
+The reduction type determines how the output embeddings are summarized into a more manageable form. This option helps control how the model compresses information, enabling the capture of relevant features from your protein sequences while reducing dimensionality. The available options are:
+1. Mean
+
+Creates a sequence embedding by averaging the per-residue embeddings over the length dimension. Useful for working with variable length sequences, but loses specific position information in the embedding compared with the full LxN embedding or SVD reduction thereof.
+
+_When to use:_
+- Variable length sequence datasets when alignment is not a good option.
+- Sometimes outperforms full embeddings on small or highly diverse datasets.
+
+2. Sum
+
+The same as the mean embedding except that per-residues embeddings are summed over the length dimension rather than averaged. This can better preserve length and domain multiplicity information but tends to underperform mean embeddings for most use cases.
+
+_When to use:_
+- Variable length sequence datasets as an alternative to mean embeddings. Mean embeddings should generally be preferred, but they can be compared on a case-by-case basis.
+
+3. None
+
+Retains the full embeddings without any dimensionality reduction. This option captures the complete relationships between features, offering the most detailed representation at the cost of larger file sizes. Note that this differs from the web app where None refers to using SVDs instead.
+
+Note: Using full-sized embeddings may be unstable on the platform at this stage.
+
+_When to use:_
+- Most substitution-only design projects should prefer this option. Tends to outperform mean embeddings when sequences are fixed length or can be aligned. 
+- Use when you require the full feature set for detailed analysis or downstream processing.
+
+If you run into any challenges or have questions while getting started, please contact [OpenProtein.AI support](https://www.openprotein.ai/contact).
 
 ## Training your models
 
@@ -21,9 +83,13 @@ Train your custom models using a dataset you upload. On the dataset page, select
 
 ![](./img/models/train-model.png)
 
-This opens the **Train a model** drawer, where you can enter a model name and choose properties for the model to predict.
+This opens the **Train a Model** popup, where you can configure your model settings. Begin by entering a model name, then select the properties you want the model to predict. Choose an embedding type and a reduction type to tailor the model's behavior. 
 
-![](./img/models/model-drawer.png)
+![](./img/models/model-drawer2.png)
+
+We recommend selecting PoET as the embedding type, as it generates embeddings optimized for specific fitness landscapes. Please note that PoET requires a [prompt](/web-app/poet/prompts) to guide predictions based on your specified protein family of interest.
+
+![](./img/models/model-drawer3.png)
 
 You're ready to train your custom model! Select **Start training** to initiate the job.
 
@@ -37,15 +103,28 @@ View the training curves and cross-validation results by selecting a model from 
 
 Now that you have trained models, use **Substitution analysis** to screen variants and predict the strength of protein activity. You can also use the **Design** tool to design combinatorial libraries or select which sites to modify.
 
-## About Model Evaluation
+## About model evaluation
+### Cross validation
 
 OpenProtein.AI uses k-fold cross validation. It splits variants into 5-folds, trains the model on four folds, and predicts the held-out fold. The cross-validation plots display the predicted properties compared to the actual measured properties for each held-out variant.
 
 A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants.
 
-Each model you train is linked to a specific dataset. You can compare between multiple models trained on the same dataset by selecting **Compare models** , then checking the desired models in the right side panel. The **Training curve** and **Cross-validation** graphs update immediately.
+![](./img/models/cross-validation.png)
 
-![](./img/models/compare-models.png)
+### Model calibration
+
+Model calibration measures how well a model's predicted probabilities align with the actual outcomes, providing insights into the reliability of its predictions. A perfectly calibrated model outputs probabilities that match the true likelihood of an event; for example, if it predicts an outcome with 70% confidence, that outcome should occur 70% of the time. 
+
+![](./img/models/calibration.png)
+
+One common metric used to evaluate calibration is the Expected Calibration Error (ECE). ECE quantifies the difference between predicted probabilities and observed frequencies by grouping predictions into bins and calculating the weighted average of the absolute calibration error across these bins. Lower ECE values indicate better calibration.
+
+### Training curves
+
+Training curves display how the model's loss changes during the training process, providing insights into its learning progress. The loss measures how far the model's predictions are from the actual values, with lower values indicating better performance. A steadily decreasing loss curve suggests that the model is learning effectively, while a flattening or rising curve could indicate issues such as underfitting or overfitting.
+
+![](./img/models/training-curve.png)
 
 ## Fine-tuning your model
 
