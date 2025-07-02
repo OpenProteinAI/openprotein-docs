@@ -1,3 +1,4 @@
 /src/.quarto/
 /src/_site/
 .log
+/build/

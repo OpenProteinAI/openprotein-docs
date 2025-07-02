@@ -1,0 +1,7 @@
+{% extends "!layout.html" %}
+{% block extrahead %}
+    <script type="module" src="{{pathto("_static/js/getSwaggerJson.js", 1)}}"></script>
+    <script type="module" src="{{pathto("_static/js/addSwaggerEndpointsToTOC.js", 1)}}"></script>
+    <script type="module" src="{{pathto("_static/js/getEnvironment.js", 1)}}"></script>
+    <script type="module" src="{{pathto("_static/js/getBackendUrl.js", 1)}}"></script>
+{% endblock %}
