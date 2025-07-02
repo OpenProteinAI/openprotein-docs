@@ -2,3 +2,7 @@
 /src/_site/
 .log
 /build/
+
+# pixi environments
+.pixi
+*.egg-info

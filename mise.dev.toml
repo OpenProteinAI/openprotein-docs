@@ -1,0 +1,5 @@
+[env]
+_.python.venv = ".pixi/envs/dev"
+
+[tools]
+dprint = "latest"

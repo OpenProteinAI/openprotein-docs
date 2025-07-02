@@ -1,0 +1,6 @@
+[tools]
+pixi = "latest"
+python = "3.12"
+
+[env]
+_.python.venv = ".pixi/envs/default"

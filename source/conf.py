@@ -6,10 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath("../../"))
+from recommonmark.transform import AutoStructify
 
 project = "OpenProtein-Docs"
 copyright = "2025, NE47 Bio – All Rights Reserved"
@@ -108,8 +105,6 @@ notfound_urls_prefix = None
 html_theme_options["analytics"] = {
     "google_analytics_id": "G-SS7ET8W19C",
 }
-
-from recommonmark.transform import AutoStructify
 
 autodoc_member_order = "bysource"
 

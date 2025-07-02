@@ -1,29 +1,32 @@
-# User documentation 
+# OpenProtein Documentation
 
-[Quarto](https://quarto.org/) was used to develop this app
+This repository contains the source code for the OpenProtein documentation, built with Sphinx.
 
-## Running the documentation app locally 
-First you will need to:
-- Install [Quarto](https://quarto.org/docs/get-started/)
-- Install the [vsCode extention](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
-- Clone the repository 
+## Building the documentation
 
-Once that's done you should run
-```
-quarto preview src
-```
-## Add new pages 
+To build the documentation, first install the dependencies from `pyproject.toml`:
 
-To add new pages to the website documentation you should create the quarto file "example.qmd" and then add it to the navBar in the "_quarto.yml" file.
-The quarto file can contain markdown content as well as jupyter notebooks and formulas. 
-
-## Running with Docker
-
-The repository has been setup with docker to run in production. To run the application, ensure you have docker installed and setup.
-
-``` sh
-docker build -t openprotein/openprotein-docs .
-docker run -it --rm -p 5002:5002 openprotein/openprotein-docs
+```bash
+pip install .
 ```
 
-The app should then be available at localhost:5002
+Then, from the `source` directory, run the following command:
+
+```bash
+make html
+```
+
+The built documentation will be in the `build/html` directory.
+
+## Development
+
+For live hot reloading during development, use `sphinx-autobuild`:
+
+```bash
+# use dev dependency which provides sphinx-autobuild
+pip install .[dev]
+# use port 5001 which is set up for CORS on dev.
+sphinx-autobuild source build/html --port 5001
+```
+
+This will serve the docs at http://localhost:5001 and automatically reload on changes.
