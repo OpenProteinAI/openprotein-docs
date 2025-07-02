@@ -28,8 +28,6 @@ jobs:
         shell: bash
         run: |
           # Have to run separately since sphinx-panels requirements are outdated
-          pip install sphinx-panels==0.6.0
-          pip install -r apidocs/requirements.txt
           pip install .
       - name: Get bucket name
         shell: bash
