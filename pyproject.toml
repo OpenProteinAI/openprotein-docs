@@ -39,7 +39,10 @@ platforms = ["osx-arm64"]
 [tool.pixi.tasks]
 
 [dependency-groups]
-dev = ["sphinx-autobuild"]
+dev = [
+  "sphinx-autobuild",
+  "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private@develop",
+]
 
 [tool.pixi.environments]
 dev = ["dev"]
