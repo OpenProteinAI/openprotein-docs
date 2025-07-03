@@ -78,7 +78,7 @@ Data-Driven Protein Engineering
                      <img class="arrow-icon-link-2" src="./_static/overview-img/arrow-right.png">
                   </div>
                   <div>
-                     <a href="./resources/tutorials-examples.html#de-novo-protein-design-and-variant-effect-prediction" class="link link-3">Examples</a>
+                     <a href="./resources/index.html#de-novo-protein-design-and-variant-effect-prediction" class="link link-3">Examples</a>
                      <img class="arrow-icon-link-3" src="./_static/overview-img/arrow-right.png">
                   </div>
                </div>  
@@ -126,7 +126,7 @@ Data-Driven Protein Engineering
             </a>
          </div>
          <div class="card-landing-page" id="card">
-            <a class="card-link"  href="./web-app/tutorials-examples.html#analyzing-your-data">
+            <a class="card-link"  href="./resources/index.html#analyzing-your-data">
                <img class="card-img" src="./_static/overview-img/DocsHome_4.png" width="300">
                <div class="card-body">
                   <span>Visualize your data to better understand and communicate your results</span>
@@ -135,7 +135,7 @@ Data-Driven Protein Engineering
                      <img class="arrow-icon-link" src="./_static/overview-img/arrow-right.png">
                   </div>
                   <div style="display: none;">
-                     <a href="./web-app/tutorials-examples.html#analyzing-your-data" class="link link-2">Python API tools</a>
+                     <a href="./resources/index.html#analyzing-your-data" class="link link-2">Python API tools</a>
                      <img class="arrow-icon-link-2" src="./_static/overview-img/arrow-right.png">
                   </div>
                   <div>
