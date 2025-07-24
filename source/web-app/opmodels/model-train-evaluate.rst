@@ -117,7 +117,9 @@ You're ready to train your custom model! Select **Start training** to initiate t
 
 After training a model, OpenProtein.AI automatically evaluates the predictive performance using cross-validation.
 
-Once training is complete, access your models from the **Models** section of your project navigation bar.
+Once training is complete, access your models from the **Models page** or **Models** section of your project navigation bar. Use the Models page to filter and sort models.
+
+.. image:: ../../_static/opmodels/models/models-page.png
 
 View the cross-validation, model calibration results and training curves by selecting a model from the project navigation menu.
 

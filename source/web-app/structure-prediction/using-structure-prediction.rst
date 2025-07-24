@@ -17,6 +17,8 @@ We recommend using:
 
 - ESMFold for predictions that must be completed quickly. 
 - AlphaFold2 for predictions where accuracy is more important than speed. AlphaFold2 creates and samples an MSA in order to perform structure predictions, which increases accuracy but is slower than ESMFold. 
+- Boltz-1 focuses on high-accuracy modeling of biomolecular structures — including proteins, DNA, and RNA — and produces static 3D models of molecular complexes with structural accuracy comparable to AlphaFold3.
+- Boltz-2 is the recommended model for proteins, RNA, DNA and ligands. It expands from Boltz-1 from static complexes to dynamic structural ensembles. This means Boltz‑2 can model how biomolecules move and interact over time.
 
 Accessing the Structure Prediction tool
 ---------------------------------------
@@ -65,6 +67,22 @@ parameters:
 .. image:: ../../_static/structure-prediction/AlphaFold2.png
    :alt: AlphaFold2
 
+
+Using Boltz-1 and Boltz-2
+-------------------------
+
+When using Boltz-1 or Boltz-2, you can enter or upload protein, ligand, DNA, or RNA sequences in the input fields provided. Be sure to select the correct sequence type from the dropdown menu.
+
+
+The **Advanced Options** section contains several parameters:
+
+- **Diffusion samples** This refers to the number of diffusion samples used and controls how many independent structure samples are generated per input
+- **Sampling steps** This sets the number of steps in the diffusion process for each sample
+- **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
+
+.. image:: ../../_static/structure-prediction/boltz.png
+   :alt: Boltz-1 and Boltz-2
+
 Visualizing your sequence
 --------------------------
 
@@ -78,6 +96,15 @@ A confidence indicator is included as a predicted local distance difference test
    :alt: Molstar Visualization
 
 You can select **Input** to view your design input sequence, or select **New structure prediction** to start a new prediction.
+
+
+Using Boltz-1 and Boltz-2
+-------------------------
+
+- **Diffusion samples** This refers to the number of diffusion samples used and controls how many independent structure samples are generated per input
+- **Sampling steps** This sets the number of steps in the diffusion process for each sample
+- **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
+
 
 Comparing structures
 ----------------------
