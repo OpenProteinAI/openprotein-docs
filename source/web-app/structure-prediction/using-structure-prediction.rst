@@ -98,14 +98,6 @@ A confidence indicator is included as a predicted local distance difference test
 You can select **Input** to view your design input sequence, or select **New structure prediction** to start a new prediction.
 
 
-Using Boltz-1 and Boltz-2
--------------------------
-
-- **Diffusion samples** This refers to the number of diffusion samples used and controls how many independent structure samples are generated per input
-- **Sampling steps** This sets the number of steps in the diffusion process for each sample
-- **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
-
-
 Comparing structures
 ----------------------
 
