@@ -7,10 +7,6 @@ Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools bel
    :members:
    :inherited-members:
 
-.. autoclass:: openprotein.align.PromptFuture
-   :members:
-   :inherited-members:
-
 .. autoclass:: openprotein.align.MSAFuture
    :members:
    :inherited-members:
