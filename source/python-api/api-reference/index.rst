@@ -118,11 +118,11 @@ Make structure predictions on your protein sequences.
 .. autosummary::
 
    openprotein.fold.FoldAPI
-   openprotein.fold.ESMFoldModel
-   openprotein.fold.AlphaFold2Model
    openprotein.fold.Boltz2Model
    openprotein.fold.Boltz1xModel
    openprotein.fold.Boltz1Model
+   openprotein.fold.AlphaFold2Model
+   openprotein.fold.ESMFoldModel
    openprotein.fold.FoldResultFuture
    openprotein.fold.FoldComplexResultFuture
 
