@@ -14,13 +14,25 @@ Endpoints
 Models 
 ------
 
-.. autoclass:: openprotein.fold.ESMFoldModel
+.. autoclass:: openprotein.fold.Boltz2Model
    :members:
-   :undoc-members:
+   :inherited-members:
+
+.. autoclass:: openprotein.fold.Boltz1xModel
+   :members:
+   :inherited-members:
+
+.. autoclass:: openprotein.fold.Boltz1Model
+   :members:
    :inherited-members:
 
 .. autoclass:: openprotein.fold.AlphaFold2Model
    :members:
+   :inherited-members:
+
+.. autoclass:: openprotein.fold.ESMFoldModel
+   :members:
+   :undoc-members:
    :inherited-members:
 
 
@@ -28,6 +40,10 @@ Results
 -------
 
 .. autoclass:: openprotein.fold.FoldResultFuture
+   :members:
+   :inherited-members:
+
+.. autoclass:: openprotein.fold.FoldComplexResultFuture
    :members:
    :inherited-members:
 
