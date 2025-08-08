@@ -3,7 +3,7 @@ Using the Structure Prediction tool
 
 This tutorial shows you how to use the Structure Prediction tool to visualize the 3D structures of your protein sequences using our web app.
 Structure prediction can also be accessed via the `REST API
-</apidocs/source/rest-api/fold.rst>`_ or our `Python client </apidocs/source/python-api/api-reference/fold.rst>`_.
+<../../rest-api/fold.rst>`_ or our `Python client <../../python-api/api-reference/fold.rst>`_.
 
 What you need before getting started
 -------------------------------------

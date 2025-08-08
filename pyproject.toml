@@ -25,7 +25,7 @@ dependencies = [
   "sphinx-notfound-page>=1.1.0,<1.2.0",
   "sphinx-panels>=0.4.1,<0.5.0",
   # autodoc
-  "openprotein-python==0.8.1",
+  "openprotein-python==0.8.3",
 ]
 
 [build-system]
@@ -37,11 +37,19 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64"]
 
 [tool.pixi.tasks]
+dev = "sphinx-autobuild source build --port 5001"
+
+[tool.pixi.feature.dev.tasks]
+# install dev version of the client
+devinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ../openprotein-python-private"
 
 [dependency-groups]
 dev = [
   "sphinx-autobuild",
-  # "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private",
+  # install dev version of the client
+  "pip>=24.2,<25",
+  "hatchling>=1.26.1",
+  "editables>=0.5,<0.6",
 ]
 
 [tool.pixi.environments]
