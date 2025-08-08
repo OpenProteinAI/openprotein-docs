@@ -25,7 +25,7 @@ dependencies = [
   "sphinx-notfound-page>=1.1.0,<1.2.0",
   "sphinx-panels>=0.4.1,<0.5.0",
   # autodoc
-  "openprotein-python==0.8.3",
+  "openprotein-python==0.8.4",
 ]
 
 [build-system]
@@ -49,6 +49,7 @@ dev = [
   # install dev version of the client
   "pip>=24.2,<25",
   "hatchling>=1.26.1",
+  "hatch-vcs>=0.5.0,<1",
   "editables>=0.5,<0.6",
 ]
 
