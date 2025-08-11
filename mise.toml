@@ -1,4 +1,5 @@
 [tools]
+pandoc = "latest"
 pixi = "latest"
 python = "3.12"
 
