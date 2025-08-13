@@ -45,6 +45,12 @@ After `installing <./installation.rst>`_ the Python client and `setting up your 
 
 - `Tutorials <./structure-prediction/index.rst>`_
 
+**Structure Generation** using RFdiffusion allows you to generate de novo protein structures based on your design goals.
+
+- `API Reference <./api-reference/design.rst>`_
+
+- `Tutorials <./structure-generation/index.rst>`_
+
 .. toctree::
    :maxdepth: 2
    :hidden:
@@ -56,4 +62,5 @@ After `installing <./installation.rst>`_ the Python client and `setting up your 
    PoET <poet/index>
    Foundation Models <foundation-models/index>
    Structure Prediction <structure-prediction/index>
+   Structure Generation <structure-generation/index>
    API Reference <api-reference/index>

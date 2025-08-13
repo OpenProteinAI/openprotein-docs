@@ -47,7 +47,10 @@ autoclass_content = "class"
 autodoc_typehints = "description"
 
 # Don't show class signature with the class' name.
-autodoc_class_signature = "separated"
+autodoc_class_signature = "mixed"
+
+# Show order of members by order in source code.
+autodoc_member_order = "bysource"
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]

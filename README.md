@@ -4,19 +4,25 @@ This repository contains the source code for the OpenProtein documentation, buil
 
 ## Building the documentation
 
-To build the documentation, first install the dependencies from `pyproject.toml`:
+To build the documentation, first install the dependencies from `pyproject.toml`. Our project uses `pixi` as a package manager but `pip install should work`:
 
 ```bash
 pip install .
+
+# if using pixi
+# pixi install
 ```
 
-Then, from the `source` directory, run the following command:
+Then run the build command:
 
 ```bash
-make html
+sphinx-build source build
+
+# if using pixi
+# pixi run build
 ```
 
-The built documentation will be in the `build/html` directory.
+The built documentation will be in the `build/` directory.
 
 ## Development
 
@@ -25,8 +31,10 @@ For live hot reloading during development, use `sphinx-autobuild`:
 ```bash
 # use dev dependency which provides sphinx-autobuild
 pip install .[dev]
-# use port 5001 which is set up for CORS on dev.
 sphinx-autobuild source build/html --port 5001
+
+# if using pixi just run
+pixi run dev
 ```
 
 This will serve the docs at http://localhost:5001 and automatically reload on changes.
