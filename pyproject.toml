@@ -1,6 +1,6 @@
 [project]
 name = "openprotein-docs"
-version = "0.0.1"
+version = "0.1.0"
 description = "Documentation for OpenProtein"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -37,10 +37,11 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64"]
 
 [tool.pixi.tasks]
-dev = "sphinx-autobuild source build --port 5001"
+build = "sphinx-build source build"
 
 [tool.pixi.feature.dev.tasks]
 # install dev version of the client
+dev = "sphinx-autobuild source build --port 5001"
 devinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ../openprotein-python-private"
 
 [dependency-groups]
