@@ -4,7 +4,7 @@ This repository contains the source code for the OpenProtein documentation, buil
 
 ## Building the documentation
 
-To build the documentation, first install the dependencies from `pyproject.toml`. Our project uses `pixi` as a package manager but `pip install should work`:
+To build the documentation, first install the dependencies from `pyproject.toml`. Our project uses `pixi` as a package manager but `pip install` should work:
 
 ```bash
 pip install .
