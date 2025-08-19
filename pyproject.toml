@@ -11,7 +11,7 @@ classifiers = [
 ]
 dependencies = [
   "sphinx>=7.3.0,<7.4.0",
-  "pydata-sphinx-theme>=0.13.0,<0.14.0",
+  "pydata-sphinx-theme>=0.16.1,<0.17.0",
   "recommonmark>=0.7.0,<0.8.0",
   "nbsphinx>=0.9.0,<0.10.0",
   "sphinx_markdown_tables>=0.0.17,<0.1.0",
@@ -56,3 +56,7 @@ dev = [
 
 [tool.pixi.environments]
 dev = ["dev"]
+
+[tool.pixi.dependencies]
+pygments = ">=2.19.2,<3"
+ipython = "*"

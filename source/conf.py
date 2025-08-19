@@ -55,11 +55,14 @@ autodoc_member_order = "bysource"
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+# -- Options for highlights
+highlight_language = "python"
+pygments_style = "default"
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "pydata_sphinx_theme"
-
 
 html_static_path = ["_static"]
 html_css_files = [
@@ -74,7 +77,11 @@ language = "en"
 html_sourcelink_suffix = ""
 
 html_sidebars = {
-    "**": ["search-field.html", "sidebar-nav-bs.html", "sidebar-ethical-ads.html"],
+    "**": [
+        "search-field.html",
+        "sidebar-nav-bs.html",
+        "sidebar-ethical-ads.html",
+    ],
     "index": ["sidebar-ethical-ads.html"],
 }
 
@@ -85,6 +92,8 @@ html_theme_options = {
     "show_nav_level": 0,
     "navbar_align": "left",
     "navbar_end": ["navbar-custom", "navbar-icon-links"],
+    "pygments_light_style": "tango",
+    "pygments_dark_style": "monokai",
 }
 
 html_context = {
