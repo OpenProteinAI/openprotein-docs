@@ -54,10 +54,10 @@ After `installing <./installation.rst>`_ the Python client and `setting up your 
 .. toctree::
    :maxdepth: 2
    :hidden:
-   
-   Jobs System <jobs-system.ipynb>
+
    installation
    overview
+   Jobs System <jobs-system.ipynb>
    Property Regression Models <property-regression-models/index>
    PoET <poet/index>
    Foundation Models <foundation-models/index>
