@@ -77,12 +77,11 @@ language = "en"
 html_sourcelink_suffix = ""
 
 html_sidebars = {
-    "**": [
-        "search-field.html",
-        "sidebar-nav-bs.html",
-        "sidebar-ethical-ads.html",
+    "/index": [],
+    "**/**": [
+        "search-field",
+        "sidebar-nav-bs",
     ],
-    "index": ["sidebar-ethical-ads.html"],
 }
 
 html_theme_options = {
@@ -91,6 +90,10 @@ html_theme_options = {
     "use_edit_page_button": False,
     "show_nav_level": 0,
     "navbar_align": "left",
+    "navbar_persistent": [
+        "search-button",
+        # "theme-switcher" # NOTE: dark theme is not working due to custom css
+    ],
     "navbar_end": ["navbar-custom", "navbar-icon-links"],
     "pygments_light_style": "tango",
     "pygments_dark_style": "monokai",
