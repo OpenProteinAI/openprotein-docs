@@ -92,7 +92,7 @@ html_theme_options = {
     "navbar_align": "left",
     "navbar_persistent": [
         "search-button",
-        # "theme-switcher" # NOTE: dark theme is not working due to custom css
+        # "theme-switcher",  # NOTE: dark theme is not working due to custom css
     ],
     "navbar_end": ["navbar-custom", "navbar-icon-links"],
     "pygments_light_style": "tango",
