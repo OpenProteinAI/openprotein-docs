@@ -59,4 +59,3 @@ dev = ["dev"]
 
 [tool.pixi.dependencies]
 pygments = ">=2.19.2,<3"
-ipython = "*"
