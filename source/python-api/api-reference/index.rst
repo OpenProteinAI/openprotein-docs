@@ -15,6 +15,16 @@ Upload and store your datasets on our platform to use with your protein engineer
    openprotein.data.DataAPI
    openprotein.data.AssayDataset
 
+Jobs
+^^^^
+
+Retrieve and monitor your jobs.
+
+.. autosummary::
+
+   openprotein.jobs.JobsAPI
+   openprotein.jobs.Job
+
 Align
 -----
 
@@ -126,13 +136,23 @@ Make structure predictions on your protein sequences.
    openprotein.fold.FoldResultFuture
    openprotein.fold.FoldComplexResultFuture
 
+Models
+------
 
+Unified access to the models available on our platform.
+
+.. autosummary::
+
+   openprotein.models.ModelsAPI
+   openprotein.models.foundation.rfdiffusion.RFdiffusionModel
+  
 .. toctree::
    :maxdepth: 2
    :hidden:
    
    basics
    data
+   jobs
    align 
    prompt
    embedding
@@ -141,3 +161,4 @@ Make structure predictions on your protein sequences.
    predictor
    design
    fold
+   models

@@ -5,21 +5,16 @@ Create embeddings for your protein sequences using open-source and proprietary m
 
 Note that for PoET Models, you will also need to utilize our :doc:`align <align>`. workflow.
 
-Endpoints
------------
+Interface 
+---------
+
 .. autoclass:: openprotein.embeddings.EmbeddingsAPI
    :members:
-   :undoc-members:
 
 Models 
-------------
+------
 
-.. autoclass:: openprotein.embeddings.OpenProteinModel
-   :members:
-   :undoc-members:
-   :inherited-members:
-
-.. autoclass:: openprotein.embeddings.ESMModel
+.. autoclass:: openprotein.embeddings.PoET2Model
    :members:
    :inherited-members:
 
@@ -27,17 +22,22 @@ Models
    :members:
    :inherited-members:
 
-.. autoclass:: openprotein.embeddings.PoET2Model
+.. autoclass:: openprotein.embeddings.OpenProteinModel
    :members:
    :inherited-members:
 
-.. autoclass:: openprotein.embeddings.SVDModel
+.. autoclass:: openprotein.embeddings.ESMModel
    :members:
    :inherited-members:
 
-.. autoclass:: openprotein.embeddings.UMAPModel
-   :members:
-   :inherited-members:
+Transform models
+^^^^^^^^^^^^^^^^
+
+These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. Refer to their detailed documentation in `openprotein.svd <./svd.rst#openprotein.svd.SVDModel>`_ and `openprotein.umap <./umap.rst#openprtein.umap.UMAPModel>`_.
+      
+.. autoclass:: openprotein.svd.SVDModel
+
+.. autoclass:: openprotein.umap.UMAPModel
 
 Results
 ---------
@@ -53,3 +53,10 @@ Results
 .. autoclass:: openprotein.embeddings.EmbeddingsGenerateFuture
    :members:
    :inherited-members:
+
+Base model
+----------
+
+The base embedding model is the base class of all the embedding models.
+
+.. autoclass:: openprotein.embeddings.EmbeddingModel

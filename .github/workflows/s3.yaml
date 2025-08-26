@@ -15,20 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@v0.9.0
         with:
-          python-version: "3.10.14"
-          cache: "pip" # caching pip dependencies
+          pixi-version: v0.50.2
+
+          cache: true
       - name: Install pandoc
         run: |
           sudo curl -L https://github.com/jgm/pandoc/releases/download/3.2/pandoc-3.2-1-amd64.deb -o /pandoc.deb
           sudo dpkg -i /pandoc.deb
-      - name: Install Sphinx dependencies
-        shell: bash
-        run: |
-          # Have to run separately since sphinx-panels requirements are outdated
-          pip install .
+      - name: Install dependencies
+        run: pixi install
       - name: Get bucket name
         shell: bash
         run: |
@@ -54,7 +52,7 @@ jobs:
           echo "distribution=$distribution" >> $GITHUB_OUTPUT
         id: cloudfront_distribution_name
       - name: Render Sphinx
-        run: sphinx-build source build
+        run: pixi run build
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

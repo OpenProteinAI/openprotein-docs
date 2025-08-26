@@ -43,7 +43,7 @@ The endpoints include:
 
 `Foundation Models <./embeddings.rst>`_
 ---------------------------------------
-Learn more about the endpoints needed to calculate raw embeddings on protein sequences here. Our platform offers a range of endpoints that harness the power of both our proprietary and open-source models.
+Calculate raw embeddings on protein sequences using powerful foundational models. Our platform offers a range of endpoints that harness the power of both our proprietary and open-source models.
 
 The endpoints include:
 
@@ -53,7 +53,7 @@ The endpoints include:
 
 `Align <./align.rst>`_
 ----------------------
-Learn more about the endpoints needed to align multiple sequences here. This forms the basis for PoET and certain Fold workflows. 
+Use these endpoints to align multiple sequences. This forms the basis for PoET and certain Fold workflows. 
 
 The endpoints include:
 
@@ -69,7 +69,7 @@ The endpoints include:
 
 `Structure Prediction <./fold.rst>`_
 ------------------------------------
-Learn more about the endpoints needed to create structure predictions on protein sequences here. Our platform offers access to ESMFold and AlphaFold2.
+Create structure predictions on protein sequences. Our platform offers access to ESMFold and AlphaFold2.
 
 The endpoints include:
 
@@ -77,11 +77,19 @@ The endpoints include:
 
 `Predictor <./predictor.rst>`_
 ------------------------------------
-Learn more about the endpoints needed to property predictors from your assays here. Our platform offers access to training with Gaussian Process models.
+Train property predictors from your assays here. Our platform offers access to training with Gaussian Process models.
 
 The endpoints include:
 
 - Predictor
+
+`Design <./design.rst>`_
+------------------------------------
+Design de novo sequences and structures on our platform! You can either start from your assays and design sequences which optimize targets using your trained property predictors, or you can start from a target structure and use RFdiffusion to generate a structure based on your input structure.
+
+The endpoints include:
+
+- Design
 
 Next steps
 ----------
@@ -104,3 +112,4 @@ To start accessing our suite of APIs, refer to these articles to get started:
     Embeddings <embeddings>
     Fold <fold>
     Predictor <predictor>
+    Design <design>
