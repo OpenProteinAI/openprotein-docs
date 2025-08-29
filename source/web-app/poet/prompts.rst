@@ -17,7 +17,8 @@ Creating a query
 -----------------
 A query allows you to specify precise constraints for PoET-2 to follow during sequence generation. 
 
-## Query components
+Query components
+~~~~~~~~~~~~~~~~
 
 - **Reference sequence:** Baseline sequence for comparison and edits.  
 - **Query sequence:** User-defined sequence for masking sites (valid amino acids and gap tokens only).  
@@ -25,7 +26,8 @@ A query allows you to specify precise constraints for PoET-2 to follow during se
 
 The query enables targeted generation tasks such as sequence in-filling, inverse folding, or motif scaffolding. Only **one** sequence or structure can be entered per query.
 
-## Uploading a query
+Uploading a query
+~~~~~~~~~~~~~~~~~
 
 You can enter into the sequence editor or upload a query in the following formats:
 
@@ -42,7 +44,8 @@ You also have the option to skip entering a query by toggling the disable query 
 .. image:: ../../_static/tools/poet/query-1.png
   :alt: Uploading query
 
-## Sequence Editor Tools
+Sequence Editor Tools
+~~~~~~~~~~~~~~~~~~~~~
 
 The sequence editor provides buttons at the top for efficient query editing:
 
@@ -62,11 +65,13 @@ These tools allow precise control over the query, enabling you to define exactly
 .. image:: ../../_static/tools/poet/query-2.png
   :alt: Sequence editor tools
 
-## Creating a Context
+Creating a Context
+~~~~~~~~~~~~~~~~~~~
 
 Users can either upload a custom context or build one from a Multiple Sequence Alignment (MSA).
 
-### Custom Context
+Custom Context
+^^^^^^^^^^^^^^
 - Users can upload `.fasta`, `.csv`, or `.pdb` files.
 - Multiple files can be uploaded to a single prompt/context.
 
@@ -76,7 +81,8 @@ Users can either upload a custom context or build one from a Multiple Sequence A
 .. image:: ../../_static/tools/poet/context-2.png
   :alt: Context populated
 
-### Build from MSA
+Build from MSA
+^^^^^^^^^^^^^^^
 There are two ways to create a context from an MSA:
 
 1. **Upload an existing MSA file:** Users can upload an MSA file directly.  
@@ -85,57 +91,70 @@ There are two ways to create a context from an MSA:
 .. image:: ../../_static/tools/poet/context-3.png
   :alt: Context build from MSA
 
-## Uploading and Saving a Sequence-Only Prompt
+Uploading and Saving a Sequence-Only Prompt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Without a Project
+Without a Project
+^^^^^^^^^^^^^^^^^
 On the **Projects** page, select a PoET tool from the navigation bar. Under **Prompt Definition**, click **Select a file** and choose a `.fasta` or `.csv` file. Ensure **Prompt** is selected before uploading.
 
-![Uploading prompt without a project](../../_static/tools/poet/prompt-1.png)
+.. image:: ../../_static/tools/poet/prompt-1.png
+  :alt: Uploading prompt without a project
 
-### Within a Project
+Within a Project
+^^^^^^^^^^^^^^^^
 Prompts can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **Prompt**, and upload your `.fasta` or `.csv` file.
 
-![Uploading prompt from project](../../_static/tools/poet/prompt-2.png)
+.. image:: ../../_static/tools/poet/prompt-2.png
+  :alt: Uploading prompt from project
 
 - **Left Sidebar:** Click the **Upload** button under the **Prompt** section and select your file.
 
-![Uploading prompt within a project](../../_static/tools/poet/prompt-3.png)
+.. image:: ../../_static/tools/poet/prompt-3.png
+  :alt: Uploading prompt within a project
 
-![Uploaded prompt preview](../../_static/tools/poet/prompt-4.png)
+.. image:: ../../_static/tools/poet/prompt-4.png
+  :alt: Uploaded prompt preview
 
 - **From a MSA:** On an existing MSA page, click **Create Prompt**.
 
-![Create prompt from MSA page](../../_static/tools/poet/prompt-5.png)
+.. image:: ../../_static/tools/poet/prompt-5.png
+  :alt: Create prompt from MSA page
 
----
 
-## What is a Multiple Sequence Alignment?
+What is a Multiple Sequence Alignment?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Multiple sequence alignment (MSA) is a technique for biological sequence analysis. It consists of a sequence alignment of three or more biological sequences that usually have an evolutionary relationship.
 
-### Why is MSA Useful?
+Why is MSA Useful?
+^^^^^^^^^^^^^^^^^^
 
 The resulting MSA can be used to infer sequence homology and conduct phylogenetic analysis to assess the sequences’ shared evolutionary origins. Biologically sound and accurate alignments show homology and relationships, allowing for new member identification and the comparison of similar sequences. Accuracy is vital because subsequent analyses depend on the MSA results.
 
 When building a prompt from an MSA, include sequences you want to optimize. The model learns the patterns of the proteins and predicts sequences that best fit that list. Since the model views proteins in their entirety, you cannot optimize for a specific property or activity.
 
----
 
-## Creating a Prompt Using a MSA
+Creating a Prompt Using a MSA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-### Without a Project
+Without a Project
+""""""""""""""""""
 Navigate to any PoET tool under **Prompt Definition**. You can either input the MSA directly or upload an existing `.fa`, `.fasta`, or `.csv` file.
 
-![Uploading MSA without a project](../../_static/tools/poet/prompt-6.png)
+.. image:: ../../_static/tools/poet/prompt-6.png
+  :alt: Uploading MSA without a project
 
-### Within a Project
+Within a Project
+"""""""""""""""""
 MSAs can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **MSA**, and input or upload a `.fa`, `.fasta`, or `.csv` file.
 
-![Uploading MSA on project page](../../_static/tools/poet/prompt-7.png)
+.. image:: ../../_static/tools/poet/prompt-7.png
+  :alt: Uploading MSA on project page
 
 ![Uploading MSA popup on pr]()
 
