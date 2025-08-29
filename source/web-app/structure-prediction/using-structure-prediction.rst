@@ -19,6 +19,7 @@ We recommend using:
 - AlphaFold2 for predictions where accuracy is more important than speed. AlphaFold2 creates and samples an MSA in order to perform structure predictions, which increases accuracy but is slower than ESMFold. 
 - Boltz-1 focuses on high-accuracy modeling of biomolecular structures — including proteins, DNA, and RNA — and produces static 3D models of molecular complexes with structural accuracy comparable to AlphaFold3.
 - Boltz-2 is the recommended model for proteins, RNA, DNA and ligands. It expands from Boltz-1 from static complexes to dynamic structural ensembles. This means Boltz‑2 can model how biomolecules move and interact over time.
+- MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins
 
 Accessing the Structure Prediction tool
 ---------------------------------------
@@ -82,6 +83,18 @@ The **Advanced Options** section contains several parameters:
 
 .. image:: ../../_static/structure-prediction/boltz.png
    :alt: Boltz-1 and Boltz-2
+   
+Using MiniFold
+-------------
+
+If you select **MiniFold**, the **Advanced Options** let you set the **Number of recycles**, which controls how many times the network refines a structure by feeding the output of one cycle into the next. This parameter defaults to **auto** and accepts integers from **1 to 48**.  
+
+**Additional notes:**  
+- Supports only single-chain proteins  
+- Maximum sequence length: **2048**  
+
+.. image:: ../../_static/structure-prediction/minifold.png
+   :alt: MiniFold
 
 Visualizing your sequence
 --------------------------
