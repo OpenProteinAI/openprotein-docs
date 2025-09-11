@@ -12,6 +12,7 @@ Get started using Structure Prediction
 - `Using ESMFold <./Using_ESMFold.ipynb>`_
 - `Using AlphaFold2 <./Using_AlphaFold2.ipynb>`_ 
 - `Using Boltz <./Using_Boltz.ipynb>`_ 
+- `Using RosettaFold3 <./Using_RosettaFold3.ipynb>`_ 
 
 `API Reference <../api-reference/fold.rst>`_
 
@@ -23,3 +24,4 @@ Get started using Structure Prediction
    Using_ESMFold
    Using_AlphaFold2
    Using_Boltz
+   Using_RosettaFold3
