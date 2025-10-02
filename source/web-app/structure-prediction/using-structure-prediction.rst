@@ -20,7 +20,7 @@ We recommend using:
 - Boltz-2 is the recommended model for proteins, RNA, DNA and ligands. It expands from Boltz-1 from static complexes to dynamic structural ensembles. This means Boltz‑2 can model how biomolecules move and interact over time.
 - ESMFold for predictions that must be completed quickly. 
 - MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins.
-- RoseTTAFold is a three-track neural network for protein structure and complex prediction, useful for modeling protein-protein interactions and supporting experimental structure determination.
+- RosettaFold-3 is a three-track neural network for protein structure and complex prediction, useful for modeling protein-protein interactions and supporting experimental structure determination.
 
 Accessing the Structure Prediction tool
 ---------------------------------------
@@ -97,10 +97,10 @@ If you select **MiniFold**, the **Advanced Options** let you set the **Number of
 .. image:: ../../_static/structure-prediction/minifold.png
    :alt: MiniFold
 
-Using RoseTTAFold
+Using RosettaFold-3
 -----------------
 
-When using RoseTTAFold, you can enter or upload multiple proteins in the input fields provided. 
+When using RosettaFold-3, you can enter or upload multiple proteins in the input fields provided. 
 
 
 The **Advanced Options** section contains several parameters:
@@ -110,7 +110,7 @@ The **Advanced Options** section contains several parameters:
 - **Number of Steps** Thisrefers to how many iterations or updates the model performs during inference when predicting a structure
 
 .. image:: ../../_static/structure-prediction/rosettafold.png
-   :alt: RoseTTAFold
+   :alt: RosettaFold-3
 
 Visualizing your sequence
 --------------------------
