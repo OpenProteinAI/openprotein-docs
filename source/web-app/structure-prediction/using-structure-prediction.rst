@@ -15,11 +15,12 @@ Selecting your model
 
 We recommend using:
 
-- ESMFold for predictions that must be completed quickly. 
 - AlphaFold2 for predictions where accuracy is more important than speed. AlphaFold2 creates and samples an MSA in order to perform structure predictions, which increases accuracy but is slower than ESMFold. 
 - Boltz-1 focuses on high-accuracy modeling of biomolecular structures — including proteins, DNA, and RNA — and produces static 3D models of molecular complexes with structural accuracy comparable to AlphaFold3.
 - Boltz-2 is the recommended model for proteins, RNA, DNA and ligands. It expands from Boltz-1 from static complexes to dynamic structural ensembles. This means Boltz‑2 can model how biomolecules move and interact over time.
-- MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins
+- ESMFold for predictions that must be completed quickly. 
+- MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins.
+- RosettaFold-3 is a three-track neural network for protein structure and complex prediction, useful for modeling protein-protein interactions and supporting experimental structure determination.
 
 Accessing the Structure Prediction tool
 ---------------------------------------
@@ -45,15 +46,6 @@ Right-click a sequence in your data table, then select **Fold sequence**. This
 opens the **New Structure Prediction** page. The default model is ESMFold. To
 use AlphaFold2, select **AlphaFold2** in the **Model type** dropdown menu. The
 sequence you selected in the data table is auto-populated.
-
-Using ESMFold
--------------
-
-If you select **ESMFold**, the **Advanced Options** section allows you to set
-the **Number of recycles**. This allows the network to further refine structures by using the previous cycle’s output as the new cycle’s input. This parameter is set to **auto** by default and accepts integers between 1 and 48.
-
-.. image:: ../../_static/structure-prediction/ESMFold.png
-   :alt: ESMFold
 
 Using AlphaFold2
 ----------------
@@ -83,6 +75,15 @@ The **Advanced Options** section contains several parameters:
 
 .. image:: ../../_static/structure-prediction/boltz.png
    :alt: Boltz-1 and Boltz-2
+
+Using ESMFold
+-------------
+
+If you select **ESMFold**, the **Advanced Options** section allows you to set
+the **Number of recycles**. This allows the network to further refine structures by using the previous cycle’s output as the new cycle’s input. This parameter is set to **auto** by default and accepts integers between 1 and 48.
+
+.. image:: ../../_static/structure-prediction/ESMFold.png
+   :alt: ESMFold
    
 Using MiniFold
 -------------
@@ -95,6 +96,21 @@ If you select **MiniFold**, the **Advanced Options** let you set the **Number of
 
 .. image:: ../../_static/structure-prediction/minifold.png
    :alt: MiniFold
+
+Using RosettaFold-3
+-----------------
+
+When using RosettaFold-3, you can enter or upload multiple proteins in the input fields provided. 
+
+
+The **Advanced Options** section contains several parameters:
+
+- **Diffusion samples** This refers to the number of diffusion samples used and controls how many independent structure samples are generated per input
+- **Number of recycles** This refers to how many times the model feeds its output structure back into the network for further refinement.
+- **Number of Steps** Thisrefers to how many iterations or updates the model performs during inference when predicting a structure
+
+.. image:: ../../_static/structure-prediction/rosettafold.png
+   :alt: RosettaFold-3
 
 Visualizing your sequence
 --------------------------
