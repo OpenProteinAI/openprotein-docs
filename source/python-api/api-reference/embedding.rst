@@ -3,7 +3,7 @@ openprotein.embeddings
 
 Create embeddings for your protein sequences using open-source and proprietary models!
 
-Note that for PoET Models, you will also need to utilize our :doc:`align <align>`. workflow.
+Note that for PoET Models, you will also need to utilize our :doc:`align <align>` workflow.
 
 Interface 
 ---------

@@ -3,4 +3,4 @@ pandoc = "latest"
 pixi = "latest"
 
 [env]
-# _.python.venv = ".pixi/envs/default"
+_.python.venv = ".pixi/envs/default"
