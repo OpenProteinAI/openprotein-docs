@@ -110,13 +110,19 @@ Once the structure prediction job completes, the structure viewer will appear on
 
 - **pLDDT (predicted Local Distance Difference Test)**: A per-residue confidence score (commonly scaled from 0–100 or 0.0–1.0) indicating how reliable each residue's predicted position is.
 
-- **RMSD (Root Mean Square Deviation)**: A measure of structural similarity between two molecules, typically comparing backbone atoms.
-Lower RMSD values indicate greater structural similarity.
+- **RMSD (Root Mean Square Deviation)**: A measure of structural similarity between two molecules, typically comparing backbone atoms. Lower RMSD values indicate greater structural similarity.
 
 Click a sequence to expand the structure viewer, which will overlay the results table. In this view, you can examine detailed metrics and sequence-to-prompt alignment for the selected sequence.
 
 .. image:: ../../_static/tools/poet/results-table-expanded.png
    :alt: Sequence structure viewer
+
+**Change Reference Structure**
+
+By default, the query structure is used as the reference structure for structural comparisons. You can change it by selecting an alternative structure via the **Edit Reference Sequence** button, accessible from the results table **Settings** in the results table.
+
+.. image:: ../../_static/tools/poet/results-table-ref-structure.png
+   :alt: Change reference structure
 
 
 Fine-tuning your results
