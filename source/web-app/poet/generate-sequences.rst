@@ -23,21 +23,23 @@ A note on the *Random seed* setting: this determines the state of the random num
 Generating a sequence
 ---------------------
 
-Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Generate Sequences.**
-
-You can choose the model used to run the job. We recommend using PoET-2 for most use cases. 
-
+Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Generate Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
 .. image:: ../../_static/tools/poet/choose-model.png
+   :width: 300px
    :alt: Choose Model
 
-### Step 1: Prompt Query
+Step 1: Prompt Query
+~~~~~~~~~~~~~~~~~~~~~
+
 Refer to `Creating a Query <./prompts.rst#creating-a-query>`_ to learn about Prompt Query.
 
-### Step 2: Prompt Context
-#### 2.1 Build Custom Context
+Step 2: Prompt Context
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**2.1 Build Custom Context**
 If you want to create a custom context, please refer to `Creating a Context <./prompts.rst#creating-a-context>`_.
 
-#### 2.2 Build from MSA
+**2.2 Build from MSA**
 If you have an existing prompt, you may select it. Alternatively, add your custom MSA to the **Prompt Definition** field. You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
 If you do not have an existing MSA, you can select **Upload MSA**. If you select **Run Homology Search Using a Seed Sequence**, OpenProtein will generate an MSA using a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that when multiple sequences are entered, sequences after the first are ignored.
@@ -53,7 +55,7 @@ Set sampling method fields. We suggest you start with the default settings, then
    :alt: Sampling Methods
 
 
-### Step 3: Sampling Settings
+**Step 3: Sampling Settings**
 Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both.
 
 .. image:: ../../_static/tools/poet/sampling-parameters.png
