@@ -25,10 +25,6 @@ Generating a sequence
 
 Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Generate Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
 
-.. image:: ../../_static/tools/poet/choose-model.png
-   :width: 300px
-   :alt: Choose Model
-
 Step 1: Prompt Query
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -38,7 +34,7 @@ Refer to `Creating a Query <./prompts.rst#creating-a-query>`_ to learn about Pro
 Step 2: Prompt Context
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-**Build Custom Context: ** If you want to create a custom context, please refer to `Creating a Context <./prompts.rst#creating-a-context>`_.
+**Build Custom Context**: If you want to create a custom context, please refer to `Creating a Context <./prompts.rst#creating-a-context>`_.
 
 **Build from MSA**: If you have an existing prompt, you may select it. Alternatively, add your custom MSA to the **Prompt Definition** field. You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
