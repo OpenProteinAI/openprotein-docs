@@ -25,20 +25,22 @@ Generating a sequence
 
 Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Generate Sequences.**
 
-Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both.
-
-.. image:: ../../_static/tools/poet/sampling-parameters.png
-   :alt: Sampling Parameters
-
 You can choose the model used to run the job. We recommend using PoET-2 for most use cases. 
 
 .. image:: ../../_static/tools/poet/choose-model.png
    :alt: Choose Model
 
+### Step 1: Prompt Query
+Refer to `Creating a Query <./prompts.rst#creating-a-query>`_ to learn about Prompt Query.
 
+### Step 2: Prompt Context
+#### 2.1 Build Custom Context
+If you want to create a custom context, please refer to `Creating a Context <./prompts.rst#creating-a-context>`_.
+
+#### 2.2 Build from MSA
 If you have an existing prompt, you may select it. Alternatively, add your custom MSA to the **Prompt Definition** field. You can input the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
 
-If you do not have an existing MSA, input your target protein and select **Single Sequence**. OpenProtein will generate an MSA using a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that if you select **Single Sequence** when multiple sequences are entered, sequences after the first are ignored.
+If you do not have an existing MSA, you can select **Upload MSA**. If you select **Run Homology Search Using a Seed Sequence**, OpenProtein will generate an MSA using a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that when multiple sequences are entered, sequences after the first are ignored.
 
 Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
 
@@ -50,12 +52,41 @@ Set sampling method fields. We suggest you start with the default settings, then
 .. image:: ../../_static/tools/poet/sampling-methods.png
    :alt: Sampling Methods
 
-You're ready to generate a custom sequence! Select **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
+
+### Step 3: Sampling Settings
+Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both.
+
+.. image:: ../../_static/tools/poet/sampling-parameters.png
+   :alt: Sampling Parameters
+
+
+You're ready to generate a custom sequence! Click **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
 A 400 (Bad request) error code may be due to the following:
 
-.. image:: ../../_static/tools/poet/results-table.png
-   :alt: Results Table
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20
+   :align: left
+
+   * - Issue description
+     - Solution
+   * - Invalid PoET Job or Parent
+     - Re-enter prompt and try again.
+   * - Invalid prompt in PoET service
+     - Reupload prompt and try again. Refer to the article about `prompts <./prompts.rst>`_. Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt.
+   * - Invalid user input in align service
+     - Ensure you don't have
+
+       - a top_p>1
+       - a non-valid amino acid
+       - Maximum similarity < minimum similarity
+       If necessary, refer to the article on `sampling parameters <./prompts.rst#prompt-sampling-definitions>`_.
+   * - Invalid MSA (not aligned, etc)
+     - - Make sure your MSAs are aligned and rebuild MSA if necessary.
+       - If you have uploaded pre-computed MSA, confirm that formatting is correct and sequences are of equal length (use gap tokens “-”).
+       - If you are building from a seed sequence, try rebuilding the MSA
+
 
 Please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`_ if the suggested solutions don't resolve the issue.
 
@@ -67,6 +98,9 @@ Your results are presented as a table, with each generated sequence being assign
 Access local fitness landscapes using the substitution analysis buttons for each sequence. You can sort your results and download them using the **Export** button.
 
 Note: The PoET history page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job.
+
+.. image:: ../../_static/tools/poet/results-table.png
+   :alt: Results Table
 
 Fine-tuning your results
 ------------------------

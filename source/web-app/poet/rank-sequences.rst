@@ -52,7 +52,7 @@ A 400 (Bad request) error code may be due to the following:
    * - Invalid prompt in PoET service
      - Reupload prompt and try again. Refer to the article about `prompts <./prompts.rst>`_. Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt.
    * - Invalid user input in align service
-     - Ensure you don’t have
+     - Ensure you don't have
 
        - a top_p>1
        - a non-valid amino acid
