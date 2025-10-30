@@ -54,7 +54,7 @@ Set sampling method fields. We suggest you start with the default settings, then
 Step 3: Sampling Settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both.
+Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both. You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
 .. image:: ../../_static/tools/poet/sampling-parameters.png
    :alt: Sampling Parameters
@@ -93,14 +93,31 @@ Please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`_ if
 Interpreting your results
 -------------------------
 
-Your results are presented as a table, with each generated sequence being assigned a log-likelihood score. This score indicates the fitness of the generated sequence compared to the prompt. The higher the log-likelihood score, the more fit the sequence.
+The PoET history page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job.
 
-Access local fitness landscapes using the substitution analysis buttons for each sequence. You can sort your results and download them using the **Export** button.
+**Results Table**
 
-Note: The PoET history page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job.
+Your results are presented in a table, with each generated sequence assigned a log-likelihood score. This score reflects how well the generated sequence fits the prompt: a higher score indicates a better fit.
+
+Right-click any sequence to access local fitness landscapes through the **Run Substitution Analysis** menu. You can also sort your results and export them using the **Export** button.
 
 .. image:: ../../_static/tools/poet/results-table.png
    :alt: Results Table
+
+**Structure Prediction and Comparison**
+
+Once the structure prediction job completes, the structure viewer will appear on the right side of the page. The prediction model can be changed via the **Structure Predictor** dropdown located above the viewer. Hover over a sequence in the results table to preview and compare its structure against the query structure. The viewer also displays key metrics, including:
+
+- **pLDDT (predicted Local Distance Difference Test)**: A per-residue confidence score (commonly scaled from 0–100 or 0.0–1.0) indicating how reliable each residue's predicted position is.
+
+- **RMSD (Root Mean Square Deviation)**: A measure of structural similarity between two molecules, typically comparing backbone atoms.
+Lower RMSD values indicate greater structural similarity.
+
+Click a sequence to expand the structure viewer, which will overlay the results table. In this view, you can examine detailed metrics and sequence-to-prompt alignment for the selected sequence.
+
+.. image:: ../../_static/tools/poet/results-table-expanded.png
+   :alt: Sequence structure viewer
+
 
 Fine-tuning your results
 ------------------------
