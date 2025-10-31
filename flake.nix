@@ -15,9 +15,11 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        devShells.default = pkgs.mkShell { packages = [
-          pkgs.bashInteractive
-        ];
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            bashInteractive
+            python313Packages.jupytext
+          ];
         };
       }
     );
