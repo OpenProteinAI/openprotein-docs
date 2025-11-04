@@ -90,7 +90,7 @@ select an existing prompt. The sequences from that prompt will automatically loa
 To create a custom prompt context, in the **Prompt Type** dropdown, select **Create New Prompt** option, and select **Custom** option from the toggle buttons. You can add sequences to your custom context in two ways:
 
 1. **Upload files**: Click **Choose Files** to select files for your context. We support .fa, .fasta for FASTA files, and .pdb, .cif for structure files.
-2. **Manually enter sequences**: Paste sequences in CSV or FASTA format, then click **Upload**.. If you use CSV content, please note the following requirements:
+2. **Manually enter sequences**: Paste sequences in CSV or FASTA format, then click **Upload**. If you use CSV content, please note the following requirements:
   - It must not include a header row.
   - It can contain a maximum of 2 columns.
   - If there are 2 columns, the first one must be the sequence names.
