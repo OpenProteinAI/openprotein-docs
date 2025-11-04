@@ -101,6 +101,7 @@ You can upload a dataset containing multiple sequences in either .fasta or .csv 
 your dataset will appear in a table.
 
 If you choose to upload a CSV file, please note the following requirements:
+
 - The file must not include a header row.
 - It can contain a maximum of 2 columns.
 - If there are 2 columns, the first one must be the sequence names.
