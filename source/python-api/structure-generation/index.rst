@@ -9,11 +9,13 @@ Get started using Structure Generation
 **Tutorials**:
 
 - `Using RFdiffusion <./Using_RFdiffusion.ipynb>`_
-
-`API Reference <../api-reference/models.rst#RFdiffusion>`_
+  - `API Reference <../api-reference/models.rst#RFdiffusion>`_
+- `Using BoltzGen <./Using_BoltzGen.ipynb>`_
+  - `API Reference <../api-reference/models.rst#BoltzGen>`_
 
 .. toctree::
    :maxdepth: 2
    :hidden:
    
    Using_RFdiffusion
+   Using_BoltzGen

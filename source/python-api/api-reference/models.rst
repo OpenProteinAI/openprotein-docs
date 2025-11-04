@@ -22,3 +22,12 @@ RFdiffusion
 .. autoclass:: openprotein.models.foundation.rfdiffusion.RFdiffusionFuture
    :members:
    :inherited-members:
+
+BoltzGen
+^^^^^^^^^^^
+.. autoclass:: openprotein.models.foundation.boltzgen.BoltzGenModel
+   :members:
+
+.. autoclass:: openprotein.models.foundation.boltzgen.BoltzGenFuture
+   :members:
+   :inherited-members:
