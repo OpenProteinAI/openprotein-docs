@@ -1,7 +1,7 @@
-Prompt and prompt sampling methods
+Prompt And Prompt Sampling Methods
 ===================================
 
-What is a prompt?
+What is a Prompt?
 -----------------
 
 A prompt is an input that directs a generative AI model to produce the desired protein sequences. For PoET-2, a prompt can include sequences and/or structures that define the target protein subspace. In contrast, PoET-1 uses a prompt composed of a set of related sequences. These sequences can be homologs, family members, or other groupings that capture the characteristics of the protein of interest.
@@ -13,11 +13,12 @@ A PoET-2 prompt is made up of two components, either of which can be included or
 
 **Note:** PoET-1 is still available for some use cases and legacy workflows, but we recommend PoET-2 for most scenarios.
 
-Creating a query
+Creating a Query
 -----------------
 A query allows you to specify precise constraints for PoET-2 to follow during sequence generation. 
 
-Query components
+
+Query Components
 ~~~~~~~~~~~~~~~~
 
 - **Reference sequence:** Baseline sequence for comparison and edits.  
@@ -26,7 +27,8 @@ Query components
 
 The query enables targeted generation tasks such as sequence in-filling, inverse folding, or motif scaffolding. Only **one** sequence or structure can be entered per query.
 
-Uploading a query
+
+Uploading a Query
 ~~~~~~~~~~~~~~~~~
 
 You can enter into the sequence editor or upload a query in the following formats:
@@ -44,6 +46,7 @@ You also have the option to skip entering a query by toggling the disable query 
 .. image:: ../../_static/tools/poet/query-1.png
   :alt: Uploading query
 
+
 Sequence Editor Tools
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -60,32 +63,34 @@ Additional keyboard shortcuts include:
 - Copy and paste sequences  (Ctrl + C / V)
 - Replace highlighted positions with a character (e.g., highlight positions 1–50 and press `X` to mask that region)
 
-These tools allow precise control over the query, enabling you to define exactly which residues or structural positions should guide PoET-2’s generation.
+These tools allow precise control over the query, enabling you to define exactly which residues or structural positions should guide PoET-2's generation.
 
 .. image:: ../../_static/tools/poet/query-2.png
   :alt: Sequence editor tools
 
+
 Creating a Context
 -------------------
 
-You can either use an existing prompt or create a new custom prompt context or build from a Multiple Sequence Alignment (MSA).
+You can create a prompt context in three ways:
 
-1. Use Existing Prompt
-^^^^^^^^^^^^^^^^^^^^^^^
+Use Existing Prompt
+^^^^^^^^^^^^^^^^^^^^
 
-If you already uploaded some prompts, in the **Prompt Type** dropdown, select one. It will load the sequences from the selected prompt.
+If you've previously uploaded prompts, you can reuse them. In the **Prompt Type** dropdown,
+select an existing prompt. The sequences from that prompt will automatically load.
 
 .. image:: ../../_static/tools/poet/prompt-contenxt-use-existing.png
   :alt: Use existing prompt
 
 
-2. Create Custom Context
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Create Custom Context
+^^^^^^^^^^^^^^^^^^^^^^
 
-To create a custom prompt context, in the **Prompt Type** dropdown, select **Create New Prompt** option, and select **Custom** option from the toggle buttons. There are 2 ways to add sequences to your custom context:
+To create a custom prompt context, in the **Prompt Type** dropdown, select **Create New Prompt** option, and select **Custom** option from the toggle buttons. You can add sequences to your custom context in two ways:
 
-1. Click **Choose Files** to select files for your context, we support .fa, .fasta for FASTA files, and .pdb, .cif for structure files.
-2. Manually enter sequences in CSV or Fasta format, then click **Upload** button. If you choose to paste CSV content, please note the following requirements:
+1. **Upload files**: Click **Choose Files** to select files for your context. We support .fa, .fasta for FASTA files, and .pdb, .cif for structure files.
+2. **Manually enter sequences**: Paste sequences in CSV or FASTA format, then click **Upload**.. If you use CSV content, please note the following requirements:
   - It must not include a header row.
   - It can contain a maximum of 2 columns.
   - If there are 2 columns, the first one must be the sequence names.
@@ -93,28 +98,30 @@ To create a custom prompt context, in the **Prompt Type** dropdown, select **Cre
 .. image:: ../../_static/tools/poet/prompt-context-custom-1.png
   :alt: Create custom context
 
-After uploading the first prompt, a files list will appear to let you preview and manage the prompts. You can upload more prompts by dragging the files into the list, or click **Add Files** to manually enter sequences for the selected prompt. You can also drag a file to move to another prompt.
+After uploading the first prompt, a file list will appear where you can preview and manage your prompts. You can upload more prompts by dragging additional files into the list, or click **Add Files** to manually enter sequences for the selected prompt. You can also drag and drop files within the list to move them between prompts.
 
-If a structure contains multiple chains, you can choose which chain to use for the prompt.
+If a structure file contains multiple chains, you can select which chain to use for the prompt.
 
 .. image:: ../../_static/tools/poet/prompt-context-custom-2.png
   :alt: Manage prompts
 
 
-3. Build From MSA
-^^^^^^^^^^^^^^^^^^
+Build From MSA
+^^^^^^^^^^^^^^^
 
 There are serveral options to create a context from an MSA:
 
-1. **Use Existing MSA**: Users can select an existing MSA from the current project.
-2. **Upload MSA**: Users can upload an MSA file directly.
-3. **Run Homology Search Using a Seed Sequence**: Users input a single seed sequence, and PoET builds an MSA by searching for homologs. Please note that when multiple sequences are entered, sequences after the first are ignored.
+1. **Use Existing MSA**: Select an existing MSA from the current project.
+2. **Upload MSA**: Upload an MSA file directly.
+3. **Run Homology Search Using a Seed Sequence**: Enter a single seed sequence, and PoET will generate an MSA by searching for homologs. Note: If multiple sequences are entered, only the first one will be used.
 
 .. image:: ../../_static/tools/poet/prompt-context-msa.png
   :alt: Manage prompts
 
-- Choose the number of prompts to ensemble: Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
-- Set sampling method fields: We suggest you start with the default settings, then adjust subsequent jobs based on your results.
+You can further customize your analysis by:
+
+- **Number of prompts to ensemble**: Choose 1 to sample a single prompt, or 2-15 to increase diversity. We recommend 3-5 prompts for most use cases.
+- **Prompt Sampling Method**: Start with the default settings and fine-tune them based on your results.
 
 
 Uploading and Saving a Sequence-Only Prompt
@@ -182,11 +189,9 @@ MSAs can be uploaded via:
 .. image:: ../../_static/tools/poet/prompt-7.png
   :alt: Uploading MSA on project page
 
-![Uploading MSA popup on pr]()
 
-
-Uploading and saving a sequence only-prompt
------------------
+Uploading And Saving a Sequence Only-Prompt
+--------------------------------------------
 
 Without a Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -222,14 +227,15 @@ What is a Multiple Sequence Alignment?
 
 Multiple sequence alignment (MSA) is a technique for biological sequence analysis. It consists of a sequence alignment of three or more biological sequences that usually have an evolutionary relationship.
 
-Why is MSA useful?
+Why is MSA Useful?
 ------------------
 
 The resulting MSA can be used to infer sequence homology and conduct phylogenetic analysis to assess the sequences’ shared evolutionary origins. Biologically sound and accurate alignments show homology and relationships, allowing for new member identification and the comparison of similar sequences. Because subsequent analysis depends on the results of an MSA, accuracy is vital.
 
 When building a prompt from a MSA, you should include sequences you want to optimize for. The model learns the patterns of the proteins and predicts sequences that best fit that list. Since the model views proteins in their entirety, you cannot optimize for a specific property or activity.
 
-Creating a Prompt using a MSA
+
+Creating a Prompt Using a MSA
 ---------------------------
 
 Without a Project
@@ -301,10 +307,10 @@ Homology search from a seed sequence can be initiated via:
   :alt: single seq popup sidebar
 
 
-Prompt sampling parameters
+Prompt Sampling Parameters
 --------------------------
 
-Prompt sampling definitions
+Prompt Sampling Definitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Sampling method**: defines the sampling strategy used for selecting prompt sequences from the homologs found by homology search, or from the provided MSA. The following strategies are available:
@@ -318,7 +324,7 @@ Prompt sampling definitions
 - **Maximum number of sequences**: The number of sequences sampled from the MSA to form the prompt. The same sequence will not be sampled from the MSA more than once, so the number of sequences in the prompt will never be greater than the number of sequences in the MSA.
 - **Maximum total number of residues**: The maximum total number of residues in all sequences sampled from the MSA to form the prompt. For example, if this is set to 1000, sequences will be sampled from the MSA up to a maximum cumulative length of 1000 residues.
 
-Prompt sampling explained
+Prompt Sampling Explained
 -------------------------
 
 The selection of prompt sequences from the MSA is controlled by several prompt sampling parameters.
