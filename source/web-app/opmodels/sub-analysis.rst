@@ -41,7 +41,7 @@ default.
 .. image:: ../../_static/opmodels/substitution-analysis/image1.png
 
 In the **Models** section, select at least one trained model to run the
-prediction, then select **Run**.
+prediction, then click **Predict**.
 
 Interpreting your results
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,7 +113,7 @@ Currently, sequence names are not supported for submission and will be ignored d
 .. image:: ../../_static/opmodels/substitution-analysis/image4.png
 
 In the **Models** section, select at least one trained model to run the
-prediction, then select **Run**.
+prediction, then click **Predict**.
 
 .. _interpreting-your-results-1:
 
