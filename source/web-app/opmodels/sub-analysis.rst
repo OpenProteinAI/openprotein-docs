@@ -98,7 +98,7 @@ Scoring multiple sequences
 
 To analyze multiple sequences, select **Batch Analysis (Dataset)** from the **Analysis Type** menu.
 You can upload a dataset containing multiple sequences in either .fasta or .csv format. Once uploaded,
-your dataset will appear in a table.
+your dataset will appear.
 
 If you choose to upload a CSV file, please note the following requirements:
 

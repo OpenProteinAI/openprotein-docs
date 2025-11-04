@@ -66,30 +66,56 @@ These tools allow precise control over the query, enabling you to define exactly
   :alt: Sequence editor tools
 
 Creating a Context
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
-Users can either upload a custom context or build one from a Multiple Sequence Alignment (MSA).
+You can either use an existing prompt or create a new custom prompt context or build from a Multiple Sequence Alignment (MSA).
 
-Custom Context
-^^^^^^^^^^^^^^
-- Users can upload `.fasta`, `.csv`, or `.pdb` files.
-- Multiple files can be uploaded to a single prompt/context.
+1. Use Existing Prompt
+^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../_static/tools/poet/context-1.png
-  :alt: Context empty state
+If you already uploaded some prompts, in the **Prompt Type** dropdown, select one. It will load the sequences from the selected prompt.
 
-.. image:: ../../_static/tools/poet/context-2.png
-  :alt: Context populated
+.. image:: ../../_static/tools/poet/prompt-contenxt-use-existing.png
+  :alt: Use existing prompt
 
-Build from MSA
-^^^^^^^^^^^^^^^
-There are two ways to create a context from an MSA:
 
-1. **Upload an existing MSA file:** Users can upload an MSA file directly.  
-2. **Run a homology search using a seed sequence:** Users input a single seed sequence, and PoET builds an MSA by searching for homologs.
+2. Create Custom Context
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../_static/tools/poet/context-3.png
-  :alt: Context build from MSA
+To create a custom prompt context, in the **Prompt Type** dropdown, select **Create New Prompt** option, and select **Custom** option from the toggle buttons. There are 2 ways to add sequences to your custom context:
+
+1. Click **Choose Files** to select files for your context, we support .fa, .fasta for FASTA files, and .pdb, .cif for structure files.
+2. Manually enter sequences in CSV or Fasta format, then click **Upload** button. If you choose to paste CSV content, please note the following requirements:
+  - It must not include a header row.
+  - It can contain a maximum of 2 columns.
+  - If there are 2 columns, the first one must be the sequence names.
+
+.. image:: ../../_static/tools/poet/prompt-context-custom-1.png
+  :alt: Create custom context
+
+After uploading the first prompt, a files list will appear to let you preview and manage the prompts. You can upload more prompts by dragging the files into the list, or click **Add Files** to manually enter sequences for the selected prompt. You can also drag a file to move to another prompt.
+
+If a structure contains multiple chains, you can choose which chain to use for the prompt.
+
+.. image:: ../../_static/tools/poet/prompt-context-custom-2.png
+  :alt: Manage prompts
+
+
+3. Build From MSA
+^^^^^^^^^^^^^^^^^^
+
+There are serveral options to create a context from an MSA:
+
+1. **Use Existing MSA**: Users can select an existing MSA from the current project.
+2. **Upload MSA**: Users can upload an MSA file directly.
+3. **Run Homology Search Using a Seed Sequence**: Users input a single seed sequence, and PoET builds an MSA by searching for homologs. Please note that when multiple sequences are entered, sequences after the first are ignored.
+
+.. image:: ../../_static/tools/poet/prompt-context-msa.png
+  :alt: Manage prompts
+
+- Choose the number of prompts to ensemble: Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
+- Set sampling method fields: We suggest you start with the default settings, then adjust subsequent jobs based on your results.
+
 
 Uploading and Saving a Sequence-Only Prompt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
