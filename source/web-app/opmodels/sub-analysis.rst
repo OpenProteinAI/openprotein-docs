@@ -96,13 +96,20 @@ In the image above, the filters are set to display the top 3 variants at the top
 Scoring multiple sequences
 --------------------------
 
-Upload a dataset with multiple sequences as a .fasta or .CSV file. Your
-dataset is displayed as a table. Select **Batch Analysis (Dataset)** in
-the **Analysis Type** menu.
+To analyze multiple sequences, select **Batch Analysis (Dataset)** from the **Analysis Type** menu.
+You can upload a dataset containing multiple sequences in either .fasta or .csv format. Once uploaded,
+your dataset will appear in a table.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image4.png
+If you choose to upload a CSV file, please note the following requirements:
+- The file must not include a header row.
+- It can contain a maximum of 2 columns.
+- If there are 2 columns, the first one must be the sequence names.
+
+Currently, sequence names are not supported for submission and will be ignored during analysis.
 
 .. image:: ../../_static/opmodels/substitution-analysis/image3.png
+
+.. image:: ../../_static/opmodels/substitution-analysis/image4.png
 
 In the **Models** section, select at least one trained model to run the
 prediction, then select **Run**.
