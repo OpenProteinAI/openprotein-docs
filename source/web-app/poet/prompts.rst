@@ -74,8 +74,8 @@ Creating a Context
 
 You can create a prompt context in three ways:
 
-Use Existing Prompt
-^^^^^^^^^^^^^^^^^^^^
+1. Use Existing Prompt
+~~~~~~~~~~~~~~~~~~~~~~~
 
 If you've previously uploaded prompts, you can reuse them. In the **Prompt Type** dropdown,
 select an existing prompt. The sequences from that prompt will automatically load.
@@ -84,8 +84,8 @@ select an existing prompt. The sequences from that prompt will automatically loa
   :alt: Use existing prompt
 
 
-Create Custom Context
-^^^^^^^^^^^^^^^^^^^^^^
+2. Create Custom Context
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To create a custom prompt context, in the **Prompt Type** dropdown, select **Create New Prompt** option, and select **Custom** option from the toggle buttons. You can add sequences to your custom context in two ways:
 
@@ -106,8 +106,8 @@ If a structure file contains multiple chains, you can select which chain to use 
   :alt: Manage prompts
 
 
-Build From MSA
-^^^^^^^^^^^^^^^
+3. Build From MSA
+~~~~~~~~~~~~~~~~~~
 
 There are serveral options to create a context from an MSA:
 
@@ -125,17 +125,17 @@ You can further customize your analysis by:
 
 
 Uploading and Saving a Sequence-Only Prompt
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------
 
 Without a Project
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 On the **Projects** page, select a PoET tool from the navigation bar. Under **Prompt Definition**, click **Select a file** and choose a `.fasta` or `.csv` file. Ensure **Prompt** is selected before uploading.
 
 .. image:: ../../_static/tools/poet/prompt-1.png
   :alt: Uploading prompt without a project
 
 Within a Project
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~
 Prompts can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **Prompt**, and upload your `.fasta` or `.csv` file.
@@ -157,13 +157,13 @@ Prompts can be uploaded via:
   :alt: Create prompt from MSA page
 
 
-What is a Multiple Sequence Alignment?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+What is a Multiple Sequence Alignment (MSA)?
+---------------------------------------------
 
 Multiple sequence alignment (MSA) is a technique for biological sequence analysis. It consists of a sequence alignment of three or more biological sequences that usually have an evolutionary relationship.
 
 Why is MSA Useful?
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 The resulting MSA can be used to infer sequence homology and conduct phylogenetic analysis to assess the sequences’ shared evolutionary origins. Biologically sound and accurate alignments show homology and relationships, allowing for new member identification and the comparison of similar sequences. Accuracy is vital because subsequent analyses depend on the MSA results.
 
@@ -171,87 +171,20 @@ When building a prompt from an MSA, include sequences you want to optimize. The 
 
 
 Creating a Prompt Using a MSA
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Without a Project
-""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^
 Navigate to any PoET tool under **Prompt Definition**. You can either input the MSA directly or upload an existing `.fa`, `.fasta`, or `.csv` file.
 
 .. image:: ../../_static/tools/poet/prompt-6.png
   :alt: Uploading MSA without a project
 
 Within a Project
-"""""""""""""""""
+^^^^^^^^^^^^^^^^^^
 MSAs can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **MSA**, and input or upload a `.fa`, `.fasta`, or `.csv` file.
-
-.. image:: ../../_static/tools/poet/prompt-7.png
-  :alt: Uploading MSA on project page
-
-
-Uploading And Saving a Sequence Only-Prompt
---------------------------------------------
-
-Without a Project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-On the **Projects** page, select a PoET tool from the navigation bar. Under **Prompt Definition**, click **Select a file** and choose a ``.fasta`` or ``.csv`` file. Ensure **Prompt** is selected before uploading.
-
-.. image:: ../../_static/tools/poet/prompt-1.png
-  :alt: Uploading prompt without a project
-
-Within a Project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Prompts can be uploaded via:
-
-- **Project Page**: Click **Upload**, select **Prompt**, and upload your ``.fasta`` or ``.csv`` file.
-.. image:: ../../_static/tools/poet/prompt-2.png
-  :alt: Uploading prompt from project
-
-- **Left Sidebar**: Click the **Upload** button under the **Prompt** section and select your file.
-
-.. image:: ../../_static/tools/poet/prompt-3.png
-  :alt: Uploading prompt within a project
-  
-.. image:: ../../_static/tools/poet/prompt-4.png
-  :alt: Uploaded prompt preview
-  
-- **From a MSA**: On an existing MSA page, click on **Create Prompt**.
-
-.. image:: ../../_static/tools/poet/prompt-5.png
-  :alt: create prompt from MSA page
-  
-
-What is a Multiple Sequence Alignment?
---------------------------------------
-
-Multiple sequence alignment (MSA) is a technique for biological sequence analysis. It consists of a sequence alignment of three or more biological sequences that usually have an evolutionary relationship.
-
-Why is MSA Useful?
-------------------
-
-The resulting MSA can be used to infer sequence homology and conduct phylogenetic analysis to assess the sequences’ shared evolutionary origins. Biologically sound and accurate alignments show homology and relationships, allowing for new member identification and the comparison of similar sequences. Because subsequent analysis depends on the results of an MSA, accuracy is vital.
-
-When building a prompt from a MSA, you should include sequences you want to optimize for. The model learns the patterns of the proteins and predicts sequences that best fit that list. Since the model views proteins in their entirety, you cannot optimize for a specific property or activity.
-
-
-Creating a Prompt Using a MSA
----------------------------
-
-Without a Project
-~~~~~~~~~~~~~~~~~~~~~
-
-Navigate to any PoET tool under **Prompt Definition**. You can either input the MSA directly or upload an existing ``.fa``, ``.fasta``, or ``.csv`` file.
-
-
-.. image:: ../../_static/tools/poet/prompt-6.png
-  :alt: Uploading MSA without a project
-
-Within a Project
-~~~~~~~~~~~~~~~~~~~~~
-MSAs can be uploaded via:
-
-- **Project Page**: Click **Upload**, select **MSA**, and input or upload a ``.fa``, ``.fasta``, or ``.csv`` file.
 
 .. image:: ../../_static/tools/poet/prompt-7.png
   :alt: Uploading MSA on project page
@@ -267,16 +200,17 @@ MSAs can be uploaded via:
 .. image:: ../../_static/tools/poet/prompt-10.png
   :alt: Uploading MSA popup within a project
 
+
 What is a Seed Sequence?
 ---------------------------
 A seed sequence is a single protein sequence provided by the user to initiate a homology search. PoET does a homology search using public databases like uniprot to build an MSA from the seed sequence. PoET then creates a prompt by randomly selecting sequences from the MSA.
 
 
 Creating a Prompt via Homology Search based on a Seed Sequence
-----------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Without a Project
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 Navigate to any PoET tool under **Prompt Definition**, input a seed sequence, and select **Single Sequence**.
 
@@ -285,7 +219,7 @@ Navigate to any PoET tool under **Prompt Definition**, input a seed sequence, an
 
 
 Within a Project
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 Homology search from a seed sequence can be initiated via:
 
@@ -308,10 +242,7 @@ Homology search from a seed sequence can be initiated via:
 
 
 Prompt Sampling Parameters
---------------------------
-
-Prompt Sampling Definitions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Sampling method**: defines the sampling strategy used for selecting prompt sequences from the homologs found by homology search, or from the provided MSA. The following strategies are available:
    - **Top**: Select sequences based on the order in which they occur in the MSA
@@ -325,7 +256,7 @@ Prompt Sampling Definitions
 - **Maximum total number of residues**: The maximum total number of residues in all sequences sampled from the MSA to form the prompt. For example, if this is set to 1000, sequences will be sampled from the MSA up to a maximum cumulative length of 1000 residues.
 
 Prompt Sampling Explained
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The selection of prompt sequences from the MSA is controlled by several prompt sampling parameters.
 
