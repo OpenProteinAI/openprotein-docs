@@ -145,6 +145,7 @@ Unified access to the models available on our platform.
 
    openprotein.models.ModelsAPI
    openprotein.models.foundation.rfdiffusion.RFdiffusionModel
+   openprotein.models.foundation.boltzgen.BoltzGenModel
   
 .. toctree::
    :maxdepth: 2

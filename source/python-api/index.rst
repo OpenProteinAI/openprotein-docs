@@ -45,9 +45,9 @@ After `installing <./installation.rst>`_ the Python client and `setting up your 
 
 - `Tutorials <./structure-prediction/index.rst>`_
 
-**Structure Generation** using RFdiffusion allows you to generate de novo protein structures based on your design goals.
+**Structure Generation** using models like RFdiffusion and BoltzGen allows you to generate de novo protein structures based on your design goals.
 
-- `API Reference <./api-reference/design.rst>`_
+- `API Reference <./api-reference/models.rst>`_
 
 - `Tutorials <./structure-generation/index.rst>`_
 
