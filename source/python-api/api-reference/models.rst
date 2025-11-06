@@ -31,3 +31,35 @@ BoltzGen
 .. autoclass:: openprotein.models.foundation.boltzgen.BoltzGenFuture
    :members:
    :inherited-members:
+     
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.BoltzGenDesignSpec
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.Entity
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.ProteinEntity
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.LigandEntity
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.FileEntity
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.Constraint
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.BondConstraint
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: openprotein.models.foundation.boltzgen_schema.TotalLengthConstraint
+   :members:
+   :exclude-members: model_config
