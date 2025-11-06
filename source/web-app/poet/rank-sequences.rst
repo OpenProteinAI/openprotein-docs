@@ -1,4 +1,4 @@
-Using the Rank Sequences tool
+Using The Rank Sequences Tool
 ===============================
 
 This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
@@ -7,36 +7,50 @@ On this page, you will learn how to score sequences to predict fitness and rank 
 
 If you run into any challenges or have questions while getting started, please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`_.
 
-What you need before starting
+
+What You Need Before Starting
 ------------------------------
 
 This tool requires a multiple sequence alignment (MSA), from which it builds a prompt. You can upload your own MSA or have the OpenProtein model generate one for you. If you aren’t already familiar with prompts, we recommend learning more about OpenProtein.AI’s `prompts and prompt sampling methods <./prompts.rst>`_ before diving in.
 
 You also need an input sequence, or list of sequences you want to score against the prompt.
 
-Rank your sequences
+
+Rank Your Sequences
 -------------------
 
-To navigate to the tool, open the **PoET** dropdown menu then select **Rank Sequences**.
+Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Rank Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
 
-Add the sequence or sequences you want to score to the **Input sequence** field.
+Step 1: Input Sequences
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Enter the sequence(s) directly, or upload an existing .fa, .fasta, or .csv file.
+You can upload a dataset containing multiple sequences in either .fasta or .csv format. Once uploaded,
+your dataset will appear.
 
-Next, choose the model used to run the job. We recommend using PoET-2 for most use cases. 
+If you choose to upload a CSV file, please note the following requirements:
 
-Then, create your prompt by selecting an existing prompt or adding your custom MSA to the **Prompt Definition** field. Enter the sequence(s) directly, upload an existing .fa, .fasta, or .csv file or select an existing prompt.
+- The file must not include a header row.
+- It can contain a maximum of 2 columns.
+- If there are 2 columns, the first one must be the sequence names.
 
-.. image:: ../../_static/tools/poet/rank-sequences.png
-  :alt: Rank Sequences Tool
+You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
-If you don't have an existing MSA, enter your target protein and select **Single Sequence** OpenProtein.AI generates an MSA by doing a homology search against Uniref using mmseqs2 with default settings from ColabFold. It then uses the MSA to create a prompt.
-Please note that if you select **Single Sequence** when multiple sequences are entered, sequences after the first are ignored.
+.. image:: ../../_static/tools/poet/rank-sequences-1.png
+  :alt: Input Sequences
 
-Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
-Finally, set sampling method fields. We suggest starting with the default settings. If you have specific needs, see `prompt sampling parameters <./prompts.rst>`_.
 
-You're ready to rank your sequences! Select **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
+Step 2: Prompt Query
+^^^^^^^^^^^^^^^^^^^^^
+
+Refer to `Creating a Query <./prompts.rst#creating-a-query>`_ to learn about Prompt Query.
+
+
+Step 3: Prompt Context
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Refer to `Creating a Context <./prompts.rst#creating-a-context>`_ to learn about Prompt Context.
+
+You're ready to rank your sequences! Click **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
 A 400 (Bad request) error code may be due to the following:
 
@@ -54,7 +68,7 @@ A 400 (Bad request) error code may be due to the following:
    * - Invalid user input in align service
      - Ensure you don't have
 
-       - a top_p>1
+       - a top_p > 1
        - a non-valid amino acid
        - Maximum similarity < minimum similarity
        If necessary, refer to the article on `sampling parameters <./prompts.rst#prompt-sampling-definitions>`_.
@@ -65,25 +79,22 @@ A 400 (Bad request) error code may be due to the following:
 
 Please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`_ if the suggested solutions don't resolve the issue.
 
-Interpreting your results
+
+Interpreting Your Results
 -------------------------
 
-PoET modeling returns a relative log-likelihood score to evaluate the fitness of the input sequence relative to the prompt. The higher or less negative the score is, the more fit the sequence.
+Refer to `Interpreting PoET Results Table <./results-table.rst>`_.
 
-The results are presented as a table. You can filter or sort the table, and download it through the user interface (UI) for further analysis.
 
-Explore the local fitness landscape of each sequence using the quick links to the **Substitution Analysis** page. This will run single site analysis for the specified sequence with your prompt. You can also add new sequences to the job using the **Add sequences** button. Details of your input sequence can be found in **Query details**.
-
-The PoET **History** page allows you to view and access past jobs, sorted by created date, job type, and status. Clicking the job ID will take you to the results page for that job.
-
-Fine-tuning your results
+Fine-tuning Your Results
 ------------------------
 
 Improve your results by adding more sequences with your desired properties to your MSA, or by adjusting the **prompt sampling method**. You can also adjust the **Maximum similarity to seed sequence** and **Minimum similarity to seed sequence** fields.
 
 To improve scores, increase the number of the **ensemble** setting. This will result in higher scoring sequences, but will take longer to complete.
 
-Next steps
+
+Next Steps
 ----------
 
 Now that you have a list of sequence variants of interest, you can use `Structure Prediction <../structure-prediction/using-structure-prediction.rst>`_ to visualize the 3D structures of a protein sequence. You can also use `Substitution Analysis <./substitution-analysis.rst>`_ to score all single substitution variants of your parent sequence conditioned on the prompt, and view the results in a heatmap.

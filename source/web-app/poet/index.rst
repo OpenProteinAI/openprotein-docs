@@ -23,6 +23,7 @@ Learn more and get started with our tutorials
 - `PoET prompts and prompt sampling methods <./prompts.rst>`_
 - `Scoring system and log probability <./scoring-log-likelihood.rst>`_
 - `Ensembling <./ensembling.rst>`_
+- `Interpreting PoET Results Table <./results-table.rst>`_
 - `PoET history <./history.rst>`_
 - `Using the Rank Sequences tool <./rank-sequences.rst>`_
 - `Using the Generate Sequences tool <./generate-sequences.rst>`_
@@ -58,6 +59,7 @@ Learn more about what makes PoET state of the art in machine learning for protei
   Prompt and prompt sampling methods <prompts>
   PoET scoring and log-likelihood <scoring-log-likelihood>
   Ensembling <ensembling>
+  Interpreting PoET Results Table <results-table>
   PoET history <history>
   Rank sequences <rank-sequences>
   Generate sequences <generate-sequences>
