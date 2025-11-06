@@ -187,7 +187,7 @@ const apiSchemasAuth = [
 const apiPathAuth = [
   "/api/v1/jobs",
   "/api/v1/jobs/{job_id}",
-  "/api/v1/login/user-access-token",
+  "/api/v1/login/access-token",
 ];
 const apiTagsAuth = [
   {
