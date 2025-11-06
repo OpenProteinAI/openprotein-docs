@@ -469,7 +469,7 @@ const designSpec = {
         tags: ["structure generation"],
         summary: "Design structures using RFdiffusion",
         description:
-          "Create an RFdiffusion structure design job.\n\nCan be used for motif scaffolding, binder design, symmetric structure generation, etc. Also exposes RFpeptides using the cyclic and cyc_chain flags as explained in the RFdiffusion documentation.\n\nNOTE: These design jobs are not compatible with the above endpoints for working with design jobs. Our team is working on unifying these interfaces together.",
+          "Create an RFdiffusion structure design job.\n\nCan be used for motif scaffolding, binder design, symmetric structure generation, etc. Also exposes RFpeptides using the cyclic and cyc_chain flags as explained in the RFdiffusion documentation.\n\nNote that RFdiffusion creates structures only without sequences (all residues set to G). Your workflow should include using inverse-folding, e.g. using PoET-2 with a query. View our full documentation for an example tutorial.",
         operationId: "designRFdiffusion",
         requestBody: {
           description:
@@ -870,6 +870,390 @@ const designSpec = {
           },
         ],
         p: "designRFdiffusion",
+      },
+    },
+    "/api/v1/design/models/boltzgen": {
+      post: {
+        tags: ["structure generation"],
+        summary: "Design structures using BoltzGen",
+        description:
+          "Create a BoltzGen structure design job.\n\nBoltzGen is a diffusion-based model for protein structure and sequence design. It supports:\n- Unconditional protein design\n- Motif scaffolding\n- Binder design\n- Protein-ligand complex design\n- Multi-chain assemblies\n- Cyclic peptides\n- Structure-guided design with secondary structure and binding constraints",
+        operationId: "designBoltzGen",
+        requestBody: {
+          description:
+            "Request to design new structures.\n\nCreates a pending job to design new structures using BoltzGen.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "DesignRequestBoltzGen",
+                description: "Request to design new structures using BoltzGen.",
+                type: "object",
+                required: ["design_spec"],
+                properties: {
+                  n: {
+                    title: "Number of Designs",
+                    description: "Number of unique design trajectories to run.",
+                    type: "integer",
+                    default: 1,
+                    example: 1,
+                    "x-order": 101,
+                  },
+                  design_spec: {
+                    title: "Design Specification",
+                    description:
+                      "BoltzGen design specification defining entities and constraints.",
+                    "x-order": 102,
+                  },
+                  structure_text: {
+                    title: "Structure Text",
+                    description:
+                      "String contents of the input PDB/CIF file for file-based entities. This provides the actual structure content for any FileEntity objects in the design_spec.",
+                    type: "string",
+                    nullable: true,
+                    default: null,
+                    example:
+                      "ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N\n...\n",
+                    "x-order": 103,
+                  },
+                  diffusion_batch_size: {
+                    title: "Diffusion Batch Size",
+                    description:
+                      "The batch size for diffusion sampling. Controls how many samples are processed in parallel during the diffusion process.",
+                    type: "integer",
+                    nullable: true,
+                    default: null,
+                    example: 4,
+                    "x-order": 104,
+                  },
+                  step_scale: {
+                    title: "Step Scale",
+                    description:
+                      "Scaling factor for the number of diffusion steps. Higher values may improve quality at the cost of longer generation time.",
+                    type: "number",
+                    format: "float",
+                    nullable: true,
+                    default: null,
+                    example: 1,
+                    "x-order": 105,
+                  },
+                  noise_scale: {
+                    title: "Noise Scale",
+                    description:
+                      "Scaling factor for the noise schedule during diffusion. Controls the amount of noise added at each step of the reverse diffusion process.",
+                    type: "number",
+                    format: "float",
+                    nullable: true,
+                    default: null,
+                    example: 1,
+                    "x-order": 106,
+                  },
+                },
+                examples: {
+                  unconditional: {
+                    design_spec: {
+                      entities: [
+                        {
+                          protein: {
+                            id: "A",
+                            sequence: "100",
+                          },
+                        },
+                      ],
+                    },
+                  },
+                  binder_design: {
+                    design_spec: {
+                      entities: [
+                        {
+                          file: {
+                            path: "target.pdb",
+                            include: "all",
+                          },
+                        },
+                        {
+                          protein: {
+                            id: "B",
+                            sequence: "50..100",
+                            binding_types: "BBBBBBBBBB",
+                          },
+                        },
+                      ],
+                    },
+                    structure_text: "ATOM ...",
+                  },
+                  protein_ligand: {
+                    design_spec: {
+                      entities: [
+                        {
+                          protein: {
+                            id: "A",
+                            sequence: "80",
+                          },
+                        },
+                        {
+                          ligand: {
+                            id: "B",
+                            ccd: "ATP",
+                          },
+                        },
+                      ],
+                      constraints: [
+                        {
+                          bond: {
+                            atom1: ["A", 10, "CA"],
+                            atom2: ["B", 1, "O"],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                example: {
+                  n: 1,
+                  design_spec: {
+                    entities: [
+                      {
+                        protein: {
+                          id: "A",
+                          sequence: "100",
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Design job created and pending.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Job",
+                  description: "Job represents a job for our compute platform.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "job_type",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Bad request.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Unauthorized.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "403": {
+            description: "Forbidden.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "422": {
+            description: "Validation error.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        p: "designBoltzGen",
       },
     },
     "/api/v1/design/{job_id}/continue": {
@@ -3365,6 +3749,144 @@ const designSpec = {
         example: {
           n: 3,
           contigs: "100-100",
+        },
+      },
+      DesignRequestBoltzGen: {
+        title: "DesignRequestBoltzGen",
+        description: "Request to design new structures using BoltzGen.",
+        type: "object",
+        required: ["design_spec"],
+        properties: {
+          n: {
+            title: "Number of Designs",
+            description: "Number of unique design trajectories to run.",
+            type: "integer",
+            default: 1,
+            example: 1,
+            "x-order": 101,
+          },
+          design_spec: {
+            title: "Design Specification",
+            description:
+              "BoltzGen design specification defining entities and constraints.",
+            "x-order": 102,
+          },
+          structure_text: {
+            title: "Structure Text",
+            description:
+              "String contents of the input PDB/CIF file for file-based entities. This provides the actual structure content for any FileEntity objects in the design_spec.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example:
+              "ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N\n...\n",
+            "x-order": 103,
+          },
+          diffusion_batch_size: {
+            title: "Diffusion Batch Size",
+            description:
+              "The batch size for diffusion sampling. Controls how many samples are processed in parallel during the diffusion process.",
+            type: "integer",
+            nullable: true,
+            default: null,
+            example: 4,
+            "x-order": 104,
+          },
+          step_scale: {
+            title: "Step Scale",
+            description:
+              "Scaling factor for the number of diffusion steps. Higher values may improve quality at the cost of longer generation time.",
+            type: "number",
+            format: "float",
+            nullable: true,
+            default: null,
+            example: 1,
+            "x-order": 105,
+          },
+          noise_scale: {
+            title: "Noise Scale",
+            description:
+              "Scaling factor for the noise schedule during diffusion. Controls the amount of noise added at each step of the reverse diffusion process.",
+            type: "number",
+            format: "float",
+            nullable: true,
+            default: null,
+            example: 1,
+            "x-order": 106,
+          },
+        },
+        examples: {
+          unconditional: {
+            design_spec: {
+              entities: [
+                {
+                  protein: {
+                    id: "A",
+                    sequence: "100",
+                  },
+                },
+              ],
+            },
+          },
+          binder_design: {
+            design_spec: {
+              entities: [
+                {
+                  file: {
+                    path: "target.pdb",
+                    include: "all",
+                  },
+                },
+                {
+                  protein: {
+                    id: "B",
+                    sequence: "50..100",
+                    binding_types: "BBBBBBBBBB",
+                  },
+                },
+              ],
+            },
+            structure_text: "ATOM ...",
+          },
+          protein_ligand: {
+            design_spec: {
+              entities: [
+                {
+                  protein: {
+                    id: "A",
+                    sequence: "80",
+                  },
+                },
+                {
+                  ligand: {
+                    id: "B",
+                    ccd: "ATP",
+                  },
+                },
+              ],
+              constraints: [
+                {
+                  bond: {
+                    atom1: ["A", 10, "CA"],
+                    atom2: ["B", 1, "O"],
+                  },
+                },
+              ],
+            },
+          },
+        },
+        example: {
+          n: 1,
+          design_spec: {
+            entities: [
+              {
+                protein: {
+                  id: "A",
+                  sequence: "100",
+                },
+              },
+            ],
+          },
         },
       },
       DesignContinueRequest: {
