@@ -7,8 +7,9 @@ Sequence generation is done using **Genetic Algorithm** using the property ``pre
 
 Currently, we support the following design approaches:
 
-- **Genetic Algorithm** for sequence generation
-- **RFdiffusion** for structure generation
+- **Genetic Algorithm** - Evolutionary optimization for sequence design
+- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies
+- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides
 
 Endpoints
 ---------
