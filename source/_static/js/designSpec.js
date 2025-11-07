@@ -2882,6 +2882,166 @@ const designSpec = {
         p: "designBoltzGen",
       },
     },
+    "/api/v1/design/{job_id}": {
+      get: {
+        tags: ["structure generation"],
+        summary: "Get structure generate request metadata",
+        description: "Get metadata about structure generate request.\n",
+        parameters: [
+          {
+            name: "job_id",
+            in: "path",
+            description: "Job ID of design request",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Structure generate metadata successfully returned.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "StructureGenerate",
+                  description: "Structure generate request metadata.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                    "model_id",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                    model_id: {
+                      type: "string",
+                      example: "rfdiffusion",
+                    },
+                    args: {
+                      type: "object",
+                      additionalProperties: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Design job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
   },
   components: {
     securitySchemes: {
@@ -4504,6 +4664,93 @@ const designSpec = {
                 },
               },
             ],
+          },
+        },
+      },
+      StructureGenerate: {
+        title: "StructureGenerate",
+        description: "Structure generate request metadata.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+          "model_id",
+        ],
+        properties: {
+          job_id: {
+            title: "JobID",
+            description: "ID of job.",
+            type: "string",
+            format: "uuid",
+            "x-order": 1,
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+          model_id: {
+            type: "string",
+            example: "rfdiffusion",
+          },
+          args: {
+            type: "object",
+            additionalProperties: true,
           },
         },
       },
