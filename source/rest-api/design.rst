@@ -1,13 +1,11 @@
 Design
 ======
 
-The Design API provided by OpenProtein.AI allows you to design new protein sequences and structures.
+The Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily.
 
-Sequence generation is done using **Genetic Algorithm** using the property ``predictors`` that you train on your datasets.
+Currently, we support the following design algorithms:
 
-Currently, we support the following design approaches:
-
-- **Genetic Algorithm** - Evolutionary optimization for sequence design
+- **Genetic Algorithm** - Evolutionary optimization for sequence design using trained `predictors`
 - **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies
 - **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides
 

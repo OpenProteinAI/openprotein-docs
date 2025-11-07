@@ -3,7 +3,7 @@ const designSpec = {
   info: {
     title: "OpenProtein Design",
     description:
-      "# Design API\nThe Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily. \n\nCurrently, we support the following design algorithms:\n- **Genetic Algorithm** - Evolutionary optimization for sequence design\n- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies\n- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides\n",
+      "# Design API\nThe Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily. \n\nCurrently, we support the following design algorithms:\n- **Genetic Algorithm** - Evolutionary optimization for sequence design using trained `predictors`\n- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies\n- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides\n",
     version: "1.0.0",
   },
   paths: {
