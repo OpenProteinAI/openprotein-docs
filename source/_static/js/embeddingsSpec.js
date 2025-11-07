@@ -7005,7 +7005,7 @@ const embeddingsSpec = {
     },
     "/api/v1/embeddings/models/prott5-xl/embed": {
       post: {
-        tags: ["prottrans", "prott5-xl", "embed"],
+        tags: ["community", "prott5-xl", "embed"],
         summary: "prott5-xl embed",
         description:
           "Create embeddings vectors representing input protein sequences using `prott5-xl`.",
@@ -15840,8 +15840,9 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
+                  title: "ScoreJob",
+                  description:
+                    "ScoreJob represents a score job for our platform.",
                   type: "object",
                   required: [
                     "job_id",
@@ -15954,6 +15955,7 @@ const embeddingsSpec = {
                         "/design",
                       ],
                       "x-order": 3,
+                      example: "/embeddings/score",
                     },
                   },
                 },
@@ -16129,8 +16131,9 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
+                  title: "ScoreJob",
+                  description:
+                    "ScoreJob represents a score job for our platform.",
                   type: "object",
                   required: [
                     "job_id",
@@ -16243,6 +16246,7 @@ const embeddingsSpec = {
                         "/design",
                       ],
                       "x-order": 3,
+                      example: "/embeddings/score",
                     },
                   },
                 },
@@ -17706,8 +17710,9 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
+                  title: "GenerateJob",
+                  description:
+                    "GenerateJob represents a generate job for our platform.",
                   type: "object",
                   required: [
                     "job_id",
@@ -17820,6 +17825,7 @@ const embeddingsSpec = {
                         "/design",
                       ],
                       "x-order": 3,
+                      example: "/embeddings/generate",
                     },
                   },
                 },
@@ -18063,8 +18069,9 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
+                  title: "GenerateJob",
+                  description:
+                    "GenerateJob represents a generate job for our platform.",
                   type: "object",
                   required: [
                     "job_id",
@@ -18177,6 +18184,620 @@ const embeddingsSpec = {
                         "/design",
                       ],
                       "x-order": 3,
+                      example: "/embeddings/generate",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "ValidationError.yaml",
+                  description: "An invalid object that could not be parsed.",
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "ErrorDetailList",
+                      type: "array",
+                      items: {
+                        title: "ErrorDetail",
+                        required: ["loc", "msg", "type"],
+                        type: "object",
+                        properties: {
+                          loc: {
+                            title: "Location",
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          msg: {
+                            title: "Message",
+                            type: "string",
+                          },
+                          type: {
+                            title: "Error Type",
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/embeddings/models/proteinmpnn/generate": {
+      post: {
+        tags: ["community", "proteinmpnn", "generate"],
+        summary: "proteinmpnn generate",
+        description: "Use `proteinmpnn` to generate sequences based on score.",
+        requestBody: {
+          description: "Request generate sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "GenerateRequest",
+                description:
+                  "Request for generate sequences using `proteinmpnn`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "ID of the uploaded PDB structure",
+                  },
+                  start_index: {
+                    type: "integer",
+                    description: "Generate start index",
+                    default: 0,
+                  },
+                  model_name: {
+                    type: "string",
+                    enum: ["v_48_002", "v_48_010", "v_48_020", "v_48_030"],
+                    description: "ProteinMPNN model version",
+                  },
+                  ca_only: {
+                    type: "boolean",
+                    description:
+                      "Use CA-only model (v_48_002, v_48_010, v_48_020 only)",
+                  },
+                  soluble_model: {
+                    type: "boolean",
+                    description: "Use soluble model (v_48_010, v_48_020 only)",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 0.1,
+                  },
+                  backbone_noise: {
+                    type: "number",
+                    format: "float",
+                  },
+                  chains_to_design: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  fixed_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  omit_aas_global: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  omit_aas_per_chain_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          positions: {
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          aas: {
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  aa_bias_global: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "number",
+                      format: "float",
+                    },
+                  },
+                  aa_bias_per_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "array",
+                        items: {
+                          type: "number",
+                          format: "float",
+                        },
+                      },
+                    },
+                  },
+                  pssm: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "object",
+                      properties: {
+                        pssm_coef: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_bias: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_log_odds: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  pssm_multi: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_threshold: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_log_odds: {
+                    type: "boolean",
+                  },
+                  pssm_bias: {
+                    type: "boolean",
+                  },
+                  tie_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  score_only: {
+                    type: "boolean",
+                  },
+                  input_sequences: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                    description: "Required if score_only is true",
+                  },
+                  probabilities_output_mode: {
+                    type: "string",
+                    enum: [
+                      "none",
+                      "per_position",
+                      "conditional",
+                      "conditional_backbone",
+                      "unconditional",
+                    ],
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "GenerateRequest",
+                description:
+                  "Request for generate sequences using `proteinmpnn`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "ID of the uploaded PDB structure",
+                  },
+                  start_index: {
+                    type: "integer",
+                    description: "Generate start index",
+                    default: 0,
+                  },
+                  model_name: {
+                    type: "string",
+                    enum: ["v_48_002", "v_48_010", "v_48_020", "v_48_030"],
+                    description: "ProteinMPNN model version",
+                  },
+                  ca_only: {
+                    type: "boolean",
+                    description:
+                      "Use CA-only model (v_48_002, v_48_010, v_48_020 only)",
+                  },
+                  soluble_model: {
+                    type: "boolean",
+                    description: "Use soluble model (v_48_010, v_48_020 only)",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 0.1,
+                  },
+                  backbone_noise: {
+                    type: "number",
+                    format: "float",
+                  },
+                  chains_to_design: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  fixed_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  omit_aas_global: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  omit_aas_per_chain_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          positions: {
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          aas: {
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  aa_bias_global: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "number",
+                      format: "float",
+                    },
+                  },
+                  aa_bias_per_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "array",
+                        items: {
+                          type: "number",
+                          format: "float",
+                        },
+                      },
+                    },
+                  },
+                  pssm: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "object",
+                      properties: {
+                        pssm_coef: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_bias: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_log_odds: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  pssm_multi: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_threshold: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_log_odds: {
+                    type: "boolean",
+                  },
+                  pssm_bias: {
+                    type: "boolean",
+                  },
+                  tie_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  score_only: {
+                    type: "boolean",
+                  },
+                  input_sequences: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                    description: "Required if score_only is true",
+                  },
+                  probabilities_output_mode: {
+                    type: "string",
+                    enum: [
+                      "none",
+                      "per_position",
+                      "conditional",
+                      "conditional_backbone",
+                      "unconditional",
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Generate request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "GenerateJob",
+                  description:
+                    "GenerateJob represents a generate job for our platform.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                    "job_type",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/embeddings/generate",
                     },
                   },
                 },
@@ -18579,7 +19200,7 @@ const embeddingsSpec = {
         },
       },
       Reduction:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1762472757118"></script> </body> </html>',
+        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html>',
       Embed: {
         title: "Embeddings",
         description: "Embeddings request metadata.",
@@ -19017,6 +19638,124 @@ const embeddingsSpec = {
           },
         },
       },
+      ScoreJob: {
+        title: "ScoreJob",
+        description: "ScoreJob represents a score job for our platform.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+          "job_type",
+        ],
+        properties: {
+          job_id: {
+            title: "JobID",
+            description: "ID of job.",
+            type: "string",
+            format: "uuid",
+            "x-order": 1,
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+          job_type: {
+            title: "JobType",
+            description: "Type of job.",
+            type: "string",
+            enum: [
+              "/workflow/preprocess",
+              "/workflow/train",
+              "/workflow/embed/umap",
+              "/workflow/predict",
+              "/workflow/predict/single_site",
+              "/workflow/crossvalidate",
+              "/workflow/evaluate",
+              "/workflow/design",
+              "/align/align",
+              "/align/prompt",
+              "/poet",
+              "/poet/single_site",
+              "/poet/generate",
+              "/poet/score",
+              "/poet/embed",
+              "/poet/logits",
+              "/embeddings/embed",
+              "/embeddings/embed_reduced",
+              "/embeddings/svd",
+              "/svd/fit",
+              "/svd/embed",
+              "/embeddings/attn",
+              "/embeddings/logits",
+              "/embeddings/fold",
+              "/predictor/train",
+              "/predictor/predict",
+              "/predictor/predict_single_site",
+              "/predictor/predict_multi",
+              "/predictor/crossvalidate",
+              "/design",
+            ],
+            "x-order": 3,
+            example: "/embeddings/score",
+          },
+        },
+      },
       IndelScoreRequest: {
         title: "IndelScoreRequest",
         description: "Request for indel scores using `%model_id%`.",
@@ -19040,6 +19779,124 @@ const embeddingsSpec = {
             description: "Number of amino acids to delete from base sequence.",
             nullable: true,
             default: null,
+          },
+        },
+      },
+      GenerateJob: {
+        title: "GenerateJob",
+        description: "GenerateJob represents a generate job for our platform.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+          "job_type",
+        ],
+        properties: {
+          job_id: {
+            title: "JobID",
+            description: "ID of job.",
+            type: "string",
+            format: "uuid",
+            "x-order": 1,
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+          job_type: {
+            title: "JobType",
+            description: "Type of job.",
+            type: "string",
+            enum: [
+              "/workflow/preprocess",
+              "/workflow/train",
+              "/workflow/embed/umap",
+              "/workflow/predict",
+              "/workflow/predict/single_site",
+              "/workflow/crossvalidate",
+              "/workflow/evaluate",
+              "/workflow/design",
+              "/align/align",
+              "/align/prompt",
+              "/poet",
+              "/poet/single_site",
+              "/poet/generate",
+              "/poet/score",
+              "/poet/embed",
+              "/poet/logits",
+              "/embeddings/embed",
+              "/embeddings/embed_reduced",
+              "/embeddings/svd",
+              "/svd/fit",
+              "/svd/embed",
+              "/embeddings/attn",
+              "/embeddings/logits",
+              "/embeddings/fold",
+              "/predictor/train",
+              "/predictor/predict",
+              "/predictor/predict_single_site",
+              "/predictor/predict_multi",
+              "/predictor/crossvalidate",
+              "/design",
+            ],
+            "x-order": 3,
+            example: "/embeddings/generate",
           },
         },
       },
@@ -19169,13 +20026,18 @@ const embeddingsSpec = {
         "ESM2 model with 3B parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
     },
     {
-      name: "prottrans",
-      description: "Community based ProtTrans models.",
+      name: "community",
+      description: "Other community based models.",
     },
     {
       name: "prott5-xl",
       description:
         "prott5-xl\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: \n          ",
+    },
+    {
+      name: "proteinmpnn",
+      description:
+        "ProteinMPNN\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-,:\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,:\n          ",
     },
   ],
 };
