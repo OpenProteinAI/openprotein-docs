@@ -22,6 +22,8 @@ Currently, we support the following models:
 
 - **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. `GitHub link <https://github.com/agemagician/ProtTrans>`__, `Reference <https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554>`__. Licensed under `Academic Free License v3.0 License <https://choosealicense.com/licenses/afl-3.0/>`__.
 
+- **ProteinMPNN**: A deep learning model for sequence design conditioned on a fixed protein backbone. It predicts amino acid sequences likely to fold into a given 3D structure by modeling residue–residue interactions through message passing on the protein’s spatial graph. Used for structure-based protein design, stability optimization, and inverse folding tasks. `GitHub link <https://github.com/dauparas/ProteinMPNN>`__, `Reference <https://www.biorxiv.org/content/10.1101/2022.06.03.494563v1>`__. Licensed under `MIT <https://choosealicense.com/licenses/mit/>`__.
+
 Endpoints
 ---------
 

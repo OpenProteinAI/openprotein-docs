@@ -84,11 +84,10 @@ const HIERARCHY = {
       "esm2_t36_3B_UR50D",
     ],
   },
-  prottrans: {
-    displayName: "ProtTrans",
-    description:
-      "Community based ProtTrans models, with different versions having different model parameters and training data",
-    tags: ["prott5-xl"],
+  community: {
+    displayName: "Community-based",
+    description: "Other community-based foundational models.",
+    tags: ["prott5-xl", "proteinmpnn"],
   },
 };
 
