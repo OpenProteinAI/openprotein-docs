@@ -16,7 +16,7 @@ The endpoints include:
 - Login
 - Jobs
 
-After authenticating, we recommend proceeding directly to the respective workflow pages:
+After authenticating, we recommend starting with uploading some datasets for use with our platform:
 
 `Assay datasets <./assay-datasets.rst>`_
 --------------------------------------------------
