@@ -18,28 +18,14 @@ The endpoints include:
 
 After authenticating, we recommend proceeding directly to the respective workflow pages:
 
-`Property Regression <./property-regression.rst>`_
+`Assay datasets <./assay-datasets.rst>`_
 --------------------------------------------------
 
-Kickoff your Property Regression by using the endpoints to enable analyzing datasets, training sequence-to-function prediction models, using those models to predict properties for new sequences, and designing optimized libraries of sequence variants.
+Upload your assay datasets for use with our platform's property predictors module. 
 
 The endpoints include:
 
 - Assaydata
-- Train
-- Predict
-- Design
-- Jobs
-- Embeddings
-- Predictor
-
-`PoET <./poet.rst>`_
---------------------
-Design *de novo* sequences using these endpoints, without functional measurements of the protein of interest. Our proprietary models enable generation of single substitution, combinatorial variant libraries, or a high-diversity library.
-
-The endpoints include:
-
-- PoET
 
 `Foundation Models <./embeddings.rst>`_
 ---------------------------------------
@@ -85,7 +71,7 @@ The endpoints include:
 
 `Design <./design.rst>`_
 ------------------------------------
-Design de novo sequences and structures on our platform! You can either start from your assays and design sequences which optimize targets using your trained property predictors, or you can start from a target structure and use RFdiffusion to generate a structure based on your input structure.
+Design de novo sequences and structures on our platform! You can either start from your assays and design sequences which optimize targets using your trained property predictors, or you can start from a target structure and use RFdiffusion or BoltzGen to generate a structure based on your input structure.
 
 The endpoints include:
 
@@ -104,12 +90,11 @@ To start accessing our suite of APIs, refer to these articles to get started:
    :hidden:
    :maxdepth: 1
 
-    Authentication and Jobs <authentication-and-jobs>
-    Property Regression <property-regression>
-    PoET <poet>
-    Align <align>
-    Prompt <prompt>
-    Embeddings <embeddings>
-    Fold <fold>
-    Predictor <predictor>
-    Design <design>
+    Authentication and Jobs <./authentication-and-jobs.rst>
+    Assay datasets <./assay-datasets.rst>
+    Align <./align.rst>
+    Prompt <./prompt.rst>
+    Embeddings <./embeddings.rst>
+    Fold <./fold.rst>
+    Predictor <./predictor.rst>
+    Design <./design.rst>
