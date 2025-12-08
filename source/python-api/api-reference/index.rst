@@ -47,8 +47,6 @@ Protein Structures
    openprotein.chains.DNA
    openprotein.chains.RNA
    openprotein.chains.Ligand
-   ..
-      openprotein.model.Model
 
 **Protein** represents a single protein chain with sequence and optional MSA/structure data.
 
