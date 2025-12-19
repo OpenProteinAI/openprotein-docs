@@ -76,5 +76,6 @@ Python API
   Screening insertion locations with PoET <./PoET_api_insertion_screen_nuclear_localization.ipynb>
   Inverse Folding with PoET-2 for Generation of Novel Luciferases <./PoET-2_inverse_folding.ipynb>
   Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>
+  Binder Design With RFdiffusion <./Binder_Design_With_RFdiffusion.ipynb>
   Aligning variable length sequences using Python <aligning-variable>
   Designing libraries of multimeric proteins <multichain>
