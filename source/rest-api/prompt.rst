@@ -9,5 +9,5 @@ Endpoints
 
 .. raw:: html
 
-   <script type="module" src="../_static/js/swaggerPrompt.js"></script>
+   <script type="module" src="/_static/js/swaggerPrompt.js"></script>
    <div id="swagger-ui"></div>

@@ -22,7 +22,7 @@ Accessing the tool
 ------------------------------
 You can access the Indel Analysis tool by selecting Indel Analysis from the top navigation bar, or on the prompt page. 
 
-.. image:: ../../_static/tools/poet/indel-nav.png
+.. image:: /_static/tools/poet/indel-nav.png
    :alt: Access the Tool using the Navigation Bar or prompt page
 
 Specifying indels and input sequence
@@ -52,7 +52,7 @@ For example, given an input sequence of "MNFPRASR" with a deletion length of 3 a
 
 Next, you can enter the sequence you wish to make insertions and deletions of in the **Input Sequence** box.  
 
-.. image:: ../../_static/tools/poet/indel-fields.png
+.. image:: /_static/tools/poet/indel-fields.png
    :alt: Indel Input Fields
 
 After which, you will be required to specify your prompt.

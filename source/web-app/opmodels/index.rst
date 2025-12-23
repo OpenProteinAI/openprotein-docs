@@ -3,7 +3,7 @@ Optimization and Prediction Models for custom sequence design
 
 Our Optimization and Prediction Models (OP Models) learn and predict sequence-to-function relationships from your experimental data. Use your experimental data to train protein language models then use these custom models to visualize and design sequences to meet your specifications.
 
-.. image:: ../../_static/opmodels/index-diagram.png
+.. image:: /_static/opmodels/index-diagram.png
    :alt: OP Models tool
    :width: 80%
 

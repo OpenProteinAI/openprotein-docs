@@ -35,6 +35,7 @@ Step 1: Request `early access <https://openprotein-ai.webflow.io/early-access-fo
    Use your username and password credentials generated at sign-up to authenticate your connection to OpenProtein.AI's backend.
 
    .. code-block:: python
+
       import openprotein
 
       with open('secrets.config', 'r') as f:
@@ -83,7 +84,7 @@ Do you want to...
 
    <div class="row mb-3">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/poet-icon.png" height="60px">
+         <img src="/_static/getting-started/poet-icon.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Make sequence predictions or designs without using any data?</b><br/>
@@ -92,7 +93,7 @@ Do you want to...
    </div>
    <div class="row mb-3">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/bar-chart.png" height="60px">
+         <img src="/_static/getting-started/bar-chart.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Analyze your experimental data for library design?</b><br/>
@@ -102,7 +103,7 @@ Do you want to...
    </div>
    <div class="row mb-3">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/dna-broken.png" height="60px">
+         <img src="/_static/getting-started/dna-broken.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Explore your protein's structure?</b><br/>
@@ -111,7 +112,7 @@ Do you want to...
    </div>
    <div class="row">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/embeddings.svg" height="60px">
+         <img src="/_static/getting-started/embeddings.svg" height="60px">
       </div>
       <div class="col-md-10">
          <b>Obtain embeddings from protein language models?</b><br/>

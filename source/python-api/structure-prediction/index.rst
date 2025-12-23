@@ -1,3 +1,4 @@
+.. _structure-prediction:
 Structure Prediction
 ====================
 

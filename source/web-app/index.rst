@@ -1,7 +1,7 @@
 Our easy-to-use tools facilitate the protein design process
 ===========================================================
 
-.. image:: ../../_static/tools/index/OurTools_Diagram.png
+.. image:: /_static/tools/index/OurTools_Diagram.png
    :width: 60%
    :align: center
 
@@ -83,7 +83,7 @@ Our tools are standalone or can be used together at any point in your project.
 
    PoET <poet/index>
    Optimization and Prediction Models (OP models) <opmodels/index>
-   Structure Prediction <structure-prediction/index>
+   structure-prediction/index
    
 
 

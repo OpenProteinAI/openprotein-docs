@@ -30,7 +30,7 @@ Setting your design objectives
 
 To design custom sequences, navigate to your dataset, then select **Create design**. This opens a new window where you can edit the design name and define your parameters and design objectives. 
 
-.. image:: ../../_static/opmodels/design/create-design.png
+.. image:: /_static/opmodels/design/create-design.png
 
 For each property, set your criteria based on the experimental value you are trying to achieve.
     * Select **Property** to view a dropdown menu with the available property options
@@ -49,7 +49,7 @@ You can also select **Add Objective** to add additional objectives to your desig
 
 Select **Use number of mutations criteria** to explore tradeoffs between the number of mutations in each variant and its predicted properties.
 
-.. image:: ../../_static/opmodels/design/design-criteria.png
+.. image:: /_static/opmodels/design/design-criteria.png
 
 Creating your custom designs
 ----------------------------
@@ -58,7 +58,7 @@ Navigate to your dataset, then select **Create design**. This opens a new window
 where you can edit the design name and define your parameters and design
 objectives.
 
-.. image:: ../../_static/opmodels/design/create-design.png
+.. image:: /_static/opmodels/design/create-design.png
 
 Design constraints
 ^^^^^^^^^^^^^^^^^^
@@ -74,7 +74,7 @@ positions to particular amino acids.
 
     Specify constraints for each site by either editing sites in the sequence box or selecting **Add Rule**. 
 
-    .. image:: ../../_static/opmodels/design/design-constraints-rules.png
+    .. image:: /_static/opmodels/design/design-constraints-rules.png
 
     .. raw:: html
       
@@ -298,14 +298,14 @@ Above each plot, you will find:
 * the value for the standard deviation (**Std Dev**) of the expected number of successes
 * the 95% confidence interval (95% CI) of the number of successes
 
-.. image:: ../../_static/opmodels/design/summary-plot-1.png
+.. image:: /_static/opmodels/design/summary-plot-1.png
 
 
 Hover over specific bins in the histogram to view detailed information on the number of successes and their corresponding probabilities. 
 
 Using model Neo14-avg below as an example, synthesizing the complete library of 1024 designed sequences results in a 4.97% probability that 663 sequences will achieve the target values of your corresponding design criterion. The confidence interval indicates that there is a 95% probability that the number of successes from Neo14_avg of this library will be 647 to 679.
 
-.. image:: ../../_static/opmodels/design/summary-plot-2.png
+.. image:: /_static/opmodels/design/summary-plot-2.png
 
 
 The histograms in the **Distribution of Outcomes** tab offer insights into the expected distribution of outcomes for the entire library. These plots help you determine:
@@ -328,13 +328,13 @@ Hover over bins on the histogram to view:
 The values for the **Mean** and standard deviation (**Std Dev**) for each model
 are indicated above the plot.
 
-.. image:: ../../_static/opmodels/design/summary-plot-3.png
+.. image:: /_static/opmodels/design/summary-plot-3.png
 
 For example, in the case of the model Neo14_avg, the model predicted a mean
 property value of -0.181. Calculations indicate that 16.3% of sequences from the
 entire library are expected to achieve a value between -0.641 and -0.320.
 
-.. image:: ../../_static/opmodels/design/summary-plot-4.png
+.. image:: /_static/opmodels/design/summary-plot-4.png
 
 Troubleshooting your predicted designs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -348,7 +348,7 @@ least one sequence in the library achieving a design criterion. In the example
 below, this statement applies to the design criterion associated with EXACT_GP -
 Ami14_avg, shown in red.
 
-.. image:: ../../_static/opmodels/design/summary-plot-5.png
+.. image:: /_static/opmodels/design/summary-plot-5.png
 
 If you receive this notification, select **Generate more sequences** to continue running the design algorithm. 
 
@@ -369,7 +369,7 @@ design criterion. You may wish to review your design criteria. In the example
 below, this statement applies to the design criterion associated with EXACT_GP -
 Ami14_avg indicated in blue.
 
-.. image:: ../../_static/opmodels/design/summary-plot-6.png
+.. image:: /_static/opmodels/design/summary-plot-6.png
 
 
 The high expected success rate suggests two possibilities. The first is that your design criteria may be misspecified. Make sure your target values and direction are set correctly for your design criteria. 
@@ -378,7 +378,7 @@ The second possibility is that the algorithm has found a large number of candida
 
 If you are pursuing more specific outcomes, increase the aggressiveness of your design criteria to find further optimized sequences. Review and adjust your target values away from current criteria, ensuring the default is adjusted to ensure your designed library reflects your desired outcomes. Additionally, uncheck any criteria for which you do not want predictions.
 
-.. image:: ../../_static/opmodels/design/summary-plot-7.png
+.. image:: /_static/opmodels/design/summary-plot-7.png
 
 Design results
 ^^^^^^^^^^^^^^
@@ -393,15 +393,15 @@ Your designed sequences are colored by their predicted property, and you can adj
 - Highlight specific sequences by clicking on individual points, or hold **Shift** while dragging your cursor to select multiple points.
 - Select the eye icon to the left of sequences in the table to toggle the visibility of a sequence on and off in the UMAP.
 
-.. image:: ../../_static/opmodels/design/design-UMAP.png
+.. image:: /_static/opmodels/design/design-UMAP.png
 
 The **Histogram** tab compares the expected property distributions for the designs against your original library and joint plots for all of the properties. Hover over the graph to view the property, source, binned value, and frequency.
 
-.. image:: ../../_static/opmodels/design/design-histogram.png
+.. image:: /_static/opmodels/design/design-histogram.png
 
 The **Joint plot** tab provides a visual representation of the distribution of individuals of each variable and helps in understanding the relationship between two variables.
 
-.. image:: ../../_static/opmodels/design/design-joint-plot.png
+.. image:: /_static/opmodels/design/design-joint-plot.png
 
 
 The **Design result table** displays all designed and input sequences. If you want to compare your generated results against a benchmark, select **Add a reference sequence** , enter a parent sequence or sequence of interest, and select **Add**. You can update or delete reference sequences by selecting **Edit reference sequence,** choosing your desired action, then selecting **Update**. Using a reference sequence lets you view mutation sites to better understand specific substitutions present in your sequence libraries and designs.

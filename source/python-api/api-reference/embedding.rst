@@ -3,7 +3,7 @@ openprotein.embeddings
 
 Create embeddings for your protein sequences using open-source and proprietary models!
 
-Note that for PoET Models, you will also need to utilize our :doc:`align <align>` workflow.
+Note that for PoET Models, you will also need to supply a :py:class:`~openprotein.prompt.Prompt`.
 
 Interface 
 ---------
@@ -30,17 +30,44 @@ Models
    :members:
    :inherited-members:
 
-Transform models
+These embedding models inherit from a base :py:class:`~openprotein.embeddings.EmbeddingModel`, due to their shared functionality in providing the :py:meth:`~openprotein.embeddings.EmbeddingModel.embed` method. These can also be used to fit the :ref:`transform-models`.
+
+.. autoclass:: openprotein.embeddings.EmbeddingModel
+   :members: 
+
+.. _transform-models:
+
+Transform Models
 ^^^^^^^^^^^^^^^^
 
-These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. Refer to their detailed documentation in `openprotein.svd <./svd.rst#openprotein.svd.SVDModel>`_ and `openprotein.umap <./umap.rst#openprtein.umap.UMAPModel>`_.
+These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. 
+
+:py:class:`~openprotein.svd.SVDModel` represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your :py:class:`~openprotein.data.AssayDataset`. You can fit your own SVD from any model's :py:meth:`~openprotein.embeddings.EmbeddingModel.fit_svd`.  
       
 .. autoclass:: openprotein.svd.SVDModel
+   :members:
+   :inherited-members:
+
+:py:class:`~openprotein.umap.UMAPModel` represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your :py:class:`~openprotein.data.AssayDataset`. You can fit your own UMAP from any model's :py:meth:`~openprotein.embeddings.EmbeddingModel.fit_umap`.  
 
 .. autoclass:: openprotein.umap.UMAPModel
+   :members:
+   :inherited-members:
+
+Reduction methods
+^^^^^^^^^^^^^^^^^
+
+Foundational embedding models also take an optional reduction to use simple pooling methods:
+
+.. autoclass:: openprotein.common.ReductionType()
+   :members:
+
+.. note::
+
+   By default, the :py:meth:`~openprotein.embeddings.EmbeddingModel.embed` method uses the :py:attr:`~openprotein.common.ReductionType.MEAN` reduction to reduce network load. You have to explicitly pass ``reduction=None`` to get full-sized embeddings.
 
 Results
----------
+-------
 
 .. autoclass:: openprotein.embeddings.EmbeddingsResultFuture
    :members:
@@ -54,9 +81,3 @@ Results
    :members:
    :inherited-members:
 
-Base model
-----------
-
-The base embedding model is the base class of all the embedding models.
-
-.. autoclass:: openprotein.embeddings.EmbeddingModel

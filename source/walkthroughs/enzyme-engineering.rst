@@ -42,17 +42,17 @@ We’ll start by running **Substitution Analysis** on the wild-type sequence to 
 
 In this instance, we’ll set the **Number of prompts to ensemble** at 3 and a maximum number of 20 sequences before selecting **Run**, keeping the default parameters.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P1.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P1.png
 
 PoET will generate a heatmap like the one shown below.  As indicated on the heatmap, different positions along EstA have very different tolerance for mutations, represented by a range of log-likelihood scores. The blue regions are likely to better tolerate mutations, while the red regions may be more conserved and are less likely to tolerate mutations.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P2.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P2.png
 
 We can export the heatmap analysis as a CSV file in both wide format and long format. We’ll use this for further analysis later in this walkthrough, so we’ll select **Export** then **To CSV file (wide format)**. You can also export this as a PNG file for visualization purposes such as use as a lab presentation slide or a figure in a publication.
 
 PoET will also suggest **Best variants** and **Best sites** to mutate. The data can be exported as a CSV file, and the number of sites altered as necessary. In the case of EstA, we could consider designing variant libraries around positions 108, 33, 138, 107 and 84 to better understand their mutability. PoET will also suggest the best amino acid to consider for each position.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P3.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P3.png
 
 We usually avoid altering the active site, unless our goal is to alter substrate specificity or activity on a different substrate. In this example, the active site is key for EstA functionality. None of the best sites that PoET suggested for mutation contain the active site, which is located at positions 77, 133, and 156 in the wild-type sequence. Because the suggested best sites are not part of the catalytic triad, they are unlikely to alter the enzyme main catalytic activity.
 
@@ -69,7 +69,7 @@ Let’s copy the engineered sequence (EstA SA1) below and paste it into the sequ
 
     AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSADKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTRYYIKNLDGGNKVANVVTLGGANHGTTGKALPGTDPNQKILYTSIYSSADMIVMPYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
 
-.. image:: ../../_static/walkthroughs/enzymes/OPW1-P3-2.png
+.. image:: /_static/walkthroughs/enzymes/OPW1-P3-2.png
 
 Within a few minutes, OpenProtein.AI generates a predicted structure for our newly designed EstA SA1. We’ll name the structure “EstA SA1” by selecting the pencil icon.
 
@@ -79,7 +79,7 @@ If we want to further analyze our structure, we can select the **Download PDB fi
 programs like Chimera X or PyMol, which allow us to overlap any predicted
 protein structure with the wild-type EstA. 
 
-.. image:: ../../_static/walkthroughs/enzymes/OPW1-P3-3.png
+.. image:: /_static/walkthroughs/enzymes/OPW1-P3-3.png
 
 Exploring the fitness landscape of EstA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -88,7 +88,7 @@ While **Substitution Analysis** finds the best individual sites to mutate, we'd 
 
 To get started, we must convert the log-likelihood score of each amino acid at a given position in the exported file into a relative frequency. You can download the working excel file `here for reference <https://docs.google.com/spreadsheets/d/1EvY1plz0HtuInf2L4ketH7x3Rft6CzT_/edit?usp=drive_link>`_.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P4.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P4.png
 
 To calculate the relative frequency of each amino acid position, we will take the exp(PoET score) divided by sum(exp(PoET score)). E.g. 
 
@@ -96,13 +96,13 @@ To calculate the relative frequency of each amino acid position, we will take th
 
     EXP(B2 - MAX($B2:$U2)) / SUM(EXP($B2:$U2 - MAX($B2:$U2)))
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P5.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P5.png
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P6.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P6.png
 
 Entropy is a measure of amino acid conservation at each site. High entropy corresponds to flexible sites with low conservation while low entropy indicates strongly conserved positions. From the graph below showing the distribution of the Shannon entropy across EstA, we can see certain regions are more tolerant of mutations.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P7.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P7.png
 
 Here, we’re measuring entropy in bits. The highest entropy possible for 20 amino acids, 4.32 bits, means that all amino acids are likely to be equally tolerated. We can also pull out the top and bottom ten positions with the highest and lowest entropy (as seen in the table below). As expected, the catalytic residues, 77, 133 and 156, have the lowest entropy, supporting the need to preserve these specific residues.
 
@@ -236,16 +236,16 @@ This Python code generates a CSV file with the scores column and header removed,
 
     AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P8.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P8.png
     
 
 We will then **Export** the results, which are shown here sorted by their log-likelihood scores. We can compare the additive log-likelihood scores from the PSSM versus the full PoET log-likelihood scores from **Rank sequences**.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P9.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P9.png
 
 As seen below, from plotting the expected log-likelihood score calculated from the PSSM and the log-likelihood score from PoET **Rank Sequence**, there are differences when considering each position additively (PSSM score) versus the mutations in the context of the full length protein (PoET score). The differences highlight the potential epistatic effects which amino acids at different positions can have on each other, and highlights the importance of running generated variants through PoET’s **Rank Sequence** tool to determine the best combinatorial variants to screen. Certain pairs or groups of amino acids that are in contact may need to be conserved or engineered together.
 
-.. image:: ../../_static/walkthroughs/enzymes/PoETW1-P10-1.png
+.. image:: /_static/walkthroughs/enzymes/PoETW1-P10-1.png
 
 PoET is able to uncover potential epistatic effects because the expected fitness score is not completely additive as calculated using the PSSM. In this example, some variants are higher than expected while some are lower than expected. We can now order as many variants as we like from the designed library to synthesize and assay for the desired activity and property.
 

@@ -11,7 +11,7 @@ Inserting your reference sequence
 
 To incorporate a reference sequence into the table, select **Add reference sequence** and paste your sequence into the **Add reference sequence** field, then select **Add**.
 
-.. image:: ../../_static/opmodels/ref-sequence/ref-seq.png
+.. image:: /_static/opmodels/ref-sequence/ref-seq.png
 
 Your chosen sequence will be populated in the first row of the table, while the remaining sequences will be displayed as sites where mutations have been introduced in comparison to the reference sequence. To view the full amino acid sequence, select **Hide mutations**.
 
@@ -40,7 +40,7 @@ Consensus Sequence
 
 The consensus sequence is determined by selecting the most frequent residue at each position in the alignment of sequences in the dataset. If no single residue occurs more frequently than others at a site, or if multiple residues occur with equal frequency, the position will be denoted as **'X'**. 
 
-.. image:: ../../_static/opmodels/ref-sequence/consensus_seq_1.png
+.. image:: /_static/opmodels/ref-sequence/consensus_seq_1.png
 
 Exploring Site Details
 ---------------------------------
@@ -53,7 +53,7 @@ Hover over a position in the histogram to view a tooltip with the following info
    - High Entropy: Indicates a more even distribution of amino acid at the site. Multiple residues occur with varying frequencies.
 - **Residues and Frequencies:** A breakdown of each amino acid at the site and its corresponding frequency (e.g., A: 40%, T: 30%, C: 20%, G: 10%).
 
-.. image:: ../../_static/opmodels/ref-sequence/consensus_seq_2.png
+.. image:: /_static/opmodels/ref-sequence/consensus_seq_2.png
 
 Filtering by Mutations
 ---------------------------------

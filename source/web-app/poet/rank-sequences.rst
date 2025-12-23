@@ -35,7 +35,7 @@ If you choose to upload a CSV file, please note the following requirements:
 
 You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
-.. image:: ../../_static/tools/poet/rank-sequences-1.png
+.. image:: /_static/tools/poet/rank-sequences-1.png
   :alt: Input Sequences
 
 

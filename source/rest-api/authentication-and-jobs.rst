@@ -79,4 +79,4 @@ Endpoints
 
 .. raw:: html
 
-   <script type="module" src="../_static/js/swaggerAuth.js"></script>
+   <script type="module" src="/_static/js/swaggerAuth.js"></script>

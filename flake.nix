@@ -18,8 +18,11 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bashInteractive
-            python313Packages.jupytext
+            dprint
           ];
+          shellHook = ''
+            eval $(pixi shell-hook)
+          '';
         };
       }
     );
