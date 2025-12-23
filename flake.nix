@@ -18,7 +18,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bashInteractive
-            python313Packages.jupytext
+            dprint
           ];
         };
       }

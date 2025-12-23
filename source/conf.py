@@ -16,16 +16,16 @@ author = "NE47.bio"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
+    "sphinx.ext.autodoc",  # auto pull docstrings
+    "sphinx.ext.napoleon",  # handles numpy/google-style docstrings
     "sphinx.ext.viewcode",
     "recommonmark",
     "sphinx_markdown_tables",
     "sphinx_markdown_builder",
-    "nbsphinx",
+    "nbsphinx",  # renders notebooks
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
-    "sphinx.ext.autosummary",
+    "sphinx.ext.autosummary",  # generate api reference summary
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
     "sphinx_togglebutton",
