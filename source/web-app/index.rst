@@ -83,7 +83,7 @@ Our tools are standalone or can be used together at any point in your project.
 
    PoET <poet/index>
    Optimization and Prediction Models (OP models) <opmodels/index>
-   Structure Prediction <structure-prediction/index>
+   structure-prediction/index
    
 
 

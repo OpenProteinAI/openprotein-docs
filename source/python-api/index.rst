@@ -238,6 +238,7 @@ Next Steps
 - **API reference**: Detailed documentation for all classes and methods
 
 .. toctree::
+   :hidden:
 
    Overview <self>
    installation
@@ -245,6 +246,6 @@ Next Steps
    foundation-models/index
    poet/index
    property-regression-models/index
-   structure-prediction/index
+   Structure Prediction </python-api/structure-prediction/index.rst>
    structure-generation/index
    api-reference/index

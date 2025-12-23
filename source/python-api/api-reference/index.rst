@@ -144,10 +144,11 @@ Unified access to the models available on our platform.
 .. autosummary::
 
    openprotein.models.ModelsAPI
-   openprotein.models.foundation.rfdiffusion.RFdiffusionModel
+   openprotein.models.RFdiffusionModel
+   openprotein.models.ProteinMPNNModel
+   openprotein.models.BoltzGenModel
   
 .. toctree::
-   :maxdepth: 2
    :hidden:
    
    openprotein

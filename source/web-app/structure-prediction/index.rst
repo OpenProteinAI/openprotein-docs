@@ -13,9 +13,11 @@ Learn more and get started with our tutorials
 
 .. _Lin2023-cw: https://www.example.com/lin2023-cw
 
+* Using the Python API for Structure Prediction
+
+Learn more about using the Python API for structure predictions at our :ref:`API Tutorials <structure-prediction>`.
 
 .. toctree::
   :hidden:
 
   using-structure-prediction
-  API Tutorials </python-api/structure-prediction/index>
