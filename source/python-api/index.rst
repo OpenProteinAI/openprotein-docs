@@ -242,19 +242,6 @@ Next Steps
    Overview <self>
    installation
    quickstart
-
-.. toctree::
-   :caption: Core Concepts
-
-   core-concepts/proteins-sequences.rst
-   core-concepts/prompt-query.rst
-   core-concepts/foundational-models.rst
-   core-concepts/structure-prediction.rst
-   core-concepts/data-management.rst
-
-.. toctree::
-   :caption: Workflows
-
    foundation-models/index
    poet/index
    property-regression-models/index
