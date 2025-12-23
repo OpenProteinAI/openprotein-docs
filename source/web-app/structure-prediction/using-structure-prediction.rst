@@ -57,7 +57,7 @@ parameters:
 - **Number of relaxation** specifies the number of top ranked structures to relax using AMBER. This parameter is set to 0 by default and accepts integers between 0 and 5. Relaxation is an optional final step in protein structure prediction. It can help resolve rare stereochemical violations and clashes by making small adjustments to the structure using gradient descent in the AMBER force field.
 - **Number of recycles** allows the network to further refine structures using the previous cycle’s output as the new cycle’s input. This parameter is set to **auto** by default and accepts integers between 1 and 48.
 
-.. image:: ../../_static/structure-prediction/AlphaFold2.png
+.. image:: /_static/structure-prediction/AlphaFold2.png
    :alt: AlphaFold2
 
 
@@ -73,7 +73,7 @@ The **Advanced Options** section contains several parameters:
 - **Sampling steps** This sets the number of steps in the diffusion process for each sample
 - **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
 
-.. image:: ../../_static/structure-prediction/boltz.png
+.. image:: /_static/structure-prediction/boltz.png
    :alt: Boltz-1 and Boltz-2
 
 Using ESMFold
@@ -82,7 +82,7 @@ Using ESMFold
 If you select **ESMFold**, the **Advanced Options** section allows you to set
 the **Number of recycles**. This allows the network to further refine structures by using the previous cycle’s output as the new cycle’s input. This parameter is set to **auto** by default and accepts integers between 1 and 48.
 
-.. image:: ../../_static/structure-prediction/ESMFold.png
+.. image:: /_static/structure-prediction/ESMFold.png
    :alt: ESMFold
    
 Using MiniFold
@@ -94,7 +94,7 @@ If you select **MiniFold**, the **Advanced Options** let you set the **Number of
 - Supports only single-chain proteins  
 - Maximum sequence length: **2048**  
 
-.. image:: ../../_static/structure-prediction/minifold.png
+.. image:: /_static/structure-prediction/minifold.png
    :alt: MiniFold
 
 Using RosettaFold-3
@@ -109,7 +109,7 @@ The **Advanced Options** section contains several parameters:
 - **Number of recycles** This refers to how many times the model feeds its output structure back into the network for further refinement.
 - **Number of Steps** Thisrefers to how many iterations or updates the model performs during inference when predicting a structure
 
-.. image:: ../../_static/structure-prediction/rosettafold.png
+.. image:: /_static/structure-prediction/rosettafold.png
    :alt: RosettaFold-3
 
 Visualizing your sequence
@@ -121,7 +121,7 @@ After the model is finished training, it displays a 3D visualization of the prot
 
 A confidence indicator is included as a predicted local distance difference test (pLDDT) score, where a higher score indicates higher confidence in the prediction. Sections of the predicted structure are color coded to correspond with the pLDDT color legend to the right of the structure.
 
-.. image:: ../../_static/structure-prediction/molstar-vis.png
+.. image:: /_static/structure-prediction/molstar-vis.png
    :alt: Molstar Visualization
 
 You can select **Input** to view your design input sequence, or select **New structure prediction** to start a new prediction.
@@ -143,7 +143,7 @@ To add a structure to the viewer:
 
 You can add multiple structures for comparison. Each structure appears as a separate entry in the left panel.
 
-.. image:: ../../_static/structure-prediction/compare-struc-add.png
+.. image:: /_static/structure-prediction/compare-struc-add.png
    :alt: Adding Structures to Mol*
 
 
@@ -154,7 +154,7 @@ Use the eye icon next to each structure in the left panel to toggle its visibili
 
 To remove a structure from the viewer entirely, click the trash can icon next to the structure name.
 
-.. image:: ../../_static/structure-prediction/compare-struc-icon.png
+.. image:: /_static/structure-prediction/compare-struc-icon.png
    :alt: Hiding/deleting Structures from Mol*
 
 Downloading your 3D structure

@@ -103,15 +103,15 @@ OpenProtein.AI's OP models tools use Gaussian process (GP) models. The foundatio
 
 Train your custom models using a dataset you upload. On the dataset page, select **Train Model**.
 
-.. image:: ../../_static/opmodels/models/train-model.png
+.. image:: /_static/opmodels/models/train-model.png
 
 This opens the **Train a Model** popup, where you can configure your model settings. Begin by entering a model name, then select the properties you want the model to predict. Choose an `embedding type and a reduction type </web-app/opmodels/model-train-evaluate.html#understanding-model-options>`_ to tailor the model's behavior.
 
-.. image:: ../../_static/opmodels/models/model-drawer2.png
+.. image:: /_static/opmodels/models/model-drawer2.png
 
 We recommend selecting PoET as the embedding type, as it generates embeddings optimized for specific fitness landscapes. Please note that PoET requires a `prompt </web-app/poet/prompts.html>`_ to guide predictions based on your specified protein family of interest.
 
-.. image:: ../../_static/opmodels/models/model-drawer3.png
+.. image:: /_static/opmodels/models/model-drawer3.png
 
 You're ready to train your custom model! Select **Start training** to initiate the job.
 
@@ -119,11 +119,11 @@ After training a model, OpenProtein.AI automatically evaluates the predictive pe
 
 Once training is complete, access your models from the **Models page** or **Models** section of your project navigation bar. Use the Models page to filter and sort models.
 
-.. image:: ../../_static/opmodels/models/models-page.png
+.. image:: /_static/opmodels/models/models-page.png
 
 View the cross-validation, model calibration results and training curves by selecting a model from the project navigation menu.
 
-.. image:: ../../_static/opmodels/models/models-nav.png
+.. image:: /_static/opmodels/models/models-nav.png
 
 Now that you have trained models, use **Substitution analysis** to screen variants and predict the strength of protein activity. You can also use the **Design** tool to design combinatorial libraries or select which sites to modify.
 
@@ -137,7 +137,7 @@ OpenProtein.AI uses k-fold cross validation. It splits variants into 5 folds, tr
 
 A high correlation between the predicted and ground truth values suggests that the models can accurately predict the substrate activity for new sequence variants.
 
-.. image:: ../../_static/opmodels/models/cross-validation.png
+.. image:: /_static/opmodels/models/cross-validation.png
     :width: 50%
 
 Model calibration
@@ -145,7 +145,7 @@ Model calibration
 
 Model calibration measures how well a model's predicted probabilities align with the actual outcomes, providing insights into the reliability of its predictions. A perfectly calibrated model outputs probabilities that match the true likelihood of an event; for example, if it predicts an outcome with 70% confidence, that outcome should occur 70% of the time.
 
-.. image:: ../../_static/opmodels/models/calibration.png
+.. image:: /_static/opmodels/models/calibration.png
     :width: 50%
 
 One common metric used to evaluate calibration is the Expected Calibration Error (ECE). ECE quantifies the difference between predicted probabilities and observed frequencies by grouping predictions into bins and calculating the weighted average of the absolute calibration error across these bins. Lower ECE values indicate better calibration.
@@ -155,7 +155,7 @@ Training curves
 
 Training curves display how the model's loss changes during the training process, providing insights into its learning progress. The loss measures how far the model's predictions are from the actual values, with lower values indicating better performance. A steadily decreasing loss curve suggests that the model is learning effectively, while a flattening or rising curve could indicate issues such as underfitting or overfitting.
 
-.. image:: ../../_static/opmodels/models/training-curve.png
+.. image:: /_static/opmodels/models/training-curve.png
 
 Fine-tuning your model
 ======================

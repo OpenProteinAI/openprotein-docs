@@ -9,7 +9,7 @@
             <img src="https://anaconda.org/openprotein/openprotein-python/badges/version.svg" class="mb-2 me-1"/>
         </a>
         <a href="https://github.com/OpenProteinAI/openprotein-python" target="_blank">
-            <img src="../_static/github.svg" class="mb-2 me-1"/>
+            <img src="/_static/github.svg" class="mb-2 me-1"/>
         </a>
     </div>
     
@@ -67,20 +67,43 @@ The SDK is organized around key protein engineering workflows:
 Data & Embeddings
 ^^^^^^^^^^^^^^^^^
 
-**Foundation Models** - Generate high-quality protein embeddings from state-of-the-art models
+Foundation Models
+-----------------
 
-- Access to PoET and proprietary OpenProtein models, along with community-based models like ESM.
-- Per-residue or reduced embeddings (mean/sum pooling)
+Foundation models provide high-quality protein embeddings and sequence-level
+representations for downstream analysis and design.
+
+They support both general-purpose and protein-family–conditioned workflows.
+
+**Capabilities**
+
+- Access to PoET, proprietary OpenProtein models, and community models such as ESM
+- Per-residue embeddings or reduced representations (mean / sum pooling)
 - Logits and attention maps for interpretability
-- `Tutorials <./foundation-models/index.rst>`_ | `API Reference <./api-reference/embedding.rst>`_
 
-**PoET** - Conditional protein language model for zero-shot prediction and generation
+.. rubric:: Learn more
 
-- Create prompts from MSAs to condition on protein families
-- Score sequences without experimental data
-- Generate novel sequences with desired properties
-- Single-site analysis for variant effect prediction
-- `Tutorials <./poet/index.rst>`_ | `API Reference <./api-reference/embedding.rst#openprotein.embeddings.PoETModel>`_
+- :doc:`Tutorials <foundation-models/index>`
+- :doc:`API Reference <api-reference/embedding>`
+
+
+PoET
+----
+
+PoET is a conditional protein language model designed for zero-shot prediction
+and generation conditioned on protein families.
+
+**Capabilities**
+
+- Prompt construction from MSAs
+- Zero-shot sequence scoring without experimental data
+- Conditional sequence generation
+- Single-site variant effect analysis
+
+.. rubric:: Learn more
+
+- :doc:`Tutorials <poet>`
+- :class:`API Reference <openprotein.embeddings.PoETModel>`
 
 **Data Management** - Upload and manage your experimental datasets
 
@@ -176,10 +199,10 @@ Next Steps
 
    installation
    overview
-   Jobs System <jobs-system.ipynb>
-   Foundation Models <foundation-models/index>
-   PoET <poet/index>
-   Property Regression Models <property-regression-models/index>
-   Structure Prediction <structure-prediction/index>
-   Structure Generation <structure-generation/index>
-   API Reference <api-reference/index>
+   Jobs System <jobs-system>
+   Foundation Models <foundation-models>
+   PoET <poet/>
+   Property Regression Models <property-regression-models>
+   Structure Prediction <structure-prediction>
+   Structure Generation <structure-generation>
+   API Reference <api-reference>

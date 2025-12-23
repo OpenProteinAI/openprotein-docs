@@ -1,7 +1,7 @@
 Our easy-to-use tools facilitate the protein design process
 ===========================================================
 
-.. image:: ../../_static/tools/index/OurTools_Diagram.png
+.. image:: /_static/tools/index/OurTools_Diagram.png
    :width: 60%
    :align: center
 

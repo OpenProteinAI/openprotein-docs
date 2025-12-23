@@ -12,7 +12,7 @@ Your results are presented in a table, with each generated sequence assigned a l
 
 Right-click any sequence to access local fitness landscapes through the **Run Substitution Analysis** menu. You can also sort your results and export them using the **Export** button.
 
-.. image:: ../../_static/tools/poet/results-table.png
+.. image:: /_static/tools/poet/results-table.png
    :alt: Results Table
 
 
@@ -27,7 +27,7 @@ Once the structure prediction job completes, the structure viewer will appear on
 
 Click a sequence to expand the structure viewer, which will overlay the results table. In this view, you can examine detailed metrics and sequence-to-prompt alignment for the selected sequence.
 
-.. image:: ../../_static/tools/poet/results-table-expanded.png
+.. image:: /_static/tools/poet/results-table-expanded.png
    :alt: Sequence structure viewer
 
 
@@ -36,6 +36,6 @@ Change Reference Structure
 
 By default, the query structure is used as the reference structure for structural comparisons. You can change it by selecting an alternative structure via the **Edit Reference Sequence** button, accessible from the results table **Settings** in the results table.
 
-.. image:: ../../_static/tools/poet/results-table-ref-structure.png
+.. image:: /_static/tools/poet/results-table-ref-structure.png
    :alt: Change reference structure
 

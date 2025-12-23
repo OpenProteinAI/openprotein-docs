@@ -33,7 +33,7 @@ our `blog post <https://www.openprotein.ai/poet-a-high-performing-protein-langua
 
   <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html" class="card-publication" target="_blank" style="margin-top: 2rem">
     <div class="publication-img-container">
-      <img src="../../_static/resources/neural.png" alt="Cell Systems" class="publication-img" height="71px">
+      <img src="/_static/resources/neural.png" alt="Cell Systems" class="publication-img" height="71px">
     </div>
     <div class="publication-description">
       <b>PoET: A generative model of protein families as sequences-of-sequences</b>

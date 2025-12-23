@@ -17,6 +17,6 @@ Endpoints
 
 .. raw:: html
 
-    <script type="module" src="../_static/js/swaggerFold.js"></script>
+    <script type="module" src="/_static/js/swaggerFold.js"></script>
     <div id="swagger-ui"></div>
 

@@ -1,7 +1,15 @@
 Session management
 ======================
 
-Executing workflows is achieved with the `OpenProtein session object <api-reference/basics.rst#openprotein.OpenProtein>`_ ::
+Executing workflows is achieved with the :py:class:`openprotein.OpenProtein` session object. To create a session, you will have to authenticate with your credentials. 
+
+There are 3 ways to provide your credentials:
+
+1. Directly when calling :py:func:`connect` (just an alias to the `OpenProtein` class constructor)  
+2. As environment variables  
+3. Using a configuration file
+
+::
   
     # Use environment variables to store your username and password
     # If using Jupyter, you can use the %env magic command

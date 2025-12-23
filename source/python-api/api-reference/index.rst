@@ -15,6 +15,7 @@ The main entry point for interacting with the OpenProtein.AI platform.
    :toctree: generated/
 
    openprotein.OpenProtein
+   openprotein.connect
 
 Jobs & Futures
 ^^^^^^^^^^^^^^

@@ -14,7 +14,7 @@ To create a project, you will need a dataset formatted as a CSV table with colum
 
 On the OpenProtein.AI home page, select **New Project**.
 
-.. image:: ../../_static/opmodels/overview-projects.png
+.. image:: /_static/opmodels/overview-projects.png
 
 Name your project, then select **Create**.
 
