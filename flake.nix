@@ -20,6 +20,9 @@
             bashInteractive
             dprint
           ];
+          shellHook = ''
+            eval $(pixi shell-hook)
+          '';
         };
       }
     );

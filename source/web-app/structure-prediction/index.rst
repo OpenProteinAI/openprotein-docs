@@ -18,4 +18,4 @@ Learn more and get started with our tutorials
   :hidden:
 
   using-structure-prediction
-  API Tutorials <api/index>
+  API Tutorials </python-api/structure-prediction/index>

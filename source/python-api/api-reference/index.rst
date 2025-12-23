@@ -1,264 +1,162 @@
-API Reference
+API reference
 =============
 
-This reference documents all public classes and methods in the OpenProtein Python SDK.
 
-Core Components
----------------
+Property Regression Models
+--------------------------
 
-Session
-^^^^^^^
+Data
+^^^^
 
-The main entry point for interacting with the OpenProtein.AI platform.
-
-.. autosummary::
-   :toctree: generated/
-
-   openprotein.OpenProtein
-   openprotein.connect
-
-Jobs & Futures
-^^^^^^^^^^^^^^
-
-All API operations return ``Future`` objects for asynchronous job tracking. Use ``wait()`` to block until completion and retrieve results, or ``wait_until_done()`` followed by ``get()`` for more control.
+Upload and store your datasets on our platform to use with your protein engineering tasks.
 
 .. autosummary::
-   :toctree: generated/
-
-   openprotein.jobs.JobsAPI
-   openprotein.jobs.Future
-   openprotein.jobs.Job
-   openprotein.jobs.JobStatus
-
-
-**JobStatus**: PENDING, RUNNING, SUCCESS, FAILED
-
-Data Primitives
----------------
-
-Core data structures for representing proteins, complexes, and experimental data.
-
-Protein Structures
-^^^^^^^^^^^^^^^^^^
-
-.. autosummary::
-   :toctree: generated/
-
-   openprotein.protein.Protein
-   openprotein.chains.DNA
-   openprotein.chains.RNA
-   openprotein.chains.Ligand
-
-**Protein** represents a single protein chain with sequence and optional MSA/structure data.
-
-**DNA/RNA/Ligand** represents non-protein components in a complex.
-
-**Model** represents a multi-chain complex (proteins + chains) for structure prediction and analysis.
-
-Assay Data
-^^^^^^^^^^
-
-.. autosummary::
-   :toctree: generated/
 
    openprotein.data.DataAPI
    openprotein.data.AssayDataset
-   openprotein.data.AssayMetadata
 
-Upload and manage experimental datasets with measured properties for training predictors and design workflows.
+Jobs
+^^^^
 
-
-Foundation Models & Embeddings
-------------------------------
-
-Generate embeddings, logits, and scores using protein language models.
-
-Embedding API
-^^^^^^^^^^^^^
+Retrieve and monitor your jobs.
 
 .. autosummary::
-   :toctree: generated/
 
-   openprotein.embeddings.EmbeddingsAPI
+   openprotein.jobs.JobsAPI
+   openprotein.jobs.Job
 
-Model Classes
-^^^^^^^^^^^^^
+Align
+-----
 
-Each model class provides access to specific foundation models with their unique capabilities.
-
-.. autosummary::
-   :toctree: generated/
-
-   openprotein.embeddings.PoET2Model
-   openprotein.embeddings.PoETModel
-   openprotein.embeddings.ESMModel
-   openprotein.embeddings.OpenProteinModel
-
-**PoET2Model**: Multimodal conditional model with structure and sequence conditioning (1536 dim)
-
-**PoETModel**: Sequence-conditioned generative model for scoring and generation (1280 dim)
-
-**ESMModel**: Meta's ESM family (ESM1b, ESM1v, ESM2 variants, 320-2560 dim)
-
-**OpenProteinModel**: OpenProtein's proprietary models (prot-seq, rotaprot variants, 1024-1536 dim)
-
-Result Types
-^^^^^^^^^^^^
+Align your protein sequences or look up multiple sequence alignments.
 
 .. autosummary::
-   :toctree: generated/
 
-   openprotein.embeddings.EmbeddingsResultFuture
-   openprotein.embeddings.EmbeddingsScoreFuture
-   openprotein.embeddings.EmbeddingsGenerateFuture
+   openprotein.align.AlignAPI
+   openprotein.align.MSAFuture
 
+Prompt
+------
 
-PoET Prompts & Queries
-----------------------
-
-Create and manage prompts for conditioning PoET models on specific protein families.
+Create prompts using sequences and structures to condition our proprietary high-performance PoET foundation models.
 
 .. autosummary::
-   :toctree: generated/
 
    openprotein.prompt.PromptAPI
    openprotein.prompt.Prompt
    openprotein.prompt.Query
 
 
-Sequence Alignment
-------------------
+Foundation models 
+-----------------
 
-Generate multiple sequence alignments (MSA) for evolutionary analysis and structure prediction.
+Use foundation models to produce embeddings and logits with your protein sequences.
 
 .. autosummary::
-   :toctree: generated/
 
-   openprotein.align.AlignAPI
-   openprotein.align.MSAFuture
+   openprotein.embeddings.EmbeddingsAPI
+   
 
-Supports MAFFT, ClustalOmega, and homology search via MMseqs2. Required for AlphaFold2 and Boltz folding.
+Models
+^^^^^^
 
+The foundation models on our platform are classed appropriately to identify the models and group their functionality.
 
-Dimensionality Reduction
-------------------------
+.. autosummary::
 
-Reduce embedding dimensions for visualization and downstream analysis.
+   openprotein.embeddings.PoET2Model
+   openprotein.embeddings.PoETModel
+   openprotein.embeddings.OpenProteinModel
+   openprotein.embeddings.ESMModel
+
+Results
+^^^^^^^
+
+The models produce asynchronous results which are modeled as futures which can be awaited.
+
+.. autosummary::
+
+   openprotein.embeddings.EmbeddingsResultFuture
+   openprotein.embeddings.EmbeddingsScoreFuture
+   openprotein.embeddings.EmbeddingsGenerateFuture
+
+Transform
+---------
+
+Transform and reduce your embeddings for use with visualization and training workflows.
 
 SVD
 ^^^
-
 .. autosummary::
-   :toctree: generated/
 
    openprotein.svd.SVDAPI
    openprotein.svd.SVDModel
 
 UMAP
 ^^^^
-
 .. autosummary::
-   :toctree: generated/
 
    openprotein.umap.UMAPAPI
    openprotein.umap.UMAPModel
 
+Predictor
+---------
 
-Property Prediction
--------------------
-
-Train Gaussian Process models on assay data and predict properties for novel sequences.
+Train predictors from your assay datasets and use them to make predictions on novel sequences.
 
 .. autosummary::
-   :toctree: generated/
 
    openprotein.predictor.PredictorAPI
    openprotein.predictor.PredictorModel
    openprotein.predictor.PredictionResultFuture
 
-Train on ``AssayDataset`` with any embedding model, then predict fitness, stability, or custom properties.
+Design
+------
 
-
-Sequence Design
----------------
-
-Generate optimized sequences using genetic algorithms and trained predictors.
+Design novel protein sequences based on your assay datasets and trained models, optimizing toward your design criteria.
 
 .. autosummary::
-   :toctree: generated/
 
    openprotein.design.DesignAPI
    openprotein.design.DesignFuture
 
-Design sequences to maximize predicted properties while maintaining similarity to parent sequences.
+Fold
+----
 
-
-Structure Prediction
---------------------
-
-Predict 3D structures from sequences using state-of-the-art folding models.
-
-Fold API
-^^^^^^^^
+Make structure predictions on your protein sequences.
 
 .. autosummary::
-   :toctree: generated/
 
    openprotein.fold.FoldAPI
-
-Folding Models
-^^^^^^^^^^^^^^
-
-.. autosummary::
-   :toctree: generated/
-
-   openprotein.fold.ESMFoldModel
-   openprotein.fold.AlphaFold2Model
-   openprotein.fold.Boltz1Model
-   openprotein.fold.Boltz1xModel
+   openprotein.fold.RosettaFold3Model
    openprotein.fold.Boltz2Model
-
-**ESMFold**: Fast single-chain folding, no MSA required
-
-**AlphaFold2**: High-accuracy multi-chain folding, requires MSA
-
-**Boltz1/1x/2**: Multi-chain folding with constraints and affinity prediction
-
-Result Types
-^^^^^^^^^^^^
-
-.. autosummary::
-   :toctree: generated/
-
+   openprotein.fold.Boltz1xModel
+   openprotein.fold.Boltz1Model
+   openprotein.fold.AlphaFold2Model
+   openprotein.fold.ESMFoldModel
    openprotein.fold.FoldResultFuture
-   openprotein.fold.FoldComplexResultFuture
 
+Models
+------
 
-Structure Generation
---------------------
-
-Generate novel protein structures using diffusion models.
+Unified access to the models available on our platform.
 
 .. autosummary::
-   :toctree: generated/
 
    openprotein.models.ModelsAPI
    openprotein.models.foundation.rfdiffusion.RFdiffusionModel
-   openprotein.models.foundation.boltzgen.BoltzGenModel
-
-**RFdiffusion**: Diffusion-based structure generation for binder design
-
-**BoltzGen**: Generative model for protein structure design
-
-
-Enumerations & Constants
--------------------------
-
-Common enumerations used throughout the SDK.
-
-.. autosummary::
-   :toctree: generated/
-
-   openprotein.common.reduction.ReductionType
-
-**ReductionType**: MEAN, SUM for embedding reduction
+  
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   
+   openprotein
+   data
+   jobs
+   align 
+   prompt
+   embedding
+   predictor
+   design
+   fold
+   models

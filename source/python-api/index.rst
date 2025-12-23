@@ -21,12 +21,12 @@ The OpenProtein Python SDK provides a pythonic interface to the OpenProtein.AI p
 Getting Started
 ---------------
 
-1. **Install the package** via pip or conda (`installation guide <./installation.rst>`_)
-2. **Create a session** to authenticate with the platform (`session setup <./overview.rst>`_)
+1. **Install the package** via pip or conda (:doc:`installation guide <installation>`)
+2. **Create a session** to authenticate with the platform (:ref:`session setup <authentication>`)
 3. **Choose your workflow** based on your protein engineering goals
 
-Quick Start
-^^^^^^^^^^^
+Usage
+^^^^^
 
 .. code-block:: python
 
@@ -45,30 +45,28 @@ Core Concepts
 Understanding these primitives will help you work effectively with the SDK:
 
 **Session Management**
-  The ``session`` object (``OpenProtein``) is your gateway to all platform capabilities. It manages authentication and provides access to all API modules (``session.embedding``, ``session.fold``, ``session.predictor``, etc.).
+  The ``session`` object (:py:class:`~openprotein.OpenProtein`) is your gateway to all platform capabilities. It manages authentication and provides access to all API modules (``session.embedding``, ``session.fold``, ``session.predictor``, etc.).
 
 **Asynchronous Jobs**
-  Most operations return ``Future`` objects that track asynchronous jobs. Use ``wait()`` to block until completion, or ``refresh()`` and ``done()`` to poll status. Learn more in the `Jobs System guide <./jobs-system.ipynb>`_.
+  Most operations return :py:class:`~openprotein.jobs.Future` objects that track asynchronous jobs. Use :py:meth:`~openprotein.jobs.Future.wait` to block until completion, and retrieve the results. Learn more in the :ref:`jobs-system` section.
 
 **Protein Primitives**
-  - ``Protein``: Represents a single protein chain with sequence and optional MSA
-  - ``Chain``: Represents ligands, DNA, or RNA molecules  
-  - ``Model``: A collection of proteins and chains forming a complex
-  - ``AssayDataset``: Your experimental data (sequences + measured properties)
+  - :py:class:`~openprotein.Protein`: Represents a single protein chain with sequence and optional MSA
+  - :py:class:`~openprotein.Ligand`, :py:class:`~openprotein.DNA`, :py:class:`~openprotein.RNA`: Represents other possible chains  
+  - :py:class:`~openprotein.Model`: A collection of proteins and chains forming a complex
+  - :py:class:`~openprotein.data.AssayDataset`: Your experimental data (sequences + measured properties)
 
 **Embeddings & Reductions**
-  Foundation models produce embeddings that can be reduced (``MEAN``, ``SUM``), kept per-residue, or transformed with a custom-fitted SVD. These embeddings power downstream prediction and design tasks.
+
+  Foundation models produce embeddings that can be reduced (:py:attr:`~openproten.common.ReductionType.MEAN`, :py:attr:`~openproten.common.ReductionType.SUM`), kept per-residue (with ``reduction=None``), or transformed with a custom-fitted SVD. These embeddings power downstream prediction and design tasks.
 
 Platform Capabilities
 ---------------------
 
 The SDK is organized around key protein engineering workflows:
 
-Data & Embeddings
-^^^^^^^^^^^^^^^^^
-
 Foundation Models
------------------
+^^^^^^^^^^^^^^^^^
 
 Foundation models provide high-quality protein embeddings and sequence-level
 representations for downstream analysis and design.
@@ -88,7 +86,7 @@ They support both general-purpose and protein-family–conditioned workflows.
 
 
 PoET
-----
+""""
 
 PoET is a conditional protein language model designed for zero-shot prediction
 and generation conditioned on protein families.
@@ -102,74 +100,120 @@ and generation conditioned on protein families.
 
 .. rubric:: Learn more
 
-- :doc:`Tutorials <poet>`
-- :class:`API Reference <openprotein.embeddings.PoETModel>`
+- :doc:`poet/index`
+- :class:`~openprotein.embeddings.PoETModel`
 
-**Data Management** - Upload and manage your experimental datasets
+Data Management
+^^^^^^^^^^^^^^^
+
+Upload and manage your experimental datasets
 
 - Store assay data (sequences + measurements) on the platform
 - Use datasets for training predictors and design workflows
-- `API Reference <./api-reference/data.rst>`_
+
+.. rubric:: Learn more
+
+- :doc:`API Reference <api-reference/data>`
 
 Prediction & Design
 ^^^^^^^^^^^^^^^^^^^
 
-**Property Regression Models** - Train custom models on your data
+Property Regression Models
+""""""""""""""""""""""""""
+
+Train custom models on your data
 
 - Fit Gaussian Process models using foundation model embeddings
 - Cross-validation for uncertainty estimation
 - Predict properties for novel sequences
 - Single-site saturation mutagenesis analysis
-- `Tutorials <./property-regression-models/index.rst>`_ | `API Reference <./api-reference/predictor.rst>`_
 
-**Sequence Design** - Optimize sequences for your objectives
+.. rubric:: Learn more
+
+- :doc:`property-regression-models/index`
+- :doc:`API Reference <api-reference/predictor>`
+
+Sequence Design
+"""""""""""""""
+
+Optimize sequences for your objectives
 
 - Genetic algorithm-based design using trained predictors
 - Multi-objective optimization support
 - Design novel variants optimized for your measured properties
-- `Tutorials <./property-regression-models/index.rst>`_ | `API Reference <./api-reference/design.rst>`_
+
+.. rubric:: Learn more
+
+- :doc:`property-regression-models/index`
+- :doc:`API Reference <api-reference/design>`
 
 Structure
 ^^^^^^^^^
 
-**Structure Prediction** - Predict 3D structures from sequences
+Structure Prediction
+""""""""""""""""""""
+
+Predict 3D structures from sequences
 
 - ESMFold for fast single-chain folding
 - AlphaFold2 for high-accuracy multi-chain complexes
 - Boltz (1, 1x, 2) for advanced complex prediction with constraints
 - RosettaFold3 for alternative multi-chain folding
-- `Tutorials <./structure-prediction/index.rst>`_ | `API Reference <./api-reference/fold.rst>`_
 
-**Structure Generation** - Design novel protein structures de novo
+.. rubric:: Learn more
+
+- :doc:`structure-prediction/index`
+- :doc:`API Reference <api-reference/fold>`
+
+Structure Generation
+""""""""""""""""""""
+
+Design binders or novel protein structures de novo
 
 - RFdiffusion for diffusion-based structure generation
 - BoltzGen for generative structure design
 - Useful for binder design and scaffold generation
-- `Tutorials <./structure-generation/index.rst>`_ | `API Reference <./api-reference/models.rst>`_
+  
+.. rubric:: Learn more
+
+- :doc:`structure-generation/index`
+- :doc:`API Reference <api-reference/models>`
 
 Supporting Tools
 ^^^^^^^^^^^^^^^^
 
-**Alignment** - Multiple sequence alignment and antibody numbering
+Alignment
+"""""""""
+
+Multiple sequence alignment and antibody numbering
 
 - Create MSAs via homology search (MMseqs2)
 - MAFFT and ClustalOmega alignment
 - AbNumber for antibody numbering schemes
-- `API Reference <./api-reference/align.rst>`_
 
-**Dimensionality Reduction** - Visualize and analyze embeddings
+.. rubric:: Learn more
+
+- :doc:`API Reference <api-reference/align>`
+
+Dimensionality Reduction
+""""""""""""""""""""""""
+
+Visualize and analyze embeddings
 
 - SVD for linear dimensionality reduction
 - UMAP for non-linear manifold learning
 - Fit on training data, transform new sequences
-- `API Reference <./api-reference/svd.rst>`_ | `API Reference <./api-reference/umap.rst>`_
+
+.. rubric:: Learn more
+
+- :ref:`transform-models`
 
 Common Workflows
 ----------------
 
 **Workflow 1: Zero-shot prediction with PoET**
 
-1. Create MSA from your seed sequence → ``session.align.create_msa()``
+1. Create MSA from your seed sequence →  `session.align.create_msa`
 2. Create a prompt from the MSA → ``session.prompt.create()``
 3. Score your variants → ``session.embedding.poet.score()``
 
@@ -188,21 +232,32 @@ Common Workflows
 Next Steps
 ----------
 
-- **New users**: Start with `Installation <./installation.rst>`_ and `Session Setup <./overview.rst>`_
-- **Learn the basics**: Review the `Jobs System <./jobs-system.ipynb>`_ to understand async operations
+- **New users**: Start with :doc:`installation` and :doc:`quickstart`
+- **Learn the basics**: Review the :ref:`jobs-system` to understand async operations
 - **Explore tutorials**: Browse capability-specific tutorials below
 - **API reference**: Detailed documentation for all classes and methods
 
 .. toctree::
-   :maxdepth: 2
-   :hidden:
 
+   Overview <self>
    installation
-   overview
-   Jobs System <jobs-system>
-   Foundation Models <foundation-models>
-   PoET <poet/>
-   Property Regression Models <property-regression-models>
-   Structure Prediction <structure-prediction>
-   Structure Generation <structure-generation>
-   API Reference <api-reference>
+   quickstart
+
+.. toctree::
+   :caption: Core Concepts
+
+   core-concepts/proteins-sequences.rst
+   core-concepts/prompt-query.rst
+   core-concepts/foundational-models.rst
+   core-concepts/structure-prediction.rst
+   core-concepts/data-management.rst
+
+.. toctree::
+   :caption: Workflows
+
+   foundation-models/index
+   poet/index
+   property-regression-models/index
+   structure-prediction/index
+   structure-generation/index
+   api-reference/index

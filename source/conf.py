@@ -26,16 +26,14 @@ extensions = [
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
     "sphinx.ext.autosummary",  # generate api reference summary
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
+    # "sphinx.ext.todo",
     "sphinx_togglebutton",
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
-    "swagger_plugin_for_sphinx",
     "sphinxcontrib.httpdomain",
     "sphinx_new_tab_link",
     "notfound.extension",
-    "sphinx_panels",
+    "sphinx_design",
 ]
 
 # -- Options for autodoc ----------------------------------------------------
@@ -45,6 +43,8 @@ autoclass_content = "class"
 # Automatically extract typehints when specified and place them in
 # descriptions of the relevant function/method.
 autodoc_typehints = "description"
+
+autodoc_typehints_description_target = "documented"
 
 # Don't show class signature with the class' name.
 autodoc_class_signature = "mixed"
@@ -88,7 +88,7 @@ html_theme_options = {
     "header_links_before_dropdown": 6,
     "show_prev_next": False,
     "use_edit_page_button": False,
-    "show_nav_level": 0,
+    # "show_nav_level": 0,
     "navbar_align": "left",
     "navbar_persistent": [
         "search-button",

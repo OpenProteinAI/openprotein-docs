@@ -35,6 +35,7 @@ Step 1: Request `early access <https://openprotein-ai.webflow.io/early-access-fo
    Use your username and password credentials generated at sign-up to authenticate your connection to OpenProtein.AI's backend.
 
    .. code-block:: python
+
       import openprotein
 
       with open('secrets.config', 'r') as f:
