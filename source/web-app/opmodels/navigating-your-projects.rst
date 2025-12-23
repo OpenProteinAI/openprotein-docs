@@ -3,10 +3,10 @@ Navigating your projects
 
 Your project components are located on the main page of the application and in the navigation panel on the left of your project home screen.
 
-.. image:: ../../_static/opmodels/navigating-your-project/core-mainproject.png
+.. image:: /_static/opmodels/navigating-your-project/core-mainproject.png
 
 
-.. image:: ../../_static/opmodels/navigating-your-project/core-leftnav.png
+.. image:: /_static/opmodels/navigating-your-project/core-leftnav.png
 
 **Datasets** contains your uploaded datasets. Select **Upload** to add a new dataset.
 
@@ -18,4 +18,4 @@ Your project components are located on the main page of the application and in t
 
 You can also view the status and results of your current and past jobs by opening the **Jobs** tab. Please note that once a job has been initiated, you can navigate away from the page without interrupting the job.
 
-.. image:: ../../_static/opmodels/navigating-your-project/job-status.png
+.. image:: /_static/opmodels/navigating-your-project/job-status.png

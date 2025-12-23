@@ -44,7 +44,7 @@ Step 3: Sampling Settings
 
 Set your parameters to control sampling behavior. In particular, **temperature**, **top-p**, and **top-k** provide the ability to focus sampling around highly likely sequences. We recommend that you use either top-p or top-k on a given job, not both. You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
-.. image:: ../../_static/tools/poet/sampling-parameters.png
+.. image:: /_static/tools/poet/sampling-parameters.png
    :alt: Sampling Parameters
 
 You're ready to generate custom sequences! Click **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.

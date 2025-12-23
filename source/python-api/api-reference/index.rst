@@ -128,13 +128,13 @@ Make structure predictions on your protein sequences.
 .. autosummary::
 
    openprotein.fold.FoldAPI
+   openprotein.fold.RosettaFold3Model
    openprotein.fold.Boltz2Model
    openprotein.fold.Boltz1xModel
    openprotein.fold.Boltz1Model
    openprotein.fold.AlphaFold2Model
    openprotein.fold.ESMFoldModel
    openprotein.fold.FoldResultFuture
-   openprotein.fold.FoldComplexResultFuture
 
 Models
 ------
@@ -144,21 +144,19 @@ Unified access to the models available on our platform.
 .. autosummary::
 
    openprotein.models.ModelsAPI
-   openprotein.models.foundation.rfdiffusion.RFdiffusionModel
-   openprotein.models.foundation.boltzgen.BoltzGenModel
+   openprotein.models.RFdiffusionModel
+   openprotein.models.ProteinMPNNModel
+   openprotein.models.BoltzGenModel
   
 .. toctree::
-   :maxdepth: 2
    :hidden:
    
-   basics
+   openprotein
    data
    jobs
    align 
    prompt
    embedding
-   svd
-   umap
    predictor
    design
    fold

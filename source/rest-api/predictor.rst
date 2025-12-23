@@ -16,5 +16,5 @@ Endpoints
 
 .. raw:: html
 
-    <script type="module" src="../_static/js/swaggerPredictor.js"></script>
+    <script type="module" src="/_static/js/swaggerPredictor.js"></script>
     <div id="swagger-ui"></div>

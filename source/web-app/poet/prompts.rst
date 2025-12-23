@@ -43,7 +43,7 @@ You can enter into the sequence editor or upload a query in the following format
 
 You also have the option to skip entering a query by toggling the disable query switch.
 
-.. image:: ../../_static/tools/poet/query-1.png
+.. image:: /_static/tools/poet/query-1.png
   :alt: Uploading query
 
 
@@ -65,7 +65,7 @@ Additional keyboard shortcuts include:
 
 These tools allow precise control over the query, enabling you to define exactly which residues or structural positions should guide PoET-2's generation.
 
-.. image:: ../../_static/tools/poet/query-2.png
+.. image:: /_static/tools/poet/query-2.png
   :alt: Sequence editor tools
 
 
@@ -80,7 +80,7 @@ You can create a prompt context in three ways:
 If you've previously uploaded prompts, you can reuse them. In the **Prompt Type** dropdown,
 select an existing prompt. The sequences from that prompt will automatically load.
 
-.. image:: ../../_static/tools/poet/prompt-contenxt-use-existing.png
+.. image:: /_static/tools/poet/prompt-contenxt-use-existing.png
   :alt: Use existing prompt
 
 
@@ -95,14 +95,14 @@ To create a custom prompt context, in the **Prompt Type** dropdown, select **Cre
   - It can contain a maximum of 2 columns.
   - If there are 2 columns, the first one must be the sequence names.
 
-.. image:: ../../_static/tools/poet/prompt-context-custom-1.png
+.. image:: /_static/tools/poet/prompt-context-custom-1.png
   :alt: Create custom context
 
 After uploading the first prompt, a file list will appear where you can preview and manage your prompts. You can upload more prompts by dragging additional files into the list, or click **Add Files** to manually enter sequences for the selected prompt. You can also drag and drop files within the list to move them between prompts.
 
 If a structure file contains multiple chains, you can select which chain to use for the prompt.
 
-.. image:: ../../_static/tools/poet/prompt-context-custom-2.png
+.. image:: /_static/tools/poet/prompt-context-custom-2.png
   :alt: Manage prompts
 
 
@@ -115,7 +115,7 @@ There are serveral options to create a context from an MSA:
 2. **Upload MSA**: Upload an MSA file directly.
 3. **Run Homology Search Using a Seed Sequence**: Enter a single seed sequence, and PoET will generate an MSA by searching for homologs. Note: If multiple sequences are entered, only the first one will be used.
 
-.. image:: ../../_static/tools/poet/prompt-context-msa.png
+.. image:: /_static/tools/poet/prompt-context-msa.png
   :alt: Manage prompts
 
 You can further customize your analysis by:
@@ -131,7 +131,7 @@ Without a Project
 ~~~~~~~~~~~~~~~~~~
 On the **Projects** page, select a PoET tool from the navigation bar. Under **Prompt Definition**, click **Select a file** and choose a `.fasta` or `.csv` file. Ensure **Prompt** is selected before uploading.
 
-.. image:: ../../_static/tools/poet/prompt-1.png
+.. image:: /_static/tools/poet/prompt-1.png
   :alt: Uploading prompt without a project
 
 Within a Project
@@ -140,20 +140,20 @@ Prompts can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **Prompt**, and upload your `.fasta` or `.csv` file.
 
-.. image:: ../../_static/tools/poet/prompt-2.png
+.. image:: /_static/tools/poet/prompt-2.png
   :alt: Uploading prompt from project
 
 - **Left Sidebar:** Click the **Upload** button under the **Prompt** section and select your file.
 
-.. image:: ../../_static/tools/poet/prompt-3.png
+.. image:: /_static/tools/poet/prompt-3.png
   :alt: Uploading prompt within a project
 
-.. image:: ../../_static/tools/poet/prompt-4.png
+.. image:: /_static/tools/poet/prompt-4.png
   :alt: Uploaded prompt preview
 
 - **From a MSA:** On an existing MSA page, click **Create Prompt**.
 
-.. image:: ../../_static/tools/poet/prompt-5.png
+.. image:: /_static/tools/poet/prompt-5.png
   :alt: Create prompt from MSA page
 
 
@@ -177,7 +177,7 @@ Without a Project
 ^^^^^^^^^^^^^^^^^^^
 Navigate to any PoET tool under **Prompt Definition**. You can either input the MSA directly or upload an existing `.fa`, `.fasta`, or `.csv` file.
 
-.. image:: ../../_static/tools/poet/prompt-6.png
+.. image:: /_static/tools/poet/prompt-6.png
   :alt: Uploading MSA without a project
 
 Within a Project
@@ -186,18 +186,18 @@ MSAs can be uploaded via:
 
 - **Project Page:** Click **Upload**, select **MSA**, and input or upload a `.fa`, `.fasta`, or `.csv` file.
 
-.. image:: ../../_static/tools/poet/prompt-7.png
+.. image:: /_static/tools/poet/prompt-7.png
   :alt: Uploading MSA on project page
 
-.. image:: ../../_static/tools/poet/prompt-8.png
+.. image:: /_static/tools/poet/prompt-8.png
   :alt: Uploading MSA popup on project page
 
 - **Left Sidebar**: Click the **Upload** button under the **MSA** section and input or upload a file.
 
-.. image:: ../../_static/tools/poet/prompt-9.png
+.. image:: /_static/tools/poet/prompt-9.png
   :alt: sidebar MSA upload button
 
-.. image:: ../../_static/tools/poet/prompt-10.png
+.. image:: /_static/tools/poet/prompt-10.png
   :alt: Uploading MSA popup within a project
 
 
@@ -214,7 +214,7 @@ Without a Project
 
 Navigate to any PoET tool under **Prompt Definition**, input a seed sequence, and select **Single Sequence**.
 
-.. image:: ../../_static/tools/poet/prompt-11.png
+.. image:: /_static/tools/poet/prompt-11.png
   :alt: entering seed sequence without a project
 
 
@@ -225,19 +225,19 @@ Homology search from a seed sequence can be initiated via:
 
 - **Project Page**: Click **Upload**, select **MSA**, input a single sequence, and click **Search for homologs to build MSA**.
 
-.. image:: ../../_static/tools/poet/prompt-7.png
+.. image:: /_static/tools/poet/prompt-7.png
   :alt: Uploading MSA on project page
   
-.. image:: ../../_static/tools/poet/prompt-12.png
+.. image:: /_static/tools/poet/prompt-12.png
   :alt: Uploading MSA on project page
   
   
 - **Left Sidebar**: Click the **Upload** button under the **MSA** section, input a sequence, and click **Search for homologs to build MSA**.
 
-.. image:: ../../_static/tools/poet/prompt-9.png
+.. image:: /_static/tools/poet/prompt-9.png
   :alt: sidebar MSA upload button
 
-.. image:: ../../_static/tools/poet/prompt-13.png
+.. image:: /_static/tools/poet/prompt-13.png
   :alt: single seq popup sidebar
 
 

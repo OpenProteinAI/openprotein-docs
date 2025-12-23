@@ -119,9 +119,9 @@ a colon to the sequence box between the heavy chain and light chain.
    >14H + L sequence
    EVQLVETGGGLVQPGGSLRLSCAASGFTLNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSS:DVVMTQSPESLAVSLGERATISCKSSQSVLYESRNKNSVAWYQQKAGQPPKLLIYWASTRESGVPDRFSGSGSGTDFTLTISSLQAEDAAVYYCQQYHRLPLSFGGGTKVEIK
 
-.. image:: ../_static/walkthroughs/multichain/image2.png
+.. image:: /_static/walkthroughs/multichain/image2.png
 
-.. image:: ../_static/walkthroughs/multichain/image6.png
+.. image:: /_static/walkthroughs/multichain/image6.png
 
 Because we used a colon to split up the chains, Mol\* Viewer visualizes
 the chains as separate polymers instead of treating them as a single
@@ -134,14 +134,14 @@ select **Everything** in the drop down menu above the sequence to reveal
 both chains’ sequences for easier manipulation. The structures of all
 the sequences will be shown regardless of selection.
 
-.. image:: ../_static/walkthroughs/multichain/image5.png
+.. image:: /_static/walkthroughs/multichain/image5.png
 
 To measure the distance between the C-terminus of the first subunit to
 the N-terminus of the second subunit, we first switch tools to the
 select tool and select the two residues of interest in the sequence
 space as shown above for Polymer 1: K113 and Polymer 2: E1.
 
-.. image:: ../_static/walkthroughs/multichain/image8.png
+.. image:: /_static/walkthroughs/multichain/image8.png
 
 We’ll select **+Add**, then **Distance (top 2 selection items)**. We can
 now see that the measured distance between the residues is 35.8
@@ -164,7 +164,7 @@ would be useful to test different linkers as needed.
 
    EVQLVETGGGLVQPGGSLRLSCAASGFTLNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSSGGGGSGGGGSGGGGSDVVMTQSPESLAVSLGERATISCKSSQSVLYESRNKNSVAWYQQKAGQPPKLLIYWASTRESGVPDRFSGSGSGTDFTLTISSLQAEDAAVYYCQQYHRLPLSFGGGTKVEIK
 
-.. image:: ../_static/walkthroughs/multichain/image10.png
+.. image:: /_static/walkthroughs/multichain/image10.png
 
 To further analyze our structure, we can select **Download PDB file**.
 The resulting file can be used with molecular visualization programs
@@ -193,7 +193,7 @@ each file to the same project. The platform will automatically generate
 the data categories, but it’s important to ensure that the
 OpenProtein.AI platform has captured the correct names and column types.
 
-.. image:: ../_static/walkthroughs/multichain/image11.png
+.. image:: /_static/walkthroughs/multichain/image11.png
 
 Here, the sequence correctly appears as **Sequence** and the log_kdnm
 correctly appears as **Property**. We’ll also verify that there are no
@@ -208,7 +208,7 @@ chains as a multichain library, we can access a larger protein landscape
 across the individual clusters and sample mutations that allows us to
 access a bigger evolutionary landscape.
 
-.. image:: ../_static/walkthroughs/multichain/image3.png
+.. image:: /_static/walkthroughs/multichain/image3.png
 
 Training our custom model
 -------------------------
@@ -225,7 +225,7 @@ to the server, the OpenProtein.AI GPUs create a custom model specific to
 the targeted property. We’ll repeat this process for all three
 libraries. The figure below shows the 14H+L combined library.
 
-.. image:: ../_static/walkthroughs/multichain/image12.png
+.. image:: /_static/walkthroughs/multichain/image12.png
 
 Designing our variant library using the multichain data
 -------------------------------------------------------
@@ -244,7 +244,7 @@ at 25 and **Number of sequences per design step** at 1024.
 We’ll select **Generate design** to initiate our variant library design,
 which will be complete within a few hours.
 
-.. image:: ../_static/walkthroughs/multichain/image9.png
+.. image:: /_static/walkthroughs/multichain/image9.png
 
 Combining both the heavy and light chain at the same time as a single
 polypeptide allowed us to introduce mutations to both subunits in a
@@ -257,14 +257,14 @@ mutations. Our designed library contains a reference sequence, so we can
 select **Table Settings** and then check **Mutations only** to better
 visualize the mutations in the variants of the designed library.
 
-.. image:: ../_static/walkthroughs/multichain/image7.png
+.. image:: /_static/walkthroughs/multichain/image7.png
 
 We can see that there are mutations introduced to both the heavy and the
 light chain in a single variant. In the five variants below, R56T A101V
 A102E on the heavy chain are found with S158L S159E Q160T W189D on the
 light chain, suggesting possible interactions.
 
-.. image:: ../_static/walkthroughs/multichain/image1.png
+.. image:: /_static/walkthroughs/multichain/image1.png
 
 In the protein structure below, positions 101 and 102 lie close to
 position 189 (these positions are coloured cyan here), indicating that
@@ -272,7 +272,7 @@ there may be interactions across both chains and the residues may
 co-vary together. Uncovering such potential interactions is only
 possible with multichain analysis.
 
-.. image:: ../_static/walkthroughs/multichain/image13.png
+.. image:: /_static/walkthroughs/multichain/image13.png
 
 We can repeat **Design** for the 14H and 14L standalone libraries,
 setting the similar target criteria of <-2.
@@ -283,7 +283,7 @@ with differing properties. We see that the designed library for the
 both chains at the same time, we can achieve a better optimized design
 library.
 
-.. image:: ../_static/walkthroughs/multichain/image4.png
+.. image:: /_static/walkthroughs/multichain/image4.png
 
 Exporting the ML designed variant library
 -----------------------------------------

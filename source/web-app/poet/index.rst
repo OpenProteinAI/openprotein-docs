@@ -3,7 +3,7 @@ Use PoET to predict high quality sequences without data
 
 Protein Evolutionary Transformer (PoET) allows you to design or score sequences and predict variant effects without any starting data or structural information. PoET is a generative protein language model and learns to predict and generate sets of related proteins using evolutionary patterns from natural sequence databases.
 
-.. image::  ../../../source/_static/tools/poet/poet-index.png
+.. image::  /_static/tools/poet/poet-index.png
    :width: 100%
 
 In the same way that large language models (LLMs) make high quality predictions for natural language processing based on a user prompt, protein LLMs can predict amino acid sequence information. Here, a prompt is a set of sequences capturing insights about the local fitness landscape and co-evolutionary patterns for your protein. PoET uses this information to predict the local fitness landscape and calculate the likelihood of observing a specific sequence based on the inferred evolutionary process. You can make your own prompts or PoET can do this for you using multiple sequence alignment.
@@ -11,7 +11,7 @@ In the same way that large language models (LLMs) make high quality predictions 
 Accessing PoET
 ---------------
 
-.. image:: ../../../source/_static/tools/poet/poet-nav.png
+.. image:: /_static/tools/poet/poet-nav.png
    :width: 350px
    :align: center
 
@@ -41,7 +41,7 @@ Learn more about what makes PoET state of the art in machine learning for protei
 
   <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html" class="card-publication" target="_blank" style="margin-top: 2rem">
     <div class="publication-img-container">
-      <img src="../../_static/resources/neural.png" alt="Cell Systems" class="publication-img" height="71px">
+      <img src="/_static/resources/neural.png" alt="Cell Systems" class="publication-img" height="71px">
     </div>
     <div class="publication-description">
       <b>PoET: A generative model of protein families as sequences-of-sequences</b>

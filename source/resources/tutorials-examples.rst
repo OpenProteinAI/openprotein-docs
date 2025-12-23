@@ -10,7 +10,7 @@ Explore our platform capabilities
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_01.png" width="100%">
+                <img src="/_static/tutorial/tutorials_01.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -55,7 +55,7 @@ Function prediction and optimization with your data
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_02.png" width="100%">
+                <img src="/_static/tutorial/tutorials_02.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -101,7 +101,7 @@ Structure prediction
      <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_07.png" width="100%">
+                <img src="/_static/tutorial/tutorials_07.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -135,7 +135,7 @@ Analyzing your data
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_03.png" width="100%">
+                <img src="/_static/tutorial/tutorials_03.png" width="100%">
             </div>
             
             <div class="col-9">
@@ -165,7 +165,7 @@ Navigating your completed work
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_05.png" width="100%">
+                <img src="/_static/tutorial/tutorials_05.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -189,7 +189,7 @@ ML primer for the web app
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_06.png" width="100%">
+                <img src="/_static/tutorial/tutorials_06.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -214,7 +214,7 @@ Embeddings
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_08.png" width="100%">
+                <img src="/_static/tutorial/tutorials_08.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">
@@ -254,7 +254,7 @@ Get familiar with our API
     <div class="container">
         <div class="row my-5">
             <div class="col-3 tutorials-img">
-                <img src="../_static/tutorial/tutorials_04.png" width="100%">
+                <img src="/_static/tutorial/tutorials_04.png" width="100%">
             </div>
             <div class="col-9">
                 <div class="row">

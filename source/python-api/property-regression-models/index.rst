@@ -5,25 +5,24 @@ Our Python API Property Regression Models allow you to harness our platform’s 
 
 There are three main modules:
 
-* Our `Data <../api-reference/data.rst>`_ module allows you to upload your dataset to OpenProtein.AI’s engineering platform. This dataset forms the basis for training and design tasks. Your data should be formatted as a 2 column CSV, including the full sequence of each variant and one or more columns for your measured properties.  
+* Our :doc:`/python-api/api-reference/data` module allows you to upload your dataset to OpenProtein.AI’s engineering platform. This dataset forms the basis for training and design tasks. Your data should be formatted as a 2 column CSV, including the full sequence of each variant and one or more columns for your measured properties.  
  
-* Our `Predictor <../api-reference/predictor.rst>`_ module provides functions to create and use models on your measured properties. This step is essential for enabling predictions for new sequences. These workflows also perform cross-validation on your models to estimate uncertainty. The **Predictor** module also provides functions to make predictions on arbitrary sequences using your custom trained models, including predictions for single sequences as well as single mutant variants of the sequence. You can also experiment with various supported embedding models from our `Embedding <../api-reference/embedding.rst>`_ module. 
+* Our :doc:`/python-api/api-reference/predictor` module provides functions to create and use models on your measured properties. This step is essential for enabling predictions for new sequences. These workflows also perform cross-validation on your models to estimate uncertainty. The **Predictor** module also provides functions to make predictions on arbitrary sequences using your custom trained models, including predictions for single sequences as well as single mutant variants of the sequence. You can also experiment with various supported embedding models from our :doc:`/python-api/api-reference/embedding` module. 
  
-* Our `Design <../api-reference/design.rst>`_ module provides the capability to design new sequences based on your objectives.
+* Our :doc:`/python-api/api-reference/design` module provides the capability to design new sequences based on your objectives.
 
 Get started using Property Regression Models
 --------------------------------------------
 
 **Tutorials:**
 
-* `Uploading data <./uploading-data.ipynb>`_
-* `Training models <./training-models.ipynb>`_
-* `Designing sequences <./designing-sequences.ipynb>`_ 
-* `Predicting sequences <./predicting-sequences.ipynb>`_
-* `Single site analysis <./single-site-analysis.ipynb>`_
+* :doc:`Uploading data <./uploading-data>`
+* :doc:`Training models <./training-models>`
+* :doc:`Designing sequences <./designing-sequences>` 
+* :doc:`Predicting sequences <./predicting-sequences>`
+* :doc:`Single site analysis <./single-site-analysis>`
 
-`API Reference <../api-reference/index.rst>`_
-
+:doc:`API Reference </python-api/api-reference/index>`
 
 .. toctree::
    :hidden:

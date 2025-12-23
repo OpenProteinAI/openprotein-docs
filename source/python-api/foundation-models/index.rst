@@ -39,8 +39,8 @@ Get started using foundation models
     :hidden:
     :maxdepth: 2
 
-    SVD and embeddings <SVD-embeddings>
+    Basic inference <basic-inference>
     Model metadata <model-metadata>
+    SVD and embeddings <SVD-embeddings>
     Logits <logits>
-    Basic inference endpoints <basic-inference-endpoints>
     Attention maps <attention-maps>

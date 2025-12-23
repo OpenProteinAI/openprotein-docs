@@ -28,7 +28,7 @@ Uploading our data
 
 In this walkthrough, we will be using the dataset found in "Machine learning optimization of candidate antibody yields highly diverse sub-nanomolar affinity antibody libraries", Lin Li et al :cite:year:`li2023machine`, specifically the 14L variant library data shown here. This library was generated using phage display, which is a common way to generate antibody libraries to look for high affinity binders. OP Models can work with data generated through phage display, yeast display, ribosome display or mammalian cell display libraries as well as clones isolated from naive or immune mice models.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image1.png
+.. image:: /_static/walkthroughs/antibody/ab-image1.png
 
 We can directly use this dataset that has been formatted and ready for upload. You can download it `here <../resources/demo-datasets.rst>`__.
 
@@ -40,20 +40,20 @@ For this walkthrough, we will focus on a single property. Our dataset has comple
 
 To begin, we will create a project in OP models by selecting **New Project** and naming it project “Antibody optimization 14L”.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image2.png
+.. image:: /_static/walkthroughs/antibody/ab-image2.png
    :align: center
 
 We then upload the 14L dataset by selecting **Upload dataset** and navigating to the CSV file in the file explorer. The platform will automatically generate the data categories, but it’s important to ensure that the OpenProtein.AI platform has captured the correct names and column types. Here, we have the sequence displayed as **Sequence** and the log_kdnm as **Property** as we would have wanted. We should also verify that there are no invalid values found in the dataset or we will need to reformat the CSV file as per `Uploading your data <../web-app/opmodels/uploading-your-data.rst>`__.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image3.png
+.. image:: /_static/walkthroughs/antibody/ab-image3.png
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image4.gif
+.. image:: /_static/walkthroughs/antibody/ab-image4.gif
 
 Our data is now ready for use.
 
 Upon successful upload, the system will automatically perform preprocessing as well as queue up a Uniform Manifold Approximation and Projection (UMAP) job for visualization.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image5.png
+.. image:: /_static/walkthroughs/antibody/ab-image5.png
 
 Visualizing our data
 ^^^^^^^^^^^^^^^^^^^
@@ -64,7 +64,7 @@ The UMAP uses dimensionality reduction to represent many dimensions on a 2D plot
 
 This dataset has > 15 clusters of differing sizes, indicating that we have a fairly diverse training set. This allows us to build more robust models from a potentially smaller dataset. Don’t worry if your own data doesn’t have similar diversity in variants; OpenProtein.AI can still be used to design variant libraries in an iterative fashion. In the absence of diverse data, consider combining your first ML-designed variant library data with your original data and re-running the whole pipeline to generate a better model with OP Models.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image6.gif
+.. image:: /_static/walkthroughs/antibody/ab-image6.gif
 
 We can tweak the colors as well as explore the different clusters here to create figures for presentation. Dragging the cursor across an area to select a cluster of interest will also highlight the corresponding sequences in the dataset table. The tutorial on `Visualizing your data <../web-app/opmodels/visualization.rst>`__ contains more details about other visualization options.
 
@@ -75,7 +75,7 @@ Before we can start predicting new antibody variants, we need to train a custom 
 
 To train the custom model, we first navigate to the dataset we had uploaded and then select **Train Model**. We'll select the property “log_kdnm”, then select **Start training** to initiate the job. Once the job is submitted to the server, the OpenProtein.AI GPUs create a custom model specific to the targeted property. In this example, we are predicting for a better binder against the peptide PDVDLGDISGINAS with OP Models.
 
-.. image:: ../../_static/walkthroughs/antibody/ab-image7.png
+.. image:: /_static/walkthroughs/antibody/ab-image7.png
 
 After training a model, we can also evaluate the impact of each substitution using **Substitution Analysis**. This is covered in the tutorial on `Substitution Analysis <../web-app/opmodels/sub-analysis.rst>`__.
 

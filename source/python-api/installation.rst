@@ -16,7 +16,8 @@ conda
 
    conda install -c openprotein openprotein-python
 
-Github
---------
+.. rubric:: Source code
+            
+The source code is available at `<https://github.com/OpenProteinAI/openprotein-python>`_.
 
-The source code is available `here <https://github.com/OpenProteinAI/openprotein-python>`_.
+   
