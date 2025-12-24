@@ -53,9 +53,11 @@ dev = [
   "hatch-vcs>=0.5.0,<1",
   "editables>=0.5,<0.6",
 ]
+nb = ["molviewspec", "ipykernel"]
 
 [tool.pixi.environments]
 dev = ["dev"]
+dev-nb = ["dev", "nb"]
 
 [tool.pixi.dependencies]
 pygments = ">=2.19.2,<3"
