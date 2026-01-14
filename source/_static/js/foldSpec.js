@@ -250,40 +250,43 @@ const foldSpec = {
                   sequences: {
                     type: "array",
                     items: {
-                      oneOf: [
-                        {
-                          title: "Protein",
-                          description: "Protein to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            title: "Protein",
+                            description: "Protein to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Amino acid sequence of the protein chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Amino acid sequence of the protein chain.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
                             },
                           },
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   num_recycles: {
@@ -575,40 +578,43 @@ const foldSpec = {
                   sequences: {
                     type: "array",
                     items: {
-                      oneOf: [
-                        {
-                          title: "Protein",
-                          description: "Protein to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            title: "Protein",
+                            description: "Protein to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Amino acid sequence of the protein chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Amino acid sequence of the protein chain.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
                             },
                           },
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   num_recycles: {
@@ -901,28 +907,31 @@ const foldSpec = {
                   sequences: {
                     type: "array",
                     items: {
-                      oneOf: [
-                        {
-                          type: "object",
-                          required: ["msa_id"],
-                          properties: {
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                             },
                           },
-                          title: "ProteinWithMSA",
-                          description: "Protein object with MSA specified.",
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   num_recycles: {
@@ -1233,138 +1242,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      oneOf: [
-                        {
-                          type: "object",
-                          required: ["msa_id"],
-                          properties: {
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                             },
                           },
-                          title: "ProteinWithMSA",
-                          description: "Protein object with MSA specified.",
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -1550,25 +1562,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence: "MVTPEGNV...",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -1875,138 +1889,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      oneOf: [
-                        {
-                          type: "object",
-                          required: ["msa_id"],
-                          properties: {
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                             },
                           },
-                          title: "ProteinWithMSA",
-                          description: "Protein object with MSA specified.",
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -2192,25 +2209,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence: "MVTPEGNV...",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -2516,138 +2535,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      oneOf: [
-                        {
-                          type: "object",
-                          required: ["msa_id"],
-                          properties: {
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                             },
                           },
-                          title: "ProteinWithMSA",
-                          description: "Protein object with MSA specified.",
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -2863,25 +2885,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence: "MVTPEGNV...",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -3195,66 +3219,69 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      oneOf: [
-                        {
-                          type: "object",
-                          required: ["msa_id"],
-                          properties: {
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                             },
                           },
-                          title: "ProteinWithMSA",
-                          description: "Protein object with MSA specified.",
-                          example: {
-                            id: "A",
-                            sequence: "MVTPEGNV...",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   diffusion_samples: {
@@ -3275,25 +3302,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: "A",
-                        sequence: "MVTPEGNV...",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: "A",
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: "B",
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: "B",
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: "C",
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: "C",
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   diffusion_samples: 2,
                   num_recycles: 4,
@@ -4388,39 +4417,43 @@ const foldSpec = {
           sequences: {
             type: "array",
             items: {
-              oneOf: [
-                {
-                  title: "Protein",
-                  description: "Protein to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    title: "Protein",
+                    description: "Protein to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description:
+                          "Amino acid sequence of the protein chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Amino acid sequence of the protein chain.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
                     },
                   },
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           num_recycles: {
@@ -4849,39 +4882,43 @@ const foldSpec = {
           sequences: {
             type: "array",
             items: {
-              oneOf: [
-                {
-                  title: "Protein",
-                  description: "Protein to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    title: "Protein",
+                    description: "Protein to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description:
+                          "Amino acid sequence of the protein chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Amino acid sequence of the protein chain.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
                     },
                   },
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           num_recycles: {
@@ -4923,28 +4960,31 @@ const foldSpec = {
           sequences: {
             type: "array",
             items: {
-              oneOf: [
-                {
-                  type: "object",
-                  required: ["msa_id"],
-                  properties: {
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                     },
                   },
-                  title: "ProteinWithMSA",
-                  description: "Protein object with MSA specified.",
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           num_recycles: {
@@ -5237,135 +5277,139 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              oneOf: [
-                {
-                  type: "object",
-                  required: ["msa_id"],
-                  properties: {
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                     },
                   },
-                  title: "ProteinWithMSA",
-                  description: "Protein object with MSA specified.",
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
                     },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
                     },
                   },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-                {
-                  title: "DNA",
-                  description: "DNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "DNA",
+                    description: "DNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the DNA chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the DNA chain.",
+                    example: {
+                      id: ["A", "B"],
+                      sequence:
+                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                  },
-                },
-                {
-                  title: "RNA",
-                  description: "RNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "RNA",
+                    description: "RNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the RNA chain.",
+                      },
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the RNA chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+                    example: {
+                      id: "A",
+                      sequence:
+                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                     },
                   },
-                  example: {
-                    id: "A",
-                    sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           constraints: {
@@ -5550,25 +5594,27 @@ const foldSpec = {
         },
         example: {
           sequences: [
-            {
-              protein: {
-                id: ["A", "B"],
-                sequence: "MVTPEGNV...",
-                msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["C", "D"],
-                ccd: "SAH",
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["E", "F"],
-                smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
               },
-            },
+            ],
           ],
           constraints: [
             {
@@ -5607,135 +5653,139 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              oneOf: [
-                {
-                  type: "object",
-                  required: ["msa_id"],
-                  properties: {
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                     },
                   },
-                  title: "ProteinWithMSA",
-                  description: "Protein object with MSA specified.",
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
                     },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
                     },
                   },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-                {
-                  title: "DNA",
-                  description: "DNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "DNA",
+                    description: "DNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the DNA chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the DNA chain.",
+                    example: {
+                      id: ["A", "B"],
+                      sequence:
+                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                  },
-                },
-                {
-                  title: "RNA",
-                  description: "RNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "RNA",
+                    description: "RNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the RNA chain.",
+                      },
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the RNA chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+                    example: {
+                      id: "A",
+                      sequence:
+                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                     },
                   },
-                  example: {
-                    id: "A",
-                    sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           constraints: {
@@ -5949,25 +5999,27 @@ const foldSpec = {
         },
         example: {
           sequences: [
-            {
-              protein: {
-                id: ["A", "B"],
-                sequence: "MVTPEGNV...",
-                msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["C", "D"],
-                ccd: "SAH",
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["E", "F"],
-                smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
               },
-            },
+            ],
           ],
           constraints: [
             {
@@ -6011,66 +6063,69 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              oneOf: [
-                {
-                  type: "object",
-                  required: ["msa_id"],
-                  properties: {
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
                     },
                   },
-                  title: "ProteinWithMSA",
-                  description: "Protein object with MSA specified.",
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
                     },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
                     },
                   },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           diffusion_samples: {
@@ -6091,25 +6146,27 @@ const foldSpec = {
         },
         example: {
           sequences: [
-            {
-              protein: {
-                id: "A",
-                sequence: "MVTPEGNV...",
-                msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+            [
+              {
+                protein: {
+                  id: "A",
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
               },
-            },
-            {
-              ligand: {
-                id: "B",
-                ccd: "SAH",
+              {
+                ligand: {
+                  id: "B",
+                  ccd: "SAH",
+                },
               },
-            },
-            {
-              ligand: {
-                id: "C",
-                smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+              {
+                ligand: {
+                  id: "C",
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
               },
-            },
+            ],
           ],
           diffusion_samples: 2,
           num_recycles: 4,
