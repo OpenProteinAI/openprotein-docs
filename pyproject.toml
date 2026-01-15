@@ -3,14 +3,14 @@ name = "openprotein-docs"
 version = "0.1.0"
 description = "Documentation for OpenProtein"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.8,<3.13"
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "sphinx>=7.3.0,<7.4.0",
+  "sphinx>=7,<10",
   "pydata-sphinx-theme>=0.16.1,<0.17.0",
   "recommonmark>=0.7.0,<0.8.0",
   "nbsphinx>=0.9.0,<0.10.0",
@@ -19,13 +19,13 @@ dependencies = [
   "sphinx-togglebutton>=0.3.0,<0.4.0",
   "sphinx-copybutton>=0.5.0,<0.6.0",
   "sphinxcontrib-bibtex>=2.6.0,<2.7.0",
-  "swagger_plugin_for_sphinx>=3.5.0,<3.6.0",
   "sphinxcontrib-httpdomain>=1.8.0,<1.9.0",
   "sphinx-new-tab-link>=0.4.0,<0.5.0",
   "sphinx-notfound-page>=1.1.0,<1.2.0",
-  "sphinx-panels>=0.4.1,<0.5.0",
+  "sphinx-design>=0.6.1,<0.7",
   # autodoc
   "openprotein-python>=0.9.0,<0.10.0",
+  "ipython>=9.8.0,<10",
 ]
 
 [build-system]
@@ -42,7 +42,7 @@ build = "sphinx-build source build"
 [tool.pixi.feature.dev.tasks]
 # install dev version of the client
 dev = "sphinx-autobuild source build --port 5001"
-devinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ../openprotein-python-private"
+devinstall = "pip install -e ../openprotein-python-private"
 
 [dependency-groups]
 dev = [
@@ -52,6 +52,7 @@ dev = [
   "hatchling>=1.26.1",
   "hatch-vcs>=0.5.0,<1",
   "editables>=0.5,<0.6",
+  "jupytext>=1.18.1,<2",
 ]
 nb = [
   "molviewspec",
