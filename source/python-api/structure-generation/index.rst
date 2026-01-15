@@ -9,7 +9,7 @@ Get started using Structure Generation
 **Tutorials**:
 
 - :doc:`./Using_RFdiffusion` (:py:class:`~openprotein.models.RFdiffusionModel`)
-- `Using BoltzGen <./Using_BoltzGen.ipynb>`_ (`API Reference <../api-reference/models.rst#BoltzGen>`_)
+- :doc:`./Using_BoltzGen` (:py:class:`~openprotein.models.BoltzGenModel`)
 
 .. toctree::
    :maxdepth: 2
