@@ -624,7 +624,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/03/78/843bcf0cf31f88d2f8a9a063d2d80817b1901657d83d65b89b3aa835732e/nbsphinx-0.9.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a0/c4/c2971a3ba4c6103a3d10c4b0f24f461ddc027f0f09763220cf35ca1401b3/nest_asyncio-1.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d9/7d/9c8a781c88933725445a859cac5d01b5871588a15969ee6aeb618ba99eee/numpy-2.4.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
-      - pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=02d37418f5fee13e993d3e52d7ff4c29acf44000#02d37418f5fee13e993d3e52d7ff4c29acf44000
+      - pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=ab4d809a2442824d11313e4ed969a46a33590362#ab4d809a2442824d11313e4ed969a46a33590362
       - pypi: https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/e5/63/cd7d615331b328e287d8233ba9fdf191a9c2d11b6af0c7a59cfcec23de68/pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/ef/af/4fbc8cab944db5d21b7e2a5b8e9211a03a79852b1157e2c102fcc61ac440/pandocfilters-1.5.1-py2.py3-none-any.whl
@@ -775,7 +775,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/03/78/843bcf0cf31f88d2f8a9a063d2d80817b1901657d83d65b89b3aa835732e/nbsphinx-0.9.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a0/c4/c2971a3ba4c6103a3d10c4b0f24f461ddc027f0f09763220cf35ca1401b3/nest_asyncio-1.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b8/e0/1f9585d7dae8f14864e948fd7fa86c6cb72dee2676ca2748e63b1c5acfe0/numpy-2.4.1-cp312-cp312-macosx_11_0_arm64.whl
-      - pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=02d37418f5fee13e993d3e52d7ff4c29acf44000#02d37418f5fee13e993d3e52d7ff4c29acf44000
+      - pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=ab4d809a2442824d11313e4ed969a46a33590362#ab4d809a2442824d11313e4ed969a46a33590362
       - pypi: https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5c/bd/bf8064d9cfa214294356c2d6702b716d3cf3bb24be59287a6a21e24cae6b/pandas-2.3.3-cp312-cp312-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/ef/af/4fbc8cab944db5d21b7e2a5b8e9211a03a79852b1157e2c102fcc61ac440/pandocfilters-1.5.1-py2.py3-none-any.whl
@@ -2164,9 +2164,9 @@ packages:
   - requests>=2.32.3,<3
   - tqdm>=4.66.5,<5
   requires_python: '>=3.10,<3.13'
-- pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=02d37418f5fee13e993d3e52d7ff4c29acf44000#02d37418f5fee13e993d3e52d7ff4c29acf44000
+- pypi: git+https://github.com/OpenProteinAI/openprotein-python-private.git?rev=ab4d809a2442824d11313e4ed969a46a33590362#ab4d809a2442824d11313e4ed969a46a33590362
   name: openprotein-python
-  version: 0.9.1.dev112+g02d37418f
+  version: 0.9.1.dev123+gab4d809a2
   requires_dist:
   - gemmi>=0.6.0,<0.8
   - numpy>=1.9,<3
