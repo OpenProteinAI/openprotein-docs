@@ -1,9 +1,32 @@
 API reference
 =============
 
+Session Management
+------------------
+
+The entrypoint to our platform which requires an authenticated session.
+
+.. autosummary::
+
+   openprotein.OpenProtein
+   openprotein.connect
+
+Data Primitives
+---------------
+
+Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design. 
 
 Property Regression Models
 --------------------------
+
+.. autosummary::
+
+   openprotein.molecules.Protein
+   openprotein.molecules.Complex
+   openprotein.molecules.Structure
+   openprotein.molecules.Ligand
+   openprotein.molecules.DNA
+   openprotein.molecules.RNA
 
 Data
 ^^^^
@@ -152,6 +175,7 @@ Unified access to the models available on our platform.
    :hidden:
    
    openprotein
+   molecules
    data
    jobs
    align 
