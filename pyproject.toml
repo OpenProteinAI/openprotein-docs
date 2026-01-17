@@ -24,7 +24,7 @@ dependencies = [
   "sphinx-notfound-page>=1.1.0,<1.2.0",
   "sphinx-design>=0.6.1,<0.7",
   # autodoc
-  "openprotein-python==0.9.0",
+  "openprotein-python>=0.9.0,<0.10.0",
   "ipython>=9.8.0,<10",
 ]
 
@@ -54,9 +54,17 @@ dev = [
   "editables>=0.5,<0.6",
   "jupytext>=1.18.1,<2",
 ]
+nb = [
+  "molviewspec",
+  "ipykernel",
+  "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git@f657a85d9c2dd22a7722d401103a867a968f24e1",
+  "seaborn",
+  "scipy",
+]
 
 [tool.pixi.environments]
 dev = ["dev"]
+dev-nb = ["dev", "nb"]
 
 [tool.pixi.dependencies]
 pygments = ">=2.19.2,<3"

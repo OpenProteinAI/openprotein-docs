@@ -41,8 +41,8 @@ Python API
     - PoET-2
   * - `Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>`_
     - Embeddings
-  * - `Binder Design With RFdiffusion <./Binder_Design_With_RFdiffusion.ipynb>`_
-    - Query design, RFdiffusion, ProteinMPNN, ESMFold 
+  * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`_
+    - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
   * - `Quantitative decision making for library design <./quantitative-decision-making-library-design.ipynb>`_
     - Optimization and Prediction Models
   * - `Aligning variable length sequences using Python <aligning-variable.rst>`_
@@ -76,6 +76,7 @@ Python API
   Screening insertion locations with PoET <./PoET_api_insertion_screen_nuclear_localization.ipynb>
   Inverse Folding with PoET-2 for Generation of Novel Luciferases <./PoET-2_inverse_folding.ipynb>
   Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>
+  Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>
   Binder Design With RFdiffusion <./Binder_Design_With_RFdiffusion.ipynb>
   Aligning variable length sequences using Python <aligning-variable>
   Designing libraries of multimeric proteins <multichain>
