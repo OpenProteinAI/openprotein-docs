@@ -110,7 +110,7 @@ const apiTagsProject = [
   {
     name: "assaydata",
     description:
-      "Upload your dataset for use with /train and /design endpoints!",
+      "Upload your dataset for use with /predictor and /design endpoints!",
   },
   {
     name: "design",
@@ -187,11 +187,11 @@ const apiSchemasAuth = [
 const apiPathAuth = [
   "/api/v1/jobs",
   "/api/v1/jobs/{job_id}",
-  "/api/v1/login/access-token",
+  "/api/v1/auth/login",
 ];
 const apiTagsAuth = [
   {
-    name: "login",
+    name: "auth",
     description: "Login to authorize your API requests!",
   },
   {
@@ -201,16 +201,16 @@ const apiTagsAuth = [
 ];
 
 const devFetchUrls = {
-  projectUrl: "https://dev.api.openprotein.ai/api/v1/openapi.json",
-  poetUrl: "https://dev.api.openprotein.ai/api/v1/poet/openapi.json",
+  projectUrl: "https://dev.api.openprotein.ai/openapi.json",
+  poetUrl: "https://dev.api.openprotein.ai/openapi.json",
   authUrl: "https://dev.api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
 };
 
 const prodFetchUrls = {
-  projectUrl: "https://api.openprotein.ai/api/v1/openapi.json",
-  poetUrl: "https://api.openprotein.ai/api/v1/poet/openapi.json",
+  projectUrl: "https://api.openprotein.ai/openapi.json",
+  poetUrl: "https://api.openprotein.ai/openapi.json",
   authUrl: "https://api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
