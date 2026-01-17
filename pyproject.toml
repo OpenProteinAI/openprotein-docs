@@ -24,7 +24,7 @@ dependencies = [
   "sphinx-notfound-page>=1.1.0,<1.2.0",
   "sphinx-design>=0.6.1,<0.7",
   # autodoc
-  "openprotein-python>=0.9.0,<0.10.0",
+  "openprotein-python>=0.10.0,<0.11.0",
   "ipython>=9.8.0,<10",
 ]
 
@@ -57,7 +57,7 @@ dev = [
 nb = [
   "molviewspec",
   "ipykernel",
-  "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git@f657a85d9c2dd22a7722d401103a867a968f24e1",
+  # "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git",
   "seaborn",
   "scipy",
 ]
