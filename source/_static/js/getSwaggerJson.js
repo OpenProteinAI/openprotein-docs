@@ -99,26 +99,9 @@ const apiTagsAlign = [
 
 const apiTagsProject = [
   {
-    name: "train",
-    description: "Train ML models based on your datasets!",
-  },
-  {
-    name: "predict",
-    description:
-      "Endpoints for predicting properties on arbitary sequences with your OpenProtein trained models!",
-  },
-  {
     name: "assaydata",
     description:
       "Upload your dataset for use with /predictor and /design endpoints!",
-  },
-  {
-    name: "design",
-    description: "design new variants to meet your design objectives!",
-  },
-  {
-    name: "embed",
-    description: "Create and retrieve UMAP embeddings for your data!",
   },
 ];
 
