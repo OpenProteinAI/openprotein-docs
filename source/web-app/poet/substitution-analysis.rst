@@ -23,7 +23,7 @@ Select an existing prompt or add your custom MSA to the **Prompt Definition** fi
 
 If you do not have an existing MSA, enter your target protein and select **Single Sequence.** OpenProtein will generate an MSA by doing a homology search against Uniref using mmseqs2 with default settings from ColabFold, then use the MSA to create a prompt. Please note that if you check **Single Sequence** when multiple sequences are entered, sequences after the first are ignored.
 
-.. image:: ../../_static/tools/poet/substitution-analysis-input-prompt.png
+.. image:: /_static/tools/poet/substitution-analysis-input-prompt.png
    :alt: Substitution Analysis input and Prompt
 
 Choose the number of prompts to ensemble. Select 1 to sample a single prompt, or increase the diversity of generated outputs by ensembling over 2-15 prompts. We suggest using 3-5 prompts.
@@ -46,7 +46,8 @@ A 400 (Bad request) error code may be due to the following:
    * - Invalid prompt in PoET service
      - Reupload prompt and try again. Refer to the article about `prompts <./prompts.rst>`_. Ensure minimum and maximum similarity parameters are not filtering out all sequences in prompt.
    * - Invalid user input in align service
-     - Ensure you don’t have
+     - Ensure you don't have
+
        - a top_p>1
        - a non-valid amino acid
        - Maximum similarity < minimum similarity
@@ -82,13 +83,13 @@ You can filter your results using the following options:
 - **Max Number of Sites**: Displays only the top *n* positions recommended for substitution.
 - **Limit to Site Number**: Restricts results to specific positions. You can input discrete values (e.g., ``1; 3; 5; 7``) or a range (e.g., ``21 - 65``).
 
-.. image:: ../../_static/tools/poet/filters-2.png
+.. image:: /_static/tools/poet/filters-2.png
 
 In the image above, the filters are set to display the top 3 variants at the top 170 sites, and then select the best 500 sequences from that pool.
 
 Your highest scoring variants and sites are also displayed in tables below the heatmap for quick reference. Download results as a table using the **Export** button.
 
-.. image:: ../../_static/tools/poet/sub-analysis-1.png
+.. image:: /_static/tools/poet/sub-analysis-1.png
    :alt: Substitution Analysis Heatmap
 
 Refer to the **Details** tab to see the parameters you used to run the Substitution Analysis.

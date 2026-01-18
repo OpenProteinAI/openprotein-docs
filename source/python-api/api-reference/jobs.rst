@@ -17,5 +17,5 @@ Classes
    :exclude-members: model_config
 
 .. autoclass:: openprotein.jobs.Future
-   :members: wait, wait_until_done, get
+   :members: wait, wait_until_done, get, refresh, done
 

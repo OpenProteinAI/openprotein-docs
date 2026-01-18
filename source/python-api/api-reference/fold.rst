@@ -12,6 +12,7 @@ Interface
    :members:
    :undoc-members:
 
+
 Models 
 ------
 
@@ -31,15 +32,10 @@ Models
    :members:
    :undoc-members:
 
-
 Results
 -------
 
 .. autoclass:: openprotein.fold.FoldResultFuture
-   :members:
-   :inherited-members:
-
-.. autoclass:: openprotein.fold.FoldComplexResultFuture
    :members:
    :inherited-members:
 

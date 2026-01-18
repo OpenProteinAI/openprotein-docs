@@ -1,9 +1,32 @@
 API reference
 =============
 
+Session Management
+------------------
+
+The entrypoint to our platform which requires an authenticated session.
+
+.. autosummary::
+
+   openprotein.OpenProtein
+   openprotein.connect
+
+Data Primitives
+---------------
+
+Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design. 
 
 Property Regression Models
 --------------------------
+
+.. autosummary::
+
+   openprotein.molecules.Protein
+   openprotein.molecules.Complex
+   openprotein.molecules.Structure
+   openprotein.molecules.Ligand
+   openprotein.molecules.DNA
+   openprotein.molecules.RNA
 
 Data
 ^^^^
@@ -128,13 +151,13 @@ Make structure predictions on your protein sequences.
 .. autosummary::
 
    openprotein.fold.FoldAPI
+   openprotein.fold.RosettaFold3Model
    openprotein.fold.Boltz2Model
    openprotein.fold.Boltz1xModel
    openprotein.fold.Boltz1Model
    openprotein.fold.AlphaFold2Model
    openprotein.fold.ESMFoldModel
    openprotein.fold.FoldResultFuture
-   openprotein.fold.FoldComplexResultFuture
 
 Models
 ------
@@ -144,20 +167,20 @@ Unified access to the models available on our platform.
 .. autosummary::
 
    openprotein.models.ModelsAPI
-   openprotein.models.foundation.rfdiffusion.RFdiffusionModel
+   openprotein.models.RFdiffusionModel
+   openprotein.models.ProteinMPNNModel
+   openprotein.models.BoltzGenModel
   
 .. toctree::
-   :maxdepth: 2
    :hidden:
    
-   basics
+   openprotein
+   molecules
    data
    jobs
    align 
    prompt
    embedding
-   svd
-   umap
    predictor
    design
    fold

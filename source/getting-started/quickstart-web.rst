@@ -17,7 +17,7 @@ Quick start tips
 
 Once you log in, you'll see your home view and can navigate to get started with our tools.
 
-.. image:: ../../_static/getting-started/tips.png
+.. image:: /_static/getting-started/tips.png
    :width: 80%
    :align: center
 
@@ -27,7 +27,7 @@ Do you want to...
 
    <div class="row mb-3">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/poet-icon.png" height="60px">
+         <img src="/_static/getting-started/poet-icon.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Make sequence predictions or designs without using any data?</b><br/>
@@ -36,7 +36,7 @@ Do you want to...
    </div>
    <div class="row mb-3">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/bar-chart.png" height="60px">
+         <img src="/_static/getting-started/bar-chart.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Analyze your experimental data for library design?</b><br/>
@@ -46,7 +46,7 @@ Do you want to...
    </div>
    <div class="row">
       <div class="col-md-2 get-started-img">
-         <img src="../_static/getting-started/dna-broken.png" height="60px">
+         <img src="/_static/getting-started/dna-broken.png" height="60px">
       </div>
       <div class="col-md-10">
          <b>Explore your protein's structure?</b><br/>

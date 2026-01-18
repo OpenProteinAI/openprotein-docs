@@ -1,3 +1,4 @@
+.. _structure-prediction:
 Structure Prediction
 ====================
 
@@ -9,10 +10,10 @@ Get started using Structure Prediction
 **Tutorials**:
 
 - `Examining structure prediction models <./Examining_structure_prediction_models.ipynb>`_
-- `Using ESMFold <./Using_ESMFold.ipynb>`_
-- `Using AlphaFold2 <./Using_AlphaFold2.ipynb>`_ 
-- `Using Boltz <./Using_Boltz.ipynb>`_ 
-- `Using RosettaFold3 <./Using_RosettaFold3.ipynb>`_ 
+- :doc:`./Using_ESMFold`
+- :doc:`./Using_AlphaFold2` 
+- :doc:`./Using_Boltz_1_and_Boltz_2` 
+- :doc:`./Using_RosettaFold3` 
 
 `API Reference <../api-reference/fold.rst>`_
 
@@ -23,5 +24,5 @@ Get started using Structure Prediction
    Examining_structure_prediction_models
    Using_ESMFold
    Using_AlphaFold2
-   Using_Boltz
+   Using_Boltz_1_and_Boltz_2
    Using_RosettaFold3

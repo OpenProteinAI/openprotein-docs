@@ -6,13 +6,13 @@ Logging into your account
 
 Log in to the `web platform <https://app.openprotein.ai>`_ with your username and password.
 
-.. image:: ../../_static/getting-started/login.png
+.. image:: /_static/getting-started/login.png
    :width: 500
    :align: center
 
 You can also log in from our `home page <https://openprotein.ai>`_.
 
-.. image:: ../../_static/getting-started/acct-login-homepage.png
+.. image:: /_static/getting-started/acct-login-homepage.png
    :width: 500
    :align: center
 
@@ -26,6 +26,6 @@ Resetting your password
 
 To change your password, navigate to the account icon on the top right corner of the page, and select **Change password**.
 
-.. image:: ../../_static/getting-started/change-password.png
+.. image:: /_static/getting-started/change-password.png
    :width: 700
    :align: center

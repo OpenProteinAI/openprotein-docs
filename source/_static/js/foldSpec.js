@@ -3,13 +3,14 @@ const foldSpec = {
   info: {
     title: "OpenProtein Fold",
     description:
-      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model.\n- **AlphaFold2**: Open-sourced implementation using colabfold.\n\n\n",
+      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/). \n- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/). \n\n\n",
     version: "1.0.0",
   },
   servers: [
     {
       url: "https://dev.api.openprotein.ai",
       description: "Dev server",
+      computedUrl: "https://dev.api.openprotein.ai",
     },
   ],
   paths: {
@@ -249,10 +250,43 @@ const foldSpec = {
                   sequences: {
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            title: "Protein",
+                            description: "Protein to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
+                                    type: "string",
+                                  },
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Amino acid sequence of the protein chain.",
+                              },
+                            },
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                            },
+                          },
+                        ],
+                      },
                     },
                   },
                   num_recycles: {
@@ -284,12 +318,12 @@ const foldSpec = {
                   required: [
                     "job_id",
                     "prerequisite_job_id",
-                    "job_type",
                     "created_date",
                     "start_date",
                     "end_date",
                     "status",
                     "progress_counter",
+                    "job_type",
                   ],
                   properties: {
                     job_id: {
@@ -308,45 +342,6 @@ const foldSpec = {
                       default: null,
                       example: null,
                       "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
                     },
                     created_date: {
                       title: "Created Date",
@@ -393,6 +388,373 @@ const foldSpec = {
                       example: 0,
                       default: 0,
                       "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "ValidationError.yaml",
+                  description: "An invalid object that could not be parsed.",
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "ErrorDetailList",
+                      type: "array",
+                      items: {
+                        title: "ErrorDetail",
+                        required: ["loc", "msg", "type"],
+                        type: "object",
+                        properties: {
+                          loc: {
+                            title: "Location",
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          msg: {
+                            title: "Message",
+                            type: "string",
+                          },
+                          type: {
+                            title: "Error Type",
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/minifold": {
+      post: {
+        tags: ["fold requests", "minifold"],
+        summary: "MiniFold",
+        description:
+          "Create structure prediction using MiniFold from input protein sequences.",
+        requestBody: {
+          description: "Request for structure predictions.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "MiniFoldRequest",
+                description: "Request for structure prediction using MiniFold.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            title: "Protein",
+                            description: "Protein to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
+                                    type: "string",
+                                  },
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Amino acid sequence of the protein chain.",
+                              },
+                            },
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  num_recycles: {
+                    description:
+                      "Number of recycles. `null` lets the system decide.",
+                    type: "number",
+                    nullable: true,
+                    minimum: 0,
+                    maximum: 48,
+                    default: null,
+                    example: null,
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "MiniFold request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "FoldJob",
+                  description:
+                    "FoldJob represents a fold job for our platform.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                    "job_type",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
                     },
                   },
                 },
@@ -527,7 +889,7 @@ const foldSpec = {
     },
     "/api/v1/fold/models/alphafold2": {
       post: {
-        tags: ["fold requests", "alphafold2"],
+        tags: ["fold requests", "alphafold"],
         summary: "AlphaFold2",
         description:
           "Create structure prediction using AlphaFold2 from created MSA.",
@@ -542,10 +904,35 @@ const foldSpec = {
                 type: "object",
                 required: ["msa_id"],
                 properties: {
-                  msa_id: {
-                    description: "ID of MSA to use for fold.",
-                    type: "string",
-                    format: "uuid",
+                  sequences: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                            },
+                          },
+                        ],
+                      },
+                    },
                   },
                   num_recycles: {
                     description:
@@ -592,12 +979,12 @@ const foldSpec = {
                   required: [
                     "job_id",
                     "prerequisite_job_id",
-                    "job_type",
                     "created_date",
                     "start_date",
                     "end_date",
                     "status",
                     "progress_counter",
+                    "job_type",
                   ],
                   properties: {
                     job_id: {
@@ -616,45 +1003,6 @@ const foldSpec = {
                       default: null,
                       example: null,
                       "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
                     },
                     created_date: {
                       title: "Created Date",
@@ -701,6 +1049,45 @@ const foldSpec = {
                       example: 0,
                       default: 0,
                       "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
                     },
                   },
                 },
@@ -838,7 +1225,7 @@ const foldSpec = {
         tags: ["fold requests", "boltz"],
         summary: "Boltz-1",
         description:
-          "Create structure prediction using boltz-1 from MSA, with additional chains.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `recycling_steps`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `sampling_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
+          "Create structure prediction using Boltz-1.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
         requestBody: {
           description: "Request for structure prediction.",
           content: {
@@ -855,162 +1242,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      title: "Chain",
-                      description:
-                        "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-                      oneOf: [
-                        {
-                          title: "Protein",
-                          description: "Protein to be folded.",
-                          type: "object",
-                          required: ["id", "msa_id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                            },
+                          },
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Amino acid sequence of the protein chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
-                            },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
-                            },
-                          },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
-                                    type: "string",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -1177,12 +1543,12 @@ const foldSpec = {
                     description: "Number of diffusion samples to use.",
                     default: 1,
                   },
-                  recycling_steps: {
+                  num_recycles: {
                     type: "integer",
                     description: "Number of recycling steps to use.",
                     default: 3,
                   },
-                  sampling_steps: {
+                  num_steps: {
                     type: "integer",
                     description: "Number of sampling steps to use.",
                     default: 200,
@@ -1196,26 +1562,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence:
-                          "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -1259,12 +1626,12 @@ const foldSpec = {
                   required: [
                     "job_id",
                     "prerequisite_job_id",
-                    "job_type",
                     "created_date",
                     "start_date",
                     "end_date",
                     "status",
                     "progress_counter",
+                    "job_type",
                   ],
                   properties: {
                     job_id: {
@@ -1283,45 +1650,6 @@ const foldSpec = {
                       default: null,
                       example: null,
                       "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
                     },
                     created_date: {
                       title: "Created Date",
@@ -1368,6 +1696,45 @@ const foldSpec = {
                       example: 0,
                       default: 0,
                       "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
                     },
                   },
                 },
@@ -1505,7 +1872,7 @@ const foldSpec = {
         tags: ["fold requests", "boltz"],
         summary: "Boltz-1x",
         description:
-          "Create structure prediction using boltz-1x from MSA, with additional chains.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `recycling_steps`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `sampling_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
+          "Create structure prediction using Boltz-1x.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
         requestBody: {
           description: "Request for structure prediction.",
           content: {
@@ -1522,162 +1889,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      title: "Chain",
-                      description:
-                        "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-                      oneOf: [
-                        {
-                          title: "Protein",
-                          description: "Protein to be folded.",
-                          type: "object",
-                          required: ["id", "msa_id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                            },
+                          },
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Amino acid sequence of the protein chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
-                            },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
-                            },
-                          },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
-                                    type: "string",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -1844,12 +2190,12 @@ const foldSpec = {
                     description: "Number of diffusion samples to use.",
                     default: 1,
                   },
-                  recycling_steps: {
+                  num_recycles: {
                     type: "integer",
                     description: "Number of recycling steps to use.",
                     default: 3,
                   },
-                  sampling_steps: {
+                  num_steps: {
                     type: "integer",
                     description: "Number of sampling steps to use.",
                     default: 200,
@@ -1863,26 +2209,27 @@ const foldSpec = {
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence:
-                          "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -1926,12 +2273,12 @@ const foldSpec = {
                   required: [
                     "job_id",
                     "prerequisite_job_id",
-                    "job_type",
                     "created_date",
                     "start_date",
                     "end_date",
                     "status",
                     "progress_counter",
+                    "job_type",
                   ],
                   properties: {
                     job_id: {
@@ -1950,45 +2297,6 @@ const foldSpec = {
                       default: null,
                       example: null,
                       "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
                     },
                     created_date: {
                       title: "Created Date",
@@ -2035,6 +2343,45 @@ const foldSpec = {
                       example: 0,
                       default: 0,
                       "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
                     },
                   },
                 },
@@ -2172,7 +2519,7 @@ const foldSpec = {
         tags: ["fold requests", "boltz"],
         summary: "Boltz-2",
         description:
-          "Create structure prediction using boltz-2 from MSA, with additional chains.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `templates`: Optional field to specify structural templates for prediction. Each entry should provide the path to a template structure in CIF format. You may optionally specify which chains in your YAML should be templated using the `chain_id` entry, and define explicit chain mappings with `template_id`. Only protein chains can be templated.  \n    **Note:** Template support is not yet available, but will be added soon.\n  - `property`: Optional field to request additional computed properties, such as affinity. For affinity prediction, specify the binder chain (must be a ligand). Only one ligand can be specified for affinity computation.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `recycling_steps`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `sampling_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
+          "Create structure prediction using Boltz-2.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `constraints`: Optional constraints such as bonds, pockets, or contacts. These allow specification of covalent bonds between atoms, pocket conditioning (e.g., residues forming a binding site), or specific contacts between atoms or residues.\n  - `templates`: Optional field to specify structural templates for prediction. Each entry should provide the path to a template structure in CIF format. You may optionally specify which chains in your YAML should be templated using the `chain_id` entry, and define explicit chain mappings with `template_id`. Only protein chains can be templated.  \n    **Note:** Template support is not yet available, but will be added soon.\n  - `property`: Optional field to request additional computed properties, such as affinity. For affinity prediction, specify the binder chain (must be a ligand). Only one ligand can be specified for affinity computation.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `step_scale`: Scaling factor for diffusion steps. Adjusts the effective temperature or diversity of the sampling process; higher values increase diversity. Default is 1.638.\n  - `method`: Method to use for prediction. Check schema for enumeration.\n\nFor more details, refer to official [Boltz documentation](https://github.com/jwohlwend/boltz/blob/v2.1.1/docs/prediction.md).",
         requestBody: {
           description: "Request for structure prediction.",
           content: {
@@ -2188,162 +2535,141 @@ const foldSpec = {
                     description:
                       "List of chain/molecule entities in the input.",
                     items: {
-                      title: "Chain",
-                      description:
-                        "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-                      oneOf: [
-                        {
-                          title: "Protein",
-                          description: "Protein to be folded.",
-                          type: "object",
-                          required: ["id", "msa_id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                            },
+                          },
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Amino acid sequence of the protein chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              nullable: true,
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                            msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                          },
-                        },
-                        {
-                          title: "DNA",
-                          description: "DNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "DNA",
+                            description: "DNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the DNA chain.",
+                              },
                             },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the DNA chain.",
+                            example: {
+                              id: ["A", "B"],
+                              sequence:
+                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                             },
                           },
-                          example: {
-                            id: ["A", "B"],
-                            sequence:
-                              "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                          },
-                        },
-                        {
-                          title: "RNA",
-                          description: "RNA chain to be folded.",
-                          type: "object",
-                          required: ["id", "sequence"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
+                          {
+                            title: "RNA",
+                            description: "RNA chain to be folded.",
+                            type: "object",
+                            required: ["id", "sequence"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
                                     type: "string",
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique chain identifier(s). Use an array for multiple identical chains.",
-                            },
-                            sequence: {
-                              type: "string",
-                              description:
-                                "Nucleotide sequence of the RNA chain.",
-                            },
-                            msa_id: {
-                              type: "string",
-                              format: "uuid",
-                              description:
-                                "ID for an MSA job, or null for single-sequence mode.",
-                            },
-                          },
-                          example: {
-                            id: "A",
-                            sequence:
-                              "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                          },
-                        },
-                        {
-                          title: "Ligand",
-                          description:
-                            "Small molecule ligand for structure prediction.",
-                          type: "object",
-                          required: ["id"],
-                          properties: {
-                            id: {
-                              oneOf: [
-                                {
-                                  type: "string",
-                                },
-                                {
-                                  type: "array",
-                                  items: {
-                                    type: "string",
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
                                   },
-                                },
-                              ],
-                              description:
-                                "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                ],
+                                description:
+                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+                              },
+                              sequence: {
+                                type: "string",
+                                description:
+                                  "Nucleotide sequence of the RNA chain.",
+                              },
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
                             },
-                            smiles: {
-                              type: "string",
-                              description:
-                                "SMILES string for the ligand. Mutually exclusive with ccd.",
-                            },
-                            ccd: {
-                              type: "string",
-                              description:
-                                "CCD code for the ligand. Mutually exclusive with smiles.",
+                            example: {
+                              id: "A",
+                              sequence:
+                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                             },
                           },
-                          example: {
-                            id: ["C", "D"],
-                            ccd: "SAH",
-                          },
-                        },
-                      ],
+                        ],
+                      },
                     },
                   },
                   constraints: {
@@ -2517,12 +2843,12 @@ const foldSpec = {
                     description: "Number of diffusion samples to use.",
                     default: 1,
                   },
-                  recycling_steps: {
+                  num_recycles: {
                     type: "integer",
                     description: "Number of recycling steps to use.",
                     default: 3,
                   },
-                  sampling_steps: {
+                  num_steps: {
                     type: "integer",
                     description: "Number of sampling steps to use.",
                     default: 200,
@@ -2533,29 +2859,53 @@ const foldSpec = {
                     description: "Scaling factor for diffusion steps.",
                     default: 1.638,
                   },
+                  method: {
+                    type: "string",
+                    description: "The method to use for prediction.",
+                    enum: [
+                      "MD",
+                      "X-RAY DIFFRACTION",
+                      "ELECTRON MICROSCOPY",
+                      "SOLUTION NMR",
+                      "SOLID-STATE NMR",
+                      "NEUTRON DIFFRACTION",
+                      "ELECTRON CRYSTALLOGRAPHY",
+                      "FIBER DIFFRACTION",
+                      "POWDER DIFFRACTION",
+                      "INFRARED SPECTROSCOPY",
+                      "FLUORESCENCE TRANSFER",
+                      "EPR",
+                      "THEORETICAL MODEL",
+                      "SOLUTION SCATTERING",
+                      "OTHER",
+                      "AFDB",
+                      "BOLTZ-1",
+                    ],
+                  },
                 },
                 example: {
                   sequences: [
-                    {
-                      protein: {
-                        id: ["A", "B"],
-                        sequence:
-                          "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                        msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    [
+                      {
+                        protein: {
+                          id: ["A", "B"],
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["C", "D"],
-                        ccd: "SAH",
+                      {
+                        ligand: {
+                          id: ["C", "D"],
+                          ccd: "SAH",
+                        },
                       },
-                    },
-                    {
-                      ligand: {
-                        id: ["E", "F"],
-                        smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                      {
+                        ligand: {
+                          id: ["E", "F"],
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
                       },
-                    },
+                    ],
                   ],
                   constraints: [
                     {
@@ -2606,12 +2956,12 @@ const foldSpec = {
                   required: [
                     "job_id",
                     "prerequisite_job_id",
-                    "job_type",
                     "created_date",
                     "start_date",
                     "end_date",
                     "status",
                     "progress_counter",
+                    "job_type",
                   ],
                   properties: {
                     job_id: {
@@ -2630,45 +2980,6 @@ const foldSpec = {
                       default: null,
                       example: null,
                       "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
                     },
                     created_date: {
                       title: "Created Date",
@@ -2715,6 +3026,45 @@ const foldSpec = {
                       example: 0,
                       default: 0,
                       "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
                     },
                   },
                 },
@@ -2847,6 +3197,564 @@ const foldSpec = {
         ],
       },
     },
+    "/api/v1/fold/models/rosettafold-3": {
+      post: {
+        tags: ["fold requests", "rosettafold"],
+        summary: "RosettaFold-3",
+        description:
+          "Create structure prediction using RosettaFold-3.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "RF3Request",
+                description:
+                  "Request for structure prediction using RosettaFold-3.\n",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    type: "array",
+                    description:
+                      "List of chain/molecule entities in the input.",
+                    items: {
+                      type: "array",
+                      items: {
+                        oneOf: [
+                          {
+                            type: "object",
+                            required: ["msa_id"],
+                            properties: {
+                              msa_id: {
+                                type: "string",
+                                format: "uuid",
+                                nullable: true,
+                                description:
+                                  "ID for an MSA job, or null for single-sequence mode.",
+                              },
+                            },
+                            title: "ProteinWithMSA",
+                            description: "Protein object with MSA specified.",
+                            example: {
+                              id: "A",
+                              sequence: "MVTPEGNV...",
+                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                            },
+                          },
+                          {
+                            title: "Ligand",
+                            description:
+                              "Small molecule ligand for structure prediction.",
+                            type: "object",
+                            required: ["id"],
+                            properties: {
+                              id: {
+                                oneOf: [
+                                  {
+                                    type: "string",
+                                  },
+                                  {
+                                    type: "array",
+                                    items: {
+                                      type: "string",
+                                    },
+                                  },
+                                ],
+                                description:
+                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                              },
+                              smiles: {
+                                type: "string",
+                                description:
+                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+                              },
+                              ccd: {
+                                type: "string",
+                                description:
+                                  "CCD code for the ligand. Mutually exclusive with smiles.",
+                              },
+                            },
+                            example: {
+                              id: ["C", "D"],
+                              ccd: "SAH",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  diffusion_samples: {
+                    type: "integer",
+                    description: "Number of diffusion samples to use.",
+                    default: 1,
+                  },
+                  num_recycles: {
+                    type: "integer",
+                    description: "Number of recycling steps to use.",
+                    default: 3,
+                  },
+                  num_steps: {
+                    type: "integer",
+                    description: "Number of sampling steps to use.",
+                    default: 200,
+                  },
+                },
+                example: {
+                  sequences: [
+                    [
+                      {
+                        protein: {
+                          id: "A",
+                          sequence: "MVTPEGNV...",
+                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                        },
+                      },
+                      {
+                        ligand: {
+                          id: "B",
+                          ccd: "SAH",
+                        },
+                      },
+                      {
+                        ligand: {
+                          id: "C",
+                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                        },
+                      },
+                    ],
+                  ],
+                  diffusion_samples: 2,
+                  num_recycles: 4,
+                  num_steps: 300,
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "AlphaFold2 request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "FoldJob",
+                  description:
+                    "FoldJob represents a fold job for our platform.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                    "job_type",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                    job_type: {
+                      title: "JobType",
+                      description: "Type of job.",
+                      type: "string",
+                      enum: [
+                        "/workflow/preprocess",
+                        "/workflow/train",
+                        "/workflow/embed/umap",
+                        "/workflow/predict",
+                        "/workflow/predict/single_site",
+                        "/workflow/crossvalidate",
+                        "/workflow/evaluate",
+                        "/workflow/design",
+                        "/align/align",
+                        "/align/prompt",
+                        "/poet",
+                        "/poet/single_site",
+                        "/poet/generate",
+                        "/poet/score",
+                        "/poet/embed",
+                        "/poet/logits",
+                        "/embeddings/embed",
+                        "/embeddings/embed_reduced",
+                        "/embeddings/svd",
+                        "/svd/fit",
+                        "/svd/embed",
+                        "/embeddings/attn",
+                        "/embeddings/logits",
+                        "/embeddings/fold",
+                        "/predictor/train",
+                        "/predictor/predict",
+                        "/predictor/predict_single_site",
+                        "/predictor/predict_multi",
+                        "/predictor/crossvalidate",
+                        "/design",
+                      ],
+                      "x-order": 3,
+                      example: "/fold/fold",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "ValidationError.yaml",
+                  description: "An invalid object that could not be parsed.",
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "ErrorDetailList",
+                      type: "array",
+                      items: {
+                        title: "ErrorDetail",
+                        required: ["loc", "msg", "type"],
+                        type: "object",
+                        properties: {
+                          loc: {
+                            title: "Location",
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          msg: {
+                            title: "Message",
+                            type: "string",
+                          },
+                          type: {
+                            title: "Error Type",
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/{job_id}": {
+      get: {
+        tags: ["fold"],
+        summary: "Get fold request metadata",
+        description: "Get metadata about fold request.\n",
+        parameters: [
+          {
+            name: "job_id",
+            in: "path",
+            description: "Job ID of fold request",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Fold metadata successfully returned.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Fold",
+                  description: "Fold request metadata.",
+                  type: "object",
+                  required: [
+                    "job_id",
+                    "prerequisite_job_id",
+                    "created_date",
+                    "start_date",
+                    "end_date",
+                    "status",
+                    "progress_counter",
+                    "model_id",
+                  ],
+                  properties: {
+                    job_id: {
+                      title: "JobID",
+                      description: "ID of job.",
+                      type: "string",
+                      format: "uuid",
+                      "x-order": 1,
+                    },
+                    prerequisite_job_id: {
+                      title: "PrerequisiteJobID",
+                      description: "Prerequisite job ID.",
+                      type: "string",
+                      format: "uuid",
+                      nullable: true,
+                      default: null,
+                      example: null,
+                      "x-order": 2,
+                    },
+                    created_date: {
+                      title: "Created Date",
+                      description: "Datetime of created object",
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-01-01T12:34:56.789Z",
+                      "x-order": 4,
+                    },
+                    start_date: {
+                      title: "StartDate",
+                      description: "Start date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 5,
+                    },
+                    end_date: {
+                      title: "EndDate",
+                      description: "End date of job.",
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                      example: null,
+                      default: null,
+                      "x-order": 6,
+                    },
+                    status: {
+                      title: "JobStatus",
+                      description: "Status of job.",
+                      type: "string",
+                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+                      "x-order": 7,
+                    },
+                    progress_counter: {
+                      title: "ProgressCounter",
+                      description:
+                        "Counter of the progress of job from 0 to 100.",
+                      type: "integer",
+                      minimum: 0,
+                      maximum: 100,
+                      example: 0,
+                      default: 0,
+                      "x-order": 8,
+                    },
+                    model_id: {
+                      type: "string",
+                      example: "boltz-2",
+                    },
+                    args: {
+                      type: "object",
+                      additionalProperties: true,
+                      example: {
+                        num_steps: 50,
+                        sequences: [
+                          {
+                            protein: "...",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Fold job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
     "/api/v1/fold/{job_id}/sequences": {
       get: {
         tags: ["fold"],
@@ -2870,10 +3778,110 @@ const foldSpec = {
             content: {
               "application/json": {
                 schema: {
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
+                  oneOf: [
+                    {
+                      title: "BatchFoldSequences",
+                      description: "Batched fold request sequences.",
+                      type: "array",
+                      items: {
+                        title: "Sequence",
+                        description: "Protein sequence",
+                        type: "string",
+                        example: "MSKGEELFTGV",
+                      },
+                    },
+                    {
+                      title: "ComplexFoldSequences",
+                      description:
+                        "Sequences used when making a single multi-chain fold request.",
+                      type: "object",
+                      required: ["sequences"],
+                      properties: {
+                        sequences: {
+                          type: "array",
+                          description:
+                            "List of chain/molecule entities in the input.",
+                          items: {
+                            title: "Chain",
+                            description:
+                              "A chain entity, which can be a protein or ligand.",
+                            oneOf: [
+                              {
+                                title: "Protein",
+                                description: "Protein to be folded.",
+                                type: "object",
+                                required: ["id", "sequence"],
+                                properties: {
+                                  id: {
+                                    oneOf: [
+                                      {
+                                        type: "string",
+                                      },
+                                      {
+                                        type: "array",
+                                        items: {
+                                          type: "string",
+                                        },
+                                      },
+                                    ],
+                                    description:
+                                      "Unique chain identifier(s). Use an array for multiple identical chains.",
+                                  },
+                                  sequence: {
+                                    type: "string",
+                                    description:
+                                      "Amino acid sequence of the protein chain.",
+                                  },
+                                },
+                                example: {
+                                  id: "A",
+                                  sequence: "MVTPEGNV...",
+                                },
+                              },
+                              {
+                                title: "Ligand",
+                                description:
+                                  "Small molecule ligand for structure prediction.",
+                                type: "object",
+                                required: ["id"],
+                                properties: {
+                                  id: {
+                                    oneOf: [
+                                      {
+                                        type: "string",
+                                      },
+                                      {
+                                        type: "array",
+                                        items: {
+                                          type: "string",
+                                        },
+                                      },
+                                    ],
+                                    description:
+                                      "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                                  },
+                                  smiles: {
+                                    type: "string",
+                                    description:
+                                      "SMILES string for the ligand. Mutually exclusive with ccd.",
+                                  },
+                                  ccd: {
+                                    type: "string",
+                                    description:
+                                      "CCD code for the ligand. Mutually exclusive with smiles.",
+                                  },
+                                },
+                                example: {
+                                  id: ["C", "D"],
+                                  ccd: "SAH",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
                 },
               },
             },
@@ -2970,10 +3978,22 @@ const foldSpec = {
           "200": {
             description: "Result encoded in requested format.",
             content: {
-              "application/octet-stream": {
+              "chemical/x-pdb": {
                 schema: {
+                  title: "PDBOutput",
+                  description: "An output pdb structure file.",
                   type: "string",
-                  format: "binary",
+                  example:
+                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+                },
+              },
+              "chemical/x-mmcif": {
+                schema: {
+                  title: "CIFOutput",
+                  description: "An output CIF structure file.",
+                  type: "string",
+                  example:
+                    'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
                 },
               },
             },
@@ -3061,16 +4081,42 @@ const foldSpec = {
               format: "uuid",
             },
           },
+          {
+            name: "format",
+            in: "query",
+            description:
+              "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
+            required: false,
+            schema: {
+              title: "OutputFormat",
+              description:
+                "Output format of folded structure. Defaults to pdb.",
+              type: "string",
+              enum: ["pdb", "mmcif"],
+              default: "pdb",
+            },
+          },
         ],
         responses: {
           "200": {
-            description: "Result encoded in mmCIF.",
+            description: "Result encoded in mmCIF/PDB.",
             content: {
               "chemical/x-mmcif": {
                 schema: {
+                  title: "CIFOutput",
+                  description: "An output CIF structure file.",
                   type: "string",
                   example:
                     'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
+                },
+              },
+              "chemical/x-pdb": {
+                schema: {
+                  title: "PDBOutput",
+                  description: "An output pdb structure file.",
+                  type: "string",
+                  example:
+                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
                 },
               },
             },
@@ -3149,7 +4195,7 @@ const foldSpec = {
         type: "oauth2",
         flows: {
           password: {
-            tokenUrl: "/api/v1/login/access-token",
+            tokenUrl: "/api/v1/auth/login",
             scopes: {},
           },
         },
@@ -3331,11 +4377,36 @@ const foldSpec = {
           },
         },
       },
-      Sequence: {
-        title: "Sequence",
-        description: "Protein sequence",
-        type: "string",
-        example: "MSKGEELFTGV",
+      Protein: {
+        title: "Protein",
+        description: "Protein to be folded.",
+        type: "object",
+        required: ["id", "sequence"],
+        properties: {
+          id: {
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "array",
+                items: {
+                  type: "string",
+                },
+              },
+            ],
+            description:
+              "Unique chain identifier(s). Use an array for multiple identical chains.",
+          },
+          sequence: {
+            type: "string",
+            description: "Amino acid sequence of the protein chain.",
+          },
+        },
+        example: {
+          id: "A",
+          sequence: "MVTPEGNV...",
+        },
       },
       ESMFoldRequest: {
         title: "ESMFoldRequest",
@@ -3346,10 +4417,43 @@ const foldSpec = {
           sequences: {
             type: "array",
             items: {
-              title: "Sequence",
-              description: "Protein sequence",
-              type: "string",
-              example: "MSKGEELFTGV",
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    title: "Protein",
+                    description: "Protein to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
+                            type: "string",
+                          },
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description:
+                          "Amino acid sequence of the protein chain.",
+                      },
+                    },
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                    },
+                  },
+                ],
+              },
             },
           },
           num_recycles: {
@@ -3370,44 +4474,6 @@ const foldSpec = {
         format: "uuid",
         "x-order": 1,
       },
-      JobType: {
-        title: "JobType",
-        description: "Type of job.",
-        type: "string",
-        enum: [
-          "/workflow/preprocess",
-          "/workflow/train",
-          "/workflow/embed/umap",
-          "/workflow/predict",
-          "/workflow/predict/single_site",
-          "/workflow/crossvalidate",
-          "/workflow/evaluate",
-          "/workflow/design",
-          "/align/align",
-          "/align/prompt",
-          "/poet",
-          "/poet/single_site",
-          "/poet/generate",
-          "/poet/score",
-          "/poet/embed",
-          "/poet/logits",
-          "/embeddings/embed",
-          "/embeddings/embed_reduced",
-          "/embeddings/svd",
-          "/svd/fit",
-          "/svd/embed",
-          "/embeddings/attn",
-          "/embeddings/logits",
-          "/embeddings/fold",
-          "/predictor/train",
-          "/predictor/predict",
-          "/predictor/predict_single_site",
-          "/predictor/predict_multi",
-          "/predictor/crossvalidate",
-          "/design",
-        ],
-        "x-order": 3,
-      },
       CreatedDate: {
         title: "Created Date",
         description: "Datetime of created object",
@@ -3423,14 +4489,13 @@ const foldSpec = {
         enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
         "x-order": 7,
       },
-      Job: {
-        title: "Job",
-        description: "Job represents a job for our compute platform.",
+      Request: {
+        title: "Request",
+        description: "Request for our compute platform.",
         type: "object",
         required: [
           "job_id",
           "prerequisite_job_id",
-          "job_type",
           "created_date",
           "start_date",
           "end_date",
@@ -3454,44 +4519,6 @@ const foldSpec = {
             default: null,
             example: null,
             "x-order": 2,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
           },
           created_date: {
             title: "Created Date",
@@ -3540,19 +4567,57 @@ const foldSpec = {
           },
         },
       },
-      FoldJob: {
-        title: "FoldJob",
-        description: "FoldJob represents a fold job for our platform.",
+      JobType: {
+        title: "JobType",
+        description: "Type of job.",
+        type: "string",
+        enum: [
+          "/workflow/preprocess",
+          "/workflow/train",
+          "/workflow/embed/umap",
+          "/workflow/predict",
+          "/workflow/predict/single_site",
+          "/workflow/crossvalidate",
+          "/workflow/evaluate",
+          "/workflow/design",
+          "/align/align",
+          "/align/prompt",
+          "/poet",
+          "/poet/single_site",
+          "/poet/generate",
+          "/poet/score",
+          "/poet/embed",
+          "/poet/logits",
+          "/embeddings/embed",
+          "/embeddings/embed_reduced",
+          "/embeddings/svd",
+          "/svd/fit",
+          "/svd/embed",
+          "/embeddings/attn",
+          "/embeddings/logits",
+          "/embeddings/fold",
+          "/predictor/train",
+          "/predictor/predict",
+          "/predictor/predict_single_site",
+          "/predictor/predict_multi",
+          "/predictor/crossvalidate",
+          "/design",
+        ],
+        "x-order": 3,
+      },
+      Job: {
+        title: "Job",
+        description: "Job represents a job for our compute platform.",
         type: "object",
         required: [
           "job_id",
           "prerequisite_job_id",
-          "job_type",
           "created_date",
           "start_date",
           "end_date",
           "status",
           "progress_counter",
+          "job_type",
         ],
         properties: {
           job_id: {
@@ -3571,6 +4636,168 @@ const foldSpec = {
             default: null,
             example: null,
             "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+          job_type: {
+            title: "JobType",
+            description: "Type of job.",
+            type: "string",
+            enum: [
+              "/workflow/preprocess",
+              "/workflow/train",
+              "/workflow/embed/umap",
+              "/workflow/predict",
+              "/workflow/predict/single_site",
+              "/workflow/crossvalidate",
+              "/workflow/evaluate",
+              "/workflow/design",
+              "/align/align",
+              "/align/prompt",
+              "/poet",
+              "/poet/single_site",
+              "/poet/generate",
+              "/poet/score",
+              "/poet/embed",
+              "/poet/logits",
+              "/embeddings/embed",
+              "/embeddings/embed_reduced",
+              "/embeddings/svd",
+              "/svd/fit",
+              "/svd/embed",
+              "/embeddings/attn",
+              "/embeddings/logits",
+              "/embeddings/fold",
+              "/predictor/train",
+              "/predictor/predict",
+              "/predictor/predict_single_site",
+              "/predictor/predict_multi",
+              "/predictor/crossvalidate",
+              "/design",
+            ],
+            "x-order": 3,
+          },
+        },
+      },
+      FoldJob: {
+        title: "FoldJob",
+        description: "FoldJob represents a fold job for our platform.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+          "job_type",
+        ],
+        properties: {
+          job_id: {
+            title: "JobID",
+            description: "ID of job.",
+            type: "string",
+            format: "uuid",
+            "x-order": 1,
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
           },
           job_type: {
             title: "JobType",
@@ -3611,51 +4838,6 @@ const foldSpec = {
             "x-order": 3,
             example: "/fold/fold",
           },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
         },
       },
       ValidationError: {
@@ -3691,16 +4873,119 @@ const foldSpec = {
           },
         },
       },
+      MiniFoldRequest: {
+        title: "MiniFoldRequest",
+        description: "Request for structure prediction using MiniFold.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    title: "Protein",
+                    description: "Protein to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
+                            type: "string",
+                          },
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description:
+                          "Amino acid sequence of the protein chain.",
+                      },
+                    },
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                    },
+                  },
+                ],
+              },
+            },
+          },
+          num_recycles: {
+            description: "Number of recycles. `null` lets the system decide.",
+            type: "number",
+            nullable: true,
+            minimum: 0,
+            maximum: 48,
+            default: null,
+            example: null,
+          },
+        },
+      },
+      ProteinWithMSA: {
+        type: "object",
+        required: ["msa_id"],
+        properties: {
+          msa_id: {
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            description: "ID for an MSA job, or null for single-sequence mode.",
+          },
+        },
+        title: "ProteinWithMSA",
+        description: "Protein object with MSA specified.",
+        example: {
+          id: "A",
+          sequence: "MVTPEGNV...",
+          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+        },
+      },
       AF2Request: {
         title: "AlphaFold2Request",
         description: "Request for structure prediction using AlphaFold2.",
         type: "object",
         required: ["msa_id"],
         properties: {
-          msa_id: {
-            description: "ID of MSA to use for fold.",
-            type: "string",
-            format: "uuid",
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    },
+                  },
+                ],
+              },
+            },
           },
           num_recycles: {
             description: "Number of recycles. `null` lets the system decide.",
@@ -3729,11 +5014,11 @@ const foldSpec = {
           },
         },
       },
-      Protein: {
-        title: "Protein",
-        description: "Protein to be folded.",
+      Ligand: {
+        title: "Ligand",
+        description: "Small molecule ligand for structure prediction.",
         type: "object",
-        required: ["id", "msa_id", "sequence"],
+        required: ["id"],
         properties: {
           id: {
             oneOf: [
@@ -3748,24 +5033,22 @@ const foldSpec = {
               },
             ],
             description:
-              "Unique chain identifier(s). Use an array for multiple identical chains.",
+              "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
           },
-          sequence: {
+          smiles: {
             type: "string",
-            description: "Amino acid sequence of the protein chain.",
+            description:
+              "SMILES string for the ligand. Mutually exclusive with ccd.",
           },
-          msa_id: {
+          ccd: {
             type: "string",
-            format: "uuid",
-            nullable: true,
-            description: "ID for an MSA job, or null for single-sequence mode.",
+            description:
+              "CCD code for the ligand. Mutually exclusive with smiles.",
           },
         },
         example: {
-          id: ["A", "B"],
-          sequence:
-            "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+          id: ["C", "D"],
+          ccd: "SAH",
         },
       },
       DNA: {
@@ -3835,196 +5118,6 @@ const foldSpec = {
           id: "A",
           sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
         },
-      },
-      Ligand: {
-        title: "Ligand",
-        description: "Small molecule ligand for structure prediction.",
-        type: "object",
-        required: ["id"],
-        properties: {
-          id: {
-            oneOf: [
-              {
-                type: "string",
-              },
-              {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-              },
-            ],
-            description:
-              "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-          },
-          smiles: {
-            type: "string",
-            description:
-              "SMILES string for the ligand. Mutually exclusive with ccd.",
-          },
-          ccd: {
-            type: "string",
-            description:
-              "CCD code for the ligand. Mutually exclusive with smiles.",
-          },
-        },
-        example: {
-          id: ["C", "D"],
-          ccd: "SAH",
-        },
-      },
-      BoltzChain: {
-        title: "Chain",
-        description:
-          "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-        oneOf: [
-          {
-            title: "Protein",
-            description: "Protein to be folded.",
-            type: "object",
-            required: ["id", "msa_id", "sequence"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-              },
-              sequence: {
-                type: "string",
-                description: "Amino acid sequence of the protein chain.",
-              },
-              msa_id: {
-                type: "string",
-                format: "uuid",
-                nullable: true,
-                description:
-                  "ID for an MSA job, or null for single-sequence mode.",
-              },
-            },
-            example: {
-              id: ["A", "B"],
-              sequence:
-                "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-            },
-          },
-          {
-            title: "DNA",
-            description: "DNA chain to be folded.",
-            type: "object",
-            required: ["id", "sequence"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-              },
-              sequence: {
-                type: "string",
-                description: "Nucleotide sequence of the DNA chain.",
-              },
-            },
-            example: {
-              id: ["A", "B"],
-              sequence:
-                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-            },
-          },
-          {
-            title: "RNA",
-            description: "RNA chain to be folded.",
-            type: "object",
-            required: ["id", "sequence"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-              },
-              sequence: {
-                type: "string",
-                description: "Nucleotide sequence of the RNA chain.",
-              },
-              msa_id: {
-                type: "string",
-                format: "uuid",
-                description:
-                  "ID for an MSA job, or null for single-sequence mode.",
-              },
-            },
-            example: {
-              id: "A",
-              sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-            },
-          },
-          {
-            title: "Ligand",
-            description: "Small molecule ligand for structure prediction.",
-            type: "object",
-            required: ["id"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-              },
-              smiles: {
-                type: "string",
-                description:
-                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-              },
-              ccd: {
-                type: "string",
-                description:
-                  "CCD code for the ligand. Mutually exclusive with smiles.",
-              },
-            },
-            example: {
-              id: ["C", "D"],
-              ccd: "SAH",
-            },
-          },
-        ],
       },
       BondConstraint: {
         title: "BondConstraint",
@@ -4184,158 +5277,139 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              title: "Chain",
-              description:
-                "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-              oneOf: [
-                {
-                  title: "Protein",
-                  description: "Protein to be folded.",
-                  type: "object",
-                  required: ["id", "msa_id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    },
+                  },
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Amino acid sequence of the protein chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-                {
-                  title: "DNA",
-                  description: "DNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "DNA",
+                    description: "DNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the DNA chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the DNA chain.",
+                    example: {
+                      id: ["A", "B"],
+                      sequence:
+                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                  },
-                },
-                {
-                  title: "RNA",
-                  description: "RNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "RNA",
+                    description: "RNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
-                    },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the RNA chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
-                    },
-                  },
-                  example: {
-                    id: "A",
-                    sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
-                            type: "string",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
                           },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the RNA chain.",
+                      },
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
                     },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    example: {
+                      id: "A",
+                      sequence:
+                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                     },
                   },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           constraints: {
@@ -4501,12 +5575,12 @@ const foldSpec = {
             description: "Number of diffusion samples to use.",
             default: 1,
           },
-          recycling_steps: {
+          num_recycles: {
             type: "integer",
             description: "Number of recycling steps to use.",
             default: 3,
           },
-          sampling_steps: {
+          num_steps: {
             type: "integer",
             description: "Number of sampling steps to use.",
             default: 200,
@@ -4520,26 +5594,27 @@ const foldSpec = {
         },
         example: {
           sequences: [
-            {
-              protein: {
-                id: ["A", "B"],
-                sequence:
-                  "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["C", "D"],
-                ccd: "SAH",
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["E", "F"],
-                smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
               },
-            },
+            ],
           ],
           constraints: [
             {
@@ -4578,158 +5653,139 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              title: "Chain",
-              description:
-                "A chain entity, which can be a protein, DNA, RNA, or ligand.",
-              oneOf: [
-                {
-                  title: "Protein",
-                  description: "Protein to be folded.",
-                  type: "object",
-                  required: ["id", "msa_id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    },
+                  },
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Amino acid sequence of the protein chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                    msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                  },
-                },
-                {
-                  title: "DNA",
-                  description: "DNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "DNA",
+                    description: "DNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the DNA chain.",
+                      },
                     },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the DNA chain.",
+                    example: {
+                      id: ["A", "B"],
+                      sequence:
+                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
                     },
                   },
-                  example: {
-                    id: ["A", "B"],
-                    sequence:
-                      "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                  },
-                },
-                {
-                  title: "RNA",
-                  description: "RNA chain to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
+                  {
+                    title: "RNA",
+                    description: "RNA chain to be folded.",
+                    type: "object",
+                    required: ["id", "sequence"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
                             type: "string",
                           },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
-                    },
-                    sequence: {
-                      type: "string",
-                      description: "Nucleotide sequence of the RNA chain.",
-                    },
-                    msa_id: {
-                      type: "string",
-                      format: "uuid",
-                      description:
-                        "ID for an MSA job, or null for single-sequence mode.",
-                    },
-                  },
-                  example: {
-                    id: "A",
-                    sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
-                            type: "string",
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
                           },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                        ],
+                        description:
+                          "Unique chain identifier(s). Use an array for multiple identical chains.",
+                      },
+                      sequence: {
+                        type: "string",
+                        description: "Nucleotide sequence of the RNA chain.",
+                      },
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
                     },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    example: {
+                      id: "A",
+                      sequence:
+                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
                     },
                   },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-              ],
+                ],
+              },
             },
           },
           constraints: {
@@ -4901,12 +5957,12 @@ const foldSpec = {
             description: "Number of diffusion samples to use.",
             default: 1,
           },
-          recycling_steps: {
+          num_recycles: {
             type: "integer",
             description: "Number of recycling steps to use.",
             default: 3,
           },
-          sampling_steps: {
+          num_steps: {
             type: "integer",
             description: "Number of sampling steps to use.",
             default: 200,
@@ -4917,29 +5973,53 @@ const foldSpec = {
             description: "Scaling factor for diffusion steps.",
             default: 1.638,
           },
+          method: {
+            type: "string",
+            description: "The method to use for prediction.",
+            enum: [
+              "MD",
+              "X-RAY DIFFRACTION",
+              "ELECTRON MICROSCOPY",
+              "SOLUTION NMR",
+              "SOLID-STATE NMR",
+              "NEUTRON DIFFRACTION",
+              "ELECTRON CRYSTALLOGRAPHY",
+              "FIBER DIFFRACTION",
+              "POWDER DIFFRACTION",
+              "INFRARED SPECTROSCOPY",
+              "FLUORESCENCE TRANSFER",
+              "EPR",
+              "THEORETICAL MODEL",
+              "SOLUTION SCATTERING",
+              "OTHER",
+              "AFDB",
+              "BOLTZ-1",
+            ],
+          },
         },
         example: {
           sequences: [
-            {
-              protein: {
-                id: ["A", "B"],
-                sequence:
-                  "MVTPEGNVSLVDESLLVGVTDEDRAVRSAHQFYERLIGLWAPAVMEAAHELGVFAALAEAPADSGELARRLDCDARAMRVLLDALYAYDVIDRIHDTNGFRYLLSAEARECLLPGTLFSLVGKFMHDINVAWPAWRNLAEVVRHGARDTSGAESPNGIAQEDYESLVGGINFWAPPIVTTLSRKLRASGRSGDATASVLDVGCGTGLYSQLLLREFPRWTATGLDVERIATLANAQALRLGVEERFATRAGDFWRGGWGTGYDLVLFANIFHLQTPASAVRLMRHAAACLAPDGLVAVVDQIVDADREPKTPQDRFALLFAASMTNTGGGDAYTFQEYEEWFTAAGLQRIETLDTPMHRILLARRATEPSAVPEGQASENLYFQ",
-                msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["C", "D"],
-                ccd: "SAH",
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
               },
-            },
-            {
-              ligand: {
-                id: ["E", "F"],
-                smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
               },
-            },
+            ],
           ],
           constraints: [
             {
@@ -4973,12 +6053,420 @@ const foldSpec = {
           step_scale: 1.2,
         },
       },
+      RF3Request: {
+        title: "RF3Request",
+        description: "Request for structure prediction using RosettaFold-3.\n",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    type: "object",
+                    required: ["msa_id"],
+                    properties: {
+                      msa_id: {
+                        type: "string",
+                        format: "uuid",
+                        nullable: true,
+                        description:
+                          "ID for an MSA job, or null for single-sequence mode.",
+                      },
+                    },
+                    title: "ProteinWithMSA",
+                    description: "Protein object with MSA specified.",
+                    example: {
+                      id: "A",
+                      sequence: "MVTPEGNV...",
+                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                    },
+                  },
+                  {
+                    title: "Ligand",
+                    description:
+                      "Small molecule ligand for structure prediction.",
+                    type: "object",
+                    required: ["id"],
+                    properties: {
+                      id: {
+                        oneOf: [
+                          {
+                            type: "string",
+                          },
+                          {
+                            type: "array",
+                            items: {
+                              type: "string",
+                            },
+                          },
+                        ],
+                        description:
+                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                      },
+                      smiles: {
+                        type: "string",
+                        description:
+                          "SMILES string for the ligand. Mutually exclusive with ccd.",
+                      },
+                      ccd: {
+                        type: "string",
+                        description:
+                          "CCD code for the ligand. Mutually exclusive with smiles.",
+                      },
+                    },
+                    example: {
+                      id: ["C", "D"],
+                      ccd: "SAH",
+                    },
+                  },
+                ],
+              },
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            default: 1,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            default: 3,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            default: 200,
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: "A",
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
+              },
+              {
+                ligand: {
+                  id: "B",
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: "C",
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          diffusion_samples: 2,
+          num_recycles: 4,
+          num_steps: 300,
+        },
+      },
+      Fold: {
+        title: "Fold",
+        description: "Fold request metadata.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+          "model_id",
+        ],
+        properties: {
+          job_id: {
+            title: "JobID",
+            description: "ID of job.",
+            type: "string",
+            format: "uuid",
+            "x-order": 1,
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            title: "Created Date",
+            description: "Datetime of created object",
+            type: "string",
+            format: "date-time",
+            example: "2024-01-01T12:34:56.789Z",
+            "x-order": 4,
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            title: "JobStatus",
+            description: "Status of job.",
+            type: "string",
+            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+            "x-order": 7,
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+          model_id: {
+            type: "string",
+            example: "boltz-2",
+          },
+          args: {
+            type: "object",
+            additionalProperties: true,
+            example: {
+              num_steps: 50,
+              sequences: [
+                {
+                  protein: "...",
+                },
+              ],
+            },
+          },
+        },
+      },
+      Sequence: {
+        title: "Sequence",
+        description: "Protein sequence",
+        type: "string",
+        example: "MSKGEELFTGV",
+      },
+      BatchFoldSequences: {
+        title: "BatchFoldSequences",
+        description: "Batched fold request sequences.",
+        type: "array",
+        items: {
+          title: "Sequence",
+          description: "Protein sequence",
+          type: "string",
+          example: "MSKGEELFTGV",
+        },
+      },
+      Chain: {
+        title: "Chain",
+        description: "A chain entity, which can be a protein or ligand.",
+        oneOf: [
+          {
+            title: "Protein",
+            description: "Protein to be folded.",
+            type: "object",
+            required: ["id", "sequence"],
+            properties: {
+              id: {
+                oneOf: [
+                  {
+                    type: "string",
+                  },
+                  {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                ],
+                description:
+                  "Unique chain identifier(s). Use an array for multiple identical chains.",
+              },
+              sequence: {
+                type: "string",
+                description: "Amino acid sequence of the protein chain.",
+              },
+            },
+            example: {
+              id: "A",
+              sequence: "MVTPEGNV...",
+            },
+          },
+          {
+            title: "Ligand",
+            description: "Small molecule ligand for structure prediction.",
+            type: "object",
+            required: ["id"],
+            properties: {
+              id: {
+                oneOf: [
+                  {
+                    type: "string",
+                  },
+                  {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                ],
+                description:
+                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+              },
+              smiles: {
+                type: "string",
+                description:
+                  "SMILES string for the ligand. Mutually exclusive with ccd.",
+              },
+              ccd: {
+                type: "string",
+                description:
+                  "CCD code for the ligand. Mutually exclusive with smiles.",
+              },
+            },
+            example: {
+              id: ["C", "D"],
+              ccd: "SAH",
+            },
+          },
+        ],
+      },
+      ComplexFoldSequences: {
+        title: "ComplexFoldSequences",
+        description:
+          "Sequences used when making a single multi-chain fold request.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              title: "Chain",
+              description: "A chain entity, which can be a protein or ligand.",
+              oneOf: [
+                {
+                  title: "Protein",
+                  description: "Protein to be folded.",
+                  type: "object",
+                  required: ["id", "sequence"],
+                  properties: {
+                    id: {
+                      oneOf: [
+                        {
+                          type: "string",
+                        },
+                        {
+                          type: "array",
+                          items: {
+                            type: "string",
+                          },
+                        },
+                      ],
+                      description:
+                        "Unique chain identifier(s). Use an array for multiple identical chains.",
+                    },
+                    sequence: {
+                      type: "string",
+                      description: "Amino acid sequence of the protein chain.",
+                    },
+                  },
+                  example: {
+                    id: "A",
+                    sequence: "MVTPEGNV...",
+                  },
+                },
+                {
+                  title: "Ligand",
+                  description:
+                    "Small molecule ligand for structure prediction.",
+                  type: "object",
+                  required: ["id"],
+                  properties: {
+                    id: {
+                      oneOf: [
+                        {
+                          type: "string",
+                        },
+                        {
+                          type: "array",
+                          items: {
+                            type: "string",
+                          },
+                        },
+                      ],
+                      description:
+                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
+                    },
+                    smiles: {
+                      type: "string",
+                      description:
+                        "SMILES string for the ligand. Mutually exclusive with ccd.",
+                    },
+                    ccd: {
+                      type: "string",
+                      description:
+                        "CCD code for the ligand. Mutually exclusive with smiles.",
+                    },
+                  },
+                  example: {
+                    id: ["C", "D"],
+                    ccd: "SAH",
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
       OutputFormat: {
         title: "OutputFormat",
         description: "Output format of folded structure. Defaults to pdb.",
         type: "string",
         enum: ["pdb", "mmcif"],
         default: "pdb",
+      },
+      PDBOutput: {
+        title: "PDBOutput",
+        description: "An output pdb structure file.",
+        type: "string",
+        example:
+          "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+      },
+      CIFOutput: {
+        title: "CIFOutput",
+        description: "An output CIF structure file.",
+        type: "string",
+        example:
+          'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
       },
     },
   },
@@ -4997,9 +6485,13 @@ const foldSpec = {
         "Create structure prediction using Boltz-2, Boltz-1x, Boltz-1 models.",
     },
     {
-      name: "alphafold2",
+      name: "alphafold",
       description:
         "Create structure prediction using AlphaFold-2 model, provided by ColabFold.",
+    },
+    {
+      name: "rosettafold",
+      description: "Create structure prediction using RosettaFold-3 model.",
     },
     {
       name: "esmfold",

@@ -9,13 +9,13 @@ navigation located at the top right corner of the application. Select
 ‘Align Sequences’ to be redirected to the main alignment page, where you
 can perform sequence alignment tasks.
 
-.. image:: ../../_static/opmodels/align/image1.png
+.. image:: /_static/opmodels/align/image1.png
 
 
 If you need to view past alignment jobs, select ‘History’ to access the
 history page displaying your previous alignments.
 
-.. image:: ../../_static/opmodels/align/image2.png
+.. image:: /_static/opmodels/align/image2.png
 
 
 Uploading your sequences
@@ -27,7 +27,7 @@ select the upload option to browse and upload a file from your computer
 or directly copy and paste a list of sequences into the provided input
 field.
 
-.. image:: ../../_static/opmodels/align/image3.png
+.. image:: /_static/opmodels/align/image3.png
 
 Sequence alignment algorithms
 -----------------------------
@@ -51,7 +51,7 @@ first attempt.
 For the AbNumber model, you can select the numbering scheme from the
 options provided: IMGT (default), Kabat, Chothia, and Aho.
 
-.. image:: ../../_static/opmodels/align/image4.png
+.. image:: /_static/opmodels/align/image4.png
 
 
 When using Clustal Omega, you can specify the cluster size, with the
@@ -60,7 +60,7 @@ distance matrices are calculated to construct guide-trees. Additionally,
 you can define the number of iterations for the fine-tuning process,
 with a default value of 0.
 
-.. image:: ../../_static/opmodels/align/image5.png
+.. image:: /_static/opmodels/align/image5.png
 
 If you opt for the MAFFT model, you can set the alignment strategy to
 either Auto or Custom. If you select 'Custom' as your alignment
@@ -70,7 +70,7 @@ can set the gap opening penalty, with higher gap penalties useful for
 closely related matches and lower penalties for identifying more distant
 matches.
 
-.. image:: ../../_static/opmodels/align/image6.png
+.. image:: /_static/opmodels/align/image6.png
 
 Viewing alignments
 ------------------
@@ -79,12 +79,12 @@ Once the alignment job is completed, the results will be displayed in a
 table format for easy visualization. You can export the alignment
 results for further analysis.
 
-.. image:: ../../_static/opmodels/align/image7.png
+.. image:: /_static/opmodels/align/image7.png
 
 
 To review the original input sequences and understand the alignment
 model used, switch to the ‘Input’ tab. To start a new alignment job,
 click on ‘New Sequence Alignment’.
 
-.. image:: ../../_static/opmodels/align/image8.png
+.. image:: /_static/opmodels/align/image8.png
 

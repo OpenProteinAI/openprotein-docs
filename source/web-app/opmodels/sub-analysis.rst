@@ -22,7 +22,7 @@ Analysis**. The first sequence of your dataset automatically appears in
 the input box. If you start a substitution analysis by right-clicking on
 a sequence, that sequence auto-populates.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image2.png
+.. image:: /_static/opmodels/substitution-analysis/image2.png
 
 If you run into any challenges or have questions while getting started, please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`__.
 
@@ -38,10 +38,10 @@ edited sites.
 The **Analysis Type** menu is set to **Single Analysis (Sequence)** by
 default.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image1.png
+.. image:: /_static/opmodels/substitution-analysis/image1.png
 
 In the **Models** section, select at least one trained model to run the
-prediction, then select **Run**.
+prediction, then click **Predict**.
 
 Interpreting your results
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,7 +54,7 @@ Your prediction results are displayed as a prediction score, a table,
 and a heatmap. The table shows the predicted property values and
 standard deviations of each selected property and model.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image7.png
+.. image:: /_static/opmodels/substitution-analysis/image7.png
 
 Hover over points on the heatmap to view the log-likelihood score for
 each substitution variant.
@@ -79,7 +79,7 @@ fine-tune the heatmap colors. You can also adjust the target values to
 dynamically update the heatmap and highlight substitutions that achieve
 or surpass targets.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image6.png
+.. image:: /_static/opmodels/substitution-analysis/image6.png
     :width: 50%
 
 You can filter your results using the following options:
@@ -89,23 +89,31 @@ You can filter your results using the following options:
 - **Max Number of Sites**: Displays only the top *n* positions recommended for substitution.
 - **Limit to Site Number**: Restricts results to specific positions. You can input discrete values (e.g., ``1; 3; 5; 7``) or a range (e.g., ``21 - 65``).
 
-.. image:: ../../_static/opmodels/substitution-analysis/filters.png
+.. image:: /_static/opmodels/substitution-analysis/filters.png
 
 In the image above, the filters are set to display the top 3 variants at the top 170 sites, and then select the best 500 sequences from that pool.
 
 Scoring multiple sequences
 --------------------------
 
-Upload a dataset with multiple sequences as a .fasta or .CSV file. Your
-dataset is displayed as a table. Select **Batch Analysis (Dataset)** in
-the **Analysis Type** menu.
+To analyze multiple sequences, select **Batch Analysis (Dataset)** from the **Analysis Type** menu.
+You can upload a dataset containing multiple sequences in either .fasta or .csv format. Once uploaded,
+your dataset will appear.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image4.png
+If you choose to upload a CSV file, please note the following requirements:
 
-.. image:: ../../_static/opmodels/substitution-analysis/image3.png
+- The file must not include a header row.
+- It can contain a maximum of 2 columns.
+- If there are 2 columns, the first one must be the sequence names.
+
+Currently, sequence names are not supported for submission and will be ignored during analysis.
+
+.. image:: /_static/opmodels/substitution-analysis/image3.png
+
+.. image:: /_static/opmodels/substitution-analysis/image4.png
 
 In the **Models** section, select at least one trained model to run the
-prediction, then select **Run**.
+prediction, then click **Predict**.
 
 .. _interpreting-your-results-1:
 
@@ -116,7 +124,7 @@ Your results display as a table showing the predicted score, mean, and
 standard deviation of each model and property. To download your results
 as a .CSV file, select **Export as CSV**.
 
-.. image:: ../../_static/opmodels/substitution-analysis/image5.png
+.. image:: /_static/opmodels/substitution-analysis/image5.png
 
 Using your sequences
 --------------------

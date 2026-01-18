@@ -15,11 +15,11 @@ OpenProtein.AI uses UMAP to visualize sequence datasets and reveal clusters in s
 
 The UMAP options allow you to adjust color options and properties.
 
-.. image:: ../../_static/opmodels/visualizing-your-data/core-umap-color.gif
+.. image:: /_static/opmodels/visualizing-your-data/core-umap-color.gif
 
 Drag your cursor across an area to select a cluster. The corresponding sequences will be highlighted in your dataset table.
 
-.. image:: ../../_static/opmodels/visualizing-your-data/core-umap-selection.gif
+.. image:: /_static/opmodels/visualizing-your-data/core-umap-selection.gif
 
 Why use UMAP over PCA
 ^^^^^^^^^^^^^^^^^^^^^
@@ -31,14 +31,14 @@ Joint plots
 
 The joint plot displays the pairwise relationships between properties and shows the distribution of each individual property from your dataset. You can visually explore your data by selecting properties and viewing the distribution of individuals of each variable.
 
-.. image:: ../../_static/opmodels/visualizing-your-data/core-jointplot.png
+.. image:: /_static/opmodels/visualizing-your-data/core-jointplot.png
 
 Histograms
 ----------------
 
 The histogram compares the expected property distributions for the designs against your original library and joint plots for all of the properties.
 
-.. image:: ../../_static/opmodels/visualizing-your-data/core-histogram.png
+.. image:: /_static/opmodels/visualizing-your-data/core-histogram.png
 
 Design result tables
 --------------------------
@@ -49,7 +49,7 @@ If your dataset contains duplicate sequences, you have the option to select **Sh
 
 You can set, edit, or delete a reference sequence using the **Edit Reference Sequence** button, or delete a reference sequence by selecting **X**. If you have a reference sequence, use **Sequence View Options** to display either the full sequence or only the mutation sites relative to the reference sequence. You can also select **Show mutation codes** to add mutation codes as an additional table column. 
 
-.. image:: ../../_static/opmodels/visualizing-your-data/Design-table-settings.png
+.. image:: /_static/opmodels/visualizing-your-data/Design-table-settings.png
 
 If your design used objectives with multiple properties, the design results table will show you two scores:
 
@@ -58,4 +58,4 @@ If your design used objectives with multiple properties, the design results tabl
 
 The mean and standard deviation for each property are also included. 
 
-.. image:: ../../_static/opmodels/visualizing-your-data/design-results-table.png
+.. image:: /_static/opmodels/visualizing-your-data/design-results-table.png
