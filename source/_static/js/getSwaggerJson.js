@@ -36,17 +36,10 @@ const apiSchemasProject = [
 
 const apiPathProject = [
   "/api/v1/assaydata",
-  "/api/v1/workflow/train",
-  "/api/v1/workflow/train/br",
-  "/api/v1/workflow/train/gp",
-  "/api/v1/workflow/train/{job_id}",
-  "/api/v1/workflow/design/genetic-algorithm",
-  "/api/v1/workflow/design/{job_id}",
-  "/api/v1/workflow/predict",
-  "/api/v1/workflow/predict/single_site",
-  "/api/v1/workflow/predict/{job_id}",
-  "/api/v1/workflow/predict/single_site/{job_id}",
-  "/api/v1/workflow/embed/umap/{assay_id}",
+  "/api/v1/assaydata/metadata",
+  "/api/v1/assaydata/{assay_id}",
+  "/api/v1/assaydata/{assay_id}/sequences",
+  "/api/v1/assaydata/{assay_id}/csv",
 ];
 
 const apiSchemasAlign = [
