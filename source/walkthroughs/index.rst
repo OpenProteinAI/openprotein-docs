@@ -44,7 +44,7 @@ Python API
   * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`_
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
   * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`_
-    - Query design, BoltzGen, PoET-2, Boltz-2
+    - Query design, BoltzGen, ProteinMPNN, Boltz-2
   * - `Quantitative decision making for library design <./quantitative-decision-making-library-design.ipynb>`_
     - Optimization and Prediction Models
   * - `Aligning variable length sequences using Python <aligning-variable.rst>`_
