@@ -3,7 +3,7 @@ name = "openprotein-docs"
 version = "0.1.0"
 description = "Documentation for OpenProtein"
 readme = "README.md"
-requires-python = ">=3.8,<3.13"
+requires-python = ">=3.8,<3.15"
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -57,7 +57,7 @@ dev = [
 nb = [
   "molviewspec",
   "ipykernel",
-  # "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git",
+  # "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git@6e6214088bee247f20f72afe0bec4e8f686f08d9",
   "seaborn",
   "scipy",
 ]

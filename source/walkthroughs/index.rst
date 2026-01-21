@@ -43,6 +43,8 @@ Python API
     - Embeddings
   * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`_
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
+  * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`_
+    - Query design, BoltzGen, ProteinMPNN, Boltz-2
   * - `Quantitative decision making for library design <./quantitative-decision-making-library-design.ipynb>`_
     - Optimization and Prediction Models
   * - `Aligning variable length sequences using Python <aligning-variable.rst>`_
@@ -77,6 +79,6 @@ Python API
   Inverse Folding with PoET-2 for Generation of Novel Luciferases <./PoET-2_inverse_folding.ipynb>
   Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>
   Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>
-  Binder Design With RFdiffusion <./Binder_Design_With_RFdiffusion.ipynb>
+  Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>
   Aligning variable length sequences using Python <aligning-variable>
   Designing libraries of multimeric proteins <multichain>
