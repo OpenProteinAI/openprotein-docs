@@ -3,7 +3,7 @@ const designSpec = {
   info: {
     title: "OpenProtein Design",
     description:
-      "# Design API\nThe Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily. \n\nCurrently, we support the following design algorithms:\n- **Genetic Algorithm** - Evolutionary optimization for sequence design using trained `predictors`\n- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies\n- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides\n",
+      "# Design API\nThe Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily. \n\nCurrently, we support the following design algorithms:\n- **Genetic Algorithm** - Evolutionary optimization for sequence design\n- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies\n- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides\n",
     version: "1.0.0",
   },
   paths: {
@@ -1216,7 +1216,7 @@ const designSpec = {
     "/api/v1/designer/design/{job_id}": {
       get: {
         tags: ["design"],
-        summary: "Get design metadata",
+        summary: "Get sequence optimization design metadata",
         description:
           "Get design job metadata.\n\nThis endpoint will be used after a successful POST request.",
         operationId: "getDesign",
@@ -1680,7 +1680,7 @@ const designSpec = {
     "/api/v1/designer/design/{job_id}/results": {
       get: {
         tags: ["design"],
-        summary: "Get design results",
+        summary: "Get sequence optimization design results",
         description:
           "Get design job with results if available.\n\nThis endpoint will be used after a successful POST request.",
         operationId: "getDesignResults",
@@ -2105,7 +2105,7 @@ const designSpec = {
               schema: {
                 title: "DesignRequestRFdiffusion",
                 description:
-                  "Request to design new structures using RFdiffusion.",
+                  "Request to design new structures using RFdiffusion.\n\n`query_id` or `contigs` is required.\n",
                 type: "object",
                 properties: {
                   n: {
@@ -2116,6 +2116,13 @@ const designSpec = {
                     default: 1,
                     example: 1,
                     "x-order": 101,
+                  },
+                  query_id: {
+                    title: "Query ID",
+                    description:
+                      "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or contigs should be specified.",
+                    type: "string",
+                    format: "uuid",
                   },
                   structure_text: {
                     title: "Structure Text",
@@ -2250,6 +2257,10 @@ const designSpec = {
                   },
                 },
                 examples: {
+                  query: {
+                    n: 1,
+                    query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
+                  },
                   unconditional: {
                     n: 3,
                     contigs: "100-100",
@@ -2260,8 +2271,8 @@ const designSpec = {
                   },
                 },
                 example: {
-                  n: 3,
-                  contigs: "100-100",
+                  n: 1,
+                  query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
                 },
               },
             },
@@ -2512,9 +2523,9 @@ const designSpec = {
             "application/json": {
               schema: {
                 title: "DesignRequestBoltzGen",
-                description: "Request to design new structures using BoltzGen.",
+                description:
+                  "Request to design new structures using BoltzGen.\n\n`query_id` or `design_spec` is required.\n",
                 type: "object",
-                required: ["design_spec"],
                 properties: {
                   n: {
                     title: "Number of Designs",
@@ -2524,11 +2535,63 @@ const designSpec = {
                     example: 1,
                     "x-order": 101,
                   },
-                  design_spec: {
-                    title: "Design Specification",
+                  query_id: {
+                    title: "Query ID",
                     description:
-                      "BoltzGen design specification defining entities and constraints.",
-                    "x-order": 102,
+                      "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or design_spec should be specified.",
+                    type: "string",
+                    format: "uuid",
+                  },
+                  design_spec: {
+                    title: "BoltzGenDesignSpec",
+                    description:
+                      "Complete BoltzGen design specification including entities and constraints.",
+                    type: "object",
+                    required: ["entities"],
+                    properties: {
+                      entities: {
+                        title: "Entities",
+                        description:
+                          "List of entities in the design (proteins, ligands, or files).",
+                        type: "array",
+                        minItems: 1,
+                        items: {},
+                        "x-order": 1,
+                      },
+                      constraints: {
+                        title: "Constraints",
+                        description: "List of constraints for the design.",
+                        type: "array",
+                        nullable: true,
+                        default: null,
+                        items: {},
+                        "x-order": 2,
+                      },
+                    },
+                    example: {
+                      entities: [
+                        {
+                          protein: {
+                            id: "A",
+                            sequence: "ACDEFGHIKLMNPQRSTVWY",
+                          },
+                        },
+                        {
+                          ligand: {
+                            id: "B",
+                            ccd: "ATP",
+                          },
+                        },
+                      ],
+                      constraints: [
+                        {
+                          bond: {
+                            atom1: ["A", 10, "CA"],
+                            atom2: ["B", 1, "O"],
+                          },
+                        },
+                      ],
+                    },
                   },
                   structure_text: {
                     title: "Structure Text",
@@ -2575,6 +2638,10 @@ const designSpec = {
                   },
                 },
                 examples: {
+                  query: {
+                    n: 1,
+                    query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
+                  },
                   unconditional: {
                     design_spec: {
                       entities: [
@@ -2636,16 +2703,7 @@ const designSpec = {
                 },
                 example: {
                   n: 1,
-                  design_spec: {
-                    entities: [
-                      {
-                        protein: {
-                          id: "A",
-                          sequence: "100",
-                        },
-                      },
-                    ],
-                  },
+                  query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
                 },
               },
             },
@@ -3042,6 +3100,124 @@ const designSpec = {
         ],
       },
     },
+    "/api/v1/design/{job_id}/results": {
+      get: {
+        tags: ["structure generation"],
+        summary: "Retrieve structure generation result",
+        description: "Get designed structure for a submitted design sequence",
+        parameters: [
+          {
+            name: "job_id",
+            in: "path",
+            description: "Job ID to fetch",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+          {
+            name: "replicate",
+            in: "query",
+            description:
+              "Replicate index out of the `N` requested designs. Defaults to the first design.\n",
+            required: false,
+            schema: {
+              type: "number",
+              default: 0,
+            },
+          },
+          {
+            name: "format",
+            in: "query",
+            description:
+              "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
+            required: false,
+            schema:
+              '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Result encoded in requested format.",
+            content: {
+              "chemical/x-mmcif": {
+                schema:
+                  '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+              },
+              "chemical/x-pdb": {
+                schema:
+                  '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+              },
+            },
+          },
+          "400": {
+            description:
+              "Result retrieval error. Contact support for assistance if persistent.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Fold job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  title: "Error",
+                  description: "A error object providing details of the error.",
+                  required: ["detail"],
+                  type: "object",
+                  properties: {
+                    detail: {
+                      title: "Detail",
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
   },
   components: {
     securitySchemes: {
@@ -3049,7 +3225,7 @@ const designSpec = {
         type: "oauth2",
         flows: {
           password: {
-            tokenUrl: "/api/v1/login/access-token",
+            tokenUrl: "/api/v1/auth/login",
             scopes: {},
           },
         },
@@ -4372,7 +4548,8 @@ const designSpec = {
       },
       DesignRequestRFdiffusion: {
         title: "DesignRequestRFdiffusion",
-        description: "Request to design new structures using RFdiffusion.",
+        description:
+          "Request to design new structures using RFdiffusion.\n\n`query_id` or `contigs` is required.\n",
         type: "object",
         properties: {
           n: {
@@ -4383,6 +4560,13 @@ const designSpec = {
             default: 1,
             example: 1,
             "x-order": 101,
+          },
+          query_id: {
+            title: "Query ID",
+            description:
+              "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or contigs should be specified.",
+            type: "string",
+            format: "uuid",
           },
           structure_text: {
             title: "Structure Text",
@@ -4515,6 +4699,10 @@ const designSpec = {
           },
         },
         examples: {
+          query: {
+            n: 1,
+            query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
+          },
           unconditional: {
             n: 3,
             contigs: "100-100",
@@ -4525,15 +4713,66 @@ const designSpec = {
           },
         },
         example: {
-          n: 3,
-          contigs: "100-100",
+          n: 1,
+          query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
+        },
+      },
+      BoltzGenDesignSpec: {
+        title: "BoltzGenDesignSpec",
+        description:
+          "Complete BoltzGen design specification including entities and constraints.",
+        type: "object",
+        required: ["entities"],
+        properties: {
+          entities: {
+            title: "Entities",
+            description:
+              "List of entities in the design (proteins, ligands, or files).",
+            type: "array",
+            minItems: 1,
+            items: {},
+            "x-order": 1,
+          },
+          constraints: {
+            title: "Constraints",
+            description: "List of constraints for the design.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {},
+            "x-order": 2,
+          },
+        },
+        example: {
+          entities: [
+            {
+              protein: {
+                id: "A",
+                sequence: "ACDEFGHIKLMNPQRSTVWY",
+              },
+            },
+            {
+              ligand: {
+                id: "B",
+                ccd: "ATP",
+              },
+            },
+          ],
+          constraints: [
+            {
+              bond: {
+                atom1: ["A", 10, "CA"],
+                atom2: ["B", 1, "O"],
+              },
+            },
+          ],
         },
       },
       DesignRequestBoltzGen: {
         title: "DesignRequestBoltzGen",
-        description: "Request to design new structures using BoltzGen.",
+        description:
+          "Request to design new structures using BoltzGen.\n\n`query_id` or `design_spec` is required.\n",
         type: "object",
-        required: ["design_spec"],
         properties: {
           n: {
             title: "Number of Designs",
@@ -4543,11 +4782,63 @@ const designSpec = {
             example: 1,
             "x-order": 101,
           },
-          design_spec: {
-            title: "Design Specification",
+          query_id: {
+            title: "Query ID",
             description:
-              "BoltzGen design specification defining entities and constraints.",
-            "x-order": 102,
+              "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or design_spec should be specified.",
+            type: "string",
+            format: "uuid",
+          },
+          design_spec: {
+            title: "BoltzGenDesignSpec",
+            description:
+              "Complete BoltzGen design specification including entities and constraints.",
+            type: "object",
+            required: ["entities"],
+            properties: {
+              entities: {
+                title: "Entities",
+                description:
+                  "List of entities in the design (proteins, ligands, or files).",
+                type: "array",
+                minItems: 1,
+                items: {},
+                "x-order": 1,
+              },
+              constraints: {
+                title: "Constraints",
+                description: "List of constraints for the design.",
+                type: "array",
+                nullable: true,
+                default: null,
+                items: {},
+                "x-order": 2,
+              },
+            },
+            example: {
+              entities: [
+                {
+                  protein: {
+                    id: "A",
+                    sequence: "ACDEFGHIKLMNPQRSTVWY",
+                  },
+                },
+                {
+                  ligand: {
+                    id: "B",
+                    ccd: "ATP",
+                  },
+                },
+              ],
+              constraints: [
+                {
+                  bond: {
+                    atom1: ["A", 10, "CA"],
+                    atom2: ["B", 1, "O"],
+                  },
+                },
+              ],
+            },
           },
           structure_text: {
             title: "Structure Text",
@@ -4594,6 +4885,10 @@ const designSpec = {
           },
         },
         examples: {
+          query: {
+            n: 1,
+            query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
+          },
           unconditional: {
             design_spec: {
               entities: [
@@ -4655,16 +4950,7 @@ const designSpec = {
         },
         example: {
           n: 1,
-          design_spec: {
-            entities: [
-              {
-                protein: {
-                  id: "A",
-                  sequence: "100",
-                },
-              },
-            ],
-          },
+          query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
         },
       },
       StructureGenerate: {
@@ -4754,6 +5040,12 @@ const designSpec = {
           },
         },
       },
+      OutputFormat:
+        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+      CIFOutput:
+        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+      PDBOutput:
+        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
     },
   },
   tags: [
