@@ -3933,7 +3933,7 @@ const foldSpec = {
         ],
       },
     },
-    "/api/v1/fold/{job_id}/{sequence}": {
+    "/api/v1/fold/{job_id}/{index}": {
       get: {
         tags: ["fold"],
         summary: "Retrieve protein structure",
@@ -3950,12 +3950,12 @@ const foldSpec = {
             },
           },
           {
-            name: "sequence",
+            name: "index",
             in: "path",
-            description: "Sequence for which to retrieve result",
+            description: "Index of batch for which to retrieve result",
             required: true,
             schema: {
-              type: "string",
+              type: "number",
             },
           },
           {
@@ -4065,11 +4065,11 @@ const foldSpec = {
         ],
       },
     },
-    "/api/v1/fold/{job_id}/complex": {
+    "/api/v1/fold/{job_id}/{index}/{extraKey}": {
       get: {
         tags: ["fold"],
-        summary: "Retrieve protein complex structure",
-        description: "Get protein complex structure for a submitted sequence",
+        summary: "Retrieve extra result",
+        description: "Get protein structure for a submitted sequence",
         parameters: [
           {
             name: "job_id",
@@ -4082,41 +4082,43 @@ const foldSpec = {
             },
           },
           {
-            name: "format",
-            in: "query",
-            description:
-              "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
-            required: false,
+            name: "index",
+            in: "path",
+            description: "Index of batch for which to retrieve result",
+            required: true,
             schema: {
-              title: "OutputFormat",
-              description:
-                "Output format of folded structure. Defaults to pdb.",
+              type: "number",
+            },
+          },
+          {
+            name: "extraKey",
+            in: "path",
+            description: "Extra key for extra result provided by fold model",
+            required: true,
+            schema: {
               type: "string",
-              enum: ["pdb", "mmcif"],
-              default: "pdb",
+              enum: [
+                "pae",
+                "pde",
+                "plddt",
+                "ptm",
+                "confidence",
+                "affinity",
+                "score",
+                "metrics",
+              ],
             },
           },
         ],
         responses: {
           "200": {
-            description: "Result encoded in mmCIF/PDB.",
+            description:
+              "Extra result which could be a numpy array, or json, or csv.\n\npae, pde, plddt, ptm returns a .npy.\nconfidence, affinity returns a json.\nscore, metrics returns a csv.\n",
             content: {
-              "chemical/x-mmcif": {
+              "application/octet-stream": {
                 schema: {
-                  title: "CIFOutput",
-                  description: "An output CIF structure file.",
-                  type: "string",
-                  example:
-                    'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
-                },
-              },
-              "chemical/x-pdb": {
-                schema: {
-                  title: "PDBOutput",
-                  description: "An output pdb structure file.",
-                  type: "string",
-                  example:
-                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+                  type: "binary",
+                  description: "Extra result as a file.",
                 },
               },
             },
