@@ -3142,12 +3142,22 @@ const designSpec = {
             description: "Result encoded in requested format.",
             content: {
               "chemical/x-mmcif": {
-                schema:
-                  '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+                schema: {
+                  title: "CIFOutput",
+                  description: "An output CIF structure file.",
+                  type: "string",
+                  example:
+                    'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
+                },
               },
               "chemical/x-pdb": {
-                schema:
-                  '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+                schema: {
+                  title: "PDBOutput",
+                  description: "An output pdb structure file.",
+                  type: "string",
+                  example:
+                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+                },
               },
             },
           },
@@ -5042,10 +5052,20 @@ const designSpec = {
       },
       OutputFormat:
         '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
-      CIFOutput:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
-      PDBOutput:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+      CIFOutput: {
+        title: "CIFOutput",
+        description: "An output CIF structure file.",
+        type: "string",
+        example:
+          'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
+      },
+      PDBOutput: {
+        title: "PDBOutput",
+        description: "An output pdb structure file.",
+        type: "string",
+        example:
+          "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+      },
     },
   },
   tags: [
