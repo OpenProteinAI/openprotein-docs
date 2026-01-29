@@ -3123,7 +3123,7 @@ const designSpec = {
               "Replicate index out of the `N` requested designs. Defaults to the first design.\n",
             required: false,
             schema: {
-              type: "number",
+              type: "integer",
               default: 0,
             },
           },
@@ -3133,8 +3133,14 @@ const designSpec = {
             description:
               "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
             required: false,
-            schema:
-              '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+            schema: {
+              title: "OutputFormat",
+              description:
+                "Output format of folded structure. Defaults to pdb.",
+              type: "string",
+              enum: ["pdb", "mmcif"],
+              default: "pdb",
+            },
           },
         ],
         responses: {
@@ -5050,8 +5056,13 @@ const designSpec = {
           },
         },
       },
-      OutputFormat:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx?t=1769529136835"></script> </body> </html>',
+      OutputFormat: {
+        title: "OutputFormat",
+        description: "Output format of folded structure. Defaults to pdb.",
+        type: "string",
+        enum: ["pdb", "mmcif"],
+        default: "pdb",
+      },
       CIFOutput: {
         title: "CIFOutput",
         description: "An output CIF structure file.",
