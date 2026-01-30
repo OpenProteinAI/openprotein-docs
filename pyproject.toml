@@ -57,7 +57,7 @@ dev = [
 nb = [
   "molviewspec",
   "ipykernel",
-  # "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git@6e6214088bee247f20f72afe0bec4e8f686f08d9",
+  "openprotein-python @ git+https://github.com/OpenProteinAI/openprotein-python-private.git@f2bd23a05b917c7e6edccd86a624f2f6cbb9f2a1",
   "seaborn",
   "scipy",
 ]
