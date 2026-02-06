@@ -50,3 +50,11 @@ RNA
 
 .. autoclass:: openprotein.molecules.RNA
    :members:
+
+Template
+^^^^^^^^
+
+:py:class:`~openprotein.molecules.Template` describes a template that can be used for constraining fold jobs.
+
+.. autoclass:: openprotein.molecules.Template
+   :members:
