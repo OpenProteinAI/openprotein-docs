@@ -1546,7 +1546,9 @@ const foldSpec = {
         title: "ProteinWithMSA",
         description: "Protein object with MSA specified.",
         allOf: [
-          "./Protein.yaml",
+          {
+            $ref: "#/components/schemas/Protein",
+          },
           {
             type: "object",
             required: ["msa_id"],
