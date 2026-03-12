@@ -77,116 +77,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ModelMetadata",
-                  description: "Metadata of protein language model.",
-                  required: [
-                    "dimension",
-                    "description",
-                    "input_tokens",
-                    "max_sequence_length",
-                    "model_id",
-                    "output_tokens",
-                    "output_types",
-                    "token_descriptions",
-                  ],
-                  type: "object",
-                  properties: {
-                    model_id: {
-                      title: "ModelID",
-                      description: "ID of model to be used.",
-                      type: "string",
-                    },
-                    description: {
-                      title: "ModelDescription",
-                      description:
-                        "Description of the model including relevant citations.",
-                      type: "object",
-                      properties: {
-                        summary: {
-                          title: "Summary",
-                          description: "Summary of the model description.",
-                          type: "string",
-                        },
-                        citation_title: {
-                          title: "CitationTitle",
-                          description: "Title of the citation for the model.",
-                          type: "string",
-                        },
-                        doi: {
-                          title: "DOI",
-                          description: "DOI of the citation for the model.",
-                          type: "string",
-                        },
-                      },
-                    },
-                    dimension: {
-                      type: "integer",
-                      description:
-                        "Output dimensions of the model. Returns `-1` if irrelevant.",
-                    },
-                    input_tokens: {
-                      type: "array",
-                      description: "List of valid input tokens.",
-                      example: ["A", "R", "N"],
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    max_sequence_length: {
-                      type: "integer",
-                      description:
-                        "Maximum sequence length supported by model.",
-                    },
-                    output_tokens: {
-                      type: "array",
-                      description:
-                        "List of output tokens ordered by token id. Use this to decode logits.",
-                      example: ["A", "R", "N"],
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    output_types: {
-                      type: "array",
-                      description: "Outputs supported by the model.",
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    token_descriptions: {
-                      type: "array",
-                      description:
-                        "Description of all tokens, ordered by token id. The nth item describes the token(s) represented by token id `n`.\nSome token ids can represent multiple tokens.",
-                      items: {
-                        type: "array",
-                        items: {
-                          title: "TokenDetails",
-                          description: "Details of token.",
-                          required: ["id", "description", "primary", "token"],
-                          type: "object",
-                          properties: {
-                            id: {
-                              type: "integer",
-                              description: "Token ID",
-                            },
-                            token: {
-                              type: "string",
-                              description: "The token's string representation",
-                            },
-                            description: {
-                              type: "string",
-                              description: "Meaning of this token",
-                            },
-                            primary: {
-                              type: "boolean",
-                              description:
-                                "When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.",
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ModelMetadata",
                 },
               },
             },
@@ -197,16 +88,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -216,16 +98,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -261,95 +134,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Embeddings",
-                  description: "Embeddings request metadata.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "model_id",
-                    "n_sequences",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    model_id: {
-                      type: "string",
-                      example: "poet-2",
-                    },
-                    n_sequences: {
-                      type: "integer",
-                    },
-                    reduction: {
-                      nullable: true,
-                    },
-                  },
+                  $ref: "#/components/schemas/Embed",
                 },
               },
             },
@@ -360,16 +145,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -379,16 +155,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -426,10 +193,7 @@ const embeddingsSpec = {
                 schema: {
                   type: "array",
                   items: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                 },
               },
@@ -441,16 +205,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -460,16 +215,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -529,16 +275,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -549,16 +286,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -568,16 +296,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -628,16 +347,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -648,16 +358,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -667,16 +368,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -728,16 +420,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -748,16 +431,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -767,16 +441,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -809,10 +474,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -842,122 +504,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -967,16 +514,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -986,16 +524,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1006,37 +535,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -1046,16 +545,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1121,122 +611,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -1246,16 +621,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1265,16 +631,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1285,37 +642,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -1325,16 +652,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1363,40 +681,7 @@ const embeddingsSpec = {
                   description: "List of SVDs",
                   type: "array",
                   items: {
-                    title: "SVDMetadata",
-                    required: ["model_id"],
-                    type: "object",
-                    properties: {
-                      created_date: {
-                        type: "string",
-                        format: "date-time",
-                      },
-                      id: {
-                        type: "string",
-                      },
-                      model_id: {
-                        type: "string",
-                      },
-                      n_components: {
-                        minimum: 1,
-                        type: "integer",
-                        example: 1024,
-                      },
-                      reduction: {
-                        type: "string",
-                        description: "e.g. MEAN, nil",
-                        example: "MEAN",
-                      },
-                      sequence_length: {
-                        type: "integer",
-                        description:
-                          "used to check if input emb features will match",
-                      },
-                      status: {
-                        type: "string",
-                        example: "PENDING",
-                      },
-                    },
+                    $ref: "#/components/schemas/SVDMetadata",
                   },
                 },
               },
@@ -1408,16 +693,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1462,10 +738,7 @@ const embeddingsSpec = {
                     minItems: 1,
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -1514,122 +787,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -1640,16 +798,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1659,16 +808,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1704,40 +844,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "SVDMetadata",
-                  required: ["model_id"],
-                  type: "object",
-                  properties: {
-                    created_date: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                    id: {
-                      type: "string",
-                    },
-                    model_id: {
-                      type: "string",
-                    },
-                    n_components: {
-                      minimum: 1,
-                      type: "integer",
-                      example: 1024,
-                    },
-                    reduction: {
-                      type: "string",
-                      description: "e.g. MEAN, nil",
-                      example: "MEAN",
-                    },
-                    sequence_length: {
-                      type: "integer",
-                      description:
-                        "used to check if input emb features will match",
-                    },
-                    status: {
-                      type: "string",
-                      example: "PENDING",
-                    },
-                  },
+                  $ref: "#/components/schemas/SVDMetadata",
                 },
               },
             },
@@ -1748,16 +855,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1767,16 +865,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1814,16 +903,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1833,16 +913,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1884,10 +955,7 @@ const embeddingsSpec = {
                     minItems: 1,
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -1902,122 +970,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -2055,10 +1008,7 @@ const embeddingsSpec = {
                 schema: {
                   type: "array",
                   items: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                 },
               },
@@ -2070,16 +1020,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2089,16 +1030,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2132,10 +1064,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -2175,124 +1104,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -2302,16 +1114,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2322,16 +1125,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2341,16 +1135,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2361,37 +1146,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -2401,16 +1156,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2445,10 +1191,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -2488,124 +1231,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -2615,16 +1241,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2635,16 +1252,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2654,16 +1262,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2674,37 +1273,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -2714,16 +1283,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2758,10 +1318,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -2791,124 +1348,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -2918,16 +1358,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2938,16 +1369,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2957,16 +1379,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2977,37 +1390,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -3017,16 +1400,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3062,10 +1436,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -3096,124 +1467,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -3223,16 +1477,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3243,16 +1488,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3262,16 +1498,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3282,37 +1509,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -3322,16 +1519,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3367,10 +1555,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -3401,124 +1586,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -3528,16 +1596,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3548,16 +1607,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3567,16 +1617,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3587,37 +1628,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -3627,16 +1638,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3672,10 +1674,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -3706,124 +1705,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -3833,16 +1715,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3853,16 +1726,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3872,16 +1736,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3892,37 +1747,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -3932,16 +1757,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3977,10 +1793,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -4011,124 +1824,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -4138,16 +1834,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4158,16 +1845,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4177,16 +1855,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4197,37 +1866,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -4237,16 +1876,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4282,10 +1912,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -4316,124 +1943,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -4443,16 +1953,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4463,16 +1964,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4482,16 +1974,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4502,37 +1985,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -4542,16 +1995,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4587,10 +2031,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -4621,124 +2062,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -4748,16 +2072,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4768,16 +2083,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4787,16 +2093,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4807,37 +2104,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -4847,16 +2114,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4892,10 +2150,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -4926,124 +2181,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -5053,16 +2191,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5073,16 +2202,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5092,16 +2212,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5112,37 +2223,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -5152,16 +2233,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5197,10 +2269,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -5231,124 +2300,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -5358,16 +2310,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5378,16 +2321,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5397,16 +2331,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5417,37 +2342,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -5457,16 +2352,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5501,10 +2387,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -5534,124 +2417,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -5661,16 +2427,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5681,16 +2438,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5700,16 +2448,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5720,37 +2459,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -5760,16 +2469,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5805,10 +2505,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -5839,124 +2536,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -5966,16 +2546,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -5986,16 +2557,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6005,16 +2567,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6025,37 +2578,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -6065,16 +2588,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6110,10 +2624,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -6144,124 +2655,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -6271,16 +2665,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6291,16 +2676,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6310,16 +2686,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6330,37 +2697,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -6370,16 +2707,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6415,10 +2743,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -6449,124 +2774,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -6576,16 +2784,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6596,16 +2795,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6615,16 +2805,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6635,37 +2816,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -6675,16 +2826,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6720,10 +2862,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -6754,124 +2893,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -6881,16 +2903,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6901,16 +2914,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6920,16 +2924,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -6940,37 +2935,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -6980,16 +2945,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7024,10 +2980,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -7057,124 +3010,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "EmbedJob",
-                  description:
-                    "EmbedJob represents a embed job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/embed",
-                    },
-                  },
+                  $ref: "#/components/schemas/EmbedJob",
                 },
               },
             },
@@ -7184,16 +3020,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7204,16 +3031,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7223,16 +3041,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7243,37 +3052,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -7283,16 +3062,124 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/ablang2/embed": {
+      post: {
+        tags: ["community", "antibody", "ablang2", "embed"],
+        summary: "ablang2 embed",
+        description:
+          "Create embeddings vectors representing input protein sequences using `ablang2`.",
+        requestBody: {
+          description:
+            "Request for embeddings.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `ablang2`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `ablang2`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Embed request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/EmbedJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7326,10 +3213,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -7359,122 +3243,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -7484,16 +3253,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7503,16 +3263,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7523,37 +3274,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -7563,16 +3284,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7607,10 +3319,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -7641,122 +3350,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -7766,16 +3360,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7785,16 +3370,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7805,37 +3381,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -7845,16 +3391,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -7889,10 +3426,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -7923,122 +3457,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -8048,16 +3467,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8067,16 +3477,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8087,37 +3488,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -8127,16 +3498,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8171,10 +3533,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -8205,122 +3564,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -8330,16 +3574,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8349,16 +3584,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8369,37 +3595,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -8409,16 +3605,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8453,10 +3640,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -8487,122 +3671,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -8612,16 +3681,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8631,16 +3691,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8651,37 +3702,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -8691,16 +3712,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8735,10 +3747,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -8769,122 +3778,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -8894,16 +3788,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8913,16 +3798,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -8933,37 +3809,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -8973,16 +3819,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9017,10 +3854,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -9051,122 +3885,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -9176,16 +3895,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9195,16 +3905,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9215,37 +3916,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -9255,16 +3926,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9299,10 +3961,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -9333,122 +3992,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -9458,16 +4002,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9477,16 +4012,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9497,37 +4023,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -9537,16 +4033,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9581,10 +4068,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -9615,122 +4099,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -9740,16 +4109,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9759,16 +4119,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9779,37 +4130,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -9819,16 +4140,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -9862,10 +4174,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -9895,122 +4204,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -10020,16 +4214,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10039,16 +4224,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10059,37 +4235,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -10099,16 +4245,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10143,10 +4280,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -10177,122 +4311,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -10302,16 +4321,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10321,16 +4331,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10341,37 +4342,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -10381,16 +4352,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10425,10 +4387,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -10459,122 +4418,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -10584,16 +4428,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10603,16 +4438,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10623,37 +4449,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -10663,16 +4459,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10707,10 +4494,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -10741,122 +4525,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -10866,16 +4535,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10885,16 +4545,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10905,37 +4556,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -10945,16 +4566,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -10988,10 +4600,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -11021,122 +4630,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -11146,16 +4640,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11165,16 +4650,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11185,37 +4661,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -11225,16 +4671,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11269,10 +4706,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -11312,122 +4746,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -11437,16 +4756,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11456,16 +4766,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11476,37 +4777,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -11516,16 +4787,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11560,10 +4822,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -11603,122 +4862,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -11728,16 +4872,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11747,16 +4882,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11767,37 +4893,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -11807,16 +4903,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -11851,10 +4938,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -11884,122 +4968,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -12009,16 +4978,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12028,16 +4988,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12048,37 +4999,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -12088,16 +5009,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12133,10 +5045,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -12167,122 +5076,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -12292,16 +5086,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12311,16 +5096,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12331,37 +5107,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -12371,16 +5117,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12416,10 +5153,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -12450,122 +5184,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -12575,16 +5194,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12594,16 +5204,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12614,37 +5215,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -12654,16 +5225,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12698,10 +5260,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -12731,122 +5290,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -12856,16 +5300,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12875,16 +5310,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12895,37 +5321,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -12935,16 +5331,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -12980,10 +5367,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -13014,122 +5398,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -13139,16 +5408,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13158,16 +5418,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13178,37 +5429,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -13218,16 +5439,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13263,10 +5475,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -13297,122 +5506,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -13422,16 +5516,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13441,16 +5526,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13461,37 +5537,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -13501,16 +5547,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13546,10 +5583,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -13580,122 +5614,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -13705,16 +5624,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13724,16 +5634,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13744,37 +5645,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -13784,16 +5655,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -13829,10 +5691,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -13863,122 +5722,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -13988,16 +5732,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14007,16 +5742,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14027,37 +5753,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -14067,16 +5763,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14112,10 +5799,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -14146,122 +5830,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -14271,16 +5840,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14290,16 +5850,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14310,37 +5861,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -14350,16 +5871,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14394,10 +5906,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -14427,122 +5936,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -14552,16 +5946,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14571,16 +5956,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14591,37 +5967,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -14631,16 +5977,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14675,10 +6012,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -14708,122 +6042,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -14833,16 +6052,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14852,16 +6062,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14872,37 +6073,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -14912,16 +6083,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -14956,10 +6118,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -14989,122 +6148,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -15114,16 +6158,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15133,16 +6168,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15153,37 +6179,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -15193,16 +6189,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15237,10 +6224,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -15270,122 +6254,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -15395,16 +6264,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15414,16 +6274,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15434,37 +6285,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -15474,16 +6295,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15518,10 +6330,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                 },
@@ -15551,122 +6360,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -15676,16 +6370,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15695,16 +6380,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15715,37 +6391,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -15755,16 +6401,113 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/ablang2/logits": {
+      post: {
+        tags: ["community", "antibody", "ablang2", "logits"],
+        summary: "ablang2 logits",
+        description:
+          "Request for logits from input protein sequences using `ablang2`.\n\nThese logits represent the probability per amino acid for each position within the input sequences.",
+        requestBody: {
+          description:
+            "Request for logits.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `ablang2`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `ablang2`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Logits request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15797,10 +6540,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -15840,124 +6580,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ScoreJob",
-                  description:
-                    "ScoreJob represents a score job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/score",
-                    },
-                  },
+                  $ref: "#/components/schemas/ScoreJob",
                 },
               },
             },
@@ -15967,16 +6590,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -15986,16 +6600,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16006,37 +6611,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -16046,16 +6621,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16088,10 +6654,7 @@ const embeddingsSpec = {
                     title: "Sequences",
                     type: "array",
                     items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
+                      $ref: "#/components/schemas/Sequence",
                     },
                   },
                   prompt_id: {
@@ -16131,124 +6694,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ScoreJob",
-                  description:
-                    "ScoreJob represents a score job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/score",
-                    },
-                  },
+                  $ref: "#/components/schemas/ScoreJob",
                 },
               },
             },
@@ -16258,16 +6704,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16277,16 +6714,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16297,37 +6725,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -16337,16 +6735,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16376,10 +6765,7 @@ const embeddingsSpec = {
                 required: ["base_sequence", "prompt_id"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   insert: {
                     type: "string",
@@ -16426,10 +6812,7 @@ const embeddingsSpec = {
                 required: ["base_sequence", "prompt_id"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   insert: {
                     type: "string",
@@ -16461,122 +6844,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -16586,16 +6854,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16605,16 +6864,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16625,37 +6875,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -16665,16 +6885,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16704,10 +6915,7 @@ const embeddingsSpec = {
                 required: ["base_sequence"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   insert: {
                     type: "string",
@@ -16754,10 +6962,7 @@ const embeddingsSpec = {
                 required: ["base_sequence"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   insert: {
                     type: "string",
@@ -16789,122 +6994,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -16914,16 +7004,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16933,16 +7014,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -16953,37 +7025,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -16993,16 +7035,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17032,10 +7065,7 @@ const embeddingsSpec = {
                 required: ["base_sequence", "prompt_id"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   prompt_id: {
                     type: "string",
@@ -17053,10 +7083,7 @@ const embeddingsSpec = {
                 required: ["base_sequence", "prompt_id"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   prompt_id: {
                     type: "string",
@@ -17075,122 +7102,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -17200,16 +7112,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17219,16 +7122,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17239,37 +7133,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -17279,16 +7143,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17319,10 +7174,7 @@ const embeddingsSpec = {
                 required: ["base_sequence"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   prompt_id: {
                     type: "string",
@@ -17340,10 +7192,7 @@ const embeddingsSpec = {
                 required: ["base_sequence"],
                 properties: {
                   base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                   prompt_id: {
                     type: "string",
@@ -17362,122 +7211,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
@@ -17487,16 +7221,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17506,16 +7231,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17526,37 +7242,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -17566,16 +7252,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17710,124 +7387,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "GenerateJob",
-                  description:
-                    "GenerateJob represents a generate job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/generate",
-                    },
-                  },
+                  $ref: "#/components/schemas/GenerateJob",
                 },
               },
             },
@@ -17837,16 +7397,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17856,16 +7407,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -17876,37 +7418,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -17916,16 +7428,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18069,124 +7572,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "GenerateJob",
-                  description:
-                    "GenerateJob represents a generate job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/generate",
-                    },
-                  },
+                  $ref: "#/components/schemas/GenerateJob",
                 },
               },
             },
@@ -18196,16 +7582,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18215,16 +7592,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18235,37 +7603,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -18275,16 +7613,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18682,124 +8011,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "GenerateJob",
-                  description:
-                    "GenerateJob represents a generate job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/embeddings/generate",
-                    },
-                  },
+                  $ref: "#/components/schemas/GenerateJob",
                 },
               },
             },
@@ -18809,16 +8021,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18828,16 +8031,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18848,37 +8042,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
@@ -18888,16 +8052,7 @@ const embeddingsSpec = {
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -18917,7 +8072,7 @@ const embeddingsSpec = {
         type: "oauth2",
         flows: {
           password: {
-            tokenUrl: "/api/v1/login/access-token",
+            tokenUrl: "/api/v1/auth/login",
             scopes: {},
           },
         },
@@ -18992,32 +8147,10 @@ const embeddingsSpec = {
         type: "object",
         properties: {
           model_id: {
-            title: "ModelID",
-            description: "ID of model to be used.",
-            type: "string",
+            $ref: "#/components/schemas/ModelID",
           },
           description: {
-            title: "ModelDescription",
-            description:
-              "Description of the model including relevant citations.",
-            type: "object",
-            properties: {
-              summary: {
-                title: "Summary",
-                description: "Summary of the model description.",
-                type: "string",
-              },
-              citation_title: {
-                title: "CitationTitle",
-                description: "Title of the citation for the model.",
-                type: "string",
-              },
-              doi: {
-                title: "DOI",
-                description: "DOI of the citation for the model.",
-                type: "string",
-              },
-            },
+            $ref: "#/components/schemas/ModelDescription",
           },
           dimension: {
             type: "integer",
@@ -19059,29 +8192,7 @@ const embeddingsSpec = {
             items: {
               type: "array",
               items: {
-                title: "TokenDetails",
-                description: "Details of token.",
-                required: ["id", "description", "primary", "token"],
-                type: "object",
-                properties: {
-                  id: {
-                    type: "integer",
-                    description: "Token ID",
-                  },
-                  token: {
-                    type: "string",
-                    description: "The token's string representation",
-                  },
-                  description: {
-                    type: "string",
-                    description: "Meaning of this token",
-                  },
-                  primary: {
-                    type: "boolean",
-                    description:
-                      "When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.",
-                  },
-                },
+                $ref: "#/components/schemas/Token",
               },
             },
           },
@@ -19136,11 +8247,7 @@ const embeddingsSpec = {
         ],
         properties: {
           job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
+            $ref: "#/components/schemas/JobID",
           },
           prerequisite_job_id: {
             title: "PrerequisiteJobID",
@@ -19153,12 +8260,7 @@ const embeddingsSpec = {
             "x-order": 2,
           },
           created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
+            $ref: "#/components/schemas/CreatedDate",
           },
           start_date: {
             title: "StartDate",
@@ -19181,11 +8283,7 @@ const embeddingsSpec = {
             "x-order": 6,
           },
           status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
+            $ref: "#/components/schemas/JobStatus",
           },
           progress_counter: {
             title: "ProgressCounter",
@@ -19199,97 +8297,43 @@ const embeddingsSpec = {
           },
         },
       },
-      Reduction:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html>',
+      Reduction: {
+        title: "Reduction",
+        description: "Type of reduction to use with embeddings.",
+        type: "string",
+        enum: ["MEAN", "SUM"],
+      },
       Embed: {
         title: "Embeddings",
         description: "Embeddings request metadata.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "model_id",
-          "n_sequences",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
+          },
+          {
+            type: "object",
+            required: ["model_id", "n_sequences"],
+            properties: {
+              model_id: {
+                type: "string",
+                example: "poet-2",
+              },
+              n_sequences: {
+                type: "integer",
+              },
+              reduction: {
+                allOf: [
+                  {
+                    $ref: "#/components/schemas/Reduction",
+                  },
+                  {
+                    nullable: true,
+                  },
+                ],
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          model_id: {
-            type: "string",
-            example: "poet-2",
-          },
-          n_sequences: {
-            type: "integer",
-          },
-          reduction: {
-            nullable: true,
-          },
-        },
       },
       Sequence: {
         title: "Sequence",
@@ -19338,122 +8382,23 @@ const embeddingsSpec = {
       Job: {
         title: "Job",
         description: "Job represents a job for our compute platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
+          },
+          {
+            type: "object",
+            required: ["job_type"],
+            properties: {
+              job_type: {
+                $ref: "#/components/schemas/JobType",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-          },
-        },
       },
       ValidationError: {
-        title: "ValidationError.yaml",
+        title: "ValidationError",
         description: "An invalid object that could not be parsed.",
         type: "object",
         properties: {
@@ -19523,238 +8468,38 @@ const embeddingsSpec = {
       EmbedJob: {
         title: "EmbedJob",
         description: "EmbedJob represents a embed job for our platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Job",
+          },
+          {
+            type: "object",
+            properties: {
+              job_type: {
+                type: "string",
+                example: "/embeddings/embed",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-            example: "/embeddings/embed",
-          },
-        },
       },
       ScoreJob: {
         title: "ScoreJob",
         description: "ScoreJob represents a score job for our platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Job",
+          },
+          {
+            type: "object",
+            properties: {
+              job_type: {
+                type: "string",
+                example: "/embeddings/score",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-            example: "/embeddings/score",
-          },
-        },
       },
       IndelScoreRequest: {
         title: "IndelScoreRequest",
@@ -19763,10 +8508,7 @@ const embeddingsSpec = {
         required: ["base_sequence"],
         properties: {
           base_sequence: {
-            title: "Sequence",
-            description: "Protein sequence",
-            type: "string",
-            example: "MSKGEELFTGV",
+            $ref: "#/components/schemas/Sequence",
           },
           insert: {
             type: "string",
@@ -19785,120 +8527,20 @@ const embeddingsSpec = {
       GenerateJob: {
         title: "GenerateJob",
         description: "GenerateJob represents a generate job for our platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Job",
+          },
+          {
+            type: "object",
+            properties: {
+              job_type: {
+                type: "string",
+                example: "/embeddings/generate",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-            example: "/embeddings/generate",
-          },
-        },
       },
     },
   },
@@ -19938,27 +8580,27 @@ const embeddingsSpec = {
     {
       name: "poet",
       description:
-        "OpenProtein-developed conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V\n          ",
+        "OpenProtein-developed conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
     },
     {
       name: "poet-2",
       description:
-        "OpenProtein-developed conditional and multi-modal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 65534\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V\n          ",
+        "OpenProtein-developed conditional and multi-modal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 65534\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
     },
     {
       name: "prot-seq",
       description:
-        "Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Uses random Fourier position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V\n          ",
+        "Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Uses random Fourier position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
     },
     {
       name: "rotaprot-large-uniref50w",
       description:
-        "Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. Uses rotary relative position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V\n          ",
+        "Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. Uses rotary relative position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
     },
     {
       name: "rotaprot-large-uniref90-ft",
       description:
-        "rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V\n          ",
+        "rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
     },
     {
       name: "esm1",
@@ -19968,32 +8610,32 @@ const embeddingsSpec = {
     {
       name: "esm1b_t33_650M_UR50S",
       description:
-        "ESM1b model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1b model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm1v_t33_650M_UR90S_1",
       description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm1v_t33_650M_UR90S_2",
       description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm1v_t33_650M_UR90S_3",
       description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm1v_t33_650M_UR90S_4",
       description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm1v_t33_650M_UR90S_5",
       description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm2",
@@ -20003,27 +8645,27 @@ const embeddingsSpec = {
     {
       name: "esm2_t6_8M_UR50D",
       description:
-        "ESM2 model with 8M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM2 model with 8M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm2_t12_35M_UR50D",
       description:
-        "ESM2 model with 35M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM2 model with 35M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm2_t30_150M_UR50D",
       description:
-        "ESM2 model with 150M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM2 model with 150M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm2_t33_650M_UR50D",
       description:
-        "ESM2 model with 650M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM2 model with 650M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "esm2_t36_3B_UR50D",
       description:
-        "ESM2 model with 3B parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X\n          ",
+        "ESM2 model with 3B parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
     },
     {
       name: "community",
@@ -20032,14 +8674,22 @@ const embeddingsSpec = {
     {
       name: "prott5-xl",
       description:
-        "prott5-xl\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: \n          ",
+        "prott5-xl\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: ",
+    },
+    {
+      name: "antibody",
+      description: "Models suitable for use with antibodies.",
+    },
+    {
+      name: "ablang2",
+      description:
+        "AbLang2 foundational model for antibodies.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,:\n\nOutput Tokens: &lt;,M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,:,&gt;,*,X,:",
     },
     {
       name: "proteinmpnn",
       description:
-        "ProteinMPNN\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-,:\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,:\n          ",
+        "ProteinMPNN model which can be used for inverse-folding of protein structures to predict suitable sequences.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-,:\n\nOutput Tokens: ",
     },
   ],
 };
-
 export default embeddingsSpec;
