@@ -24,6 +24,8 @@ Currently, we support the following models:
 
 - **ProteinMPNN**: A deep learning model for sequence design conditioned on a fixed protein backbone. It predicts amino acid sequences likely to fold into a given 3D structure by modeling residue–residue interactions through message passing on the protein’s spatial graph. Used for structure-based protein design, stability optimization, and inverse folding tasks. `GitHub link <https://github.com/dauparas/ProteinMPNN>`__, `Reference <https://www.biorxiv.org/content/10.1101/2022.06.03.494563v1>`__. Licensed under `MIT <https://choosealicense.com/licenses/mit/>`__.
 
+- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. `GitHub link <https://github.com/oxpig/AbLang2>`__, `Reference <https://doi.org/10.1101/2024.02.02.578678>`__. Licensed under `BSD-3 <https://choosealicense.com/licenses/bsd-3-clause/>`__.
+
 Endpoints
 ---------
 
