@@ -43,6 +43,7 @@ const GROUP_DISPLAY_NAMES = {
   esm1: "ESM1",
   esm2: "ESM2",
   community: "Community-based",
+  antibody: "Antibody",
 };
 
 function buildHierarchy(spec) {
@@ -54,7 +55,8 @@ function buildHierarchy(spec) {
       tagDescriptions[tag.name] = tag.description;
     });
   }
-  const bySpecOrder = (a, b) => (tagOrder[a] ?? Infinity) - (tagOrder[b] ?? Infinity);
+  const bySpecOrder = (a, b) =>
+    (tagOrder[a] ?? Infinity) - (tagOrder[b] ?? Infinity);
 
   const overviewTags = new Set();
   const computationTypes = new Set();
