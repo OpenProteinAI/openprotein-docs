@@ -11,20 +11,59 @@ const foldSpec = {
       get: {
         tags: ["fold"],
         summary: "List fold models",
-        description: "Get available models.",
+        description:
+          "Get available models. By default returns a list of model ID strings.\nUse `verbose=true` to return full model metadata objects.\nUse `output_type` to filter models by supported output types.",
+        parameters: [
+          {
+            name: "verbose",
+            in: "query",
+            required: false,
+            description:
+              "When true, return full model metadata instead of just model IDs.",
+            schema: {
+              type: "boolean",
+              default: false,
+            },
+          },
+          {
+            name: "output_type",
+            in: "query",
+            required: false,
+            description:
+              "Filter models by supported output type (e.g. `fold`).\nCan be repeated to match models supporting any of the specified types.",
+            schema: {
+              type: "string",
+            },
+            style: "form",
+            explode: true,
+          },
+        ],
         responses: {
           "200": {
             description: "Available fold models returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Fold Models",
-                  description: "List of available fold models.",
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                  example: ["esmfold", "alphafold2", "..."],
+                  oneOf: [
+                    {
+                      title: "Model IDs",
+                      description: "List of model ID strings (default).",
+                      type: "array",
+                      items: {
+                        type: "string",
+                      },
+                      example: ["esmfold", "alphafold2", "..."],
+                    },
+                    {
+                      title: "Model Metadata",
+                      description:
+                        "List of full model metadata objects (when verbose=true).",
+                      type: "array",
+                      items: {
+                        $ref: "#/components/schemas/ModelMetadata",
+                      },
+                    },
+                  ],
                 },
               },
             },
@@ -1480,7 +1519,7 @@ const foldSpec = {
         ],
       },
       ValidationError: {
-        title: "ValidationError.yaml",
+        title: "ValidationError",
         description: "An invalid object that could not be parsed.",
         type: "object",
         properties: {
