@@ -11,20 +11,59 @@ const embeddingsSpec = {
       get: {
         tags: ["embeddings"],
         summary: "List embeddings models",
-        description: "Get available models.",
+        description:
+          "Get available models. By default returns a list of model ID strings.\nUse `verbose=true` to return full model metadata objects.\nUse `output_type` to filter models by supported output types.",
+        parameters: [
+          {
+            name: "verbose",
+            in: "query",
+            required: false,
+            description:
+              "When true, return full model metadata instead of just model IDs.",
+            schema: {
+              type: "boolean",
+              default: false,
+            },
+          },
+          {
+            name: "output_type",
+            in: "query",
+            required: false,
+            description:
+              "Filter models by supported output type (e.g. `embed`, `logits`, `attn`, `score`, `generate`).\nCan be repeated to match models supporting any of the specified types.",
+            schema: {
+              type: "string",
+            },
+            style: "form",
+            explode: true,
+          },
+        ],
         responses: {
           "200": {
             description: "Available embeddings models returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Embeddings Models",
-                  description: "List of available embeddings models.",
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                  example: ["prot-seq", "poet", "..."],
+                  oneOf: [
+                    {
+                      title: "Model IDs",
+                      description: "List of model ID strings (default).",
+                      type: "array",
+                      items: {
+                        type: "string",
+                      },
+                      example: ["prot-seq", "poet", "..."],
+                    },
+                    {
+                      title: "Model Metadata",
+                      description:
+                        "List of full model metadata objects (when verbose=true).",
+                      type: "array",
+                      items: {
+                        $ref: "#/components/schemas/ModelMetadata",
+                      },
+                    },
+                  ],
                 },
               },
             },
