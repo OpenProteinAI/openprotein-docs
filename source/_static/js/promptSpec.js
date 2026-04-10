@@ -90,6 +90,385 @@ const promptSpec = {
         ],
       },
     },
+    "/api/v1/prompt": {
+      get: {
+        tags: ["prompt"],
+        summary: "List prompts",
+        description: "List prompts available.\n",
+        operationId: "listPrompts",
+        parameters: [
+          {
+            name: "project_uuid",
+            in: "query",
+            description: "Optional project UUID to filter prompts by.",
+            required: false,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "List of prompts",
+            content: {
+              "application/json": {
+                schema: {
+                  description: "List of prompts",
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/PromptMetadata",
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/prompt/query": {
+      get: {
+        tags: ["prompt"],
+        summary: "List queries",
+        description: "List queries available.\n",
+        operationId: "listQueries",
+        parameters: [
+          {
+            name: "project_uuid",
+            in: "query",
+            description: "Optional project UUID to filter queries by.",
+            required: false,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "List of queries",
+            content: {
+              "application/json": {
+                schema: {
+                  description: "List of queries",
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/QueryMetadata",
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+      post: {
+        tags: ["prompt"],
+        summary: "Create a query",
+        description:
+          "Create a query to be used to augment prompts for queries.\n\nThis endpoint accepts a single file as a query.\n",
+        operationId: "createQuery",
+        requestBody: {
+          required: true,
+          content: {
+            "multipart/form-data": {
+              schema: {
+                type: "object",
+                required: ["query"],
+                properties: {
+                  project_uuid: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "Optional project UUID to attach the query to.",
+                  },
+                  query: {
+                    type: "string",
+                    format: "binary",
+                    description:
+                      "A file specifying the query.\nThe file may be a specify a sequence (fasta) or a\nstructure (cif). The file extension have to match.\n",
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Query created successfully.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/QueryMetadata",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Invalid input provided.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/prompt/query/{query_id}": {
+      get: {
+        tags: ["prompt"],
+        summary: "Get query metadata",
+        description: "Get metadata of a query.",
+        parameters: [
+          {
+            name: "query_id",
+            in: "path",
+            description: "Query ID to fetch metadata",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        operationId: "getQueryMetadata",
+        responses: {
+          "200": {
+            description: "The metadata of the query.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/QueryMetadata",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Query not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+      put: {
+        tags: ["prompt"],
+        summary: "Update query metadata",
+        description:
+          "Update the project attachment of a query.\n\nOnly the fields provided in the request body are changed; fields that\nare omitted retain their existing value. Nullable fields may be cleared\nby passing an explicit null value.",
+        parameters: [
+          {
+            name: "query_id",
+            in: "path",
+            description: "Query ID to update",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        operationId: "updateQuery",
+        requestBody: {
+          description: "Fields to update on the query.",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/QueryUpdate",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "The updated query metadata.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/QueryMetadata",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Invalid input provided.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Query not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/prompt/query/{query_id}/content": {
+      get: {
+        tags: ["prompt"],
+        summary: "Get query content",
+        description:
+          "Get content of query by downloading the uploaded query file.",
+        parameters: [
+          {
+            name: "query_id",
+            in: "path",
+            description: "Query ID to fetch",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        operationId: "getQuery",
+        responses: {
+          "200": {
+            description:
+              "The query file in either fasta or cif format depending on whether a sequence or structure was uploaded.",
+            content: {
+              "text/x-fasta": {
+                schema: {
+                  type: "string",
+                  format: "binary",
+                  example: "<fasta-file>",
+                },
+              },
+              "chemical/x-mmcif": {
+                schema: {
+                  type: "string",
+                  format: "binary",
+                  example: "<cif-file>",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Query not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
     "/api/v1/prompt/{prompt_id}": {
       get: {
         tags: ["prompt"],
@@ -272,251 +651,6 @@ const promptSpec = {
           },
           "404": {
             description: "Prompt not found.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-        },
-        security: [
-          {
-            oauth2: [],
-          },
-        ],
-      },
-    },
-    "/api/v1/prompt": {
-      get: {
-        tags: ["prompt"],
-        summary: "List prompts",
-        description: "List prompts available.\n",
-        operationId: "listPrompts",
-        parameters: [
-          {
-            name: "project_uuid",
-            in: "query",
-            description: "Optional project UUID to filter prompts by.",
-            required: false,
-            schema: {
-              type: "string",
-              format: "uuid",
-            },
-          },
-        ],
-        responses: {
-          "200": {
-            description: "List of prompts",
-            content: {
-              "application/json": {
-                schema: {
-                  description: "List of prompts",
-                  type: "array",
-                  items: {
-                    $ref: "#/components/schemas/PromptMetadata",
-                  },
-                },
-              },
-            },
-          },
-          "401": {
-            description:
-              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-        },
-        security: [
-          {
-            oauth2: [],
-          },
-        ],
-      },
-    },
-    "/api/v1/prompt/query": {
-      post: {
-        tags: ["prompt"],
-        summary: "Create a query",
-        description:
-          "Create a query to be used to augment prompts for queries.\n\nThis endpoint accepts a single file as a query.\n",
-        operationId: "createQuery",
-        requestBody: {
-          required: true,
-          content: {
-            "multipart/form-data": {
-              schema: {
-                type: "object",
-                required: ["query"],
-                properties: {
-                  query: {
-                    type: "string",
-                    format: "binary",
-                    description:
-                      "A file specifying the query.\nThe file may be a specify a sequence (fasta) or a\nstructure (cif). The file extension have to match.\n",
-                  },
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          "200": {
-            description: "Query created successfully.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/QueryMetadata",
-                },
-              },
-            },
-          },
-          "400": {
-            description: "Invalid input provided.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-          "401": {
-            description:
-              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-        },
-        security: [
-          {
-            oauth2: [],
-          },
-        ],
-      },
-    },
-    "/api/v1/prompt/query/{query_id}": {
-      get: {
-        tags: ["prompt"],
-        summary: "Get query metadata",
-        description: "Get metadata of a query.",
-        parameters: [
-          {
-            name: "query_id",
-            in: "path",
-            description: "Query ID to fetch metadata",
-            required: true,
-            schema: {
-              type: "string",
-              format: "uuid",
-            },
-          },
-        ],
-        operationId: "getQueryMetadata",
-        responses: {
-          "200": {
-            description: "The metadata of the query.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/QueryMetadata",
-                },
-              },
-            },
-          },
-          "401": {
-            description:
-              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-          "404": {
-            description: "Query not found.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-        },
-        security: [
-          {
-            oauth2: [],
-          },
-        ],
-      },
-    },
-    "/api/v1/prompt/query/{query_id}/content": {
-      get: {
-        tags: ["prompt"],
-        summary: "Get query content",
-        description:
-          "Get content of query by downloading the uploaded query file.",
-        parameters: [
-          {
-            name: "query_id",
-            in: "path",
-            description: "Query ID to fetch",
-            required: true,
-            schema: {
-              type: "string",
-              format: "uuid",
-            },
-          },
-        ],
-        operationId: "getQuery",
-        responses: {
-          "200": {
-            description:
-              "The query file in either fasta or cif format depending on whether a sequence or structure was uploaded.",
-            content: {
-              "text/x-fasta": {
-                schema: {
-                  type: "string",
-                  format: "binary",
-                  example: "<fasta-file>",
-                },
-              },
-              "chemical/x-mmcif": {
-                schema: {
-                  type: "string",
-                  format: "binary",
-                  example: "<cif-file>",
-                },
-              },
-            },
-          },
-          "401": {
-            description:
-              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/Error",
-                },
-              },
-            },
-          },
-          "404": {
-            description: "Query not found.",
             content: {
               "application/json": {
                 schema: {
@@ -1214,6 +1348,45 @@ const promptSpec = {
           },
         },
       },
+      QueryMetadata: {
+        title: "QueryMetadata",
+        description:
+          "The metadata of a query entity containing the sequence and/or structure used as a query to condition PoET2 models.",
+        type: "object",
+        required: ["id", "created_date", "project_uuid"],
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+            description: "Query unique identifier.",
+          },
+          created_date: {
+            type: "string",
+            format: "date-time",
+            description: "The date the query was created.",
+          },
+          project_uuid: {
+            type: "string",
+            format: "uuid",
+            description: "Project this query is attached to.",
+            nullable: true,
+          },
+        },
+      },
+      QueryUpdate: {
+        title: "QueryUpdate",
+        description:
+          "Fields to update on a query. Omitted fields are left unchanged; fields\nprovided with an explicit null value (for nullable fields) are cleared.",
+        type: "object",
+        properties: {
+          project_uuid: {
+            type: "string",
+            format: "uuid",
+            description: "Project to attach the query to.",
+            nullable: true,
+          },
+        },
+      },
       PromptUpdate: {
         title: "PromptUpdate",
         description:
@@ -1236,25 +1409,6 @@ const promptSpec = {
             format: "uuid",
             description: "Project to attach the prompt to.",
             nullable: true,
-          },
-        },
-      },
-      QueryMetadata: {
-        title: "QueryMetadata",
-        description:
-          "The metadata of a query entity containing the sequence and/or structure used as a query to condition PoET2 models.",
-        type: "object",
-        required: ["id", "created_date"],
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-            description: "Query unique identifier.",
-          },
-          created_date: {
-            type: "string",
-            format: "date-time",
-            description: "The date the query was created.",
           },
         },
       },
