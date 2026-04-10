@@ -1086,6 +1086,498 @@ const embeddingsSpec = {
         ],
       },
     },
+    "/api/v1/clustering": {
+      get: {
+        tags: ["clustering"],
+        summary: "List clustering jobs",
+        description: "List clustering jobs. Optionally filter by method.\n",
+        parameters: [
+          {
+            name: "method",
+            in: "query",
+            description: "Filter by clustering method (e.g. hierarchical).",
+            required: false,
+            schema: {
+              type: "string",
+              enum: ["hierarchical"],
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "List of clustering jobs",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/ClusteringMetadata",
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/clustering/{method}": {
+      post: {
+        tags: ["clustering"],
+        summary: "Request clustering",
+        description:
+          "Cluster sequence embeddings using the specified method. The clustering\nis computed asynchronously; poll the job status via GET `/clustering/{clustering_id}`.\n\nThe result is retrievable via GET `/clustering/{clustering_id}/result`.\n\nInputs:\n  - **model_id**: embedding model to cluster on\n  - **feature_type**: `PLM` for raw PLM embeddings or `SVD` for SVD-reduced embeddings\n  - **sequences**: protein sequences as a list (max 10,000)\n  - **reduction**: required for PLM feature_type (e.g. MEAN)\n  - **svd_id**: required when feature_type is SVD\n\nMethod-specific parameters vary. For `hierarchical`:\n  - **linkage_method**: scipy linkage method (ward, single, complete, average, weighted, centroid, median)\n  - **metric**: distance metric (euclidean, cosine, correlation, etc.)\n  - Linkage/metric constraints: `ward`, `centroid`, and `median` require `metric=euclidean`.\n",
+        parameters: [
+          {
+            name: "method",
+            in: "path",
+            description: "Clustering method.",
+            required: true,
+            schema: {
+              type: "string",
+              enum: ["hierarchical"],
+            },
+          },
+        ],
+        requestBody: {
+          description: "Clustering request parameters",
+          content: {
+            "application/json": {
+              schema: {
+                title: "ClusteringRequest",
+                description:
+                  "Request to fit a clustering with a foundational model and sequences.",
+                required: [
+                  "model_id",
+                  "feature_type",
+                  "linkage_method",
+                  "metric",
+                  "sequences",
+                ],
+                type: "object",
+                properties: {
+                  model_id: {
+                    type: "string",
+                    description: "Embedding model ID.",
+                  },
+                  feature_type: {
+                    type: "string",
+                    description: "Type of input features.",
+                    enum: ["PLM", "SVD"],
+                  },
+                  linkage_method: {
+                    type: "string",
+                    description: "Scipy linkage method.",
+                    enum: [
+                      "ward",
+                      "single",
+                      "complete",
+                      "average",
+                      "weighted",
+                      "centroid",
+                      "median",
+                    ],
+                    example: "ward",
+                  },
+                  metric: {
+                    type: "string",
+                    description: "Distance metric.",
+                    enum: [
+                      "euclidean",
+                      "cosine",
+                      "correlation",
+                      "hamming",
+                      "chebyshev",
+                      "cityblock",
+                      "sqeuclidean",
+                      "canberra",
+                      "braycurtis",
+                    ],
+                    example: "euclidean",
+                  },
+                  reduction: {
+                    type: "string",
+                    description:
+                      "Reduction for per-residue embeddings. Required when feature_type is PLM.",
+                    example: "MEAN",
+                  },
+                  svd_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "SVD model ID. Required when feature_type is SVD.",
+                  },
+                  sequences: {
+                    minItems: 1,
+                    maxItems: 10000,
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                  prompt_id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Prompt ID for PoET models.",
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "ClusteringRequest",
+                description:
+                  "Request to fit a clustering with a foundational model and sequences from a file.",
+                type: "object",
+                required: [
+                  "model_id",
+                  "feature_type",
+                  "linkage_method",
+                  "metric",
+                  "variant_file",
+                ],
+                properties: {
+                  model_id: {
+                    type: "string",
+                  },
+                  feature_type: {
+                    type: "string",
+                    enum: ["PLM", "SVD"],
+                  },
+                  linkage_method: {
+                    type: "string",
+                    enum: [
+                      "ward",
+                      "single",
+                      "complete",
+                      "average",
+                      "weighted",
+                      "centroid",
+                      "median",
+                    ],
+                  },
+                  metric: {
+                    type: "string",
+                    enum: [
+                      "euclidean",
+                      "cosine",
+                      "correlation",
+                      "hamming",
+                      "chebyshev",
+                      "cityblock",
+                      "sqeuclidean",
+                      "canberra",
+                      "braycurtis",
+                    ],
+                  },
+                  reduction: {
+                    type: "string",
+                  },
+                  svd_id: {
+                    type: "string",
+                    format: "uuid",
+                  },
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                  prompt_id: {
+                    type: "string",
+                    format: "uuid",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Clustering request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description:
+              "Invalid request (bad parameters, illegal linkage/metric combo, size cap exceeded, etc.)",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/clustering/{clustering_id}": {
+      get: {
+        tags: ["clustering"],
+        summary: "Get clustering metadata",
+        description:
+          "Get clustering job metadata including method, parameters, and status.\n",
+        parameters: [
+          {
+            name: "clustering_id",
+            in: "path",
+            description: "Clustering job ID.",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Clustering metadata",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ClusteringMetadata",
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Clustering job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+      delete: {
+        tags: ["clustering"],
+        summary: "Delete clustering job",
+        description: "Delete a clustering job and its associated data.",
+        parameters: [
+          {
+            name: "clustering_id",
+            in: "path",
+            description: "Clustering job ID.",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Clustering job successfully deleted.",
+            content: {},
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Clustering job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/clustering/{clustering_id}/result": {
+      get: {
+        tags: ["clustering"],
+        summary: "Get clustering result",
+        description:
+          "Get the result of a completed clustering job. The response shape depends\non the clustering method used.\n\nFor `hierarchical`, returns a linkage matrix and leaf order suitable\nfor rendering a dendrogram.\n\nOnly available when the job status is SUCCESS. Returns 400 if the job\nis still pending or running.\n",
+        parameters: [
+          {
+            name: "clustering_id",
+            in: "path",
+            description: "Clustering job ID.",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Clustering linkage result",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ClusteringResult",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Result not yet ready (job still pending/running).",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Clustering job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/clustering/{clustering_id}/sequences": {
+      get: {
+        tags: ["clustering"],
+        summary: "Get sequences used for clustering",
+        description:
+          "Get the input sequences used in a clustering job, in their original order.\nUse the `leaf_order` indices from the `/result` endpoint to map dendrogram\nleaves back to these sequences.\n",
+        parameters: [
+          {
+            name: "clustering_id",
+            in: "path",
+            description: "Clustering job ID.",
+            required: true,
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Input sequences in original order",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/Sequence",
+                  },
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Bad or expired token.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Clustering job not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
     "/api/v1/embeddings/models/poet/embed": {
       post: {
         tags: ["openprotein", "poet", "embed"],
@@ -8418,6 +8910,7 @@ const embeddingsSpec = {
           "/predictor/predict_single_site",
           "/predictor/predict_multi",
           "/predictor/crossvalidate",
+          "/clustering/hierarchical",
           "/design",
         ],
         "x-order": 3,
@@ -8505,6 +8998,131 @@ const embeddingsSpec = {
           status: {
             type: "string",
             example: "PENDING",
+          },
+        },
+      },
+      ClusteringMetadata: {
+        title: "ClusteringMetadata",
+        required: ["model_id", "linkage_method", "metric"],
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+          },
+          created_date: {
+            type: "string",
+            format: "date-time",
+          },
+          status: {
+            type: "string",
+            example: "PENDING",
+          },
+          method: {
+            type: "string",
+            description: "Clustering method used.",
+            example: "hierarchical",
+            enum: ["hierarchical"],
+          },
+          linkage_method: {
+            type: "string",
+            description: "Scipy linkage method.",
+            example: "ward",
+            enum: [
+              "ward",
+              "single",
+              "complete",
+              "average",
+              "weighted",
+              "centroid",
+              "median",
+            ],
+          },
+          metric: {
+            type: "string",
+            description: "Distance metric for pairwise computation.",
+            example: "euclidean",
+            enum: [
+              "euclidean",
+              "cosine",
+              "correlation",
+              "hamming",
+              "chebyshev",
+              "cityblock",
+              "sqeuclidean",
+              "canberra",
+              "braycurtis",
+            ],
+          },
+          reduction: {
+            type: "string",
+            description:
+              "Reduction applied to per-residue embeddings before clustering. Required for PLM feature_type.",
+            example: "MEAN",
+          },
+          feature_type: {
+            type: "string",
+            description: "Type of input features.",
+            example: "PLM",
+            enum: ["PLM", "SVD"],
+          },
+          model_id: {
+            type: "string",
+            description: "Embedding model used as input features.",
+          },
+          svd_id: {
+            type: "string",
+            format: "uuid",
+            description: "SVD model ID when feature_type is SVD.",
+          },
+          n_leaves: {
+            type: "integer",
+            description:
+              "Number of input sequences (leaves in the dendrogram).",
+          },
+          hash: {
+            type: "string",
+            description: "Content hash for caching.",
+          },
+        },
+      },
+      ClusteringResult: {
+        title: "ClusteringResult",
+        description:
+          "Clustering result. Shape depends on clustering method. For hierarchical, contains a linkage matrix and leaf order for dendrogram rendering.",
+        required: ["n_leaves", "linkage", "leaf_order"],
+        type: "object",
+        properties: {
+          n_leaves: {
+            type: "integer",
+            description: "Number of leaf nodes (input sequences).",
+            example: 3,
+          },
+          linkage: {
+            type: "array",
+            description:
+              "Scipy linkage matrix with shape (N-1, 4). Each row is\n[cluster_a, cluster_b, distance, n_observations]. Cluster IDs and\nobservation counts are integers; distances are floats.\n",
+            items: {
+              type: "array",
+              items: {
+                type: "number",
+              },
+              minItems: 4,
+              maxItems: 4,
+            },
+            example: [
+              [0, 1, 0.12, 2],
+              [3, 2, 0.43, 3],
+            ],
+          },
+          leaf_order: {
+            type: "array",
+            description:
+              "Leaf indices in dendrogram-traversal order (from scipy leaves_list).\nIndices are 0-based positions into the input sequence list.\n",
+            items: {
+              type: "integer",
+            },
+            example: [0, 1, 2],
           },
         },
       },
@@ -8615,6 +9233,10 @@ const embeddingsSpec = {
     {
       name: "generate",
       description: "Generate sequences",
+    },
+    {
+      name: "clustering",
+      description: "Clustering on protein embeddings",
     },
     {
       name: "openprotein",
