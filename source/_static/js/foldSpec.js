@@ -1477,6 +1477,7 @@ const foldSpec = {
           "/predictor/predict_single_site",
           "/predictor/predict_multi",
           "/predictor/crossvalidate",
+          "/clustering/hierarchical",
           "/design",
         ],
         "x-order": 3,
@@ -2025,6 +2026,33 @@ const foldSpec = {
           step_scale: 1.2,
         },
       },
+      Template: {
+        title: "Template",
+        description:
+          "Structural template for guiding fold prediction from a prior query result.",
+        type: "object",
+        required: ["query_id"],
+        properties: {
+          query_id: {
+            type: "string",
+            format: "uuid",
+            description:
+              "ID of a completed query whose structure is used as a template.",
+          },
+          chain_id: {
+            description: "Chain identifier(s) to apply the template to.",
+          },
+          template_id: {
+            description:
+              "Chain identifier in the template CIF (the query result) to use as the structural reference.",
+          },
+        },
+        example: {
+          query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+          chain_id: "A",
+          template_id: "A",
+        },
+      },
       Boltz2Request: {
         title: "Boltz2Request",
         description: "Request for structure prediction using Boltz-2.",
@@ -2070,6 +2098,13 @@ const foldSpec = {
                   $ref: "#/components/schemas/ContactConstraint",
                 },
               ],
+            },
+          },
+          templates: {
+            type: "array",
+            description: "Optional structural templates for prediction.",
+            items: {
+              $ref: "#/components/schemas/Template",
             },
           },
           properties: {
@@ -2165,6 +2200,13 @@ const foldSpec = {
                 ],
                 max_distance: 5,
               },
+            },
+          ],
+          templates: [
+            {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
             },
           ],
           properties: [
@@ -2277,6 +2319,13 @@ const foldSpec = {
               },
             },
           },
+          templates: {
+            type: "array",
+            description: "Optional structural templates for prediction.",
+            items: {
+              $ref: "#/components/schemas/Template",
+            },
+          },
           diffusion_samples: {
             type: "integer",
             description: "Number of diffusion samples to use.",
@@ -2316,6 +2365,13 @@ const foldSpec = {
                 },
               },
             ],
+          ],
+          templates: [
+            {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+            },
           ],
           diffusion_samples: 2,
           num_steps: 300,
