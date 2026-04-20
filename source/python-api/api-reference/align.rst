@@ -9,6 +9,14 @@ Interface
 .. autoclass:: openprotein.align.AlignAPI
    :members:
 
+AbNumber schemes
+^^^^^^^^^^^^^^^^
+
+AbNumber supports the following schemes:
+
+.. autoclass:: openprotein.align.schemas.AbNumberScheme()
+   :members:
+
 Results
 -------
       
