@@ -672,7 +672,7 @@ const promptSpec = {
         tags: ["prompt"],
         summary: "Edit protein structure",
         description:
-          "Edit a Protein object by specifying aligned reference and new sequences, and a structure mask.  \nHandles insertions, deletions, point mutations, and structure masking.\n",
+          'Edit a Protein object by specifying aligned reference and new sequences, and a structure mask.\nHandles insertions, deletions, point mutations, and structure masking.\n\n**Advanced Multi-File Support:**\nInstead of passing a single `protein` file, you may supply multiple files into the `structures` array\nand provide a `config` JSON string to control how they are edited and grouped. By using `config`,\nyou can:\n- Construct 3D rigid bodies (groups) from multiple disparate chains.\n- Introduce sequence-only chains.\n- Rename chain IDs dynamically to avoid collisions natively.\n- Apply unique sequences, structure masks, binding tracks, and pLDDT overrides to any chains within the group structure.\n\nExample `config` JSON payload:\n```json\n{\n  "groups": [\n    {\n      "structures": [\n        {\n          "file_index": 0,\n          "chain_ids": {"A": "X", "B": "Y"},\n          "edits": {\n            "X": {\n              "reference_sequence": "ACDEFG",\n              "new_sequence": "ACHEFG",\n              "structure_mask": "SSXSSS",\n              "binding": "UUBUUU",\n              "plddt": 72.5\n            }\n          }\n        }\n      ],\n      "sequences": [\n        {\n          "sequence": "ACDEF",\n          "chain_id": "Z"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Config Field Details:**\n- **`groups`**: An array where each item defines a rigid-body group. All structures and sequences within the same group will have their relative positions fixed.\n- **`file_index`**: The integer index of the file in the `structures` array. `0` refers to the first file uploaded.\n- **`chain_ids` (optional)**: Renames chains from the input structure. A mapping of `{"original_id": "new_id"}`.\n  If provided, this acts as an **explicit inclusion list**: only chains mapped here will be extracted.\n  Unmapped chains are ignored. Map a chain to itself (e.g., `{"A": "A"}`) to keep it without renaming.\n- **`edits` (optional)**: Specifies modifications to be applied to specific chains (by their assigned ID). Each chain edit can describe all residue-level outputs for that chain:\n  - **Sequence edit** via `reference_sequence` and `new_sequence`\n  - **Structure edit** via `structure_mask`\n  - **Binding edit** via `binding`, an aligned string using `B` (binding), `N` (not binding), `U` (unknown), and `-` (deleted / no residue)\n  - **pLDDT override** via `plddt`, a scalar from `0` to `100` applied to final residues with known CA coordinates. Residues without structure keep `NaN`.\n- **`sequences`**: Used to supply sequence-only protein chains directly as strings without a structure file.\n\nLegacy single-file usage (via `protein`, `reference_sequence`, `new_sequence`, and `structure_mask`) remains fully supported if `config` and `structures` are omitted.\n',
         operationId: "editProteinStructure",
         requestBody: {
           required: true,
@@ -698,13 +698,24 @@ const promptSpec = {
                     type: "string",
                     description: 'String of "S" and "X" for structure masking.',
                   },
+                  structures: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                      format: "binary",
+                    },
+                    description:
+                      "Array of CIF or PDB files containing protein structures.",
+                  },
+                  config: {
+                    description: "Configuration for groups and edits.",
+                    allOf: [
+                      {
+                        $ref: "#/components/schemas/EditProteinConfig",
+                      },
+                    ],
+                  },
                 },
-                required: [
-                  "protein",
-                  "reference_sequence",
-                  "new_sequence",
-                  "structure_mask",
-                ],
               },
             },
           },
@@ -840,6 +851,11 @@ const promptSpec = {
                     type: "string",
                     format: "binary",
                     description: "Protein structure file in PDB or CIF format.",
+                  },
+                  plddt: {
+                    type: "string",
+                    description:
+                      "Optional scalar pLDDT override applied to all atoms in the normalized CIF output. Provide a number between 0 and 100 inclusive.",
                   },
                 },
               },
@@ -1410,6 +1426,144 @@ const promptSpec = {
             description: "Project to attach the prompt to.",
             nullable: true,
           },
+        },
+      },
+      EditProteinChainEditConfig: {
+        title: "EditProteinChainEditConfig",
+        type: "object",
+        properties: {
+          reference_sequence: {
+            type: "string",
+          },
+          new_sequence: {
+            type: "string",
+          },
+          structure_mask: {
+            type: "string",
+          },
+          binding: {
+            type: "string",
+            description:
+              "Optional aligned binding track for the edited chain, in addition to sequence and structure edits. Uses `B` (binding), `N` (not binding), `U` (unknown), and `-` (deleted / no residue).",
+          },
+          plddt: {
+            type: "number",
+            minimum: 0,
+            maximum: 100,
+            description:
+              "Optional scalar pLDDT override for the final edited chain. Applied only at residues with known CA coordinates; residues without structure keep NaN.",
+          },
+        },
+      },
+      EditProteinStructureConfig: {
+        title: "EditProteinStructureConfig",
+        type: "object",
+        properties: {
+          file_index: {
+            type: "integer",
+            description: "Index of the file in the uploaded structures array.",
+          },
+          chain_ids: {
+            type: "object",
+            additionalProperties: {
+              type: "string",
+            },
+            description: "Mapping of original chain IDs to new chain IDs.",
+            example: {
+              A: "X",
+              B: "Y",
+            },
+          },
+          edits: {
+            type: "object",
+            additionalProperties: {
+              $ref: "#/components/schemas/EditProteinChainEditConfig",
+            },
+            description:
+              "Edits to apply to the chains (keyed by the assigned chain ID).",
+            example: {
+              X: {
+                reference_sequence: "ACDEFG",
+                new_sequence: "ACHEFG",
+                structure_mask: "SSXSSS",
+                binding: "UUBUUU",
+              },
+            },
+          },
+        },
+      },
+      EditProteinSequenceConfig: {
+        title: "EditProteinSequenceConfig",
+        type: "object",
+        properties: {
+          sequence: {
+            type: "string",
+          },
+          chain_id: {
+            type: "string",
+          },
+        },
+      },
+      EditProteinGroup: {
+        title: "EditProteinGroup",
+        type: "object",
+        properties: {
+          structures: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/EditProteinStructureConfig",
+            },
+          },
+          sequences: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/EditProteinSequenceConfig",
+            },
+          },
+        },
+      },
+      EditProteinConfig: {
+        title: "EditProteinConfig",
+        description:
+          "Configuration for editing and combining multiple protein chains.",
+        type: "object",
+        properties: {
+          groups: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/EditProteinGroup",
+            },
+          },
+        },
+        example: {
+          groups: [
+            {
+              structures: [
+                {
+                  file_index: 0,
+                  chain_ids: {
+                    A: "X",
+                    B: "Y",
+                  },
+                  edits: {
+                    X: {
+                      reference_sequence: "ACDEFG",
+                      new_sequence: "ACHEFG",
+                      structure_mask: "SSXSSS",
+                      binding: "UUBUUU",
+                      plddt: 72.5,
+                    },
+                  },
+                },
+              ],
+              sequences: [
+                {
+                  sequence: "MKL",
+                  chain_id: "Z",
+                },
+              ],
+            },
+          ],
         },
       },
     },
