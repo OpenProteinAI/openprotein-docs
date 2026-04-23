@@ -964,7 +964,8 @@ const foldSpec = {
       get: {
         tags: ["fold"],
         summary: "Retrieve protein structure",
-        description: "Get protein structure for a submitted sequence",
+        description:
+          "Get the predicted structure for a given batch index of a fold job.\n",
         parameters: [
           {
             name: "job_id",
@@ -979,17 +980,18 @@ const foldSpec = {
           {
             name: "index",
             in: "path",
-            description: "Index of batch for which to retrieve result",
+            description: "Index of batch for which to retrieve the result.",
             required: true,
             schema: {
-              type: "number",
+              type: "integer",
+              minimum: 0,
             },
           },
           {
             name: "format",
             in: "query",
             description:
-              "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
+              "Output format to retrieve the result in.\n\nDefaults to `mmcif`. Note that the requested format may not be\nsupported for all jobs depending on when the job was created.\n",
             required: false,
             schema: {
               $ref: "#/components/schemas/OutputFormat",
@@ -1056,7 +1058,8 @@ const foldSpec = {
       get: {
         tags: ["fold"],
         summary: "Retrieve extra result",
-        description: "Get protein structure for a submitted sequence",
+        description:
+          "Get an extra per-structure output (e.g. pae, plddt, confidence) produced\nby the fold model for a given batch index.\n",
         parameters: [
           {
             name: "job_id",
@@ -1071,16 +1074,19 @@ const foldSpec = {
           {
             name: "index",
             in: "path",
-            description: "Index of batch for which to retrieve result",
+            description:
+              "Index of batch for which to retrieve the extra result.",
             required: true,
             schema: {
-              type: "number",
+              type: "integer",
+              minimum: 0,
             },
           },
           {
             name: "extraKey",
             in: "path",
-            description: "Extra key for extra result provided by fold model",
+            description:
+              "Extra output produced by the fold model.\n\nAvailability by model:\n- `ptm` — alphafold2\n- `pae` — boltz-*, alphafold2, esmfold, protenix\n- `plddt` — boltz-*, alphafold2, protenix\n- `pde` — boltz-*, protenix\n- `confidence` — boltz-*, protenix\n- `affinity` — boltz-*\n- `score`, `metrics` — rosettafold-3\n",
             required: true,
             schema: {
               type: "string",
@@ -1100,11 +1106,12 @@ const foldSpec = {
         responses: {
           "200": {
             description:
-              "Extra result which could be a numpy array, or json, or csv.\n\npae, pde, plddt, ptm returns a .npy.\nconfidence, affinity returns a json.\nscore, metrics returns a csv.\n",
+              "Extra result as a file.\n\n- `pae`, `pde`, `plddt`, `ptm` return a `.npy`.\n- `confidence`, `affinity` return a JSON file.\n- `score`, `metrics` return a CSV file.\n",
             content: {
               "application/octet-stream": {
                 schema: {
-                  type: "binary",
+                  type: "string",
+                  format: "binary",
                   description: "Extra result as a file.",
                 },
               },
@@ -2453,10 +2460,11 @@ const foldSpec = {
       },
       OutputFormat: {
         title: "OutputFormat",
-        description: "Output format of folded structure. Defaults to pdb.",
+        description:
+          "Output format of folded structure. Defaults to `mmcif`.\n\nThe value `cif` is accepted as an alias for `mmcif`.\n",
         type: "string",
-        enum: ["pdb", "mmcif"],
-        default: "pdb",
+        enum: ["pdb", "mmcif", "cif"],
+        default: "mmcif",
       },
       PDBOutput: {
         title: "PDBOutput",
