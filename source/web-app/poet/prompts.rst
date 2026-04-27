@@ -82,10 +82,10 @@ You can create a prompt context in three ways:
 If you've previously uploaded prompts, you can reuse them. In the **Choose from project**,
 select an existing prompt. The sequences from that prompt will automatically load.
 
-.. image:: /_static/tools/poet/prompt-contenxt-use-existing 1.png
+.. image:: /_static/tools/poet/prompt-contenxt-use-existing-1.png
   :alt: Use existing prompt
 
-.. image:: /_static/tools/poet/prompt-contenxt-use-existing 2.png
+.. image:: /_static/tools/poet/prompt-contenxt-use-existing-2.png
   :alt: Use existing prompt
 
 2. Create Custom Context
