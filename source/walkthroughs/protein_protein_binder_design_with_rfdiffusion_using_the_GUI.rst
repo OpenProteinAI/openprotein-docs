@@ -48,14 +48,14 @@ Step 1.1: Specify the target
 
 Navigate to the **Generate** tool.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-1
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-1.png
    :align: center
 
 For the IL-7Rα target, upload the structure from
 `RCSB PDB entry 3DI3 <https://www.rcsb.org/structure/3DI3>`_ as a CIF file. This entry contains
 multiple chains, since we only need the IL-7Rα target, remove chain A by clicking the **×** icon.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-2
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-2.png
    :align: center
 
 Note that although IL-7Rα has 223 residues, some have undefined structure, meaning the atomic
@@ -67,10 +67,10 @@ Remove residues with undefined structure
 The visualization shows that several residues at the N- and C-termini have undefined structure.
 Remove them by clicking the scissors icon.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-3
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-3.png
    :align: center
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-4
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-4.png
    :align: center
 
 
@@ -83,7 +83,7 @@ and 143, following the RFdiffusion study.
 To specify the epitope, click **Pick Hotspots** and select those positions. This tells the model
 which target residues should form the binding interface with the designed binder chain.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-5
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-5.png
    :align: center
 
 Visualize
@@ -93,7 +93,7 @@ Before submitting, confirm the query looks correct in the structure viewer. The 
 should show the IL-7Rα structure with the three epitope residues highlighted across their
 respective loop regions.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-6
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-6.png
    :align: center
 
 
@@ -103,10 +103,10 @@ Step 1.3: Specify the binder
 Click **Add Chain**, enter the formula ``/x*80``, and press **Enter** to add a binder chain of
 80 masked residues with undefined structure.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-7
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-7.png
    :align: center
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-8
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-8.png
    :align: center
 
 
@@ -123,7 +123,7 @@ Generate structures with RFdiffusion
 
 Select **RFdiffusion** as the structure generator.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-9
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-9.png
    :align: center
 
 Visualize the generated structures
@@ -148,7 +148,7 @@ Select **ProteinMPNN** as the sequence generator. In the results, the target seq
 identical to the original, redesigning the target is not intended. The binder sequences should be
 novel rather than fully masked (all X).
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-10
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-10.png
    :align: center
 
 
@@ -175,7 +175,7 @@ designs, as homology search would otherwise become a bottleneck.
 
 To begin, navigate to **Step 3: Refolding Settings** and select **Boltz-2**.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-11
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-11.png
    :align: center
 
 The predicted structure shows the binder positioned close to the target chain. We also retrieve
@@ -206,13 +206,13 @@ adapted from the RFdiffusion study
 
 We first filter designs against the ideal metric thresholds, then rank the passing designs by iPAE to prioritize those with the highest confidence of interaction, keeping only the top design per unique structure to ensure diversity across the final candidate set.
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-12
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-12.png
    :align: center
 
 Below, the top ranked design is shown with its predicted structure superimposed onto the
 corresponding generated structure (light gray).
 
-.. image:: /_static/walkthroughs/protein-protein-binder/il7r-13
+.. image:: /_static/walkthroughs/protein-protein-binder/il7r-13.png
    :align: center
 
 Once you are satisfied with the designs and have applied any additional assay-specific filters,
