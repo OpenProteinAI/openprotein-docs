@@ -67,10 +67,10 @@ Step 1.1: Define and visualize the target
 
 Navigate to the **Generate** tool in the top-right corner.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-1
+.. image:: /_static/walkthroughs/nanobody/pdl1-1.png
    :align: center
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-2
+.. image:: /_static/walkthroughs/nanobody/pdl1-2.png
    :align: center
 
 - Click **Upload files** and upload ``7UXQ.cif``
@@ -79,12 +79,12 @@ Navigate to the **Generate** tool in the top-right corner.
 
 Remove **chain C** by clicking the **×** button.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-3
+.. image:: /_static/walkthroughs/nanobody/pdl1-3.png
    :align: center
 
 Remove the His-tag and linker (LEHHHHHH) at positions 122–129, as we don't want the binder to target this expression artifact.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-4
+.. image:: /_static/walkthroughs/nanobody/pdl1-4.png
    :align: center
 
 
@@ -99,12 +99,12 @@ of this VHH as the scaffold for our binder, but design new CDRs for binding to o
 
 - Click **Add chain** and upload the ``7eow`` file.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-5
+.. image:: /_static/walkthroughs/nanobody/pdl1-5.png
    :align: center
 
 - Remove **chain A**, keeping only chain B.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-6
+.. image:: /_static/walkthroughs/nanobody/pdl1-6.png
    :align: center
 
 Clean the scaffold
@@ -114,7 +114,7 @@ We remove the leading Methionine (M) and the trailing Histidine tag (His-tag) be
 expression artifacts. The structure mask above confirms these residues have no defined structure.
 Use the **scissor** icon to delete undefined structures.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-7
+.. image:: /_static/walkthroughs/nanobody/pdl1-7.png
    :align: center
 
 Define the framework and binding regions
@@ -139,7 +139,7 @@ For this example, use the following CDR masked positions:
 The **X** characters represent residues to be designed. In the sequence and structure tracks,
 highlight each CDR position and press **X** to mask it.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-8
+.. image:: /_static/walkthroughs/nanobody/pdl1-8.png
    :align: center
 
 
@@ -160,7 +160,7 @@ and deleted residues should appear greyed out. Hover over residues in the sequen
 highlight their corresponding positions in the viewer, and use your mouse to rotate or zoom for
 a closer look.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-9
+.. image:: /_static/walkthroughs/nanobody/pdl1-9.png
    :align: center
 
 
@@ -174,7 +174,7 @@ backbone structures for our nanobody that complement the target.
 
 Select **BoltzGen** as the structure generator and submit your query.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-10
+.. image:: /_static/walkthroughs/nanobody/pdl1-10.png
    :align: center
 
 
@@ -187,7 +187,7 @@ BoltzGen produces a backbone structure along with an initial sequence estimate. 
 quality, particularly for expression and stability, we use **ProteinMPNN**, an inverse folding
 model that generates amino acid sequences conditioned on a backbone structure.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-11
+.. image:: /_static/walkthroughs/nanobody/pdl1-11.png
    :align: center
 
 Generate sequences
@@ -230,7 +230,7 @@ designs, as homology search would otherwise become a bottleneck.
 Predicting all designed sequences typically takes around 50 minutes. To begin, select **Boltz-2**
 in the **Step 4: Refolding Settings** tab.
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-12
+.. image:: /_static/walkthroughs/nanobody/pdl1-12.png
    :align: center
 
 In the results table, hover over any sequence to preview its predicted structure, or click to open
@@ -270,7 +270,7 @@ Before sending designs for experimental validation, visually inspect their predi
 anomalies. Below, the top ranked design is shown with its predicted structure superimposed onto the
 corresponding generated structure (light gray).
 
-.. image:: /_static/walkthroughs/nanobody/pdl1-13
+.. image:: /_static/walkthroughs/nanobody/pdl1-13.png
    :align: center
 
 Once you are satisfied with the designs and have applied any additional assay-specific filters,
