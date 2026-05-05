@@ -57,11 +57,13 @@ The sequence editor provides buttons at the top for efficient query editing:
 - **Unmask Sequence** — restore all positions to match the reference sequence  
 - **Mask Selected Residues** — mask only the highlighted positions  
 - **Mask Unselected Residues** — mask all positions except the highlighted ones
+- **Delete Undefined Structures** - delete positions with undefined structures after uploading a structure file
 
 Additional keyboard shortcuts include:
 
 - Copy and paste sequences  (Ctrl + C / V)
 - Replace highlighted positions with a character (e.g., highlight positions 1–50 and press `X` to mask that region)
+- To add a chain where sequence and structures are unknown, you can indicate with the formula `/`, `x`, `*`, followed by the number of residues in the chain. For example, to add a chain of 80 residues, you can input `/x*80` as a shortcut. 
 
 These tools allow precise control over the query, enabling you to define exactly which residues or structural positions should guide PoET-2's generation.
 
@@ -77,12 +79,14 @@ You can create a prompt context in three ways:
 1. Use Existing Prompt
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-If you've previously uploaded prompts, you can reuse them. In the **Prompt Type** dropdown,
+If you've previously uploaded prompts, you can reuse them. In the **Choose from project**,
 select an existing prompt. The sequences from that prompt will automatically load.
 
-.. image:: /_static/tools/poet/prompt-contenxt-use-existing.png
+.. image:: /_static/tools/poet/prompt-contenxt-use-existing-1.png
   :alt: Use existing prompt
 
+.. image:: /_static/tools/poet/prompt-contenxt-use-existing-2.png
+  :alt: Use existing prompt
 
 2. Create Custom Context
 ~~~~~~~~~~~~~~~~~~~~~~~~~
