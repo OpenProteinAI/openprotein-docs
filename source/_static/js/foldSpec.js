@@ -2036,7 +2036,7 @@ const foldSpec = {
       Template: {
         title: "Template",
         description:
-          "Structural template for guiding fold prediction from a prior query result.",
+          "Structural template for guiding fold prediction from a prior query result.\n\nScoping: by default a template applies to every sequence in the job. Use\n`index` (explicit positions) and/or `index_intervals` (half-open ranges)\nto restrict it to a subset. Both forms combine via union, and any position\nappearing twice (within either form, or across the two) is rejected.\n",
         type: "object",
         required: ["query_id"],
         properties: {
@@ -2047,18 +2047,105 @@ const foldSpec = {
               "ID of a completed query whose structure is used as a template.",
           },
           chain_id: {
-            description: "Chain identifier(s) to apply the template to.",
+            description:
+              'Chain identifier(s) in the fold request the template applies to.\nAccepts **either** a single chain as a string (`"A"`) **or** a list\nof chains (`["A", "B"]`). When given as a list and `template_id` is\nalso a list, the two lengths must match — entry `i` of `chain_id`\npairs with entry `i` of `template_id`.\n',
+            oneOf: [
+              {
+                title: "Single chain",
+                type: "string",
+                example: "A",
+              },
+              {
+                title: "List of chains",
+                type: "array",
+                items: {
+                  type: "string",
+                },
+                example: ["A", "B"],
+              },
+            ],
           },
           template_id: {
             description:
-              "Chain identifier in the template CIF (the query result) to use as the structural reference.",
+              'Chain identifier(s) inside the template CIF (the query result) to\nuse as the structural reference. Accepts **either** a single chain\nas a string (`"A"`) **or** a list of chains (`["A", "B"]`). If both\n`chain_id` and `template_id` are lists their lengths must match.\n',
+            oneOf: [
+              {
+                title: "Single chain",
+                type: "string",
+                example: "A",
+              },
+              {
+                title: "List of chains",
+                type: "array",
+                items: {
+                  type: "string",
+                },
+                example: ["A", "B"],
+              },
+            ],
+          },
+          force: {
+            type: "boolean",
+            description:
+              "Force the template to be used even when the model would otherwise\nreject it on similarity grounds. Requires `threshold` when set.\n",
+          },
+          threshold: {
+            type: "number",
+            format: "float",
+            description:
+              "Similarity threshold used together with `force`. Required whenever\n`force` is set.\n",
+          },
+          index: {
+            type: "array",
+            description:
+              "Explicit list of sequence positions (0-indexed) the template applies\nto. Omit or leave empty to apply to every sequence. Duplicates are\nrejected.\n",
+            items: {
+              type: "integer",
+              minimum: 0,
+            },
+          },
+          index_intervals: {
+            type: "array",
+            description:
+              "Shorthand for `index` over contiguous ranges. Each entry is a\nhalf-open `[start, end)` pair (end-exclusive, matching Go slicing\nand Python `range`). Intended for jobs whose template covers\nthousands of sequences (e.g. a 10k-variant binder refold) where\nlisting every index would inflate the request payload —\n`[[0, 10000]]` (~20 bytes) replaces a 60KB explicit array.\nOverlap with other intervals or with `index` is rejected.\n",
+            items: {
+              type: "array",
+              minItems: 2,
+              maxItems: 2,
+              items: {
+                type: "integer",
+                minimum: 0,
+              },
+            },
           },
         },
-        example: {
-          query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-          chain_id: "A",
-          template_id: "A",
-        },
+        examples: [
+          {
+            summary: "Single chain (scalar form)",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+            },
+          },
+          {
+            summary: "Multi-chain (list form, paired by index)",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: ["A", "B"],
+              template_id: ["A", "B"],
+            },
+          },
+          {
+            summary: "Scoped to a 10k-variant range via index_intervals",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+              index_intervals: [[0, 10000]],
+            },
+          },
+        ],
       },
       Boltz2Request: {
         title: "Boltz2Request",
@@ -2214,6 +2301,7 @@ const foldSpec = {
               query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
               chain_id: "A",
               template_id: "A",
+              index_intervals: [[0, 100]],
             },
           ],
           properties: [
