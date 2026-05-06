@@ -18,7 +18,7 @@ For an end-to-end walkthrough that combines these tools to select hits from an N
 1. Predict
 ----------
 
-**Purpose:** Apply a trained or pre-trained foundation model across all sequences 
+**Purpose:** Use a trained or pre-trained foundation model across all sequences 
 in your dataset to generate predicted score columns that enable ranking, filtering, and visualization of your candidates.
 
 How to open
