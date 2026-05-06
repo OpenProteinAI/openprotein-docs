@@ -8,8 +8,7 @@ sequences in an uploaded assay dataset. It brings together four tools:
 **Antibody settings panel** that appears automatically on antibody datasets.
 This page describes what each tool does and how to use it.
 
-For an end-to-end walkthrough that combines these tools to select hits from
-an NGS antibody library, see
+For an end-to-end walkthrough that combines these tools to select hits from an NGS antibody library, see
 :doc:`/walkthroughs/antibody-hit-selection-ngs`.
 
 .. figure:: /_static/opmodels/dataset-assay/dataset-assay-overview.png
@@ -19,9 +18,8 @@ an NGS antibody library, see
 1. Predict
 ----------
 
-**Purpose:** run a trained or foundation model over every sequence in the
-dataset to produce a predicted score column you can sort, filter, and plot
-against.
+**Purpose:** Apply a trained or pre-trained foundation model across all sequences 
+in your dataset to generate predicted score columns that enable ranking, filtering, and visualization of your candidates.
 
 How to open
 ~~~~~~~~~~~
@@ -75,9 +73,8 @@ What happens after submit
 2. Clustering
 -------------
 
-**Purpose:** group sequences hierarchically using sequence embeddings, so you
-can pick representatives from each family rather than redundant
-near-duplicates.
+**Purpose:** Group sequences into distinct families using advanced sequence embeddings, enabling you to select diverse 
+representatives from each cluster family rather than redundant near-duplicates.
 
 .. figure:: /_static/opmodels/dataset-assay/cluster-dropdown.png
    :alt: Predict dialog with model categories and prompt selector
@@ -123,9 +120,7 @@ What happens after submit
 3. Advanced Filters
 -------------------
 
-**Purpose:** narrow down rows by any combination of column values, group rows
-by a property, sort, and keep top-K — either by *hiding* non-matching rows or
-by *marking* them in a Select column without removing them.
+**Purpose:** Refine your dataset using flexible multi-criteria filtering, combine any column values, group by specific properties, sort by priority metrics, and retain only top-K candidates. Choose between hiding non-matching rows for a clean view or marking them in a Select column to preserve full context while highlighting your refined selection.
 
 How to open
 ~~~~~~~~~~~
@@ -161,9 +156,8 @@ Filter cards can be reordered (drag-and-drop), edited, or deleted.
 Antibody-aware columns
 ~~~~~~~~~~~~~~~~~~~~~~
 
-When the dataset is detected as antibody data, the antibody annotation
-columns become available as filter / group / sort targets here too — see
-`d. Show antibody columns`_ for the full list.
+When your dataset is detected as antibody data, specialized antibody annotation columns 
+automatically become available as filtering, grouping, and sorting options. For the complete list of available columns, see `d. Show antibody columns`_.
 
 Cross-feature interactions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,9 +171,8 @@ Cross-feature interactions
 
 4. Antibody Settings Panel
 --------------------------
-**Purpose:** configure how antibody sequences are displayed (numbering,
-alignment, region highlighting), and pick which annotation columns appear in
-the table.
+**Purpose:** Customize the visual presentation of antibody sequences by configuring numbering schemes, 
+alignment settings, and CDR region highlighting, while selecting which annotation columns to display in your analysis table.
 
 
 .. note::
@@ -252,14 +245,14 @@ c. Sequence view
 d. Show antibody columns
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Customize columns** — opens a checklist menu where you toggle each of
-  the antibody annotation columns below on or off. Each column is computed
-  from the streamed antibody annotation; the option is disabled until the
-  annotation finishes loading.
+- **Customize columns** — Opens a checklist menu where you can toggle each antibody annotation 
+   column on or off to tailor your table view. Column options remain disabled until the antibody annotation 
+   pipeline completes processing, then become available for selection based on your analysis needs.
+
 - **Show allele** — toggles the allelic suffix (e.g. ``*01``) in V-gene and
-  germline-pair values. Off by default for cleaner reading; on when you need
-  allele-level resolution. Applies to *Heavy V-Gene*, *Light V-Gene*, and
-  *Germline pair* — formatting only, not the underlying value.
+  germline-pair values. Disabled by default to maintain clean, readable display. Enable when you need allele-level 
+   resolution for  analysis. This setting affects the display format of  *Heavy V-Gene*, *Light V-Gene*, and
+  *Germline pair* columns—the underlying data values remain unchanged.
 
 .. list-table::
    :header-rows: 1
@@ -294,9 +287,9 @@ d. Show antibody columns
        aligned sequence
      - Quick developability triage
 
-These columns are also picked up automatically by **Advanced Filters**
-(Group by / Sort by / Column filter), so once you've toggled them on you can
-filter and sort on them without leaving the Dataset tab.
+These columns automatically integrate with **Advanced Filters**
+(Group by / Sort by / Column filter), so once you've enabled them in your table view, 
+you can immediately filter and sort by these properties without navigating away from the Dataset tab.
 
 .. figure:: /_static/opmodels/dataset-assay/customize-columns-menu.png
    :alt: Customize columns checklist with antibody annotation columns
@@ -306,9 +299,9 @@ are split, the original ``Sequence`` column is replaced by **Sequence VH** and
 **Sequence VL** (or "Aligned VH/VL" in aligned mode). You always see both
 chains.
 
-**NGS-derived libraries.** If the library mixes chain types (e.g. some
-Heavy+Kappa rows and some Heavy+Lambda), rows with mismatched/missing chain
-detection are flagged in the table with a warning style — useful as a
+**NGS-derived libraries.** If the library mixes chain types (e.g., some
+Heavy+Kappa rows and some Heavy+Lambda rows, with mismatched/missing chain
+detection is flagged in the table with a warning style — useful as a
 first-pass quality check on the NGS pipeline output.
 
 .. seealso::
