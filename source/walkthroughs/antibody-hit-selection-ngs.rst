@@ -143,12 +143,12 @@ Use the built-in visualization tools to validate your filtered candidate set and
 Step 7 — Export the hit list
 ============================
 
-Back on the Dataset tab, the visible (or selected) rows are your shortlist.
-From here you can:
+Return to the Dataset tab, where your shortlisted and validated candidates are present.
+Next steps options:
 
-- Train a new model on the selected rows (footer **Train model** action) for
+- **Iterate with machine learning**: Train a new model on the selected rows (footer **Train model** action) for
   an iterative round.
-- Export the table for ordering / wet-lab follow-up.
+- **Proceed to wet-lab validation**: Export the candidate table for ordering or expermimental wet-lab follow-up.
 
 
 Quick decision guide
