@@ -7,16 +7,15 @@ This recommended end-to-end workflow guides you through selecting antibody hits
 from NGS-derived libraries using the **Dataset Assay Details** page. Each step assumes 
 the previous step's output is in place.
 
-This walkthrough is task-oriented. For a detailed feature reference of the controls used below 
-— Predict, Clustering, Advanced Filters, and the Antibody
-settings panel — see comprehensive guide at:doc:`/web-app/opmodels/dataset-assay`.
+This walkthrough is task-oriented. For a detailed feature reference of the controls used below like Predict, Clustering, Advanced Filters, and the Antibody
+settings panel, see comprehensive guide at:doc:`/web-app/opmodels/dataset-assay`.
 
 .. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/dataset-assay-overview.png
    :alt: Dataset Assay Details page overview, showing tabs, header chips, and action bar
 
 
-Step 0 — Prepare the dataset
-============================
+Prepare the dataset
+=====================
 
 Upload your NGS-derived antibody library as an assay dataset. The platform
 auto-annotates antibody datasets, including germline assignment, CDR3 extraction, and mutation counts. 
@@ -25,20 +24,19 @@ Wait for the dataset status to reach *SUCCESS* before continuing to the next ste
 .. note::
 
    Once the dataset reaches *SUCCESS*, a default UMAP job is queued
-   automatically — you'll see it appear in the Jobs panel without having to
-   trigger it. The **UMAP** tab will be empty until that job finishes.
+   automatically and you should see it appear in the Jobs panel on the left. The **UMAP** tab will beempty until that job finishes.
 
 
-Step 1 — Configure the antibody view
-====================================
+Configure the antibody view
+===========================
 
 On the **Dataset** tab, open the **Antibody** panel, then configure the following settings:
 
 1. **Set numbering scheme to IMGT**: Pick **IMGT** as the numbering scheme (matches most NGS annotation tools).
 2. **Select CDR regions**: Tick **Show CDR1 / CDR2 / CDR3** so regions are visually obvious in the
    table.
-3. **Align sequences for Comparisons**: Tick **Aligned** (and **Trim non-standard positions**) so VH and VL line up
-   across rows — required for visual comparison and for the *Liabilities*
+3. **Align sequences for comparisons**: Tick **Aligned** (and **Trim non-standard positions**) so VH and VL line up
+   across rows. This required for visual comparison and for the *Liabilities*
    column.
 4. **Add key annotation colums**: Click **Customize columns** and enable: *Heavy V-Gene*, *Light V-Gene*,
    *Germline pair*, *Total Mutations*, *CDR3 length*, *Germline distance (%)*,
@@ -47,8 +45,8 @@ On the **Dataset** tab, open the **Antibody** panel, then configure the followin
 You now have a fully annotated table view of the library.
 
 
-Step 2 — Reduce redundancy with Clustering
-==========================================
+Reduce redundancy with Clustering
+=================================
 
 NGS libraries are dominated by closely related clones. Cluster first so
 downstream steps operate on diverse families.
@@ -58,14 +56,14 @@ downstream steps operate on diverse families.
 3. **Use default parameters**: Leave **Reduction = Mean**, **Linkage = Ward**, **Metric = Euclidean**
    unless you have a reason to change.
 4. **Submit and Optimize cluster counts**: When the chip turns active, open the chip and tune **Number of
-   clusters** while watching the UMAP — choose a number that visually
+   clusters** while watching the UMAP. Choose a number that visually
    separates populations.
 
 You now have a ``Cluster Number`` column.
 
 
-Step 3 — Pre-filter using NGS / antibody metadata
-=================================================
+Pre-filter using NGS / antibody metadata
+========================================
 
 Open **Advanced Filters** from the Dataset tab and apply the following filters in sequence to refine your candidate pool:
 
@@ -77,7 +75,7 @@ Open **Advanced Filters** from the Dataset tab and apply the following filters i
    **Light V-Gene** or **Germline Pair** to focus on a developability-friendly
    germline family.
 4. **Mutation window**: Apply **Total Mutations** filter (e.g. ``≥ 3`` to skip
-   naive sequences, or ``≤ 15`` to skip over-mutated clones) — or alternatively, use
+   naive sequences, or ``≤ 15`` to skip over-mutated clones) or alternatively, use
    **Germline distance (%)** if your sequences differ in length.
 5. **Enforce CDR3 length constraints**: Filter on **CDR3 Length** to enforce a length range
    that suits your therapeutic format.
@@ -89,8 +87,8 @@ Toggle **Show select column** if you want to see what got rejected instead of
 hiding it.
 
 
-Step 4 — Score with Predict
-===========================
+Score with Predict
+======================
 
 With the candidate set narrowed, run a model to rank within it.
 
@@ -106,8 +104,8 @@ With the candidate set narrowed, run a model to rank within it.
 and one for developability. Each gets its own chip and its own column.
 
 
-Step 5 — Combine signals
-========================
+Combine signals
+================
 
 Add a new filter card at the top of your existing filter stack to prioritize high-scoring candidates:
 
@@ -120,8 +118,8 @@ Or sort: **Sort by** ``<prediction>`` **Desc**, **Top K = 96**.
 both signals — e.g., high binding score AND high developability score.
 
 
-Step 6 — Inspect visually
-=========================
+Inspect visually
+=================
 Use the built-in visualization tools to validate your filtered candidate set and explore relationships between key metrics:
 
 - **UMAP visualization** — Review the scatter plot with points colored by cluster assignment and 
@@ -140,8 +138,8 @@ Use the built-in visualization tools to validate your filtered candidate set and
    :alt: Joint plot with two prediction scores as axes
 
 
-Step 7 — Export the hit list
-============================
+Export the hit list
+====================
 
 Return to the Dataset tab, where your shortlisted and validated candidates are present.
 Next steps options:
