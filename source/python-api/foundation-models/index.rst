@@ -21,6 +21,8 @@ Models included in the embeddings endpoint are:
 
 - **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different versions having different model parameters and training data. `GitHub link <https://github.com/facebookresearch/esm>`__, `Reference <https://www.science.org/doi/10.1126/science.ade2574>`__
 
+- **AbLang2**: Community-based antibody language model trained on paired heavy/light variable regions. AbLang2 expects inputs in the form ``<VH>:<VL>``; single-chain inputs keep a leading or trailing ``:`` to mark the missing chain. Use it for antibody-specific embeddings, residue restoration, and design ranking. See `Using AbLang2 <./Using_AbLang2.ipynb>`__. `GitHub link <https://github.com/oxpig/AbLang2>`__, `Reference <https://doi.org/10.1101/2024.02.02.578678>`__
+
 Get started using foundation models
 -----------------------------------
 
@@ -28,9 +30,10 @@ Get started using foundation models
 
 * `SVD embeddings <./SVD-embeddings.rst>`_
 * `Model metadata <./model-metadata.rst>`_
-* `Logits <./logits.rst>`_ 
+* `Logits <./logits.rst>`_
 * `Basic inference endpoints <./basic-inference-endpoints.rst>`_
 * `Attention maps <./attention-maps.rst>`_
+* `Using AbLang2 <./Using_AbLang2.ipynb>`_
 
 `API Reference <../api-reference/embedding.rst>`_
 
@@ -44,3 +47,4 @@ Get started using foundation models
     SVD and embeddings <SVD-embeddings>
     Logits <logits>
     Attention maps <attention-maps>
+    Using AbLang2 <Using_AbLang2>

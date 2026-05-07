@@ -17,22 +17,27 @@ Models
 .. autoclass:: openprotein.embeddings.PoET2Model
    :members:
    :inherited-members:
+   :exclude-members: create, get_model
 
 .. autoclass:: openprotein.embeddings.PoETModel
    :members:
    :inherited-members:
+   :exclude-members: create, get_model
 
 .. autoclass:: openprotein.embeddings.AbLang2Model
    :members:
    :inherited-members:
+   :exclude-members: create, get_model
 
 .. autoclass:: openprotein.embeddings.OpenProteinModel
    :members:
    :inherited-members:
+   :exclude-members: create, get_model
 
 .. autoclass:: openprotein.embeddings.ESMModel
    :members:
    :inherited-members:
+   :exclude-members: create, get_model
 
 These embedding models inherit from a base :py:class:`~openprotein.embeddings.EmbeddingModel`, due to their shared functionality in providing the :py:meth:`~openprotein.embeddings.EmbeddingModel.embed` method. These can also be used to fit the :ref:`transform-models`.
 
