@@ -21,6 +21,7 @@ We recommend using:
 - ESMFold for predictions that must be completed quickly. 
 - MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins.
 - RosettaFold-3 is a three-track neural network for protein structure and complex prediction, useful for modeling protein-protein interactions and supporting experimental structure determination.
+- Protenix predict the 3D structure of biological molecules including proteins, DNA, RNA, and small molecule ligands, as well as how they interact with each other. 
 
 Accessing the Structure Prediction tool
 ---------------------------------------
@@ -111,6 +112,20 @@ The **Advanced Options** section contains several parameters:
 
 .. image:: /_static/structure-prediction/rosettafold.png
    :alt: RosettaFold-3
+
+Using Protenix
+-----------------
+When using Protenix, you can enter or upload multiple proteins in the input fields provided. 
+
+The **Advanced Options** section contains several parameters:
+
+- **Number of recycles** Controls how many times the model feeds its predicted structure back into itself for refinement. Higher values improve accuracy but increase computation time.
+- **Diffusion Samples** Sets how many independent structure candidates are generated per input. More samples increase the chance of finding the best conformation but proportionally increase runtime.
+- **Sampling Steps** Defines the number of denoising steps the diffusion process takes to build each structure. More steps produce more precise, physically valid outputs at the cost of longer inference.
+- **Step Scale** Adjusts the sampling temperature, controlling how broadly the model explores structural space. Higher values produce more diverse candidates; lower values give tighter, more consistent results.
+
+.. image:: /_static/structure-prediction/protenix.png
+   :alt: Protenix
 
 Visualizing your sequence
 --------------------------
