@@ -11,18 +11,20 @@ Get started using Structure Prediction
 
 - `Examining structure prediction models <./Examining_structure_prediction_models.ipynb>`_
 - :doc:`./Using_ESMFold`
-- :doc:`./Using_AlphaFold2` 
-- :doc:`./Using_Boltz_1_and_Boltz_2` 
-- :doc:`./Using_RosettaFold3` 
+- :doc:`./Using_AlphaFold2`
+- :doc:`./Using_Boltz_1_and_Boltz_2`
+- :doc:`./Using_Protenix`
+- :doc:`./Using_RosettaFold3`
 
 `API Reference <../api-reference/fold.rst>`_
 
 .. toctree::
    :maxdepth: 2
    :hidden:
-   
+
    Examining_structure_prediction_models
    Using_ESMFold
    Using_AlphaFold2
    Using_Boltz_1_and_Boltz_2
+   Using_Protenix
    Using_RosettaFold3
