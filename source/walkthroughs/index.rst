@@ -19,6 +19,10 @@ Web App
     - PoET, Structure Prediction
   * - `Designing libraries of multimeric proteins <./multichain.rst>`_
     - Optimization and Prediction Models 
+  * - `Protein-protein binder design with RFdiffusion <./protein_protein_binder_design_with_rfdiffusion_using_the_GUI.rst>`_
+    - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
+  * - `Nanobody binder design with BoltzGen <./nanobody_binder_design_with_boltzgen_using_the_gui.rst>`_
+    - Query design, BoltzGen, ProteinMPNN, Boltz-2
 
 
 Python API
@@ -79,6 +83,8 @@ Python API
   Inverse Folding with PoET-2 for Generation of Novel Luciferases <./PoET-2_inverse_folding.ipynb>
   Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>
   Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>
+  Protein-protein binder design with RFdiffusion using the GUI <protein_protein_binder_design_with_rfdiffusion_using_the_GUI>
   Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>
+  Nanobody binder design with BoltzGen using the GUI <nanobody_binder_design_with_boltzgen_using_the_gui>
   Aligning variable length sequences using Python <aligning-variable>
   Designing libraries of multimeric proteins <multichain>
