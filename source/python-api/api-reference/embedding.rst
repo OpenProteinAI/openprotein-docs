@@ -22,6 +22,10 @@ Models
    :members:
    :inherited-members:
 
+.. autoclass:: openprotein.embeddings.AbLang2Model
+   :members:
+   :inherited-members:
+
 .. autoclass:: openprotein.embeddings.OpenProteinModel
    :members:
    :inherited-members:
