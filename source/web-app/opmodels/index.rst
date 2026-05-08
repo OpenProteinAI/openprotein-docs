@@ -18,6 +18,7 @@ Learn more and get started with our tutorials
 
 - `Creating a project <./creating-project.rst>`_
 - `Uploading your data <./uploading-your-data.rst>`_
+- `Dataset assay tools <./dataset-assay-tools.rst>`_
 - `OP Models scoring and log-likelihood <./scoring-log-likelihood.rst>`_
 - `Using reference sequences <./reference-sequence.rst>`_
 - `Navigating your projects <./navigating-your-projects.rst>`_
@@ -32,6 +33,7 @@ Learn more and get started with our tutorials
 
   Creating a project <creating-project>
   Uploading your data <uploading-your-data>
+  Dataset assay tools <dataset-assay-tools>
   OP Models scoring and log-likelihood <scoring-log-likelihood>
   reference-sequence
   navigating-your-projects
