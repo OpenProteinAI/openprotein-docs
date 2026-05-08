@@ -16,6 +16,9 @@ Interface
 Models 
 ------
 
+.. autoclass:: openprotein.fold.ProtenixModel
+   :members:
+
 .. autoclass:: openprotein.fold.Boltz2Model
    :members:
 
@@ -25,12 +28,17 @@ Models
 .. autoclass:: openprotein.fold.Boltz1Model
    :members:
 
+.. autoclass:: openprotein.fold.RosettaFold3Model
+   :members:
+
 .. autoclass:: openprotein.fold.AlphaFold2Model
    :members:
 
 .. autoclass:: openprotein.fold.ESMFoldModel
    :members:
-   :undoc-members:
+
+.. autoclass:: openprotein.fold.MiniFoldModel
+   :members:
 
 Results
 -------
