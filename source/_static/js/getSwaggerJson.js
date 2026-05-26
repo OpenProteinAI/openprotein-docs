@@ -63,6 +63,7 @@ const apiSchemasAlign = [
   "Body_create_mafft_alignment_align_mafft_post",
   "Body_create_clustalo_alignment_align_clustalo_post",
   "Body_create_abnumber_alignment_align_abnumber_post",
+  "AntibodyAnnotateRequest",
 ];
 
 const apiPathAlign = [
@@ -72,6 +73,7 @@ const apiPathAlign = [
   "/api/v1/align/metadata",
   "/api/v1/align/abnumber",
   "/api/v1/align/antibody_schema",
+  "/api/v1/align/antibody/annotate",
   "/api/v1/align/clustalo",
   "/api/v1/align/mafft",
   "/api/v1/align/seed",
