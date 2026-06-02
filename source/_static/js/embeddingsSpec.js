@@ -94,6 +94,7 @@ const embeddingsSpec = {
                 "poet",
                 "poet-2",
                 "proteinmpnn",
+                "esm-if1",
                 "prot-seq",
                 "rotaprot-large-uniref50w",
                 "rotaprot-large-uniref90-ft",
@@ -7284,6 +7285,122 @@ const embeddingsSpec = {
         "x-codegen-request-body-name": "request",
       },
     },
+    "/api/v1/embeddings/models/esm-if1/score": {
+      post: {
+        tags: ["community", "esm-if1", "score"],
+        summary: "esm-if1 score",
+        description: "Use `esm-if1` to score sequences.",
+        requestBody: {
+          description: "Request scoring for sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "ScoreRequest",
+                description: "Request for scores using `esm-if1`.",
+                type: "object",
+                required: ["sequences", "query_id"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "ScoreRequest",
+                description: "Request for scores using `esm-if1`.",
+                type: "object",
+                required: ["variant_file", "query_id"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Score request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ScoreJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
     "/api/v1/embeddings/models/poet/score/indel": {
       post: {
         tags: ["openprotein", "poet", "score"],
@@ -7584,6 +7701,158 @@ const embeddingsSpec = {
         "x-codegen-request-body-name": "request",
       },
     },
+    "/api/v1/embeddings/models/esm-if1/score/indel": {
+      post: {
+        tags: ["community", "esm-if1", "score"],
+        summary: "esm-if1 score/indel",
+        description: "Use `esm-if1` to score indels of a sequence.",
+        requestBody: {
+          description: "Request indel scoring for sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "IndelScoreRequest",
+                description: "Request for indel scores using `esm-if1`.",
+                type: "object",
+                required: ["base_sequence", "query_id"],
+                properties: {
+                  base_sequence: {
+                    $ref: "#/components/schemas/Sequence",
+                  },
+                  insert: {
+                    type: "string",
+                    description: "Sequence to insert.",
+                    nullable: true,
+                    default: null,
+                  },
+                  delete: {
+                    type: "integer",
+                    description:
+                      "Number of amino acids to delete from base sequence.",
+                    nullable: true,
+                    default: null,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                  },
+                },
+              },
+              examples: {
+                Insertion: {
+                  value: {
+                    base_sequence: "MSKGEELFTGV",
+                    insert: "GGE",
+                    prompt_id: "5f35c29c-b071-47db-9980-74cdbbe6ca96",
+                  },
+                },
+                Deletion: {
+                  value: {
+                    base_sequence: "MSKGEELFTGV",
+                    delete: 1,
+                    prompt_id: "5f35c29c-b071-47db-9980-74cdbbe6ca96",
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "IndelScoreRequest",
+                description: "Request for indel scores using `esm-if1`.",
+                type: "object",
+                required: ["base_sequence", "query_id"],
+                properties: {
+                  base_sequence: {
+                    $ref: "#/components/schemas/Sequence",
+                  },
+                  insert: {
+                    type: "string",
+                    description: "Sequence to insert.",
+                    nullable: true,
+                    default: null,
+                  },
+                  delete: {
+                    type: "integer",
+                    description:
+                      "Number of amino acids to delete from base sequence.",
+                    nullable: true,
+                    default: null,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Indel score request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
     "/api/v1/embeddings/models/poet/score/single_site": {
       post: {
         tags: ["openprotein", "poet", "score"],
@@ -7733,6 +8002,117 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description: "ID of prompt.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Single-site score request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esm-if1/score/single_site": {
+      post: {
+        tags: ["community", "esm-if1", "score"],
+        summary: "esm-if1 score/single_site",
+        description:
+          "Use `esm-if1` to score single site mutations of a sequence.",
+        requestBody: {
+          description: "Request single-site scoring for sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "SingleSiteScoreRequest",
+                description: "Request for scores using `esm-if1`.",
+                type: "object",
+                required: ["base_sequence", "query_id"],
+                properties: {
+                  base_sequence: {
+                    $ref: "#/components/schemas/Sequence",
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "SingleSiteScoreRequest",
+                description: "Request for scores using `esm-if1`.",
+                type: "object",
+                required: ["base_sequence", "query_id"],
+                properties: {
+                  base_sequence: {
+                    $ref: "#/components/schemas/Sequence",
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
                   },
                 },
               },
@@ -8600,6 +8980,161 @@ const embeddingsSpec = {
         ],
       },
     },
+    "/api/v1/embeddings/models/esm-if1/generate": {
+      post: {
+        tags: ["community", "esm-if1", "generate"],
+        summary: "esm-if1 generate",
+        description: "Use `esm-if1` to generate sequences based on score.",
+        requestBody: {
+          description: "Request generate sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "GenerateRequest",
+                description: "Request for generate sequences using `esm-if1`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) to design against. Provide either query_id or design_id.",
+                  },
+                  design_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of a design to use as the structure source (alternative to query_id).",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 1,
+                    example: 1,
+                    description:
+                      "Multinomial sampling temperature; low → high recovery, high → high diversity.",
+                  },
+                  seed: {
+                    type: "integer",
+                    nullable: true,
+                    description: "Random seed to use for sampling sequences.",
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "GenerateRequest",
+                description: "Request for generate sequences using `esm-if1`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded structure (CIF) to design against. Provide either query_id or design_id.",
+                  },
+                  design_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of a design to use as the structure source (alternative to query_id).",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 1,
+                    example: 1,
+                    description:
+                      "Multinomial sampling temperature; low → high recovery, high → high diversity.",
+                  },
+                  seed: {
+                    type: "integer",
+                    nullable: true,
+                    description: "Random seed to use for sampling sequences.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Generate request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/GenerateJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
   },
   components: {
     securitySchemes: {
@@ -9348,7 +9883,12 @@ const embeddingsSpec = {
     {
       name: "ablang2",
       description:
-        "AbLang2 foundational model for antibodies.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,:\n\nOutput Tokens: &lt;,M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,:,&gt;,*,X,:",
+        "AbLang2 foundational model for antibodies.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,-,X,:\n\nOutput Tokens: &lt;,M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,-,&gt;,*,X,:",
+    },
+    {
+      name: "esm-if1",
+      description:
+        "ESM-IF1: protein inverse-folding model pretrained on PDB and 12 million AlphaFold predicted structures.\n\nMaximum Sequence Length: 500\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: ",
     },
     {
       name: "proteinmpnn",
