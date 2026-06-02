@@ -200,6 +200,9 @@ function addSwaggerEndpointsToTOC(endpointPosition) {
       // Create a new anchor element for the toc
       const tagAnchor = document.createElement("a");
       tagAnchor.innerText = GROUP_DISPLAY_NAMES[tagName] || tagName;
+      if (GROUP_DISPLAY_NAMES[tagName]) {
+        tagAnchor.style.fontWeight = "bold";
+      }
 
       // Add classes and attributes to the anchor element
       tagAnchor.classList.add("nav-link");
