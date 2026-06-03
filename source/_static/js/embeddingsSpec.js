@@ -3,7 +3,7 @@ const embeddingsSpec = {
   info: {
     title: "OpenProtein Embeddings",
     description:
-      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://arxiv.org/pdf/2306.06156.pdf).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **ESM-IF1**: A structure-conditioned inverse-folding model that scores or generates protein sequences given a backbone structure. It has a max sequence length of 500 residues. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.biorxiv.org/content/10.1101/2022.04.10.487779). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n\n",
+      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://papers.nips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html).\n- **PoET-2**: An OpenProtein.AI conditional, multimodal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://proceedings.neurips.cc/paper_files/paper/2025/hash/4d19160864e6a644496d61b21c7e015a-Abstract-Conference.html).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESMC Models**: ESM Cambrian (ESMC) protein language models, including: *esmc-300m*, *esmc-600m*, *esmc-6b*. These are trained on UniRef, MGnify, and JGI, with different versions having different model parameters. [GitHub link](https://github.com/Biohub/esm), [Reference](https://biohub.ai/papers/esm_protein.pdf). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **ProteinMPNN**: A model for inverse-folding of protein structures to predict suitable sequences. [GitHub link](https://github.com/dauparas/ProteinMPNN), [Reference](https://doi.org/10.1126/science.add2187). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM-IF1**: A structure-conditioned inverse-folding model that scores or generates protein sequences given a backbone structure. It has a max sequence length of 500 residues. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.biorxiv.org/content/10.1101/2022.04.10.487779). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n\n",
     version: "1.0.0",
   },
   paths: {
@@ -91,26 +91,30 @@ const embeddingsSpec = {
             schema: {
               type: "string",
               enum: [
-                "poet",
-                "poet-2",
-                "proteinmpnn",
+                "ablang2",
                 "esm-if1",
-                "prot-seq",
-                "rotaprot-large-uniref50w",
-                "rotaprot-large-uniref90-ft",
                 "esm1b_t33_650M_UR50S",
                 "esm1v_t33_650M_UR90S_1",
                 "esm1v_t33_650M_UR90S_2",
                 "esm1v_t33_650M_UR90S_3",
                 "esm1v_t33_650M_UR90S_4",
                 "esm1v_t33_650M_UR90S_5",
-                "esm2_t6_8M_UR50D",
                 "esm2_t12_35M_UR50D",
                 "esm2_t30_150M_UR50D",
                 "esm2_t33_650M_UR50D",
                 "esm2_t36_3B_UR50D",
+                "esm2_t6_8M_UR50D",
+                "esmc-300m",
+                "esmc-600m",
+                "esmc-6b",
+                "poet",
+                "poet-2",
+                "poet-2-large-exp-018-091",
+                "prot-seq",
+                "proteinmpnn",
                 "prott5-xl",
-                "ablang2",
+                "rotaprot-large-uniref50w",
+                "rotaprot-large-uniref90-ft",
               ],
             },
           },
@@ -3495,6 +3499,357 @@ const embeddingsSpec = {
         "x-codegen-request-body-name": "request",
       },
     },
+    "/api/v1/embeddings/models/esmc-300m/embed": {
+      post: {
+        tags: ["esmc", "esmc-300m", "embed"],
+        summary: "esmc-300m embed",
+        description:
+          "Create embeddings vectors representing input protein sequences using `esmc-300m`.",
+        requestBody: {
+          description:
+            "Request for embeddings.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-300m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-300m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Embed request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/EmbedJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-600m/embed": {
+      post: {
+        tags: ["esmc", "esmc-600m", "embed"],
+        summary: "esmc-600m embed",
+        description:
+          "Create embeddings vectors representing input protein sequences using `esmc-600m`.",
+        requestBody: {
+          description:
+            "Request for embeddings.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-600m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-600m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Embed request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/EmbedJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-6b/embed": {
+      post: {
+        tags: ["esmc", "esmc-6b", "embed"],
+        summary: "esmc-6b embed",
+        description:
+          "Create embeddings vectors representing input protein sequences using `esmc-6b`.",
+        requestBody: {
+          description:
+            "Request for embeddings.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-6b`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "EmbedRequest",
+                description: "Request for embeddings using `esmc-6b`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Embed request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/EmbedJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
     "/api/v1/embeddings/models/prott5-xl/embed": {
       post: {
         tags: ["community", "prott5-xl", "embed"],
@@ -5146,6 +5501,321 @@ const embeddingsSpec = {
               schema: {
                 title: "AttentionRequest",
                 description: "Request for attention using `esm2_t36_3B_UR50D`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Attention request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-300m/attn": {
+      post: {
+        tags: ["esmc", "esmc-300m", "attn"],
+        summary: "esmc-300m attn",
+        description:
+          "Use `esmc-300m` to create attention maps of your sequences.",
+        requestBody: {
+          description: "Request attention maps for datasets.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-300m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-300m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Attention request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-600m/attn": {
+      post: {
+        tags: ["esmc", "esmc-600m", "attn"],
+        summary: "esmc-600m attn",
+        description:
+          "Use `esmc-600m` to create attention maps of your sequences.",
+        requestBody: {
+          description: "Request attention maps for datasets.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-600m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-600m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Attention request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-6b/attn": {
+      post: {
+        tags: ["esmc", "esmc-6b", "attn"],
+        summary: "esmc-6b attn",
+        description:
+          "Use `esmc-6b` to create attention maps of your sequences.",
+        requestBody: {
+          description: "Request attention maps for datasets.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-6b`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "AttentionRequest",
+                description: "Request for attention using `esmc-6b`.",
                 type: "object",
                 required: ["variant_file"],
                 properties: {
@@ -6876,6 +7546,324 @@ const embeddingsSpec = {
               schema: {
                 title: "LogitsRequest",
                 description: "Request for logits using `esm2_t36_3B_UR50D`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Logits request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-300m/logits": {
+      post: {
+        tags: ["esmc", "esmc-300m", "logits"],
+        summary: "esmc-300m logits",
+        description:
+          "Request for logits from input protein sequences using `esmc-300m`.\n\nThese logits represent the probability per amino acid for each position within the input sequences.",
+        requestBody: {
+          description:
+            "Request for logits.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-300m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-300m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Logits request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-600m/logits": {
+      post: {
+        tags: ["esmc", "esmc-600m", "logits"],
+        summary: "esmc-600m logits",
+        description:
+          "Request for logits from input protein sequences using `esmc-600m`.\n\nThese logits represent the probability per amino acid for each position within the input sequences.",
+        requestBody: {
+          description:
+            "Request for logits.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-600m`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-600m`.",
+                type: "object",
+                required: ["variant_file"],
+                properties: {
+                  variant_file: {
+                    type: "string",
+                    format: "binary",
+                    description: "File containing input sequences/variants.",
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Logits request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Job",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+        "x-codegen-request-body-name": "request",
+      },
+    },
+    "/api/v1/embeddings/models/esmc-6b/logits": {
+      post: {
+        tags: ["esmc", "esmc-6b", "logits"],
+        summary: "esmc-6b logits",
+        description:
+          "Request for logits from input protein sequences using `esmc-6b`.\n\nThese logits represent the probability per amino acid for each position within the input sequences.",
+        requestBody: {
+          description:
+            "Request for logits.\n\nVarious models may have specific arguments that are required.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-6b`.",
+                type: "object",
+                required: ["sequences"],
+                properties: {
+                  sequences: {
+                    title: "Sequences",
+                    type: "array",
+                    items: {
+                      $ref: "#/components/schemas/Sequence",
+                    },
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "LogitsRequest",
+                description: "Request for logits using `esmc-6b`.",
                 type: "object",
                 required: ["variant_file"],
                 properties: {
@@ -9866,6 +10854,26 @@ const embeddingsSpec = {
       name: "esm2_t36_3B_UR50D",
       description:
         "ESM2 model with 3B parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+    },
+    {
+      name: "esmc",
+      description:
+        "Community based ESM Cambrian (ESMC) models, with different versions having different model parameters.",
+    },
+    {
+      name: "esmc-300m",
+      description:
+        "ESM Cambrian (ESMC) protein language model with 300M parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
+    },
+    {
+      name: "esmc-600m",
+      description:
+        "ESM Cambrian (ESMC) protein language model with 600M parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
+    },
+    {
+      name: "esmc-6b",
+      description:
+        "ESM Cambrian (ESMC) protein language model with 6B parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
     },
     {
       name: "community",
