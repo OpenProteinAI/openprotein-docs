@@ -6,7 +6,7 @@ These data primitives represent a unified interface to working with our platform
 Protein
 ^^^^^^^
 
-:py:class:`~openprotein.molecules.Protein` is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a :py:class:`~openprotein.prompt.Query` to be used with models like :py:class:`~openprotein.models.ProteinMPNNModel` (e.g. for inverse-folding), as well as for ease of reuse.
+:py:class:`~openprotein.molecules.Protein` is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a :py:class:`~openprotein.prompt.Query` to be used with models like :py:class:`~openprotein.models.ProteinMPNNModel` or :py:class:`~openprotein.models.ESMIF1Model` (e.g. for inverse-folding), as well as for ease of reuse.
 
 .. autoclass:: openprotein.molecules.Protein
    :members:
