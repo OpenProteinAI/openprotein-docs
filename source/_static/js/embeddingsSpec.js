@@ -3,7 +3,7 @@ const embeddingsSpec = {
   info: {
     title: "OpenProtein Embeddings",
     description:
-      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://arxiv.org/pdf/2306.06156.pdf).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n\n",
+      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://arxiv.org/pdf/2306.06156.pdf).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1024. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members. It has a max sequence length of 1024, with dimension 1536. It supports **attn**, **embed**, **logits** as output types.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **ESM-IF1**: A structure-conditioned inverse-folding model that scores or generates protein sequences given a backbone structure. It has a max sequence length of 500 residues. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.biorxiv.org/content/10.1101/2022.04.10.487779). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n\n",
     version: "1.0.0",
   },
   paths: {
@@ -7311,7 +7311,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -7332,7 +7332,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -7736,7 +7736,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -7784,7 +7784,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -8093,7 +8093,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -8112,7 +8112,7 @@ const embeddingsSpec = {
                     type: "string",
                     format: "uuid",
                     description:
-                      "ID of the uploaded structure (CIF) the supplied sequences are scored against.",
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -8993,7 +8993,7 @@ const embeddingsSpec = {
                 title: "GenerateRequest",
                 description: "Request for generate sequences using `esm-if1`.",
                 type: "object",
-                required: ["n_sequences"],
+                required: ["n_sequences", "query_id"],
                 properties: {
                   n_sequences: {
                     title: "Number of Sequences",
@@ -9001,12 +9001,6 @@ const embeddingsSpec = {
                     minimum: 1,
                     default: 100,
                     example: 100,
-                  },
-                  query_id: {
-                    type: "string",
-                    format: "uuid",
-                    description:
-                      "ID of the uploaded structure (CIF) to design against. Provide either query_id or design_id.",
                   },
                   design_id: {
                     type: "string",
@@ -9019,13 +9013,19 @@ const embeddingsSpec = {
                     format: "float",
                     default: 1,
                     example: 1,
-                    description:
-                      "Multinomial sampling temperature; low → high recovery, high → high diversity.",
+                    minimum: 0,
+                    description: "Temperature for generate.",
                   },
                   seed: {
                     type: "integer",
                     nullable: true,
-                    description: "Random seed to use for sampling sequences.",
+                    description: "Random seed to use for generating sequences.",
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
@@ -9035,7 +9035,7 @@ const embeddingsSpec = {
                 title: "GenerateRequest",
                 description: "Request for generate sequences using `esm-if1`.",
                 type: "object",
-                required: ["n_sequences"],
+                required: ["n_sequences", "query_id"],
                 properties: {
                   n_sequences: {
                     title: "Number of Sequences",
@@ -9043,12 +9043,6 @@ const embeddingsSpec = {
                     minimum: 1,
                     default: 100,
                     example: 100,
-                  },
-                  query_id: {
-                    type: "string",
-                    format: "uuid",
-                    description:
-                      "ID of the uploaded structure (CIF) to design against. Provide either query_id or design_id.",
                   },
                   design_id: {
                     type: "string",
@@ -9061,13 +9055,19 @@ const embeddingsSpec = {
                     format: "float",
                     default: 1,
                     example: 1,
-                    description:
-                      "Multinomial sampling temperature; low → high recovery, high → high diversity.",
+                    minimum: 0,
+                    description: "Temperature for generate.",
                   },
                   seed: {
                     type: "integer",
                     nullable: true,
-                    description: "Random seed to use for sampling sequences.",
+                    description: "Random seed to use for generating sequences.",
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description:
+                      "ID of the uploaded PDB/CIF structure to condition on.",
                   },
                 },
               },
