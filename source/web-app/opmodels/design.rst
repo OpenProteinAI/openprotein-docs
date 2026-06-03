@@ -15,7 +15,7 @@ If you don't yet have experimental data, start with our `PoET tools <../poet/ind
 If you run into any challenges or have questions while getting started, please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`__.
 
 About design objectives
----------------------
+-----------------------
 
 Design objectives allow you to define single or multiple design objectives, each with its own set of criteria. You can specify the properties you want the model to predict for each and set the corresponding target values. The model predicts sequences that achieve target values for all defined properties in that objective.
 
@@ -26,7 +26,7 @@ The mean represents the output from a typical regression model and is the most l
 The models also output a standard deviation indicating their certainty in the value of that property. Based on this distribution, we can calculate the probability that a sequence variant meets a design criteria and express it as a log-likelihood score.
 
 Setting your design objectives
-----------------------------
+------------------------------
 
 To design custom sequences, navigate to your dataset, then select **Create design**. This opens a new window where you can edit the design name and define your parameters and design objectives. 
 

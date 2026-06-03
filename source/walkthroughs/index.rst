@@ -21,9 +21,9 @@ Web App
     - PoET, Structure Prediction
   * - `Designing libraries of multimeric proteins <./multichain.rst>`_
     - Optimization and Prediction Models 
-  * - `Protein-protein binder design with RFdiffusion <./protein_protein_binder_design_with_rfdiffusion_using_the_GUI.rst>`_
+  * - `Protein-protein binder design with RFdiffusion <./protein_protein_binder_design_with_rfdiffusion_using_the_GUI.rst>`__
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
-  * - `Nanobody binder design with BoltzGen <./nanobody_binder_design_with_boltzgen_using_the_gui.rst>`_
+  * - `Nanobody binder design with BoltzGen <./nanobody_binder_design_with_boltzgen_using_the_gui.rst>`__
     - Query design, BoltzGen, ProteinMPNN, Boltz-2
 
 
@@ -47,9 +47,9 @@ Python API
     - PoET-2
   * - `Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>`_
     - Embeddings
-  * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`_
+  * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`__
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
-  * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`_
+  * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`__
     - Query design, BoltzGen, ProteinMPNN, Boltz-2
   * - `Quantitative decision making for library design <./quantitative-decision-making-library-design.ipynb>`_
     - Optimization and Prediction Models

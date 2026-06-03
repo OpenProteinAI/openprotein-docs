@@ -71,6 +71,7 @@ A 400 (Bad request) error code may be due to the following:
        - a top_p > 1
        - a non-valid amino acid
        - Maximum similarity < minimum similarity
+
        If necessary, refer to the article on `sampling parameters <./prompts.rst#prompt-sampling-parameters>`_.
    * - Invalid MSA (not aligned, etc)
      - - Make sure your MSAs are aligned and rebuild MSA if necessary.

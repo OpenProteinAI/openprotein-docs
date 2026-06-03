@@ -307,4 +307,4 @@ Prediction. We also trained custom models to design an optimized library
 for the full multimeric protein. The subunits were mutated
 simultaneously, which highlighted key points of interaction.
 
-Get started with OP Models `here <../web-app/opmodels/index.rst>`_ and Structure Prediction `here <../web-app/structure-prediction/index.rst>`_.
+Get started with OP Models `here <../web-app/opmodels/index.rst>`__ and Structure Prediction `here <../web-app/structure-prediction/index.rst>`__.
