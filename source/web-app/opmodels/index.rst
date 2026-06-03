@@ -23,6 +23,7 @@ Learn more and get started with our tutorials
 - `Using reference sequences <./reference-sequence.rst>`_
 - `Navigating your projects <./navigating-your-projects.rst>`_
 - `Visualizing your data <./visualization.rst>`_
+- `Protein language models and embeddings <./protein-language-models-embeddings.rst>`_
 - `Model training and evaluation <./model-train-evaluate.rst>`_
 - `Substitution analysis with OP Models <./sub-analysis.rst>`_
 - `Designing sequences <./design.rst>`_
@@ -38,6 +39,7 @@ Learn more and get started with our tutorials
   reference-sequence
   navigating-your-projects
   Visualization <visualization>
+  Protein language models and embeddings <protein-language-models-embeddings>
   Model training and evaluation <model-train-evaluate>
   Substitution analysis with OP Models <sub-analysis>
   Design <design>

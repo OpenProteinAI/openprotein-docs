@@ -31,7 +31,6 @@ Get started using foundation models
 * `SVD embeddings <./SVD-embeddings.rst>`_
 * `Model metadata <./model-metadata.rst>`_
 * `Logits <./logits.rst>`_
-* `Basic inference endpoints <./basic-inference-endpoints.rst>`_
 * `Attention maps <./attention-maps.rst>`_
 * `Using AbLang2 <./Using_AbLang2.ipynb>`_
 
@@ -42,7 +41,6 @@ Get started using foundation models
     :hidden:
     :maxdepth: 2
 
-    Basic inference <basic-inference>
     Model metadata <model-metadata>
     SVD and embeddings <SVD-embeddings>
     Logits <logits>
