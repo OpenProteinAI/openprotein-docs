@@ -250,8 +250,8 @@ d. Show antibody columns
    pipeline completes processing, then become available for selection based on your analysis needs.
 
 - **Show allele** — toggles the allelic suffix (e.g. ``*01``) in V-gene and
-  germline-pair values. Disabled by default to maintain clean, readable display. Enable when you need allele-level 
-   resolution for  analysis. This setting affects the display format of  *Heavy V-Gene*, *Light V-Gene*, and
+  germline-pair values. Disabled by default to maintain clean, readable display. Enable when you need allele-level
+  resolution for  analysis. This setting affects the display format of  *Heavy V-Gene*, *Light V-Gene*, and
   *Germline pair* columns—the underlying data values remain unchanged.
 
 .. list-table::

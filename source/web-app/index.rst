@@ -27,7 +27,7 @@ Our tools are standalone or can be used together at any point in your project.
          * Predict variant effects
          * Rank sequence designs 
 
-      `Learn more <./poet/index.rst>`_
+      `Learn more <./poet/index.rst>`__
 
    .. container:: column
 
@@ -46,7 +46,7 @@ Our tools are standalone or can be used together at any point in your project.
          * Create informative visuals (UMAPs, joint plots, histograms)
          * Guide design strategy based on quantitative analyses
 
-      `Learn more <./opmodels/index.rst>`_
+      `Learn more <./opmodels/index.rst>`__
 
    .. container:: column
 
@@ -64,7 +64,7 @@ Our tools are standalone or can be used together at any point in your project.
          * Validate designs
          * Predict multi-chain structures 
 
-      `Learn more <./structure-prediction/index.rst>`_
+      `Learn more <./structure-prediction/index.rst>`__
 
 
 .. raw:: html

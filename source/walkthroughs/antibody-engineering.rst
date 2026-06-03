@@ -23,7 +23,7 @@ Demo-ing OpenProtein.AI's Optimization and Prediction Models
 -------------------------------------------------------------
 
 Uploading our data
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 
 In this walkthrough, we will be using the dataset found in "Machine learning optimization of candidate antibody yields highly diverse sub-nanomolar affinity antibody libraries", Lin Li et al :cite:year:`li2023machine`, specifically the 14L variant library data shown here. This library was generated using phage display, which is a common way to generate antibody libraries to look for high affinity binders. OP Models can work with data generated through phage display, yeast display, ribosome display or mammalian cell display libraries as well as clones isolated from naive or immune mice models.
@@ -56,7 +56,7 @@ Upon successful upload, the system will automatically perform preprocessing as w
 .. image:: /_static/walkthroughs/antibody/ab-image5.png
 
 Visualizing our data
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 Now that our data is saved in the “Antibody 14L” project, we can visualize it using Uniform Manifold Approximation and Projection (UMAP), joint plots, histograms, and result tables.
 
@@ -69,7 +69,7 @@ This dataset has > 15 clusters of differing sizes, indicating that we have a fai
 We can tweak the colors as well as explore the different clusters here to create figures for presentation. Dragging the cursor across an area to select a cluster of interest will also highlight the corresponding sequences in the dataset table. The tutorial on `Visualizing your data <../web-app/opmodels/visualization.rst>`__ contains more details about other visualization options.
 
 Training our custom model
-^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before we can start predicting new antibody variants, we need to train a custom model using our dataset. The custom model allows us to set specific properties of interest, in this case the log Kd measurement, and create a model capable of predicting better binders.
 

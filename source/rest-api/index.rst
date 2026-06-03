@@ -46,7 +46,7 @@ The endpoints include:
 - Align
 
 `Prompt <./prompt.rst>`_
-----------------------
+------------------------
 Learn more about the endpoints needed to provide queries/prompts for PoET-2.
 
 The endpoints include:
