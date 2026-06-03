@@ -3,7 +3,7 @@ const foldSpec = {
   info: {
     title: "OpenProtein Fold",
     description:
-      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/). \n- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **Protenix**: Open-source Protenix model. [GitHub link](https://github.com/bytedance/Protenix), [Reference](https://www.biorxiv.org/content/early/2026/02/22/2026.02.05.703733.1). Licensed under [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/).\n\n\n",
+      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESMFold2, ESMFold2-Fast**: Open-source ESMFold2 models. [GitHub link](https://github.com/Biohub/esm), [Reference](https://biohub.ai/papers/esm_protein.pdf). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **MiniFold**: Open-source MiniFold model. [GitHub link](https://github.com/jwohlwend/minifold), [Reference](https://openreview.net/forum?id=1p9hQTbjgo). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/). \n- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **Protenix**: Open-source Protenix model. [GitHub link](https://github.com/bytedance/Protenix), [Reference](https://www.biorxiv.org/content/early/2026/02/22/2026.02.05.703733.1). Licensed under [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/).\n\n\n",
     version: "1.0.0",
   },
   paths: {
@@ -91,7 +91,18 @@ const foldSpec = {
             required: true,
             schema: {
               type: "string",
-              enum: ["esmfold", "alphafold2"],
+              enum: [
+                "alphafold2",
+                "boltz-1",
+                "boltz-1x",
+                "boltz-2",
+                "esmfold",
+                "esmfold2",
+                "esmfold2-fast",
+                "minifold",
+                "protenix",
+                "rosettafold-3",
+              ],
             },
           },
         ],
@@ -155,6 +166,182 @@ const foldSpec = {
         responses: {
           "202": {
             description: "ESMFold request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/esmfold2": {
+      post: {
+        tags: ["fold requests", "esmfold2"],
+        summary: "ESMFold2",
+        description:
+          "Create structure prediction using ESMFold2, an all-atom structure prediction\nmodel. Folds protein/DNA/RNA/ligand complexes, optionally conditioned on an MSA.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `step_scale`: Scaling factor for diffusion steps. If omitted, the model's internal default is used.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ESMFold2Request",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "ESMFold2 request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/esmfold2-fast": {
+      post: {
+        tags: ["fold requests", "esmfold2"],
+        summary: "ESMFold2-Fast",
+        description:
+          "Create structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2 whose folding trunk has half the depth\n(24 vs 48 layers). Folds protein/DNA/RNA/ligand complexes.\n\nUnlike ESMFold2, ESMFold2-Fast is single-sequence only and does not accept\nan MSA (`msa_id`).\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as SMILES string, CCD code.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `step_scale`: Scaling factor for diffusion steps. If omitted, the model's internal default is used.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ESMFold2FastRequest",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "ESMFold2-Fast request created and pending",
             content: {
               "application/json": {
                 schema: {
@@ -1086,7 +1273,7 @@ const foldSpec = {
             name: "extraKey",
             in: "path",
             description:
-              "Extra output produced by the fold model.\n\nAvailability by model:\n- `ptm` — alphafold2\n- `pae` — boltz-*, alphafold2, esmfold, protenix\n- `plddt` — boltz-*, alphafold2, protenix\n- `pde` — boltz-*, protenix\n- `confidence` — boltz-*, protenix\n- `affinity` — boltz-*\n- `score`, `metrics` — rosettafold-3\n",
+              "Extra output produced by the fold model.\n\nAvailability by model:\n- `ptm` — alphafold2\n- `pae` — boltz-*, alphafold2, esmfold, esmfold2, esmfold2-fast, protenix\n- `plddt` — boltz-*, alphafold2, esmfold2, esmfold2-fast, protenix\n- `pde` — boltz-*, protenix\n- `confidence` — boltz-*, esmfold2, esmfold2-fast, protenix\n- `affinity` — boltz-*\n- `score`, `metrics` — rosettafold-3\n",
             required: true,
             schema: {
               type: "string",
@@ -1559,36 +1746,6 @@ const foldSpec = {
           },
         },
       },
-      MiniFoldRequest: {
-        title: "MiniFoldRequest",
-        description: "Request for structure prediction using MiniFold.",
-        type: "object",
-        required: ["sequences"],
-        properties: {
-          sequences: {
-            type: "array",
-            items: {
-              type: "array",
-              items: {
-                oneOf: [
-                  {
-                    $ref: "#/components/schemas/Protein",
-                  },
-                ],
-              },
-            },
-          },
-          num_recycles: {
-            description: "Number of recycles. `null` lets the system decide.",
-            type: "number",
-            nullable: true,
-            minimum: 0,
-            maximum: 48,
-            default: null,
-            example: null,
-          },
-        },
-      },
       ProteinWithMSA: {
         title: "ProteinWithMSA",
         description: "Protein object with MSA specified.",
@@ -1614,52 +1771,6 @@ const foldSpec = {
           id: "A",
           sequence: "MVTPEGNV...",
           msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-        },
-      },
-      AF2Request: {
-        title: "AlphaFold2Request",
-        description: "Request for structure prediction using AlphaFold2.",
-        type: "object",
-        required: ["msa_id"],
-        properties: {
-          sequences: {
-            type: "array",
-            items: {
-              type: "array",
-              items: {
-                oneOf: [
-                  {
-                    $ref: "#/components/schemas/ProteinWithMSA",
-                  },
-                ],
-              },
-            },
-          },
-          num_recycles: {
-            description: "Number of recycles. `null` lets the system decide.",
-            type: "number",
-            nullable: true,
-            minimum: 0,
-            maximum: 48,
-            default: null,
-            example: null,
-          },
-          num_models: {
-            description: "Number of models.",
-            type: "number",
-            minimum: 0,
-            maximum: 5,
-            default: 1,
-            example: 1,
-          },
-          num_relax: {
-            description: "Number of relax.",
-            type: "number",
-            minimum: 0,
-            maximum: 5,
-            default: 0,
-            example: 0,
-          },
         },
       },
       Ligand: {
@@ -1765,6 +1876,262 @@ const foldSpec = {
         example: {
           id: "A",
           sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
+        },
+      },
+      ESMFold2Request: {
+        title: "ESMFold2Request",
+        description: "Request for structure prediction using ESMFold2.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/ProteinWithMSA",
+                  },
+                  {
+                    $ref: "#/components/schemas/Ligand",
+                  },
+                  {
+                    $ref: "#/components/schemas/DNA",
+                  },
+                  {
+                    $ref: "#/components/schemas/RNA",
+                  },
+                ],
+              },
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            minimum: 1,
+            default: 1,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            minimum: 1,
+            default: 200,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            minimum: 1,
+            default: 3,
+          },
+          step_scale: {
+            type: "number",
+            format: "float",
+            description:
+              "Scaling factor for diffusion steps. If omitted, the model's internal default is used.",
+          },
+          seed: {
+            type: "integer",
+            nullable: true,
+            default: null,
+            description:
+              "Random seed for reproducible sampling. `null` lets the system decide.",
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
+              },
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          diffusion_samples: 1,
+          num_steps: 200,
+          num_recycles: 3,
+        },
+      },
+      ESMFold2FastRequest: {
+        title: "ESMFold2FastRequest",
+        description:
+          "Request for structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2. It does not accept an MSA (`msa_id`).",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/Protein",
+                  },
+                  {
+                    $ref: "#/components/schemas/Ligand",
+                  },
+                  {
+                    $ref: "#/components/schemas/DNA",
+                  },
+                  {
+                    $ref: "#/components/schemas/RNA",
+                  },
+                ],
+              },
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            minimum: 1,
+            default: 1,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            minimum: 1,
+            default: 200,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            minimum: 1,
+            default: 3,
+          },
+          step_scale: {
+            type: "number",
+            format: "float",
+            description:
+              "Scaling factor for diffusion steps. If omitted, the model's internal default is used.",
+          },
+          seed: {
+            type: "integer",
+            nullable: true,
+            default: null,
+            description:
+              "Random seed for reproducible sampling. `null` lets the system decide.",
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                },
+              },
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          diffusion_samples: 1,
+          num_steps: 200,
+          num_recycles: 3,
+        },
+      },
+      MiniFoldRequest: {
+        title: "MiniFoldRequest",
+        description: "Request for structure prediction using MiniFold.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/Protein",
+                  },
+                ],
+              },
+            },
+          },
+          num_recycles: {
+            description: "Number of recycles. `null` lets the system decide.",
+            type: "number",
+            nullable: true,
+            minimum: 0,
+            maximum: 48,
+            default: null,
+            example: null,
+          },
+        },
+      },
+      AF2Request: {
+        title: "AlphaFold2Request",
+        description: "Request for structure prediction using AlphaFold2.",
+        type: "object",
+        required: ["msa_id"],
+        properties: {
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/ProteinWithMSA",
+                  },
+                ],
+              },
+            },
+          },
+          num_recycles: {
+            description: "Number of recycles. `null` lets the system decide.",
+            type: "number",
+            nullable: true,
+            minimum: 0,
+            maximum: 48,
+            default: null,
+            example: null,
+          },
+          num_models: {
+            description: "Number of models.",
+            type: "number",
+            minimum: 0,
+            maximum: 5,
+            default: 1,
+            example: 1,
+          },
+          num_relax: {
+            description: "Number of relax.",
+            type: "number",
+            minimum: 0,
+            maximum: 5,
+            default: 0,
+            example: 0,
+          },
         },
       },
       BondConstraint: {
@@ -2600,6 +2967,11 @@ const foldSpec = {
     {
       name: "esmfold",
       description: "Create structure prediction using ESMFold.",
+    },
+    {
+      name: "esmfold2",
+      description:
+        "Create structure prediction using ESMFold2 and ESMFold2-Fast.",
     },
   ],
 };
