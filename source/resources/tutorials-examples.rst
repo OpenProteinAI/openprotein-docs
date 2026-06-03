@@ -223,7 +223,6 @@ Embeddings
                         <ul>
                             <li><a href="../python-api/foundation-models/SVD-embeddings.html">SVD embeddings</a></li>
                             <li><a href="../python-api/foundation-models/attention-maps.html">Attention maps</a></li>
-                            <li><a href="../python-api/foundation-models/basic-inference-endpoints.html">Basic inference endpoints</a></li>
                             <li><a href="../python-api/foundation-models/model-metadata.html">Model metadata</a></li>
                             <li><a href="../python-api/foundation-models/logits.html">Logits</a></li>
                         </ul>
