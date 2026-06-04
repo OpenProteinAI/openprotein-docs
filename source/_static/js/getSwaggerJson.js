@@ -251,7 +251,6 @@ export default async function getSwaggerJson(swaggerType) {
 
   const filteredSchemasToShow = {};
   for (const schemaKey in swagerSpecs.components.schemas) {
-    console.log(schemaKey);
     apiSchemasToShow.forEach((schemaKeyToShow) => {
       if (schemaKeyToShow === schemaKey) {
         filteredSchemasToShow[schemaKeyToShow] =
