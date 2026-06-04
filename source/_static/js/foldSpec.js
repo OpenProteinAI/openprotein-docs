@@ -101,6 +101,7 @@ const foldSpec = {
                 "esmfold2-fast",
                 "minifold",
                 "protenix",
+                "protenix-v2",
                 "rosettafold-3",
               ],
             },
@@ -958,6 +959,94 @@ const foldSpec = {
         responses: {
           "202": {
             description: "Protenix request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          "400": {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "401": {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "404": {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          "422": {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          "429": {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/protenix-v2": {
+      post: {
+        tags: ["fold requests", "protenix-v2"],
+        summary: "Protenix-v2",
+        description:
+          "Create structure prediction using Protenix-v2, an enhanced-capacity variant\nwith improved antibody-antigen structure prediction and ligand plausibility.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 10.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ProtenixRequest",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          "202": {
+            description: "Protenix-v2 request created and pending",
             content: {
               "application/json": {
                 schema: {
@@ -2963,6 +3052,10 @@ const foldSpec = {
     {
       name: "protenix",
       description: "Create structure prediction using Protenix.",
+    },
+    {
+      name: "protenix-v2",
+      description: "Create structure prediction using Protenix-v2.",
     },
     {
       name: "esmfold",
