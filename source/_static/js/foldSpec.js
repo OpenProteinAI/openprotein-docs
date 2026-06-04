@@ -240,7 +240,7 @@ const foldSpec = {
         tags: ["fold requests", "esmfold2"],
         summary: "ESMFold2",
         description:
-          "Create structure prediction using ESMFold2, an all-atom structure prediction\nmodel. Folds protein/DNA/RNA/ligand complexes, optionally conditioned on an MSA.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `step_scale`: Scaling factor for diffusion steps. If omitted, the model's internal default is used.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+          "Create structure prediction using ESMFold2, an all-atom structure prediction\nmodel. Folds protein/DNA/RNA/ligand complexes, optionally conditioned on an MSA.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
         requestBody: {
           description: "Request for structure prediction.",
           content: {
@@ -328,7 +328,7 @@ const foldSpec = {
         tags: ["fold requests", "esmfold2"],
         summary: "ESMFold2-Fast",
         description:
-          "Create structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2 whose folding trunk has half the depth\n(24 vs 48 layers). Folds protein/DNA/RNA/ligand complexes.\n\nUnlike ESMFold2, ESMFold2-Fast is single-sequence only and does not accept\nan MSA (`msa_id`).\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as SMILES string, CCD code.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `step_scale`: Scaling factor for diffusion steps. If omitted, the model's internal default is used.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+          "Create structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2 whose folding trunk has half the depth\n(24 vs 48 layers). Folds protein/DNA/RNA/ligand complexes.\n\nUnlike ESMFold2, ESMFold2-Fast is single-sequence only and does not accept\nan MSA (`msa_id`).\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as SMILES string, CCD code.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
         requestBody: {
           description: "Request for structure prediction.",
           content: {
@@ -2014,12 +2014,6 @@ const foldSpec = {
             minimum: 1,
             default: 3,
           },
-          step_scale: {
-            type: "number",
-            format: "float",
-            description:
-              "Scaling factor for diffusion steps. If omitted, the model's internal default is used.",
-          },
           seed: {
             type: "integer",
             nullable: true,
@@ -2104,12 +2098,6 @@ const foldSpec = {
             description: "Number of recycling steps to use.",
             minimum: 1,
             default: 3,
-          },
-          step_scale: {
-            type: "number",
-            format: "float",
-            description:
-              "Scaling factor for diffusion steps. If omitted, the model's internal default is used.",
           },
           seed: {
             type: "integer",
