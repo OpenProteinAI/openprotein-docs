@@ -21,6 +21,8 @@ Models included in the embeddings endpoint are:
 
 - **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different versions having different model parameters and training data. `GitHub link <https://github.com/facebookresearch/esm>`__, `Reference <https://www.science.org/doi/10.1126/science.ade2574>`__
 
+- **ESM-C Models**: Community-based ESM Cambrian (ESM C) protein language models from EvolutionaryScale, including: *esmc-300m*, *esmc-600m*, *esmc-6b*. A successor to ESM2, ESM C is trained on a larger corpus and yields stronger representations at each parameter scale, with embedding dimensions 960, 1152, and 2560 respectively; the 300M model roughly matches ESM2-650M while running faster and lighter. It supports **attn**, **embed**, and **logits** as output types. `GitHub link <https://github.com/Biohub/esm>`__, `Reference <https://www.evolutionaryscale.ai/blog/esm-cambrian>`__
+
 - **AbLang2**: Community-based antibody language model trained on paired heavy/light variable regions. AbLang2 expects inputs in the form ``<VH>:<VL>``; single-chain inputs keep a leading or trailing ``:`` to mark the missing chain. Use it for antibody-specific embeddings, residue restoration, and design ranking. See `Using AbLang2 <./Using_AbLang2.ipynb>`__. `GitHub link <https://github.com/oxpig/AbLang2>`__, `Reference <https://doi.org/10.1101/2024.02.02.578678>`__
 
 Get started using foundation models
