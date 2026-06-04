@@ -37,11 +37,20 @@ Models
 .. autoclass:: openprotein.fold.ESMFoldModel
    :members:
 
+.. autoclass:: openprotein.fold.ESMFold2Model
+   :members:
+
+.. autoclass:: openprotein.fold.ESMFold2FastModel
+   :members:
+
 .. autoclass:: openprotein.fold.MiniFoldModel
    :members:
 
 Results
 -------
+
+.. autoclass:: openprotein.fold.ESMFold2Confidence
+   :members:
 
 .. autoclass:: openprotein.fold.FoldResultFuture
    :members:
