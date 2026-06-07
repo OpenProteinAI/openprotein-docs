@@ -14,7 +14,7 @@ Get started using Structure Prediction
 - :doc:`./Using_ESMFold2`
 - :doc:`./Using_AlphaFold2`
 - :doc:`./Using_Boltz_1_and_Boltz_2`
-- :doc:`./Using_Protenix`
+- :doc:`./Using_Protenix-v2`
 - :doc:`./Using_RosettaFold3`
 
 `API Reference <../api-reference/fold.rst>`_
@@ -27,5 +27,5 @@ Get started using Structure Prediction
    Using_ESMFold2
    Using_AlphaFold2
    Using_Boltz_1_and_Boltz_2
-   Using_Protenix
+   Using_Protenix-v2
    Using_RosettaFold3
