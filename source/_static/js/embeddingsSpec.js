@@ -39,7 +39,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Available embeddings models returned.",
             content: {
               "application/json": {
@@ -91,36 +91,35 @@ const embeddingsSpec = {
             schema: {
               type: "string",
               enum: [
-                "ablang2",
+                "poet",
+                "poet-2",
+                "proteinmpnn",
                 "esm-if1",
+                "prot-seq",
+                "rotaprot-large-uniref50w",
+                "rotaprot-large-uniref90-ft",
                 "esm1b_t33_650M_UR50S",
                 "esm1v_t33_650M_UR90S_1",
                 "esm1v_t33_650M_UR90S_2",
                 "esm1v_t33_650M_UR90S_3",
                 "esm1v_t33_650M_UR90S_4",
                 "esm1v_t33_650M_UR90S_5",
+                "esm2_t6_8M_UR50D",
                 "esm2_t12_35M_UR50D",
                 "esm2_t30_150M_UR50D",
                 "esm2_t33_650M_UR50D",
                 "esm2_t36_3B_UR50D",
-                "esm2_t6_8M_UR50D",
                 "esmc-300m",
                 "esmc-600m",
                 "esmc-6b",
-                "poet",
-                "poet-2",
-                "poet-2-large-exp-018-091",
-                "prot-seq",
-                "proteinmpnn",
                 "prott5-xl",
-                "rotaprot-large-uniref50w",
-                "rotaprot-large-uniref90-ft",
+                "ablang2",
               ],
             },
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Detailed information about model returned.",
             content: {
               "application/json": {
@@ -130,7 +129,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -141,7 +140,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model was not found.",
             content: {
               "application/json": {
@@ -177,7 +176,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Embeddings metadata successfully returned.",
             content: {
               "application/json": {
@@ -187,7 +186,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -198,7 +197,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Embeddings job not found.",
             content: {
               "application/json": {
@@ -234,7 +233,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Request sequences",
             content: {
               "application/json": {
@@ -247,7 +246,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -258,7 +257,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Embeddings job not found.",
             content: {
               "application/json": {
@@ -304,7 +303,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Result encoded in numpy format",
             content: {
               "application/octet-stream": {
@@ -317,7 +316,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Vector retrieval error. Contact support for assistance if persistent.",
             content: {
@@ -328,7 +327,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -339,7 +338,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Embeddings job not found.",
             content: {
               "application/json": {
@@ -375,7 +374,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description:
               "Scored sequences with likelihoods encoded in csv format.",
             content: {
@@ -389,7 +388,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Vector retrieval error. Contact support for assistance if persistent.",
             content: {
@@ -400,7 +399,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -411,7 +410,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Embeddings job not found.",
             content: {
               "application/json": {
@@ -448,7 +447,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description:
               "Generated sequences with likelihoods encoded in csv format.",
             content: {
@@ -462,7 +461,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Vector retrieval error. Contact support for assistance if persistent.",
             content: {
@@ -473,7 +472,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -484,7 +483,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Embeddings job not found.",
             content: {
               "application/json": {
@@ -547,7 +546,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Score extension request created and pending",
             content: {
               "application/json": {
@@ -557,7 +556,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -567,7 +566,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -577,7 +576,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -588,7 +587,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -654,7 +653,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Score extension request created and pending",
             content: {
               "application/json": {
@@ -664,7 +663,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -674,7 +673,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -684,7 +683,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -695,7 +694,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -721,7 +720,7 @@ const embeddingsSpec = {
         description:
           "List SVDs available.\n\nYou may need to create an SVD first with POST `/svd` to see results here.\n",
         responses: {
-          "200": {
+          200: {
             description: "List of SVDs",
             content: {
               "application/json": {
@@ -735,7 +734,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -830,7 +829,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "SVD request created and pending",
             content: {
               "application/json": {
@@ -840,7 +839,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -851,7 +850,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Specified `model_id` not found.",
             content: {
               "application/json": {
@@ -887,7 +886,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "SVD metadata",
             content: {
               "application/json": {
@@ -897,7 +896,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -908,7 +907,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "SVD not found.",
             content: {
               "application/json": {
@@ -941,11 +940,11 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "SVD successfully deleted.",
             content: {},
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -956,7 +955,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "SVD not found.",
             content: {
               "application/json": {
@@ -1013,7 +1012,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embeddings SVD request created and pending",
             content: {
               "application/json": {
@@ -1049,7 +1048,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Request sequences",
             content: {
               "application/json": {
@@ -1062,7 +1061,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1073,7 +1072,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "SVD fit job not found.",
             content: {
               "application/json": {
@@ -1109,7 +1108,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "List of clustering jobs",
             content: {
               "application/json": {
@@ -1122,7 +1121,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1312,7 +1311,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Clustering request created and pending",
             content: {
               "application/json": {
@@ -1322,7 +1321,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Invalid request (bad parameters, illegal linkage/metric combo, size cap exceeded, etc.)",
             content: {
@@ -1333,7 +1332,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1370,7 +1369,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Clustering metadata",
             content: {
               "application/json": {
@@ -1380,7 +1379,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1390,7 +1389,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Clustering job not found.",
             content: {
               "application/json": {
@@ -1424,11 +1423,11 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Clustering job successfully deleted.",
             content: {},
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1438,7 +1437,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Clustering job not found.",
             content: {
               "application/json": {
@@ -1475,7 +1474,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Clustering linkage result",
             content: {
               "application/json": {
@@ -1485,7 +1484,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Result not yet ready (job still pending/running).",
             content: {
               "application/json": {
@@ -1495,7 +1494,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1505,7 +1504,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Clustering job not found.",
             content: {
               "application/json": {
@@ -1542,7 +1541,7 @@ const embeddingsSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Input sequences in original order",
             content: {
               "application/json": {
@@ -1555,7 +1554,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Bad or expired token.",
             content: {
               "application/json": {
@@ -1565,7 +1564,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Clustering job not found.",
             content: {
               "application/json": {
@@ -1639,7 +1638,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -1649,7 +1648,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -1659,7 +1658,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1670,7 +1669,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -1680,7 +1679,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -1691,7 +1690,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -1766,7 +1765,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -1776,7 +1775,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -1786,7 +1785,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1797,7 +1796,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -1807,7 +1806,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -1818,7 +1817,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -1883,7 +1882,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -1893,7 +1892,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -1903,7 +1902,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1914,7 +1913,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -1924,7 +1923,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -1935,7 +1934,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2002,7 +2001,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2012,7 +2011,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2022,7 +2021,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2033,7 +2032,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2043,7 +2042,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2054,7 +2053,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2121,7 +2120,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2131,7 +2130,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2141,7 +2140,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2152,7 +2151,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2162,7 +2161,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2173,7 +2172,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2240,7 +2239,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2250,7 +2249,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2260,7 +2259,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2271,7 +2270,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2281,7 +2280,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2292,7 +2291,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2359,7 +2358,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2369,7 +2368,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2379,7 +2378,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2390,7 +2389,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2400,7 +2399,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2411,7 +2410,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2478,7 +2477,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2488,7 +2487,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2498,7 +2497,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2509,7 +2508,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2519,7 +2518,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2530,7 +2529,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2597,7 +2596,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2607,7 +2606,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2617,7 +2616,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2628,7 +2627,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2638,7 +2637,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2649,7 +2648,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2716,7 +2715,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2726,7 +2725,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2736,7 +2735,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2747,7 +2746,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2757,7 +2756,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2768,7 +2767,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2835,7 +2834,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2845,7 +2844,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2855,7 +2854,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2866,7 +2865,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2876,7 +2875,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -2887,7 +2886,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -2952,7 +2951,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -2962,7 +2961,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -2972,7 +2971,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -2983,7 +2982,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -2993,7 +2992,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3004,7 +3003,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3071,7 +3070,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3081,7 +3080,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3091,7 +3090,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3102,7 +3101,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3112,7 +3111,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3123,7 +3122,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3190,7 +3189,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3200,7 +3199,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3210,7 +3209,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3221,7 +3220,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3231,7 +3230,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3242,7 +3241,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3309,7 +3308,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3319,7 +3318,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3329,7 +3328,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3340,7 +3339,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3350,7 +3349,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3361,7 +3360,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3428,7 +3427,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3438,7 +3437,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3448,7 +3447,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3459,7 +3458,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3469,7 +3468,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3480,7 +3479,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3545,7 +3544,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3555,7 +3554,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3565,7 +3564,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3576,7 +3575,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3586,7 +3585,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3597,7 +3596,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3662,7 +3661,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3672,7 +3671,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3682,7 +3681,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3693,7 +3692,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3703,7 +3702,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3714,7 +3713,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3779,7 +3778,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3789,7 +3788,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3799,7 +3798,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3810,7 +3809,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3820,7 +3819,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3831,7 +3830,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -3896,7 +3895,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -3906,7 +3905,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -3916,7 +3915,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -3927,7 +3926,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -3937,7 +3936,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -3948,7 +3947,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4013,7 +4012,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Embed request created and pending",
             content: {
               "application/json": {
@@ -4023,7 +4022,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4033,7 +4032,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -4044,7 +4043,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4054,7 +4053,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4065,7 +4064,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4129,7 +4128,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4139,7 +4138,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4149,7 +4148,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4159,7 +4158,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4170,7 +4169,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4236,7 +4235,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4246,7 +4245,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4256,7 +4255,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4266,7 +4265,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4277,7 +4276,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4343,7 +4342,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4353,7 +4352,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4363,7 +4362,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4373,7 +4372,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4384,7 +4383,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4450,7 +4449,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4460,7 +4459,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4470,7 +4469,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4480,7 +4479,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4491,7 +4490,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4557,7 +4556,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4567,7 +4566,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4577,7 +4576,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4587,7 +4586,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4598,7 +4597,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4664,7 +4663,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4674,7 +4673,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4684,7 +4683,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4694,7 +4693,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4705,7 +4704,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4771,7 +4770,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4781,7 +4780,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4791,7 +4790,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4801,7 +4800,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4812,7 +4811,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4878,7 +4877,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4888,7 +4887,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -4898,7 +4897,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -4908,7 +4907,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -4919,7 +4918,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -4985,7 +4984,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -4995,7 +4994,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5005,7 +5004,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5015,7 +5014,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5026,7 +5025,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5090,7 +5089,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5100,7 +5099,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5110,7 +5109,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5120,7 +5119,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5131,7 +5130,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5197,7 +5196,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5207,7 +5206,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5217,7 +5216,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5227,7 +5226,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5238,7 +5237,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5304,7 +5303,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5314,7 +5313,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5324,7 +5323,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5334,7 +5333,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5345,7 +5344,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5411,7 +5410,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5421,7 +5420,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5431,7 +5430,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5441,7 +5440,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5452,7 +5451,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5516,7 +5515,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5526,7 +5525,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5536,7 +5535,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5546,7 +5545,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5557,7 +5556,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5621,7 +5620,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5631,7 +5630,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5641,7 +5640,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5651,7 +5650,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5662,7 +5661,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5726,7 +5725,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5736,7 +5735,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5746,7 +5745,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5756,7 +5755,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5767,7 +5766,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5831,7 +5830,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Attention request created and pending",
             content: {
               "application/json": {
@@ -5841,7 +5840,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5851,7 +5850,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5861,7 +5860,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5872,7 +5871,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -5947,7 +5946,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -5957,7 +5956,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -5967,7 +5966,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -5977,7 +5976,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -5988,7 +5987,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6063,7 +6062,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6073,7 +6072,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6083,7 +6082,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6093,7 +6092,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6104,7 +6103,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6169,7 +6168,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6179,7 +6178,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6189,7 +6188,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6199,7 +6198,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6210,7 +6209,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6277,7 +6276,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6287,7 +6286,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6297,7 +6296,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6307,7 +6306,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6318,7 +6317,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6385,7 +6384,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6395,7 +6394,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6405,7 +6404,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6415,7 +6414,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6426,7 +6425,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6491,7 +6490,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6501,7 +6500,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6511,7 +6510,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6521,7 +6520,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6532,7 +6531,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6599,7 +6598,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6609,7 +6608,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6619,7 +6618,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6629,7 +6628,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6640,7 +6639,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6707,7 +6706,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6717,7 +6716,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6727,7 +6726,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6737,7 +6736,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6748,7 +6747,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6815,7 +6814,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6825,7 +6824,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6835,7 +6834,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6845,7 +6844,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6856,7 +6855,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -6923,7 +6922,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -6933,7 +6932,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -6943,7 +6942,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -6953,7 +6952,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -6964,7 +6963,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7031,7 +7030,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7041,7 +7040,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7051,7 +7050,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7061,7 +7060,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7072,7 +7071,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7137,7 +7136,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7147,7 +7146,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7157,7 +7156,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7167,7 +7166,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7178,7 +7177,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7243,7 +7242,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7253,7 +7252,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7263,7 +7262,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7273,7 +7272,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7284,7 +7283,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7349,7 +7348,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7359,7 +7358,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7369,7 +7368,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7379,7 +7378,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7390,7 +7389,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7455,7 +7454,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7465,7 +7464,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7475,7 +7474,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7485,7 +7484,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7496,7 +7495,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7561,7 +7560,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7571,7 +7570,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7581,7 +7580,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7591,7 +7590,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7602,7 +7601,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7667,7 +7666,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7677,7 +7676,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7687,7 +7686,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7697,7 +7696,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7708,7 +7707,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7773,7 +7772,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7783,7 +7782,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7793,7 +7792,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7803,7 +7802,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7814,7 +7813,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7879,7 +7878,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7889,7 +7888,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -7899,7 +7898,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -7909,7 +7908,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -7920,7 +7919,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -7985,7 +7984,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Logits request created and pending",
             content: {
               "application/json": {
@@ -7995,7 +7994,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8005,7 +8004,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8015,7 +8014,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8026,7 +8025,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8099,7 +8098,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Score request created and pending",
             content: {
               "application/json": {
@@ -8109,7 +8108,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8119,7 +8118,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8129,7 +8128,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8140,7 +8139,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8213,7 +8212,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Score request created and pending",
             content: {
               "application/json": {
@@ -8223,7 +8222,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8233,7 +8232,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8243,7 +8242,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8254,7 +8253,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8329,7 +8328,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Score request created and pending",
             content: {
               "application/json": {
@@ -8339,7 +8338,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8349,7 +8348,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8359,7 +8358,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8370,7 +8369,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8479,7 +8478,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Indel score request created and pending",
             content: {
               "application/json": {
@@ -8489,7 +8488,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8499,7 +8498,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8509,7 +8508,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8520,7 +8519,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8629,7 +8628,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Indel score request created and pending",
             content: {
               "application/json": {
@@ -8639,7 +8638,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8649,7 +8648,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8659,7 +8658,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8670,7 +8669,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8781,7 +8780,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Indel score request created and pending",
             content: {
               "application/json": {
@@ -8791,7 +8790,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8801,7 +8800,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8811,7 +8810,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8822,7 +8821,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8889,7 +8888,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Single-site score request created and pending",
             content: {
               "application/json": {
@@ -8899,7 +8898,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -8909,7 +8908,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -8919,7 +8918,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -8930,7 +8929,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -8998,7 +8997,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Single-site score request created and pending",
             content: {
               "application/json": {
@@ -9008,7 +9007,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -9018,7 +9017,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -9028,7 +9027,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -9039,7 +9038,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -9109,7 +9108,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Single-site score request created and pending",
             content: {
               "application/json": {
@@ -9119,7 +9118,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -9129,7 +9128,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -9139,7 +9138,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -9150,7 +9149,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -9285,7 +9284,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Generate request created and pending",
             content: {
               "application/json": {
@@ -9295,7 +9294,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -9305,7 +9304,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -9315,7 +9314,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -9326,7 +9325,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -9470,7 +9469,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Generate request created and pending",
             content: {
               "application/json": {
@@ -9480,7 +9479,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -9490,7 +9489,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -9500,7 +9499,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -9511,7 +9510,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -9909,7 +9908,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Generate request created and pending",
             content: {
               "application/json": {
@@ -9919,7 +9918,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -9929,7 +9928,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -9939,7 +9938,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -9950,7 +9949,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -10064,7 +10063,7 @@ const embeddingsSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Generate request created and pending",
             content: {
               "application/json": {
@@ -10074,7 +10073,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -10084,7 +10083,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -10094,7 +10093,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -10105,7 +10104,7 @@ const embeddingsSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -10767,28 +10766,23 @@ const embeddingsSpec = {
     },
     {
       name: "poet",
-      description:
-        "OpenProtein-developed conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
+      description: "poet",
     },
     {
       name: "poet-2",
-      description:
-        "OpenProtein-developed conditional and multi-modal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest.\n\nMaximum Sequence Length: 65534\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
+      description: "poet-2",
     },
     {
       name: "prot-seq",
-      description:
-        "Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Uses random Fourier position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
+      description: "prot-seq",
     },
     {
       name: "rotaprot-large-uniref50w",
-      description:
-        "Masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. Uses rotary relative position embeddings and FlashAttention to enable fast inference.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
+      description: "rotaprot-large-uniref50w",
     },
     {
       name: "rotaprot-large-uniref90-ft",
-      description:
-        "rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V",
+      description: "rotaprot-large-uniref90-ft",
     },
     {
       name: "esm1",
@@ -10797,33 +10791,27 @@ const embeddingsSpec = {
     },
     {
       name: "esm1b_t33_650M_UR50S",
-      description:
-        "ESM1b model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1b_t33_650M_UR50S",
     },
     {
       name: "esm1v_t33_650M_UR90S_1",
-      description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1v_t33_650M_UR90S_1",
     },
     {
       name: "esm1v_t33_650M_UR90S_2",
-      description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1v_t33_650M_UR90S_2",
     },
     {
       name: "esm1v_t33_650M_UR90S_3",
-      description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1v_t33_650M_UR90S_3",
     },
     {
       name: "esm1v_t33_650M_UR90S_4",
-      description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1v_t33_650M_UR90S_4",
     },
     {
       name: "esm1v_t33_650M_UR90S_5",
-      description:
-        "ESM1v model with 650M parameters\n\nMaximum Sequence Length: 1022\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm1v_t33_650M_UR90S_5",
     },
     {
       name: "esm2",
@@ -10832,28 +10820,23 @@ const embeddingsSpec = {
     },
     {
       name: "esm2_t6_8M_UR50D",
-      description:
-        "ESM2 model with 8M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm2_t6_8M_UR50D",
     },
     {
       name: "esm2_t12_35M_UR50D",
-      description:
-        "ESM2 model with 35M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm2_t12_35M_UR50D",
     },
     {
       name: "esm2_t30_150M_UR50D",
-      description:
-        "ESM2 model with 150M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm2_t30_150M_UR50D",
     },
     {
       name: "esm2_t33_650M_UR50D",
-      description:
-        "ESM2 model with 650M parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm2_t33_650M_UR50D",
     },
     {
       name: "esm2_t36_3B_UR50D",
-      description:
-        "ESM2 model with 3B parameters\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,&lt;null_0&gt;,B,U,Z,O,.,-,&lt;null_1&gt;,X",
+      description: "esm2_t36_3B_UR50D",
     },
     {
       name: "esmc",
@@ -10862,18 +10845,15 @@ const embeddingsSpec = {
     },
     {
       name: "esmc-300m",
-      description:
-        "ESM Cambrian (ESMC) protein language model with 300M parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
+      description: "esmc-300m",
     },
     {
       name: "esmc-600m",
-      description:
-        "ESM Cambrian (ESMC) protein language model with 600M parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
+      description: "esmc-600m",
     },
     {
       name: "esmc-6b",
-      description:
-        "ESM Cambrian (ESMC) protein language model with 6B parameters, trained on protein sequences from UniRef, MGnify, and JGI.\n\nMaximum Sequence Length: 4094\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: &lt;cls&gt;,&lt;pad&gt;,&lt;eos&gt;,&lt;unk&gt;,L,A,G,V,S,E,R,T,I,D,P,K,Q,N,F,Y,M,H,W,C,X,B,U,Z,O,.,-,|,X",
+      description: "esmc-6b",
     },
     {
       name: "community",
@@ -10881,8 +10861,7 @@ const embeddingsSpec = {
     },
     {
       name: "prott5-xl",
-      description:
-        "prott5-xl\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: ",
+      description: "prott5-xl",
     },
     {
       name: "antibody",
@@ -10890,18 +10869,15 @@ const embeddingsSpec = {
     },
     {
       name: "ablang2",
-      description:
-        "AbLang2 foundational model for antibodies.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,-,X,:\n\nOutput Tokens: &lt;,M,R,H,K,D,E,S,T,N,Q,C,G,P,A,V,I,F,Y,W,L,-,&gt;,*,X,:",
+      description: "ablang2",
     },
     {
       name: "esm-if1",
-      description:
-        "ESM-IF1: protein inverse-folding model pretrained on PDB and 12 million AlphaFold predicted structures.\n\nMaximum Sequence Length: 500\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-\n\nOutput Tokens: ",
+      description: "esm-if1",
     },
     {
       name: "proteinmpnn",
-      description:
-        "ProteinMPNN model which can be used for inverse-folding of protein structures to predict suitable sequences.\n\nMaximum Sequence Length: 4096\n\nInput Tokens: A,R,N,D,C,Q,E,G,H,I,L,K,M,F,P,S,T,W,Y,V,X,O,U,B,Z,-,:\n\nOutput Tokens: ",
+      description: "proteinmpnn",
     },
   ],
 };
