@@ -19,342 +19,84 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "TrainRequestGP",
-                description: "Request to train a predictor using GP.",
-                type: "object",
-                required: ["dataset", "features", "kernel"],
-                properties: {
-                  name: {
-                    type: "string",
-                    description: "Name of predictor to save.",
-                  },
-                  description: {
-                    type: "string",
-                    description: "Description of predictor.",
-                  },
-                  dataset: {
-                    title: "TrainingDataset",
-                    type: "object",
-                    required: ["assay_id", "properties"],
-                    properties: {
-                      assay_id: {
-                        title: "Assay ID",
-                        description: "ID of assay",
-                        type: "string",
-                        format: "uuid",
-                      },
-                      properties: {
-                        type: "array",
-                        items: {
-                          type: "string",
-                        },
-                        example: ["fitness"],
-                      },
-                    },
-                  },
-                  features: {
-                    type: "object",
-                    required: ["type"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description:
-                          "Type of featurization method. `SVD` refers to a fitted SVD.",
-                        enum: ["1-HOT", "PLM", "SVD"],
-                        example: "PLM",
-                      },
-                      model_id: {
-                        type: "string",
-                        description:
-                          "Model ID to use if using `PLM`/`SVD` type.",
-                        example: "prot-seq",
-                      },
-                      reduction: {
-                        title: "Reduction",
-                        description:
-                          "Type of reduction to use with embeddings.",
-                        type: "string",
-                        enum: ["MEAN", "SUM"],
-                      },
-                      prompt_id: {
-                        title: "PromptID",
-                        description: "ID of created prompt",
-                        type: "string",
-                        format: "uuid",
-                      },
-                    },
-                    title: "TrainFeatures",
-                    description:
-                      "Feature properties for training the predictor.",
-                  },
-                  kernel: {
-                    title: "Kernel",
-                    description:
-                      "Kernel used for training a kernel-based predictor, e.g. GP.",
-                    type: "object",
-                    required: ["type", "multitask"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description: "Type of kernel to use with GP.",
-                        enum: ["linear", "rbf", "matern21", "matern32"],
-                        example: "rbf",
-                      },
-                      multitask: {
-                        type: "boolean",
-                        description: "Whether or not to train GP as multitask.",
-                        example: true,
-                        default: false,
-                      },
-                    },
-                  },
-                },
+                $ref: "#/components/schemas/TrainRequestGP",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Training job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/train",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/train",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -365,7 +107,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "trainGP",
       },
     },
     "/api/v1/predictor/ensemble": {
@@ -379,633 +120,71 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "EnsembleRequest",
-                description: "Request to create ensemble predictor.",
-                type: "object",
-                required: ["model_ids"],
-                properties: {
-                  name: {
-                    type: "string",
-                    description: "Name of ensemble predictor to save.",
-                    example: "My Ensemble Model",
-                  },
-                  description: {
-                    type: "string",
-                    description: "Description of ensemble predictor.",
-                    example: "Ensemble model combining datasets.",
-                  },
-                  model_ids: {
-                    title: "Model IDs to ensemble.",
-                    type: "array",
-                    items: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                  },
-                },
+                $ref: "#/components/schemas/EnsembleRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Ensemble predictor created.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Predictor",
-                  description:
-                    "Predictor metadata, with calibration stats if available.",
-                  oneOf: [
-                    {
-                      title: "TrainPredictor",
-                      description:
-                        "Predictor used to run predictions of properties on sequences.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My GP Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "GP model trained on fitness",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: [
-                            "assay_id",
-                            "properties",
-                            "assay_id",
-                            "properties",
-                          ],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness", "fitness"],
-                            },
-                          },
-                          title: "TrainingDataset",
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                      },
-                    },
-                    {
-                      title: "EnsemblePredictor",
-                      description:
-                        "Predictor used to run predictions of properties on sequences.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                        "ensemble_model_ids",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My Ensemble Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "Ensemble model combining datasets.",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: ["assay_id", "properties"],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness"],
-                            },
-                          },
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                        ensemble_model_ids: {
-                          title: "Ensemble Model IDs",
-                          description:
-                            "Model IDs that constitute the ensemble model.",
-                          type: "array",
-                          items: {
-                            type: "string",
-                            format: "uuid",
-                          },
-                        },
-                      },
-                    },
-                  ],
+                  $ref: "#/components/schemas/Predictor",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1016,7 +195,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "createEnsemble",
       },
     },
     "/api/v1/predictor": {
@@ -1090,510 +268,26 @@ const predictorSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Available predictors.",
             content: {
               "application/json": {
                 schema: {
                   type: "array",
                   items: {
-                    title: "Predictor",
-                    description:
-                      "Predictor metadata, with calibration stats if available.",
-                    oneOf: [
-                      {
-                        title: "TrainPredictor",
-                        description:
-                          "Predictor used to run predictions of properties on sequences.",
-                        type: "object",
-                        required: [
-                          "id",
-                          "name",
-                          "status",
-                          "created_date",
-                          "owner",
-                          "model_spec",
-                          "training_dataset",
-                        ],
-                        properties: {
-                          id: {
-                            type: "string",
-                            format: "uuid",
-                            description: "ID of predictor.",
-                            "x-order": 0,
-                          },
-                          name: {
-                            type: "string",
-                            description: "Name of predictor.",
-                            "x-order": 1,
-                            example: "My GP Model",
-                          },
-                          description: {
-                            type: "string",
-                            description: "Description of predictor.",
-                            "x-order": 2,
-                            example: "GP model trained on fitness",
-                          },
-                          status: {
-                            title: "JobStatus",
-                            description: "Status of job.",
-                            type: "string",
-                            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                            "x-order": 7,
-                          },
-                          created_date: {
-                            title: "Created Date",
-                            description: "Datetime of created object",
-                            type: "string",
-                            format: "date-time",
-                            example: "2024-01-01T12:34:56.789Z",
-                            "x-order": 4,
-                          },
-                          model_spec: {
-                            title: "ModelSpec",
-                            description:
-                              "Specification of the predictor's model.",
-                            type: "object",
-                            required: ["type"],
-                            properties: {
-                              type: {
-                                title: "PredictorType",
-                                description: "Type of model of the predictor.",
-                                type: "string",
-                                enum: ["GP", "ENSEMBLE"],
-                              },
-                              constraints: {
-                                title: "Constraints",
-                                description:
-                                  "Constraints imposed on using the predictor.",
-                                type: "object",
-                                properties: {
-                                  sequence_length: {
-                                    description:
-                                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                    type: "integer",
-                                    example: 1024,
-                                  },
-                                },
-                              },
-                              features: {
-                                type: "object",
-                                required: ["type"],
-                                properties: {
-                                  type: {
-                                    type: "string",
-                                    description:
-                                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                    enum: ["1-HOT", "PLM", "SVD"],
-                                    example: "PLM",
-                                  },
-                                  model_id: {
-                                    type: "string",
-                                    description:
-                                      "Model ID to use if using `PLM`/`SVD` type.",
-                                    example: "prot-seq",
-                                  },
-                                  reduction: {
-                                    title: "Reduction",
-                                    description:
-                                      "Type of reduction to use with embeddings.",
-                                    type: "string",
-                                    enum: ["MEAN", "SUM"],
-                                  },
-                                  prompt_id: {
-                                    title: "PromptID",
-                                    description: "ID of created prompt",
-                                    type: "string",
-                                    format: "uuid",
-                                  },
-                                },
-                                title: "TrainFeatures",
-                                description:
-                                  "Feature properties for training the predictor.",
-                              },
-                              kernel: {
-                                title: "Kernel",
-                                description:
-                                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                                type: "object",
-                                required: ["type", "multitask"],
-                                properties: {
-                                  type: {
-                                    type: "string",
-                                    description:
-                                      "Type of kernel to use with GP.",
-                                    enum: [
-                                      "linear",
-                                      "rbf",
-                                      "matern21",
-                                      "matern32",
-                                    ],
-                                    example: "rbf",
-                                  },
-                                  multitask: {
-                                    type: "boolean",
-                                    description:
-                                      "Whether or not to train GP as multitask.",
-                                    example: true,
-                                    default: false,
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          training_dataset: {
-                            type: "object",
-                            required: [
-                              "assay_id",
-                              "properties",
-                              "assay_id",
-                              "properties",
-                            ],
-                            properties: {
-                              assay_id: {
-                                title: "Assay ID",
-                                description: "ID of assay",
-                                type: "string",
-                                format: "uuid",
-                              },
-                              properties: {
-                                type: "array",
-                                items: {
-                                  type: "string",
-                                },
-                                example: ["fitness", "fitness"],
-                              },
-                            },
-                            title: "TrainingDataset",
-                          },
-                          owner: {
-                            type: "string",
-                            example: "openprotein",
-                          },
-                          stats: {
-                            title: "CalibrationStats",
-                            description:
-                              "Calibration stats of predictors from latest evaluation.",
-                            type: "object",
-                            properties: {
-                              pearson: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Pearson correlation of the predictor's crossvalidation.",
-                                nullable: true,
-                                example: 0.123,
-                              },
-                              spearman: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Spearman correlation of the predictor's crossvalidation.",
-                                nullable: true,
-                                example: 0.248,
-                              },
-                              ece: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Calibration score of the predictor's crossvalidation.",
-                                example: 0.456,
-                              },
-                            },
-                          },
-                          calibration_curve: {
-                            title: "CalibrationCurve",
-                            description:
-                              "Calibration curve of predictors from latest evaluation.",
-                            type: "array",
-                            items: {
-                              type: "object",
-                              required: ["x", "y"],
-                              properties: {
-                                x: {
-                                  type: "number",
-                                  format: "float",
-                                  description:
-                                    "Predicted quantile for predictor's crossvalidation.",
-                                },
-                                y: {
-                                  type: "number",
-                                  format: "float",
-                                  description:
-                                    "Observed quantile for predictor's crossvalidation.",
-                                },
-                              },
-                            },
-                            nullable: true,
-                            example: [
-                              {
-                                x: 0.5,
-                                y: 0.52,
-                              },
-                            ],
-                          },
-                        },
-                      },
-                      {
-                        title: "EnsemblePredictor",
-                        description:
-                          "Predictor used to run predictions of properties on sequences.",
-                        type: "object",
-                        required: [
-                          "id",
-                          "name",
-                          "status",
-                          "created_date",
-                          "owner",
-                          "model_spec",
-                          "training_dataset",
-                          "ensemble_model_ids",
-                        ],
-                        properties: {
-                          id: {
-                            type: "string",
-                            format: "uuid",
-                            description: "ID of predictor.",
-                            "x-order": 0,
-                          },
-                          name: {
-                            type: "string",
-                            description: "Name of predictor.",
-                            "x-order": 1,
-                            example: "My Ensemble Model",
-                          },
-                          description: {
-                            type: "string",
-                            description: "Description of predictor.",
-                            "x-order": 2,
-                            example: "Ensemble model combining datasets.",
-                          },
-                          status: {
-                            title: "JobStatus",
-                            description: "Status of job.",
-                            type: "string",
-                            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                            "x-order": 7,
-                          },
-                          created_date: {
-                            title: "Created Date",
-                            description: "Datetime of created object",
-                            type: "string",
-                            format: "date-time",
-                            example: "2024-01-01T12:34:56.789Z",
-                            "x-order": 4,
-                          },
-                          model_spec: {
-                            title: "ModelSpec",
-                            description:
-                              "Specification of the predictor's model.",
-                            type: "object",
-                            required: ["type"],
-                            properties: {
-                              type: {
-                                title: "PredictorType",
-                                description: "Type of model of the predictor.",
-                                type: "string",
-                                enum: ["GP", "ENSEMBLE"],
-                              },
-                              constraints: {
-                                title: "Constraints",
-                                description:
-                                  "Constraints imposed on using the predictor.",
-                                type: "object",
-                                properties: {
-                                  sequence_length: {
-                                    description:
-                                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                    type: "integer",
-                                    example: 1024,
-                                  },
-                                },
-                              },
-                              features: {
-                                type: "object",
-                                required: ["type"],
-                                properties: {
-                                  type: {
-                                    type: "string",
-                                    description:
-                                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                    enum: ["1-HOT", "PLM", "SVD"],
-                                    example: "PLM",
-                                  },
-                                  model_id: {
-                                    type: "string",
-                                    description:
-                                      "Model ID to use if using `PLM`/`SVD` type.",
-                                    example: "prot-seq",
-                                  },
-                                  reduction: {
-                                    title: "Reduction",
-                                    description:
-                                      "Type of reduction to use with embeddings.",
-                                    type: "string",
-                                    enum: ["MEAN", "SUM"],
-                                  },
-                                  prompt_id: {
-                                    title: "PromptID",
-                                    description: "ID of created prompt",
-                                    type: "string",
-                                    format: "uuid",
-                                  },
-                                },
-                                title: "TrainFeatures",
-                                description:
-                                  "Feature properties for training the predictor.",
-                              },
-                              kernel: {
-                                title: "Kernel",
-                                description:
-                                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                                type: "object",
-                                required: ["type", "multitask"],
-                                properties: {
-                                  type: {
-                                    type: "string",
-                                    description:
-                                      "Type of kernel to use with GP.",
-                                    enum: [
-                                      "linear",
-                                      "rbf",
-                                      "matern21",
-                                      "matern32",
-                                    ],
-                                    example: "rbf",
-                                  },
-                                  multitask: {
-                                    type: "boolean",
-                                    description:
-                                      "Whether or not to train GP as multitask.",
-                                    example: true,
-                                    default: false,
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          training_dataset: {
-                            type: "object",
-                            required: ["assay_id", "properties"],
-                            properties: {
-                              assay_id: {
-                                title: "Assay ID",
-                                description: "ID of assay",
-                                type: "string",
-                                format: "uuid",
-                              },
-                              properties: {
-                                type: "array",
-                                items: {
-                                  type: "string",
-                                },
-                                example: ["fitness"],
-                              },
-                            },
-                          },
-                          owner: {
-                            type: "string",
-                            example: "openprotein",
-                          },
-                          stats: {
-                            title: "CalibrationStats",
-                            description:
-                              "Calibration stats of predictors from latest evaluation.",
-                            type: "object",
-                            properties: {
-                              pearson: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Pearson correlation of the predictor's crossvalidation.",
-                                nullable: true,
-                                example: 0.123,
-                              },
-                              spearman: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Spearman correlation of the predictor's crossvalidation.",
-                                nullable: true,
-                                example: 0.248,
-                              },
-                              ece: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Calibration score of the predictor's crossvalidation.",
-                                example: 0.456,
-                              },
-                            },
-                          },
-                          calibration_curve: {
-                            title: "CalibrationCurve",
-                            description:
-                              "Calibration curve of predictors from latest evaluation.",
-                            type: "array",
-                            items: {
-                              type: "object",
-                              required: ["x", "y"],
-                              properties: {
-                                x: {
-                                  type: "number",
-                                  format: "float",
-                                  description:
-                                    "Predicted quantile for predictor's crossvalidation.",
-                                },
-                                y: {
-                                  type: "number",
-                                  format: "float",
-                                  description:
-                                    "Observed quantile for predictor's crossvalidation.",
-                                },
-                              },
-                            },
-                            nullable: true,
-                            example: [
-                              {
-                                x: 0.5,
-                                y: 0.52,
-                              },
-                            ],
-                          },
-                          ensemble_model_ids: {
-                            title: "Ensemble Model IDs",
-                            description:
-                              "Model IDs that constitute the ensemble model.",
-                            type: "array",
-                            items: {
-                              type: "string",
-                              format: "uuid",
-                            },
-                          },
-                        },
-                      },
-                    ],
+                    $ref: "#/components/schemas/Predictor",
                   },
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1604,7 +298,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "listPredictors",
       },
     },
     "/api/v1/predictor/{model_id}": {
@@ -1669,538 +362,24 @@ const predictorSpec = {
         ],
         operationId: "getPredictor",
         responses: {
-          "200": {
+          200: {
             description:
               "Predictor details including train graphs if available.",
             content: {
               "application/json": {
                 schema: {
-                  title: "TrainedPredictor",
-                  oneOf: [
-                    {
-                      title: "TrainPredictorWithTrainGraph",
-                      description:
-                        "Predictor with details of train graph if available.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My GP Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "GP model trained on fitness",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: [
-                            "assay_id",
-                            "properties",
-                            "assay_id",
-                            "properties",
-                          ],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness", "fitness"],
-                            },
-                          },
-                          title: "TrainingDataset",
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                        traingraphs: {
-                          type: "array",
-                          description: "Train graphs in the train job.",
-                          items: {
-                            title: "TrainGraph",
-                            description:
-                              "Train graph representing the loss curves for a train job.",
-                            type: "object",
-                            required: ["losses"],
-                            properties: {
-                              measurement_name: {
-                                type: "string",
-                                description:
-                                  "Measurement name that was trained for this curve. Empty or null if multitask.",
-                                "x-order": 1,
-                              },
-                              hyperparam_search_step: {
-                                type: "integer",
-                                description:
-                                  "Step count in the hyperparameter search grid.",
-                                "x-order": 2,
-                              },
-                              losses: {
-                                type: "array",
-                                description:
-                                  "Losses per step in the train graph.",
-                                "x-order": 3,
-                                items: {
-                                  type: "number",
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                    {
-                      title: "EnsemblePredictor",
-                      description:
-                        "Predictor used to run predictions of properties on sequences.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                        "ensemble_model_ids",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My Ensemble Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "Ensemble model combining datasets.",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: ["assay_id", "properties"],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness"],
-                            },
-                          },
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                        ensemble_model_ids: {
-                          title: "Ensemble Model IDs",
-                          description:
-                            "Model IDs that constitute the ensemble model.",
-                          type: "array",
-                          items: {
-                            type: "string",
-                            format: "uuid",
-                          },
-                        },
-                      },
-                    },
-                  ],
+                  $ref: "#/components/schemas/TrainedPredictor",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2211,7 +390,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "getPredictor",
       },
       put: {
         tags: ["predictor"],
@@ -2235,524 +413,30 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "UpdatePredictorRequest",
-                description: "Request to update a predictor.",
-                type: "object",
-                properties: {
-                  name: {
-                    type: "string",
-                    description: "Name of predictor to save.",
-                  },
-                  description: {
-                    type: "string",
-                    description: "Description of predictor.",
-                  },
-                },
+                $ref: "#/components/schemas/UpdatePredictorRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "200": {
+          200: {
             description: "Predictor details.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Predictor",
-                  description:
-                    "Predictor metadata, with calibration stats if available.",
-                  oneOf: [
-                    {
-                      title: "TrainPredictor",
-                      description:
-                        "Predictor used to run predictions of properties on sequences.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My GP Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "GP model trained on fitness",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: [
-                            "assay_id",
-                            "properties",
-                            "assay_id",
-                            "properties",
-                          ],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness", "fitness"],
-                            },
-                          },
-                          title: "TrainingDataset",
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                      },
-                    },
-                    {
-                      title: "EnsemblePredictor",
-                      description:
-                        "Predictor used to run predictions of properties on sequences.",
-                      type: "object",
-                      required: [
-                        "id",
-                        "name",
-                        "status",
-                        "created_date",
-                        "owner",
-                        "model_spec",
-                        "training_dataset",
-                        "ensemble_model_ids",
-                      ],
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                          description: "ID of predictor.",
-                          "x-order": 0,
-                        },
-                        name: {
-                          type: "string",
-                          description: "Name of predictor.",
-                          "x-order": 1,
-                          example: "My Ensemble Model",
-                        },
-                        description: {
-                          type: "string",
-                          description: "Description of predictor.",
-                          "x-order": 2,
-                          example: "Ensemble model combining datasets.",
-                        },
-                        status: {
-                          title: "JobStatus",
-                          description: "Status of job.",
-                          type: "string",
-                          enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                          "x-order": 7,
-                        },
-                        created_date: {
-                          title: "Created Date",
-                          description: "Datetime of created object",
-                          type: "string",
-                          format: "date-time",
-                          example: "2024-01-01T12:34:56.789Z",
-                          "x-order": 4,
-                        },
-                        model_spec: {
-                          title: "ModelSpec",
-                          description:
-                            "Specification of the predictor's model.",
-                          type: "object",
-                          required: ["type"],
-                          properties: {
-                            type: {
-                              title: "PredictorType",
-                              description: "Type of model of the predictor.",
-                              type: "string",
-                              enum: ["GP", "ENSEMBLE"],
-                            },
-                            constraints: {
-                              title: "Constraints",
-                              description:
-                                "Constraints imposed on using the predictor.",
-                              type: "object",
-                              properties: {
-                                sequence_length: {
-                                  description:
-                                    "Possible constraint on fixed length sequence if no reduction was used to train.",
-                                  type: "integer",
-                                  example: 1024,
-                                },
-                              },
-                            },
-                            features: {
-                              type: "object",
-                              required: ["type"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description:
-                                    "Type of featurization method. `SVD` refers to a fitted SVD.",
-                                  enum: ["1-HOT", "PLM", "SVD"],
-                                  example: "PLM",
-                                },
-                                model_id: {
-                                  type: "string",
-                                  description:
-                                    "Model ID to use if using `PLM`/`SVD` type.",
-                                  example: "prot-seq",
-                                },
-                                reduction: {
-                                  title: "Reduction",
-                                  description:
-                                    "Type of reduction to use with embeddings.",
-                                  type: "string",
-                                  enum: ["MEAN", "SUM"],
-                                },
-                                prompt_id: {
-                                  title: "PromptID",
-                                  description: "ID of created prompt",
-                                  type: "string",
-                                  format: "uuid",
-                                },
-                              },
-                              title: "TrainFeatures",
-                              description:
-                                "Feature properties for training the predictor.",
-                            },
-                            kernel: {
-                              title: "Kernel",
-                              description:
-                                "Kernel used for training a kernel-based predictor, e.g. GP.",
-                              type: "object",
-                              required: ["type", "multitask"],
-                              properties: {
-                                type: {
-                                  type: "string",
-                                  description: "Type of kernel to use with GP.",
-                                  enum: [
-                                    "linear",
-                                    "rbf",
-                                    "matern21",
-                                    "matern32",
-                                  ],
-                                  example: "rbf",
-                                },
-                                multitask: {
-                                  type: "boolean",
-                                  description:
-                                    "Whether or not to train GP as multitask.",
-                                  example: true,
-                                  default: false,
-                                },
-                              },
-                            },
-                          },
-                        },
-                        training_dataset: {
-                          type: "object",
-                          required: ["assay_id", "properties"],
-                          properties: {
-                            assay_id: {
-                              title: "Assay ID",
-                              description: "ID of assay",
-                              type: "string",
-                              format: "uuid",
-                            },
-                            properties: {
-                              type: "array",
-                              items: {
-                                type: "string",
-                              },
-                              example: ["fitness"],
-                            },
-                          },
-                        },
-                        owner: {
-                          type: "string",
-                          example: "openprotein",
-                        },
-                        stats: {
-                          title: "CalibrationStats",
-                          description:
-                            "Calibration stats of predictors from latest evaluation.",
-                          type: "object",
-                          properties: {
-                            pearson: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Pearson correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.123,
-                            },
-                            spearman: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Spearman correlation of the predictor's crossvalidation.",
-                              nullable: true,
-                              example: 0.248,
-                            },
-                            ece: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Calibration score of the predictor's crossvalidation.",
-                              example: 0.456,
-                            },
-                          },
-                        },
-                        calibration_curve: {
-                          title: "CalibrationCurve",
-                          description:
-                            "Calibration curve of predictors from latest evaluation.",
-                          type: "array",
-                          items: {
-                            type: "object",
-                            required: ["x", "y"],
-                            properties: {
-                              x: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Predicted quantile for predictor's crossvalidation.",
-                              },
-                              y: {
-                                type: "number",
-                                format: "float",
-                                description:
-                                  "Observed quantile for predictor's crossvalidation.",
-                              },
-                            },
-                          },
-                          nullable: true,
-                          example: [
-                            {
-                              x: 0.5,
-                              y: 0.52,
-                            },
-                          ],
-                        },
-                        ensemble_model_ids: {
-                          title: "Ensemble Model IDs",
-                          description:
-                            "Model IDs that constitute the ensemble model.",
-                          type: "array",
-                          items: {
-                            type: "string",
-                            format: "uuid",
-                          },
-                        },
-                      },
-                    },
-                  ],
+                  $ref: "#/components/schemas/Predictor",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2763,7 +447,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "updatePredictor",
       },
       delete: {
         tags: ["predictor"],
@@ -2783,25 +466,16 @@ const predictorSpec = {
         ],
         operationId: "deletePredictor",
         responses: {
-          "204": {
+          204: {
             description: "Predictor was deleted successfully.",
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2812,7 +486,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "deletePredictor",
       },
     },
     "/api/v1/predictor/{model_id}/crossvalidate": {
@@ -2845,246 +518,77 @@ const predictorSpec = {
           },
         ],
         responses: {
-          "202": {
+          202: {
             description: "Crossvalidation job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/crossvalidate",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/crossvalidate",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3095,7 +599,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "crossValidate",
       },
     },
     "/api/v1/predictor/crossvalidate": {
@@ -3117,162 +620,26 @@ const predictorSpec = {
         ],
         operationId: "listCrossValidate",
         responses: {
-          "200": {
+          200: {
             description: "List of crossvalidations performed.",
             content: {
               "application/json": {
                 schema: {
                   type: "array",
                   items: {
-                    title: "CrossvalidateJob",
-                    description: "Crossvalidate job.",
-                    type: "object",
-                    required: [
-                      "job_id",
-                      "prerequisite_job_id",
-                      "job_type",
-                      "created_date",
-                      "start_date",
-                      "end_date",
-                      "status",
-                      "progress_counter",
-                      "job_type",
-                      "model_id",
-                      "n_splits",
-                    ],
-                    properties: {
-                      job_id: {
-                        title: "JobID",
-                        description: "ID of job.",
-                        type: "string",
-                        format: "uuid",
-                        "x-order": 1,
-                      },
-                      prerequisite_job_id: {
-                        title: "PrerequisiteJobID",
-                        description: "Prerequisite job ID.",
-                        type: "string",
-                        format: "uuid",
-                        nullable: true,
-                        default: null,
-                        example: null,
-                        "x-order": 2,
-                      },
-                      job_type: {
-                        title: "JobType",
-                        description: "Type of job.",
-                        type: "string",
-                        enum: [
-                          "/workflow/preprocess",
-                          "/workflow/train",
-                          "/workflow/embed/umap",
-                          "/workflow/predict",
-                          "/workflow/predict/single_site",
-                          "/workflow/crossvalidate",
-                          "/workflow/evaluate",
-                          "/workflow/design",
-                          "/align/align",
-                          "/align/prompt",
-                          "/poet",
-                          "/poet/single_site",
-                          "/poet/generate",
-                          "/poet/score",
-                          "/poet/embed",
-                          "/poet/logits",
-                          "/embeddings/embed",
-                          "/embeddings/embed_reduced",
-                          "/embeddings/svd",
-                          "/svd/fit",
-                          "/svd/embed",
-                          "/embeddings/attn",
-                          "/embeddings/logits",
-                          "/embeddings/fold",
-                          "/predictor/train",
-                          "/predictor/predict",
-                          "/predictor/predict_single_site",
-                          "/predictor/predict_multi",
-                          "/predictor/crossvalidate",
-                          "/design",
-                        ],
-                        "x-order": 3,
-                        example: "/predictor/crossvalidate",
-                      },
-                      created_date: {
-                        title: "Created Date",
-                        description: "Datetime of created object",
-                        type: "string",
-                        format: "date-time",
-                        example: "2024-01-01T12:34:56.789Z",
-                        "x-order": 4,
-                      },
-                      start_date: {
-                        title: "StartDate",
-                        description: "Start date of job.",
-                        type: "string",
-                        format: "date-time",
-                        nullable: true,
-                        example: null,
-                        default: null,
-                        "x-order": 5,
-                      },
-                      end_date: {
-                        title: "EndDate",
-                        description: "End date of job.",
-                        type: "string",
-                        format: "date-time",
-                        nullable: true,
-                        example: null,
-                        default: null,
-                        "x-order": 6,
-                      },
-                      status: {
-                        title: "JobStatus",
-                        description: "Status of job.",
-                        type: "string",
-                        enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                        "x-order": 7,
-                      },
-                      progress_counter: {
-                        title: "ProgressCounter",
-                        description:
-                          "Counter of the progress of job from 0 to 100.",
-                        type: "integer",
-                        minimum: 0,
-                        maximum: 100,
-                        example: 0,
-                        default: 0,
-                        "x-order": 8,
-                      },
-                      model_id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      n_splits: {
-                        type: "integer",
-                        example: 5,
-                      },
-                    },
+                    $ref: "#/components/schemas/CrossvalidateJob",
                   },
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3283,7 +650,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "listCrossValidate",
       },
     },
     "/api/v1/predictor/crossvalidate/{job_id}": {
@@ -3305,7 +671,7 @@ const predictorSpec = {
         ],
         operationId: "getCrossValidate",
         responses: {
-          "200": {
+          200: {
             description:
               "Crossvalidate results with evaluations encoded in csv format.",
             content: {
@@ -3319,22 +685,13 @@ const predictorSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3345,7 +702,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "getCrossValidate",
       },
     },
     "/api/v1/predictor/{model_id}/predict": {
@@ -3372,269 +728,84 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "PredictRequest",
-                description:
-                  "Request to run predictions using a trained predictor.",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    title: "Sequences",
-                    type: "array",
-                    items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
-                    },
-                  },
-                },
+                $ref: "#/components/schemas/PredictRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Predict job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/predict",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/predict",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3645,7 +816,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "predict",
       },
     },
     "/api/v1/predictor/{model_id}/predict_single_site": {
@@ -3672,265 +842,84 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "PredictSingleSiteRequest",
-                description:
-                  "Request to run single site predictions using a trained predictor.",
-                type: "object",
-                required: ["base_sequence"],
-                properties: {
-                  base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
-                  },
-                },
+                $ref: "#/components/schemas/PredictSingleSiteRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Predict job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/predict_single_site",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/predict_single_site",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3941,7 +930,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "predictSingleSite",
       },
     },
     "/api/v1/predictor/predict": {
@@ -3956,276 +944,84 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "PredictMultiRequest",
-                description: "Request to run multi-model predictions.",
-                type: "object",
-                required: ["model_ids", "sequences"],
-                properties: {
-                  model_ids: {
-                    title: "Model IDs",
-                    type: "array",
-                    items: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                  },
-                  sequences: {
-                    title: "Sequences",
-                    type: "array",
-                    items: {
-                      title: "Sequence",
-                      description: "Protein sequence",
-                      type: "string",
-                      example: "MSKGEELFTGV",
-                    },
-                  },
-                },
+                $ref: "#/components/schemas/PredictMultiRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Multi-model predict job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/predict_multi",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/predict_multi",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4236,7 +1032,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "predictMulti",
       },
     },
     "/api/v1/predictor/predict_single_site": {
@@ -4252,273 +1047,84 @@ const predictorSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "PredictSingleSiteMultiRequest",
-                description:
-                  "Request to run multi-model single-site predictions.",
-                type: "object",
-                required: ["model_ids", "base_sequence"],
-                properties: {
-                  model_ids: {
-                    title: "Model IDs",
-                    type: "array",
-                    items: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                  },
-                  base_sequence: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
-                  },
-                },
+                $ref: "#/components/schemas/PredictSingleSiteMultiRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Multi-model predict job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "job_type",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
+                  allOf: [
+                    {
+                      $ref: "#/components/schemas/Job",
+                    },
+                    {
+                      type: "object",
+                      properties: {
+                        job_type: {
+                          type: "string",
+                          example: "/predictor/predict_multi",
+                        },
+                      },
+                    },
                   ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/predictor/predict_multi",
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                  },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model or assay not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4529,7 +1135,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "predictSingleSiteMulti",
       },
     },
     "/api/v1/predictor/predict/{job_id}/{sequence}": {
@@ -4561,7 +1166,7 @@ const predictorSpec = {
         ],
         operationId: "getPredictResult",
         responses: {
-          "200": {
+          200: {
             description:
               "Prediction result in csv format. Format is `sequence,prop1_mu,prop1_var,prop2_mu,prop2_var,...`",
             content: {
@@ -4574,61 +1179,34 @@ const predictorSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Prediction result retrieval error. Contact support for assistance if persistent.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Predict job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4639,7 +1217,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "getPredictResult",
       },
     },
     "/api/v1/predictor/predict/{job_id}/sequences": {
@@ -4661,57 +1238,36 @@ const predictorSpec = {
         ],
         operationId: "getSequences",
         responses: {
-          "200": {
+          200: {
             description: "Request sequences",
             content: {
               "application/json": {
                 schema: {
                   type: "array",
                   items: {
-                    title: "Sequence",
-                    description: "Protein sequence",
-                    type: "string",
-                    example: "MSKGEELFTGV",
+                    $ref: "#/components/schemas/Sequence",
                   },
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Predict job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4722,7 +1278,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "getSequences",
       },
     },
     "/api/v1/predictor/predict/{job_id}": {
@@ -4744,7 +1299,7 @@ const predictorSpec = {
         ],
         operationId: "getPredictResultBatch",
         responses: {
-          "200": {
+          200: {
             description:
               "Prediction result in csv format. Format is `sequence,prop1_mu,prop1_var,prop2_mu,prop2_var,...`",
             content: {
@@ -4757,61 +1312,34 @@ const predictorSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Prediction results retrieval error. Contact support for assistance if persistent.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Predict job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4822,7 +1350,6 @@ const predictorSpec = {
             oauth2: [],
           },
         ],
-        p: "getPredictResultBatch",
       },
     },
   },
@@ -4832,7 +1359,7 @@ const predictorSpec = {
         type: "oauth2",
         flows: {
           password: {
-            tokenUrl: "/api/v1/login/access-token",
+            tokenUrl: "/api/v1/auth/login",
             scopes: {},
           },
         },
@@ -4851,10 +1378,7 @@ const predictorSpec = {
         required: ["assay_id", "properties"],
         properties: {
           assay_id: {
-            title: "Assay ID",
-            description: "ID of assay",
-            type: "string",
-            format: "uuid",
+            $ref: "#/components/schemas/AssayID",
           },
           properties: {
             type: "array",
@@ -4877,10 +1401,7 @@ const predictorSpec = {
         type: "object",
         properties: {
           reduction: {
-            title: "Reduction",
-            description: "Type of reduction to use with embeddings.",
-            type: "string",
-            enum: ["MEAN", "SUM"],
+            $ref: "#/components/schemas/Reduction",
           },
           prompt_id: {
             title: "PromptID",
@@ -4891,36 +1412,33 @@ const predictorSpec = {
         },
       },
       TrainFeatures: {
-        type: "object",
-        required: ["type"],
-        properties: {
-          type: {
-            type: "string",
-            description:
-              "Type of featurization method. `SVD` refers to a fitted SVD.",
-            enum: ["1-HOT", "PLM", "SVD"],
-            example: "PLM",
+        allOf: [
+          {
+            type: "object",
+            required: ["type"],
+            properties: {
+              type: {
+                type: "string",
+                description:
+                  "Type of featurization method. `SVD` refers to a fitted SVD.",
+                enum: ["1-HOT", "PLM", "SVD"],
+                example: "PLM",
+              },
+              model_id: {
+                type: "string",
+                description: "Model ID to use if using `PLM`/`SVD` type.",
+                example: "prot-seq",
+              },
+            },
           },
-          model_id: {
-            type: "string",
-            description: "Model ID to use if using `PLM`/`SVD` type.",
-            example: "prot-seq",
+          {
+            $ref: "#/components/schemas/ModelArgs",
           },
-          reduction: {
-            title: "Reduction",
-            description: "Type of reduction to use with embeddings.",
-            type: "string",
-            enum: ["MEAN", "SUM"],
+          {
+            title: "TrainFeatures",
+            description: "Feature properties for training the predictor.",
           },
-          prompt_id: {
-            title: "PromptID",
-            description: "ID of created prompt",
-            type: "string",
-            format: "uuid",
-          },
-        },
-        title: "TrainFeatures",
-        description: "Feature properties for training the predictor.",
+        ],
       },
       Kernel: {
         title: "Kernel",
@@ -4958,77 +1476,13 @@ const predictorSpec = {
             description: "Description of predictor.",
           },
           dataset: {
-            title: "TrainingDataset",
-            type: "object",
-            required: ["assay_id", "properties"],
-            properties: {
-              assay_id: {
-                title: "Assay ID",
-                description: "ID of assay",
-                type: "string",
-                format: "uuid",
-              },
-              properties: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-                example: ["fitness"],
-              },
-            },
+            $ref: "#/components/schemas/TrainingDataset",
           },
           features: {
-            type: "object",
-            required: ["type"],
-            properties: {
-              type: {
-                type: "string",
-                description:
-                  "Type of featurization method. `SVD` refers to a fitted SVD.",
-                enum: ["1-HOT", "PLM", "SVD"],
-                example: "PLM",
-              },
-              model_id: {
-                type: "string",
-                description: "Model ID to use if using `PLM`/`SVD` type.",
-                example: "prot-seq",
-              },
-              reduction: {
-                title: "Reduction",
-                description: "Type of reduction to use with embeddings.",
-                type: "string",
-                enum: ["MEAN", "SUM"],
-              },
-              prompt_id: {
-                title: "PromptID",
-                description: "ID of created prompt",
-                type: "string",
-                format: "uuid",
-              },
-            },
-            title: "TrainFeatures",
-            description: "Feature properties for training the predictor.",
+            $ref: "#/components/schemas/TrainFeatures",
           },
           kernel: {
-            title: "Kernel",
-            description:
-              "Kernel used for training a kernel-based predictor, e.g. GP.",
-            type: "object",
-            required: ["type", "multitask"],
-            properties: {
-              type: {
-                type: "string",
-                description: "Type of kernel to use with GP.",
-                enum: ["linear", "rbf", "matern21", "matern32"],
-                example: "rbf",
-              },
-              multitask: {
-                type: "boolean",
-                description: "Whether or not to train GP as multitask.",
-                example: true,
-                default: false,
-              },
-            },
+            $ref: "#/components/schemas/Kernel",
           },
         },
       },
@@ -5038,6 +1492,86 @@ const predictorSpec = {
         type: "string",
         format: "uuid",
         "x-order": 1,
+      },
+      CreatedDate: {
+        title: "Created Date",
+        description: "Datetime of created object",
+        type: "string",
+        format: "date-time",
+        example: "2024-01-01T12:34:56.789Z",
+        "x-order": 4,
+      },
+      JobStatus: {
+        title: "JobStatus",
+        description: "Status of job.",
+        type: "string",
+        enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
+        "x-order": 7,
+      },
+      Request: {
+        title: "Request",
+        description: "Request for our compute platform.",
+        type: "object",
+        required: [
+          "job_id",
+          "prerequisite_job_id",
+          "created_date",
+          "start_date",
+          "end_date",
+          "status",
+          "progress_counter",
+        ],
+        properties: {
+          job_id: {
+            $ref: "#/components/schemas/JobID",
+          },
+          prerequisite_job_id: {
+            title: "PrerequisiteJobID",
+            description: "Prerequisite job ID.",
+            type: "string",
+            format: "uuid",
+            nullable: true,
+            default: null,
+            example: null,
+            "x-order": 2,
+          },
+          created_date: {
+            $ref: "#/components/schemas/CreatedDate",
+          },
+          start_date: {
+            title: "StartDate",
+            description: "Start date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 5,
+          },
+          end_date: {
+            title: "EndDate",
+            description: "End date of job.",
+            type: "string",
+            format: "date-time",
+            nullable: true,
+            example: null,
+            default: null,
+            "x-order": 6,
+          },
+          status: {
+            $ref: "#/components/schemas/JobStatus",
+          },
+          progress_counter: {
+            title: "ProgressCounter",
+            description: "Counter of the progress of job from 0 to 100.",
+            type: "integer",
+            minimum: 0,
+            maximum: 100,
+            example: 0,
+            default: 0,
+            "x-order": 8,
+          },
+        },
       },
       JobType: {
         title: "JobType",
@@ -5073,141 +1607,28 @@ const predictorSpec = {
           "/predictor/predict_single_site",
           "/predictor/predict_multi",
           "/predictor/crossvalidate",
+          "/clustering/hierarchical",
           "/design",
         ],
         "x-order": 3,
       },
-      CreatedDate: {
-        title: "Created Date",
-        description: "Datetime of created object",
-        type: "string",
-        format: "date-time",
-        example: "2024-01-01T12:34:56.789Z",
-        "x-order": 4,
-      },
-      JobStatus: {
-        title: "JobStatus",
-        description: "Status of job.",
-        type: "string",
-        enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-        "x-order": 7,
-      },
       Job: {
         title: "Job",
         description: "Job represents a job for our compute platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "job_type",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
+          },
+          {
+            type: "object",
+            required: ["job_type"],
+            properties: {
+              job_type: {
+                $ref: "#/components/schemas/JobType",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-        },
       },
       Error: {
         title: "Error",
@@ -5222,7 +1643,7 @@ const predictorSpec = {
         },
       },
       ValidationError: {
-        title: "ValidationError.yaml",
+        title: "ValidationError",
         description: "An invalid object that could not be parsed.",
         type: "object",
         properties: {
@@ -5306,76 +1727,16 @@ const predictorSpec = {
         required: ["type"],
         properties: {
           type: {
-            title: "PredictorType",
-            description: "Type of model of the predictor.",
-            type: "string",
-            enum: ["GP", "ENSEMBLE"],
+            $ref: "#/components/schemas/PredictorType",
           },
           constraints: {
-            title: "Constraints",
-            description: "Constraints imposed on using the predictor.",
-            type: "object",
-            properties: {
-              sequence_length: {
-                description:
-                  "Possible constraint on fixed length sequence if no reduction was used to train.",
-                type: "integer",
-                example: 1024,
-              },
-            },
+            $ref: "#/components/schemas/Constraints",
           },
           features: {
-            type: "object",
-            required: ["type"],
-            properties: {
-              type: {
-                type: "string",
-                description:
-                  "Type of featurization method. `SVD` refers to a fitted SVD.",
-                enum: ["1-HOT", "PLM", "SVD"],
-                example: "PLM",
-              },
-              model_id: {
-                type: "string",
-                description: "Model ID to use if using `PLM`/`SVD` type.",
-                example: "prot-seq",
-              },
-              reduction: {
-                title: "Reduction",
-                description: "Type of reduction to use with embeddings.",
-                type: "string",
-                enum: ["MEAN", "SUM"],
-              },
-              prompt_id: {
-                title: "PromptID",
-                description: "ID of created prompt",
-                type: "string",
-                format: "uuid",
-              },
-            },
-            title: "TrainFeatures",
-            description: "Feature properties for training the predictor.",
+            $ref: "#/components/schemas/TrainFeatures",
           },
           kernel: {
-            title: "Kernel",
-            description:
-              "Kernel used for training a kernel-based predictor, e.g. GP.",
-            type: "object",
-            required: ["type", "multitask"],
-            properties: {
-              type: {
-                type: "string",
-                description: "Type of kernel to use with GP.",
-                enum: ["linear", "rbf", "matern21", "matern32"],
-                example: "rbf",
-              },
-              multitask: {
-                type: "boolean",
-                description: "Whether or not to train GP as multitask.",
-                example: true,
-                default: false,
-              },
-            },
+            $ref: "#/components/schemas/Kernel",
           },
         },
       },
@@ -5470,109 +1831,20 @@ const predictorSpec = {
             "x-order": 2,
           },
           status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
+            $ref: "#/components/schemas/JobStatus",
           },
           created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
+            $ref: "#/components/schemas/CreatedDate",
           },
           model_spec: {
-            title: "ModelSpec",
-            description: "Specification of the predictor's model.",
-            type: "object",
-            required: ["type"],
-            properties: {
-              type: {
-                title: "PredictorType",
-                description: "Type of model of the predictor.",
-                type: "string",
-                enum: ["GP", "ENSEMBLE"],
-              },
-              constraints: {
-                title: "Constraints",
-                description: "Constraints imposed on using the predictor.",
-                type: "object",
-                properties: {
-                  sequence_length: {
-                    description:
-                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                    type: "integer",
-                    example: 1024,
-                  },
-                },
-              },
-              features: {
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description:
-                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                    enum: ["1-HOT", "PLM", "SVD"],
-                    example: "PLM",
-                  },
-                  model_id: {
-                    type: "string",
-                    description: "Model ID to use if using `PLM`/`SVD` type.",
-                    example: "prot-seq",
-                  },
-                  reduction: {
-                    title: "Reduction",
-                    description: "Type of reduction to use with embeddings.",
-                    type: "string",
-                    enum: ["MEAN", "SUM"],
-                  },
-                  prompt_id: {
-                    title: "PromptID",
-                    description: "ID of created prompt",
-                    type: "string",
-                    format: "uuid",
-                  },
-                },
-                title: "TrainFeatures",
-                description: "Feature properties for training the predictor.",
-              },
-              kernel: {
-                title: "Kernel",
-                description:
-                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                type: "object",
-                required: ["type", "multitask"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description: "Type of kernel to use with GP.",
-                    enum: ["linear", "rbf", "matern21", "matern32"],
-                    example: "rbf",
-                  },
-                  multitask: {
-                    type: "boolean",
-                    description: "Whether or not to train GP as multitask.",
-                    example: true,
-                    default: false,
-                  },
-                },
-              },
-            },
+            $ref: "#/components/schemas/ModelSpec",
           },
           training_dataset: {
             type: "object",
             required: ["assay_id", "properties"],
             properties: {
               assay_id: {
-                title: "Assay ID",
-                description: "ID of assay",
-                type: "string",
-                format: "uuid",
+                $ref: "#/components/schemas/AssayID",
               },
               properties: {
                 type: "array",
@@ -5588,949 +1860,56 @@ const predictorSpec = {
             example: "openprotein",
           },
           stats: {
-            title: "CalibrationStats",
-            description:
-              "Calibration stats of predictors from latest evaluation.",
-            type: "object",
-            properties: {
-              pearson: {
-                type: "number",
-                format: "float",
-                description:
-                  "Pearson correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.123,
-              },
-              spearman: {
-                type: "number",
-                format: "float",
-                description:
-                  "Spearman correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.248,
-              },
-              ece: {
-                type: "number",
-                format: "float",
-                description:
-                  "Calibration score of the predictor's crossvalidation.",
-                example: 0.456,
-              },
-            },
+            $ref: "#/components/schemas/CalibrationStats",
+            example: null,
           },
           calibration_curve: {
-            title: "CalibrationCurve",
-            description:
-              "Calibration curve of predictors from latest evaluation.",
-            type: "array",
-            items: {
-              type: "object",
-              required: ["x", "y"],
-              properties: {
-                x: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Predicted quantile for predictor's crossvalidation.",
-                },
-                y: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Observed quantile for predictor's crossvalidation.",
-                },
-              },
-            },
-            nullable: true,
-            example: [
-              {
-                x: 0.5,
-                y: 0.52,
-              },
-            ],
+            $ref: "#/components/schemas/CalibrationCurve",
+            example: null,
           },
         },
       },
       TrainPredictor: {
         title: "TrainPredictor",
-        description:
-          "Predictor used to run predictions of properties on sequences.",
-        type: "object",
-        required: [
-          "id",
-          "name",
-          "status",
-          "created_date",
-          "owner",
-          "model_spec",
-          "training_dataset",
-        ],
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-            description: "ID of predictor.",
-            "x-order": 0,
-          },
-          name: {
-            type: "string",
-            description: "Name of predictor.",
-            "x-order": 1,
-            example: "My GP Model",
-          },
-          description: {
-            type: "string",
-            description: "Description of predictor.",
-            "x-order": 2,
-            example: "GP model trained on fitness",
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          model_spec: {
-            title: "ModelSpec",
-            description: "Specification of the predictor's model.",
-            type: "object",
-            required: ["type"],
-            properties: {
-              type: {
-                title: "PredictorType",
-                description: "Type of model of the predictor.",
-                type: "string",
-                enum: ["GP", "ENSEMBLE"],
-              },
-              constraints: {
-                title: "Constraints",
-                description: "Constraints imposed on using the predictor.",
-                type: "object",
-                properties: {
-                  sequence_length: {
-                    description:
-                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                    type: "integer",
-                    example: 1024,
-                  },
-                },
-              },
-              features: {
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description:
-                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                    enum: ["1-HOT", "PLM", "SVD"],
-                    example: "PLM",
-                  },
-                  model_id: {
-                    type: "string",
-                    description: "Model ID to use if using `PLM`/`SVD` type.",
-                    example: "prot-seq",
-                  },
-                  reduction: {
-                    title: "Reduction",
-                    description: "Type of reduction to use with embeddings.",
-                    type: "string",
-                    enum: ["MEAN", "SUM"],
-                  },
-                  prompt_id: {
-                    title: "PromptID",
-                    description: "ID of created prompt",
-                    type: "string",
-                    format: "uuid",
-                  },
-                },
-                title: "TrainFeatures",
-                description: "Feature properties for training the predictor.",
-              },
-              kernel: {
-                title: "Kernel",
-                description:
-                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                type: "object",
-                required: ["type", "multitask"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description: "Type of kernel to use with GP.",
-                    enum: ["linear", "rbf", "matern21", "matern32"],
-                    example: "rbf",
-                  },
-                  multitask: {
-                    type: "boolean",
-                    description: "Whether or not to train GP as multitask.",
-                    example: true,
-                    default: false,
-                  },
-                },
-              },
-            },
-          },
-          training_dataset: {
-            type: "object",
-            required: ["assay_id", "properties", "assay_id", "properties"],
-            properties: {
-              assay_id: {
-                title: "Assay ID",
-                description: "ID of assay",
-                type: "string",
-                format: "uuid",
-              },
-              properties: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-                example: ["fitness", "fitness"],
-              },
-            },
-            title: "TrainingDataset",
-          },
-          owner: {
-            type: "string",
-            example: "openprotein",
-          },
-          stats: {
-            title: "CalibrationStats",
-            description:
-              "Calibration stats of predictors from latest evaluation.",
-            type: "object",
-            properties: {
-              pearson: {
-                type: "number",
-                format: "float",
-                description:
-                  "Pearson correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.123,
-              },
-              spearman: {
-                type: "number",
-                format: "float",
-                description:
-                  "Spearman correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.248,
-              },
-              ece: {
-                type: "number",
-                format: "float",
-                description:
-                  "Calibration score of the predictor's crossvalidation.",
-                example: 0.456,
-              },
-            },
-          },
-          calibration_curve: {
-            title: "CalibrationCurve",
-            description:
-              "Calibration curve of predictors from latest evaluation.",
-            type: "array",
-            items: {
-              type: "object",
-              required: ["x", "y"],
-              properties: {
-                x: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Predicted quantile for predictor's crossvalidation.",
-                },
-                y: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Observed quantile for predictor's crossvalidation.",
-                },
-              },
-            },
-            nullable: true,
-            example: [
-              {
-                x: 0.5,
-                y: 0.52,
-              },
-            ],
-          },
-        },
-      },
-      EnsemblePredictor: {
-        title: "EnsemblePredictor",
-        description:
-          "Predictor used to run predictions of properties on sequences.",
-        type: "object",
-        required: [
-          "id",
-          "name",
-          "status",
-          "created_date",
-          "owner",
-          "model_spec",
-          "training_dataset",
-          "ensemble_model_ids",
-        ],
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-            description: "ID of predictor.",
-            "x-order": 0,
-          },
-          name: {
-            type: "string",
-            description: "Name of predictor.",
-            "x-order": 1,
-            example: "My Ensemble Model",
-          },
-          description: {
-            type: "string",
-            description: "Description of predictor.",
-            "x-order": 2,
-            example: "Ensemble model combining datasets.",
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          model_spec: {
-            title: "ModelSpec",
-            description: "Specification of the predictor's model.",
-            type: "object",
-            required: ["type"],
-            properties: {
-              type: {
-                title: "PredictorType",
-                description: "Type of model of the predictor.",
-                type: "string",
-                enum: ["GP", "ENSEMBLE"],
-              },
-              constraints: {
-                title: "Constraints",
-                description: "Constraints imposed on using the predictor.",
-                type: "object",
-                properties: {
-                  sequence_length: {
-                    description:
-                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                    type: "integer",
-                    example: 1024,
-                  },
-                },
-              },
-              features: {
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description:
-                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                    enum: ["1-HOT", "PLM", "SVD"],
-                    example: "PLM",
-                  },
-                  model_id: {
-                    type: "string",
-                    description: "Model ID to use if using `PLM`/`SVD` type.",
-                    example: "prot-seq",
-                  },
-                  reduction: {
-                    title: "Reduction",
-                    description: "Type of reduction to use with embeddings.",
-                    type: "string",
-                    enum: ["MEAN", "SUM"],
-                  },
-                  prompt_id: {
-                    title: "PromptID",
-                    description: "ID of created prompt",
-                    type: "string",
-                    format: "uuid",
-                  },
-                },
-                title: "TrainFeatures",
-                description: "Feature properties for training the predictor.",
-              },
-              kernel: {
-                title: "Kernel",
-                description:
-                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                type: "object",
-                required: ["type", "multitask"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description: "Type of kernel to use with GP.",
-                    enum: ["linear", "rbf", "matern21", "matern32"],
-                    example: "rbf",
-                  },
-                  multitask: {
-                    type: "boolean",
-                    description: "Whether or not to train GP as multitask.",
-                    example: true,
-                    default: false,
-                  },
-                },
-              },
-            },
-          },
-          training_dataset: {
-            type: "object",
-            required: ["assay_id", "properties"],
-            properties: {
-              assay_id: {
-                title: "Assay ID",
-                description: "ID of assay",
-                type: "string",
-                format: "uuid",
-              },
-              properties: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-                example: ["fitness"],
-              },
-            },
-          },
-          owner: {
-            type: "string",
-            example: "openprotein",
-          },
-          stats: {
-            title: "CalibrationStats",
-            description:
-              "Calibration stats of predictors from latest evaluation.",
-            type: "object",
-            properties: {
-              pearson: {
-                type: "number",
-                format: "float",
-                description:
-                  "Pearson correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.123,
-              },
-              spearman: {
-                type: "number",
-                format: "float",
-                description:
-                  "Spearman correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.248,
-              },
-              ece: {
-                type: "number",
-                format: "float",
-                description:
-                  "Calibration score of the predictor's crossvalidation.",
-                example: 0.456,
-              },
-            },
-          },
-          calibration_curve: {
-            title: "CalibrationCurve",
-            description:
-              "Calibration curve of predictors from latest evaluation.",
-            type: "array",
-            items: {
-              type: "object",
-              required: ["x", "y"],
-              properties: {
-                x: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Predicted quantile for predictor's crossvalidation.",
-                },
-                y: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Observed quantile for predictor's crossvalidation.",
-                },
-              },
-            },
-            nullable: true,
-            example: [
-              {
-                x: 0.5,
-                y: 0.52,
-              },
-            ],
-          },
-          ensemble_model_ids: {
-            title: "Ensemble Model IDs",
-            description: "Model IDs that constitute the ensemble model.",
-            type: "array",
-            items: {
-              type: "string",
-              format: "uuid",
-            },
-          },
-        },
-      },
-      Predictor: {
-        title: "Predictor",
-        description: "Predictor metadata, with calibration stats if available.",
-        oneOf: [
+        allOf: [
           {
-            title: "TrainPredictor",
-            description:
-              "Predictor used to run predictions of properties on sequences.",
-            type: "object",
-            required: [
-              "id",
-              "name",
-              "status",
-              "created_date",
-              "owner",
-              "model_spec",
-              "training_dataset",
-            ],
+            $ref: "#/components/schemas/BasePredictor",
+          },
+          {
+            title: "object",
             properties: {
-              id: {
-                type: "string",
-                format: "uuid",
-                description: "ID of predictor.",
-                "x-order": 0,
-              },
               name: {
                 type: "string",
-                description: "Name of predictor.",
-                "x-order": 1,
                 example: "My GP Model",
               },
               description: {
                 type: "string",
-                description: "Description of predictor.",
-                "x-order": 2,
                 example: "GP model trained on fitness",
               },
-              status: {
-                title: "JobStatus",
-                description: "Status of job.",
-                type: "string",
-                enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                "x-order": 7,
-              },
-              created_date: {
-                title: "Created Date",
-                description: "Datetime of created object",
-                type: "string",
-                format: "date-time",
-                example: "2024-01-01T12:34:56.789Z",
-                "x-order": 4,
-              },
-              model_spec: {
-                title: "ModelSpec",
-                description: "Specification of the predictor's model.",
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    title: "PredictorType",
-                    description: "Type of model of the predictor.",
-                    type: "string",
-                    enum: ["GP", "ENSEMBLE"],
-                  },
-                  constraints: {
-                    title: "Constraints",
-                    description: "Constraints imposed on using the predictor.",
-                    type: "object",
-                    properties: {
-                      sequence_length: {
-                        description:
-                          "Possible constraint on fixed length sequence if no reduction was used to train.",
-                        type: "integer",
-                        example: 1024,
-                      },
-                    },
-                  },
-                  features: {
-                    type: "object",
-                    required: ["type"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description:
-                          "Type of featurization method. `SVD` refers to a fitted SVD.",
-                        enum: ["1-HOT", "PLM", "SVD"],
-                        example: "PLM",
-                      },
-                      model_id: {
-                        type: "string",
-                        description:
-                          "Model ID to use if using `PLM`/`SVD` type.",
-                        example: "prot-seq",
-                      },
-                      reduction: {
-                        title: "Reduction",
-                        description:
-                          "Type of reduction to use with embeddings.",
-                        type: "string",
-                        enum: ["MEAN", "SUM"],
-                      },
-                      prompt_id: {
-                        title: "PromptID",
-                        description: "ID of created prompt",
-                        type: "string",
-                        format: "uuid",
-                      },
-                    },
-                    title: "TrainFeatures",
-                    description:
-                      "Feature properties for training the predictor.",
-                  },
-                  kernel: {
-                    title: "Kernel",
-                    description:
-                      "Kernel used for training a kernel-based predictor, e.g. GP.",
-                    type: "object",
-                    required: ["type", "multitask"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description: "Type of kernel to use with GP.",
-                        enum: ["linear", "rbf", "matern21", "matern32"],
-                        example: "rbf",
-                      },
-                      multitask: {
-                        type: "boolean",
-                        description: "Whether or not to train GP as multitask.",
-                        example: true,
-                        default: false,
-                      },
-                    },
-                  },
-                },
-              },
               training_dataset: {
-                type: "object",
-                required: ["assay_id", "properties", "assay_id", "properties"],
-                properties: {
-                  assay_id: {
-                    title: "Assay ID",
-                    description: "ID of assay",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  properties: {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                    example: ["fitness", "fitness"],
-                  },
-                },
-                title: "TrainingDataset",
-              },
-              owner: {
-                type: "string",
-                example: "openprotein",
-              },
-              stats: {
-                title: "CalibrationStats",
-                description:
-                  "Calibration stats of predictors from latest evaluation.",
-                type: "object",
-                properties: {
-                  pearson: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Pearson correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.123,
-                  },
-                  spearman: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Spearman correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.248,
-                  },
-                  ece: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Calibration score of the predictor's crossvalidation.",
-                    example: 0.456,
-                  },
-                },
-              },
-              calibration_curve: {
-                title: "CalibrationCurve",
-                description:
-                  "Calibration curve of predictors from latest evaluation.",
-                type: "array",
-                items: {
-                  type: "object",
-                  required: ["x", "y"],
-                  properties: {
-                    x: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Predicted quantile for predictor's crossvalidation.",
-                    },
-                    y: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Observed quantile for predictor's crossvalidation.",
-                    },
-                  },
-                },
-                nullable: true,
-                example: [
-                  {
-                    x: 0.5,
-                    y: 0.52,
-                  },
-                ],
+                $ref: "#/components/schemas/TrainingDataset",
               },
             },
           },
+        ],
+      },
+      EnsemblePredictor: {
+        title: "EnsemblePredictor",
+        allOf: [
           {
-            title: "EnsemblePredictor",
-            description:
-              "Predictor used to run predictions of properties on sequences.",
+            $ref: "#/components/schemas/BasePredictor",
+          },
+          {
             type: "object",
-            required: [
-              "id",
-              "name",
-              "status",
-              "created_date",
-              "owner",
-              "model_spec",
-              "training_dataset",
-              "ensemble_model_ids",
-            ],
+            required: ["ensemble_model_ids"],
             properties: {
-              id: {
-                type: "string",
-                format: "uuid",
-                description: "ID of predictor.",
-                "x-order": 0,
-              },
               name: {
                 type: "string",
-                description: "Name of predictor.",
-                "x-order": 1,
                 example: "My Ensemble Model",
               },
               description: {
                 type: "string",
-                description: "Description of predictor.",
-                "x-order": 2,
                 example: "Ensemble model combining datasets.",
-              },
-              status: {
-                title: "JobStatus",
-                description: "Status of job.",
-                type: "string",
-                enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                "x-order": 7,
-              },
-              created_date: {
-                title: "Created Date",
-                description: "Datetime of created object",
-                type: "string",
-                format: "date-time",
-                example: "2024-01-01T12:34:56.789Z",
-                "x-order": 4,
-              },
-              model_spec: {
-                title: "ModelSpec",
-                description: "Specification of the predictor's model.",
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    title: "PredictorType",
-                    description: "Type of model of the predictor.",
-                    type: "string",
-                    enum: ["GP", "ENSEMBLE"],
-                  },
-                  constraints: {
-                    title: "Constraints",
-                    description: "Constraints imposed on using the predictor.",
-                    type: "object",
-                    properties: {
-                      sequence_length: {
-                        description:
-                          "Possible constraint on fixed length sequence if no reduction was used to train.",
-                        type: "integer",
-                        example: 1024,
-                      },
-                    },
-                  },
-                  features: {
-                    type: "object",
-                    required: ["type"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description:
-                          "Type of featurization method. `SVD` refers to a fitted SVD.",
-                        enum: ["1-HOT", "PLM", "SVD"],
-                        example: "PLM",
-                      },
-                      model_id: {
-                        type: "string",
-                        description:
-                          "Model ID to use if using `PLM`/`SVD` type.",
-                        example: "prot-seq",
-                      },
-                      reduction: {
-                        title: "Reduction",
-                        description:
-                          "Type of reduction to use with embeddings.",
-                        type: "string",
-                        enum: ["MEAN", "SUM"],
-                      },
-                      prompt_id: {
-                        title: "PromptID",
-                        description: "ID of created prompt",
-                        type: "string",
-                        format: "uuid",
-                      },
-                    },
-                    title: "TrainFeatures",
-                    description:
-                      "Feature properties for training the predictor.",
-                  },
-                  kernel: {
-                    title: "Kernel",
-                    description:
-                      "Kernel used for training a kernel-based predictor, e.g. GP.",
-                    type: "object",
-                    required: ["type", "multitask"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description: "Type of kernel to use with GP.",
-                        enum: ["linear", "rbf", "matern21", "matern32"],
-                        example: "rbf",
-                      },
-                      multitask: {
-                        type: "boolean",
-                        description: "Whether or not to train GP as multitask.",
-                        example: true,
-                        default: false,
-                      },
-                    },
-                  },
-                },
-              },
-              training_dataset: {
-                type: "object",
-                required: ["assay_id", "properties"],
-                properties: {
-                  assay_id: {
-                    title: "Assay ID",
-                    description: "ID of assay",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  properties: {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                    example: ["fitness"],
-                  },
-                },
-              },
-              owner: {
-                type: "string",
-                example: "openprotein",
-              },
-              stats: {
-                title: "CalibrationStats",
-                description:
-                  "Calibration stats of predictors from latest evaluation.",
-                type: "object",
-                properties: {
-                  pearson: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Pearson correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.123,
-                  },
-                  spearman: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Spearman correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.248,
-                  },
-                  ece: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Calibration score of the predictor's crossvalidation.",
-                    example: 0.456,
-                  },
-                },
-              },
-              calibration_curve: {
-                title: "CalibrationCurve",
-                description:
-                  "Calibration curve of predictors from latest evaluation.",
-                type: "array",
-                items: {
-                  type: "object",
-                  required: ["x", "y"],
-                  properties: {
-                    x: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Predicted quantile for predictor's crossvalidation.",
-                    },
-                    y: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Observed quantile for predictor's crossvalidation.",
-                    },
-                  },
-                },
-                nullable: true,
-                example: [
-                  {
-                    x: 0.5,
-                    y: 0.52,
-                  },
-                ],
               },
               ensemble_model_ids: {
                 title: "Ensemble Model IDs",
@@ -6542,6 +1921,18 @@ const predictorSpec = {
                 },
               },
             },
+          },
+        ],
+      },
+      Predictor: {
+        title: "Predictor",
+        description: "Predictor metadata, with calibration stats if available.",
+        oneOf: [
+          {
+            $ref: "#/components/schemas/TrainPredictor",
+          },
+          {
+            $ref: "#/components/schemas/EnsemblePredictor",
           },
         ],
       },
@@ -6576,731 +1967,32 @@ const predictorSpec = {
       TrainPredictorWithTrainGraph: {
         title: "TrainPredictorWithTrainGraph",
         description: "Predictor with details of train graph if available.",
-        type: "object",
-        required: [
-          "id",
-          "name",
-          "status",
-          "created_date",
-          "owner",
-          "model_spec",
-          "training_dataset",
-        ],
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-            description: "ID of predictor.",
-            "x-order": 0,
+        allOf: [
+          {
+            $ref: "#/components/schemas/TrainPredictor",
           },
-          name: {
-            type: "string",
-            description: "Name of predictor.",
-            "x-order": 1,
-            example: "My GP Model",
-          },
-          description: {
-            type: "string",
-            description: "Description of predictor.",
-            "x-order": 2,
-            example: "GP model trained on fitness",
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          model_spec: {
-            title: "ModelSpec",
-            description: "Specification of the predictor's model.",
+          {
             type: "object",
-            required: ["type"],
             properties: {
-              type: {
-                title: "PredictorType",
-                description: "Type of model of the predictor.",
-                type: "string",
-                enum: ["GP", "ENSEMBLE"],
-              },
-              constraints: {
-                title: "Constraints",
-                description: "Constraints imposed on using the predictor.",
-                type: "object",
-                properties: {
-                  sequence_length: {
-                    description:
-                      "Possible constraint on fixed length sequence if no reduction was used to train.",
-                    type: "integer",
-                    example: 1024,
-                  },
-                },
-              },
-              features: {
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description:
-                      "Type of featurization method. `SVD` refers to a fitted SVD.",
-                    enum: ["1-HOT", "PLM", "SVD"],
-                    example: "PLM",
-                  },
-                  model_id: {
-                    type: "string",
-                    description: "Model ID to use if using `PLM`/`SVD` type.",
-                    example: "prot-seq",
-                  },
-                  reduction: {
-                    title: "Reduction",
-                    description: "Type of reduction to use with embeddings.",
-                    type: "string",
-                    enum: ["MEAN", "SUM"],
-                  },
-                  prompt_id: {
-                    title: "PromptID",
-                    description: "ID of created prompt",
-                    type: "string",
-                    format: "uuid",
-                  },
-                },
-                title: "TrainFeatures",
-                description: "Feature properties for training the predictor.",
-              },
-              kernel: {
-                title: "Kernel",
-                description:
-                  "Kernel used for training a kernel-based predictor, e.g. GP.",
-                type: "object",
-                required: ["type", "multitask"],
-                properties: {
-                  type: {
-                    type: "string",
-                    description: "Type of kernel to use with GP.",
-                    enum: ["linear", "rbf", "matern21", "matern32"],
-                    example: "rbf",
-                  },
-                  multitask: {
-                    type: "boolean",
-                    description: "Whether or not to train GP as multitask.",
-                    example: true,
-                    default: false,
-                  },
-                },
-              },
-            },
-          },
-          training_dataset: {
-            type: "object",
-            required: ["assay_id", "properties", "assay_id", "properties"],
-            properties: {
-              assay_id: {
-                title: "Assay ID",
-                description: "ID of assay",
-                type: "string",
-                format: "uuid",
-              },
-              properties: {
+              traingraphs: {
                 type: "array",
+                description: "Train graphs in the train job.",
                 items: {
-                  type: "string",
-                },
-                example: ["fitness", "fitness"],
-              },
-            },
-            title: "TrainingDataset",
-          },
-          owner: {
-            type: "string",
-            example: "openprotein",
-          },
-          stats: {
-            title: "CalibrationStats",
-            description:
-              "Calibration stats of predictors from latest evaluation.",
-            type: "object",
-            properties: {
-              pearson: {
-                type: "number",
-                format: "float",
-                description:
-                  "Pearson correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.123,
-              },
-              spearman: {
-                type: "number",
-                format: "float",
-                description:
-                  "Spearman correlation of the predictor's crossvalidation.",
-                nullable: true,
-                example: 0.248,
-              },
-              ece: {
-                type: "number",
-                format: "float",
-                description:
-                  "Calibration score of the predictor's crossvalidation.",
-                example: 0.456,
-              },
-            },
-          },
-          calibration_curve: {
-            title: "CalibrationCurve",
-            description:
-              "Calibration curve of predictors from latest evaluation.",
-            type: "array",
-            items: {
-              type: "object",
-              required: ["x", "y"],
-              properties: {
-                x: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Predicted quantile for predictor's crossvalidation.",
-                },
-                y: {
-                  type: "number",
-                  format: "float",
-                  description:
-                    "Observed quantile for predictor's crossvalidation.",
-                },
-              },
-            },
-            nullable: true,
-            example: [
-              {
-                x: 0.5,
-                y: 0.52,
-              },
-            ],
-          },
-          traingraphs: {
-            type: "array",
-            description: "Train graphs in the train job.",
-            items: {
-              title: "TrainGraph",
-              description:
-                "Train graph representing the loss curves for a train job.",
-              type: "object",
-              required: ["losses"],
-              properties: {
-                measurement_name: {
-                  type: "string",
-                  description:
-                    "Measurement name that was trained for this curve. Empty or null if multitask.",
-                  "x-order": 1,
-                },
-                hyperparam_search_step: {
-                  type: "integer",
-                  description: "Step count in the hyperparameter search grid.",
-                  "x-order": 2,
-                },
-                losses: {
-                  type: "array",
-                  description: "Losses per step in the train graph.",
-                  "x-order": 3,
-                  items: {
-                    type: "number",
-                  },
+                  $ref: "#/components/schemas/TrainGraph",
                 },
               },
             },
           },
-        },
+        ],
       },
       TrainedPredictor: {
         title: "TrainedPredictor",
         oneOf: [
           {
-            title: "TrainPredictorWithTrainGraph",
-            description: "Predictor with details of train graph if available.",
-            type: "object",
-            required: [
-              "id",
-              "name",
-              "status",
-              "created_date",
-              "owner",
-              "model_spec",
-              "training_dataset",
-            ],
-            properties: {
-              id: {
-                type: "string",
-                format: "uuid",
-                description: "ID of predictor.",
-                "x-order": 0,
-              },
-              name: {
-                type: "string",
-                description: "Name of predictor.",
-                "x-order": 1,
-                example: "My GP Model",
-              },
-              description: {
-                type: "string",
-                description: "Description of predictor.",
-                "x-order": 2,
-                example: "GP model trained on fitness",
-              },
-              status: {
-                title: "JobStatus",
-                description: "Status of job.",
-                type: "string",
-                enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                "x-order": 7,
-              },
-              created_date: {
-                title: "Created Date",
-                description: "Datetime of created object",
-                type: "string",
-                format: "date-time",
-                example: "2024-01-01T12:34:56.789Z",
-                "x-order": 4,
-              },
-              model_spec: {
-                title: "ModelSpec",
-                description: "Specification of the predictor's model.",
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    title: "PredictorType",
-                    description: "Type of model of the predictor.",
-                    type: "string",
-                    enum: ["GP", "ENSEMBLE"],
-                  },
-                  constraints: {
-                    title: "Constraints",
-                    description: "Constraints imposed on using the predictor.",
-                    type: "object",
-                    properties: {
-                      sequence_length: {
-                        description:
-                          "Possible constraint on fixed length sequence if no reduction was used to train.",
-                        type: "integer",
-                        example: 1024,
-                      },
-                    },
-                  },
-                  features: {
-                    type: "object",
-                    required: ["type"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description:
-                          "Type of featurization method. `SVD` refers to a fitted SVD.",
-                        enum: ["1-HOT", "PLM", "SVD"],
-                        example: "PLM",
-                      },
-                      model_id: {
-                        type: "string",
-                        description:
-                          "Model ID to use if using `PLM`/`SVD` type.",
-                        example: "prot-seq",
-                      },
-                      reduction: {
-                        title: "Reduction",
-                        description:
-                          "Type of reduction to use with embeddings.",
-                        type: "string",
-                        enum: ["MEAN", "SUM"],
-                      },
-                      prompt_id: {
-                        title: "PromptID",
-                        description: "ID of created prompt",
-                        type: "string",
-                        format: "uuid",
-                      },
-                    },
-                    title: "TrainFeatures",
-                    description:
-                      "Feature properties for training the predictor.",
-                  },
-                  kernel: {
-                    title: "Kernel",
-                    description:
-                      "Kernel used for training a kernel-based predictor, e.g. GP.",
-                    type: "object",
-                    required: ["type", "multitask"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description: "Type of kernel to use with GP.",
-                        enum: ["linear", "rbf", "matern21", "matern32"],
-                        example: "rbf",
-                      },
-                      multitask: {
-                        type: "boolean",
-                        description: "Whether or not to train GP as multitask.",
-                        example: true,
-                        default: false,
-                      },
-                    },
-                  },
-                },
-              },
-              training_dataset: {
-                type: "object",
-                required: ["assay_id", "properties", "assay_id", "properties"],
-                properties: {
-                  assay_id: {
-                    title: "Assay ID",
-                    description: "ID of assay",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  properties: {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                    example: ["fitness", "fitness"],
-                  },
-                },
-                title: "TrainingDataset",
-              },
-              owner: {
-                type: "string",
-                example: "openprotein",
-              },
-              stats: {
-                title: "CalibrationStats",
-                description:
-                  "Calibration stats of predictors from latest evaluation.",
-                type: "object",
-                properties: {
-                  pearson: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Pearson correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.123,
-                  },
-                  spearman: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Spearman correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.248,
-                  },
-                  ece: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Calibration score of the predictor's crossvalidation.",
-                    example: 0.456,
-                  },
-                },
-              },
-              calibration_curve: {
-                title: "CalibrationCurve",
-                description:
-                  "Calibration curve of predictors from latest evaluation.",
-                type: "array",
-                items: {
-                  type: "object",
-                  required: ["x", "y"],
-                  properties: {
-                    x: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Predicted quantile for predictor's crossvalidation.",
-                    },
-                    y: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Observed quantile for predictor's crossvalidation.",
-                    },
-                  },
-                },
-                nullable: true,
-                example: [
-                  {
-                    x: 0.5,
-                    y: 0.52,
-                  },
-                ],
-              },
-              traingraphs: {
-                type: "array",
-                description: "Train graphs in the train job.",
-                items: {
-                  title: "TrainGraph",
-                  description:
-                    "Train graph representing the loss curves for a train job.",
-                  type: "object",
-                  required: ["losses"],
-                  properties: {
-                    measurement_name: {
-                      type: "string",
-                      description:
-                        "Measurement name that was trained for this curve. Empty or null if multitask.",
-                      "x-order": 1,
-                    },
-                    hyperparam_search_step: {
-                      type: "integer",
-                      description:
-                        "Step count in the hyperparameter search grid.",
-                      "x-order": 2,
-                    },
-                    losses: {
-                      type: "array",
-                      description: "Losses per step in the train graph.",
-                      "x-order": 3,
-                      items: {
-                        type: "number",
-                      },
-                    },
-                  },
-                },
-              },
-            },
+            $ref: "#/components/schemas/TrainPredictorWithTrainGraph",
           },
           {
-            title: "EnsemblePredictor",
-            description:
-              "Predictor used to run predictions of properties on sequences.",
-            type: "object",
-            required: [
-              "id",
-              "name",
-              "status",
-              "created_date",
-              "owner",
-              "model_spec",
-              "training_dataset",
-              "ensemble_model_ids",
-            ],
-            properties: {
-              id: {
-                type: "string",
-                format: "uuid",
-                description: "ID of predictor.",
-                "x-order": 0,
-              },
-              name: {
-                type: "string",
-                description: "Name of predictor.",
-                "x-order": 1,
-                example: "My Ensemble Model",
-              },
-              description: {
-                type: "string",
-                description: "Description of predictor.",
-                "x-order": 2,
-                example: "Ensemble model combining datasets.",
-              },
-              status: {
-                title: "JobStatus",
-                description: "Status of job.",
-                type: "string",
-                enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                "x-order": 7,
-              },
-              created_date: {
-                title: "Created Date",
-                description: "Datetime of created object",
-                type: "string",
-                format: "date-time",
-                example: "2024-01-01T12:34:56.789Z",
-                "x-order": 4,
-              },
-              model_spec: {
-                title: "ModelSpec",
-                description: "Specification of the predictor's model.",
-                type: "object",
-                required: ["type"],
-                properties: {
-                  type: {
-                    title: "PredictorType",
-                    description: "Type of model of the predictor.",
-                    type: "string",
-                    enum: ["GP", "ENSEMBLE"],
-                  },
-                  constraints: {
-                    title: "Constraints",
-                    description: "Constraints imposed on using the predictor.",
-                    type: "object",
-                    properties: {
-                      sequence_length: {
-                        description:
-                          "Possible constraint on fixed length sequence if no reduction was used to train.",
-                        type: "integer",
-                        example: 1024,
-                      },
-                    },
-                  },
-                  features: {
-                    type: "object",
-                    required: ["type"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description:
-                          "Type of featurization method. `SVD` refers to a fitted SVD.",
-                        enum: ["1-HOT", "PLM", "SVD"],
-                        example: "PLM",
-                      },
-                      model_id: {
-                        type: "string",
-                        description:
-                          "Model ID to use if using `PLM`/`SVD` type.",
-                        example: "prot-seq",
-                      },
-                      reduction: {
-                        title: "Reduction",
-                        description:
-                          "Type of reduction to use with embeddings.",
-                        type: "string",
-                        enum: ["MEAN", "SUM"],
-                      },
-                      prompt_id: {
-                        title: "PromptID",
-                        description: "ID of created prompt",
-                        type: "string",
-                        format: "uuid",
-                      },
-                    },
-                    title: "TrainFeatures",
-                    description:
-                      "Feature properties for training the predictor.",
-                  },
-                  kernel: {
-                    title: "Kernel",
-                    description:
-                      "Kernel used for training a kernel-based predictor, e.g. GP.",
-                    type: "object",
-                    required: ["type", "multitask"],
-                    properties: {
-                      type: {
-                        type: "string",
-                        description: "Type of kernel to use with GP.",
-                        enum: ["linear", "rbf", "matern21", "matern32"],
-                        example: "rbf",
-                      },
-                      multitask: {
-                        type: "boolean",
-                        description: "Whether or not to train GP as multitask.",
-                        example: true,
-                        default: false,
-                      },
-                    },
-                  },
-                },
-              },
-              training_dataset: {
-                type: "object",
-                required: ["assay_id", "properties"],
-                properties: {
-                  assay_id: {
-                    title: "Assay ID",
-                    description: "ID of assay",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  properties: {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                    example: ["fitness"],
-                  },
-                },
-              },
-              owner: {
-                type: "string",
-                example: "openprotein",
-              },
-              stats: {
-                title: "CalibrationStats",
-                description:
-                  "Calibration stats of predictors from latest evaluation.",
-                type: "object",
-                properties: {
-                  pearson: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Pearson correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.123,
-                  },
-                  spearman: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Spearman correlation of the predictor's crossvalidation.",
-                    nullable: true,
-                    example: 0.248,
-                  },
-                  ece: {
-                    type: "number",
-                    format: "float",
-                    description:
-                      "Calibration score of the predictor's crossvalidation.",
-                    example: 0.456,
-                  },
-                },
-              },
-              calibration_curve: {
-                title: "CalibrationCurve",
-                description:
-                  "Calibration curve of predictors from latest evaluation.",
-                type: "array",
-                items: {
-                  type: "object",
-                  required: ["x", "y"],
-                  properties: {
-                    x: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Predicted quantile for predictor's crossvalidation.",
-                    },
-                    y: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Observed quantile for predictor's crossvalidation.",
-                    },
-                  },
-                },
-                nullable: true,
-                example: [
-                  {
-                    x: 0.5,
-                    y: 0.52,
-                  },
-                ],
-              },
-              ensemble_model_ids: {
-                title: "Ensemble Model IDs",
-                description: "Model IDs that constitute the ensemble model.",
-                type: "array",
-                items: {
-                  type: "string",
-                  format: "uuid",
-                },
-              },
-            },
+            $ref: "#/components/schemas/EnsemblePredictor",
           },
         ],
       },
@@ -7322,131 +2014,29 @@ const predictorSpec = {
       CrossvalidateJob: {
         title: "CrossvalidateJob",
         description: "Crossvalidate job.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "job_type",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
-          "model_id",
-          "n_splits",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Job",
+          },
+          {
+            type: "object",
+            required: ["job_type", "model_id", "n_splits"],
+            properties: {
+              job_type: {
+                type: "string",
+                example: "/predictor/crossvalidate",
+              },
+              model_id: {
+                type: "string",
+                format: "uuid",
+              },
+              n_splits: {
+                type: "integer",
+                example: 5,
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-            example: "/predictor/crossvalidate",
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          model_id: {
-            type: "string",
-            format: "uuid",
-          },
-          n_splits: {
-            type: "integer",
-            example: 5,
-          },
-        },
       },
       Sequence: {
         title: "Sequence",
@@ -7464,10 +2054,7 @@ const predictorSpec = {
             title: "Sequences",
             type: "array",
             items: {
-              title: "Sequence",
-              description: "Protein sequence",
-              type: "string",
-              example: "MSKGEELFTGV",
+              $ref: "#/components/schemas/Sequence",
             },
           },
         },
@@ -7480,10 +2067,8 @@ const predictorSpec = {
         required: ["base_sequence"],
         properties: {
           base_sequence: {
-            title: "Sequence",
-            description: "Protein sequence",
-            type: "string",
-            example: "MSKGEELFTGV",
+            title: "Base Sequence",
+            $ref: "#/components/schemas/Sequence",
           },
         },
       },
@@ -7505,10 +2090,7 @@ const predictorSpec = {
             title: "Sequences",
             type: "array",
             items: {
-              title: "Sequence",
-              description: "Protein sequence",
-              type: "string",
-              example: "MSKGEELFTGV",
+              $ref: "#/components/schemas/Sequence",
             },
           },
         },
@@ -7528,10 +2110,8 @@ const predictorSpec = {
             },
           },
           base_sequence: {
-            title: "Sequence",
-            description: "Protein sequence",
-            type: "string",
-            example: "MSKGEELFTGV",
+            title: "Base Sequence",
+            $ref: "#/components/schemas/Sequence",
           },
         },
       },
@@ -7545,5 +2125,4 @@ const predictorSpec = {
     },
   ],
 };
-
 export default predictorSpec;

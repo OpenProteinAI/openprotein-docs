@@ -39,7 +39,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Available fold models returned.",
             content: {
               "application/json": {
@@ -108,7 +108,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Detailed information about model returned.",
             content: {
               "application/json": {
@@ -118,7 +118,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -129,7 +129,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model was not found.",
             content: {
               "application/json": {
@@ -165,7 +165,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "ESMFold request created and pending",
             content: {
               "application/json": {
@@ -175,7 +175,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -185,7 +185,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -196,7 +196,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -206,7 +206,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -217,7 +217,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -253,7 +253,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "ESMFold2 request created and pending",
             content: {
               "application/json": {
@@ -263,7 +263,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -273,7 +273,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -284,7 +284,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -294,7 +294,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -305,7 +305,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -341,7 +341,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "ESMFold2-Fast request created and pending",
             content: {
               "application/json": {
@@ -351,7 +351,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -361,7 +361,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -372,7 +372,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -382,7 +382,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -393,7 +393,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -429,7 +429,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "MiniFold request created and pending",
             content: {
               "application/json": {
@@ -439,7 +439,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -449,7 +449,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -460,7 +460,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -470,7 +470,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -481,7 +481,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -517,7 +517,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "AlphaFold2 request created and pending",
             content: {
               "application/json": {
@@ -527,7 +527,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -537,7 +537,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -548,7 +548,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -558,7 +558,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -569,7 +569,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -605,7 +605,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
@@ -615,7 +615,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -625,7 +625,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -636,7 +636,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -646,7 +646,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -657,7 +657,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -693,7 +693,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
@@ -703,7 +703,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -713,7 +713,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -724,7 +724,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -734,7 +734,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -745,7 +745,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -781,7 +781,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
@@ -791,7 +791,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -801,7 +801,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -812,7 +812,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -822,7 +822,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -833,7 +833,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -869,7 +869,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "AlphaFold2 request created and pending",
             content: {
               "application/json": {
@@ -879,7 +879,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -889,7 +889,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -900,7 +900,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -910,7 +910,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -921,7 +921,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -957,7 +957,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Protenix request created and pending",
             content: {
               "application/json": {
@@ -967,7 +967,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -977,7 +977,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -988,7 +988,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -998,7 +998,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -1009,7 +1009,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -1045,7 +1045,7 @@ const foldSpec = {
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Protenix-v2 request created and pending",
             content: {
               "application/json": {
@@ -1055,7 +1055,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
@@ -1065,7 +1065,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1076,7 +1076,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
@@ -1086,7 +1086,7 @@ const foldSpec = {
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
@@ -1097,7 +1097,7 @@ const foldSpec = {
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
@@ -1133,7 +1133,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Fold metadata successfully returned.",
             content: {
               "application/json": {
@@ -1143,7 +1143,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1154,7 +1154,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
@@ -1190,7 +1190,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Request sequences",
             content: {
               "application/json": {
@@ -1207,7 +1207,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1218,7 +1218,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
@@ -1275,7 +1275,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Result encoded in requested format.",
             content: {
               "chemical/x-pdb": {
@@ -1290,7 +1290,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Result retrieval error. Contact support for assistance if persistent.",
             content: {
@@ -1301,7 +1301,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1312,7 +1312,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
@@ -1380,7 +1380,7 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description:
               "Extra result as a file.\n\n- `pae`, `pde`, `plddt`, `ptm` return a `.npy`.\n- `confidence`, `affinity` return a JSON file.\n- `score`, `metrics` return a CSV file.\n",
             content: {
@@ -1393,7 +1393,7 @@ const foldSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Result retrieval error. Contact support for assistance if persistent.",
             content: {
@@ -1404,7 +1404,7 @@ const foldSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -1415,7 +1415,7 @@ const foldSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
