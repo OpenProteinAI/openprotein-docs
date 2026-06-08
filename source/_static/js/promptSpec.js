@@ -9,7 +9,7 @@ const promptSpec = {
   paths: {
     "/api/v1/prompt/create_prompt": {
       post: {
-        tags: ["prompt"],
+        tags: ["Prompt"],
         summary: "Create a prompt",
         description:
           "Create a prompt with provided context and query.\n\nThis endpoint accepts a list of files as context.\n",
@@ -92,7 +92,7 @@ const promptSpec = {
     },
     "/api/v1/prompt": {
       get: {
-        tags: ["prompt"],
+        tags: ["Prompt"],
         summary: "List prompts",
         description: "List prompts available.\n",
         operationId: "listPrompts",
@@ -105,6 +105,48 @@ const promptSpec = {
             schema: {
               type: "string",
               format: "uuid",
+            },
+          },
+          {
+            name: "scope",
+            in: "query",
+            description:
+              "Restrict the listing to the caller's own prompts (`mine`, the\ndefault), platform system prompts (`system`), or both (`all`).",
+            required: false,
+            schema: {
+              type: "string",
+              enum: ["mine", "system", "all"],
+              default: "mine",
+            },
+          },
+          {
+            name: "search",
+            in: "query",
+            description:
+              "Case-insensitive substring matched against prompt name and description.",
+            required: false,
+            schema: {
+              type: "string",
+            },
+          },
+          {
+            name: "page_size",
+            in: "query",
+            description: "Maximum number of prompts to return.",
+            required: false,
+            schema: {
+              type: "integer",
+              default: 1024,
+            },
+          },
+          {
+            name: "page_offset",
+            in: "query",
+            description: "Number of prompts to skip before returning results.",
+            required: false,
+            schema: {
+              type: "integer",
+              default: 0,
             },
           },
         ],
@@ -144,7 +186,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/query": {
       get: {
-        tags: ["prompt"],
+        tags: ["Query"],
         summary: "List queries",
         description: "List queries available.\n",
         operationId: "listQueries",
@@ -194,7 +236,7 @@ const promptSpec = {
         ],
       },
       post: {
-        tags: ["prompt"],
+        tags: ["Query"],
         summary: "Create a query",
         description:
           "Create a query to be used to augment prompts for queries.\n\nThis endpoint accepts a single file as a query.\n",
@@ -266,7 +308,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/query/{query_id}": {
       get: {
-        tags: ["prompt"],
+        tags: ["Query"],
         summary: "Get query metadata",
         description: "Get metadata of a query.",
         parameters: [
@@ -322,7 +364,7 @@ const promptSpec = {
         ],
       },
       put: {
-        tags: ["prompt"],
+        tags: ["Query"],
         summary: "Update query metadata",
         description:
           "Update the project attachment of a query.\n\nOnly the fields provided in the request body are changed; fields that\nare omitted retain their existing value. Nullable fields may be cleared\nby passing an explicit null value.",
@@ -402,7 +444,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/query/{query_id}/content": {
       get: {
-        tags: ["prompt"],
+        tags: ["Query"],
         summary: "Get query content",
         description:
           "Get content of query by downloading the uploaded query file.",
@@ -471,7 +513,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/{prompt_id}": {
       get: {
-        tags: ["prompt"],
+        tags: ["Prompt"],
         summary: "Get prompt metadata",
         description: "Get metadata of a prompt.",
         parameters: [
@@ -527,7 +569,7 @@ const promptSpec = {
         ],
       },
       put: {
-        tags: ["prompt"],
+        tags: ["Prompt"],
         summary: "Update prompt metadata",
         description:
           "Update the name, description, or project attachment of a prompt.\n\nOnly the fields provided in the request body are changed; fields that\nare omitted retain their existing value. Nullable fields may be cleared\nby passing an explicit null value.",
@@ -587,6 +629,17 @@ const promptSpec = {
               },
             },
           },
+          403: {
+            description:
+              "The target prompt is a platform system prompt and cannot be modified.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
           404: {
             description: "Prompt not found.",
             content: {
@@ -607,7 +660,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/{prompt_id}/content": {
       get: {
-        tags: ["prompt"],
+        tags: ["Prompt"],
         summary: "Get prompt content",
         description:
           "Get content of prompt by downloading the uploaded context files in a single zip.",
@@ -669,7 +722,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/edit_protein": {
       post: {
-        tags: ["prompt"],
+        tags: ["Structure"],
         summary: "Edit protein structure",
         description:
           'Edit a Protein object by specifying aligned reference and new sequences, and a structure mask.\nHandles insertions, deletions, point mutations, and structure masking.\n\n**Advanced Multi-File Support:**\nInstead of passing a single `protein` file, you may supply multiple files into the `structures` array\nand provide a `config` JSON string to control how they are edited and grouped. By using `config`,\nyou can:\n- Construct 3D rigid bodies (groups) from multiple disparate chains.\n- Introduce sequence-only chains.\n- Rename chain IDs dynamically to avoid collisions natively.\n- Apply unique sequences, structure masks, binding tracks, and pLDDT overrides to any chains within the group structure.\n\nExample `config` JSON payload:\n```json\n{\n  "groups": [\n    {\n      "structures": [\n        {\n          "file_index": 0,\n          "chain_ids": {"A": "X", "B": "Y"},\n          "edits": {\n            "X": {\n              "reference_sequence": "ACDEFG",\n              "new_sequence": "ACHEFG",\n              "structure_mask": "SSXSSS",\n              "binding": "UUBUUU",\n              "plddt": 72.5\n            }\n          }\n        }\n      ],\n      "sequences": [\n        {\n          "sequence": "ACDEF",\n          "chain_id": "Z"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Config Field Details:**\n- **`groups`**: An array where each item defines a rigid-body group. All structures and sequences within the same group will have their relative positions fixed.\n- **`file_index`**: The integer index of the file in the `structures` array. `0` refers to the first file uploaded.\n- **`chain_ids` (optional)**: Renames chains from the input structure. A mapping of `{"original_id": "new_id"}`.\n  If provided, this acts as an **explicit inclusion list**: only chains mapped here will be extracted.\n  Unmapped chains are ignored. Map a chain to itself (e.g., `{"A": "A"}`) to keep it without renaming.\n- **`edits` (optional)**: Specifies modifications to be applied to specific chains (by their assigned ID). Each chain edit can describe all residue-level outputs for that chain:\n  - **Sequence edit** via `reference_sequence` and `new_sequence`\n  - **Structure edit** via `structure_mask`\n  - **Binding edit** via `binding`, an aligned string using `B` (binding), `N` (not binding), `U` (unknown), and `-` (deleted / no residue)\n  - **pLDDT override** via `plddt`, a scalar from `0` to `100` applied to final residues with known CA coordinates. Residues without structure keep `NaN`.\n- **`sequences`**: Used to supply sequence-only protein chains directly as strings without a structure file.\n\nLegacy single-file usage (via `protein`, `reference_sequence`, `new_sequence`, and `structure_mask`) remains fully supported if `config` and `structures` are omitted.\n',
@@ -762,7 +815,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/extract_chain": {
       post: {
-        tags: ["prompt"],
+        tags: ["Structure"],
         summary: "Extract chain",
         description: "Extract chain from protein complex.\n",
         operationId: "extractChain",
@@ -834,7 +887,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/normalize_structure": {
       post: {
-        tags: ["prompt"],
+        tags: ["Structure"],
         summary: "Normalize a protein structure file",
         description:
           "Normalize a protein structure by converting it into standardized CIF format.\nSupports input in both PDB and CIF formats.",
@@ -904,7 +957,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/sequence_align_batch": {
       post: {
-        tags: ["prompt"],
+        tags: ["Align"],
         summary:
           "Batch sequence alignment and identity computation (Streaming)",
         description:
@@ -1015,7 +1068,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/structure_align_batch_by_id": {
       post: {
-        tags: ["prompt"],
+        tags: ["Align"],
         summary: "Batch structure alignment using specified method (Streaming)",
         description:
           "Perform structure-based alignment between query structures and targets.\n\nExactly one of `protein` or `design_id` must be provided as the query.\nWhen `design_id` is given, it references a fold job with N design\nstructures, and `targets_id` must contain a positive multiple of N\nstructures. Design `i` is aligned against `targets[i*k : (i+1)*k]`\nwhere `k = len(targets) / len(designs)`. Each result row carries a\n`design_index` (0-indexed) so callers can regroup the stream.\n\n**Streaming Endpoint:** Returns a stream of JSON objects (NDJSON), where each line\ncorresponds to one (query, target) pair.",
@@ -1209,7 +1262,7 @@ const promptSpec = {
     },
     "/api/v1/prompt/plddt_batch_by_id": {
       get: {
-        tags: ["prompt"],
+        tags: ["Structure"],
         summary: "Get mean pLDDT for all structures in targets_id (Streaming)",
         description:
           "Retrieve the mean pLDDT scores for all structures contained within the collection\nidentified by `targets_id`.\n\n**Streaming Endpoint:** Returns a stream of JSON objects (NDJSON).",
@@ -1364,6 +1417,12 @@ const promptSpec = {
               "Length of the prompt's context chains. Set when every chain across\nevery Complex across every replicate has the same length; null when\nchain lengths vary or no context has been parsed yet.",
             type: "integer",
             nullable: true,
+          },
+          is_system: {
+            type: "boolean",
+            default: false,
+            description:
+              "True for platform-curated system prompts available to every user.\nSystem prompts are read-only over the HTTP API; users cannot create,\nmodify, or delete them. False or absent for user-uploaded prompts.",
           },
         },
       },
@@ -1604,8 +1663,20 @@ const promptSpec = {
   },
   tags: [
     {
-      name: "prompt",
-      description: "Creating prompts for use with PoET models.",
+      name: "Prompt",
+      description: "Prompt _context_ upload, get, and list operations.",
+    },
+    {
+      name: "Query",
+      description: "Prompt _query_ upload, get, and list operations.",
+    },
+    {
+      name: "Structure",
+      description: "Structure editing and normalization operations.",
+    },
+    {
+      name: "Align",
+      description: "Structure and sequence alignment operations.",
     },
   ],
 };
