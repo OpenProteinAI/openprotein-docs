@@ -51,7 +51,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "Prompt created successfully.",
             content: {
               "application/json": {
@@ -61,7 +61,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -71,7 +71,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -109,7 +109,7 @@ const promptSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "List of prompts",
             content: {
               "application/json": {
@@ -123,7 +123,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -161,7 +161,7 @@ const promptSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "List of queries",
             content: {
               "application/json": {
@@ -175,7 +175,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -225,7 +225,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "Query created successfully.",
             content: {
               "application/json": {
@@ -235,7 +235,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -245,7 +245,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -283,7 +283,7 @@ const promptSpec = {
         ],
         operationId: "getQueryMetadata",
         responses: {
-          "200": {
+          200: {
             description: "The metadata of the query.",
             content: {
               "application/json": {
@@ -293,7 +293,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -304,7 +304,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Query not found.",
             content: {
               "application/json": {
@@ -351,7 +351,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "The updated query metadata.",
             content: {
               "application/json": {
@@ -361,7 +361,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -371,7 +371,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -382,7 +382,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Query not found.",
             content: {
               "application/json": {
@@ -420,7 +420,7 @@ const promptSpec = {
         ],
         operationId: "getQuery",
         responses: {
-          "200": {
+          200: {
             description:
               "The query file in either fasta or cif format depending on whether a sequence or structure was uploaded.",
             content: {
@@ -440,7 +440,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -451,7 +451,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Query not found.",
             content: {
               "application/json": {
@@ -488,7 +488,7 @@ const promptSpec = {
         ],
         operationId: "getPromptMetadata",
         responses: {
-          "200": {
+          200: {
             description: "The metadata of the prompt.",
             content: {
               "application/json": {
@@ -498,7 +498,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -509,7 +509,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Prompt not found.",
             content: {
               "application/json": {
@@ -556,7 +556,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "The updated prompt metadata.",
             content: {
               "application/json": {
@@ -566,7 +566,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -576,7 +576,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -587,7 +587,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Prompt not found.",
             content: {
               "application/json": {
@@ -625,7 +625,7 @@ const promptSpec = {
         ],
         operationId: "getPrompt",
         responses: {
-          "200": {
+          200: {
             description:
               "The prompt containing the context files in a zip file.",
             content: {
@@ -638,7 +638,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
@@ -649,7 +649,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Prompt not found.",
             content: {
               "application/json": {
@@ -721,7 +721,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "Edited protein CIF file",
             content: {
               "chemical/x-mmcif": {
@@ -732,7 +732,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input",
             content: {
               "application/json": {
@@ -742,7 +742,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized",
             content: {
               "application/json": {
@@ -793,7 +793,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "Extracted protein as CIF file.",
             content: {
               "chemical/x-mmcif": {
@@ -804,7 +804,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input",
             content: {
               "application/json": {
@@ -814,7 +814,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized",
             content: {
               "application/json": {
@@ -863,7 +863,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description: "Normalized protein CIF file.",
             content: {
               "chemical/x-mmcif": {
@@ -874,7 +874,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input",
             content: {
               "application/json": {
@@ -884,7 +884,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized",
             content: {
               "application/json": {
@@ -921,14 +921,15 @@ const promptSpec = {
                   query_sequence: {
                     type: "string",
                     description:
-                      "Query protein sequence (single-letter amino acid codes).",
+                      "Query protein sequence (single-letter amino acid codes).\nUse `:` to separate chains of a multichain query; target sequences\nmust then have the same number of chains, aligned chain-by-position.",
                   },
                   target_sequences: {
                     type: "array",
                     items: {
                       type: "string",
                     },
-                    description: "List of target protein sequences.",
+                    description:
+                      "List of target protein sequences. Each entry may be multichain\nusing `:` separators; its chain count must match the query.",
                   },
                   return_alignment: {
                     type: "boolean",
@@ -950,7 +951,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description:
               "Stream of sequence identities (and optionally alignments).\nEach line is a JSON object representing the result for a single target.",
             content: {
@@ -970,7 +971,7 @@ const promptSpec = {
                         type: "string",
                       },
                       description:
-                        "Tuple of (aligned_query_sequence, aligned_target_sequence).\nPresent if `return_alignment=true`.",
+                        "Tuple of (aligned_query_sequence, aligned_target_sequence).\nFor multichain inputs, chains are joined with `:` within each\naligned string in the same order as the query chains.\nPresent if `return_alignment=true`.",
                     },
                   },
                   example: {
@@ -984,7 +985,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -994,7 +995,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
@@ -1017,7 +1018,7 @@ const promptSpec = {
         tags: ["prompt"],
         summary: "Batch structure alignment using specified method (Streaming)",
         description:
-          "Perform structure-based alignment between the uploaded query structure and targets.\n\n**Streaming Endpoint:** Returns a stream of JSON objects (NDJSON), where each line\ncorresponds to one target structure.",
+          "Perform structure-based alignment between query structures and targets.\n\nExactly one of `protein` or `design_id` must be provided as the query.\nWhen `design_id` is given, it references a fold job with N design\nstructures, and `targets_id` must contain a positive multiple of N\nstructures. Design `i` is aligned against `targets[i*k : (i+1)*k]`\nwhere `k = len(targets) / len(designs)`. Each result row carries a\n`design_index` (0-indexed) so callers can regroup the stream.\n\n**Streaming Endpoint:** Returns a stream of JSON objects (NDJSON), where each line\ncorresponds to one (query, target) pair.",
         operationId: "structureAlignBatchById",
         requestBody: {
           required: true,
@@ -1026,8 +1027,6 @@ const promptSpec = {
               schema: {
                 type: "object",
                 required: [
-                  "protein",
-                  "chain_id",
                   "targets_id",
                   "method",
                   "return_transform",
@@ -1039,11 +1038,14 @@ const promptSpec = {
                   protein: {
                     type: "string",
                     format: "binary",
-                    description: "CIF file containing the query structure.",
+                    description:
+                      "CIF or PDB file containing the query structure. All protein\nchains in the file are used; non-protein chains are filtered\nor rejected per the service's `REJECT_NON_PROTEIN_CHAINS`\nsetting. Targets must have matching chain ids.\nMutually exclusive with `design_id`; exactly one of the two\nmust be provided.",
                   },
-                  chain_id: {
+                  design_id: {
                     type: "string",
-                    description: "Chain ID for the query structure.",
+                    format: "uuid",
+                    description:
+                      "Fold job ID referencing a **collection** of N query\nstructures (e.g. designs from RFdiffusion or BoltzGen).\nWhen provided, `targets_id` must contain N*k structures\nand design `i` is aligned against `targets[i*k:(i+1)*k]`.\nMutually exclusive with `protein`; exactly one of the two\nmust be provided.",
                   },
                   targets_id: {
                     type: "string",
@@ -1084,7 +1086,6 @@ const promptSpec = {
               },
               example: {
                 protein: "<binary CIF file>",
-                chain_id: "A",
                 targets_id: "1dfcb748-0f66-4cd0-9fbf-6c5b0da32512",
                 method: "tmalign",
                 return_transform: true,
@@ -1096,7 +1097,7 @@ const promptSpec = {
           },
         },
         responses: {
-          "200": {
+          200: {
             description:
               "Stream of structure alignment results.\nEach line is a JSON object representing the result for a single target.",
             content: {
@@ -1147,13 +1148,18 @@ const promptSpec = {
                         type: "string",
                       },
                       description:
-                        "Tuple of (aligned_query_sequence, aligned_target_sequence).\nPresent if `return_alignment=true`.",
+                        "Tuple of (aligned_query_sequence, aligned_target_sequence).\nFor multichain inputs, chains are joined with `:` in the\norder of the query chain ids.\nPresent if `return_alignment=true`.",
                     },
                     plddt: {
                       type: "number",
                       format: "float",
                       description:
-                        "Mean pLDDT for this target (present if `return_plddt=true`).",
+                        "Mean pLDDT for this target, averaged across all chains\n(NaN residues excluded). Present if `return_plddt=true`.",
+                    },
+                    design_index: {
+                      type: "integer",
+                      description:
+                        "0-indexed position of the query design within `design_id`.\nPresent only when `design_id` was provided in the request;\nomitted when the request used an uploaded `protein`.",
                     },
                   },
                   example: {
@@ -1167,12 +1173,13 @@ const promptSpec = {
                     ],
                     t: [1.23, -0.45, 0.12],
                     plddt: 87.3,
+                    design_index: 0,
                   },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -1182,7 +1189,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
@@ -1221,7 +1228,7 @@ const promptSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Stream of pLDDT scores.",
             content: {
               "application/x-ndjson": {
@@ -1231,7 +1238,8 @@ const promptSpec = {
                     plddt: {
                       type: "number",
                       format: "float",
-                      description: "Mean pLDDT for a single target structure.",
+                      description:
+                        "Mean pLDDT for a single target structure, averaged across\nall chains (NaN residues excluded).",
                     },
                   },
                   example: {
@@ -1241,7 +1249,7 @@ const promptSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Invalid input provided.",
             content: {
               "application/json": {
@@ -1251,7 +1259,7 @@ const promptSpec = {
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
@@ -1261,7 +1269,7 @@ const promptSpec = {
               },
             },
           },
-          "404": {
+          404: {
             description: "Targets ID not found.",
             content: {
               "application/json": {
@@ -1350,6 +1358,13 @@ const promptSpec = {
             description: "Project this prompt is attached to.",
             nullable: true,
           },
+          sequence_length: {
+            title: "Sequence Length",
+            description:
+              "Length of the prompt's context chains. Set when every chain across\nevery Complex across every replicate has the same length; null when\nchain lengths vary or no context has been parsed yet.",
+            type: "integer",
+            nullable: true,
+          },
         },
       },
       Error: {
@@ -1369,12 +1384,18 @@ const promptSpec = {
         description:
           "The metadata of a query entity containing the sequence and/or structure used as a query to condition PoET2 models.",
         type: "object",
-        required: ["id", "created_date", "project_uuid"],
+        required: ["id", "name", "created_date", "project_uuid"],
         properties: {
           id: {
             type: "string",
             format: "uuid",
             description: "Query unique identifier.",
+          },
+          name: {
+            type: "string",
+            description:
+              "Display name of the query. Defaults to the query's UUID string when the\nuser has not set a name explicitly; clearing the name via PUT (passing\n`null` to `QueryUpdate.name`) resets it to this default.",
+            example: "My Awesome Query",
           },
           created_date: {
             type: "string",
@@ -1387,6 +1408,13 @@ const promptSpec = {
             description: "Project this query is attached to.",
             nullable: true,
           },
+          sequence_length: {
+            title: "Sequence Length",
+            description:
+              "Length of the query's protein chain(s). Set when every chain in the\nquery has the same length; null when chains differ in length.",
+            type: "integer",
+            nullable: true,
+          },
         },
       },
       QueryUpdate: {
@@ -1395,6 +1423,12 @@ const promptSpec = {
           "Fields to update on a query. Omitted fields are left unchanged; fields\nprovided with an explicit null value (for nullable fields) are cleared.",
         type: "object",
         properties: {
+          name: {
+            type: "string",
+            description: "Name of the query.",
+            example: "My Awesome Query",
+            nullable: true,
+          },
           project_uuid: {
             type: "string",
             format: "uuid",
