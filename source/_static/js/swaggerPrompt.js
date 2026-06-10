@@ -1,6 +1,10 @@
 import addSwaggerEndpointsToTOC from "./addSwaggerEndpointsToTOC.js";
 import getBackendUrl from "./getBackendUrl.js";
-import promptSpec from "./promptSpec.js";
+import getSwaggerJson from "./getSwaggerJson.js";
+
+// Fetch the live prompt spec at page load (served by the prompt service at
+// /api/v1/prompt/openapi.json) instead of bundling a static snapshot.
+const promptSpec = await getSwaggerJson("prompt");
 
 SwaggerUIBundle({
   spec: promptSpec,
