@@ -86,6 +86,10 @@ Results
    :members:
    :inherited-members:
 
+.. autoclass:: openprotein.embeddings.EmbeddingsScoreSingleSiteFuture
+   :members:
+   :inherited-members:
+
 .. autoclass:: openprotein.embeddings.EmbeddingsGenerateFuture
    :members:
    :inherited-members:
