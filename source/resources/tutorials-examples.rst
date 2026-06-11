@@ -19,7 +19,7 @@ Explore our platform capabilities
                         <ul>
                             <li><a href="../web-app/poet/prompts.html">Prompt and prompt sampling methods</a></li>
                             <li><a href="../web-app/poet/scoring-log-likelihood.html">PoET scoring and log-likelihood</a></li>
-                            <li><a href="../web-app/poet/rank-sequences.html">Rank Sequences tool</a></li>
+                            <li><a href="../web-app/poet/rank-sequences.html">Score Sequences tool</a></li>
                             <li><a href="../web-app/poet/substitution-analysis.html">PoET Substitution Analysis tool</a></li>
                             <li><a href="../web-app/poet/generate-sequences.html">Generate Sequences tool</a></li>
                         </ul>
