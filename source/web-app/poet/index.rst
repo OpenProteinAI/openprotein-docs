@@ -25,7 +25,7 @@ Learn more and get started with our tutorials
 - `Ensembling <./ensembling.rst>`_
 - `Interpreting PoET Results Table <./results-table.rst>`_
 - `PoET history <./history.rst>`_
-- `Using the Rank Sequences tool <./rank-sequences.rst>`_
+- `Using the Score Sequences tool <./score-sequences.rst>`_
 - `Using the Generate Sequences tool <./generate-sequences.rst>`_
 - `Using the PoET Substitution Analysis tool <./substitution-analysis.rst>`_
 
@@ -61,7 +61,7 @@ Learn more about what makes PoET state of the art in machine learning for protei
   Ensembling <ensembling>
   Interpreting PoET Results Table <results-table>
   PoET history <history>
-  Rank sequences <rank-sequences>
+  Score sequences <score-sequences>
   Generate sequences <generate-sequences>
   Substitution analysis with PoET <substitution-analysis>
   Indel Analysis <indel-analysis>

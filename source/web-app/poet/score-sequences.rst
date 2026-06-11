@@ -17,7 +17,7 @@ You also need an input sequence, or list of sequences you want to score against 
 
 
 Score Your Sequences
--------------------
+--------------------
 
 Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Score Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
 
@@ -35,7 +35,7 @@ If you choose to upload a CSV file, please note the following requirements:
 
 You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
-.. image:: /_static/tools/poet/rank-sequences-1.png
+.. image:: /_static/tools/poet/score-sequences-1.png
   :alt: Input Sequences
 
 

@@ -25,7 +25,7 @@ Our tools are standalone or can be used together at any point in your project.
          * Introduce diversity
          * Identify mutagenesis hotspots
          * Predict variant effects
-         * Rank sequence designs 
+         * Score sequence designs
 
       `Learn more <./poet/index.rst>`__
 
