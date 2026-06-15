@@ -19,6 +19,8 @@ We recommend using:
 - Boltz-1 focuses on high-accuracy modeling of biomolecular structures — including proteins, DNA, and RNA — and produces static 3D models of molecular complexes with structural accuracy comparable to AlphaFold3.
 - Boltz-2 is the recommended model for proteins, RNA, DNA and ligands. It expands from Boltz-1 from static complexes to dynamic structural ensembles. This means Boltz‑2 can model how biomolecules move and interact over time.
 - ESMFold for predictions that must be completed quickly. 
+- ESMFold2 is a high-accuracy structure prediction model for protein monomers and complexes, including antibody-antigen interactions, with optional MSA support for greater accuracy.
+- ESMFold2-Fast is a speed-optimized version of ESMFold2 designed for high-throughput screening and large-scale design campaigns where prediction speed is the priority.
 - MiniFold is a fast single-sequence structure prediction model built on ESM-2, delivering accuracy comparable to ESMFold while reducing inference time by 10–20×. It is designed for rapid prediction of large numbers of protein structures and currently supports single-chain proteins.
 - RosettaFold-3 is a three-track neural network for protein structure and complex prediction, useful for modeling protein-protein interactions and supporting experimental structure determination.
 - Protenix predict the 3D structure of biological molecules including proteins, DNA, RNA, and small molecule ligands, as well as how they interact with each other. 
@@ -85,6 +87,19 @@ the **Number of recycles**. This allows the network to further refine structures
 
 .. image:: /_static/structure-prediction/ESMFold.png
    :alt: ESMFold
+
+Using ESMFold2 and ESMFold2-fast
+---------------------------------
+
+If you select **ESMFold2**, the **Advanced Options** section allows you to set the following: 
+- **Number of recycles** This allows the network to further refine structures by using the previous cycle’s output as the new cycle’s input. This parameter is set to **auto** by default and accepts integers between 1 and 48.
+- **Diffusion samples** This refers to the number of diffusion samples used and controls how many independent structure samples are generated per input
+- **Sampling steps** This sets the number of steps in the diffusion process for each sample
+- **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
+
+
+.. image:: /_static/structure-prediction/ESMFold2.png
+   :alt: ESMFold2
    
 Using MiniFold
 --------------
