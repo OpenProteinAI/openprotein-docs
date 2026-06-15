@@ -56,11 +56,15 @@ Embeddings capture essential patterns and relationships between protein sequence
   - esm2_t33_650M_UR50D
   - esm2_t36_3B_UR50D
 
-7. **ProtTrans**
+7. **ESM-C**
+- Community-based ESM Cambrian (ESM C) protein language models from EvolutionaryScale, including: esmc-300m, esmc-600m, esmc-6b. A successor to ESM2, ESM C is trained on a larger corpus and yields stronger representations at each parameter scale, with embedding dimensions 960, 1152, and 2560 respectively; the 300M model roughly matches ESM2-650M while running faster and lighter. It supports attn, embed, and logits as output types. 
+
+8. **ProtTrans**
 
 - Community-based ProtTrans models. Models include:
 
   - prott5-xl
+
 
 Reduction type
 ^^^^^^^^^^^^^^
