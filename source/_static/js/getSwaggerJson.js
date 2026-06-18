@@ -63,6 +63,7 @@ const apiSchemasAlign = [
   "Body_create_mafft_alignment_align_mafft_post",
   "Body_create_clustalo_alignment_align_clustalo_post",
   "Body_create_abnumber_alignment_align_abnumber_post",
+  "AntibodyAnnotateRequest",
 ];
 
 const apiPathAlign = [
@@ -72,6 +73,7 @@ const apiPathAlign = [
   "/api/v1/align/metadata",
   "/api/v1/align/abnumber",
   "/api/v1/align/antibody_schema",
+  "/api/v1/align/antibody/annotate",
   "/api/v1/align/clustalo",
   "/api/v1/align/mafft",
   "/api/v1/align/seed",
@@ -182,6 +184,7 @@ const devFetchUrls = {
   authUrl: "https://dev.api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+  promptUrl: "https://dev.api.openprotein.ai/api/v1/prompt/openapi.json",
 };
 
 const prodFetchUrls = {
@@ -190,6 +193,7 @@ const prodFetchUrls = {
   authUrl: "https://api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
+  promptUrl: "https://api.openprotein.ai/api/v1/prompt/openapi.json",
 };
 
 export default async function getSwaggerJson(swaggerType) {
@@ -234,6 +238,12 @@ export default async function getSwaggerJson(swaggerType) {
     // get the full swagger specs
     swagerSpecs = await (await fetch(fetchUrls.embeddingsUrl)).json();
     return swagerSpecs;
+  } else if (swaggerType === "prompt") {
+    // The prompt service exports its own (prompt-only) spec, so there is
+    // nothing to filter — fetch and return it as-is. Includes the dynamic
+    // per-system-prompt routes whenever the backend DB is seeded.
+    swagerSpecs = await (await fetch(fetchUrls.promptUrl)).json();
+    return swagerSpecs;
   }
 
   const filteredPathsToShow = {};
@@ -249,7 +259,6 @@ export default async function getSwaggerJson(swaggerType) {
 
   const filteredSchemasToShow = {};
   for (const schemaKey in swagerSpecs.components.schemas) {
-    console.log(schemaKey);
     apiSchemasToShow.forEach((schemaKeyToShow) => {
       if (schemaKeyToShow === schemaKey) {
         filteredSchemasToShow[schemaKeyToShow] =

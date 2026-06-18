@@ -18,7 +18,7 @@ Tutorials:
 * `Single site analysis <./single-site-analysis.ipynb>`_
 * `Generating sequences <./generating-sequences.ipynb>`_
 
-`API Reference <../api-reference/embedding.rst#openprotein.api.embedding.PoETModel>`_
+`API Reference <../api-reference/embedding.rst#openprotein.embeddings.PoETModel>`_
 
 Learn more about what makes PoET state-of-the-art in machine learning for protein engineering in
 our `blog post <https://www.openprotein.ai/poet-a-high-performing-protein-language-model-for-zero-shot-prediction>`_ and our `NeurIPS 2023 paper <https://proceedings.neurips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html>`_, including:

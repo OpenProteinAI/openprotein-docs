@@ -92,7 +92,7 @@ To get started, we must convert the log-likelihood score of each amino acid at a
 
 To calculate the relative frequency of each amino acid position, we will take the exp(PoET score) divided by sum(exp(PoET score)). E.g. 
 
-.. code-block:: python
+.. code-block:: text
 
     EXP(B2 - MAX($B2:$U2)) / SUM(EXP($B2:$U2 - MAX($B2:$U2)))
 
@@ -174,7 +174,7 @@ By considering the overall fitness landscape and introducing multiple mutations 
 
 Although the PSSM is an additive model, we can explore potential epistatic interactions between residues and to design specific combinatorial variants that are likely to be fitter than the wild-type. To do this, we can sample sequences from our PSSM and score these full combinatorial variants using the **Rank Sequences** tool. By comparing the full PoET scores with the additive scores, we can find variants with positive or negative epistasis and prioritize specific combinatorial variants based on their fitness relative to the WT sequence.
 
-First, we’ll sample a large number of candidate combinatorial variants from the PSSM with the following Python script. You can download the py file `here <https://drive.google.com/file/d/1h6a066f5Y0MGDrIcdQ41m3S8GdQRmESA/view?usp=drive_link>`_.
+First, we’ll sample a large number of candidate combinatorial variants from the PSSM with the following Python script. You can download the py file `here <https://drive.google.com/file/d/1h6a066f5Y0MGDrIcdQ41m3S8GdQRmESA/view?usp=drive_link>`__.
 
 
 .. code-block:: python
@@ -229,9 +229,10 @@ First, we’ll sample a large number of candidate combinatorial variants from th
 
 
 
-This Python code generates a CSV file with the scores column and header removed, and can be found `here <https://drive.google.com/file/d/16QxerujZD-EhSHfOArbcLIHSs5CxYrQL/view?usp=drive_link>`_ for your reference. We’ll upload this `CSV file <https://drive.google.com/file/d/1cWRI8eG_Yhjt-p0m95oCfIgH007lkqt_/view?usp=drive_link>`_ by clicking on **select a file**. In the **Prompt Definition** field, we’ll use the wild-type sequence shown below. Then, we’ll run **Rank Sequences** with **Number of prompts to ensemble** set to 3 and the default parameters. Note that the CSV file should only have 2 columns containing the name and sequence, without headers.
+This Python code generates a CSV file with the scores column and header removed, and can be found `here <https://drive.google.com/file/d/16QxerujZD-EhSHfOArbcLIHSs5CxYrQL/view?usp=drive_link>`__ for your reference. We’ll upload this `CSV file <https://drive.google.com/file/d/1cWRI8eG_Yhjt-p0m95oCfIgH007lkqt_/view?usp=drive_link>`_ by clicking on **select a file**. In the **Prompt Definition** field, we’ll use the wild-type sequence shown below. Then, we’ll run **Rank Sequences** with **Number of prompts to ensemble** set to 3 and the default parameters. Note that the CSV file should only have 2 columns containing the name and sequence, without headers.
   
 .. code-block:: python
+
     >1I6W_1|Chains A, B|LIPASE A|Bacillus subtilis (1423)
 
     AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
@@ -256,9 +257,9 @@ In this walkthrough, we used both **PoET** and **Structure Prediction** to guide
 
 Though not shown here, the **Generate** tool can be used to generate diverse variants in addition to the example shown here using PSSM. If you have your own MSA, you can also choose to specify this in the **Prompt Definition** field.
 
-For further refinement of the prompt, you can look at the tutorial found `here <../web-app/poet/prompts.rst>`_.
+For further refinement of the prompt, you can look at the tutorial found `here <../web-app/poet/prompts.rst>`__.
 
-Consider selecting at least 10 to 30 designs designed using PoET as an initial library to serve as proof of concept for experimental validation. The data generated from the library can then be used to further enhance the enzyme using **OP Models** following the tutorial found `here <../web-app/opmodels/index.rst>`_.
+Consider selecting at least 10 to 30 designs designed using PoET as an initial library to serve as proof of concept for experimental validation. The data generated from the library can then be used to further enhance the enzyme using **OP Models** following the tutorial found `here <../web-app/opmodels/index.rst>`__.
 
 You can also perform **Structure Prediction** on the specific variants, such as those with PoET **Rank Sequence** log-likelihood scores higher than the expected log-likelihood score calculated from the PSSM. This could indicate potential positive epistasis. You can align the sequences to compare or compare the predicted structures to examine if there are specific key residues.
 

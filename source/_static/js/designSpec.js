@@ -20,437 +20,69 @@ const designSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "DesignRequestGeneticAlgorithm",
-                description:
-                  "Request to design new variants using genetic algorithm.",
-                required: ["criteria", "num_steps", "assay_id"],
-                type: "object",
-                properties: {
-                  num_steps: {
-                    title: "Number of Steps",
-                    description: "Number of steps to run the algorithm for.",
-                    minimum: 1,
-                    type: "integer",
-                    example: 25,
-                    "x-order": 10,
-                  },
-                  assay_id: {
-                    title: "Assay ID",
-                    description: "Assay ID to use as a starting point.",
-                    type: "string",
-                    format: "uuid",
-                    "x-order": 11,
-                  },
-                  criteria: {
-                    title: "Criteria",
-                    description:
-                      "List of criterion, within which is a list of same-typed of subcriterion.",
-                    type: "array",
-                    items: {
-                      title: "Subcriteria",
-                      description:
-                        "List of subcriterion, each of which must be the same type.",
-                      type: "array",
-                      items: {
-                        title: "Subcriterion",
-                        description:
-                          "Actual criterion that can be evaluated as a score/objective to optimize.",
-                        oneOf: [
-                          {
-                            title: "ModelCriterion",
-                            description: "Criteria for design model.",
-                            required: [
-                              "criterion_type",
-                              "measurement_name",
-                              "criterion",
-                              "model_id",
-                            ],
-                            type: "object",
-                            properties: {
-                              criterion_type: {
-                                title: "Criterion Type",
-                                description: "Type of criterion.",
-                                type: "string",
-                              },
-                              measurement_name: {
-                                title: "Measurement Name",
-                                description:
-                                  "Name of measurement for objective.",
-                                type: "string",
-                              },
-                              criterion: {
-                                title: "Criterion for Model",
-                                description:
-                                  "Criterion for a model-based objective with a target, direction and weight.",
-                                required: ["target", "direction"],
-                                type: "object",
-                                properties: {
-                                  target: {
-                                    title: "Target",
-                                    description: "Target objective.",
-                                    type: "number",
-                                  },
-                                  direction: {
-                                    title: "Direction",
-                                    description:
-                                      "Direction of objective describing the inequality.",
-                                    enum: [">", "<", "="],
-                                    type: "string",
-                                  },
-                                  weight: {
-                                    title: "Weight",
-                                    description: "Weight of objective.",
-                                    type: "number",
-                                    default: 1,
-                                  },
-                                },
-                              },
-                              model_id: {
-                                title: "ModelID",
-                                description:
-                                  "Model ID to use for computing objective scores.",
-                                type: "string",
-                              },
-                            },
-                          },
-                          {
-                            title: "NMutationsCriterion",
-                            description:
-                              "Criteria for design based on mutations.",
-                            required: ["criterion_type"],
-                            type: "object",
-                            properties: {
-                              criterion_type: {
-                                title: "Criterion Type",
-                                description: "Type of criterion.",
-                                type: "string",
-                              },
-                              sequences: {
-                                title: "Sequences",
-                                description:
-                                  "Sequences to use as reference for calculating the number of mutations.",
-                                type: "array",
-                                items: {
-                                  title: "Sequence",
-                                  description: "Protein sequence",
-                                  type: "string",
-                                  example: "MSKGEELFTGV",
-                                },
-                              },
-                            },
-                          },
-                        ],
-                        discriminator: {
-                          propertyName: "criterion_type",
-                          mapping: {
-                            model: "#/components/schemas/ModelCriterion",
-                            n_mutations:
-                              "#/components/schemas/NMutationsCriterion",
-                          },
-                        },
-                      },
-                    },
-                    "x-order": 12,
-                    example: [
-                      [
-                        {
-                          criterion_type: "model",
-                          model_id: "ec0364fd-83ff-4f26-bc17-eb0bd8cfcae5",
-                          measurement_name: "activity",
-                          criterion: {
-                            target: 0,
-                            weight: 0.5,
-                            direction: ">",
-                          },
-                        },
-                      ],
-                    ],
-                  },
-                  allowed_tokens: {
-                    title: "Allowed Tokens",
-                    description: "Hash map of position to allowed tokens.",
-                    type: "object",
-                    additionalProperties: {
-                      type: "array",
-                      items: {
-                        type: "string",
-                        description: "Allowed tokens in this position.",
-                        example: ["A", "C", "M"],
-                      },
-                    },
-                    "x-order": 13,
-                    example: {
-                      "1": ["M", "W", "A"],
-                      "104": ["C"],
-                      "131": ["C"],
-                    },
-                  },
-                  pop_size: {
-                    title: "Population Size",
-                    description:
-                      "Size of population or number of candidates to explore per step.",
-                    type: "integer",
-                    nullable: true,
-                    default: 256,
-                    example: 256,
-                    "x-order": 101,
-                  },
-                  n_offsprings: {
-                    title: "Number of Offsprings",
-                    description: "Number of offsprings in genetic algorithm.",
-                    type: "integer",
-                    default: 5120,
-                    example: 5120,
-                    "x-order": 101,
-                  },
-                  crossover_prob: {
-                    title: "Crossover Probability",
-                    description: "Crossover probability in genetic algorithm.",
-                    type: "number",
-                    default: 1,
-                    example: 1,
-                    "x-order": 102,
-                  },
-                  crossover_prob_pointwise: {
-                    title: "Crossover Probability Pointwise",
-                    description:
-                      "Pointwise crossover probability in genetic algorithm.",
-                    type: "number",
-                    default: 0.2,
-                    example: 0.2,
-                    "x-order": 103,
-                  },
-                  mutation_average_mutations_per_seq: {
-                    title: "Average Mutations",
-                    description: "Targeted average mutations per seuqnces",
-                    type: "integer",
-                    default: 1,
-                    example: 1,
-                    "x-order": 104,
-                  },
-                },
+                $ref: "#/components/schemas/DesignRequestGA",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Design job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -461,7 +93,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "designGA",
       },
     },
     "/api/v1/designer/design/{job_id}/continue": {
@@ -486,239 +117,69 @@ const designSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "DesignContinueRequest",
-                description: "Request to continue a design job.",
-                required: ["num_steps"],
-                type: "object",
-                properties: {
-                  num_steps: {
-                    title: "Number of steps",
-                    minimum: 1,
-                    type: "integer",
-                  },
-                },
+                $ref: "#/components/schemas/DesignContinueRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "200": {
+          200: {
             description: "Design continue job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -729,7 +190,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "continueDesignJob",
       },
     },
     "/api/v1/designer/design": {
@@ -764,442 +224,65 @@ const designSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "List of designs with their metadata.",
             content: {
               "application/json": {
                 schema: {
                   type: "array",
                   items: {
-                    title: "Design",
-                    description:
-                      "Design with metadata of request and results if succeeded.",
-                    type: "object",
-                    required: [
-                      "id",
-                      "status",
-                      "current_step",
-                      "terminated",
-                      "progress_counter",
-                      "created_date",
-                      "algorithm",
-                      "num_rows",
-                      "criteria",
-                      "num_steps",
-                      "assay_id",
-                    ],
-                    properties: {
-                      id: {
-                        title: "ID",
-                        description: "ID of design.",
-                        type: "string",
-                        format: "uuid",
-                        "x-order": 0,
-                      },
-                      status: {
-                        title: "JobStatus",
-                        description: "Status of job.",
-                        type: "string",
-                        enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                        "x-order": 7,
-                      },
-                      current_step: {
-                        title: "Current Step",
-                        description: "Current step in the algorithm",
-                        type: "integer",
-                      },
-                      terminated: {
-                        title: "Terminated",
-                        description:
-                          "Whether the algorithm was terminated early.",
-                        type: "boolean",
-                      },
-                      progress_counter: {
-                        title: "Progress Counter",
-                        description:
-                          "Counter of the progress of job from 0 to 100.",
-                        type: "integer",
-                        minimum: 0,
-                        maximum: 100,
-                        example: 0,
-                        default: 0,
-                      },
-                      created_date: {
-                        title: "Created Date",
-                        description: "Datetime of created object",
-                        type: "string",
-                        format: "date-time",
-                        example: "2024-01-01T12:34:56.789Z",
-                        "x-order": 4,
-                      },
-                      algorithm: {
-                        title: "Algorithm",
-                        description: "Design algorithm used.",
-                        type: "string",
-                      },
-                      num_rows: {
-                        title: "Number of Rows",
-                        description:
-                          "Number of rows in output of design result.",
-                        type: "integer",
-                      },
-                      num_steps: {
-                        title: "Number of Steps",
-                        description:
-                          "Number of steps to run the algorithm for.",
-                        minimum: 1,
-                        type: "integer",
-                        example: 25,
-                        "x-order": 10,
-                      },
-                      assay_id: {
-                        title: "Assay ID",
-                        description: "Assay ID to use as a starting point.",
-                        type: "string",
-                        format: "uuid",
-                        "x-order": 11,
-                      },
-                      criteria: {
-                        title: "Criteria",
-                        description:
-                          "List of criterion, within which is a list of same-typed of subcriterion.",
-                        type: "array",
-                        items: {
-                          title: "Subcriteria",
-                          description:
-                            "List of subcriterion, each of which must be the same type.",
-                          type: "array",
-                          items: {
-                            title: "Subcriterion",
-                            description:
-                              "Actual criterion that can be evaluated as a score/objective to optimize.",
-                            oneOf: [
-                              {
-                                title: "ModelCriterion",
-                                description: "Criteria for design model.",
-                                required: [
-                                  "criterion_type",
-                                  "measurement_name",
-                                  "criterion",
-                                  "model_id",
-                                ],
-                                type: "object",
-                                properties: {
-                                  criterion_type: {
-                                    title: "Criterion Type",
-                                    description: "Type of criterion.",
-                                    type: "string",
-                                  },
-                                  measurement_name: {
-                                    title: "Measurement Name",
-                                    description:
-                                      "Name of measurement for objective.",
-                                    type: "string",
-                                  },
-                                  criterion: {
-                                    title: "Criterion for Model",
-                                    description:
-                                      "Criterion for a model-based objective with a target, direction and weight.",
-                                    required: ["target", "direction"],
-                                    type: "object",
-                                    properties: {
-                                      target: {
-                                        title: "Target",
-                                        description: "Target objective.",
-                                        type: "number",
-                                      },
-                                      direction: {
-                                        title: "Direction",
-                                        description:
-                                          "Direction of objective describing the inequality.",
-                                        enum: [">", "<", "="],
-                                        type: "string",
-                                      },
-                                      weight: {
-                                        title: "Weight",
-                                        description: "Weight of objective.",
-                                        type: "number",
-                                        default: 1,
-                                      },
-                                    },
-                                  },
-                                  model_id: {
-                                    title: "ModelID",
-                                    description:
-                                      "Model ID to use for computing objective scores.",
-                                    type: "string",
-                                  },
-                                },
-                              },
-                              {
-                                title: "NMutationsCriterion",
-                                description:
-                                  "Criteria for design based on mutations.",
-                                required: ["criterion_type"],
-                                type: "object",
-                                properties: {
-                                  criterion_type: {
-                                    title: "Criterion Type",
-                                    description: "Type of criterion.",
-                                    type: "string",
-                                  },
-                                  sequences: {
-                                    title: "Sequences",
-                                    description:
-                                      "Sequences to use as reference for calculating the number of mutations.",
-                                    type: "array",
-                                    items: {
-                                      title: "Sequence",
-                                      description: "Protein sequence",
-                                      type: "string",
-                                      example: "MSKGEELFTGV",
-                                    },
-                                  },
-                                },
-                              },
-                            ],
-                            discriminator: {
-                              propertyName: "criterion_type",
-                              mapping: {
-                                model: "#/components/schemas/ModelCriterion",
-                                n_mutations:
-                                  "#/components/schemas/NMutationsCriterion",
-                              },
-                            },
-                          },
-                        },
-                        "x-order": 12,
-                        example: [
-                          [
-                            {
-                              criterion_type: "model",
-                              model_id: "ec0364fd-83ff-4f26-bc17-eb0bd8cfcae5",
-                              measurement_name: "activity",
-                              criterion: {
-                                target: 0,
-                                weight: 0.5,
-                                direction: ">",
-                              },
-                            },
-                          ],
-                        ],
-                      },
-                      allowed_tokens: {
-                        title: "Allowed Tokens",
-                        description: "Hash map of position to allowed tokens.",
-                        type: "object",
-                        additionalProperties: {
-                          type: "array",
-                          items: {
-                            type: "string",
-                            description: "Allowed tokens in this position.",
-                            example: ["A", "C", "M"],
-                          },
-                        },
-                        "x-order": 13,
-                        example: {
-                          "1": ["M", "W", "A"],
-                          "104": ["C"],
-                          "131": ["C"],
-                        },
-                      },
-                      pop_size: {
-                        title: "Population Size",
-                        description:
-                          "Size of population or number of candidates to explore per step.",
-                        type: "integer",
-                        nullable: true,
-                        default: 256,
-                        example: 256,
-                        "x-order": 101,
-                      },
-                    },
-                    oneOf: [
-                      {
-                        title: "GeneticAlgorithmParams",
-                        description:
-                          "Parameters for running genetic-algorithm.",
-                        type: "object",
-                        properties: {
-                          n_offsprings: {
-                            title: "Number of Offsprings",
-                            description:
-                              "Number of offsprings in genetic algorithm.",
-                            type: "integer",
-                            default: 5120,
-                            example: 5120,
-                            "x-order": 101,
-                          },
-                          crossover_prob: {
-                            title: "Crossover Probability",
-                            description:
-                              "Crossover probability in genetic algorithm.",
-                            type: "number",
-                            default: 1,
-                            example: 1,
-                            "x-order": 102,
-                          },
-                          crossover_prob_pointwise: {
-                            title: "Crossover Probability Pointwise",
-                            description:
-                              "Pointwise crossover probability in genetic algorithm.",
-                            type: "number",
-                            default: 0.2,
-                            example: 0.2,
-                            "x-order": 103,
-                          },
-                          mutation_average_mutations_per_seq: {
-                            title: "Average Mutations",
-                            description:
-                              "Targeted average mutations per seuqnces",
-                            type: "integer",
-                            default: 1,
-                            example: 1,
-                            "x-order": 104,
-                          },
-                        },
-                      },
-                    ],
-                    example: {
-                      id: "15cde424-04fc-4bce-88ea-4c2eae225d47",
-                      status: "PENDING",
-                      progress_counter: 0,
-                      created_date: "2024-10-30T18:21:08.046624Z",
-                      algorithm: "genetic-algorithm",
-                      num_rows: 0,
-                      num_steps: 10,
-                      assay_id: "99dc46be-5fb1-4771-a59a-65ec76d70765",
-                      criteria: [
-                        [
-                          {
-                            criterion_type: "model",
-                            measurement_name: "fitness",
-                            criterion: {
-                              target: 0,
-                              direction: ">",
-                              weight: 0.5,
-                            },
-                            model_id: "c887360c-fa9c-4357-97fc-ad0c3e9ca3dc",
-                          },
-                          {
-                            criterion_type: "model",
-                            measurement_name: "fitness",
-                            criterion: {
-                              target: 0.5,
-                              direction: "<",
-                              weight: 0.5,
-                            },
-                            model_id: "0082d4f6-703f-4f94-b888-b1015fe798eb",
-                          },
-                        ],
-                      ],
-                      allowed_tokens: {
-                        "1": ["M", "W", "A"],
-                        "104": ["C"],
-                        "131": ["C"],
-                      },
-                      pop_size: 1024,
-                      n_offsprings: 256,
-                      crossover_prob: 1,
-                      crossover_prob_pointwise: 0.2,
-                      mutation_average_mutations_per_seq: 1,
-                    },
+                    $ref: "#/components/schemas/Design",
                   },
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1210,7 +293,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "listDesigns",
       },
     },
     "/api/v1/designer/design/{job_id}": {
@@ -1234,436 +316,62 @@ const designSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Design metadata.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Design",
-                  description:
-                    "Design with metadata of request and results if succeeded.",
-                  type: "object",
-                  required: [
-                    "id",
-                    "status",
-                    "current_step",
-                    "terminated",
-                    "progress_counter",
-                    "created_date",
-                    "algorithm",
-                    "num_rows",
-                    "criteria",
-                    "num_steps",
-                    "assay_id",
-                  ],
-                  properties: {
-                    id: {
-                      title: "ID",
-                      description: "ID of design.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 0,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    current_step: {
-                      title: "Current Step",
-                      description: "Current step in the algorithm",
-                      type: "integer",
-                    },
-                    terminated: {
-                      title: "Terminated",
-                      description:
-                        "Whether the algorithm was terminated early.",
-                      type: "boolean",
-                    },
-                    progress_counter: {
-                      title: "Progress Counter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    algorithm: {
-                      title: "Algorithm",
-                      description: "Design algorithm used.",
-                      type: "string",
-                    },
-                    num_rows: {
-                      title: "Number of Rows",
-                      description: "Number of rows in output of design result.",
-                      type: "integer",
-                    },
-                    num_steps: {
-                      title: "Number of Steps",
-                      description: "Number of steps to run the algorithm for.",
-                      minimum: 1,
-                      type: "integer",
-                      example: 25,
-                      "x-order": 10,
-                    },
-                    assay_id: {
-                      title: "Assay ID",
-                      description: "Assay ID to use as a starting point.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 11,
-                    },
-                    criteria: {
-                      title: "Criteria",
-                      description:
-                        "List of criterion, within which is a list of same-typed of subcriterion.",
-                      type: "array",
-                      items: {
-                        title: "Subcriteria",
-                        description:
-                          "List of subcriterion, each of which must be the same type.",
-                        type: "array",
-                        items: {
-                          title: "Subcriterion",
-                          description:
-                            "Actual criterion that can be evaluated as a score/objective to optimize.",
-                          oneOf: [
-                            {
-                              title: "ModelCriterion",
-                              description: "Criteria for design model.",
-                              required: [
-                                "criterion_type",
-                                "measurement_name",
-                                "criterion",
-                                "model_id",
-                              ],
-                              type: "object",
-                              properties: {
-                                criterion_type: {
-                                  title: "Criterion Type",
-                                  description: "Type of criterion.",
-                                  type: "string",
-                                },
-                                measurement_name: {
-                                  title: "Measurement Name",
-                                  description:
-                                    "Name of measurement for objective.",
-                                  type: "string",
-                                },
-                                criterion: {
-                                  title: "Criterion for Model",
-                                  description:
-                                    "Criterion for a model-based objective with a target, direction and weight.",
-                                  required: ["target", "direction"],
-                                  type: "object",
-                                  properties: {
-                                    target: {
-                                      title: "Target",
-                                      description: "Target objective.",
-                                      type: "number",
-                                    },
-                                    direction: {
-                                      title: "Direction",
-                                      description:
-                                        "Direction of objective describing the inequality.",
-                                      enum: [">", "<", "="],
-                                      type: "string",
-                                    },
-                                    weight: {
-                                      title: "Weight",
-                                      description: "Weight of objective.",
-                                      type: "number",
-                                      default: 1,
-                                    },
-                                  },
-                                },
-                                model_id: {
-                                  title: "ModelID",
-                                  description:
-                                    "Model ID to use for computing objective scores.",
-                                  type: "string",
-                                },
-                              },
-                            },
-                            {
-                              title: "NMutationsCriterion",
-                              description:
-                                "Criteria for design based on mutations.",
-                              required: ["criterion_type"],
-                              type: "object",
-                              properties: {
-                                criterion_type: {
-                                  title: "Criterion Type",
-                                  description: "Type of criterion.",
-                                  type: "string",
-                                },
-                                sequences: {
-                                  title: "Sequences",
-                                  description:
-                                    "Sequences to use as reference for calculating the number of mutations.",
-                                  type: "array",
-                                  items: {
-                                    title: "Sequence",
-                                    description: "Protein sequence",
-                                    type: "string",
-                                    example: "MSKGEELFTGV",
-                                  },
-                                },
-                              },
-                            },
-                          ],
-                          discriminator: {
-                            propertyName: "criterion_type",
-                            mapping: {
-                              model: "#/components/schemas/ModelCriterion",
-                              n_mutations:
-                                "#/components/schemas/NMutationsCriterion",
-                            },
-                          },
-                        },
-                      },
-                      "x-order": 12,
-                      example: [
-                        [
-                          {
-                            criterion_type: "model",
-                            model_id: "ec0364fd-83ff-4f26-bc17-eb0bd8cfcae5",
-                            measurement_name: "activity",
-                            criterion: {
-                              target: 0,
-                              weight: 0.5,
-                              direction: ">",
-                            },
-                          },
-                        ],
-                      ],
-                    },
-                    allowed_tokens: {
-                      title: "Allowed Tokens",
-                      description: "Hash map of position to allowed tokens.",
-                      type: "object",
-                      additionalProperties: {
-                        type: "array",
-                        items: {
-                          type: "string",
-                          description: "Allowed tokens in this position.",
-                          example: ["A", "C", "M"],
-                        },
-                      },
-                      "x-order": 13,
-                      example: {
-                        "1": ["M", "W", "A"],
-                        "104": ["C"],
-                        "131": ["C"],
-                      },
-                    },
-                    pop_size: {
-                      title: "Population Size",
-                      description:
-                        "Size of population or number of candidates to explore per step.",
-                      type: "integer",
-                      nullable: true,
-                      default: 256,
-                      example: 256,
-                      "x-order": 101,
-                    },
-                  },
-                  oneOf: [
-                    {
-                      title: "GeneticAlgorithmParams",
-                      description: "Parameters for running genetic-algorithm.",
-                      type: "object",
-                      properties: {
-                        n_offsprings: {
-                          title: "Number of Offsprings",
-                          description:
-                            "Number of offsprings in genetic algorithm.",
-                          type: "integer",
-                          default: 5120,
-                          example: 5120,
-                          "x-order": 101,
-                        },
-                        crossover_prob: {
-                          title: "Crossover Probability",
-                          description:
-                            "Crossover probability in genetic algorithm.",
-                          type: "number",
-                          default: 1,
-                          example: 1,
-                          "x-order": 102,
-                        },
-                        crossover_prob_pointwise: {
-                          title: "Crossover Probability Pointwise",
-                          description:
-                            "Pointwise crossover probability in genetic algorithm.",
-                          type: "number",
-                          default: 0.2,
-                          example: 0.2,
-                          "x-order": 103,
-                        },
-                        mutation_average_mutations_per_seq: {
-                          title: "Average Mutations",
-                          description:
-                            "Targeted average mutations per seuqnces",
-                          type: "integer",
-                          default: 1,
-                          example: 1,
-                          "x-order": 104,
-                        },
-                      },
-                    },
-                  ],
-                  example: {
-                    id: "15cde424-04fc-4bce-88ea-4c2eae225d47",
-                    status: "PENDING",
-                    progress_counter: 0,
-                    created_date: "2024-10-30T18:21:08.046624Z",
-                    algorithm: "genetic-algorithm",
-                    num_rows: 0,
-                    num_steps: 10,
-                    assay_id: "99dc46be-5fb1-4771-a59a-65ec76d70765",
-                    criteria: [
-                      [
-                        {
-                          criterion_type: "model",
-                          measurement_name: "fitness",
-                          criterion: {
-                            target: 0,
-                            direction: ">",
-                            weight: 0.5,
-                          },
-                          model_id: "c887360c-fa9c-4357-97fc-ad0c3e9ca3dc",
-                        },
-                        {
-                          criterion_type: "model",
-                          measurement_name: "fitness",
-                          criterion: {
-                            target: 0.5,
-                            direction: "<",
-                            weight: 0.5,
-                          },
-                          model_id: "0082d4f6-703f-4f94-b888-b1015fe798eb",
-                        },
-                      ],
-                    ],
-                    allowed_tokens: {
-                      "1": ["M", "W", "A"],
-                      "104": ["C"],
-                      "131": ["C"],
-                    },
-                    pop_size: 1024,
-                    n_offsprings: 256,
-                    crossover_prob: 1,
-                    crossover_prob_pointwise: 0.2,
-                    mutation_average_mutations_per_seq: 1,
-                  },
+                  $ref: "#/components/schemas/Design",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1674,7 +382,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "getDesign",
       },
     },
     "/api/v1/designer/design/{job_id}/results": {
@@ -1711,7 +418,7 @@ const designSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Design results.",
             content: {
               "text/csv": {
@@ -1724,97 +431,52 @@ const designSpec = {
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1825,7 +487,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "getDesignResults",
       },
     },
     "/api/v1/designer/design/n_successes": {
@@ -1839,244 +500,69 @@ const designSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "NSuccessRequest",
-                description:
-                  "Request to calculate the number of successes expected for a design request.",
-                required: ["means", "stddevs", "criteria"],
-                type: "object",
-                properties: {
-                  means: {
-                    title: "Means",
-                    description: "N x M array of means of predictions.",
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: {
-                        type: "number",
-                      },
-                    },
-                  },
-                  stddevs: {
-                    title: "Standard Deviations",
-                    description: "N x M array of stddevs of predictions.",
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: {
-                        type: "number",
-                      },
-                    },
-                  },
-                  criteria: {
-                    title: "Criteria",
-                    description:
-                      "M array of model criterion, same as submitting a design job.\n",
-                    type: "array",
-                    items: {
-                      title: "ModelCriterion",
-                      description: "Criteria for design model.",
-                      required: [
-                        "criterion_type",
-                        "measurement_name",
-                        "criterion",
-                        "model_id",
-                      ],
-                      type: "object",
-                      properties: {
-                        criterion_type: {
-                          title: "Criterion Type",
-                          description: "Type of criterion.",
-                          type: "string",
-                        },
-                        measurement_name: {
-                          title: "Measurement Name",
-                          description: "Name of measurement for objective.",
-                          type: "string",
-                        },
-                        criterion: {
-                          title: "Criterion for Model",
-                          description:
-                            "Criterion for a model-based objective with a target, direction and weight.",
-                          required: ["target", "direction"],
-                          type: "object",
-                          properties: {
-                            target: {
-                              title: "Target",
-                              description: "Target objective.",
-                              type: "number",
-                            },
-                            direction: {
-                              title: "Direction",
-                              description:
-                                "Direction of objective describing the inequality.",
-                              enum: [">", "<", "="],
-                              type: "string",
-                            },
-                            weight: {
-                              title: "Weight",
-                              description: "Weight of objective.",
-                              type: "number",
-                              default: 1,
-                            },
-                          },
-                        },
-                        model_id: {
-                          title: "ModelID",
-                          description:
-                            "Model ID to use for computing objective scores.",
-                          type: "string",
-                        },
-                      },
-                    },
-                  },
-                  k: {
-                    title: "K",
-                    description:
-                      "Number of samples to draw in a Monte Carlo. Defaults to 10000.",
-                    type: "integer",
-                    default: 10000,
-                  },
-                },
+                $ref: "#/components/schemas/NSuccessRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "200": {
+          200: {
             description: "Successful Response",
             content: {
               "application/json": {
                 schema: {
-                  title: "NSuccess",
-                  description:
-                    "Number of successes expected for a design job, as a histogram.",
-                  required: ["histogram", "mean", "stddev", "percentile"],
-                  type: "object",
-                  properties: {
-                    histogram: {
-                      title: "Histogram",
-                      description: "N array of probability of success.",
-                      type: "array",
-                      items: {
-                        type: "number",
-                      },
-                    },
-                    mean: {
-                      title: "Mean",
-                      description: "Mean of the output histogram.",
-                      type: "number",
-                    },
-                    stddev: {
-                      title: "Standrd Deviation",
-                      description: "Standard deviation of output histogram.",
-                      type: "number",
-                    },
-                    percentile: {
-                      title: "Percentile",
-                      description:
-                        "Dictionary of percentiles of the histogram.",
-                      type: "object",
-                      additionalProperties: {
-                        type: "integer",
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/NSuccess",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2087,7 +573,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "calculateNSuccesses",
       },
     },
     "/api/v1/design/models/rfdiffusion": {
@@ -2103,399 +588,69 @@ const designSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "DesignRequestRFdiffusion",
-                description:
-                  "Request to design new structures using RFdiffusion.\n\n`query_id` or `contigs` is required.\n",
-                type: "object",
-                properties: {
-                  n: {
-                    title: "Number of Designs",
-                    description:
-                      "Number of designs to generate based on given parameters.",
-                    type: "integer",
-                    default: 1,
-                    example: 1,
-                    "x-order": 101,
-                  },
-                  query_id: {
-                    title: "Query ID",
-                    description:
-                      "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or contigs should be specified.",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  structure_text: {
-                    title: "Structure Text",
-                    description: "String contents of the input PDB file.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example:
-                      "ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N\n...\n",
-                    "x-order": 102,
-                  },
-                  contigs: {
-                    title: "Contigs",
-                    description:
-                      "Contigs specification for providing lengths and fixed residues.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example: "100-100",
-                    "x-order": 103,
-                  },
-                  inpaint_seq: {
-                    title: "Inpaint Sequences",
-                    description:
-                      "Mask input residues from the input structure.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example: "A1/A30-40",
-                    "x-order": 104,
-                  },
-                  provide_seq: {
-                    title: "Provide Sequences",
-                    description:
-                      "Fix input residues when doing partial diffusion.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example: "100-119",
-                    "x-order": 105,
-                  },
-                  hotspot: {
-                    title: "Hotspots",
-                    description:
-                      "Hotspot residues to indicate to the model which sites the binder should interact.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example: "A30,A33,A34",
-                    "x-order": 106,
-                  },
-                  T: {
-                    title: "Number of Iterations",
-                    description: "Number of diffusion steps to take.",
-                    type: "integer",
-                    default: 50,
-                    example: 50,
-                    "x-order": 107,
-                  },
-                  partial_T: {
-                    title: "Number of Partial Diffusion Iterations",
-                    description: "Number of partial diffusion steps to take.",
-                    type: "integer",
-                    default: 20,
-                    example: 20,
-                    "x-order": 108,
-                  },
-                  use_active_site_model: {
-                    title: "Use Active Site Model",
-                    description:
-                      "Whether or not to use the active site model, which is useful for holding very small motifs in place.",
-                    type: "boolean",
-                    default: false,
-                    example: false,
-                    "x-order": 109,
-                  },
-                  use_beta_model: {
-                    title: "Use Beta Model",
-                    description:
-                      "Whether or not to use the beta model, which is useful for generating more diverse topologies but possibly trading off for success rates.",
-                    type: "boolean",
-                    default: false,
-                    example: false,
-                    "x-order": 110,
-                  },
-                  symmetry: {
-                    title: "Symmetry",
-                    description: "Type of symmetry to constrain the design to.",
-                    type: "string",
-                    enum: ["cyclic", "dihedral", "tetrahedral"],
-                    nullable: true,
-                    default: null,
-                    "x-order": 111,
-                  },
-                  order: {
-                    title: "Symmetry Order",
-                    description:
-                      "The order of symmetry the design should have, in the case of cyclic and dihedral.",
-                    type: "integer",
-                    nullable: true,
-                    default: null,
-                    "x-order": 112,
-                  },
-                  add_potential: {
-                    title: "Add Potential",
-                    description:
-                      "Whether or not to use potential when creating symmetrical designs, which has been found to be useful. If `null`, defaults to true when doing symmetrical design.",
-                    type: "boolean",
-                    nullable: true,
-                    default: null,
-                    "x-order": 113,
-                  },
-                  scaffold_target_structure_text: {
-                    title: "Scaffold Target Structure Text",
-                    description:
-                      "String contents of the input PDB file for scaffold guided design. This PDB is used to provide secondary structure and block adjacency information for doing fold conditioning towards the input topology.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example:
-                      "ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N\n...\n",
-                    "x-order": 114,
-                  },
-                  scaffold_target_use_struct: {
-                    title: "Scaffold Target Use Structure",
-                    description:
-                      "Whether or not to use the input scaffold structure PDB as a target for scaffold guided binder design.",
-                    type: "boolean",
-                    default: false,
-                    example: false,
-                    "x-order": 115,
-                  },
-                },
-                examples: {
-                  query: {
-                    n: 1,
-                    query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
-                  },
-                  unconditional: {
-                    n: 3,
-                    contigs: "100-100",
-                  },
-                  motif_scaffolding: {
-                    contigs: "10-40/A163-181/10-40",
-                    structure_text: "...",
-                  },
-                },
-                example: {
-                  n: 1,
-                  query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
-                },
+                $ref: "#/components/schemas/DesignRequestRFdiffusion",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Design job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2506,7 +661,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "designRFdiffusion",
       },
     },
     "/api/v1/design/models/boltzgen": {
@@ -2522,411 +676,69 @@ const designSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "DesignRequestBoltzGen",
-                description:
-                  "Request to design new structures using BoltzGen.\n\n`query_id` or `design_spec` is required.\n",
-                type: "object",
-                properties: {
-                  n: {
-                    title: "Number of Designs",
-                    description: "Number of unique design trajectories to run.",
-                    type: "integer",
-                    default: 1,
-                    example: 1,
-                    "x-order": 101,
-                  },
-                  query_id: {
-                    title: "Query ID",
-                    description:
-                      "ID of query which contains the encoded design request. This design request should be a partially/fully masked structure, which will be designed by the model. Either query_id or design_spec should be specified.",
-                    type: "string",
-                    format: "uuid",
-                  },
-                  design_spec: {
-                    title: "BoltzGenDesignSpec",
-                    description:
-                      "Complete BoltzGen design specification including entities and constraints.",
-                    type: "object",
-                    required: ["entities"],
-                    properties: {
-                      entities: {
-                        title: "Entities",
-                        description:
-                          "List of entities in the design (proteins, ligands, or files).",
-                        type: "array",
-                        minItems: 1,
-                        items: {},
-                        "x-order": 1,
-                      },
-                      constraints: {
-                        title: "Constraints",
-                        description: "List of constraints for the design.",
-                        type: "array",
-                        nullable: true,
-                        default: null,
-                        items: {},
-                        "x-order": 2,
-                      },
-                    },
-                    example: {
-                      entities: [
-                        {
-                          protein: {
-                            id: "A",
-                            sequence: "ACDEFGHIKLMNPQRSTVWY",
-                          },
-                        },
-                        {
-                          ligand: {
-                            id: "B",
-                            ccd: "ATP",
-                          },
-                        },
-                      ],
-                      constraints: [
-                        {
-                          bond: {
-                            atom1: ["A", 10, "CA"],
-                            atom2: ["B", 1, "O"],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  structure_text: {
-                    title: "Structure Text",
-                    description:
-                      "String contents of the input PDB/CIF file for file-based entities. This provides the actual structure content for any FileEntity objects in the design_spec.",
-                    type: "string",
-                    nullable: true,
-                    default: null,
-                    example:
-                      "ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N\n...\n",
-                    "x-order": 103,
-                  },
-                  diffusion_batch_size: {
-                    title: "Diffusion Batch Size",
-                    description:
-                      "The batch size for diffusion sampling. Controls how many samples are processed in parallel during the diffusion process.",
-                    type: "integer",
-                    nullable: true,
-                    default: null,
-                    example: 4,
-                    "x-order": 104,
-                  },
-                  step_scale: {
-                    title: "Step Scale",
-                    description:
-                      "Scaling factor for the number of diffusion steps. Higher values may improve quality at the cost of longer generation time.",
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                    default: null,
-                    example: 1,
-                    "x-order": 105,
-                  },
-                  noise_scale: {
-                    title: "Noise Scale",
-                    description:
-                      "Scaling factor for the noise schedule during diffusion. Controls the amount of noise added at each step of the reverse diffusion process.",
-                    type: "number",
-                    format: "float",
-                    nullable: true,
-                    default: null,
-                    example: 1,
-                    "x-order": 106,
-                  },
-                },
-                examples: {
-                  query: {
-                    n: 1,
-                    query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
-                  },
-                  unconditional: {
-                    design_spec: {
-                      entities: [
-                        {
-                          protein: {
-                            id: "A",
-                            sequence: "100",
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  binder_design: {
-                    design_spec: {
-                      entities: [
-                        {
-                          file: {
-                            path: "target.pdb",
-                            include: "all",
-                          },
-                        },
-                        {
-                          protein: {
-                            id: "B",
-                            sequence: "50..100",
-                            binding_types: "BBBBBBBBBB",
-                          },
-                        },
-                      ],
-                    },
-                    structure_text: "ATOM ...",
-                  },
-                  protein_ligand: {
-                    design_spec: {
-                      entities: [
-                        {
-                          protein: {
-                            id: "A",
-                            sequence: "80",
-                          },
-                        },
-                        {
-                          ligand: {
-                            id: "B",
-                            ccd: "ATP",
-                          },
-                        },
-                      ],
-                      constraints: [
-                        {
-                          bond: {
-                            atom1: ["A", 10, "CA"],
-                            atom2: ["B", 1, "O"],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-                example: {
-                  n: 1,
-                  query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
-                },
+                $ref: "#/components/schemas/DesignRequestBoltzGen",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Design job created and pending.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Job",
-                  description: "Job represents a job for our compute platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                    },
-                  },
+                  $ref: "#/components/schemas/Job",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Bad request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description: "Unauthorized.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "403": {
+          403: {
             description: "Forbidden.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description: "Validation error.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2937,7 +749,6 @@ const designSpec = {
             oauth2: [],
           },
         ],
-        p: "designBoltzGen",
       },
     },
     "/api/v1/design/{job_id}": {
@@ -2958,136 +769,33 @@ const designSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Structure generate metadata successfully returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "StructureGenerate",
-                  description: "Structure generate request metadata.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "model_id",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    model_id: {
-                      type: "string",
-                      example: "rfdiffusion",
-                    },
-                    args: {
-                      type: "object",
-                      additionalProperties: true,
-                    },
-                  },
+                  $ref: "#/components/schemas/StructureGenerate",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Design job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3134,94 +842,54 @@ const designSpec = {
               "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
             required: false,
             schema: {
-              title: "OutputFormat",
-              description:
-                "Output format of folded structure. Defaults to pdb.",
-              type: "string",
-              enum: ["pdb", "mmcif"],
-              default: "pdb",
+              $ref: "#/components/schemas/OutputFormat",
             },
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Result encoded in requested format.",
             content: {
               "chemical/x-mmcif": {
                 schema: {
-                  title: "CIFOutput",
-                  description: "An output CIF structure file.",
-                  type: "string",
-                  example:
-                    'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
+                  $ref: "#/components/schemas/CIFOutput",
                 },
               },
               "chemical/x-pdb": {
                 schema: {
-                  title: "PDBOutput",
-                  description: "An output pdb structure file.",
-                  type: "string",
-                  example:
-                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+                  $ref: "#/components/schemas/PDBOutput",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Result retrieval error. Contact support for assistance if persistent.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3326,10 +994,7 @@ const designSpec = {
               "Sequences to use as reference for calculating the number of mutations.",
             type: "array",
             items: {
-              title: "Sequence",
-              description: "Protein sequence",
-              type: "string",
-              example: "MSKGEELFTGV",
+              $ref: "#/components/schemas/Sequence",
             },
           },
         },
@@ -3371,85 +1036,10 @@ const designSpec = {
                   "Actual criterion that can be evaluated as a score/objective to optimize.",
                 oneOf: [
                   {
-                    title: "ModelCriterion",
-                    description: "Criteria for design model.",
-                    required: [
-                      "criterion_type",
-                      "measurement_name",
-                      "criterion",
-                      "model_id",
-                    ],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      measurement_name: {
-                        title: "Measurement Name",
-                        description: "Name of measurement for objective.",
-                        type: "string",
-                      },
-                      criterion: {
-                        title: "Criterion for Model",
-                        description:
-                          "Criterion for a model-based objective with a target, direction and weight.",
-                        required: ["target", "direction"],
-                        type: "object",
-                        properties: {
-                          target: {
-                            title: "Target",
-                            description: "Target objective.",
-                            type: "number",
-                          },
-                          direction: {
-                            title: "Direction",
-                            description:
-                              "Direction of objective describing the inequality.",
-                            enum: [">", "<", "="],
-                            type: "string",
-                          },
-                          weight: {
-                            title: "Weight",
-                            description: "Weight of objective.",
-                            type: "number",
-                            default: 1,
-                          },
-                        },
-                      },
-                      model_id: {
-                        title: "ModelID",
-                        description:
-                          "Model ID to use for computing objective scores.",
-                        type: "string",
-                      },
-                    },
+                    $ref: "#/components/schemas/ModelCriterion",
                   },
                   {
-                    title: "NMutationsCriterion",
-                    description: "Criteria for design based on mutations.",
-                    required: ["criterion_type"],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      sequences: {
-                        title: "Sequences",
-                        description:
-                          "Sequences to use as reference for calculating the number of mutations.",
-                        type: "array",
-                        items: {
-                          title: "Sequence",
-                          description: "Protein sequence",
-                          type: "string",
-                          example: "MSKGEELFTGV",
-                        },
-                      },
-                    },
+                    $ref: "#/components/schemas/NMutationsCriterion",
                   },
                 ],
                 discriminator: {
@@ -3491,9 +1081,9 @@ const designSpec = {
             },
             "x-order": 13,
             example: {
-              "1": ["M", "W", "A"],
-              "104": ["C"],
-              "131": ["C"],
+              1: ["M", "W", "A"],
+              104: ["C"],
+              131: ["C"],
             },
           },
           pop_size: {
@@ -3551,209 +1141,14 @@ const designSpec = {
       DesignRequestGA: {
         title: "DesignRequestGeneticAlgorithm",
         description: "Request to design new variants using genetic algorithm.",
-        required: ["criteria", "num_steps", "assay_id"],
-        type: "object",
-        properties: {
-          num_steps: {
-            title: "Number of Steps",
-            description: "Number of steps to run the algorithm for.",
-            minimum: 1,
-            type: "integer",
-            example: 25,
-            "x-order": 10,
+        allOf: [
+          {
+            $ref: "#/components/schemas/DesignParams",
           },
-          assay_id: {
-            title: "Assay ID",
-            description: "Assay ID to use as a starting point.",
-            type: "string",
-            format: "uuid",
-            "x-order": 11,
+          {
+            $ref: "#/components/schemas/GeneticAlgorithmParams",
           },
-          criteria: {
-            title: "Criteria",
-            description:
-              "List of criterion, within which is a list of same-typed of subcriterion.",
-            type: "array",
-            items: {
-              title: "Subcriteria",
-              description:
-                "List of subcriterion, each of which must be the same type.",
-              type: "array",
-              items: {
-                title: "Subcriterion",
-                description:
-                  "Actual criterion that can be evaluated as a score/objective to optimize.",
-                oneOf: [
-                  {
-                    title: "ModelCriterion",
-                    description: "Criteria for design model.",
-                    required: [
-                      "criterion_type",
-                      "measurement_name",
-                      "criterion",
-                      "model_id",
-                    ],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      measurement_name: {
-                        title: "Measurement Name",
-                        description: "Name of measurement for objective.",
-                        type: "string",
-                      },
-                      criterion: {
-                        title: "Criterion for Model",
-                        description:
-                          "Criterion for a model-based objective with a target, direction and weight.",
-                        required: ["target", "direction"],
-                        type: "object",
-                        properties: {
-                          target: {
-                            title: "Target",
-                            description: "Target objective.",
-                            type: "number",
-                          },
-                          direction: {
-                            title: "Direction",
-                            description:
-                              "Direction of objective describing the inequality.",
-                            enum: [">", "<", "="],
-                            type: "string",
-                          },
-                          weight: {
-                            title: "Weight",
-                            description: "Weight of objective.",
-                            type: "number",
-                            default: 1,
-                          },
-                        },
-                      },
-                      model_id: {
-                        title: "ModelID",
-                        description:
-                          "Model ID to use for computing objective scores.",
-                        type: "string",
-                      },
-                    },
-                  },
-                  {
-                    title: "NMutationsCriterion",
-                    description: "Criteria for design based on mutations.",
-                    required: ["criterion_type"],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      sequences: {
-                        title: "Sequences",
-                        description:
-                          "Sequences to use as reference for calculating the number of mutations.",
-                        type: "array",
-                        items: {
-                          title: "Sequence",
-                          description: "Protein sequence",
-                          type: "string",
-                          example: "MSKGEELFTGV",
-                        },
-                      },
-                    },
-                  },
-                ],
-                discriminator: {
-                  propertyName: "criterion_type",
-                  mapping: {
-                    model: "#/components/schemas/ModelCriterion",
-                    n_mutations: "#/components/schemas/NMutationsCriterion",
-                  },
-                },
-              },
-            },
-            "x-order": 12,
-            example: [
-              [
-                {
-                  criterion_type: "model",
-                  model_id: "ec0364fd-83ff-4f26-bc17-eb0bd8cfcae5",
-                  measurement_name: "activity",
-                  criterion: {
-                    target: 0,
-                    weight: 0.5,
-                    direction: ">",
-                  },
-                },
-              ],
-            ],
-          },
-          allowed_tokens: {
-            title: "Allowed Tokens",
-            description: "Hash map of position to allowed tokens.",
-            type: "object",
-            additionalProperties: {
-              type: "array",
-              items: {
-                type: "string",
-                description: "Allowed tokens in this position.",
-                example: ["A", "C", "M"],
-              },
-            },
-            "x-order": 13,
-            example: {
-              "1": ["M", "W", "A"],
-              "104": ["C"],
-              "131": ["C"],
-            },
-          },
-          pop_size: {
-            title: "Population Size",
-            description:
-              "Size of population or number of candidates to explore per step.",
-            type: "integer",
-            nullable: true,
-            default: 256,
-            example: 256,
-            "x-order": 101,
-          },
-          n_offsprings: {
-            title: "Number of Offsprings",
-            description: "Number of offsprings in genetic algorithm.",
-            type: "integer",
-            default: 5120,
-            example: 5120,
-            "x-order": 101,
-          },
-          crossover_prob: {
-            title: "Crossover Probability",
-            description: "Crossover probability in genetic algorithm.",
-            type: "number",
-            default: 1,
-            example: 1,
-            "x-order": 102,
-          },
-          crossover_prob_pointwise: {
-            title: "Crossover Probability Pointwise",
-            description:
-              "Pointwise crossover probability in genetic algorithm.",
-            type: "number",
-            default: 0.2,
-            example: 0.2,
-            "x-order": 103,
-          },
-          mutation_average_mutations_per_seq: {
-            title: "Average Mutations",
-            description: "Targeted average mutations per seuqnces",
-            type: "integer",
-            default: 1,
-            example: 1,
-            "x-order": 104,
-          },
-        },
+        ],
       },
       JobID: {
         title: "JobID",
@@ -3792,11 +1187,7 @@ const designSpec = {
         ],
         properties: {
           job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
+            $ref: "#/components/schemas/JobID",
           },
           prerequisite_job_id: {
             title: "PrerequisiteJobID",
@@ -3809,12 +1200,7 @@ const designSpec = {
             "x-order": 2,
           },
           created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
+            $ref: "#/components/schemas/CreatedDate",
           },
           start_date: {
             title: "StartDate",
@@ -3837,11 +1223,7 @@ const designSpec = {
             "x-order": 6,
           },
           status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
+            $ref: "#/components/schemas/JobStatus",
           },
           progress_counter: {
             title: "ProgressCounter",
@@ -3889,6 +1271,7 @@ const designSpec = {
           "/predictor/predict_single_site",
           "/predictor/predict_multi",
           "/predictor/crossvalidate",
+          "/clustering/hierarchical",
           "/design",
         ],
         "x-order": 3,
@@ -3896,119 +1279,20 @@ const designSpec = {
       Job: {
         title: "Job",
         description: "Job represents a job for our compute platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
+          },
+          {
+            type: "object",
+            required: ["job_type"],
+            properties: {
+              job_type: {
+                $ref: "#/components/schemas/JobType",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-          },
-        },
       },
       Error: {
         title: "Error",
@@ -4058,11 +1342,7 @@ const designSpec = {
             "x-order": 0,
           },
           status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
+            $ref: "#/components/schemas/JobStatus",
           },
           current_step: {
             title: "Current Step",
@@ -4084,12 +1364,7 @@ const designSpec = {
             default: 0,
           },
           created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
+            $ref: "#/components/schemas/CreatedDate",
           },
           algorithm: {
             title: "Algorithm",
@@ -4107,279 +1382,20 @@ const designSpec = {
         title: "Design",
         description:
           "Design with metadata of request and results if succeeded.",
-        type: "object",
-        required: [
-          "id",
-          "status",
-          "current_step",
-          "terminated",
-          "progress_counter",
-          "created_date",
-          "algorithm",
-          "num_rows",
-          "criteria",
-          "num_steps",
-          "assay_id",
-        ],
-        properties: {
-          id: {
-            title: "ID",
-            description: "ID of design.",
-            type: "string",
-            format: "uuid",
-            "x-order": 0,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          current_step: {
-            title: "Current Step",
-            description: "Current step in the algorithm",
-            type: "integer",
-          },
-          terminated: {
-            title: "Terminated",
-            description: "Whether the algorithm was terminated early.",
-            type: "boolean",
-          },
-          progress_counter: {
-            title: "Progress Counter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          algorithm: {
-            title: "Algorithm",
-            description: "Design algorithm used.",
-            type: "string",
-          },
-          num_rows: {
-            title: "Number of Rows",
-            description: "Number of rows in output of design result.",
-            type: "integer",
-          },
-          num_steps: {
-            title: "Number of Steps",
-            description: "Number of steps to run the algorithm for.",
-            minimum: 1,
-            type: "integer",
-            example: 25,
-            "x-order": 10,
-          },
-          assay_id: {
-            title: "Assay ID",
-            description: "Assay ID to use as a starting point.",
-            type: "string",
-            format: "uuid",
-            "x-order": 11,
-          },
-          criteria: {
-            title: "Criteria",
-            description:
-              "List of criterion, within which is a list of same-typed of subcriterion.",
-            type: "array",
-            items: {
-              title: "Subcriteria",
-              description:
-                "List of subcriterion, each of which must be the same type.",
-              type: "array",
-              items: {
-                title: "Subcriterion",
-                description:
-                  "Actual criterion that can be evaluated as a score/objective to optimize.",
-                oneOf: [
-                  {
-                    title: "ModelCriterion",
-                    description: "Criteria for design model.",
-                    required: [
-                      "criterion_type",
-                      "measurement_name",
-                      "criterion",
-                      "model_id",
-                    ],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      measurement_name: {
-                        title: "Measurement Name",
-                        description: "Name of measurement for objective.",
-                        type: "string",
-                      },
-                      criterion: {
-                        title: "Criterion for Model",
-                        description:
-                          "Criterion for a model-based objective with a target, direction and weight.",
-                        required: ["target", "direction"],
-                        type: "object",
-                        properties: {
-                          target: {
-                            title: "Target",
-                            description: "Target objective.",
-                            type: "number",
-                          },
-                          direction: {
-                            title: "Direction",
-                            description:
-                              "Direction of objective describing the inequality.",
-                            enum: [">", "<", "="],
-                            type: "string",
-                          },
-                          weight: {
-                            title: "Weight",
-                            description: "Weight of objective.",
-                            type: "number",
-                            default: 1,
-                          },
-                        },
-                      },
-                      model_id: {
-                        title: "ModelID",
-                        description:
-                          "Model ID to use for computing objective scores.",
-                        type: "string",
-                      },
-                    },
-                  },
-                  {
-                    title: "NMutationsCriterion",
-                    description: "Criteria for design based on mutations.",
-                    required: ["criterion_type"],
-                    type: "object",
-                    properties: {
-                      criterion_type: {
-                        title: "Criterion Type",
-                        description: "Type of criterion.",
-                        type: "string",
-                      },
-                      sequences: {
-                        title: "Sequences",
-                        description:
-                          "Sequences to use as reference for calculating the number of mutations.",
-                        type: "array",
-                        items: {
-                          title: "Sequence",
-                          description: "Protein sequence",
-                          type: "string",
-                          example: "MSKGEELFTGV",
-                        },
-                      },
-                    },
-                  },
-                ],
-                discriminator: {
-                  propertyName: "criterion_type",
-                  mapping: {
-                    model: "#/components/schemas/ModelCriterion",
-                    n_mutations: "#/components/schemas/NMutationsCriterion",
-                  },
-                },
-              },
-            },
-            "x-order": 12,
-            example: [
-              [
-                {
-                  criterion_type: "model",
-                  model_id: "ec0364fd-83ff-4f26-bc17-eb0bd8cfcae5",
-                  measurement_name: "activity",
-                  criterion: {
-                    target: 0,
-                    weight: 0.5,
-                    direction: ">",
-                  },
-                },
-              ],
-            ],
-          },
-          allowed_tokens: {
-            title: "Allowed Tokens",
-            description: "Hash map of position to allowed tokens.",
-            type: "object",
-            additionalProperties: {
-              type: "array",
-              items: {
-                type: "string",
-                description: "Allowed tokens in this position.",
-                example: ["A", "C", "M"],
-              },
-            },
-            "x-order": 13,
-            example: {
-              "1": ["M", "W", "A"],
-              "104": ["C"],
-              "131": ["C"],
-            },
-          },
-          pop_size: {
-            title: "Population Size",
-            description:
-              "Size of population or number of candidates to explore per step.",
-            type: "integer",
-            nullable: true,
-            default: 256,
-            example: 256,
-            "x-order": 101,
-          },
-        },
-        oneOf: [
+        allOf: [
           {
-            title: "GeneticAlgorithmParams",
-            description: "Parameters for running genetic-algorithm.",
-            type: "object",
-            properties: {
-              n_offsprings: {
-                title: "Number of Offsprings",
-                description: "Number of offsprings in genetic algorithm.",
-                type: "integer",
-                default: 5120,
-                example: 5120,
-                "x-order": 101,
+            $ref: "#/components/schemas/DesignMetadata",
+          },
+          {
+            $ref: "#/components/schemas/DesignParams",
+          },
+          {
+            oneOf: [
+              {
+                $ref: "#/components/schemas/GeneticAlgorithmParams",
+                "x-order": 1000,
               },
-              crossover_prob: {
-                title: "Crossover Probability",
-                description: "Crossover probability in genetic algorithm.",
-                type: "number",
-                default: 1,
-                example: 1,
-                "x-order": 102,
-              },
-              crossover_prob_pointwise: {
-                title: "Crossover Probability Pointwise",
-                description:
-                  "Pointwise crossover probability in genetic algorithm.",
-                type: "number",
-                default: 0.2,
-                example: 0.2,
-                "x-order": 103,
-              },
-              mutation_average_mutations_per_seq: {
-                title: "Average Mutations",
-                description: "Targeted average mutations per seuqnces",
-                type: "integer",
-                default: 1,
-                example: 1,
-                "x-order": 104,
-              },
-            },
+            ],
           },
         ],
         example: {
@@ -4416,9 +1432,9 @@ const designSpec = {
             ],
           ],
           allowed_tokens: {
-            "1": ["M", "W", "A"],
-            "104": ["C"],
-            "131": ["C"],
+            1: ["M", "W", "A"],
+            104: ["C"],
+            131: ["C"],
           },
           pop_size: 1024,
           n_offsprings: 256,
@@ -4462,60 +1478,7 @@ const designSpec = {
               "M array of model criterion, same as submitting a design job.\n",
             type: "array",
             items: {
-              title: "ModelCriterion",
-              description: "Criteria for design model.",
-              required: [
-                "criterion_type",
-                "measurement_name",
-                "criterion",
-                "model_id",
-              ],
-              type: "object",
-              properties: {
-                criterion_type: {
-                  title: "Criterion Type",
-                  description: "Type of criterion.",
-                  type: "string",
-                },
-                measurement_name: {
-                  title: "Measurement Name",
-                  description: "Name of measurement for objective.",
-                  type: "string",
-                },
-                criterion: {
-                  title: "Criterion for Model",
-                  description:
-                    "Criterion for a model-based objective with a target, direction and weight.",
-                  required: ["target", "direction"],
-                  type: "object",
-                  properties: {
-                    target: {
-                      title: "Target",
-                      description: "Target objective.",
-                      type: "number",
-                    },
-                    direction: {
-                      title: "Direction",
-                      description:
-                        "Direction of objective describing the inequality.",
-                      enum: [">", "<", "="],
-                      type: "string",
-                    },
-                    weight: {
-                      title: "Weight",
-                      description: "Weight of objective.",
-                      type: "number",
-                      default: 1,
-                    },
-                  },
-                },
-                model_id: {
-                  title: "ModelID",
-                  description:
-                    "Model ID to use for computing objective scores.",
-                  type: "string",
-                },
-              },
+              $ref: "#/components/schemas/ModelCriterion",
             },
           },
           k: {
@@ -4733,6 +1696,598 @@ const designSpec = {
           query_id: "afc17865-5c97-4b22-9c37-cdf3985e06bb",
         },
       },
+      BoltzGenProteinEntity: {
+        title: "BoltzGenProteinEntity",
+        description: "Protein entity specification for BoltzGen.",
+        type: "object",
+        required: ["id", "sequence"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier(s) for the protein.",
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "array",
+                items: {
+                  type: "string",
+                },
+              },
+            ],
+            example: "A",
+          },
+          sequence: {
+            title: "Sequence",
+            description:
+              'Protein sequence. Can include:\n- Amino acid letters (A-Z)\n- Design residues (numbers, e.g., "10" for 10 design residues)\n- Ranges (e.g., "15..20" for random number between 15-20)\n- Mixed patterns (e.g., "3..5C6C3" for variable design + fixed residues)',
+            type: "string",
+            example: "ACDEFGHIKLMNPQRSTVWY",
+          },
+          secondary_structure: {
+            title: "Secondary Structure",
+            description: "Secondary structure specification.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "LLLLLLLLLL",
+          },
+          binding_types: {
+            title: "Binding Types",
+            description:
+              "Binding type specification. Can be:\n- String with characters: 'u' (unspecified), 'B' (binding), 'N' (not binding)\n- Object with 'binding' and/or 'not_binding' keys",
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "object",
+                properties: {
+                  binding: {
+                    type: "string",
+                  },
+                  not_binding: {
+                    type: "string",
+                  },
+                },
+              },
+            ],
+            nullable: true,
+            default: null,
+            example: "uuuBBBBuuu",
+          },
+          cyclic: {
+            title: "Cyclic",
+            description: "Whether the protein is cyclic.",
+            type: "boolean",
+            default: false,
+            example: false,
+          },
+        },
+      },
+      BoltzGenLigandEntity: {
+        title: "BoltzGenLigandEntity",
+        description: "Ligand entity specification for BoltzGen.",
+        type: "object",
+        required: ["id"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier(s) for the ligand.",
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "array",
+                items: {
+                  type: "string",
+                },
+              },
+            ],
+            example: "B",
+          },
+          ccd: {
+            title: "CCD Code",
+            description: "Chemical Component Dictionary identifier.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "ATP",
+          },
+          smiles: {
+            title: "SMILES",
+            description: "SMILES string representation of the ligand.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+          },
+          binding_types: {
+            title: "Binding Types",
+            description:
+              "Binding type specification. Can be:\n- String with characters: 'u' (unspecified), 'B' (binding), 'N' (not binding)\n- Object with 'binding' and/or 'not_binding' keys",
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "object",
+                properties: {
+                  binding: {
+                    type: "string",
+                  },
+                  not_binding: {
+                    type: "string",
+                  },
+                },
+              },
+            ],
+            nullable: true,
+            default: null,
+          },
+        },
+        oneOf: [
+          {
+            required: ["ccd"],
+          },
+          {
+            required: ["smiles"],
+          },
+        ],
+      },
+      BoltzGenChainInclude: {
+        title: "BoltzGenChainInclude",
+        description: "Chain inclusion specification.",
+        type: "object",
+        required: ["id"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          res_index: {
+            title: "Residue Index",
+            description: 'Residue index range (e.g., "10..16", "..5", "20..").',
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "10..16",
+          },
+        },
+      },
+      BoltzGenChainIncludeProximity: {
+        title: "BoltzGenChainIncludeProximity",
+        description: "Proximity-based chain inclusion.",
+        type: "object",
+        required: ["id", "res_index", "radius"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          res_index: {
+            title: "Residue Index",
+            description: "Residue index range.",
+            type: "string",
+            example: "10..16",
+          },
+          radius: {
+            title: "Radius",
+            description: "Radius in angstroms for proximity inclusion.",
+            type: "number",
+            format: "float",
+            example: 8,
+          },
+        },
+      },
+      BoltzGenChainBindingType: {
+        title: "BoltzGenChainBindingType",
+        description: "Binding type specification for a chain.",
+        type: "object",
+        required: ["id"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          binding: {
+            title: "Binding",
+            description: 'Residue indices that are binding (e.g., "5..7,13").',
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "5..7,13",
+          },
+          not_binding: {
+            title: "Not Binding",
+            description:
+              'Residue indices that are not binding (e.g., "9..11" or "all").',
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "9..11",
+          },
+        },
+      },
+      BoltzGenStructureGroup: {
+        title: "BoltzGenStructureGroup",
+        description: "Structure group for visibility control.",
+        type: "object",
+        required: ["visibility", "id"],
+        properties: {
+          visibility: {
+            title: "Visibility",
+            description: "Visibility level (0, 1, 2, etc.).",
+            type: "integer",
+            example: 0,
+          },
+          id: {
+            title: "Chain ID",
+            description: 'Chain identifier or "all".',
+            type: "string",
+            example: "A",
+          },
+          res_index: {
+            title: "Residue Index",
+            description: "Residue index range.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "10..16",
+          },
+        },
+      },
+      BoltzGenChainDesign: {
+        title: "BoltzGenChainDesign",
+        description: "Design specification for a chain.",
+        type: "object",
+        required: ["id", "res_index"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          res_index: {
+            title: "Residue Index",
+            description: 'Residue indices to design (e.g., "..4,20..27").',
+            type: "string",
+            example: "..4,20..27",
+          },
+        },
+      },
+      BoltzGenChainSecondaryStructure: {
+        title: "BoltzGenChainSecondaryStructure",
+        description: "Secondary structure specification for a chain.",
+        type: "object",
+        required: ["id"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          loop: {
+            title: "Loop",
+            description: "Residue indices for loop regions.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "1..5",
+          },
+          helix: {
+            title: "Helix",
+            description: "Residue indices for helix regions.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "6..20",
+          },
+          sheet: {
+            title: "Sheet",
+            description: "Residue indices for sheet regions.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "21..30",
+          },
+        },
+      },
+      BoltzGenDesignInsertion: {
+        title: "BoltzGenDesignInsertion",
+        description: "Design insertion specification.",
+        type: "object",
+        required: ["id", "res_index", "num_residues"],
+        properties: {
+          id: {
+            title: "Chain ID",
+            description: "Chain identifier.",
+            type: "string",
+            example: "A",
+          },
+          res_index: {
+            title: "Residue Index",
+            description: "Residue index where insertion occurs (1-based).",
+            type: "integer",
+            example: 10,
+          },
+          num_residues: {
+            title: "Number of Residues",
+            description:
+              'Number of residues to insert. Can be a range (e.g., "2..9") or fixed number.',
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "integer",
+              },
+            ],
+            example: "2..9",
+          },
+          secondary_structure: {
+            title: "Secondary Structure",
+            description: "Secondary structure type for inserted residues.",
+            type: "string",
+            enum: ["UNSPECIFIED", "LOOP", "HELIX", "SHEET"],
+            default: "UNSPECIFIED",
+            example: "LOOP",
+          },
+        },
+      },
+      BoltzGenFileEntity: {
+        title: "BoltzGenFileEntity",
+        description:
+          "File-based entity specification (e.g., PDB/CIF files).\n\nNote: The `path` field is a placeholder. When using the API, the actual structure\ncontent must be provided via the `structure_file` parameter in the request body.",
+        type: "object",
+        required: ["path"],
+        properties: {
+          path: {
+            title: "Path",
+            description:
+              "Path to the structure file. This is a placeholder that will be overwritten\nby the `structure_file` argument when calling the API. The actual structure\ncontent must be provided via the `structure_file` parameter.",
+            type: "string",
+            example: "input.pdb",
+          },
+          fuse: {
+            title: "Fuse Chain",
+            description: "Chain ID to fuse with.",
+            type: "string",
+            nullable: true,
+            default: null,
+            example: "A",
+          },
+          include: {
+            title: "Include",
+            description:
+              'Chains or regions to include. Can be "all" or list of chain specifications.',
+            oneOf: [
+              {
+                type: "string",
+                enum: ["all"],
+              },
+              {
+                type: "array",
+                items: {
+                  $ref: "#/components/schemas/BoltzGenChainInclude",
+                },
+              },
+            ],
+            nullable: true,
+            default: null,
+            example: "all",
+          },
+          exclude: {
+            title: "Exclude",
+            description: "Chains or regions to exclude.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenChainInclude",
+            },
+          },
+          include_proximity: {
+            title: "Include Proximity",
+            description: "Proximity-based inclusion specifications.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenChainIncludeProximity",
+            },
+          },
+          binding_types: {
+            title: "Binding Types",
+            description: "Binding type specifications for chains.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenChainBindingType",
+            },
+          },
+          structure_groups: {
+            title: "Structure Groups",
+            description:
+              "Structure group specifications for visibility control.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenStructureGroup",
+            },
+          },
+          design: {
+            title: "Design",
+            description: "Design specifications for chains.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenChainDesign",
+            },
+          },
+          secondary_structure: {
+            title: "Secondary Structure",
+            description: "Secondary structure specifications for chains.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenChainSecondaryStructure",
+            },
+          },
+          design_insertions: {
+            title: "Design Insertions",
+            description: "Design insertion specifications.",
+            type: "array",
+            nullable: true,
+            default: null,
+            items: {
+              $ref: "#/components/schemas/BoltzGenDesignInsertion",
+            },
+          },
+        },
+      },
+      BoltzGenEntity: {
+        title: "BoltzGenEntity",
+        description:
+          "Entity wrapper for different entity types (protein, ligand, or file).",
+        type: "object",
+        properties: {
+          protein: {
+            $ref: "#/components/schemas/BoltzGenProteinEntity",
+            nullable: true,
+            default: null,
+          },
+          ligand: {
+            $ref: "#/components/schemas/BoltzGenLigandEntity",
+            nullable: true,
+            default: null,
+          },
+          file: {
+            $ref: "#/components/schemas/BoltzGenFileEntity",
+            nullable: true,
+            default: null,
+          },
+        },
+        oneOf: [
+          {
+            required: ["protein"],
+          },
+          {
+            required: ["ligand"],
+          },
+          {
+            required: ["file"],
+          },
+        ],
+      },
+      BoltzGenBondConstraint: {
+        title: "BoltzGenBondConstraint",
+        description: "Covalent bond constraint between two atoms.",
+        type: "object",
+        required: ["atom1", "atom2"],
+        properties: {
+          atom1: {
+            title: "Atom 1",
+            description:
+              "First atom specification [CHAIN_ID, RES_IDX, ATOM_NAME].",
+            type: "array",
+            minItems: 3,
+            maxItems: 3,
+            items: {
+              oneOf: [
+                {
+                  type: "string",
+                },
+                {
+                  type: "integer",
+                },
+              ],
+            },
+            example: ["A", 10, "CA"],
+          },
+          atom2: {
+            title: "Atom 2",
+            description:
+              "Second atom specification [CHAIN_ID, RES_IDX, ATOM_NAME].",
+            type: "array",
+            minItems: 3,
+            maxItems: 3,
+            items: {
+              oneOf: [
+                {
+                  type: "string",
+                },
+                {
+                  type: "integer",
+                },
+              ],
+            },
+            example: ["B", 1, "O"],
+          },
+        },
+      },
+      BoltzGenTotalLengthConstraint: {
+        title: "BoltzGenTotalLengthConstraint",
+        description: "Total length constraint for the design.",
+        type: "object",
+        properties: {
+          min: {
+            title: "Minimum Length",
+            description: "Minimum total length.",
+            type: "integer",
+            nullable: true,
+            default: null,
+            example: 50,
+          },
+          max: {
+            title: "Maximum Length",
+            description: "Maximum total length.",
+            type: "integer",
+            nullable: true,
+            default: null,
+            example: 200,
+          },
+        },
+      },
+      BoltzGenConstraint: {
+        title: "BoltzGenConstraint",
+        description: "Constraint wrapper for different constraint types.",
+        type: "object",
+        properties: {
+          bond: {
+            $ref: "#/components/schemas/BoltzGenBondConstraint",
+            nullable: true,
+            default: null,
+          },
+          total_len: {
+            $ref: "#/components/schemas/BoltzGenTotalLengthConstraint",
+            nullable: true,
+            default: null,
+          },
+        },
+        anyOf: [
+          {
+            required: ["bond"],
+          },
+          {
+            required: ["total_len"],
+          },
+        ],
+      },
       BoltzGenDesignSpec: {
         title: "BoltzGenDesignSpec",
         description:
@@ -4746,7 +2301,9 @@ const designSpec = {
               "List of entities in the design (proteins, ligands, or files).",
             type: "array",
             minItems: 1,
-            items: {},
+            items: {
+              $ref: "#/components/schemas/BoltzGenEntity",
+            },
             "x-order": 1,
           },
           constraints: {
@@ -4755,7 +2312,9 @@ const designSpec = {
             type: "array",
             nullable: true,
             default: null,
-            items: {},
+            items: {
+              $ref: "#/components/schemas/BoltzGenConstraint",
+            },
             "x-order": 2,
           },
         },
@@ -4806,55 +2365,11 @@ const designSpec = {
             format: "uuid",
           },
           design_spec: {
-            title: "BoltzGenDesignSpec",
+            title: "Design Specification",
             description:
-              "Complete BoltzGen design specification including entities and constraints.",
-            type: "object",
-            required: ["entities"],
-            properties: {
-              entities: {
-                title: "Entities",
-                description:
-                  "List of entities in the design (proteins, ligands, or files).",
-                type: "array",
-                minItems: 1,
-                items: {},
-                "x-order": 1,
-              },
-              constraints: {
-                title: "Constraints",
-                description: "List of constraints for the design.",
-                type: "array",
-                nullable: true,
-                default: null,
-                items: {},
-                "x-order": 2,
-              },
-            },
-            example: {
-              entities: [
-                {
-                  protein: {
-                    id: "A",
-                    sequence: "ACDEFGHIKLMNPQRSTVWY",
-                  },
-                },
-                {
-                  ligand: {
-                    id: "B",
-                    ccd: "ATP",
-                  },
-                },
-              ],
-              constraints: [
-                {
-                  bond: {
-                    atom1: ["A", 10, "CA"],
-                    atom2: ["B", 1, "O"],
-                  },
-                },
-              ],
-            },
+              "BoltzGen design specification defining entities and constraints.",
+            $ref: "#/components/schemas/BoltzGenDesignSpec",
+            "x-order": 102,
           },
           structure_text: {
             title: "Structure Text",
@@ -4972,96 +2487,33 @@ const designSpec = {
       StructureGenerate: {
         title: "StructureGenerate",
         description: "Structure generate request metadata.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "model_id",
-        ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
           },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          model_id: {
-            type: "string",
-            example: "rfdiffusion",
-          },
-          args: {
+          {
             type: "object",
-            additionalProperties: true,
+            required: ["model_id"],
+            properties: {
+              model_id: {
+                type: "string",
+                example: "rfdiffusion",
+              },
+              args: {
+                type: "object",
+                additionalProperties: true,
+              },
+            },
           },
-        },
+        ],
       },
       OutputFormat: {
         title: "OutputFormat",
-        description: "Output format of folded structure. Defaults to pdb.",
+        description:
+          "Output format of folded structure. Defaults to `mmcif`.\n\nThe value `cif` is accepted as an alias for `mmcif`.\n",
         type: "string",
-        enum: ["pdb", "mmcif"],
-        default: "pdb",
+        enum: ["pdb", "mmcif", "cif"],
+        default: "mmcif",
       },
       CIFOutput: {
         title: "CIFOutput",
@@ -5091,5 +2543,4 @@ const designSpec = {
     },
   ],
 };
-
 export default designSpec;

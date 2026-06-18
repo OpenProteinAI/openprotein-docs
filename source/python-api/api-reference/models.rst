@@ -51,3 +51,11 @@ ProteinMPNN is a sequence generation model that can be used for inverse folding,
 
 .. autoclass:: openprotein.models.ProteinMPNNModel
    :members:
+
+ESM-IF1
+^^^^^^^
+
+ESM-IF1 is an inverse folding model pretrained on PDB and millions of AlphaFold-predicted structures. Given a backbone structure, it scores and generates sequences predicted to fold into it, making it another option for inverse folding alongside :py:class:`~openprotein.models.ProteinMPNNModel`.
+
+.. autoclass:: openprotein.models.ESMIF1Model
+   :members:

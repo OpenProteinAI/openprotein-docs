@@ -14,7 +14,9 @@ Web App
   * - Walkthroughs
     - Tools covered
   * - `Lead optimization of monoclonal antibody to meet target product profile <./antibody-engineering.rst>`_
-    - Optimization and Prediction Models 
+    - Optimization and Prediction Models
+  * - `Antibody hit selection from NGS data <./antibody-hit-selection-ngs.rst>`_
+    - Optimization and Prediction Models
   * - `Finding mutational hotspots and designing one-shot variant libraries <./enzyme-engineering.rst>`_
     - PoET, Structure Prediction
   * - `Designing libraries of multimeric proteins <./multichain.rst>`_
@@ -45,9 +47,9 @@ Python API
     - PoET-2
   * - `Visualizing antibody embeddings <./Embedding_and_visualizing_antibodies.ipynb>`_
     - Embeddings
-  * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`_
+  * - `Protein-protein binder design with RFdiffusion <./Protein_protein_binder_design_with_RFdiffusion.ipynb>`__
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
-  * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`_
+  * - `Nanobody binder design with BoltzGen <./Nanobody_binder_design_with_BoltzGen.ipynb>`__
     - Query design, BoltzGen, ProteinMPNN, Boltz-2
   * - `Quantitative decision making for library design <./quantitative-decision-making-library-design.ipynb>`_
     - Optimization and Prediction Models
@@ -75,6 +77,7 @@ Python API
   :maxdepth: 2
 
   Lead optimization of monoclonal antibody to meet target product profile <antibody-engineering>
+  Antibody hit selection from NGS data <antibody-hit-selection-ngs>
   Finding mutational hotspots and designing one-shot variant libraries <enzyme-engineering>
   Predicting the fitness of isomerases without experimental data <./predicting-fitness.ipynb>
   Understanding the impact of substitution and deletions on aliphatic amidase using different large language models <./AMIE_substitution_deletion_analysis_poet.ipynb>

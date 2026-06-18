@@ -169,6 +169,7 @@ Unified access to the models available on our platform.
    openprotein.models.ModelsAPI
    openprotein.models.RFdiffusionModel
    openprotein.models.ProteinMPNNModel
+   openprotein.models.ESMIF1Model
    openprotein.models.BoltzGenModel
   
 .. toctree::

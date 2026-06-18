@@ -38,58 +38,78 @@ const ui = SwaggerUIBundle({
   },
 });
 
-const HIERARCHY = {
-  overview: {
-    displayName: "Overview",
-    description: null,
-    tags: ["embeddings", "svd"],
-  },
-  computations: {
-    displayName: "Computations",
-    description: null,
-    tags: ["embed", "logits", "attn", "score", "generate"],
-  },
-  openprotein: {
-    displayName: "OpenProtein",
-    description: "Proprietary protein language models developed in-house.",
-    tags: [
-      "poet",
-      "prot-seq",
-      "rotaprot-large-uniref50w",
-      "rotaprot-large-uniref90-ft",
-    ],
-  },
-  esm1: {
-    displayName: "ESM1",
-    description:
-      "Community based ESM1 models, with different versions having different model parameters and training data",
-    tags: [
-      "esm1b_t33_650M_UR50S",
-      "esm1v_t33_650M_UR90S_1",
-      "esm1v_t33_650M_UR90S_2",
-      "esm1v_t33_650M_UR90S_3",
-      "esm1v_t33_650M_UR90S_4",
-      "esm1v_t33_650M_UR90S_5",
-    ],
-  },
-  esm2: {
-    displayName: "ESM2",
-    description:
-      "Community based ESM2 models, with different versions having different model parameters and training data",
-    tags: [
-      "esm2_t6_8M_UR50D",
-      "esm2_t12_35M_UR50D",
-      "esm2_t30_150M_UR50D",
-      "esm2_t33_650M_UR50D",
-      "esm2_t36_3B_UR50D",
-    ],
-  },
-  community: {
-    displayName: "Community-based",
-    description: "Other community-based foundational models.",
-    tags: ["prott5-xl", "proteinmpnn"],
-  },
+const GROUP_DISPLAY_NAMES = {
+  openprotein: "OpenProtein",
+  esm1: "ESM1",
+  esm2: "ESM2",
+  community: "Community-based",
+  antibody: "Antibody",
 };
+
+function buildHierarchy(spec) {
+  const tagOrder = {};
+  const tagDescriptions = {};
+  if (spec.tags) {
+    spec.tags.forEach((tag, i) => {
+      tagOrder[tag.name] = i;
+      tagDescriptions[tag.name] = tag.description;
+    });
+  }
+  const bySpecOrder = (a, b) =>
+    (tagOrder[a] ?? Infinity) - (tagOrder[b] ?? Infinity);
+
+  const overviewTags = new Set();
+  const computationTypes = new Set();
+  const groupChildren = {};
+
+  // Scan all operations to discover tag structure:
+  // - Single-tag operations → overview tags (e.g. ["embeddings"])
+  // - Multi-tag operations → [group, ...models, computationType]
+  for (const path in spec.paths) {
+    for (const method in spec.paths[path]) {
+      const op = spec.paths[path][method];
+      if (!op.tags) continue;
+
+      if (op.tags.length === 1) {
+        overviewTags.add(op.tags[0]);
+      } else if (op.tags.length >= 3) {
+        const group = op.tags[0];
+        computationTypes.add(op.tags[op.tags.length - 1]);
+        if (!groupChildren[group]) groupChildren[group] = new Set();
+        for (let i = 1; i < op.tags.length - 1; i++) {
+          groupChildren[group].add(op.tags[i]);
+        }
+      }
+    }
+  }
+
+  const hierarchy = {
+    overview: {
+      displayName: "Overview",
+      description: null,
+      tags: [...overviewTags].sort(bySpecOrder),
+    },
+    computations: {
+      displayName: "Computations",
+      description: null,
+      tags: [...computationTypes].sort(bySpecOrder),
+    },
+  };
+
+  for (const group of Object.keys(groupChildren).sort(bySpecOrder)) {
+    hierarchy[group] = {
+      displayName:
+        GROUP_DISPLAY_NAMES[group] ||
+        group.charAt(0).toUpperCase() + group.slice(1),
+      description: tagDescriptions[group] || null,
+      tags: [...groupChildren[group]].sort(bySpecOrder),
+    };
+  }
+
+  return hierarchy;
+}
+
+const HIERARCHY = buildHierarchy(embeddingsSpec);
 
 function adjustDescriptions() {
   // adjust group descriptions
@@ -179,7 +199,10 @@ function addSwaggerEndpointsToTOC(endpointPosition) {
       // Adding new links to the table of content
       // Create a new anchor element for the toc
       const tagAnchor = document.createElement("a");
-      tagAnchor.innerText = tagName;
+      tagAnchor.innerText = GROUP_DISPLAY_NAMES[tagName] || tagName;
+      if (GROUP_DISPLAY_NAMES[tagName]) {
+        tagAnchor.style.fontWeight = "bold";
+      }
 
       // Add classes and attributes to the anchor element
       tagAnchor.classList.add("nav-link");

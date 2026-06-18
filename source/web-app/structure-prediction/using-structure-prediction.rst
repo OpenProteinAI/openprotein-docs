@@ -87,7 +87,7 @@ the **Number of recycles**. This allows the network to further refine structures
    :alt: ESMFold
    
 Using MiniFold
--------------
+--------------
 
 If you select **MiniFold**, the **Advanced Options** let you set the **Number of recycles**, which controls how many times the network refines a structure by feeding the output of one cycle into the next. This parameter defaults to **auto** and accepts integers from **1 to 48**.  
 
@@ -99,7 +99,7 @@ If you select **MiniFold**, the **Advanced Options** let you set the **Number of
    :alt: MiniFold
 
 Using RosettaFold-3
------------------
+-------------------
 
 When using RosettaFold-3, you can enter or upload multiple proteins in the input fields provided. 
 

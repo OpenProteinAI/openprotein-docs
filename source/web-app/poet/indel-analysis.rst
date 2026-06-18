@@ -26,7 +26,7 @@ You can access the Indel Analysis tool by selecting Indel Analysis from the top 
    :alt: Access the Tool using the Navigation Bar or prompt page
 
 Specifying indels and input sequence
----------------------
+------------------------------------
 Use the **Delete** and **Insert** fields to define the indels you want to evaluate:
 
 - **Delete** specifies the number of residues to remove at every position in your input sequence.

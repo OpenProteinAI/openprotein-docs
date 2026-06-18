@@ -3,35 +3,67 @@ const foldSpec = {
   info: {
     title: "OpenProtein Fold",
     description:
-      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/). \n- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/). \n\n\n",
+      "# Fold API\nThe Fold API provided by OpenProtein.ai allows you to generate protein structures from both proprietary and open source models.\n\nYou can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.\n\nCurrently, we support the following models:\n- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESMFold2, ESMFold2-Fast**: Open-source ESMFold2 models. [GitHub link](https://github.com/Biohub/esm), [Reference](https://biohub.ai/papers/esm_protein.pdf). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **MiniFold**: Open-source MiniFold model. [GitHub link](https://github.com/jwohlwend/minifold), [Reference](https://openreview.net/forum?id=1p9hQTbjgo). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/). \n- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **Protenix**: Open-source Protenix model. [GitHub link](https://github.com/bytedance/Protenix), [Reference](https://www.biorxiv.org/content/early/2026/02/22/2026.02.05.703733.1). Licensed under [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/).\n\n\n",
     version: "1.0.0",
   },
-  servers: [
-    {
-      url: "https://dev.api.openprotein.ai",
-      description: "Dev server",
-      computedUrl: "https://dev.api.openprotein.ai",
-    },
-  ],
   paths: {
     "/api/v1/fold/models": {
       get: {
         tags: ["fold"],
         summary: "List fold models",
-        description: "Get available models.",
+        description:
+          "Get available models. By default returns a list of model ID strings.\nUse `verbose=true` to return full model metadata objects.\nUse `output_type` to filter models by supported output types.",
+        parameters: [
+          {
+            name: "verbose",
+            in: "query",
+            required: false,
+            description:
+              "When true, return full model metadata instead of just model IDs.",
+            schema: {
+              type: "boolean",
+              default: false,
+            },
+          },
+          {
+            name: "output_type",
+            in: "query",
+            required: false,
+            description:
+              "Filter models by supported output type (e.g. `fold`).\nCan be repeated to match models supporting any of the specified types.",
+            schema: {
+              type: "string",
+            },
+            style: "form",
+            explode: true,
+          },
+        ],
         responses: {
-          "200": {
+          200: {
             description: "Available fold models returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Fold Models",
-                  description: "List of available fold models.",
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                  example: ["esmfold", "alphafold2", "..."],
+                  oneOf: [
+                    {
+                      title: "Model IDs",
+                      description: "List of model ID strings (default).",
+                      type: "array",
+                      items: {
+                        type: "string",
+                      },
+                      example: ["esmfold", "alphafold2", "..."],
+                    },
+                    {
+                      title: "Model Metadata",
+                      description:
+                        "List of full model metadata objects (when verbose=true).",
+                      type: "array",
+                      items: {
+                        $ref: "#/components/schemas/ModelMetadata",
+                      },
+                    },
+                  ],
                 },
               },
             },
@@ -59,165 +91,50 @@ const foldSpec = {
             required: true,
             schema: {
               type: "string",
-              enum: ["esmfold", "alphafold2"],
+              enum: [
+                "alphafold2",
+                "boltz-1",
+                "boltz-1x",
+                "boltz-2",
+                "esmfold",
+                "esmfold2",
+                "esmfold2-fast",
+                "minifold",
+                "protenix",
+                "protenix-v2",
+                "rosettafold-3",
+              ],
             },
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Detailed information about model returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ModelMetadata",
-                  description: "Metadata of protein language model.",
-                  required: [
-                    "dimension",
-                    "description",
-                    "input_tokens",
-                    "max_sequence_length",
-                    "model_id",
-                    "output_tokens",
-                    "output_types",
-                    "token_descriptions",
-                  ],
-                  type: "object",
-                  properties: {
-                    model_id: {
-                      title: "ModelID",
-                      description: "ID of model to be used.",
-                      type: "string",
-                    },
-                    description: {
-                      title: "ModelDescription",
-                      description:
-                        "Description of the model including relevant citations.",
-                      type: "object",
-                      properties: {
-                        summary: {
-                          title: "Summary",
-                          description: "Summary of the model description.",
-                          type: "string",
-                        },
-                        citation_title: {
-                          title: "CitationTitle",
-                          description: "Title of the citation for the model.",
-                          type: "string",
-                        },
-                        doi: {
-                          title: "DOI",
-                          description: "DOI of the citation for the model.",
-                          type: "string",
-                        },
-                      },
-                    },
-                    dimension: {
-                      type: "integer",
-                      description:
-                        "Output dimensions of the model. Returns `-1` if irrelevant.",
-                    },
-                    input_tokens: {
-                      type: "array",
-                      description: "List of valid input tokens.",
-                      example: ["A", "R", "N"],
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    max_sequence_length: {
-                      type: "integer",
-                      description:
-                        "Maximum sequence length supported by model.",
-                    },
-                    output_tokens: {
-                      type: "array",
-                      description:
-                        "List of output tokens ordered by token id. Use this to decode logits.",
-                      example: ["A", "R", "N"],
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    output_types: {
-                      type: "array",
-                      description: "Outputs supported by the model.",
-                      items: {
-                        type: "string",
-                      },
-                    },
-                    token_descriptions: {
-                      type: "array",
-                      description:
-                        "Description of all tokens, ordered by token id. The nth item describes the token(s) represented by token id `n`.\nSome token ids can represent multiple tokens.",
-                      items: {
-                        type: "array",
-                        items: {
-                          title: "TokenDetails",
-                          description: "Details of token.",
-                          required: ["id", "description", "primary", "token"],
-                          type: "object",
-                          properties: {
-                            id: {
-                              type: "integer",
-                              description: "Token ID",
-                            },
-                            token: {
-                              type: "string",
-                              description: "The token's string representation",
-                            },
-                            description: {
-                              type: "string",
-                              description: "Meaning of this token",
-                            },
-                            primary: {
-                              type: "boolean",
-                              description:
-                                "When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.",
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ModelMetadata",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model was not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -228,7 +145,6 @@ const foldSpec = {
             oauth2: [],
           },
         ],
-        p: "getModelMetadata",
       },
     },
     "/api/v1/fold/models/esmfold": {
@@ -242,311 +158,247 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "ESMFoldRequest",
-                description: "Request for structure prediction using ESMFold.",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            title: "Protein",
-                            description: "Protein to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Amino acid sequence of the protein chain.",
-                              },
-                            },
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  num_recycles: {
-                    description:
-                      "Number of recycles. `null` lets the system decide.",
-                    type: "number",
-                    nullable: true,
-                    minimum: 0,
-                    maximum: 48,
-                    default: null,
-                    example: null,
-                  },
-                },
+                $ref: "#/components/schemas/ESMFoldRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "ESMFold request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/esmfold2": {
+      post: {
+        tags: ["fold requests", "esmfold2"],
+        summary: "ESMFold2",
+        description:
+          "Create structure prediction using ESMFold2, an all-atom structure prediction\nmodel. Folds protein/DNA/RNA/ligand complexes, optionally conditioned on an MSA.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ESMFold2Request",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          202: {
+            description: "ESMFold2 request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          401: {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          422: {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          429: {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/esmfold2-fast": {
+      post: {
+        tags: ["fold requests", "esmfold2"],
+        summary: "ESMFold2-Fast",
+        description:
+          "Create structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2 whose folding trunk has half the depth\n(24 vs 48 layers). Folds protein/DNA/RNA/ligand complexes.\n\nUnlike ESMFold2, ESMFold2-Fast is single-sequence only and does not accept\nan MSA (`msa_id`).\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as SMILES string, CCD code.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 3.\n  - `seed`: Random seed for reproducible sampling. `null` lets the system decide.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ESMFold2FastRequest",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          202: {
+            description: "ESMFold2-Fast request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          401: {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          422: {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          429: {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -570,311 +422,71 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "MiniFoldRequest",
-                description: "Request for structure prediction using MiniFold.",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            title: "Protein",
-                            description: "Protein to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Amino acid sequence of the protein chain.",
-                              },
-                            },
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  num_recycles: {
-                    description:
-                      "Number of recycles. `null` lets the system decide.",
-                    type: "number",
-                    nullable: true,
-                    minimum: 0,
-                    maximum: 48,
-                    default: null,
-                    example: null,
-                  },
-                },
+                $ref: "#/components/schemas/MiniFoldRequest",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "MiniFold request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -898,316 +510,71 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "AlphaFold2Request",
-                description:
-                  "Request for structure prediction using AlphaFold2.",
-                type: "object",
-                required: ["msa_id"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "object",
-                            required: ["msa_id"],
-                            properties: {
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                nullable: true,
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            title: "ProteinWithMSA",
-                            description: "Protein object with MSA specified.",
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  num_recycles: {
-                    description:
-                      "Number of recycles. `null` lets the system decide.",
-                    type: "number",
-                    nullable: true,
-                    minimum: 0,
-                    maximum: 48,
-                    default: null,
-                    example: null,
-                  },
-                  num_models: {
-                    description: "Number of models.",
-                    type: "number",
-                    minimum: 0,
-                    maximum: 5,
-                    default: 1,
-                    example: 1,
-                  },
-                  num_relax: {
-                    description: "Number of relax.",
-                    type: "number",
-                    minimum: 0,
-                    maximum: 5,
-                    default: 0,
-                    example: 0,
-                  },
-                },
+                $ref: "#/components/schemas/AF2Request",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "AlphaFold2 request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1231,630 +598,71 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "Boltz1Request",
-                description:
-                  "Request for structure prediction using Boltz-1.\n",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    description:
-                      "List of chain/molecule entities in the input.",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "object",
-                            required: ["msa_id"],
-                            properties: {
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                nullable: true,
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            title: "ProteinWithMSA",
-                            description: "Protein object with MSA specified.",
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                            },
-                          },
-                          {
-                            title: "Ligand",
-                            description:
-                              "Small molecule ligand for structure prediction.",
-                            type: "object",
-                            required: ["id"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                              },
-                              smiles: {
-                                type: "string",
-                                description:
-                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-                              },
-                              ccd: {
-                                type: "string",
-                                description:
-                                  "CCD code for the ligand. Mutually exclusive with smiles.",
-                              },
-                            },
-                            example: {
-                              id: ["C", "D"],
-                              ccd: "SAH",
-                            },
-                          },
-                          {
-                            title: "DNA",
-                            description: "DNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the DNA chain.",
-                              },
-                            },
-                            example: {
-                              id: ["A", "B"],
-                              sequence:
-                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                            },
-                          },
-                          {
-                            title: "RNA",
-                            description: "RNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the RNA chain.",
-                              },
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            example: {
-                              id: "A",
-                              sequence:
-                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  constraints: {
-                    type: "array",
-                    description:
-                      "Optional constraints such as bonds, pockets, or contacts.",
-                    items: {
-                      oneOf: [
-                        {
-                          title: "BondConstraint",
-                          description:
-                            "Covalent bond constraint between two atoms.",
-                          type: "object",
-                          required: ["bond"],
-                          properties: {
-                            bond: {
-                              type: "object",
-                              required: ["atom1", "atom2"],
-                              properties: {
-                                atom1: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the first atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                                atom2: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the second atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          example: {
-                            bond: {
-                              atom1: ["A", 42, "CA"],
-                              atom2: ["C", 1, "N1"],
-                            },
-                          },
-                        },
-                        {
-                          title: "PocketConstraint",
-                          description:
-                            "Specifies a pocket constraint for a binder chain and its contacts.",
-                          type: "object",
-                          required: ["binder", "contacts", "max_distance"],
-                          properties: {
-                            binder: {
-                              type: "string",
-                              description:
-                                "Chain ID of the binder (e.g., ligand or protein).",
-                            },
-                            contacts: {
-                              type: "array",
-                              description:
-                                "List of contacts, each as [CHAIN_ID, RES_IDX] or [CHAIN_ID, ATOM_NAME].",
-                              items: {
-                                type: "array",
-                                items: {
-                                  oneOf: [
-                                    {
-                                      type: "string",
-                                    },
-                                    {
-                                      type: "integer",
-                                    },
-                                  ],
-                                },
-                                minItems: 2,
-                                maxItems: 2,
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between binder and contacts.",
-                            },
-                          },
-                          example: {
-                            binder: "C",
-                            contacts: [
-                              ["A", 42],
-                              ["A", 43],
-                              ["B", 55],
-                            ],
-                            max_distance: 5,
-                          },
-                        },
-                        {
-                          title: "ContactConstraint",
-                          description:
-                            "Specifies a contact constraint between two atoms or residues.",
-                          type: "object",
-                          required: ["token1", "token2", "max_distance"],
-                          properties: {
-                            token1: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the first contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            token2: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the second contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between the two contact points.",
-                            },
-                          },
-                          example: {
-                            token1: ["A", 42],
-                            token2: ["B", 55],
-                            max_distance: 8,
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  diffusion_samples: {
-                    type: "integer",
-                    description: "Number of diffusion samples to use.",
-                    default: 1,
-                  },
-                  num_recycles: {
-                    type: "integer",
-                    description: "Number of recycling steps to use.",
-                    default: 3,
-                  },
-                  num_steps: {
-                    type: "integer",
-                    description: "Number of sampling steps to use.",
-                    default: 200,
-                  },
-                  step_scale: {
-                    type: "number",
-                    format: "float",
-                    description: "Scaling factor for diffusion steps.",
-                    default: 1.638,
-                  },
-                },
-                example: {
-                  sequences: [
-                    [
-                      {
-                        protein: {
-                          id: ["A", "B"],
-                          sequence: "MVTPEGNV...",
-                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["C", "D"],
-                          ccd: "SAH",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["E", "F"],
-                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
-                        },
-                      },
-                    ],
-                  ],
-                  constraints: [
-                    {
-                      bond: {
-                        atom1: ["A", 42, "CA"],
-                        atom2: ["C", 1, "N1"],
-                      },
-                    },
-                    {
-                      pocket: {
-                        binder: "C",
-                        contacts: [
-                          ["A", 42],
-                          ["A", 43],
-                          ["B", 55],
-                        ],
-                        max_distance: 5,
-                      },
-                    },
-                  ],
-                  diffusion_samples: 2,
-                  recycling_steps: 4,
-                  sampling_steps: 300,
-                  step_scale: 1.2,
-                },
+                $ref: "#/components/schemas/Boltz1Request",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -1878,630 +686,71 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "Boltz1Request",
-                description:
-                  "Request for structure prediction using Boltz-1.\n",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    description:
-                      "List of chain/molecule entities in the input.",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "object",
-                            required: ["msa_id"],
-                            properties: {
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                nullable: true,
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            title: "ProteinWithMSA",
-                            description: "Protein object with MSA specified.",
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                            },
-                          },
-                          {
-                            title: "Ligand",
-                            description:
-                              "Small molecule ligand for structure prediction.",
-                            type: "object",
-                            required: ["id"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                              },
-                              smiles: {
-                                type: "string",
-                                description:
-                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-                              },
-                              ccd: {
-                                type: "string",
-                                description:
-                                  "CCD code for the ligand. Mutually exclusive with smiles.",
-                              },
-                            },
-                            example: {
-                              id: ["C", "D"],
-                              ccd: "SAH",
-                            },
-                          },
-                          {
-                            title: "DNA",
-                            description: "DNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the DNA chain.",
-                              },
-                            },
-                            example: {
-                              id: ["A", "B"],
-                              sequence:
-                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                            },
-                          },
-                          {
-                            title: "RNA",
-                            description: "RNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the RNA chain.",
-                              },
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            example: {
-                              id: "A",
-                              sequence:
-                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  constraints: {
-                    type: "array",
-                    description:
-                      "Optional constraints such as bonds, pockets, or contacts.",
-                    items: {
-                      oneOf: [
-                        {
-                          title: "BondConstraint",
-                          description:
-                            "Covalent bond constraint between two atoms.",
-                          type: "object",
-                          required: ["bond"],
-                          properties: {
-                            bond: {
-                              type: "object",
-                              required: ["atom1", "atom2"],
-                              properties: {
-                                atom1: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the first atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                                atom2: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the second atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          example: {
-                            bond: {
-                              atom1: ["A", 42, "CA"],
-                              atom2: ["C", 1, "N1"],
-                            },
-                          },
-                        },
-                        {
-                          title: "PocketConstraint",
-                          description:
-                            "Specifies a pocket constraint for a binder chain and its contacts.",
-                          type: "object",
-                          required: ["binder", "contacts", "max_distance"],
-                          properties: {
-                            binder: {
-                              type: "string",
-                              description:
-                                "Chain ID of the binder (e.g., ligand or protein).",
-                            },
-                            contacts: {
-                              type: "array",
-                              description:
-                                "List of contacts, each as [CHAIN_ID, RES_IDX] or [CHAIN_ID, ATOM_NAME].",
-                              items: {
-                                type: "array",
-                                items: {
-                                  oneOf: [
-                                    {
-                                      type: "string",
-                                    },
-                                    {
-                                      type: "integer",
-                                    },
-                                  ],
-                                },
-                                minItems: 2,
-                                maxItems: 2,
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between binder and contacts.",
-                            },
-                          },
-                          example: {
-                            binder: "C",
-                            contacts: [
-                              ["A", 42],
-                              ["A", 43],
-                              ["B", 55],
-                            ],
-                            max_distance: 5,
-                          },
-                        },
-                        {
-                          title: "ContactConstraint",
-                          description:
-                            "Specifies a contact constraint between two atoms or residues.",
-                          type: "object",
-                          required: ["token1", "token2", "max_distance"],
-                          properties: {
-                            token1: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the first contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            token2: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the second contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between the two contact points.",
-                            },
-                          },
-                          example: {
-                            token1: ["A", 42],
-                            token2: ["B", 55],
-                            max_distance: 8,
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  diffusion_samples: {
-                    type: "integer",
-                    description: "Number of diffusion samples to use.",
-                    default: 1,
-                  },
-                  num_recycles: {
-                    type: "integer",
-                    description: "Number of recycling steps to use.",
-                    default: 3,
-                  },
-                  num_steps: {
-                    type: "integer",
-                    description: "Number of sampling steps to use.",
-                    default: 200,
-                  },
-                  step_scale: {
-                    type: "number",
-                    format: "float",
-                    description: "Scaling factor for diffusion steps.",
-                    default: 1.638,
-                  },
-                },
-                example: {
-                  sequences: [
-                    [
-                      {
-                        protein: {
-                          id: ["A", "B"],
-                          sequence: "MVTPEGNV...",
-                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["C", "D"],
-                          ccd: "SAH",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["E", "F"],
-                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
-                        },
-                      },
-                    ],
-                  ],
-                  constraints: [
-                    {
-                      bond: {
-                        atom1: ["A", 42, "CA"],
-                        atom2: ["C", 1, "N1"],
-                      },
-                    },
-                    {
-                      pocket: {
-                        binder: "C",
-                        contacts: [
-                          ["A", 42],
-                          ["A", 43],
-                          ["B", 55],
-                        ],
-                        max_distance: 5,
-                      },
-                    },
-                  ],
-                  diffusion_samples: 2,
-                  recycling_steps: 4,
-                  sampling_steps: 300,
-                  step_scale: 1.2,
-                },
+                $ref: "#/components/schemas/Boltz1Request",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -2525,666 +774,71 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "Boltz2Request",
-                description: "Request for structure prediction using Boltz-2.",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    description:
-                      "List of chain/molecule entities in the input.",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "object",
-                            required: ["msa_id"],
-                            properties: {
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                nullable: true,
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            title: "ProteinWithMSA",
-                            description: "Protein object with MSA specified.",
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                            },
-                          },
-                          {
-                            title: "Ligand",
-                            description:
-                              "Small molecule ligand for structure prediction.",
-                            type: "object",
-                            required: ["id"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                              },
-                              smiles: {
-                                type: "string",
-                                description:
-                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-                              },
-                              ccd: {
-                                type: "string",
-                                description:
-                                  "CCD code for the ligand. Mutually exclusive with smiles.",
-                              },
-                            },
-                            example: {
-                              id: ["C", "D"],
-                              ccd: "SAH",
-                            },
-                          },
-                          {
-                            title: "DNA",
-                            description: "DNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the DNA chain.",
-                              },
-                            },
-                            example: {
-                              id: ["A", "B"],
-                              sequence:
-                                "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                            },
-                          },
-                          {
-                            title: "RNA",
-                            description: "RNA chain to be folded.",
-                            type: "object",
-                            required: ["id", "sequence"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-                              },
-                              sequence: {
-                                type: "string",
-                                description:
-                                  "Nucleotide sequence of the RNA chain.",
-                              },
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            example: {
-                              id: "A",
-                              sequence:
-                                "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  constraints: {
-                    type: "array",
-                    description:
-                      "Optional constraints such as bonds, pockets, or contacts.",
-                    items: {
-                      oneOf: [
-                        {
-                          title: "BondConstraint",
-                          description:
-                            "Covalent bond constraint between two atoms.",
-                          type: "object",
-                          required: ["bond"],
-                          properties: {
-                            bond: {
-                              type: "object",
-                              required: ["atom1", "atom2"],
-                              properties: {
-                                atom1: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the first atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                                atom2: {
-                                  type: "array",
-                                  description:
-                                    "[CHAIN_ID, RES_IDX, ATOM_NAME] for the second atom.",
-                                  items: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "integer",
-                                      },
-                                    ],
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          example: {
-                            bond: {
-                              atom1: ["A", 42, "CA"],
-                              atom2: ["C", 1, "N1"],
-                            },
-                          },
-                        },
-                        {
-                          title: "PocketConstraint",
-                          description:
-                            "Specifies a pocket constraint for a binder chain and its contacts.",
-                          type: "object",
-                          required: ["binder", "contacts", "max_distance"],
-                          properties: {
-                            binder: {
-                              type: "string",
-                              description:
-                                "Chain ID of the binder (e.g., ligand or protein).",
-                            },
-                            contacts: {
-                              type: "array",
-                              description:
-                                "List of contacts, each as [CHAIN_ID, RES_IDX] or [CHAIN_ID, ATOM_NAME].",
-                              items: {
-                                type: "array",
-                                items: {
-                                  oneOf: [
-                                    {
-                                      type: "string",
-                                    },
-                                    {
-                                      type: "integer",
-                                    },
-                                  ],
-                                },
-                                minItems: 2,
-                                maxItems: 2,
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between binder and contacts.",
-                            },
-                          },
-                          example: {
-                            binder: "C",
-                            contacts: [
-                              ["A", 42],
-                              ["A", 43],
-                              ["B", 55],
-                            ],
-                            max_distance: 5,
-                          },
-                        },
-                        {
-                          title: "ContactConstraint",
-                          description:
-                            "Specifies a contact constraint between two atoms or residues.",
-                          type: "object",
-                          required: ["token1", "token2", "max_distance"],
-                          properties: {
-                            token1: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the first contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            token2: {
-                              type: "array",
-                              description:
-                                "Chain ID and residue index or atom name for the second contact point.",
-                              items: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "integer",
-                                  },
-                                ],
-                              },
-                            },
-                            max_distance: {
-                              type: "number",
-                              format: "float",
-                              description:
-                                "Maximum allowed distance (in angstroms) between the two contact points.",
-                            },
-                          },
-                          example: {
-                            token1: ["A", 42],
-                            token2: ["B", 55],
-                            max_distance: 8,
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  properties: {
-                    type: "array",
-                    description:
-                      "Optional properties to compute, such as affinity.",
-                    items:
-                      '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html>',
-                  },
-                  diffusion_samples: {
-                    type: "integer",
-                    description: "Number of diffusion samples to use.",
-                    default: 1,
-                  },
-                  num_recycles: {
-                    type: "integer",
-                    description: "Number of recycling steps to use.",
-                    default: 3,
-                  },
-                  num_steps: {
-                    type: "integer",
-                    description: "Number of sampling steps to use.",
-                    default: 200,
-                  },
-                  step_scale: {
-                    type: "number",
-                    format: "float",
-                    description: "Scaling factor for diffusion steps.",
-                    default: 1.638,
-                  },
-                  method: {
-                    type: "string",
-                    description: "The method to use for prediction.",
-                    enum: [
-                      "MD",
-                      "X-RAY DIFFRACTION",
-                      "ELECTRON MICROSCOPY",
-                      "SOLUTION NMR",
-                      "SOLID-STATE NMR",
-                      "NEUTRON DIFFRACTION",
-                      "ELECTRON CRYSTALLOGRAPHY",
-                      "FIBER DIFFRACTION",
-                      "POWDER DIFFRACTION",
-                      "INFRARED SPECTROSCOPY",
-                      "FLUORESCENCE TRANSFER",
-                      "EPR",
-                      "THEORETICAL MODEL",
-                      "SOLUTION SCATTERING",
-                      "OTHER",
-                      "AFDB",
-                      "BOLTZ-1",
-                    ],
-                  },
-                },
-                example: {
-                  sequences: [
-                    [
-                      {
-                        protein: {
-                          id: ["A", "B"],
-                          sequence: "MVTPEGNV...",
-                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["C", "D"],
-                          ccd: "SAH",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: ["E", "F"],
-                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
-                        },
-                      },
-                    ],
-                  ],
-                  constraints: [
-                    {
-                      bond: {
-                        atom1: ["A", 42, "CA"],
-                        atom2: ["C", 1, "N1"],
-                      },
-                    },
-                    {
-                      pocket: {
-                        binder: "C",
-                        contacts: [
-                          ["A", 42],
-                          ["A", 43],
-                          ["B", 55],
-                        ],
-                        max_distance: 5,
-                      },
-                    },
-                  ],
-                  properties: [
-                    {
-                      affinity: {
-                        binder: "C",
-                      },
-                    },
-                  ],
-                  diffusion_samples: 2,
-                  recycling_steps: 4,
-                  sampling_steps: 300,
-                  step_scale: 1.2,
-                },
+                $ref: "#/components/schemas/Boltz2Request",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "Boltz-1 request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3208,373 +862,247 @@ const foldSpec = {
           content: {
             "application/json": {
               schema: {
-                title: "RF3Request",
-                description:
-                  "Request for structure prediction using RosettaFold-3.\n",
-                type: "object",
-                required: ["sequences"],
-                properties: {
-                  sequences: {
-                    type: "array",
-                    description:
-                      "List of chain/molecule entities in the input.",
-                    items: {
-                      type: "array",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "object",
-                            required: ["msa_id"],
-                            properties: {
-                              msa_id: {
-                                type: "string",
-                                format: "uuid",
-                                nullable: true,
-                                description:
-                                  "ID for an MSA job, or null for single-sequence mode.",
-                              },
-                            },
-                            title: "ProteinWithMSA",
-                            description: "Protein object with MSA specified.",
-                            example: {
-                              id: "A",
-                              sequence: "MVTPEGNV...",
-                              msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                            },
-                          },
-                          {
-                            title: "Ligand",
-                            description:
-                              "Small molecule ligand for structure prediction.",
-                            type: "object",
-                            required: ["id"],
-                            properties: {
-                              id: {
-                                oneOf: [
-                                  {
-                                    type: "string",
-                                  },
-                                  {
-                                    type: "array",
-                                    items: {
-                                      type: "string",
-                                    },
-                                  },
-                                ],
-                                description:
-                                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                              },
-                              smiles: {
-                                type: "string",
-                                description:
-                                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-                              },
-                              ccd: {
-                                type: "string",
-                                description:
-                                  "CCD code for the ligand. Mutually exclusive with smiles.",
-                              },
-                            },
-                            example: {
-                              id: ["C", "D"],
-                              ccd: "SAH",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                  diffusion_samples: {
-                    type: "integer",
-                    description: "Number of diffusion samples to use.",
-                    default: 1,
-                  },
-                  num_recycles: {
-                    type: "integer",
-                    description: "Number of recycling steps to use.",
-                    default: 3,
-                  },
-                  num_steps: {
-                    type: "integer",
-                    description: "Number of sampling steps to use.",
-                    default: 200,
-                  },
-                },
-                example: {
-                  sequences: [
-                    [
-                      {
-                        protein: {
-                          id: "A",
-                          sequence: "MVTPEGNV...",
-                          msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: "B",
-                          ccd: "SAH",
-                        },
-                      },
-                      {
-                        ligand: {
-                          id: "C",
-                          smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
-                        },
-                      },
-                    ],
-                  ],
-                  diffusion_samples: 2,
-                  num_recycles: 4,
-                  num_steps: 300,
-                },
+                $ref: "#/components/schemas/RF3Request",
               },
             },
           },
           required: true,
         },
         responses: {
-          "202": {
+          202: {
             description: "AlphaFold2 request created and pending",
             content: {
               "application/json": {
                 schema: {
-                  title: "FoldJob",
-                  description:
-                    "FoldJob represents a fold job for our platform.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "job_type",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    job_type: {
-                      title: "JobType",
-                      description: "Type of job.",
-                      type: "string",
-                      enum: [
-                        "/workflow/preprocess",
-                        "/workflow/train",
-                        "/workflow/embed/umap",
-                        "/workflow/predict",
-                        "/workflow/predict/single_site",
-                        "/workflow/crossvalidate",
-                        "/workflow/evaluate",
-                        "/workflow/design",
-                        "/align/align",
-                        "/align/prompt",
-                        "/poet",
-                        "/poet/single_site",
-                        "/poet/generate",
-                        "/poet/score",
-                        "/poet/embed",
-                        "/poet/logits",
-                        "/embeddings/embed",
-                        "/embeddings/embed_reduced",
-                        "/embeddings/svd",
-                        "/svd/fit",
-                        "/svd/embed",
-                        "/embeddings/attn",
-                        "/embeddings/logits",
-                        "/embeddings/fold",
-                        "/predictor/train",
-                        "/predictor/predict",
-                        "/predictor/predict_single_site",
-                        "/predictor/predict_multi",
-                        "/predictor/crossvalidate",
-                        "/design",
-                      ],
-                      "x-order": 3,
-                      example: "/fold/fold",
-                    },
-                  },
+                  $ref: "#/components/schemas/FoldJob",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description: "Validation errors in the submitted request.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Model not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "422": {
+          422: {
             description:
               "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
             content: {
               "application/json": {
                 schema: {
-                  title: "ValidationError.yaml",
-                  description: "An invalid object that could not be parsed.",
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "ErrorDetailList",
-                      type: "array",
-                      items: {
-                        title: "ErrorDetail",
-                        required: ["loc", "msg", "type"],
-                        type: "object",
-                        properties: {
-                          loc: {
-                            title: "Location",
-                            type: "array",
-                            items: {
-                              type: "integer",
-                            },
-                          },
-                          msg: {
-                            title: "Message",
-                            type: "string",
-                          },
-                          type: {
-                            title: "Error Type",
-                            type: "string",
-                          },
-                        },
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/ValidationError",
                 },
               },
             },
           },
-          "429": {
+          429: {
             description: "Too many requests. Try again later.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/protenix": {
+      post: {
+        tags: ["fold requests", "protenix"],
+        summary: "Protenix",
+        description:
+          "Create structure prediction using Protenix.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 10.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ProtenixRequest",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          202: {
+            description: "Protenix request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          401: {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          422: {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          429: {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
+    "/api/v1/fold/models/protenix-v2": {
+      post: {
+        tags: ["fold requests", "protenix-v2"],
+        summary: "Protenix-v2",
+        description:
+          "Create structure prediction using Protenix-v2, an enhanced-capacity variant\nwith improved antibody-antigen structure prediction and ligand plausibility.\n\nArgs:\n  - `sequences`: List of chain/molecule entities in the input. Each entry describes a protein, nucleic acid, or ligand, including its sequence, identifier(s), and optional attributes such as msa_id, SMILES string, CCD code.\n    - `msa_id` should refer to the id of an msa job which included this protein as a query, or `null` for single sequence mode.\n    - `smiles` and `ccd` are mutually exclusive for ligands.\n  - `diffusion_samples`: Number of diffusion samples to use. Controls how many independent structure samples are generated per input. Default is 1.\n  - `num_steps`: Number of sampling steps to use. Sets the number of steps in the diffusion process for each sample. Default is 200.\n  - `num_recycles`: Number of recycling steps to use. Determines how many times the model refines its prediction iteratively. Default is 10.",
+        requestBody: {
+          description: "Request for structure prediction.",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ProtenixRequest",
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          202: {
+            description: "Protenix-v2 request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/FoldJob",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          401: {
+            description:
+              "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          422: {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          429: {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3605,144 +1133,33 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Fold metadata successfully returned.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Fold",
-                  description: "Fold request metadata.",
-                  type: "object",
-                  required: [
-                    "job_id",
-                    "prerequisite_job_id",
-                    "created_date",
-                    "start_date",
-                    "end_date",
-                    "status",
-                    "progress_counter",
-                    "model_id",
-                  ],
-                  properties: {
-                    job_id: {
-                      title: "JobID",
-                      description: "ID of job.",
-                      type: "string",
-                      format: "uuid",
-                      "x-order": 1,
-                    },
-                    prerequisite_job_id: {
-                      title: "PrerequisiteJobID",
-                      description: "Prerequisite job ID.",
-                      type: "string",
-                      format: "uuid",
-                      nullable: true,
-                      default: null,
-                      example: null,
-                      "x-order": 2,
-                    },
-                    created_date: {
-                      title: "Created Date",
-                      description: "Datetime of created object",
-                      type: "string",
-                      format: "date-time",
-                      example: "2024-01-01T12:34:56.789Z",
-                      "x-order": 4,
-                    },
-                    start_date: {
-                      title: "StartDate",
-                      description: "Start date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 5,
-                    },
-                    end_date: {
-                      title: "EndDate",
-                      description: "End date of job.",
-                      type: "string",
-                      format: "date-time",
-                      nullable: true,
-                      example: null,
-                      default: null,
-                      "x-order": 6,
-                    },
-                    status: {
-                      title: "JobStatus",
-                      description: "Status of job.",
-                      type: "string",
-                      enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-                      "x-order": 7,
-                    },
-                    progress_counter: {
-                      title: "ProgressCounter",
-                      description:
-                        "Counter of the progress of job from 0 to 100.",
-                      type: "integer",
-                      minimum: 0,
-                      maximum: 100,
-                      example: 0,
-                      default: 0,
-                      "x-order": 8,
-                    },
-                    model_id: {
-                      type: "string",
-                      example: "boltz-2",
-                    },
-                    args: {
-                      type: "object",
-                      additionalProperties: true,
-                      example: {
-                        num_steps: 50,
-                        sequences: [
-                          {
-                            protein: "...",
-                          },
-                        ],
-                      },
-                    },
-                  },
+                  $ref: "#/components/schemas/Fold",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3773,154 +1190,40 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Request sequences",
             content: {
               "application/json": {
                 schema: {
                   oneOf: [
                     {
-                      title: "BatchFoldSequences",
-                      description: "Batched fold request sequences.",
-                      type: "array",
-                      items: {
-                        title: "Sequence",
-                        description: "Protein sequence",
-                        type: "string",
-                        example: "MSKGEELFTGV",
-                      },
+                      $ref: "#/components/schemas/BatchFoldSequences",
                     },
                     {
-                      title: "ComplexFoldSequences",
-                      description:
-                        "Sequences used when making a single multi-chain fold request.",
-                      type: "object",
-                      required: ["sequences"],
-                      properties: {
-                        sequences: {
-                          type: "array",
-                          description:
-                            "List of chain/molecule entities in the input.",
-                          items: {
-                            title: "Chain",
-                            description:
-                              "A chain entity, which can be a protein or ligand.",
-                            oneOf: [
-                              {
-                                title: "Protein",
-                                description: "Protein to be folded.",
-                                type: "object",
-                                required: ["id", "sequence"],
-                                properties: {
-                                  id: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "array",
-                                        items: {
-                                          type: "string",
-                                        },
-                                      },
-                                    ],
-                                    description:
-                                      "Unique chain identifier(s). Use an array for multiple identical chains.",
-                                  },
-                                  sequence: {
-                                    type: "string",
-                                    description:
-                                      "Amino acid sequence of the protein chain.",
-                                  },
-                                },
-                                example: {
-                                  id: "A",
-                                  sequence: "MVTPEGNV...",
-                                },
-                              },
-                              {
-                                title: "Ligand",
-                                description:
-                                  "Small molecule ligand for structure prediction.",
-                                type: "object",
-                                required: ["id"],
-                                properties: {
-                                  id: {
-                                    oneOf: [
-                                      {
-                                        type: "string",
-                                      },
-                                      {
-                                        type: "array",
-                                        items: {
-                                          type: "string",
-                                        },
-                                      },
-                                    ],
-                                    description:
-                                      "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                                  },
-                                  smiles: {
-                                    type: "string",
-                                    description:
-                                      "SMILES string for the ligand. Mutually exclusive with ccd.",
-                                  },
-                                  ccd: {
-                                    type: "string",
-                                    description:
-                                      "CCD code for the ligand. Mutually exclusive with smiles.",
-                                  },
-                                },
-                                example: {
-                                  id: ["C", "D"],
-                                  ccd: "SAH",
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      },
+                      $ref: "#/components/schemas/ComplexFoldSequences",
                     },
                   ],
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -3937,7 +1240,8 @@ const foldSpec = {
       get: {
         tags: ["fold"],
         summary: "Retrieve protein structure",
-        description: "Get protein structure for a submitted sequence",
+        description:
+          "Get the predicted structure for a given batch index of a fold job.\n",
         parameters: [
           {
             name: "job_id",
@@ -3952,107 +1256,68 @@ const foldSpec = {
           {
             name: "index",
             in: "path",
-            description: "Index of batch for which to retrieve result",
+            description: "Index of batch for which to retrieve the result.",
             required: true,
             schema: {
-              type: "number",
+              type: "integer",
+              minimum: 0,
             },
           },
           {
             name: "format",
             in: "query",
             description:
-              "Output format to retrieve the result in.\n\nDefaults to `pdb`. Note that requested format may not be supported for all jobs depending on when the job was created.\n",
+              "Output format to retrieve the result in.\n\nDefaults to `mmcif`. Note that the requested format may not be\nsupported for all jobs depending on when the job was created.\n",
             required: false,
             schema: {
-              title: "OutputFormat",
-              description:
-                "Output format of folded structure. Defaults to pdb.",
-              type: "string",
-              enum: ["pdb", "mmcif"],
-              default: "pdb",
+              $ref: "#/components/schemas/OutputFormat",
             },
           },
         ],
         responses: {
-          "200": {
+          200: {
             description: "Result encoded in requested format.",
             content: {
               "chemical/x-pdb": {
                 schema: {
-                  title: "PDBOutput",
-                  description: "An output pdb structure file.",
-                  type: "string",
-                  example:
-                    "HEADER    OXYGEN TRANSPORT                         29-JUL-76   1HHO              \nTITLE     DEOXY HUMAN HEMOGLOBIN                                                \nCOMPND    MOL_ID: 1; MOLECULE: HEMOGLOBIN; CHAIN: A, B, C, D;                   \nSOURCE    HUMAN (HOMO SAPIENS)                                                   \nKEYWDS    OXYGEN TRANSPORT, HEME                                                 \nEXPDTA    X-RAY DIFFRACTION                                                     \nAUTHOR    F.PERUTZ,R.MATTHEWS                                                    \nREVDAT   1   24-FEB-09 1HHO    0                                                \nSEQRES   1 A   141  VAL LEU SER PRO ALA ASP LYS THR VAL LEU THR PRO GLU GLU     \nSEQRES   2 A   141  LYS SER ALA GLY PHE LEU SER PRO GLU GLY ALA GLY\n",
+                  $ref: "#/components/schemas/PDBOutput",
                 },
               },
               "chemical/x-mmcif": {
                 schema: {
-                  title: "CIFOutput",
-                  description: "An output CIF structure file.",
-                  type: "string",
-                  example:
-                    'data_example\n#\n_entry.id   example\n#\nloop_\n_entity.id\n_entity.type\n_entity.pdbx_description\n1 polymer "Example protein chain"\n#\nloop_\n_atom_site.group_PDB\n_atom_site.id\n_atom_site.type_symbol\n_atom_site.label_atom_id\n_atom_site.label_comp_id\n_atom_site.label_asym_id\n_atom_site.label_entity_id\n_atom_site.label_seq_id\n_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\nATOM 1 N N MET A 1 1 12.011 13.456 14.789\nATOM 2 C CA MET A 1 1 13.123 14.567 15.890\nATOM 3 C C MET A 1 1 14.234 15.678 16.901\nATOM 4 O O MET A 1 1 15.345 16.789 17.012\n#\n',
+                  $ref: "#/components/schemas/CIFOutput",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Result retrieval error. Contact support for assistance if persistent.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4069,7 +1334,8 @@ const foldSpec = {
       get: {
         tags: ["fold"],
         summary: "Retrieve extra result",
-        description: "Get protein structure for a submitted sequence",
+        description:
+          "Get an extra per-structure output (e.g. pae, plddt, confidence) produced\nby the fold model for a given batch index.\n",
         parameters: [
           {
             name: "job_id",
@@ -4084,16 +1350,19 @@ const foldSpec = {
           {
             name: "index",
             in: "path",
-            description: "Index of batch for which to retrieve result",
+            description:
+              "Index of batch for which to retrieve the extra result.",
             required: true,
             schema: {
-              type: "number",
+              type: "integer",
+              minimum: 0,
             },
           },
           {
             name: "extraKey",
             in: "path",
-            description: "Extra key for extra result provided by fold model",
+            description:
+              "Extra output produced by the fold model.\n\nAvailability by model:\n- `ptm` — alphafold2\n- `pae` — boltz-*, alphafold2, esmfold, esmfold2, esmfold2-fast, protenix\n- `plddt` — boltz-*, alphafold2, esmfold2, esmfold2-fast, protenix\n- `pde` — boltz-*, protenix\n- `confidence` — boltz-*, esmfold2, esmfold2-fast, protenix\n- `affinity` — boltz-*\n- `score`, `metrics` — rosettafold-3\n",
             required: true,
             schema: {
               type: "string",
@@ -4111,73 +1380,47 @@ const foldSpec = {
           },
         ],
         responses: {
-          "200": {
+          200: {
             description:
-              "Extra result which could be a numpy array, or json, or csv.\n\npae, pde, plddt, ptm returns a .npy.\nconfidence, affinity returns a json.\nscore, metrics returns a csv.\n",
+              "Extra result as a file.\n\n- `pae`, `pde`, `plddt`, `ptm` return a `.npy`.\n- `confidence`, `affinity` return a JSON file.\n- `score`, `metrics` return a CSV file.\n",
             content: {
               "application/octet-stream": {
                 schema: {
-                  type: "binary",
+                  type: "string",
+                  format: "binary",
                   description: "Extra result as a file.",
                 },
               },
             },
           },
-          "400": {
+          400: {
             description:
               "Result retrieval error. Contact support for assistance if persistent.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "401": {
+          401: {
             description:
               "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
           },
-          "404": {
+          404: {
             description: "Fold job not found.",
             content: {
               "application/json": {
                 schema: {
-                  title: "Error",
-                  description: "A error object providing details of the error.",
-                  required: ["detail"],
-                  type: "object",
-                  properties: {
-                    detail: {
-                      title: "Detail",
-                      type: "string",
-                    },
-                  },
+                  $ref: "#/components/schemas/Error",
                 },
               },
             },
@@ -4272,32 +1515,10 @@ const foldSpec = {
         type: "object",
         properties: {
           model_id: {
-            title: "ModelID",
-            description: "ID of model to be used.",
-            type: "string",
+            $ref: "#/components/schemas/ModelID",
           },
           description: {
-            title: "ModelDescription",
-            description:
-              "Description of the model including relevant citations.",
-            type: "object",
-            properties: {
-              summary: {
-                title: "Summary",
-                description: "Summary of the model description.",
-                type: "string",
-              },
-              citation_title: {
-                title: "CitationTitle",
-                description: "Title of the citation for the model.",
-                type: "string",
-              },
-              doi: {
-                title: "DOI",
-                description: "DOI of the citation for the model.",
-                type: "string",
-              },
-            },
+            $ref: "#/components/schemas/ModelDescription",
           },
           dimension: {
             type: "integer",
@@ -4339,29 +1560,7 @@ const foldSpec = {
             items: {
               type: "array",
               items: {
-                title: "TokenDetails",
-                description: "Details of token.",
-                required: ["id", "description", "primary", "token"],
-                type: "object",
-                properties: {
-                  id: {
-                    type: "integer",
-                    description: "Token ID",
-                  },
-                  token: {
-                    type: "string",
-                    description: "The token's string representation",
-                  },
-                  description: {
-                    type: "string",
-                    description: "Meaning of this token",
-                  },
-                  primary: {
-                    type: "boolean",
-                    description:
-                      "When a token id represents multiple tokens, this flag indicates whether or not this is the primary token.",
-                  },
-                },
+                $ref: "#/components/schemas/Token",
               },
             },
           },
@@ -4423,36 +1622,7 @@ const foldSpec = {
               items: {
                 oneOf: [
                   {
-                    title: "Protein",
-                    description: "Protein to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description:
-                          "Amino acid sequence of the protein chain.",
-                      },
-                    },
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                    },
+                    $ref: "#/components/schemas/Protein",
                   },
                 ],
               },
@@ -4506,11 +1676,7 @@ const foldSpec = {
         ],
         properties: {
           job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
+            $ref: "#/components/schemas/JobID",
           },
           prerequisite_job_id: {
             title: "PrerequisiteJobID",
@@ -4523,12 +1689,7 @@ const foldSpec = {
             "x-order": 2,
           },
           created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
+            $ref: "#/components/schemas/CreatedDate",
           },
           start_date: {
             title: "StartDate",
@@ -4551,11 +1712,7 @@ const foldSpec = {
             "x-order": 6,
           },
           status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
+            $ref: "#/components/schemas/JobStatus",
           },
           progress_counter: {
             title: "ProgressCounter",
@@ -4603,6 +1760,7 @@ const foldSpec = {
           "/predictor/predict_single_site",
           "/predictor/predict_multi",
           "/predictor/crossvalidate",
+          "/clustering/hierarchical",
           "/design",
         ],
         "x-order": 3,
@@ -4610,240 +1768,42 @@ const foldSpec = {
       Job: {
         title: "Job",
         description: "Job represents a job for our compute platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
+          },
+          {
+            type: "object",
+            required: ["job_type"],
+            properties: {
+              job_type: {
+                $ref: "#/components/schemas/JobType",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-          },
-        },
       },
       FoldJob: {
         title: "FoldJob",
-        description: "FoldJob represents a fold job for our platform.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "job_type",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Job",
+          },
+          {
+            title: "FoldJob",
+            description: "FoldJob represents a fold job for our platform.",
+            type: "object",
+            properties: {
+              job_type: {
+                type: "string",
+                example: "/fold/fold",
+              },
+            },
+          },
         ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
-          },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          job_type: {
-            title: "JobType",
-            description: "Type of job.",
-            type: "string",
-            enum: [
-              "/workflow/preprocess",
-              "/workflow/train",
-              "/workflow/embed/umap",
-              "/workflow/predict",
-              "/workflow/predict/single_site",
-              "/workflow/crossvalidate",
-              "/workflow/evaluate",
-              "/workflow/design",
-              "/align/align",
-              "/align/prompt",
-              "/poet",
-              "/poet/single_site",
-              "/poet/generate",
-              "/poet/score",
-              "/poet/embed",
-              "/poet/logits",
-              "/embeddings/embed",
-              "/embeddings/embed_reduced",
-              "/embeddings/svd",
-              "/svd/fit",
-              "/svd/embed",
-              "/embeddings/attn",
-              "/embeddings/logits",
-              "/embeddings/fold",
-              "/predictor/train",
-              "/predictor/predict",
-              "/predictor/predict_single_site",
-              "/predictor/predict_multi",
-              "/predictor/crossvalidate",
-              "/design",
-            ],
-            "x-order": 3,
-            example: "/fold/fold",
-          },
-        },
       },
       ValidationError: {
-        title: "ValidationError.yaml",
+        title: "ValidationError",
         description: "An invalid object that could not be parsed.",
         type: "object",
         properties: {
@@ -4875,145 +1835,31 @@ const foldSpec = {
           },
         },
       },
-      MiniFoldRequest: {
-        title: "MiniFoldRequest",
-        description: "Request for structure prediction using MiniFold.",
-        type: "object",
-        required: ["sequences"],
-        properties: {
-          sequences: {
-            type: "array",
-            items: {
-              type: "array",
-              items: {
-                oneOf: [
-                  {
-                    title: "Protein",
-                    description: "Protein to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description:
-                          "Amino acid sequence of the protein chain.",
-                      },
-                    },
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                    },
-                  },
-                ],
+      ProteinWithMSA: {
+        title: "ProteinWithMSA",
+        description: "Protein object with MSA specified.",
+        allOf: [
+          {
+            $ref: "#/components/schemas/Protein",
+          },
+          {
+            type: "object",
+            required: ["msa_id"],
+            properties: {
+              msa_id: {
+                type: "string",
+                format: "uuid",
+                nullable: true,
+                description:
+                  "ID for an MSA job, or null for single-sequence mode.",
               },
             },
           },
-          num_recycles: {
-            description: "Number of recycles. `null` lets the system decide.",
-            type: "number",
-            nullable: true,
-            minimum: 0,
-            maximum: 48,
-            default: null,
-            example: null,
-          },
-        },
-      },
-      ProteinWithMSA: {
-        type: "object",
-        required: ["msa_id"],
-        properties: {
-          msa_id: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            description: "ID for an MSA job, or null for single-sequence mode.",
-          },
-        },
-        title: "ProteinWithMSA",
-        description: "Protein object with MSA specified.",
+        ],
         example: {
           id: "A",
           sequence: "MVTPEGNV...",
           msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-        },
-      },
-      AF2Request: {
-        title: "AlphaFold2Request",
-        description: "Request for structure prediction using AlphaFold2.",
-        type: "object",
-        required: ["msa_id"],
-        properties: {
-          sequences: {
-            type: "array",
-            items: {
-              type: "array",
-              items: {
-                oneOf: [
-                  {
-                    type: "object",
-                    required: ["msa_id"],
-                    properties: {
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        nullable: true,
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    title: "ProteinWithMSA",
-                    description: "Protein object with MSA specified.",
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          num_recycles: {
-            description: "Number of recycles. `null` lets the system decide.",
-            type: "number",
-            nullable: true,
-            minimum: 0,
-            maximum: 48,
-            default: null,
-            example: null,
-          },
-          num_models: {
-            description: "Number of models.",
-            type: "number",
-            minimum: 0,
-            maximum: 5,
-            default: 1,
-            example: 1,
-          },
-          num_relax: {
-            description: "Number of relax.",
-            type: "number",
-            minimum: 0,
-            maximum: 5,
-            default: 0,
-            example: 0,
-          },
         },
       },
       Ligand: {
@@ -5119,6 +1965,250 @@ const foldSpec = {
         example: {
           id: "A",
           sequence: "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
+        },
+      },
+      ESMFold2Request: {
+        title: "ESMFold2Request",
+        description: "Request for structure prediction using ESMFold2.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/ProteinWithMSA",
+                  },
+                  {
+                    $ref: "#/components/schemas/Ligand",
+                  },
+                  {
+                    $ref: "#/components/schemas/DNA",
+                  },
+                  {
+                    $ref: "#/components/schemas/RNA",
+                  },
+                ],
+              },
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            minimum: 1,
+            default: 1,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            minimum: 1,
+            default: 200,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            minimum: 1,
+            default: 3,
+          },
+          seed: {
+            type: "integer",
+            nullable: true,
+            default: null,
+            description:
+              "Random seed for reproducible sampling. `null` lets the system decide.",
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
+              },
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          diffusion_samples: 1,
+          num_steps: 200,
+          num_recycles: 3,
+        },
+      },
+      ESMFold2FastRequest: {
+        title: "ESMFold2FastRequest",
+        description:
+          "Request for structure prediction using ESMFold2-Fast, an inference-optimized\nsingle-sequence variant of ESMFold2. It does not accept an MSA (`msa_id`).",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/Protein",
+                  },
+                  {
+                    $ref: "#/components/schemas/Ligand",
+                  },
+                  {
+                    $ref: "#/components/schemas/DNA",
+                  },
+                  {
+                    $ref: "#/components/schemas/RNA",
+                  },
+                ],
+              },
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            minimum: 1,
+            default: 1,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            minimum: 1,
+            default: 200,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            minimum: 1,
+            default: 3,
+          },
+          seed: {
+            type: "integer",
+            nullable: true,
+            default: null,
+            description:
+              "Random seed for reproducible sampling. `null` lets the system decide.",
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                },
+              },
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          diffusion_samples: 1,
+          num_steps: 200,
+          num_recycles: 3,
+        },
+      },
+      MiniFoldRequest: {
+        title: "MiniFoldRequest",
+        description: "Request for structure prediction using MiniFold.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/Protein",
+                  },
+                ],
+              },
+            },
+          },
+          num_recycles: {
+            description: "Number of recycles. `null` lets the system decide.",
+            type: "number",
+            nullable: true,
+            minimum: 0,
+            maximum: 48,
+            default: null,
+            example: null,
+          },
+        },
+      },
+      AF2Request: {
+        title: "AlphaFold2Request",
+        description: "Request for structure prediction using AlphaFold2.",
+        type: "object",
+        required: ["msa_id"],
+        properties: {
+          sequences: {
+            type: "array",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/ProteinWithMSA",
+                  },
+                ],
+              },
+            },
+          },
+          num_recycles: {
+            description: "Number of recycles. `null` lets the system decide.",
+            type: "number",
+            nullable: true,
+            minimum: 0,
+            maximum: 48,
+            default: null,
+            example: null,
+          },
+          num_models: {
+            description: "Number of models.",
+            type: "number",
+            minimum: 0,
+            maximum: 5,
+            default: 1,
+            example: 1,
+          },
+          num_relax: {
+            description: "Number of relax.",
+            type: "number",
+            minimum: 0,
+            maximum: 5,
+            default: 0,
+            example: 0,
+          },
         },
       },
       BondConstraint: {
@@ -5283,132 +2373,16 @@ const foldSpec = {
               items: {
                 oneOf: [
                   {
-                    type: "object",
-                    required: ["msa_id"],
-                    properties: {
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        nullable: true,
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    title: "ProteinWithMSA",
-                    description: "Protein object with MSA specified.",
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                    },
+                    $ref: "#/components/schemas/ProteinWithMSA",
                   },
                   {
-                    title: "Ligand",
-                    description:
-                      "Small molecule ligand for structure prediction.",
-                    type: "object",
-                    required: ["id"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                      },
-                      smiles: {
-                        type: "string",
-                        description:
-                          "SMILES string for the ligand. Mutually exclusive with ccd.",
-                      },
-                      ccd: {
-                        type: "string",
-                        description:
-                          "CCD code for the ligand. Mutually exclusive with smiles.",
-                      },
-                    },
-                    example: {
-                      id: ["C", "D"],
-                      ccd: "SAH",
-                    },
+                    $ref: "#/components/schemas/Ligand",
                   },
                   {
-                    title: "DNA",
-                    description: "DNA chain to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description: "Nucleotide sequence of the DNA chain.",
-                      },
-                    },
-                    example: {
-                      id: ["A", "B"],
-                      sequence:
-                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                    },
+                    $ref: "#/components/schemas/DNA",
                   },
                   {
-                    title: "RNA",
-                    description: "RNA chain to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description: "Nucleotide sequence of the RNA chain.",
-                      },
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    example: {
-                      id: "A",
-                      sequence:
-                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                    },
+                    $ref: "#/components/schemas/RNA",
                   },
                 ],
               },
@@ -5421,153 +2395,13 @@ const foldSpec = {
             items: {
               oneOf: [
                 {
-                  title: "BondConstraint",
-                  description: "Covalent bond constraint between two atoms.",
-                  type: "object",
-                  required: ["bond"],
-                  properties: {
-                    bond: {
-                      type: "object",
-                      required: ["atom1", "atom2"],
-                      properties: {
-                        atom1: {
-                          type: "array",
-                          description:
-                            "[CHAIN_ID, RES_IDX, ATOM_NAME] for the first atom.",
-                          items: {
-                            oneOf: [
-                              {
-                                type: "string",
-                              },
-                              {
-                                type: "integer",
-                              },
-                            ],
-                          },
-                        },
-                        atom2: {
-                          type: "array",
-                          description:
-                            "[CHAIN_ID, RES_IDX, ATOM_NAME] for the second atom.",
-                          items: {
-                            oneOf: [
-                              {
-                                type: "string",
-                              },
-                              {
-                                type: "integer",
-                              },
-                            ],
-                          },
-                        },
-                      },
-                    },
-                  },
-                  example: {
-                    bond: {
-                      atom1: ["A", 42, "CA"],
-                      atom2: ["C", 1, "N1"],
-                    },
-                  },
+                  $ref: "#/components/schemas/BondConstraint",
                 },
                 {
-                  title: "PocketConstraint",
-                  description:
-                    "Specifies a pocket constraint for a binder chain and its contacts.",
-                  type: "object",
-                  required: ["binder", "contacts", "max_distance"],
-                  properties: {
-                    binder: {
-                      type: "string",
-                      description:
-                        "Chain ID of the binder (e.g., ligand or protein).",
-                    },
-                    contacts: {
-                      type: "array",
-                      description:
-                        "List of contacts, each as [CHAIN_ID, RES_IDX] or [CHAIN_ID, ATOM_NAME].",
-                      items: {
-                        type: "array",
-                        items: {
-                          oneOf: [
-                            {
-                              type: "string",
-                            },
-                            {
-                              type: "integer",
-                            },
-                          ],
-                        },
-                        minItems: 2,
-                        maxItems: 2,
-                      },
-                    },
-                    max_distance: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Maximum allowed distance (in angstroms) between binder and contacts.",
-                    },
-                  },
-                  example: {
-                    binder: "C",
-                    contacts: [
-                      ["A", 42],
-                      ["A", 43],
-                      ["B", 55],
-                    ],
-                    max_distance: 5,
-                  },
+                  $ref: "#/components/schemas/PocketConstraint",
                 },
                 {
-                  title: "ContactConstraint",
-                  description:
-                    "Specifies a contact constraint between two atoms or residues.",
-                  type: "object",
-                  required: ["token1", "token2", "max_distance"],
-                  properties: {
-                    token1: {
-                      type: "array",
-                      description:
-                        "Chain ID and residue index or atom name for the first contact point.",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "integer",
-                          },
-                        ],
-                      },
-                    },
-                    token2: {
-                      type: "array",
-                      description:
-                        "Chain ID and residue index or atom name for the second contact point.",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "integer",
-                          },
-                        ],
-                      },
-                    },
-                    max_distance: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Maximum allowed distance (in angstroms) between the two contact points.",
-                    },
-                  },
-                  example: {
-                    token1: ["A", 42],
-                    token2: ["B", 55],
-                    max_distance: 8,
-                  },
+                  $ref: "#/components/schemas/ContactConstraint",
                 },
               ],
             },
@@ -5643,8 +2477,120 @@ const foldSpec = {
           step_scale: 1.2,
         },
       },
-      Property:
-        '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html>',
+      Template: {
+        title: "Template",
+        description:
+          "Structural template for guiding fold prediction from a prior query result.\n\nScoping: by default a template applies to every sequence in the job. Use\n`index` (explicit positions) and/or `index_intervals` (half-open ranges)\nto restrict it to a subset. Both forms combine via union, and any position\nappearing twice (within either form, or across the two) is rejected.\n",
+        type: "object",
+        required: ["query_id"],
+        properties: {
+          query_id: {
+            type: "string",
+            format: "uuid",
+            description:
+              "ID of a completed query whose structure is used as a template.",
+          },
+          chain_id: {
+            description:
+              'Chain identifier(s) in the fold request the template applies to.\nAccepts **either** a single chain as a string (`"A"`) **or** a list\nof chains (`["A", "B"]`). When given as a list and `template_id` is\nalso a list, the two lengths must match — entry `i` of `chain_id`\npairs with entry `i` of `template_id`.\n',
+            oneOf: [
+              {
+                title: "Single chain",
+                type: "string",
+                example: "A",
+              },
+              {
+                title: "List of chains",
+                type: "array",
+                items: {
+                  type: "string",
+                },
+                example: ["A", "B"],
+              },
+            ],
+          },
+          template_id: {
+            description:
+              'Chain identifier(s) inside the template CIF (the query result) to\nuse as the structural reference. Accepts **either** a single chain\nas a string (`"A"`) **or** a list of chains (`["A", "B"]`). If both\n`chain_id` and `template_id` are lists their lengths must match.\n',
+            oneOf: [
+              {
+                title: "Single chain",
+                type: "string",
+                example: "A",
+              },
+              {
+                title: "List of chains",
+                type: "array",
+                items: {
+                  type: "string",
+                },
+                example: ["A", "B"],
+              },
+            ],
+          },
+          force: {
+            type: "boolean",
+            description:
+              "Force the template to be used even when the model would otherwise\nreject it on similarity grounds. Requires `threshold` when set.\n",
+          },
+          threshold: {
+            type: "number",
+            format: "float",
+            description:
+              "Similarity threshold used together with `force`. Required whenever\n`force` is set.\n",
+          },
+          index: {
+            type: "array",
+            description:
+              "Explicit list of sequence positions (0-indexed) the template applies\nto. Omit or leave empty to apply to every sequence. Duplicates are\nrejected.\n",
+            items: {
+              type: "integer",
+              minimum: 0,
+            },
+          },
+          index_intervals: {
+            type: "array",
+            description:
+              "Shorthand for `index` over contiguous ranges. Each entry is a\nhalf-open `[start, end)` pair (end-exclusive, matching Go slicing\nand Python `range`). Intended for jobs whose template covers\nthousands of sequences (e.g. a 10k-variant binder refold) where\nlisting every index would inflate the request payload —\n`[[0, 10000]]` (~20 bytes) replaces a 60KB explicit array.\nOverlap with other intervals or with `index` is rejected.\n",
+            items: {
+              type: "array",
+              minItems: 2,
+              maxItems: 2,
+              items: {
+                type: "integer",
+                minimum: 0,
+              },
+            },
+          },
+        },
+        examples: [
+          {
+            summary: "Single chain (scalar form)",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+            },
+          },
+          {
+            summary: "Multi-chain (list form, paired by index)",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: ["A", "B"],
+              template_id: ["A", "B"],
+            },
+          },
+          {
+            summary: "Scoped to a 10k-variant range via index_intervals",
+            value: {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+              index_intervals: [[0, 10000]],
+            },
+          },
+        ],
+      },
       Boltz2Request: {
         title: "Boltz2Request",
         description: "Request for structure prediction using Boltz-2.",
@@ -5659,132 +2605,16 @@ const foldSpec = {
               items: {
                 oneOf: [
                   {
-                    type: "object",
-                    required: ["msa_id"],
-                    properties: {
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        nullable: true,
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    title: "ProteinWithMSA",
-                    description: "Protein object with MSA specified.",
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                    },
+                    $ref: "#/components/schemas/ProteinWithMSA",
                   },
                   {
-                    title: "Ligand",
-                    description:
-                      "Small molecule ligand for structure prediction.",
-                    type: "object",
-                    required: ["id"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                      },
-                      smiles: {
-                        type: "string",
-                        description:
-                          "SMILES string for the ligand. Mutually exclusive with ccd.",
-                      },
-                      ccd: {
-                        type: "string",
-                        description:
-                          "CCD code for the ligand. Mutually exclusive with smiles.",
-                      },
-                    },
-                    example: {
-                      id: ["C", "D"],
-                      ccd: "SAH",
-                    },
+                    $ref: "#/components/schemas/Ligand",
                   },
                   {
-                    title: "DNA",
-                    description: "DNA chain to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description: "Nucleotide sequence of the DNA chain.",
-                      },
-                    },
-                    example: {
-                      id: ["A", "B"],
-                      sequence:
-                        "ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC",
-                    },
+                    $ref: "#/components/schemas/DNA",
                   },
                   {
-                    title: "RNA",
-                    description: "RNA chain to be folded.",
-                    type: "object",
-                    required: ["id", "sequence"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique chain identifier(s). Use an array for multiple identical chains.",
-                      },
-                      sequence: {
-                        type: "string",
-                        description: "Nucleotide sequence of the RNA chain.",
-                      },
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    example: {
-                      id: "A",
-                      sequence:
-                        "GGGAUCCGAUGCUAGCUAGCUAGCUGAUGCUAGCUAGCUAGCUAGC",
-                    },
+                    $ref: "#/components/schemas/RNA",
                   },
                 ],
               },
@@ -5797,162 +2627,30 @@ const foldSpec = {
             items: {
               oneOf: [
                 {
-                  title: "BondConstraint",
-                  description: "Covalent bond constraint between two atoms.",
-                  type: "object",
-                  required: ["bond"],
-                  properties: {
-                    bond: {
-                      type: "object",
-                      required: ["atom1", "atom2"],
-                      properties: {
-                        atom1: {
-                          type: "array",
-                          description:
-                            "[CHAIN_ID, RES_IDX, ATOM_NAME] for the first atom.",
-                          items: {
-                            oneOf: [
-                              {
-                                type: "string",
-                              },
-                              {
-                                type: "integer",
-                              },
-                            ],
-                          },
-                        },
-                        atom2: {
-                          type: "array",
-                          description:
-                            "[CHAIN_ID, RES_IDX, ATOM_NAME] for the second atom.",
-                          items: {
-                            oneOf: [
-                              {
-                                type: "string",
-                              },
-                              {
-                                type: "integer",
-                              },
-                            ],
-                          },
-                        },
-                      },
-                    },
-                  },
-                  example: {
-                    bond: {
-                      atom1: ["A", 42, "CA"],
-                      atom2: ["C", 1, "N1"],
-                    },
-                  },
+                  $ref: "#/components/schemas/BondConstraint",
                 },
                 {
-                  title: "PocketConstraint",
-                  description:
-                    "Specifies a pocket constraint for a binder chain and its contacts.",
-                  type: "object",
-                  required: ["binder", "contacts", "max_distance"],
-                  properties: {
-                    binder: {
-                      type: "string",
-                      description:
-                        "Chain ID of the binder (e.g., ligand or protein).",
-                    },
-                    contacts: {
-                      type: "array",
-                      description:
-                        "List of contacts, each as [CHAIN_ID, RES_IDX] or [CHAIN_ID, ATOM_NAME].",
-                      items: {
-                        type: "array",
-                        items: {
-                          oneOf: [
-                            {
-                              type: "string",
-                            },
-                            {
-                              type: "integer",
-                            },
-                          ],
-                        },
-                        minItems: 2,
-                        maxItems: 2,
-                      },
-                    },
-                    max_distance: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Maximum allowed distance (in angstroms) between binder and contacts.",
-                    },
-                  },
-                  example: {
-                    binder: "C",
-                    contacts: [
-                      ["A", 42],
-                      ["A", 43],
-                      ["B", 55],
-                    ],
-                    max_distance: 5,
-                  },
+                  $ref: "#/components/schemas/PocketConstraint",
                 },
                 {
-                  title: "ContactConstraint",
-                  description:
-                    "Specifies a contact constraint between two atoms or residues.",
-                  type: "object",
-                  required: ["token1", "token2", "max_distance"],
-                  properties: {
-                    token1: {
-                      type: "array",
-                      description:
-                        "Chain ID and residue index or atom name for the first contact point.",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "integer",
-                          },
-                        ],
-                      },
-                    },
-                    token2: {
-                      type: "array",
-                      description:
-                        "Chain ID and residue index or atom name for the second contact point.",
-                      items: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "integer",
-                          },
-                        ],
-                      },
-                    },
-                    max_distance: {
-                      type: "number",
-                      format: "float",
-                      description:
-                        "Maximum allowed distance (in angstroms) between the two contact points.",
-                    },
-                  },
-                  example: {
-                    token1: ["A", 42],
-                    token2: ["B", 55],
-                    max_distance: 8,
-                  },
+                  $ref: "#/components/schemas/ContactConstraint",
                 },
               ],
+            },
+          },
+          templates: {
+            type: "array",
+            description: "Optional structural templates for prediction.",
+            items: {
+              $ref: "#/components/schemas/Template",
             },
           },
           properties: {
             type: "array",
             description: "Optional properties to compute, such as affinity.",
-            items:
-              '<!doctype html> <html lang="en"> <head> <script type="module">import { injectIntoGlobalHook } from "/@react-refresh"; injectIntoGlobalHook(window); window.$RefreshReg$ = () => {}; window.$RefreshSig$ = () => (type) => type;</script>\n<script type="module" src="/@vite/client"></script>\n<meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>OpenProtein API</title> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html>',
+            items: {
+              $ref: "./Property.yaml",
+            },
           },
           diffusion_samples: {
             type: "integer",
@@ -6042,6 +2740,14 @@ const foldSpec = {
               },
             },
           ],
+          templates: [
+            {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+              index_intervals: [[0, 100]],
+            },
+          ],
           properties: [
             {
               affinity: {
@@ -6069,62 +2775,10 @@ const foldSpec = {
               items: {
                 oneOf: [
                   {
-                    type: "object",
-                    required: ["msa_id"],
-                    properties: {
-                      msa_id: {
-                        type: "string",
-                        format: "uuid",
-                        nullable: true,
-                        description:
-                          "ID for an MSA job, or null for single-sequence mode.",
-                      },
-                    },
-                    title: "ProteinWithMSA",
-                    description: "Protein object with MSA specified.",
-                    example: {
-                      id: "A",
-                      sequence: "MVTPEGNV...",
-                      msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
-                    },
+                    $ref: "#/components/schemas/ProteinWithMSA",
                   },
                   {
-                    title: "Ligand",
-                    description:
-                      "Small molecule ligand for structure prediction.",
-                    type: "object",
-                    required: ["id"],
-                    properties: {
-                      id: {
-                        oneOf: [
-                          {
-                            type: "string",
-                          },
-                          {
-                            type: "array",
-                            items: {
-                              type: "string",
-                            },
-                          },
-                        ],
-                        description:
-                          "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                      },
-                      smiles: {
-                        type: "string",
-                        description:
-                          "SMILES string for the ligand. Mutually exclusive with ccd.",
-                      },
-                      ccd: {
-                        type: "string",
-                        description:
-                          "CCD code for the ligand. Mutually exclusive with smiles.",
-                      },
-                    },
-                    example: {
-                      id: ["C", "D"],
-                      ccd: "SAH",
-                    },
+                    $ref: "#/components/schemas/Ligand",
                   },
                 ],
               },
@@ -6175,100 +2829,124 @@ const foldSpec = {
           num_steps: 300,
         },
       },
+      ProtenixRequest: {
+        title: "ProtenixRequest",
+        description: "Request for structure prediction using Protenix.",
+        type: "object",
+        required: ["sequences"],
+        properties: {
+          sequences: {
+            type: "array",
+            description: "List of chain/molecule entities in the input.",
+            items: {
+              type: "array",
+              items: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/ProteinWithMSA",
+                  },
+                  {
+                    $ref: "#/components/schemas/Ligand",
+                  },
+                  {
+                    $ref: "#/components/schemas/DNA",
+                  },
+                  {
+                    $ref: "#/components/schemas/RNA",
+                  },
+                ],
+              },
+            },
+          },
+          templates: {
+            type: "array",
+            description: "Optional structural templates for prediction.",
+            items: {
+              $ref: "#/components/schemas/Template",
+            },
+          },
+          diffusion_samples: {
+            type: "integer",
+            description: "Number of diffusion samples to use.",
+            default: 1,
+          },
+          num_steps: {
+            type: "integer",
+            description: "Number of sampling steps to use.",
+            default: 200,
+          },
+          num_recycles: {
+            type: "integer",
+            description: "Number of recycling steps to use.",
+            default: 10,
+          },
+        },
+        example: {
+          sequences: [
+            [
+              {
+                protein: {
+                  id: ["A", "B"],
+                  sequence: "MVTPEGNV...",
+                  msa_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+                },
+              },
+              {
+                ligand: {
+                  id: ["C", "D"],
+                  ccd: "SAH",
+                },
+              },
+              {
+                ligand: {
+                  id: ["E", "F"],
+                  smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
+                },
+              },
+            ],
+          ],
+          templates: [
+            {
+              query_id: "f9152774-c354-480a-9349-a41c5dfe198b",
+              chain_id: "A",
+              template_id: "A",
+            },
+          ],
+          diffusion_samples: 2,
+          num_steps: 300,
+          num_recycles: 15,
+        },
+      },
       Fold: {
         title: "Fold",
         description: "Fold request metadata.",
-        type: "object",
-        required: [
-          "job_id",
-          "prerequisite_job_id",
-          "created_date",
-          "start_date",
-          "end_date",
-          "status",
-          "progress_counter",
-          "model_id",
-        ],
-        properties: {
-          job_id: {
-            title: "JobID",
-            description: "ID of job.",
-            type: "string",
-            format: "uuid",
-            "x-order": 1,
+        allOf: [
+          {
+            $ref: "#/components/schemas/Request",
           },
-          prerequisite_job_id: {
-            title: "PrerequisiteJobID",
-            description: "Prerequisite job ID.",
-            type: "string",
-            format: "uuid",
-            nullable: true,
-            default: null,
-            example: null,
-            "x-order": 2,
-          },
-          created_date: {
-            title: "Created Date",
-            description: "Datetime of created object",
-            type: "string",
-            format: "date-time",
-            example: "2024-01-01T12:34:56.789Z",
-            "x-order": 4,
-          },
-          start_date: {
-            title: "StartDate",
-            description: "Start date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 5,
-          },
-          end_date: {
-            title: "EndDate",
-            description: "End date of job.",
-            type: "string",
-            format: "date-time",
-            nullable: true,
-            example: null,
-            default: null,
-            "x-order": 6,
-          },
-          status: {
-            title: "JobStatus",
-            description: "Status of job.",
-            type: "string",
-            enum: ["PENDING", "RUNNING", "SUCCESS", "FAILURE"],
-            "x-order": 7,
-          },
-          progress_counter: {
-            title: "ProgressCounter",
-            description: "Counter of the progress of job from 0 to 100.",
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            example: 0,
-            default: 0,
-            "x-order": 8,
-          },
-          model_id: {
-            type: "string",
-            example: "boltz-2",
-          },
-          args: {
+          {
             type: "object",
-            additionalProperties: true,
-            example: {
-              num_steps: 50,
-              sequences: [
-                {
-                  protein: "...",
+            required: ["model_id"],
+            properties: {
+              model_id: {
+                type: "string",
+                example: "boltz-2",
+              },
+              args: {
+                type: "object",
+                additionalProperties: true,
+                example: {
+                  num_steps: 50,
+                  sequences: [
+                    {
+                      protein: "...",
+                    },
+                  ],
                 },
-              ],
+              },
             },
           },
-        },
+        ],
       },
       Sequence: {
         title: "Sequence",
@@ -6281,10 +2959,7 @@ const foldSpec = {
         description: "Batched fold request sequences.",
         type: "array",
         items: {
-          title: "Sequence",
-          description: "Protein sequence",
-          type: "string",
-          example: "MSKGEELFTGV",
+          $ref: "#/components/schemas/Sequence",
         },
       },
       Chain: {
@@ -6292,72 +2967,10 @@ const foldSpec = {
         description: "A chain entity, which can be a protein or ligand.",
         oneOf: [
           {
-            title: "Protein",
-            description: "Protein to be folded.",
-            type: "object",
-            required: ["id", "sequence"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique chain identifier(s). Use an array for multiple identical chains.",
-              },
-              sequence: {
-                type: "string",
-                description: "Amino acid sequence of the protein chain.",
-              },
-            },
-            example: {
-              id: "A",
-              sequence: "MVTPEGNV...",
-            },
+            $ref: "#/components/schemas/Protein",
           },
           {
-            title: "Ligand",
-            description: "Small molecule ligand for structure prediction.",
-            type: "object",
-            required: ["id"],
-            properties: {
-              id: {
-                oneOf: [
-                  {
-                    type: "string",
-                  },
-                  {
-                    type: "array",
-                    items: {
-                      type: "string",
-                    },
-                  },
-                ],
-                description:
-                  "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-              },
-              smiles: {
-                type: "string",
-                description:
-                  "SMILES string for the ligand. Mutually exclusive with ccd.",
-              },
-              ccd: {
-                type: "string",
-                description:
-                  "CCD code for the ligand. Mutually exclusive with smiles.",
-              },
-            },
-            example: {
-              id: ["C", "D"],
-              ccd: "SAH",
-            },
+            $ref: "#/components/schemas/Ligand",
           },
         ],
       },
@@ -6372,89 +2985,18 @@ const foldSpec = {
             type: "array",
             description: "List of chain/molecule entities in the input.",
             items: {
-              title: "Chain",
-              description: "A chain entity, which can be a protein or ligand.",
-              oneOf: [
-                {
-                  title: "Protein",
-                  description: "Protein to be folded.",
-                  type: "object",
-                  required: ["id", "sequence"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
-                            type: "string",
-                          },
-                        },
-                      ],
-                      description:
-                        "Unique chain identifier(s). Use an array for multiple identical chains.",
-                    },
-                    sequence: {
-                      type: "string",
-                      description: "Amino acid sequence of the protein chain.",
-                    },
-                  },
-                  example: {
-                    id: "A",
-                    sequence: "MVTPEGNV...",
-                  },
-                },
-                {
-                  title: "Ligand",
-                  description:
-                    "Small molecule ligand for structure prediction.",
-                  type: "object",
-                  required: ["id"],
-                  properties: {
-                    id: {
-                      oneOf: [
-                        {
-                          type: "string",
-                        },
-                        {
-                          type: "array",
-                          items: {
-                            type: "string",
-                          },
-                        },
-                      ],
-                      description:
-                        "Unique identifier(s) for the ligand. Use an array for multiple identical ligands.",
-                    },
-                    smiles: {
-                      type: "string",
-                      description:
-                        "SMILES string for the ligand. Mutually exclusive with ccd.",
-                    },
-                    ccd: {
-                      type: "string",
-                      description:
-                        "CCD code for the ligand. Mutually exclusive with smiles.",
-                    },
-                  },
-                  example: {
-                    id: ["C", "D"],
-                    ccd: "SAH",
-                  },
-                },
-              ],
+              $ref: "#/components/schemas/Chain",
             },
           },
         },
       },
       OutputFormat: {
         title: "OutputFormat",
-        description: "Output format of folded structure. Defaults to pdb.",
+        description:
+          "Output format of folded structure. Defaults to `mmcif`.\n\nThe value `cif` is accepted as an alias for `mmcif`.\n",
         type: "string",
-        enum: ["pdb", "mmcif"],
-        default: "pdb",
+        enum: ["pdb", "mmcif", "cif"],
+        default: "mmcif",
       },
       PDBOutput: {
         title: "PDBOutput",
@@ -6496,10 +3038,22 @@ const foldSpec = {
       description: "Create structure prediction using RosettaFold-3 model.",
     },
     {
+      name: "protenix",
+      description: "Create structure prediction using Protenix.",
+    },
+    {
+      name: "protenix-v2",
+      description: "Create structure prediction using Protenix-v2.",
+    },
+    {
       name: "esmfold",
       description: "Create structure prediction using ESMFold.",
     },
+    {
+      name: "esmfold2",
+      description:
+        "Create structure prediction using ESMFold2 and ESMFold2-Fast.",
+    },
   ],
 };
-
 export default foldSpec;
