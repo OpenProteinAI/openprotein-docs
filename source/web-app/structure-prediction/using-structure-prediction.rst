@@ -98,7 +98,7 @@ If you select **ESMFold2**, the **Advanced Options** section allows you to set t
 - **Step scale** Adjusts the effective temperature or diversity of teh sampling process. The higher the values, the higher the diversity
 
 
-.. image:: /_static/structure-prediction/ESMFold2.png
+.. image:: /_static/structure-prediction/esmfold2.png
    :alt: ESMFold2
    
 Using MiniFold
