@@ -1,7 +1,7 @@
-Using The Rank Sequences Tool
+Using The Score Sequences Tool
 ===============================
 
-This tutorial teaches you how to assess protein fitness by using the Rank Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+This tutorial teaches you how to assess protein fitness by using the Score Sequences tool to score your input sequences relative to a prompt. Use this as a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
 
 On this page, you will learn how to score sequences to predict fitness and rank variants, then interpret and fine-tune the results.
 
@@ -16,10 +16,10 @@ This tool requires a multiple sequence alignment (MSA), from which it builds a p
 You also need an input sequence, or list of sequences you want to score against the prompt.
 
 
-Rank Your Sequences
--------------------
+Score Your Sequences
+--------------------
 
-Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Rank Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
+Navigate to the tool by opening the **PoET** dropdown menu, then selecting **Score Sequences.** You can choose the model used to run the job. We recommend using PoET-2 for most use cases.
 
 Step 1: Input Sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -35,7 +35,7 @@ If you choose to upload a CSV file, please note the following requirements:
 
 You can choose the default structure prediction model to generate the sequence structures after the job completes.
 
-.. image:: /_static/tools/poet/rank-sequences-1.png
+.. image:: /_static/tools/poet/score-sequences-1.png
   :alt: Input Sequences
 
 
@@ -50,7 +50,7 @@ Step 3: Prompt Context
 
 Refer to `Creating a Context <./prompts.rst#creating-a-context>`_ to learn about Prompt Context.
 
-You're ready to rank your sequences! Click **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
+You're ready to score your sequences! Click **Run.** The job may take a few minutes depending on how busy the service is, how long your sequences are, and how many sequences you want to score.
 
 A 400 (Bad request) error code may be due to the following:
 
