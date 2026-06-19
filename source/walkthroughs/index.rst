@@ -21,9 +21,9 @@ Web App
     - PoET, Structure Prediction
   * - `Designing libraries of multimeric proteins <./multichain.rst>`_
     - Optimization and Prediction Models 
-  * - `Protein-protein binder design with RFdiffusion <./protein_protein_binder_design_with_rfdiffusion_using_the_GUI.rst>`__
+  * - `Protein-protein binder design with RFdiffusion <./protein_protein_binder_design_with_rfdiffusion_using_the_GUI.rst>`_
     - Query design, RFdiffusion, BoltzGen, ProteinMPNN, Boltz-2
-  * - `Nanobody binder design with BoltzGen <./nanobody_binder_design_with_boltzgen_using_the_gui.rst>`__
+  * - `Nanobody binder design with BoltzGen <./nanobody_binder_design_with_boltzgen_using_the_gui.rst>`_
     - Query design, BoltzGen, ProteinMPNN, Boltz-2
 
 
