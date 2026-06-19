@@ -172,7 +172,7 @@ Designing and ranking a combinatorial variant library
 
 By considering the overall fitness landscape and introducing multiple mutations per variant, we can explore a much larger sequence design space not limited to mutating to one amino acid per position at a time. In this section, we will create a library of combinatorial variants using the PSSM generated above in Exploring the Fitness Landscape of EstA, where variants can have more than one amino acid substitution per position as well as multiple substitutions per variant. The PSSM derived from our PoET substitution scores provides the frequencies of each amino acid at each position that can be randomly combined to create a large combinatorial variant library.
 
-Although the PSSM is an additive model, we can explore potential epistatic interactions between residues and to design specific combinatorial variants that are likely to be fitter than the wild-type. To do this, we can sample sequences from our PSSM and score these full combinatorial variants using the **Rank Sequences** tool. By comparing the full PoET scores with the additive scores, we can find variants with positive or negative epistasis and prioritize specific combinatorial variants based on their fitness relative to the WT sequence.
+Although the PSSM is an additive model, we can explore potential epistatic interactions between residues and to design specific combinatorial variants that are likely to be fitter than the wild-type. To do this, we can sample sequences from our PSSM and score these full combinatorial variants using the **Score Sequences** tool. By comparing the full PoET scores with the additive scores, we can find variants with positive or negative epistasis and prioritize specific combinatorial variants based on their fitness relative to the WT sequence.
 
 First, we’ll sample a large number of candidate combinatorial variants from the PSSM with the following Python script. You can download the py file `here <https://drive.google.com/file/d/1h6a066f5Y0MGDrIcdQ41m3S8GdQRmESA/view?usp=drive_link>`__.
 
@@ -229,7 +229,7 @@ First, we’ll sample a large number of candidate combinatorial variants from th
 
 
 
-This Python code generates a CSV file with the scores column and header removed, and can be found `here <https://drive.google.com/file/d/16QxerujZD-EhSHfOArbcLIHSs5CxYrQL/view?usp=drive_link>`__ for your reference. We’ll upload this `CSV file <https://drive.google.com/file/d/1cWRI8eG_Yhjt-p0m95oCfIgH007lkqt_/view?usp=drive_link>`_ by clicking on **select a file**. In the **Prompt Definition** field, we’ll use the wild-type sequence shown below. Then, we’ll run **Rank Sequences** with **Number of prompts to ensemble** set to 3 and the default parameters. Note that the CSV file should only have 2 columns containing the name and sequence, without headers.
+This Python code generates a CSV file with the scores column and header removed, and can be found `here <https://drive.google.com/file/d/16QxerujZD-EhSHfOArbcLIHSs5CxYrQL/view?usp=drive_link>`__ for your reference. We’ll upload this `CSV file <https://drive.google.com/file/d/1cWRI8eG_Yhjt-p0m95oCfIgH007lkqt_/view?usp=drive_link>`_ by clicking on **select a file**. In the **Prompt Definition** field, we’ll use the wild-type sequence shown below. Then, we’ll run **Score Sequences** with **Number of prompts to ensemble** set to 3 and the default parameters. Note that the CSV file should only have 2 columns containing the name and sequence, without headers.
   
 .. code-block:: python
 
@@ -240,11 +240,11 @@ This Python code generates a CSV file with the scores column and header removed,
 .. image:: /_static/walkthroughs/enzymes/PoETW1-P8.png
     
 
-We will then **Export** the results, which are shown here sorted by their log-likelihood scores. We can compare the additive log-likelihood scores from the PSSM versus the full PoET log-likelihood scores from **Rank sequences**.
+We will then **Export** the results, which are shown here sorted by their log-likelihood scores. We can compare the additive log-likelihood scores from the PSSM versus the full PoET log-likelihood scores from **Score Sequences**.
 
 .. image:: /_static/walkthroughs/enzymes/PoETW1-P9.png
 
-As seen below, from plotting the expected log-likelihood score calculated from the PSSM and the log-likelihood score from PoET **Rank Sequence**, there are differences when considering each position additively (PSSM score) versus the mutations in the context of the full length protein (PoET score). The differences highlight the potential epistatic effects which amino acids at different positions can have on each other, and highlights the importance of running generated variants through PoET’s **Rank Sequence** tool to determine the best combinatorial variants to screen. Certain pairs or groups of amino acids that are in contact may need to be conserved or engineered together.
+As seen below, from plotting the expected log-likelihood score calculated from the PSSM and the log-likelihood score from PoET **Score Sequences**, there are differences when considering each position additively (PSSM score) versus the mutations in the context of the full length protein (PoET score). The differences highlight the potential epistatic effects which amino acids at different positions can have on each other, and highlights the importance of running generated variants through PoET’s **Score Sequences** tool to determine the best combinatorial variants to screen. Certain pairs or groups of amino acids that are in contact may need to be conserved or engineered together.
 
 .. image:: /_static/walkthroughs/enzymes/PoETW1-P10-1.png
 
@@ -261,7 +261,7 @@ For further refinement of the prompt, you can look at the tutorial found `here <
 
 Consider selecting at least 10 to 30 designs designed using PoET as an initial library to serve as proof of concept for experimental validation. The data generated from the library can then be used to further enhance the enzyme using **OP Models** following the tutorial found `here <../web-app/opmodels/index.rst>`__.
 
-You can also perform **Structure Prediction** on the specific variants, such as those with PoET **Rank Sequence** log-likelihood scores higher than the expected log-likelihood score calculated from the PSSM. This could indicate potential positive epistasis. You can align the sequences to compare or compare the predicted structures to examine if there are specific key residues.
+You can also perform **Structure Prediction** on the specific variants, such as those with PoET **Score Sequences** log-likelihood scores higher than the expected log-likelihood score calculated from the PSSM. This could indicate potential positive epistasis. You can align the sequences to compare or compare the predicted structures to examine if there are specific key residues.
 
 
 References
