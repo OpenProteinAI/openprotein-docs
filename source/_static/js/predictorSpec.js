@@ -1450,7 +1450,15 @@ const predictorSpec = {
           type: {
             type: "string",
             description: "Type of kernel to use with GP.",
-            enum: ["linear", "rbf", "matern21", "matern32"],
+            enum: [
+              "linear",
+              "rbf",
+              "matern12",
+              "matern32",
+              "matern52",
+              "periodic",
+              "rational_quadratic",
+            ],
             example: "rbf",
           },
           multitask: {
@@ -1458,6 +1466,20 @@ const predictorSpec = {
             description: "Whether or not to train GP as multitask.",
             example: true,
             default: false,
+          },
+          period: {
+            type: "number",
+            format: "double",
+            description:
+              "Period length for the periodic kernel. Only valid when type is periodic.",
+            example: 1,
+          },
+          alpha: {
+            type: "number",
+            format: "double",
+            description:
+              "Scale-mixture parameter for the rational_quadratic kernel; must be > 0. Only valid when type is rational_quadratic.",
+            example: 1,
           },
         },
       },
