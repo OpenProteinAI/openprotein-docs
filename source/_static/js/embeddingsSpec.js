@@ -3,7 +3,7 @@ const embeddingsSpec = {
   info: {
     title: "OpenProtein Embeddings",
     description:
-      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://papers.nips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html).\n- **PoET-2**: An OpenProtein.AI conditional, multimodal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://proceedings.neurips.cc/paper_files/paper/2025/hash/4d19160864e6a644496d61b21c7e015a-Abstract-Conference.html).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESMC Models**: ESM Cambrian (ESMC) protein language models, including: *esmc-300m*, *esmc-600m*, *esmc-6b*. These are trained on UniRef, MGnify, and JGI, with different versions having different model parameters. [GitHub link](https://github.com/Biohub/esm), [Reference](https://biohub.ai/papers/esm_protein.pdf). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **ProteinMPNN**: A model for inverse-folding of protein structures to predict suitable sequences. [GitHub link](https://github.com/dauparas/ProteinMPNN), [Reference](https://doi.org/10.1126/science.add2187). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM-IF1**: A structure-conditioned inverse-folding model that scores or generates protein sequences given a backbone structure. It has a max sequence length of 500 residues. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.biorxiv.org/content/10.1101/2022.04.10.487779). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n\n",
+      "# Embeddings API\nThe Embeddings API provided by OpenProtein.ai allows you to generate state-of-the-art protein sequence embeddings from both proprietary and open source models.\n\nYou can list the available models with `/embeddings/models` and view a model summary (including output dimensions, citations and more) with `/embeddings/models/{model_id}/metadata`.\n\nCurrently, we support the following models:\n- **PoET**: An OpenProtein.AI conditional protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://papers.nips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html).\n- **PoET-2**: An OpenProtein.AI conditional, multimodal protein language model that enables embedding, scoring, and generating sequences conditioned on an input protein family of interest. [Reference](https://proceedings.neurips.cc/paper_files/paper/2025/hash/4d19160864e6a644496d61b21c7e015a-Abstract-Conference.html).\n- **Prot-seq**: An OpenProtein.AI masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. This model utilizes random Fourier position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref50w**: An OpenProtein.AI masked protein language model (~900M parameters) trained on UniRef100 with sequences weighted inversely proportional to the number of UniRef50 homologs. This model uses rotary relative position embeddings and FlashAttention to enable fast inference.\n- **Rotaprot-large-uniref90-ft**: A version of our proprietary rotaprot-large-uniref50w finetuned on UniRef100 with sequences weighted inversely proportional to the number of UniRef90 cluster members.\n- **ESM1 Models**: Community based ESM1 models, including: *esm1b_t33_650M_UR50S*, *esm1v_t33_650M_UR90S_1*, *esm1v_t33_650M_UR90S_2*, *esm1v_t33_650M_UR90S_3*, *esm1v_t33_650M_UR90S_4*, *esm1v_t33_650M_UR90S_5*. These are based on the ESM1 language model, with different versions having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [ESM1b reference](https://www.pnas.org/doi/full/10.1073/pnas.2016239118), [ESM1v reference](https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM2 Models**: Community based ESM2 models, including: *esm2_t6_8M_UR50D*, *esm2_t12_35M_UR50D*, *esm2_t30_150M_UR50D*, *esm2_t33_650M_UR50D*. These models are based on the ESM2 language model, with different version having different model parameters and training data. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESMC Models**: ESM Cambrian (ESMC) protein language models, including: *esmc-300m*, *esmc-600m*, *esmc-6b*. These are trained on UniRef, MGnify, and JGI, with different versions having different model parameters. [GitHub link](https://github.com/Biohub/esm), [Reference](https://biohub.ai/papers/esm_protein.pdf). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ProtTrans Models**: Transformer-based models from RostLab, including: *prot_t5_xl_half_uniref50-enc*. These models are based on the ProtTrans models, with different versions having different transformer-based architectures, model parameters and precisions, as well as different training datasets. [GitHub link](https://github.com/agemagician/ProtTrans), [Reference](https://www.biorxiv.org/content/early/2020/07/21/2020.07.12.199554). Licensed under [Academic Free License v3.0 License](https://choosealicense.com/licenses/afl-3.0/).\n- **AbLang2**: An antibody-specific language model that provides residue-level and sequence-level representations for both heavy and light chains. [GitHub link](https://github.com/oxpig/AbLang2), [Reference](https://doi.org/10.1101/2024.02.02.578678). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).\n- **ProteinMPNN**: A model for inverse-folding of protein structures to predict suitable sequences. [GitHub link](https://github.com/dauparas/ProteinMPNN), [Reference](https://doi.org/10.1126/science.add2187). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **SolubleMPNN**: A variant of ProteinMPNN trained with weights tuned for soluble protein targets. Uses the same inverse-folding pipeline as ProteinMPNN; `soluble_model` is implied by the route, and `model_name` is restricted to the soluble-compatible weights (`v_48_010`, `v_48_020`). [GitHub link](https://github.com/dauparas/ProteinMPNN), [Reference](https://doi.org/10.1126/science.add2187). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n- **ESM-IF1**: A structure-conditioned inverse-folding model that scores or generates protein sequences given a backbone structure. It has a max sequence length of 500 residues. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.biorxiv.org/content/10.1101/2022.04.10.487779). Licensed under [MIT](https://choosealicense.com/licenses/mit/).\n\n",
     version: "1.0.0",
   },
   paths: {
@@ -94,6 +94,7 @@ const embeddingsSpec = {
                 "poet",
                 "poet-2",
                 "proteinmpnn",
+                "solublempnn",
                 "esm-if1",
                 "prot-seq",
                 "rotaprot-large-uniref50w",
@@ -9967,6 +9968,439 @@ const embeddingsSpec = {
         ],
       },
     },
+    "/api/v1/embeddings/models/solublempnn/generate": {
+      post: {
+        tags: ["community", "solublempnn", "generate"],
+        summary: "solublempnn generate",
+        description: "Use `solublempnn` to generate sequences based on score.",
+        requestBody: {
+          description: "Request generate sequences.",
+          content: {
+            "application/json": {
+              schema: {
+                title: "GenerateRequest",
+                description:
+                  "Request for generate sequences using `solublempnn`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "ID of the uploaded PDB structure",
+                  },
+                  start_index: {
+                    type: "integer",
+                    description: "Generate start index",
+                    default: 0,
+                  },
+                  model_name: {
+                    type: "string",
+                    enum: ["v_48_010", "v_48_020"],
+                    default: "v_48_020",
+                    description:
+                      "ProteinMPNN soluble-model version (restricted to soluble-compatible weights)",
+                  },
+                  ca_only: {
+                    type: "boolean",
+                    description: "Use CA-only model",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 0.1,
+                  },
+                  backbone_noise: {
+                    type: "number",
+                    format: "float",
+                  },
+                  chains_to_design: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  fixed_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  omit_aas_global: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  omit_aas_per_chain_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          positions: {
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          aas: {
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  aa_bias_global: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "number",
+                      format: "float",
+                    },
+                  },
+                  aa_bias_per_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "array",
+                        items: {
+                          type: "number",
+                          format: "float",
+                        },
+                      },
+                    },
+                  },
+                  pssm: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "object",
+                      properties: {
+                        pssm_coef: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_bias: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_log_odds: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  pssm_multi: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_threshold: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_log_odds: {
+                    type: "boolean",
+                  },
+                  pssm_bias: {
+                    type: "boolean",
+                  },
+                  tie_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  score_only: {
+                    type: "boolean",
+                  },
+                  input_sequences: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                    description: "Required if score_only is true",
+                  },
+                  probabilities_output_mode: {
+                    type: "string",
+                    enum: [
+                      "none",
+                      "per_position",
+                      "conditional",
+                      "conditional_backbone",
+                      "unconditional",
+                    ],
+                  },
+                },
+              },
+            },
+            "multipart/form-data": {
+              schema: {
+                title: "GenerateRequest",
+                description:
+                  "Request for generate sequences using `solublempnn`.",
+                type: "object",
+                required: ["n_sequences"],
+                properties: {
+                  n_sequences: {
+                    title: "Number of Sequences",
+                    type: "integer",
+                    minimum: 1,
+                    default: 100,
+                    example: 100,
+                  },
+                  query_id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "ID of the uploaded PDB structure",
+                  },
+                  start_index: {
+                    type: "integer",
+                    description: "Generate start index",
+                    default: 0,
+                  },
+                  model_name: {
+                    type: "string",
+                    enum: ["v_48_010", "v_48_020"],
+                    default: "v_48_020",
+                    description:
+                      "ProteinMPNN soluble-model version (restricted to soluble-compatible weights)",
+                  },
+                  ca_only: {
+                    type: "boolean",
+                    description: "Use CA-only model",
+                  },
+                  temperature: {
+                    type: "number",
+                    format: "float",
+                    default: 0.1,
+                  },
+                  backbone_noise: {
+                    type: "number",
+                    format: "float",
+                  },
+                  chains_to_design: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  fixed_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  omit_aas_global: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
+                  omit_aas_per_chain_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          positions: {
+                            type: "array",
+                            items: {
+                              type: "integer",
+                            },
+                          },
+                          aas: {
+                            type: "string",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  aa_bias_global: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "number",
+                      format: "float",
+                    },
+                  },
+                  aa_bias_per_position: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "array",
+                      items: {
+                        type: "array",
+                        items: {
+                          type: "number",
+                          format: "float",
+                        },
+                      },
+                    },
+                  },
+                  pssm: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "object",
+                      properties: {
+                        pssm_coef: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_bias: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                        pssm_log_odds: {
+                          type: "array",
+                          items: {
+                            type: "number",
+                            format: "float",
+                          },
+                        },
+                      },
+                    },
+                  },
+                  pssm_multi: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_threshold: {
+                    type: "number",
+                    format: "float",
+                  },
+                  pssm_log_odds: {
+                    type: "boolean",
+                  },
+                  pssm_bias: {
+                    type: "boolean",
+                  },
+                  tie_positions: {
+                    type: "array",
+                    items: {
+                      type: "array",
+                      items: {
+                        type: "integer",
+                      },
+                    },
+                  },
+                  score_only: {
+                    type: "boolean",
+                  },
+                  input_sequences: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                    description: "Required if score_only is true",
+                  },
+                  probabilities_output_mode: {
+                    type: "string",
+                    enum: [
+                      "none",
+                      "per_position",
+                      "conditional",
+                      "conditional_backbone",
+                      "unconditional",
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          202: {
+            description: "Generate request created and pending",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/GenerateJob",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation errors in the submitted request.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Model not found.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+          422: {
+            description:
+              "Unexpected request format. The submitted request body cannot be validated. Double check the schema.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ValidationError",
+                },
+              },
+            },
+          },
+          429: {
+            description: "Too many requests. Try again later.",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Error",
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            oauth2: [],
+          },
+        ],
+      },
+    },
     "/api/v1/embeddings/models/esm-if1/generate": {
       post: {
         tags: ["community", "esm-if1", "generate"],
@@ -10878,6 +11312,10 @@ const embeddingsSpec = {
     {
       name: "proteinmpnn",
       description: "proteinmpnn",
+    },
+    {
+      name: "solublempnn",
+      description: "solublempnn",
     },
   ],
 };
