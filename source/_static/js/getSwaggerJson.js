@@ -247,15 +247,24 @@ export default async function getSwaggerJson(swaggerType) {
   } else if (swaggerType === "models") {
     // Served from the main service. Rather than curating explicit path/schema
     // allowlists, just keep the models module's routes (everything under
-    // /api/v1/models) and leave components/tags untouched.
+    // /api/v1/models).
     swaggerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
     const modelsPaths = {};
+    const usedTags = new Set();
     for (const pathKey in swaggerSpecs.paths) {
-      if (pathKey.startsWith("/api/v1/models")) {
-        modelsPaths[pathKey] = swaggerSpecs.paths[pathKey];
+      if (!pathKey.startsWith("/api/v1/models")) continue;
+      const pathItem = swaggerSpecs.paths[pathKey];
+      modelsPaths[pathKey] = pathItem;
+      for (const method in pathItem) {
+        (pathItem[method].tags || []).forEach((t) => usedTags.add(t));
       }
     }
     swaggerSpecs.paths = modelsPaths;
+    // Keep only the tags used by the models routes so the other main-service
+    // tag sections don't render.
+    if (Array.isArray(swaggerSpecs.tags)) {
+      swaggerSpecs.tags = swaggerSpecs.tags.filter((t) => usedTags.has(t.name));
+    }
     return swaggerSpecs;
   }
 
