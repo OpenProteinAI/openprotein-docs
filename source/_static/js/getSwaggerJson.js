@@ -199,75 +199,88 @@ const prodFetchUrls = {
 export default async function getSwaggerJson(swaggerType) {
   let apiPathToShow = [];
   let apiSchemasToShow = [];
-  let swagerSpecs = {};
+  let swaggerSpecs = {};
 
   const environment = getEnvironment();
   const fetchUrls = environment === "dev" ? devFetchUrls : prodFetchUrls;
 
   if (swaggerType === "project") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
+    swaggerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathProject;
     apiSchemasToShow = apiSchemasProject;
-    swagerSpecs.tags = apiTagsProject;
+    swaggerSpecs.tags = apiTagsProject;
   }
   if (swaggerType === "align") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
+    swaggerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
 
     // update variables according to the swagger type
     apiPathToShow = apiPathAlign;
     apiSchemasToShow = apiSchemasAlign;
-    swagerSpecs.tags = apiTagsAlign;
+    swaggerSpecs.tags = apiTagsAlign;
   } else if (swaggerType === "poet") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch(fetchUrls.poetUrl)).json();
+    swaggerSpecs = await (await fetch(fetchUrls.poetUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathPoet;
     apiSchemasToShow = apiSchemasPoet;
-    swagerSpecs.tags = apiTagsPoet;
+    swaggerSpecs.tags = apiTagsPoet;
   } else if (swaggerType === "auth") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch(fetchUrls.authUrl)).json();
+    swaggerSpecs = await (await fetch(fetchUrls.authUrl)).json();
     // update variables according to the swagger type
     apiPathToShow = apiPathAuth;
     apiSchemasToShow = apiSchemasAuth;
-    swagerSpecs.tags = apiTagsAuth;
+    swaggerSpecs.tags = apiTagsAuth;
   } else if (swaggerType === "embeddings") {
     // get the full swagger specs
-    swagerSpecs = await (await fetch(fetchUrls.embeddingsUrl)).json();
-    return swagerSpecs;
+    swaggerSpecs = await (await fetch(fetchUrls.embeddingsUrl)).json();
+    return swaggerSpecs;
   } else if (swaggerType === "prompt") {
     // The prompt service exports its own (prompt-only) spec, so there is
     // nothing to filter — fetch and return it as-is. Includes the dynamic
     // per-system-prompt routes whenever the backend DB is seeded.
-    swagerSpecs = await (await fetch(fetchUrls.promptUrl)).json();
-    return swagerSpecs;
+    swaggerSpecs = await (await fetch(fetchUrls.promptUrl)).json();
+    return swaggerSpecs;
+  } else if (swaggerType === "models") {
+    // Served from the main service. Rather than curating explicit path/schema
+    // allowlists, just keep the models module's routes (everything under
+    // /api/v1/models) and leave components/tags untouched.
+    swaggerSpecs = await (await fetch(fetchUrls.projectUrl)).json();
+    const modelsPaths = {};
+    for (const pathKey in swaggerSpecs.paths) {
+      if (pathKey.startsWith("/api/v1/models")) {
+        modelsPaths[pathKey] = swaggerSpecs.paths[pathKey];
+      }
+    }
+    swaggerSpecs.paths = modelsPaths;
+    return swaggerSpecs;
   }
 
   const filteredPathsToShow = {};
-  for (const pathKey in swagerSpecs.paths) {
+  for (const pathKey in swaggerSpecs.paths) {
     apiPathToShow.forEach((pathToShow) => {
       if (pathToShow === pathKey) {
-        filteredPathsToShow[pathToShow] = swagerSpecs.paths[pathToShow];
+        filteredPathsToShow[pathToShow] = swaggerSpecs.paths[pathToShow];
       }
     });
   }
 
-  swagerSpecs.paths = filteredPathsToShow;
+  swaggerSpecs.paths = filteredPathsToShow;
 
   const filteredSchemasToShow = {};
-  for (const schemaKey in swagerSpecs.components.schemas) {
+  for (const schemaKey in swaggerSpecs.components.schemas) {
     apiSchemasToShow.forEach((schemaKeyToShow) => {
       if (schemaKeyToShow === schemaKey) {
         filteredSchemasToShow[schemaKeyToShow] =
-          swagerSpecs.components.schemas[schemaKeyToShow];
+          swaggerSpecs.components.schemas[schemaKeyToShow];
       }
     });
   }
 
-  swagerSpecs.components.schemas = filteredSchemasToShow;
+  swaggerSpecs.components.schemas = filteredSchemasToShow;
 
-  return swagerSpecs;
+  return swaggerSpecs;
 }

@@ -37,9 +37,17 @@ The endpoints include:
 - Svd
 
 
+`Models <./models.rst>`_
+-------------------------
+A single, unified way to call any model on the platform and to discover what each model can do. List and filter models, fetch a model's metadata (the inferences it supports and the parameters they take), and run an inference via ``{method}/{output}``.
+
+The endpoints include:
+
+- Models
+
 `Align <./align.rst>`_
 ----------------------
-Use these endpoints to align multiple sequences. This forms the basis for PoET and certain Fold workflows. 
+Use these endpoints to align multiple sequences. This forms the basis for PoET and certain Fold workflows.
 
 The endpoints include:
 
@@ -92,6 +100,7 @@ To start accessing our suite of APIs, refer to these articles to get started:
 
     Authentication and Jobs <./authentication-and-jobs.rst>
     Assay datasets <./assay-datasets.rst>
+    Models <./models.rst>
     Align <./align.rst>
     Prompt <./prompt.rst>
     Embeddings <./embeddings.rst>
