@@ -184,7 +184,6 @@ const devFetchUrls = {
   authUrl: "https://dev.api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://dev.api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
-  promptUrl: "https://dev.api.openprotein.ai/api/v1/prompt/openapi.json",
 };
 
 const prodFetchUrls = {
@@ -193,7 +192,6 @@ const prodFetchUrls = {
   authUrl: "https://api.openprotein.ai/openapi.json",
   embeddingsUrl:
     "https://api.openprotein.ai/api/v1/embeddings/swagger/doc.json",
-  promptUrl: "https://api.openprotein.ai/api/v1/prompt/openapi.json",
 };
 
 export default async function getSwaggerJson(swaggerType) {
@@ -237,12 +235,6 @@ export default async function getSwaggerJson(swaggerType) {
   } else if (swaggerType === "embeddings") {
     // get the full swagger specs
     swagerSpecs = await (await fetch(fetchUrls.embeddingsUrl)).json();
-    return swagerSpecs;
-  } else if (swaggerType === "prompt") {
-    // The prompt service exports its own (prompt-only) spec, so there is
-    // nothing to filter — fetch and return it as-is. Includes the dynamic
-    // per-system-prompt routes whenever the backend DB is seeded.
-    swagerSpecs = await (await fetch(fetchUrls.promptUrl)).json();
     return swagerSpecs;
   }
 
