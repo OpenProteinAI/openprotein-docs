@@ -39,7 +39,7 @@ The endpoints include:
 
 `Models <./models.rst>`_
 -------------------------
-A single, unified way to call any model on the platform and to discover what each model can do. List and filter models, fetch a model's metadata (the inferences it supports and the parameters they take), and run an inference via ``{method}/{output}``.
+A single, unified way to call any model on the platform and to discover what each model can do. List and filter models, fetch a model's metadata (the methods it supports and the parameters they take), and run a method via ``{input}/{output}``.
 
 The endpoints include:
 
