@@ -10,8 +10,8 @@ Core concepts
 
 Every method is addressed by two path segments, ``{input}/{output}``:
 
-- **input** — how inputs are enumerated and the cardinality of the call, e.g. ``batch`` (N sequences → N results), ``single-site`` (one base sequence → all point mutants), ``indel``, ``fold`` (sequence → structure), or ``generate`` (sampling). It is an open set.
-- **output** — the primary output produced, e.g. ``embeddings``, ``logits``, ``attn``, ``loglikelihood``, ``predictions``, ``structure``, or ``sequences``. Also an open set; models may expose their own.
+- **input** — how inputs are enumerated and the cardinality of the call, e.g. ``batch`` (N sequences → N results; folding is a ``batch`` call too, N complexes → N structures), ``single-site`` (one base sequence → all point mutants), ``indel``, or ``generate`` (sampling). It is an open set.
+- **output** — the primary output produced, e.g. ``embeddings``, ``logits``, ``attn``, ``loglikelihood``, ``predictions``, ``structures``, or ``sequences``. Also an open set; models may expose their own.
 
 A model supports a method only if it declares that ``(input, output)`` pair in its metadata. Each declared method lists its ``outputs`` (name → output type). The request ``params`` a method accepts are fetched separately, per method, from ``.../{input}/{output}/params`` (an inline JSON Schema, enough to render an input form) — this keeps model metadata small even for models with many methods.
 
