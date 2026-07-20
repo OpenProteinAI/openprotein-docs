@@ -24,7 +24,7 @@ dependencies = [
   "sphinx-notfound-page>=1.1.0,<1.2.0",
   "sphinx-design>=0.6.1,<0.7",
   # autodoc
-  "openprotein-python>=0.14.2,<0.15.0",
+  "openprotein-python>=0.16.0,<0.17.0",
   "ipython>=9.8.0,<10",
   # nbsphinx needs ipywidgets to render notebooks containing widget output
   "ipywidgets>=8.1.0,<9",
@@ -39,7 +39,9 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64"]
 
 [tool.pixi.tasks]
-build = "sphinx-build source build"
+# -W promotes warnings to errors so doc/client-API drift fails the build;
+# --keep-going still reports every warning in one pass.
+build = "sphinx-build -W --keep-going source build"
 
 [tool.pixi.feature.dev.tasks]
 # install dev version of the client
