@@ -29,10 +29,6 @@ Models
    :inherited-members:
    :exclude-members: create, get_model
 
-.. autoclass:: openprotein.embeddings.AbLang2Model
-   :members:
-   :inherited-members:
-
 .. autoclass:: openprotein.embeddings.OpenProteinModel
    :members:
    :inherited-members:
@@ -90,7 +86,7 @@ Results
    :members:
    :inherited-members:
 
-.. autoclass:: openprotein.embeddings.EmbeddingsScoreSingleSiteFuture
+.. autoclass:: openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture
    :members:
    :inherited-members:
 

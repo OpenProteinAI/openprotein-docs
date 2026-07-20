@@ -39,7 +39,9 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64"]
 
 [tool.pixi.tasks]
-build = "sphinx-build source build"
+# -W promotes warnings to errors so doc/client-API drift fails the build;
+# --keep-going still reports every warning in one pass.
+build = "sphinx-build -W --keep-going source build"
 
 [tool.pixi.feature.dev.tasks]
 # install dev version of the client
