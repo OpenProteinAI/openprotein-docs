@@ -8,9 +8,6 @@ sequences in an uploaded assay dataset. It brings together four tools:
 **Antibody settings panel** that appears automatically on antibody datasets.
 This page describes what each tool does and how to use it.
 
-For an end-to-end walkthrough that combines these tools to select hits from an NGS antibody library, see
-:doc:`/walkthroughs/antibody-hit-selection-ngs`.
-
 .. figure:: /_static/opmodels/dataset-assay/dataset-assay-overview.png
    :alt: Dataset Assay Details page overview, showing tabs, header chips, and action bar
 
@@ -303,8 +300,3 @@ chains.
 Heavy+Kappa rows and some Heavy+Lambda rows, with mismatched/missing chain
 detection is flagged in the table with a warning style — useful as a
 first-pass quality check on the NGS pipeline output.
-
-.. seealso::
-
-   :doc:`/walkthroughs/antibody-hit-selection-ngs` — recommended end-to-end
-   flow that uses these features to select antibody hits from an NGS library.

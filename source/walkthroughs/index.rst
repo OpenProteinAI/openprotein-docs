@@ -15,8 +15,6 @@ Web App
     - Tools covered
   * - `Lead optimization of monoclonal antibody to meet target product profile <./antibody-engineering.rst>`_
     - Optimization and Prediction Models
-  * - `Antibody hit selection from NGS data <./antibody-hit-selection-ngs.rst>`_
-    - Optimization and Prediction Models
   * - `Finding mutational hotspots and designing one-shot variant libraries <./enzyme-engineering.rst>`_
     - PoET, Structure Prediction
   * - `Designing libraries of multimeric proteins <./multichain.rst>`_
@@ -77,7 +75,6 @@ Python API
   :maxdepth: 2
 
   Lead optimization of monoclonal antibody to meet target product profile <antibody-engineering>
-  Antibody hit selection from NGS data <antibody-hit-selection-ngs>
   Finding mutational hotspots and designing one-shot variant libraries <enzyme-engineering>
   Predicting the fitness of isomerases without experimental data <./predicting-fitness.ipynb>
   Understanding the impact of substitution and deletions on aliphatic amidase using different large language models <./AMIE_substitution_deletion_analysis_poet.ipynb>
