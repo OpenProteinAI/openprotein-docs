@@ -82,10 +82,10 @@ You can create a prompt context in three ways:
 If you've previously uploaded prompts, you can reuse them. In the **Choose from project**,
 select an existing prompt. The sequences from that prompt will automatically load.
 
-.. image:: /_static/tools/poet/prompt-contenxt-use-existing-1.png
+.. image:: /_static/tools/poet/prompt-context-use-existing-1.png
   :alt: Use existing prompt
 
-.. image:: /_static/tools/poet/prompt-contenxt-use-existing-2.png
+.. image:: /_static/tools/poet/prompt-context-use-existing-2.png
   :alt: Use existing prompt
 
 2. Create Custom Context
@@ -182,7 +182,10 @@ Without a Project
 ^^^^^^^^^^^^^^^^^^^
 Navigate to any PoET tool under **Prompt Definition**. You can either input the MSA directly or upload an existing `.fa`, `.fasta`, or `.csv` file.
 
-.. image:: /_static/tools/poet/prompt-6.png
+.. image:: /_static/tools/poet/prompt-6-1.png
+  :alt: Uploading MSA without a project
+
+.. image:: /_static/tools/poet/prompt-6-2.png
   :alt: Uploading MSA without a project
 
 Within a Project
