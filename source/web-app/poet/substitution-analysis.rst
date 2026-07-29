@@ -93,7 +93,7 @@ Your highest scoring variants and sites are also displayed in tables below the h
 .. image:: /_static/tools/poet/sub-analysis-1.png
    :alt: Substitution Analysis Heatmap
 
-Refer to the **Details** tab to see the parameters you used to run the Substitution Analysis.
+Refer to the **Input** tab to see the parameters you used to run the Substitution Analysis.
 
 Fine-tuning your results
 ------------------------
