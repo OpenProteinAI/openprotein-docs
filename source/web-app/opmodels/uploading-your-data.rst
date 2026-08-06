@@ -55,7 +55,7 @@ Alternatively, you can assign replicates after uploading your CSV file:
 
 - Set the **Column type** of each replicate column to ``Property``.
 - Assign the same **Property name** to columns that represent replicates of the same measurement.
-  For example, to group ``Luminosity (Rep 1)`` and ``Luminosity (Rep 2)``, assign both the property name ``Replicate Luminosity``.
+  For example, to group ``mutation_effect_prediction_vae_1`` and ``mutation_effect_prediction_vae_2``, assign both the property name ``mutation_effect_prediction_vae``.
   
 .. image:: /_static/opmodels/uploading-your-data/replicate-mapping.png
 
