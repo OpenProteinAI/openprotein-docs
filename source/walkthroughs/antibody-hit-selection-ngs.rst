@@ -7,10 +7,9 @@ This recommended end-to-end workflow guides you through selecting antibody hits
 from NGS-derived libraries using the **Dataset Assay Details** page. Each step assumes 
 the previous step's output is in place.
 
-This walkthrough is task-oriented. For a detailed feature reference of the controls used below like Predict, Clustering, Advanced Filters, and the Antibody
-settings panel, see comprehensive guide at:doc:`/web-app/opmodels/dataset-assay`.
+This walkthrough is task-oriented. For a detailed feature reference of the controls used below, view the following pages: `predict withina a table <https://docs.openprotein.ai/web-app/poet/score-sequences.html>`, 'Clustering <https://docs.openprotein.ai/web-app/opmodels/cluster.html>`, and the `Antibody settings panel<https://docs.openprotein.ai/web-app/opmodels/antibody-annotations.html>`.
 
-.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/dataset-assay-overview.png
+.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/ngs-dataset-assay-overview.png
    :alt: Dataset Assay Details page overview, showing tabs, header chips, and action bar
 
 
@@ -44,6 +43,9 @@ On the **Dataset** tab, open the **Antibody** panel, then configure the followin
 
 You now have a fully annotated table view of the library.
 
+.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/ngs-antibody-view.png
+   :alt: open the antibody panel
+
 
 Reduce redundancy with Clustering
 =================================
@@ -61,6 +63,8 @@ downstream steps operate on diverse families.
 
 You now have a ``Cluster Number`` column.
 
+.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/ngs-cluster.png
+   :alt: view cluster column
 
 Pre-filter using NGS / antibody metadata
 ========================================
@@ -86,6 +90,8 @@ Open **Advanced Filters** from the Dataset tab and apply the following filters i
 Toggle **Show select column** if you want to see what got rejected instead of
 hiding it.
 
+.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/ngs-advanced-filters.png
+   :alt: view cluster column
 
 Score with Predict
 ======================
@@ -102,6 +108,9 @@ With the candidate set narrowed, run a model to rank within it.
 
 **Scale with parallel predictions**: You can run multiple predictions in parallel — for example, one for binding
 and one for developability. Each gets its own chip and its own column.
+
+.. figure:: /_static/walkthroughs/antibody-hit-selection-ngs/ngs-predict.png
+   :alt: view cluster column
 
 
 Combine signals
