@@ -32,7 +32,7 @@ Click **Antibody** in the toolbar to open the annotation panel.
 - **Sequence view** offers **Aligned** (pad sequences to a common length for side-by-side comparison) and **Trim non-standard positions**.
 - The numbering scheme used to define the CDR boundaries (Kabat, by default) is set from the separate **Kabat** dropdown next to Antibody in the toolbar.
 
-.. image:: /_static/opmodels/annontation/annontation-1.png
+.. image:: /_static/opmodels/annotation/annotation-1.png
   :alt: Antibody panel open showing Highlight CDRs, Sequence view, Liabilities, and Show antibody columns controls
 
 
