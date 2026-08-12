@@ -97,7 +97,7 @@ Both update instantly against the already-computed job, so you can explore coars
 - **Dataset / results table**: each row shows its assigned cluster once a clustering is selected, so you can sort or filter the table by cluster.
 - **Downstream actions**: select a cluster's points on the UMAP (click, or Shift-drag to multi-select) to view them in the table.
 
-.. figure:: /_static/opmodels/cluster/cluster-6.png
+.. figure:: /_static/opmodels/cluster/cluster-6.gif
    :alt: selecting sequences in a cluster to view in the table
 
 *UMAP colored by cluster (Discrete to Cluster), with each of the 10 clusters shown in a distinct color.*
