@@ -32,7 +32,7 @@ Click **Antibody** in the toolbar to open the annotation panel.
 - **Sequence view** offers **Aligned** (pad sequences to a common length for side-by-side comparison) and **Trim non-standard positions**.
 - The numbering scheme used to define the CDR boundaries (Kabat, by default) is set from the separate **Kabat** dropdown next to Antibody in the toolbar.
 
-.. image:: /_static/opmodels/annontations/annontation-1.png
+.. image:: /_static/opmodels/annontation/annontation-1.png
   :alt: Antibody panel open showing Highlight CDRs, Sequence view, Liabilities, and Show antibody columns controls
 
 
@@ -62,7 +62,7 @@ Read the Annotated Table
 
 Every selected column appears directly in the grid. VH and VL show the full sequence with CDR1, CDR2, and CDR3 shaded in distinct colors inline, followed by the germline and mutation columns you selected: Germline Pair, Germline Pair Frequency, Heavy V-Gene, Light V-Gene, Total Mutations, and more.
 
-.. image:: /_static/opmodels/annontations/annotation-2.png
+.. image:: /_static/opmodels/annontation/annotation-2.png
   :alt: Dataset table with VH and VL columns showing color-coded CDR highlighting, plus Germline Pair, Germline Pair Frequency, Heavy V-Gene, Light V-Gene, and Total Mutations columns
 
 From here, sort or filter on any of these columns the same way you would elsewhere in the table, and combine them with Embedding, Cluster, or Predictions to bring germline and liability context into hit selection.
