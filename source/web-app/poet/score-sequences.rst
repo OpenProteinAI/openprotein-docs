@@ -94,6 +94,74 @@ Improve your results by adding more sequences with your desired properties to yo
 
 To improve scores, increase the number of the **ensemble** setting. This will result in higher scoring sequences, but will take longer to complete.
 
+Running predictions within a table
+------------------------------------
+
+If the sequences you want to score already live in a dataset, design results, or predict results table, you can score them in place using the **Predictions** panel instead, without leaving the table. 
+
+Predictions supports two kinds of models:
+
+- A **user model** you've already trained on your own assay data, so its held-out accuracy is known before you trust its ranking.
+- A **foundation model**, such as PoET-2, for zero-shot scoring when you don't yet have labeled data for the property you care about.
+
+Step 1: Create prediction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the toolbar above the table, click the **Predictions** dropdown (it shows **None** if the table hasn't been scored yet). This lists any prediction jobs already run against the table. Click **New prediction** to open the **Create Prediction** dialog.
+
+.. image:: /_static/tools/poet/prediction-1.png
+  :alt: open new prediction window
+
+Step 2: Choose a model
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Create prediction offers two tabs:
+
+- **User models** lists trained models available in your project, along with the property each one predicts, what dataset it was trained on, and its held-out Spearman's rho and Pearson's r against measured values. Select one or more models and click **Run** to score the whole table.
+
+.. image:: /_static/tools/poet/prediction-2.png
+  :alt: choosing models
+
+- **Foundation models** lets you score without a trained model of your own. Models are grouped by family, with **PoET-2** recommended. PoET-family models are conditional and require a **prompt**, the same prompt mechanism used by Score Sequences (see `prompts and prompt sampling methods <./prompts.rst>`_). Reuse a saved prompt or build a new one before running.
+
+.. image:: /_static/tools/poet/prediction-3.png
+  :alt: choosing plm
+
+Step 3: Run the scoring job
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Scoring runs as a background job. After clicking Run, a job status bar appears above the table and the **Jobs** counter increments. The Predictions dropdown shows the run as in progress until it finishes, at which point its predicted column becomes available in the table.
+
+Step 4: Read the predicted column and select hits
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once a run finishes, select it from the Predictions dropdown. Each selected run adds its own column to the table, named after the source model, sitting right alongside any measured column it was trained to predict. 
+
+.. image:: /_static/tools/poet/prediction-4.png
+  :alt: reviewing predict results
+
+
+With a predicted column in the table, hit selection is a matter of working the table:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20
+   :align: left
+
+   * - Action
+     - Why it helps
+   * - Sort by the predicted column
+     - Brings your top-scoring candidates to the top.
+   * - Filter above a score threshold
+     - Cuts the table down to only the rows worth reviewing.
+   * - Cross-check against cluster assignment, if available
+     - Keeps your shortlist diverse instead of pulling near-duplicates from one region of sequence space.
+   * - Select more than one completed run
+     - Lets you compare predictions across multiple properties at once, for example activity and stability.
+
+Once you've selected your rows, carry the shortlist forward into Create Design, Substitution Analysis, or Train Model.
+
+
 
 Next Steps
 ----------
