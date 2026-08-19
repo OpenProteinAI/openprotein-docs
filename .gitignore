@@ -10,3 +10,7 @@ next-env.d.ts
 # specs/, public/_static/ and content/notebooks/ ARE committed. They are content, not
 # build output: this repo is self-contained and nothing is imported or generated from
 # another checkout, so `pnpm install && pnpm dev` on a fresh clone is the whole setup.
+
+# Python bytecode from scripts/rst2mdx.py
+__pycache__/
+*.pyc

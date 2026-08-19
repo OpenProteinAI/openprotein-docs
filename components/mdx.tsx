@@ -1,10 +1,13 @@
 import type { MDXComponents } from 'mdx/types';
 import defaultComponents from 'fumadocs-ui/mdx';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Bibliography, Cite } from '@/components/mdx/bibliography';
 import { Callout } from '@/components/mdx/callout';
+import { Figure } from '@/components/mdx/figure';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { Screencast } from '@/components/mdx/screencast';
 import { SectionCards } from '@/components/mdx/section-cards';
 import { TipRow } from '@/components/mdx/tip-row';
 
@@ -14,12 +17,16 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...defaultComponents,
     Accordion,
     Accordions,
+    Bibliography,
     Callout,
+    Cite,
+    Figure,
     Step,
     Steps,
     Tab,
     Tabs,
     TypeTable,
+    Screencast,
     SectionCards,
     TipRow,
     ...components,
