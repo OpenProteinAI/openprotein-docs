@@ -1,4 +1,3 @@
-import { Terminal } from 'lucide-react';
 import { renderMarkdown } from '@/lib/markdown';
 import { readNotebook } from '@/lib/notebook';
 import { CodeCell } from './code-cell';
@@ -32,16 +31,7 @@ export async function NotebookView({
   });
 
   return (
-    <div className="not-prose">
-      <div className="flex items-center gap-2 rounded-md border border-fd-border bg-fd-muted px-3 py-1.5 text-xs text-fd-muted-foreground">
-        <Terminal className="size-3.5 shrink-0" />
-        <span>{notebook.kernel ?? 'Jupyter'}</span>
-        <span aria-hidden className="text-fd-border">
-          |
-        </span>
-        <span className="font-mono">{notebook.language}</span>
-      </div>
-
+    <div className="nb-body not-prose">
       {notebook.cells.map((cell, index) =>
         cell.kind === 'markdown' ? (
           prose[index] ? (

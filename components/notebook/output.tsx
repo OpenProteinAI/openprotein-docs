@@ -37,7 +37,8 @@ export function Output({
           alt="Cell output figure"
           loading="lazy"
           decoding="async"
-          className="h-auto max-w-full rounded-md border border-fd-border bg-white"
+          // self-start: the flex column parent would otherwise stretch a small figure.
+          className="h-auto max-h-[32rem] w-auto max-w-full self-start rounded-md border border-fd-border bg-white"
         />
       );
 

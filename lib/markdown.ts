@@ -53,6 +53,27 @@ function shiftHeadings(tree: unknown, by: number): void {
 }
 
 /** Raw nodes too: without rehype-raw a committed <img src="../_static/…"> stays raw. */
+const EXTERNAL = /^(?:https?:)?\/\//i;
+
+/** Notebook prose bypasses fumadocs' Link, which sets these itself. */
+function externalLinks(tree: unknown): void {
+  walk(tree, (node) => {
+    if (node.type === 'raw' && typeof node.value === 'string') {
+      node.value = node.value.replace(
+        /<a\s([^>]*href=["'](?:https?:)?\/\/[^>]*)>/gi,
+        (tag: string, attrs: string) =>
+          /target=/i.test(attrs) ? tag : `<a ${attrs} target="_blank" rel="noopener noreferrer">`,
+      );
+      return;
+    }
+    if (node.type !== 'element' || node.tagName !== 'a') return;
+    const props = node.properties as Record<string, unknown> | undefined;
+    if (!props || typeof props.href !== 'string' || !EXTERNAL.test(props.href)) return;
+    props.target = '_blank';
+    props.rel = 'noopener noreferrer';
+  });
+}
+
 function rewriteStaticPaths(tree: unknown): void {
   walk(tree, (node) => {
     if (node.type === 'raw') {
@@ -148,6 +169,7 @@ function build(headingShift: number) {
     .use(function () {
       return (tree) => {
         rewriteStaticPaths(tree);
+        externalLinks(tree);
       };
     })
     .use(rehypeSlug)

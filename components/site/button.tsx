@@ -60,7 +60,7 @@ export function Button({
 
   if (href) {
     return external ? (
-      <a href={href} target="_blank" rel="noreferrer" {...shared}>
+      <a href={href} target="_blank" rel="noopener noreferrer" {...shared}>
         {children}
       </a>
     ) : (

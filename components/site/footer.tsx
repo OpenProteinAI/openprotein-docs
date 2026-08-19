@@ -30,7 +30,7 @@ export function SiteFooter() {
                       key={link.label}
                       href={link.href}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="text-sm text-fd-foreground transition-colors hover:text-fd-primary"
                     >
                       {link.label}

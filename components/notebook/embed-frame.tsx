@@ -2,6 +2,7 @@
 
 // The only client island: RosettaFold3's viewer is 3.1 MB of Mol* + WebGL, so a click gates it.
 import { useState } from 'react';
+import { Download } from 'lucide-react';
 
 /** Recovered documents are ASCII HTML around a base64 payload, so one char is one byte. */
 function formatSize(bytes: number): string {
@@ -24,8 +25,16 @@ export function EmbedFrame({
     <div className="overflow-hidden rounded-md border border-fd-border bg-fd-card">
       <div className="flex items-center justify-between gap-3 border-b border-fd-border px-3 py-1.5">
         <span className="truncate text-xs text-fd-muted-foreground">{label}</span>
-        <span className="shrink-0 font-mono text-xs text-fd-muted-foreground">
-          {formatSize(bytes)}
+        <span className="flex shrink-0 items-center gap-3">
+          <span className="font-mono text-xs text-fd-muted-foreground">{formatSize(bytes)}</span>
+          <a
+            href={`${src}&download=1`}
+            download
+            className="inline-flex items-center gap-1 text-xs text-fd-muted-foreground transition-colors hover:text-fd-primary"
+          >
+            <Download className="size-3 shrink-0" />
+            Download HTML
+          </a>
         </span>
       </div>
       {live ? (

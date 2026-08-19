@@ -4,10 +4,8 @@ import { SITE, notebookUrl } from '@/lib/site';
 const PILL =
   'inline-flex items-center gap-1.5 rounded-full border border-fd-border bg-fd-card px-2.5 py-1 text-xs text-fd-muted-foreground transition-colors hover:border-fd-primary hover:text-fd-primary';
 
-/** SITE.repo is the browse URL; Colab and raw.githubusercontent want the bare owner/name. */
+/** SITE.repo is the browse URL; Colab wants the bare owner/name. */
 const SLUG = SITE.repo.replace(/^https?:\/\/github\.com\//, '');
-
-const ROOT = 'content/notebooks';
 
 /** Matches lib/notebook's own normalisation so a page can pass either form. */
 function normalize(file: string): string {
@@ -21,25 +19,34 @@ function normalize(file: string): string {
 export function NotebookBadges({ file }: { file: string }) {
   const rel = normalize(file);
 
-  // The badges committed in cell 0 point at the old source/ tree, which now 404s.
   const links = [
     {
-      href: `https://colab.research.google.com/github/${SLUG}/blob/${SITE.branch}/${ROOT}/${rel}`,
+      href: `https://colab.research.google.com/github/${SLUG}/blob/${SITE.notebookRef}/${SITE.notebookRoot}/${rel}`,
       label: 'Open in Colab',
       Icon: Play,
+      external: true,
     },
+    // Served from our own origin: the exact file we render, with no dependency on a push.
     {
-      href: `https://raw.githubusercontent.com/${SLUG}/refs/heads/${SITE.branch}/${ROOT}/${rel}`,
+      href: `/api/notebook?file=${encodeURIComponent(rel)}`,
       label: 'Download',
       Icon: Download,
+      external: false,
     },
-    { href: notebookUrl(rel), label: 'View on GitHub', Icon: ExternalLink },
+    { href: notebookUrl(rel), label: 'View on GitHub', Icon: ExternalLink, external: true },
   ];
 
   return (
     <div className="not-prose flex flex-wrap items-center gap-2">
-      {links.map(({ href, label, Icon }) => (
-        <a key={label} href={href} target="_blank" rel="noreferrer" className={PILL}>
+      {links.map(({ href, label, Icon, external }) => (
+        <a
+          key={label}
+          href={href}
+          className={PILL}
+          {...(external
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : { download: rel.split('/').pop() })}
+        >
           <Icon className="size-3.5 shrink-0" />
           {label}
         </a>

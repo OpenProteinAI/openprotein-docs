@@ -100,7 +100,7 @@ export function SessionMenu({ className }: { className?: string }) {
               role="menuitem"
               href={href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className={ROW}
             >

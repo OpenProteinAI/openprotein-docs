@@ -32,7 +32,7 @@ export async function Bibliography({ files }: { files: string[] }) {
           <li key={entry.key} id={`ref-${entry.key}`} className="scroll-mt-24 leading-relaxed text-fd-muted-foreground">
             <span className="text-fd-foreground">{formatCitation(entry)}</span>{' '}
             {link ? (
-              <a href={link.href} className={`${LINK} break-words`} rel="noreferrer">
+              <a href={link.href} className={`${LINK} break-words`} target="_blank" rel="noopener noreferrer">
                 {link.label}
               </a>
             ) : null}

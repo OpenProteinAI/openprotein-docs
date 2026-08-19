@@ -326,3 +326,11 @@ figure.shiki > div:first-child > span:has(> svg) {
 .nb-html td {
   color: var(--color-fd-muted-foreground);
 }
+
+/* Notebook pages hide the page title, so the notebook's own leading heading takes its place.
+   Later `#` headings are sections and keep their normal size. */
+.nb-body > .prose-no-margin:first-child h1:first-child {
+  margin-top: 0;
+  font-size: var(--text-3xl);
+  letter-spacing: -0.5px;
+}

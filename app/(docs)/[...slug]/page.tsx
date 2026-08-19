@@ -35,8 +35,12 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
       footer={{ enabled: true }}
       tableOfContent={{ footer: <PageActions path={page.path} notebook={notebook} /> }}
     >
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      {notebook ? null : (
+        <>
+          <DocsTitle>{page.data.title}</DocsTitle>
+          <DocsDescription>{page.data.description}</DocsDescription>
+        </>
+      )}
       <DocsBody>
         {notebook ? <NotebookBadges file={notebook} /> : null}
         <MDX components={components} />

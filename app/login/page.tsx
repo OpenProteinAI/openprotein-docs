@@ -32,7 +32,7 @@ export default async function LoginPage() {
           <a
             href="https://openprotein-ai.webflow.io/early-access-form"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="font-medium text-fd-primary underline-offset-4 hover:underline"
           >
             Request early access

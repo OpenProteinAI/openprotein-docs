@@ -1,6 +1,8 @@
 export const SITE = {
   repo: 'https://github.com/OpenProteinAI/openprotein-docs',
   branch: 'develop',
+  notebookRef: process.env.NEXT_PUBLIC_NOTEBOOK_REF ?? 'develop',
+  notebookRoot: process.env.NEXT_PUBLIC_NOTEBOOK_ROOT ?? 'source',
   feedback: 'https://github.com/OpenProteinAI/openprotein-docs/issues/new',
   gaId: process.env.NEXT_PUBLIC_GA_ID,
 };
@@ -10,5 +12,5 @@ export function editUrl(path: string) {
 }
 
 export function notebookUrl(file: string) {
-  return `${SITE.repo}/blob/${SITE.branch}/content/notebooks/${file}`;
+  return `${SITE.repo}/blob/${SITE.notebookRef}/${SITE.notebookRoot}/${file}`;
 }
