@@ -8,13 +8,13 @@ Use this as a starting point for screening a dataset for developability risk or 
 If you run into any challenges or have questions while getting started, please contact `OpenProtein.AI support <https://www.openprotein.ai/contact>`_.
 
 
-What You Need Before Starting
+What you need before starting
 ------------------------------
 
 You need a sequence-only CSV file of antibody sequences. No header row or extra metadata columns are required, the platform detects VH and VL chains on its own and needs no manual chain labeling or numbering.
 
 
-Upload Your Dataset
+Upload your dataset
 ^^^^^^^^^^^^^^^^^^^^^
 
 Upload your CSV the same way you would a `dataset<https://docs.openprotein.ai/web-app/opmodels/uploading-your-data.html>`. You do not need to upload a csv with properties. If the sequences are recognized as antibodies, the table automatically gains a set of **CDR1** / **CDR2** / **CDR3** / **Liability** chips above the grid, and an **Antibody** entry appears in the table toolbar alongside **Dataset Info**, **Kabat**, **Consensus**, **Settings**, **Collapse**, **Filters**, and **Export**.
@@ -36,7 +36,7 @@ Click **Antibody** in the toolbar to open the annotation panel.
   :alt: Antibody panel open showing Highlight CDRs, Sequence view, Liabilities, and Show antibody columns controls
 
 
-Review Flagged Liabilities
+Review flagged liabilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The **Liabilities** section flags residues or motifs known to affect antibody developability.
@@ -57,7 +57,7 @@ Choose which antibody columns to show
 - **Metrics**: Germline pair frequency, Total Mutations, CDR3 length, and Germline distance, numeric summaries computed from each sequence's alignment back to its called germline.
 
 
-Read the Annotated Table
+Read the annotated table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Every selected column appears directly in the grid. VH and VL show the full sequence with CDR1, CDR2, and CDR3 shaded in distinct colors inline, followed by the germline and mutation columns you selected: Germline Pair, Germline Pair Frequency, Heavy V-Gene, Light V-Gene, Total Mutations, and more.
@@ -68,7 +68,7 @@ Every selected column appears directly in the grid. VH and VL show the full sequ
 From here, sort or filter on any of these columns the same way you would elsewhere in the table, and combine them with Embedding, Cluster, or Predictions to bring germline and liability context into hit selection.
 
 
-Column Reference
+Column reference
 -----------------
 
 .. list-table::
@@ -94,7 +94,7 @@ Column Reference
      - Flags residues or motifs associated with known developability risks (for example deamidation, oxidation, glycosylation sites), shown inline via Highlight or as its own column via Show column.
 
 
-Tips and Troubleshooting
+Tips and troubleshooting
 --------------------------
 
 .. list-table::
