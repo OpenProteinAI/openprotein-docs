@@ -1,5 +1,5 @@
-Cluster sequences in a table
-=====================================
+Cluster sequences 
+==================
 
 Overview
 --------
@@ -34,7 +34,7 @@ To start a new one, click **New clustering** in the top-right of the panel.
 **Tip:** If a clustering job has already been run on this table, you can just select it from this list instead of creating a new one, jump to Step 4 below.
 
 
-2. Configure the Cclustering job
+2. Configure the clustering job
 -----------------------------------
 
 **New clustering** opens the **Cluster Sequences** dialog. This clusters every sequence in the table using the embedding model and method you choose here.
