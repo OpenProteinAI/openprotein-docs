@@ -1,1 +1,20 @@
 * text=auto eol=lf
+
+# Binary payload copied from the Sphinx site — never EOL-normalise or diff these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Notebooks are JSON with embedded base64 outputs; keep them out of textual diffs.
+*.ipynb -text -diff
+
+# SVGs are text but must not be line-ending mangled.
+*.svg text eol=lf
+
+pnpm-lock.yaml -diff linguist-generated=true
