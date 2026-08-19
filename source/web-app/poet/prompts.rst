@@ -278,27 +278,27 @@ The **homology level** field allows you to generate more or less diverse prompt 
 
 The default **maximum** and **minimum similarity parameters** are set to values which perform well across a wide range of protein families. These can be tuned to adjust the diversity of sequences that will be modeled by PoET.
 
-System Prompts
+Antibody Prompts
 -----------------
 
 In addition to prompts you build yourself, OpenProtein.AI provides **system prompts**: platform-curated prompts available out-of-the-box. 
 
-System prompts appear in the same prompt list used across the PoET tools (Score Sequences, Create Embedding, Cluster, Predictions, and Train a Model), marked with a **System** badge. Prompts recommended for your current model and property selections are additionally marked **Recommended**, and prompts built for a specific chain configuration carry a short tag, for example ``Antibody_vh_vl``. A prompt name ending in **(Virtual)** indicates a pre-computed model memory rather than a sampled context, see below.
+Antibody prompts appear in the same prompt list used across the PoET tools (Score Sequences, Create Embedding, Cluster, Predictions, and Train a Model), marked with a **System** badge. Prompts recommended for your current model and property selections are additionally marked **Recommended**, and prompts built for a specific chain configuration carry a short tag, for example ``Antibody_vh_vl``. A prompt name ending in **(Virtual)** indicates a pre-computed model memory rather than a sampled context, see below.
 
-**Note:** System prompts can't be edited or deleted the way a prompt of your own can. If you need a variation, for example a different sample size or clustering threshold, build a new prompt following the same reference database as a starting point, see Creating a Context below.
+**Note:** Antibody prompts can't be edited or deleted the way a prompt of your own can. If you need a variation, for example a different sample size or clustering threshold, build a new prompt following the same reference database as a starting point, see Creating a Context below.
 
 .. image:: /_static/tools/poet/system-prompt-1.png
   :alt: system level prompts
 
-Virtual vs. Sampled System Prompts
+Virtual vs. Sampled Prompts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Most system prompts are built the same way a user-defined prompt is: as an ensemble of replicates sampled from a reference database. For the antibody prompts below, each replicate is a random sample of 200 naive sequences from the OAS paired antibody database, clustered at 70% sequence identity, with 10 replicates per ensemble.
+Most antibody prompts are built the same way a user-defined prompt is: as an ensemble of replicates sampled from a reference database. For the antibody prompts below, each replicate is a random sample of 200 naive sequences from the OAS paired antibody database, clustered at 70% sequence identity, with 10 replicates per ensemble.
 
 A prompt labeled **(Virtual)** works differently. It's a pre-computed PoET-2 memory, trained ahead of time using cluster representatives from the reference database (via mmseqs2 linclust) with a frozen PoET-2 backbone and a fixed number of virtual sequences, using the ``poet-2-vcontext`` prompt type. Because the context is pre-computed rather than sampled per job, it has a single replicate and only supports PoET-2.
 
-Available System Prompts
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Available Prompts
+~~~~~~~~~~~~~~~~~~~~
 
 Antibody Human VH-VL (Virtual)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
