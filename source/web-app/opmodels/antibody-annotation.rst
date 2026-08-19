@@ -1,5 +1,5 @@
-Automatic Antibody Annotation
-==============================
+Antibody annotation
+===================
 
 This tutorial shows you how the platform automatically annotates antibody sequences on upload: identifying CDR regions, flagging known liabilities, and calling germline V-genes, alleles, and mutation load, all without a separate annotation step.
 
