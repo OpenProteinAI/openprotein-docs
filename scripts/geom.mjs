@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 
-const BASE = process.env.BASE ?? 'http://localhost:5002';
+const BASE = process.env.BASE ?? 'http://localhost:5001';
 const paths = process.argv.slice(2);
 const targets = paths.length ? paths : ['/getting-started', '/', '/web-app'];
 

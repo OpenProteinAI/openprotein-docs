@@ -286,12 +286,24 @@ class Manifest:
                 if uri:  # named external targets are document-local in Sphinx
                     uris[name] = uri
                     continue
-                section = self._nearest_section(target)
+                section = self._owning_section(doc, target)
                 if section is not None and section is not title_section:
                     entry = dict(entry, anchor=slug(title_of(section)), title=title_of(section))
                 self.labels[name] = entry
         self.docs[docname]['names'] = names
         self.docs[docname]['uris'] = uris
+
+    @staticmethod
+    def _owning_section(doc, target):
+        # A target above a heading is the LAST child of the preceding section, so sibling
+        # scanning misses it. The label belongs to the next section in document order.
+        seen = False
+        for node in doc.findall():
+            if node is target:
+                seen = True
+            elif seen and isinstance(node, nodes.section):
+                return node
+        return None
 
     @staticmethod
     def _nearest_section(target):
@@ -302,6 +314,10 @@ class Manifest:
                 return node
             if isinstance(node, nodes.title):
                 return None
+            # A bare target followed by prose then a section still belongs to that section.
+            if isinstance(node, (nodes.target, nodes.comment, nodes.system_message)):
+                continue
+            break
         while parent is not None:
             if isinstance(parent, nodes.section):
                 return parent
@@ -523,9 +539,20 @@ class Converter:
             return uri
         return '/' + re.sub(r'^(?:\.\./|\./)+', '', uri)
 
-    def image_md(self, node) -> str:
+    def image_md(self, node, caption: str = '') -> str:
+        src = self.image_src(node['uri'])
         alt = re.sub(r'[\[\]]', '', node.get('alt', ''))
-        return f"![{alt}]({self.image_src(node['uri'])})"
+        tag = 'Screencast' if src.lower().endswith('.gif') else 'Figure'
+        attrs = jsx_attr('src', src) + jsx_attr('alt', alt)
+        if caption:
+            attrs += jsx_attr('caption', caption)
+        width = node.get('width')
+        if width:
+            attrs += jsx_attr('width', str(width))
+        align = node.get('align')
+        if align in ('left', 'center', 'right') and tag == 'Figure':
+            attrs += jsx_attr('align', align)
+        return f'<{tag}{attrs} />'
 
     def blocks(self, children) -> list[str]:
         out: list[str] = []
@@ -629,8 +656,9 @@ class Converter:
 
     def list_block(self, node) -> str:
         ordered = isinstance(node, nodes.enumerated_list)
+        first = int(node.get('start', 1) or 1) if ordered else 1
         items, loose = [], False
-        for i, item in enumerate(node.children, start=1):
+        for i, item in enumerate(node.children, start=first):
             marker = f'{i}. ' if ordered else '- '
             parts = self.blocks(item.children)
             loose = loose or len(parts) > 1
@@ -657,14 +685,14 @@ class Converter:
 
     def figure(self, node) -> str:
         image = node.next_node(nodes.image)
-        caption = node.next_node(nodes.caption)
         if image is None:
             return ''
-        if caption is None:
-            return self.image_md(image)
-        attrs = jsx_attr('src', self.image_src(image['uri']))
-        attrs += jsx_attr('alt', image.get('alt', '')) + jsx_attr('caption', caption.astext())
-        return f'<Figure{attrs} />'
+        caption = node.next_node(nodes.caption)
+        if node.get('align') and not image.get('align'):
+            image['align'] = node['align']
+        if node.get('width') and not image.get('width'):
+            image['width'] = node['width']
+        return self.image_md(image, caption.astext() if caption is not None else '')
 
     def table(self, node) -> str:
         group = node.next_node(nodes.tgroup)

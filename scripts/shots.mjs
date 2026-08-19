@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
 
-const BASE = process.env.BASE ?? 'http://localhost:5002';
+const BASE = process.env.BASE ?? 'http://localhost:5001';
 const OUT = process.env.OUT ?? '/tmp/opshots';
 await mkdir(OUT, { recursive: true });
 

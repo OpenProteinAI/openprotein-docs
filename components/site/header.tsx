@@ -6,6 +6,8 @@ import type { ComponentProps } from 'react';
 import { FullSearchTrigger, SearchTrigger } from 'fumadocs-ui/layouts/shared/slots/search-trigger';
 import { SidebarTrigger } from 'fumadocs-ui/layouts/notebook/slots/sidebar';
 import { Menu } from 'lucide-react';
+import { SessionMenu } from '@/components/auth/session-menu';
+import { useSession } from '@/components/auth/session-provider';
 import { Button } from '@/components/site/button';
 import { ThemeToggle } from '@/components/site/theme-toggle';
 import { SECTIONS } from '@/lib/sections';
@@ -23,6 +25,7 @@ interface Props extends ComponentProps<'header'> {
 
 function Header({ className, withSidebarTrigger, ...props }: Props) {
   const pathname = usePathname();
+  const session = useSession();
 
   return (
     <header
@@ -89,9 +92,13 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
           >
             Contact
           </Button>
-          <Button variant="main" href="/login">
-            Log in
-          </Button>
+          {session ? (
+            <SessionMenu />
+          ) : (
+            <Button variant="main" href="/login">
+              Log in
+            </Button>
+          )}
           {withSidebarTrigger ? (
             <SidebarTrigger className="flex size-[34px] shrink-0 items-center justify-center rounded-[0.75em] border border-fd-border text-fd-muted-foreground lg:hidden">
               <Menu className="size-[15px]" />

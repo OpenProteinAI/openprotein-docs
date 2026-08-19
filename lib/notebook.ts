@@ -16,7 +16,7 @@ const MOLSTAR_STUB = /^\s*<div\s+id="molstar_[0-9a-fA-F-]+"\s*>\s*<\/div>\s*$/;
 
 const JS_REPR = '<IPython.core.display.Javascript object>';
 
-/** Stream text still carries colour codes even though nothing in the corpus errored. */
+/** Streams and IPython docstring results carry SGR colour codes even with no errors. */
 const ANSI = /\u001B\[[0-9;]*m/g;
 
 /** Richest first, so a table or a viewer never falls back to text/plain. */
@@ -157,30 +157,36 @@ function richest(data: Record<string, Multiline>): NotebookOutput | null {
   if (mime === 'text/html' || mime === 'image/svg+xml') {
     return MOLSTAR_STUB.test(raw) ? null : { kind: 'html', html: raw };
   }
-  const text = raw.replace(/\s+$/, '');
+  const text = raw.replace(ANSI, '').replace(/\s+$/, '');
   return text && text.trim() !== JS_REPR ? { kind: 'text', text } : null;
 }
 
 function toOutputs(raws: RawOutput[]): NotebookOutput[] {
-  const outputs: NotebookOutput[] = [];
+  const merged: NotebookOutput[] = [];
   for (const raw of raws) {
     if (raw.output_type === 'stream') {
       const name = raw.name === 'stderr' ? 'stderr' : 'stdout';
       const text = joinLines(raw.text).replace(ANSI, '');
-      const last = outputs.at(-1);
+      const last = merged.at(-1);
       // A 101-line progress log arrives as 101 streams; render it as one block.
       if (last?.kind === 'stream' && last.name === name) last.text += text;
-      else outputs.push({ kind: 'stream', name, text });
+      else merged.push({ kind: 'stream', name, text });
       continue;
     }
     const mapped = raw.data ? richest(raw.data) : null;
-    if (mapped) outputs.push(mapped);
+    if (mapped) merged.push(mapped);
   }
-  return outputs.flatMap((o) => {
-    if (o.kind !== 'stream') return [o];
-    const text = o.text.replace(/\s+$/, '');
-    return text ? [{ ...o, text }] : [];
-  });
+
+  const outputs: NotebookOutput[] = [];
+  for (const output of merged) {
+    if (output.kind !== 'stream') {
+      outputs.push(output);
+      continue;
+    }
+    const text = output.text.replace(/\s+$/, '');
+    if (text) outputs.push({ ...output, text });
+  }
+  return outputs;
 }
 
 function inlineText(md: string): string {

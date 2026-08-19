@@ -4,13 +4,13 @@ import { join } from 'node:path';
 /** Animated screen recordings: WebP when scripts/optimize-assets.mjs produced one, else the GIF. */
 export function Screencast({
   src,
-  alt,
+  alt = '',
   width,
   height,
   caption,
 }: {
   src: string;
-  alt: string;
+  alt?: string;
   width?: number;
   height?: number;
   caption?: string;

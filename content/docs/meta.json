@@ -1,3 +1,6 @@
 {
-  "pages": ["getting-started"]
+  "pages": [
+    "getting-started",
+    "walkthroughs"
+  ]
 }
