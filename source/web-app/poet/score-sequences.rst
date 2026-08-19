@@ -94,7 +94,7 @@ Improve your results by adding more sequences with your desired properties to yo
 
 To improve scores, increase the number of the **ensemble** setting. This will result in higher scoring sequences, but will take longer to complete.
 
-Running predictions within a table
+Running predictions within a dataset
 ------------------------------------
 
 If the sequences you want to score already live in a dataset, design results, or predict results table, you can score them in place using the **Predictions** panel instead, without leaving the table. 
