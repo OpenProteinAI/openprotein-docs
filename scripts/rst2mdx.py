@@ -1,9 +1,5 @@
 #!/usr/bin/env python
-"""First-pass RST -> MDX for the old Sphinx site. Output is always hand-reviewed.
-
-Run with the old pixi interpreter, which has docutils:
-  __old/.pixi/envs/default/bin/python scripts/rst2mdx.py --all --dry-run
-"""
+"""First pass RST -> MDX; run with __old/.pixi/envs/default/bin/python (needs docutils)."""
 
 from __future__ import annotations
 
@@ -21,7 +17,9 @@ from docutils.parsers.rst import Directive, Parser, directives, roles
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / '__old' / 'source'
 DOC_EXT = ('.rst', '.ipynb', '.md')
-PROD_URL = re.compile(r'^https?://docs\.openprotein\.ai/([^?#\s]*?)(?:\.html)?(#\S*)?$')
+PROD_URL = re.compile(
+    r'^(?:https?://docs\.openprotein\.ai/([^?#\s]*?)(?:\.html)?|/([^?#\s]*?)\.html)(#\S*)?$'
+)
 DOTTED = re.compile(r'^[A-Za-z_]\w*(?:\.\w+)+$')
 SCHEME = re.compile(r'^(?:[a-z][a-z0-9+.-]*:|//)', re.I)
 DIVIDER = re.compile(r'^<div class="dot-line"\s*>\s*</div>$')
@@ -112,9 +110,9 @@ class AnyOptions(dict):
 ANY_OPTION = AnyOptions()
 
 
-def stub(kind: str, parse: bool = False, args: int = 1):
+def stub(kind: str, parse: bool = False):
     class Stub(Directive):
-        optional_arguments = args
+        optional_arguments = 1
         final_argument_whitespace = True
         has_content = True
         option_spec = ANY_OPTION
@@ -189,6 +187,21 @@ def title_of(section) -> str:
     return title.astext() if title else ''
 
 
+def notebook_title(path: Path) -> str:
+    """First markdown heading of a notebook, used for link text and the sidebar."""
+    try:
+        cells = json.loads(path.read_text(encoding='utf8')).get('cells', [])
+    except (ValueError, OSError):
+        return ''
+    for cell in cells:
+        source = cell.get('source', '')
+        text = source if isinstance(source, str) else ''.join(source)
+        match = re.search(r'^#{1,3}\s+(.+)$', text, re.M)
+        if cell.get('cell_type') == 'markdown' and match:
+            return match.group(1).strip()
+    return ''
+
+
 def route_of(docname: str) -> str:
     if docname == 'index':
         return '/'
@@ -226,10 +239,14 @@ class Manifest:
         self.folders: dict[str, str] = {}
         self.toctrees: dict[str, list[tuple[str, str]]] = {}
 
-    def build(self, paths: list[Path]) -> None:
+    def build(self) -> None:
         for path in sorted(SRC.rglob('*.ipynb')):
             docname = path.relative_to(SRC).with_suffix('').as_posix()
-            self.docs[docname] = {'route': route_of(docname), 'title': path.stem, 'kind': 'ipynb'}
+            self.docs[docname] = {
+                'route': route_of(docname),
+                'title': notebook_title(path) or path.stem,
+                'kind': 'ipynb',
+            }
         for path in sorted(SRC.rglob('*.rst')):
             docname = path.relative_to(SRC).with_suffix('').as_posix()
             doc, _ = parse_rst(path)
@@ -259,20 +276,22 @@ class Manifest:
             anchor = '' if section is title_section else slug(title_of(section))
             for name in section['names']:
                 names[name] = anchor
+        uris = {}
         for target in doc.findall(nodes.target):
             if not target['names']:
                 continue
             entry = {'docname': docname, 'anchor': '', 'title': title}
             uri = target.get('refuri')
             for name in target['names']:
-                if uri:
-                    self.labels[name] = {'uri': uri}
+                if uri:  # named external targets are document-local in Sphinx
+                    uris[name] = uri
                     continue
                 section = self._nearest_section(target)
                 if section is not None and section is not title_section:
                     entry = dict(entry, anchor=slug(title_of(section)), title=title_of(section))
                 self.labels[name] = entry
         self.docs[docname]['names'] = names
+        self.docs[docname]['uris'] = uris
 
     @staticmethod
     def _nearest_section(target):
@@ -318,7 +337,7 @@ class Manifest:
     def as_json(self) -> dict:
         return {
             'docs': {
-                name: {k: v for k, v in info.items() if k != 'names'}
+                name: {k: v for k, v in info.items() if k not in ('names', 'uris')}
                 for name, info in sorted(self.docs.items())
             },
             'labels': dict(sorted(self.labels.items())),
@@ -332,15 +351,15 @@ class Converter:
         self.man = man
         self.docname = docname
         self.path = path
-        self.rel = path.relative_to(ROOT).as_posix()
+        self.rel = path.as_posix().replace(ROOT.as_posix() + '/', '')
         self.doc, text = parse_rst(path)
         self.lines = text.split('\n')
         self.cursor: dict[str, int] = {}
+        self.raw_html = 0
         self.errors: list[dict] = []
         self.warns: list[dict] = []
         self.title_section = None
 
-    # --- reporting -------------------------------------------------------
     def find_line(self, needle: str, node=None) -> int:
         start = self.cursor.get(needle, 0)
         for i in range(start, len(self.lines)):
@@ -359,7 +378,6 @@ class Converter:
             {'ref': target, 'note': note, 'file': self.rel, 'line': self.find_line(target, node)}
         )
 
-    # --- link resolution -------------------------------------------------
     def doc_href(self, target: str, node=None) -> str | None:
         target, _, frag = target.partition('#')
         docname = self.man.resolve_doc(target, self.docname)
@@ -375,12 +393,12 @@ class Converter:
             return '#' + refrag(uri)
         prod = PROD_URL.match(uri)
         if prod:
-            docname = self.man.resolve_doc('/' + prod.group(1), self.docname)
+            docname = self.man.resolve_doc('/' + (prod.group(1) or prod.group(2)), self.docname)
             if docname:
-                anchor = refrag(prod.group(2) or '')
+                anchor = refrag(prod.group(3) or '')
                 route = self.man.route(docname)
                 return f'{route}#{anchor}' if anchor else route
-            self.error(uri, 'prod URL has no matching page', node)
+            self.error(uri, 'old site URL has no matching page', node)
             return uri
         bare = uri.partition('#')[0]
         if bare.endswith(DOC_EXT):
@@ -394,14 +412,15 @@ class Converter:
         return uri
 
     def name_href(self, refname: str, node=None) -> str:
+        doc = self.man.docs.get(self.docname, {})
+        if refname in doc.get('uris', {}):
+            return self.uri_href(doc['uris'][refname], node)
         label = self.man.labels.get(refname)
-        if label and 'uri' in label:
-            return label['uri']
-        local = self.man.docs[self.docname].get('names', {})
+        local = doc.get('names', {})
         if refname in local:
             anchor = local[refname]
             return f'#{anchor}' if anchor else self.man.route(self.docname)
-        if label:
+        if label and label['docname'] in self.man.docs:
             route = self.man.route(label['docname'])
             return f"{route}#{label['anchor']}" if label['anchor'] else route
         self.error(refname, 'no target or section with this name', node)
@@ -414,16 +433,18 @@ class Converter:
             return None
         module = parts[1] if parts[1][:1].islower() else 'openprotein'
         module = PY_PAGE_ALIAS.get(module, module)
-        for name in (f'python-api/api-reference/{module}', f'python-api/api-reference/{module[:-1]}'):
+        base = 'python-api/api-reference/'
+        for name in (base + module, base + module[:-1]):
             if name in self.man.docs:
                 return f'{self.man.route(name)}#{dotted}'
         self.warn(dotted, 'no api-reference page for this module', node)
         return None
 
-    # --- inline ----------------------------------------------------------
     def escape(self, text: str) -> str:
-        for char in ('\\', '<', '{', '*', '['):
+        for char in ('\\', '<', '{', '*', '[', ']'):
             text = text.replace(char, '\\' + char)
+        if text.count('`') % 2:  # an unpaired backtick would swallow the rest of the line
+            text = text.replace('`', '\\`')
         return text
 
     def inline(self, node) -> str:
@@ -497,14 +518,14 @@ class Converter:
             return md_link(self.escape(label or fallback), href)
         return self.escape(raw)
 
-    # --- blocks ----------------------------------------------------------
     def image_src(self, uri: str) -> str:
         if SCHEME.match(uri) or uri.startswith('/'):
             return uri
         return '/' + re.sub(r'^(?:\.\./|\./)+', '', uri)
 
     def image_md(self, node) -> str:
-        return f"![{node.get('alt', '')}]({self.image_src(node['uri'])})"
+        alt = re.sub(r'[\[\]]', '', node.get('alt', ''))
+        return f"![{alt}]({self.image_src(node['uri'])})"
 
     def blocks(self, children) -> list[str]:
         out: list[str] = []
@@ -641,8 +662,9 @@ class Converter:
             return ''
         if caption is None:
             return self.image_md(image)
-        attrs = jsx_attr('src', self.image_src(image['uri'])) + jsx_attr('alt', image.get('alt', ''))
-        return f'<Figure{attrs}{jsx_attr("caption", caption.astext())} />'
+        attrs = jsx_attr('src', self.image_src(image['uri']))
+        attrs += jsx_attr('alt', image.get('alt', '')) + jsx_attr('caption', caption.astext())
+        return f'<Figure{attrs} />'
 
     def table(self, node) -> str:
         group = node.next_node(nodes.tgroup)
@@ -667,8 +689,9 @@ class Converter:
     def cells(self, row) -> list[str]:
         out = []
         for entry in row.children:
-            text = ' '.join(self.blocks(entry.children))
-            out.append(re.sub(r'\s*\n\s*', ' ', text).replace('|', '\\|').strip())
+            text = '<br />'.join(self.blocks(entry.children))
+            text = re.sub(r'\s*\n\s*', '<br />', text).replace('|', '\\|')
+            out.append(text.strip())
         return out
 
     def container(self, node) -> str:
@@ -685,6 +708,7 @@ class Converter:
         html = node.astext().strip()
         if DIVIDER.match(html):
             return f'{{/* RAW HTML - REVIEW: {html} */}}'
+        self.raw_html += 1
         return f'{{/* RAW HTML - REVIEW */}}\n{html}\n{{/* END RAW HTML */}}'
 
     def callout(self, node, kind: str = '', title: str = '') -> str:
@@ -709,7 +733,8 @@ class Converter:
             if not title and children and isinstance(children[0], nodes.paragraph):
                 title = children.pop(0).astext()
             title = re.sub(r'\*\*|``', '', title).strip()
-            items.append(f'<Accordion{jsx_attr("title", title)}>\n{self.body(children)}\n</Accordion>')
+            body = self.body(children)
+            items.append(f'<Accordion{jsx_attr("title", title)}>\n{body}\n</Accordion>')
         return '<Accordions>\n' + indent('\n\n'.join(items), 2) + '\n</Accordions>'
 
     def mdx(self, node) -> str:
@@ -733,7 +758,6 @@ class Converter:
             return '<include>' + re.sub(r'\.(rst|md)$', '.mdx', target) + '</include>'
         return ''
 
-    # --- page ------------------------------------------------------------
     def frontmatter(self, title: str, description: str, extra: dict) -> str:
         lines = [f'title: {yaml_value(title)}'] if title else []
         if not (lines or description or extra):
@@ -766,10 +790,14 @@ class Converter:
         for child in self.doc.children:
             if isinstance(child, nodes.field_list) and not children:
                 for field in child.children:
-                    extra[field[0].astext().strip()] = field[1].astext().strip() if len(field) > 1 else ''
+                    value = field[1].astext().strip() if len(field) > 1 else ''
+                    extra[field[0].astext().strip()] = value
                 continue
             children.append(child)
         body = '\n\n'.join(self.blocks(children))
+        if self.raw_html:
+            self.warn(f'{self.raw_html} raw html blocks',
+                      'kept verbatim; hand-review before this page will compile')
         head = self.frontmatter(title, self.describe(children), extra)
         page = f'{head}\n\n{body}\n' if head else f'{body}\n'
         return page.replace('\n\n\n', '\n\n')
@@ -809,7 +837,7 @@ def main() -> int:
 
     register()
     man = Manifest()
-    man.build([])
+    man.build()
 
     if args.manifest:
         print(json.dumps(man.as_json(), indent=2))
@@ -822,11 +850,13 @@ def main() -> int:
     if not targets:
         ap.error('pass .rst paths or --all')
 
+    write = args.write and not args.dry_run
     out_root = ROOT / args.out
     errors, warns, failed = [], [], []
     written = 0
     for path in targets:
-        docname = path.relative_to(SRC).with_suffix('').as_posix()
+        under_src = path.as_posix().startswith(SRC.as_posix() + '/')
+        docname = path.relative_to(SRC).with_suffix('').as_posix() if under_src else path.stem
         try:
             conv = Converter(man, docname, path)
             text = conv.convert()
@@ -836,7 +866,7 @@ def main() -> int:
         errors += conv.errors
         warns += conv.warns
         dest = out_root / f'{docname}.mdx'
-        if args.write:
+        if write:
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(text, encoding='utf8')
             written += 1
@@ -845,7 +875,7 @@ def main() -> int:
             print(text)
 
     metas = meta_files(man)
-    if args.write:
+    if write:
         for rel, meta in metas.items():
             dest = out_root / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -861,18 +891,20 @@ def main() -> int:
     if warns:
         line('WARN', 'review', f'{len(warns)} notes')
     line('ok', 'meta.json', f'{len(metas)} directories'
-         + ('' if args.write else ' (not written; pass --write)'))
-    if args.write:
+         + ('' if write else ' (not written; pass --write)'))
+    if write:
         line('ok', 'written', f'{written} files under {args.out}')
+
+    def where(entry):
+        return f"{entry['file']}:{entry['line']}" if entry['line'] else entry['file']
 
     for entry in failed:
         print(f"\n  FAIL  convert: {entry['ref']}\n        {entry['note']}")
     for entry in errors:
         print(f"\n  FAIL  unresolved: {entry['ref']}\n        {entry['note']}"
-              f"\n        {entry['file']}:{entry['line']}")
+              f"\n        {where(entry)}")
     for entry in warns:
-        print(f"\n  WARN  {entry['ref']}\n        {entry['note']}"
-              f"\n        {entry['file']}:{entry['line']}")
+        print(f"\n  WARN  {entry['ref']}\n        {entry['note']}\n        {where(entry)}")
 
     if failed or errors:
         print(f'\nFAIL {len(failed)} crashes, {len(errors)} unresolved internal links.')
