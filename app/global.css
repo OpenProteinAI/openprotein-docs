@@ -164,12 +164,6 @@ summary {
   color: var(--color-fd-foreground);
 }
 
-#nd-sidebar [data-radix-scroll-area-viewport] > div > div > div[data-state] > div {
-  margin-inline-start: 0.6875rem;
-  padding-inline-start: 0.6875rem;
-  border-inline-start: 1px solid var(--color-fd-border);
-}
-
 /* Code block header: language icon in brand magenta, per the mockup. */
 figure.shiki > div:first-child > svg,
 figure.shiki > div:first-child > span:has(> svg) {
@@ -179,4 +173,29 @@ figure.shiki > div:first-child > span:has(> svg) {
 /* Sidebar status badge must not wrap. */
 #nd-sidebar [data-radix-scroll-area-viewport] a > span:last-child {
   white-space: nowrap;
+}
+
+/*
+ * Markdown links: blue, underlined, normal weight. The typography fork points
+ * --tw-prose-links at the body colour and sets font-weight 500 (450 under .prose-sm),
+ * so both need overriding. Heading anchors and Cards ([data-card]) stay excluded.
+ */
+.prose {
+  --tw-prose-links: var(--color-fd-primary);
+}
+
+.prose
+  :where(a:not([data-card])):not(
+    :where(
+      [class~='not-prose'],
+      [class~='not-prose'] *,
+      h1 *,
+      h2 *,
+      h3 *,
+      h4 *,
+      h5 *,
+      h6 *
+    )
+  ) {
+  font-weight: 400;
 }
