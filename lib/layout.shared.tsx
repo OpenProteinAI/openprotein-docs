@@ -10,6 +10,8 @@ export function baseOptions(): BaseLayoutProps {
       text: section.text,
       url: section.url,
       active: 'nested-url' as const,
+      // Header only: the sidebar shows the page tree, not the section list.
+      on: 'nav' as const,
     })),
   };
 }

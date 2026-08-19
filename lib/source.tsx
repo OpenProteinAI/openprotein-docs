@@ -1,4 +1,5 @@
 import { loader } from 'fumadocs-core/source';
+import { statusBadgesPlugin } from 'fumadocs-core/source/plugins/status-badges';
 import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { metaSchema, pageSchema } from 'fumadocs-core/source/schema';
 import { defineDocs } from 'fumadocs-mdx/macro';
@@ -49,5 +50,16 @@ const docs = defineDocs({
 /** baseUrl '/' so routes match the old Sphinx URLs one-for-one. */
 export const source = loader(
   { docs: docs.toFumadocsSource() },
-  { baseUrl: '/' },
+  {
+    baseUrl: '/',
+    plugins: [
+      statusBadgesPlugin({
+        renderBadge: (status) => (
+          <span className="ms-auto rounded-full border border-fd-border px-1.5 py-px text-xs font-medium tracking-[0.04em] uppercase text-[color:var(--brand-3-ink)]">
+            {status}
+          </span>
+        ),
+      }),
+    ],
+  },
 );

@@ -30,6 +30,7 @@ for (const path of targets) {
       box('header nav 1st', '#nd-subnav nav a'),
       box('sidebar rail', '#nd-sidebar'),
       box('sidebar banner', '#nd-sidebar [data-header-body], #nd-sidebar > div:first-child'),
+      box('sidebar group', '#nd-sidebar [data-radix-scroll-area-viewport] > div > div > button'),
       box('sidebar nav 1st', '#nd-sidebar a'),
       box('article', 'article'),
       box('h1', 'article h1'),
@@ -53,7 +54,7 @@ for (const path of targets) {
   const logo = find('header logo');
   const inner = find('header inner');
   const rail = find('sidebar rail');
-  const sideLink = find('sidebar nav 1st');
+  const sideGroup = find('sidebar group');
   const toc = find('toc');
   const main = find('article') ?? find('main h1');
   const content = has(find('article')) ? find('article') : find('main h1');
@@ -65,8 +66,11 @@ for (const path of targets) {
   if (has(logo) && has(inner))
     checks.push([`logo x (${logo.x}) == header inner x + 16 (${inner.x + 16})`, logo.x === inner.x + 16]);
 
-  if (has(logo) && has(sideLink))
-    checks.push([`logo x (${logo.x}) == sidebar link x (${sideLink.x})`, Math.abs(logo.x - sideLink.x) <= 2]);
+  if (has(logo) && has(sideGroup))
+    checks.push([
+      `logo x (${logo.x}) == sidebar group header x (${sideGroup.x})`,
+      Math.abs(logo.x - sideGroup.x) <= 2,
+    ]);
 
   // Must occupy the page column, not the gutter.
   if (has(rail) && has(content)) {

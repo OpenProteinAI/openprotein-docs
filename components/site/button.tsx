@@ -2,10 +2,10 @@ import Link from 'next/link';
 import type { ComponentProps, ReactNode } from 'react';
 
 export type ButtonVariant = 'main' | 'primary' | 'secondary' | 'flat';
-export type ButtonSize = 'default' | 'compact';
+export type ButtonSize = 'default' | 'compact' | 'lg';
 
 const BASE =
-  'inline-flex items-center justify-center gap-2 rounded-[0.75em] text-[13px] font-medium whitespace-nowrap transition-[background,border-color,color,filter] disabled:pointer-events-none data-[readonly=true]:pointer-events-none';
+  'inline-flex items-center justify-center gap-2 rounded-[0.75em] text-sm font-medium whitespace-nowrap transition-[background,border-color,color,filter] disabled:pointer-events-none data-[readonly=true]:pointer-events-none';
 
 // Fills stay at base brand colours: white on a dark-lifted gradient drops to 2.55:1.
 const VARIANTS: Record<ButtonVariant, string> = {
@@ -19,6 +19,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
 const SIZES: Record<ButtonSize, string> = {
   default: 'h-[34px] px-4',
   compact: 'h-[30px] px-3',
+  lg: 'h-10 px-5 text-base',
 };
 
 interface Props {

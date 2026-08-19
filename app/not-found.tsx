@@ -8,13 +8,13 @@ export default function NotFound() {
   return (
     <main className="flex min-h-full w-full flex-col px-8 [grid-area:main]">
       <div className="py-20">
-        <p className="mb-3 font-mono text-[13px] font-medium" style={{ color: 'var(--brand-2-ink)' }}>
+        <p className="mb-3 font-mono text-sm font-medium" style={{ color: 'var(--brand-2-ink)' }}>
           404
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-[-0.7px] text-fd-foreground">
           This page could not be found
         </h1>
-        <p className="mb-8 max-w-[62ch] text-[15px] leading-[1.7] text-fd-muted-foreground">
+        <p className="mb-8 max-w-[62ch] text-base leading-[1.7] text-fd-muted-foreground">
           The page may have moved during the migration from the previous documentation
           site. Try searching, or start from one of the sections below.
         </p>
@@ -34,7 +34,7 @@ export default function NotFound() {
           <Link
             key={section.url}
             href={section.url}
-            className="text-[13.5px] text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+            className="text-sm text-fd-muted-foreground transition-colors hover:text-fd-foreground"
           >
             {section.text}
           </Link>

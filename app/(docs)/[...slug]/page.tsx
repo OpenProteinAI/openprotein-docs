@@ -8,6 +8,7 @@ import {
 } from 'fumadocs-ui/layouts/notebook/page';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getMDXComponents } from '@/components/mdx';
+import { PageActions } from '@/components/site/page-actions';
 import { source } from '@/lib/source';
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
@@ -18,7 +19,15 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   const MDX = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      breadcrumb={{ enabled: true, includePage: true }}
+      footer={{ enabled: true }}
+      tableOfContent={{
+        footer: <PageActions path={page.path} notebook={page.data.notebook} />,
+      }}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>

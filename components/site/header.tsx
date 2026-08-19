@@ -66,7 +66,7 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
               key={section.url}
               href={section.url}
               data-active={pathname === section.url || pathname.startsWith(`${section.url}/`)}
-              className="rounded-lg px-2.5 py-1.5 text-[13px] font-medium whitespace-nowrap text-fd-foreground transition-colors hover:bg-fd-muted data-[active=true]:bg-fd-accent data-[active=true]:text-fd-accent-foreground"
+              className="rounded-lg px-2.5 py-1.5 text-sm font-medium whitespace-nowrap text-fd-foreground transition-colors hover:bg-fd-muted data-[active=true]:bg-fd-accent data-[active=true]:text-fd-accent-foreground"
             >
               {section.text}
             </Link>
@@ -76,7 +76,7 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
         <div className="flex flex-1 items-center justify-end gap-2.5 lg:flex-none">
           <FullSearchTrigger
             hideIfDisabled
-            className="hidden h-[34px] w-[210px] rounded-[0.75em] border border-fd-border bg-fd-background text-[13px] text-fd-muted-foreground lg:flex"
+            className="hidden h-[34px] w-[210px] rounded-[0.75em] border border-fd-border bg-fd-background text-sm text-fd-muted-foreground lg:flex"
           />
           <SearchTrigger hideIfDisabled className="lg:hidden" />
           <ThemeToggle />

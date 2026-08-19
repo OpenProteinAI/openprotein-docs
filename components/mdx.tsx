@@ -1,10 +1,12 @@
 import type { MDXComponents } from 'mdx/types';
 import defaultComponents from 'fumadocs-ui/mdx';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-import { Callout } from 'fumadocs-ui/components/callout';
+import { Callout } from '@/components/mdx/callout';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { SectionCards } from '@/components/mdx/section-cards';
+import { TipRow } from '@/components/mdx/tip-row';
 
 /** fumadocs auto-registers only Callout*, Card*, CodeBlockTab*, pre, a, img, h*, table. */
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -18,6 +20,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Tab,
     Tabs,
     TypeTable,
+    SectionCards,
+    TipRow,
     ...components,
   };
 }
