@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+
+/* ink = on the page background, moves with theme. fill = own background, theme-invariant. */
+:root {
+  --brand-1-fill: #225edb;
+  --brand-2-fill: #bf3298;
+  --brand-3-fill: #ffba68;
+
+  --brand-1-ink: #225edb;
+  --brand-1-ink-hover: #16337a;
+  --brand-2-ink: #bf3298;
+  --brand-2-ink-hover: #8f2472;
+  --brand-3-ink: #a46a17; /* raw amber is 1.68:1 on white */
+
+  --brand-gradient: linear-gradient(100deg, var(--brand-1-fill) 0%, var(--brand-2-fill) 100%);
+}
+
+/* Base blue/magenta are 2.71:1 and 3.03:1 on the dark body; lifted in OKLCH to ~6:1. */
+.dark {
+  --brand-1-ink: #65a3ff;
+  --brand-1-ink-hover: #7ab9ff;
+  --brand-2-ink: #f771cc;
+  --brand-2-ink-hover: #ff8de7;
+  --brand-3-ink: #ffba68;
+}
+
+/* Unlayered and after the imports, so it beats neutral.css's @layer theme. */
+:root {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #212529;
+
+  --color-fd-card: #f8f9fa;
+  --color-fd-card-foreground: #212529;
+  --color-fd-muted: #f2f5f8;
+  --color-fd-muted-foreground: #6c757d;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #212529;
+  --color-fd-secondary: #e9ecef;
+  --color-fd-secondary-foreground: #212529;
+
+  --color-fd-border: #ced4da;
+
+  --color-fd-primary: var(--brand-1-ink);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-ring: var(--brand-1-ink);
+
+  --color-fd-accent: #dbe6fb;
+  --color-fd-accent-foreground: #16337a;
+
+  --color-fd-info: #0aaaca;
+  --color-fd-warning: #fd7e14;
+  --color-fd-error: #dc3545;
+  --color-fd-success: #198754;
+}
+
+.dark {
+  --color-fd-background: #212529;
+  --color-fd-foreground: #dee2e6;
+
+  --color-fd-card: #2a2f34;
+  --color-fd-card-foreground: #dee2e6;
+  --color-fd-muted: #2b3035;
+  --color-fd-muted-foreground: #adb5bd;
+  --color-fd-popover: #2a2f34;
+  --color-fd-popover-foreground: #dee2e6;
+  --color-fd-secondary: #343a40;
+  --color-fd-secondary-foreground: #dee2e6;
+
+  --color-fd-border: #495057;
+
+  --color-fd-accent: #33415a;
+  --color-fd-accent-foreground: #cfe2ff;
+
+  /* neutral.css sets these on .dark, equal specificity to :root. */
+  --color-fd-primary: var(--brand-1-ink);
+  --color-fd-primary-foreground: #10233f;
+  --color-fd-ring: var(--brand-1-ink);
+
+  --color-fd-info: #3fd0ea;
+  --color-fd-warning: #ffa94d;
+  --color-fd-error: #ea868f;
+  --color-fd-success: #75b798;
+}
+
+/* neutral.css re-tints the sidebar at higher specificity than .dark. */
+.dark #nd-sidebar {
+  --color-fd-muted: #2b3035;
+  --color-fd-secondary: #343a40;
+  --color-fd-muted-foreground: #adb5bd;
+}
+
+:root {
+  --fd-layout-width: 1520px;
+  --fd-nav-height: 60px;
+  --fd-sidebar-width: 274px;
+  --fd-toc-width: 246px;
+}
+
+/* HomeLayout hard-codes [--fd-layout-width:1400px] on its own <main>. */
+#nd-home-layout {
+  --fd-layout-width: 1520px;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0 !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+/*
+ * The header area spans only the sidebar/page/toc columns, but the sidebar rail below
+ * bleeds to the viewport edge, so border-b stops short of the corner. No `position`
+ * here — it would override the header's sticky.
+ */
+#nd-subnav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid var(--color-fd-border);
+  pointer-events: none;
+}
+
+#nd-subnav a {
+  white-space: nowrap;
+}
+
+/* Tailwind 4's Preflight dropped v3's button cursor reset. */
+button:not(:disabled),
+input:where([type='button'], [type='reset'], [type='submit']):not(:disabled),
+[role='button']:not([aria-disabled='true']),
+summary {
+  cursor: pointer;
+}
+
+/* Squircles. Chrome-only; degrades to plain border-radius. */
+@supports (corner-shape: superellipse(1.5)) {
+  :where(button, a, input, .fd-squircle, [class*='rounded']) {
+    corner-shape: superellipse(1.5);
+  }
+}

@@ -1,0 +1,30 @@
+---
+title: Getting Started
+description: Choose the surface that fits your workflow — the web app for no-code work, or the Python and REST APIs for programmatic access.
+---
+
+OpenProtein.AI is reachable three ways, and they share one account and one job system.
+
+<Callout title="Before you start">
+  You need an OpenProtein.AI account. The web app needs nothing else; the APIs need an
+  API key from **Account → API keys**.
+</Callout>
+
+## Pick a surface
+
+<Cards>
+  <Card title="Web app" href="/web-app" description="Upload assays, train models and design libraries without writing code." />
+  <Card title="Python API" href="/python-api" description="The openprotein client, for pipelines and notebooks." />
+  <Card title="REST API" href="/rest-api" description="Language-agnostic HTTP access to every workflow." />
+</Cards>
+
+## How work runs
+
+Every long-running request is a **job**. You submit it, get a job id back, and poll or
+await the result — the same model across all three surfaces.
+
+<Steps>
+  <Step>Upload your data as an assay dataset.</Step>
+  <Step>Submit a workflow — embeddings, training, folding or design.</Step>
+  <Step>Await the job and read its results.</Step>
+</Steps>
