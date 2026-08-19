@@ -1,9 +1,12 @@
-/src/.quarto/
-/src/_site/
-.log
-/build/
-
-# pixi environments
-.pixi
-*.egg-info
+node_modules
+.next
+out
+.env.local
+.source
+next-env.d.ts
+*.tsbuildinfo
 .DS_Store
+
+# specs/, public/_static/ and content/notebooks/ ARE committed. They are content, not
+# build output: this repo is self-contained and nothing is imported or generated from
+# another checkout, so `pnpm install && pnpm dev` on a fresh clone is the whole setup.
