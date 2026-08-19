@@ -6,28 +6,28 @@ const ICONS = { dna: Dna, flask: FlaskConical, layers: Layers };
 
 export function SolutionsGrid() {
   return (
-    <section className="pt-13 pb-20">
-      <h2 className="mb-1.5 text-2xl font-semibold tracking-[-0.5px] text-fd-foreground">
+    <section className="pt-16 pb-20">
+      <h2 className="mb-2 text-center text-2xl font-semibold tracking-[-0.5px] text-fd-foreground">
         Solutions for your application
       </h2>
-      <p className="mb-6 text-base text-fd-muted-foreground">
+      <p className="mx-auto mb-7 text-center text-base text-fd-muted-foreground">
         Walkthroughs built around the molecules teams bring to the platform.
       </p>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 lg:grid-cols-3">
         {SOLUTIONS.map((solution) => {
           const Icon = ICONS[solution.icon];
           return (
             <Link
               key={solution.title}
               href={solution.href}
-              className="flex gap-5 rounded-[0.75em] border border-fd-border bg-fd-card p-6 transition-colors hover:border-fd-primary/75"
+              className="flex gap-5 rounded-[0.75em] border border-fd-border bg-fd-card p-5 transition-colors hover:border-fd-primary/75"
             >
               <span
-                className="flex size-16 shrink-0 items-center justify-center rounded-2xl"
+                className="flex size-14 shrink-0 items-center justify-center rounded-2xl"
                 style={{ background: solution.tint, color: solution.ink }}
               >
-                <Icon className="size-8" />
+                <Icon className="size-7" />
               </span>
 
               <span className="flex min-w-0 flex-1 flex-col">

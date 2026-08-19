@@ -5,14 +5,13 @@ import { CAPABILITIES } from '@/lib/home-content';
 
 export function CapabilityGrid() {
   return (
-    <section className="pt-9 pb-2">
-      <p className="mb-6 max-w-[130ch] text-base leading-relaxed text-fd-muted-foreground">
+    <section className="pt-14 pb-2">
+      <p className="mx-auto mb-7 max-w-[130ch] text-center text-base leading-relaxed text-fd-muted-foreground">
         Get started with OpenProtein.AI and discover functional protein sequences optimized
         to your specifications:
       </p>
 
-      {/* Narrower than the shell and centred: 3 columns of ~320px keep the square images honest. */}
-      <div className="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {CAPABILITIES.map((capability, index) => (
           <div
             key={capability.title}

@@ -134,8 +134,8 @@ export const FOOTER_COLUMNS = [
   {
     title: 'Company',
     links: [
-      { label: 'openprotein.ai', href: 'https://www.openprotein.ai' },
-      { label: 'Contact sales', href: 'https://www.openprotein.ai/contact' },
+      { label: 'OpenProtein.AI', href: 'https://openprotein.ai' },
+      { label: 'Contact sales', href: 'https://openprotein.ai/contact' },
       { label: 'Web app', href: 'https://app.openprotein.ai' },
     ],
   },

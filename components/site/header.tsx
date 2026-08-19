@@ -12,8 +12,9 @@ import { SECTIONS } from '@/lib/sections';
 
 // [grid-area:header] and --fd-header-height are load-bearing: this is the layout
 // grid's header area. --fd-docs-row-1 needs the 0px fallback for HomeLayout.
+// z-30 beats the sidebar's own sticky wrapper (z-20), which is later in the DOM.
 const SHELL =
-  'sticky [grid-area:header] flex flex-col top-[var(--fd-docs-row-1,0px)] z-20 backdrop-blur-[14px] transition-colors data-[transparent=false]:bg-fd-background/88 layout:[--fd-header-height:60px]';
+  'sticky [grid-area:header] flex flex-col top-[var(--fd-docs-row-1,0px)] z-30 backdrop-blur-[14px] transition-colors data-[transparent=false]:bg-fd-background/88 layout:[--fd-header-height:60px]';
 
 interface Props extends ComponentProps<'header'> {
   /** Docs only: SidebarTrigger needs SidebarContext, which HomeLayout lacks. */

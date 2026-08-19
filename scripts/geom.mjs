@@ -37,6 +37,9 @@ for (const path of targets) {
       box('toc', '#nd-toc'),
       box('main h1', 'main h1'),
       box('header inner', '#nd-subnav [data-header-body]'),
+      box('footer logo', 'footer img'),
+      box('footer cols', 'footer > div > div:last-child'),
+      box('header actions', '#nd-subnav [data-header-body] > div:last-child'),
     ];
   });
 
@@ -77,6 +80,23 @@ for (const path of targets) {
     checks.push([`content x (${content.x}) >= sidebar rail right (${rail.right})`, content.x >= rail.right - 2]);
     checks.push([`content width (${content.w}) > 600 (not collapsed into the gutter)`, content.w > 600]);
   }
+
+  const fLogo = find('footer logo');
+  if (has(logo) && has(fLogo))
+    checks.push([
+      `footer logo x (${fLogo.x}) == header logo x (${logo.x})`,
+      Math.abs(fLogo.x - logo.x) <= 2,
+    ]);
+  else checks.push(['site footer present', false]);
+
+  // Compare against the header's own right-most element: both sit inside the shell padding.
+  const fCols = find('footer cols');
+  const hActions = find('header actions');
+  if (has(fCols) && has(hActions))
+    checks.push([
+      `footer columns right (${fCols.right}) == header actions right (${hActions.right})`,
+      Math.abs(fCols.right - hActions.right) <= 2,
+    ]);
 
   const rightEdge = has(toc) ? toc : inner;
   if (has(inner) && has(rightEdge))

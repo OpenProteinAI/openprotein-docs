@@ -1,17 +1,14 @@
 import { CapabilityGrid } from '@/components/home/capability-grid';
 import { Hero } from '@/components/home/hero';
 import { SolutionsGrid } from '@/components/home/solutions-grid';
-import { SiteFooter } from '@/components/site/footer';
+import { LANDING_COLUMN } from '@/lib/columns';
 
 export default function HomePage() {
   return (
-    <>
-      <div className="mx-auto w-full max-w-(--fd-layout-width) px-4">
-        <Hero />
-        <CapabilityGrid />
-        <SolutionsGrid />
-      </div>
-      <SiteFooter />
-    </>
+    <div className={LANDING_COLUMN}>
+      <Hero />
+      <CapabilityGrid />
+      <SolutionsGrid />
+    </div>
   );
 }
