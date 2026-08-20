@@ -27,8 +27,8 @@ Learn more and get started with our tutorials
 - `Model training and evaluation <./model-train-evaluate.rst>`_
 - `Substitution analysis with OP Models <./sub-analysis.rst>`_
 - `Designing sequences <./design.rst>`_
-- `Automatic Antibody Annotation <./antibody-annotation.rst>`_
-- `Cluster sequences in a table <./cluster-sequences.rst>`_
+- `Antibody annotation <./antibody-annotation.rst>`_
+- `Cluster sequences <./cluster-sequences.rst>`_
 
 .. toctree::
   :maxdepth: 0
