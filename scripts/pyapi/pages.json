@@ -1,0 +1,1143 @@
+{
+ "source": "__old/source/python-api/api-reference",
+ "pages": [
+  {
+   "page": "index",
+   "title": "API reference",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "API reference =============",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Session Management",
+     "level": 2,
+     "prose": "The entrypoint to our platform which requires an authenticated session.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.OpenProtein",
+       "openprotein.connect"
+      ]
+     ]
+    },
+    {
+     "heading": "Data Primitives",
+     "level": 2,
+     "prose": "Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Property Regression Models",
+     "level": 2,
+     "prose": null,
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.molecules.Protein",
+       "openprotein.molecules.Complex",
+       "openprotein.molecules.Structure",
+       "openprotein.molecules.Ligand",
+       "openprotein.molecules.DNA",
+       "openprotein.molecules.RNA"
+      ]
+     ]
+    },
+    {
+     "heading": "Data",
+     "level": 3,
+     "prose": "Upload and store your datasets on our platform to use with your protein engineering tasks.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.data.DataAPI",
+       "openprotein.data.AssayDataset"
+      ]
+     ]
+    },
+    {
+     "heading": "Jobs",
+     "level": 3,
+     "prose": "Retrieve and monitor your jobs.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.jobs.JobsAPI",
+       "openprotein.jobs.Job"
+      ]
+     ]
+    },
+    {
+     "heading": "Align",
+     "level": 2,
+     "prose": "Align your protein sequences or look up multiple sequence alignments.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.align.AlignAPI",
+       "openprotein.align.MSAFuture"
+      ]
+     ]
+    },
+    {
+     "heading": "Prompt",
+     "level": 2,
+     "prose": "Create prompts using sequences and structures to condition our proprietary high-performance PoET foundation models.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.prompt.PromptAPI",
+       "openprotein.prompt.Prompt",
+       "openprotein.prompt.Query"
+      ]
+     ]
+    },
+    {
+     "heading": "Foundation models",
+     "level": 2,
+     "prose": "Use foundation models to produce embeddings and logits with your protein sequences.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.embeddings.EmbeddingsAPI"
+      ]
+     ]
+    },
+    {
+     "heading": "Models",
+     "level": 3,
+     "prose": "The foundation models on our platform are classed appropriately to identify the models and group their functionality.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.embeddings.PoET2Model",
+       "openprotein.embeddings.PoETModel",
+       "openprotein.embeddings.OpenProteinModel",
+       "openprotein.embeddings.ESMModel"
+      ]
+     ]
+    },
+    {
+     "heading": "Results",
+     "level": 3,
+     "prose": "The models produce asynchronous results which are modeled as futures which can be awaited.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.embeddings.EmbeddingsResultFuture",
+       "openprotein.embeddings.EmbeddingsScoreFuture",
+       "openprotein.embeddings.EmbeddingsGenerateFuture"
+      ]
+     ]
+    },
+    {
+     "heading": "Transform",
+     "level": 2,
+     "prose": "Transform and reduce your embeddings for use with visualization and training workflows.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "SVD",
+     "level": 3,
+     "prose": null,
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.svd.SVDAPI",
+       "openprotein.svd.SVDModel"
+      ]
+     ]
+    },
+    {
+     "heading": "UMAP",
+     "level": 3,
+     "prose": null,
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.umap.UMAPAPI",
+       "openprotein.umap.UMAPModel"
+      ]
+     ]
+    },
+    {
+     "heading": "Predictor",
+     "level": 2,
+     "prose": "Train predictors from your assay datasets and use them to make predictions on novel sequences.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.predictor.PredictorAPI",
+       "openprotein.predictor.PredictorModel",
+       "openprotein.predictor.PredictionResultFuture"
+      ]
+     ]
+    },
+    {
+     "heading": "Design",
+     "level": 2,
+     "prose": "Design novel protein sequences based on your assay datasets and trained models, optimizing toward your design criteria.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.design.DesignAPI",
+       "openprotein.design.DesignFuture"
+      ]
+     ]
+    },
+    {
+     "heading": "Fold",
+     "level": 2,
+     "prose": "Make structure predictions on your protein sequences.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.fold.FoldAPI",
+       "openprotein.fold.RosettaFold3Model",
+       "openprotein.fold.Boltz2Model",
+       "openprotein.fold.Boltz1xModel",
+       "openprotein.fold.Boltz1Model",
+       "openprotein.fold.AlphaFold2Model",
+       "openprotein.fold.ESMFoldModel",
+       "openprotein.fold.FoldResultFuture"
+      ]
+     ]
+    },
+    {
+     "heading": "Models",
+     "level": 2,
+     "prose": "Unified access to the models available on our platform.",
+     "entries": [],
+     "autosummary": [
+      [
+       "openprotein.models.ModelsAPI",
+       "openprotein.models.RFdiffusionModel",
+       "openprotein.models.ProteinMPNNModel",
+       "openprotein.models.ESMIF1Model",
+       "openprotein.models.BoltzGenModel"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "page": "openprotein",
+   "title": "openprotein",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein =========== This document describes the base dataclasses and primitives for working with the platform. This includes the :py:class:`~openprotein.OpenProtein` session object, as well as primitives like the :py:class:`~openprotein.Protein` and :py:class:`~openprotein.Model` objects.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Session",
+     "level": 2,
+     "prose": "Create an authorized session to OpenProtein.AI backend.",
+     "entries": [
+      {
+       "directive": "autofunction",
+       "target": "openprotein.connect",
+       "options": {}
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.OpenProtein",
+       "options": {
+        "members": true,
+        "class-doc-from": "class",
+        "exclude-members": [
+         "request"
+        ]
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "molecules",
+   "title": "openprotein.molecules",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.molecules ===================== These data primitives represent a unified interface to working with our platform, whether it be structure prediction, binder design or inverse folding.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Protein",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.Protein` is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a :py:class:`~openprotein.prompt.Query` to be used with models like :py:class:`~openprotein.models.ProteinMPNNModel` or :py:class:`~openprotein.models.ESMIF1Model` (e.g. for inverse-folding), as well as for ease of reuse.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.Protein",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Complex",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.Complex` describes a molecular complex representation. These can be uploaded to our platform as a :py:class:`~openprotein.prompt.Query` to be used with models like :py:class:`~openprotein.models.RFdiffusionModel`, (e.g. for multi-chain binder design) as well as for easy reuse.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.Complex",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Structure",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.Structure` describes a collection of :py:class:`Complex` instances. These are typically created when parsing structure files (e.g., CIF, PDB) that contain multiple models of the same molecular complex, such as NMR ensembles or computational predictions with multiple conformations.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.Structure",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Ligand",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.Ligand` represents a ligand that can be described either by ``smiles`` or ``ccd``. These are intended to be used as part of a :py:class:`Complex`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.Ligand",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "DNA",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.DNA` represents a DNA chain. These are intended to be used as part of a :py:class:`Complex`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.DNA",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "RNA",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.RNA` represents a RNA chain. These are intended to be used as part of a :py:class:`Complex`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.RNA",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Template",
+     "level": 2,
+     "prose": ":py:class:`~openprotein.molecules.Template` describes a template that can be used for constraining fold jobs.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.molecules.Template",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "data",
+   "title": "openprotein.data",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.data ==================== Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.data.DataAPI",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "load_assay"
+        ]
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Classes",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.data.AssayDataset",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.data.AssayMetadata",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "model_config"
+        ]
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "jobs",
+   "title": "openprotein.jobs",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.jobs ================ Retrieve and monitor your jobs on our platform.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.jobs.JobsAPI",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Classes",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.jobs.Job",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "model_config"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.jobs.Future",
+       "options": {
+        "members": [
+         "wait",
+         "wait_until_done",
+         "get",
+         "refresh",
+         "done"
+        ]
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "align",
+   "title": "openprotein.align",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.align ===================== Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.align.AlignAPI",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "AbNumber schemes",
+     "level": 3,
+     "prose": "AbNumber supports the following schemes:",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.align.schemas.AbNumberScheme",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.align.MSAFuture",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "prompt",
+   "title": "openprotein.prompt",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.prompt ================== Create prompts to be used with `PoET <embedding.rst#openprotein.embeddings.PoETModel>`_ models, along with queries which opens up use-cases like `inverse folding <../../walkthroughs/PoET-2_inverse_folding.ipynb>`_ with `PoET-2 <embedding.rst#openprotein.embeddings.PoET2Model>`_.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.PromptAPI",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Classes",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.Prompt",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.Query",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.PromptMetadata",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "model_config"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.QueryMetadata",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "model_config"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.prompt.PromptJob",
+       "options": {
+        "members": true,
+        "exclude-members": [
+         "model_config"
+        ]
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "embedding",
+   "title": "openprotein.embeddings",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.embeddings ====================== Create embeddings for your protein sequences using open-source and proprietary models! Note that for PoET Models, you will also need to supply a :py:class:`~openprotein.prompt.Prompt`.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.EmbeddingsAPI",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Models",
+     "level": 2,
+     "prose": "These embedding models inherit from a base :py:class:`~openprotein.embeddings.EmbeddingModel`, due to their shared functionality in providing the :py:meth:`~openprotein.embeddings.EmbeddingModel.embed` method. These can also be used to fit the :ref:`transform-models`. .. _transform-models:",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.PoET2Model",
+       "options": {
+        "members": true,
+        "inherited-members": true,
+        "exclude-members": [
+         "create",
+         "get_model"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.PoETModel",
+       "options": {
+        "members": true,
+        "inherited-members": true,
+        "exclude-members": [
+         "create",
+         "get_model"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.AbLang2Model",
+       "options": {
+        "members": true,
+        "inherited-members": true,
+        "exclude-members": [
+         "create",
+         "get_model"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.OpenProteinModel",
+       "options": {
+        "members": true,
+        "inherited-members": true,
+        "exclude-members": [
+         "create",
+         "get_model"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.ESMModel",
+       "options": {
+        "members": true,
+        "inherited-members": true,
+        "exclude-members": [
+         "create",
+         "get_model"
+        ]
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.EmbeddingModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Transform Models",
+     "level": 3,
+     "prose": "These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. :py:class:`~openprotein.svd.SVDModel` represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your :py:class:`~openprotein.data.AssayDataset`. You can fit your own SVD from any model's :py:meth:`~openprotein.embeddings.EmbeddingModel.fit_svd`. :py:class:`~openprotein.umap.UMAPModel` represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your :py:class:`~openprotein.data.AssayDataset`. You can fit your own UMAP from any model's :py:meth:`~openprotein.embeddings.EmbeddingModel.fit_umap`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.svd.SVDModel",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.umap.UMAPModel",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Reduction methods",
+     "level": 3,
+     "prose": "Foundational embedding models also take an optional reduction to use simple pooling methods:",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.common.ReductionType",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.EmbeddingsResultFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.EmbeddingsScoreFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.embeddings.EmbeddingsGenerateFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "predictor",
+   "title": "openprotein.predictor",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.predictor ===================== Train property predictors from your datasets to enable predictions for new sequences! Use crossvalidation on the trained predictors to estimate uncertainty. Trained predictors can be used to design new sequences based on design goals for properties.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.predictor.PredictorAPI",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.predictor.PredictorModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "design",
+   "title": "openprotein.design",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.design ================== Design new sequences based on your stated objectives and our genetic algorithm!",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.design.DesignAPI",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.design.DesignFuture",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "fold",
+   "title": "openprotein.fold",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.fold ================ Create PDBs of your protein sequences via our folding models! Note that for Boltz and AlphaFold2 Models, you will also need to utilize our :doc:`align <align>` workflow to create MSAs.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.FoldAPI",
+       "options": {
+        "members": true,
+        "undoc-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Models",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.ProtenixModel",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.Boltz2Model",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.Boltz1xModel",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.Boltz1Model",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.RosettaFold3Model",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.AlphaFold2Model",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.ESMFoldModel",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.ESMFold2Model",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.ESMFold2FastModel",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.MiniFoldModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.ESMFold2Confidence",
+       "options": {
+        "members": true
+       }
+      },
+      {
+       "directive": "autoclass",
+       "target": "openprotein.fold.FoldResultFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  },
+  {
+   "page": "models",
+   "title": "openprotein.models",
+   "sections": [
+    {
+     "heading": null,
+     "level": 0,
+     "prose": "openprotein.models ================== Unified access to models on the OpenProtein AI platform. Use them to work at a lower level to craft your own workflows. Note that the Models API is a WIP interface, but we are working hard on bringing all models here for a consistent and simple developer experience.",
+     "entries": [],
+     "autosummary": []
+    },
+    {
+     "heading": "Interface",
+     "level": 2,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.ModelsAPI",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "RFdiffusion",
+     "level": 3,
+     "prose": "RFdiffusion is diffusion model that can be used for de novo structure design and binder design. It can be used with our :py:class:`~openprotein.prompt.Query` interface to define structure prediction objectives in a unified manner. It also supports taking in the ``contigs`` defined in official RFdiffusion repo.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.RFdiffusionModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 4,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.RFdiffusionFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "BoltzGen",
+     "level": 3,
+     "prose": "BoltzGen is a structure generation model that can be used for generating de novo structures along with nanobody scaffolds. It can be used with our :py:class:`~openprotein.prompt.Query` interface to define structure prediction objectives in a unified manner. It also supports taking in a ``design_spec`` which follows the official design specification from BoltzGen.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.BoltzGenModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "Results",
+     "level": 4,
+     "prose": null,
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.BoltzGenFuture",
+       "options": {
+        "members": true,
+        "inherited-members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "ProteinMPNN",
+     "level": 3,
+     "prose": "ProteinMPNN is a sequence generation model that can be used for inverse folding, and is a natural next step after using structure generation models. It can be used with our :py:class:`~openprotein.prompt.Query` interface to define sequence generation objectives in a unified manner, similar to our :py:class:`~openprotein.embeddings.PoET2Model`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.ProteinMPNNModel",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    },
+    {
+     "heading": "ESM-IF1",
+     "level": 3,
+     "prose": "ESM-IF1 is an inverse folding model pretrained on PDB and millions of AlphaFold-predicted structures. Given a backbone structure, it scores and generates sequences predicted to fold into it, making it another option for inverse folding alongside :py:class:`~openprotein.models.ProteinMPNNModel`.",
+     "entries": [
+      {
+       "directive": "autoclass",
+       "target": "openprotein.models.ESMIF1Model",
+       "options": {
+        "members": true
+       }
+      }
+     ],
+     "autosummary": []
+    }
+   ]
+  }
+ ]
+}

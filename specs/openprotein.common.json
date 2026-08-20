@@ -1,0 +1,62 @@
+{
+ "module": "openprotein.common",
+ "entries": [
+  {
+   "name": "ReductionType",
+   "path": "openprotein.common.ReductionType",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "ReductionType is an enumeration of the possible reduction types available.\n\nAttributes:\n    MEAN : Mean reduction takes the mean of the embeddings across the sequence length dimension.\n    SUM : Sum reduction takes the sum of the embeddings across the sequence length dimension.",
+   "module": "openprotein.common.reduction",
+   "source": {
+    "file": "openprotein/common/reduction.py",
+    "line": 7,
+    "end": 17
+   },
+   "members": [
+    {
+     "name": "MEAN",
+     "kind": "attribute",
+     "doc": "Mean reduction takes the mean of the embeddings across the sequence length dimension.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/common/reduction.py",
+      "line": 16,
+      "end": 16
+     },
+     "annotation": null,
+     "value": "'MEAN'",
+     "parsed": []
+    },
+    {
+     "name": "SUM",
+     "kind": "attribute",
+     "doc": "Sum reduction takes the sum of the embeddings across the sequence length dimension.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/common/reduction.py",
+      "line": 17,
+      "end": 17
+     },
+     "annotation": null,
+     "value": "'SUM'",
+     "parsed": []
+    }
+   ],
+   "section": "Reduction methods"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

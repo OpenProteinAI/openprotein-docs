@@ -14,3 +14,6 @@ next-env.d.ts
 # Python bytecode from scripts/rst2mdx.py
 __pycache__/
 *.pyc
+
+# Pinned env for the Python API generator (scripts/pyapi/requirements.txt)
+.venv-pyapi/

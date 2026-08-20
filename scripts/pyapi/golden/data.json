@@ -1,0 +1,94 @@
+{
+ "page": "data",
+ "title": "openprotein.data",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Classes"
+  }
+ ],
+ "anchor_count": 11,
+ "classes": [
+  {
+   "name": "DataAPI",
+   "path": "openprotein.data.DataAPI",
+   "kind": "class",
+   "signature": "class openprotein.data.DataAPI(session)[source]",
+   "source": "../../_modules/openprotein/data/data.html#DataAPI",
+   "members": [
+    {
+     "name": "list",
+     "path": "openprotein.data.DataAPI.list",
+     "kind": "method",
+     "signature": "list(limit=None, offset=None)[source]",
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.list"
+    },
+    {
+     "name": "create",
+     "path": "openprotein.data.DataAPI.create",
+     "kind": "method",
+     "signature": "create(table, name, description=None)[source]",
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.create"
+    },
+    {
+     "name": "get",
+     "path": "openprotein.data.DataAPI.get",
+     "kind": "method",
+     "signature": "get(assay_id, verbose=False)[source]",
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.get"
+    }
+   ]
+  },
+  {
+   "name": "AssayDataset",
+   "path": "openprotein.data.AssayDataset",
+   "kind": "class",
+   "signature": "class openprotein.data.AssayDataset(session, metadata)[source]",
+   "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset",
+   "members": [
+    {
+     "name": "list_models",
+     "path": "openprotein.data.AssayDataset.list_models",
+     "kind": "method",
+     "signature": "list_models()[source]",
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.list_models"
+    },
+    {
+     "name": "update",
+     "path": "openprotein.data.AssayDataset.update",
+     "kind": "method",
+     "signature": "update(assay_name=None, assay_description=None)[source]",
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.update"
+    },
+    {
+     "name": "get_first",
+     "path": "openprotein.data.AssayDataset.get_first",
+     "kind": "method",
+     "signature": "get_first()[source]",
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_first"
+    },
+    {
+     "name": "get_slice",
+     "path": "openprotein.data.AssayDataset.get_slice",
+     "kind": "method",
+     "signature": "get_slice(start, end)[source]",
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_slice"
+    }
+   ]
+  },
+  {
+   "name": "AssayMetadata",
+   "path": "openprotein.data.AssayMetadata",
+   "kind": "class",
+   "signature": "class openprotein.data.AssayMetadata(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False)[source]",
+   "source": "../../_modules/openprotein/data/schemas.html#AssayMetadata",
+   "members": []
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

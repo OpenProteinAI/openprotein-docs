@@ -1,0 +1,163 @@
+{
+ "page": "design",
+ "title": "openprotein.design",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Results"
+  }
+ ],
+ "anchor_count": 21,
+ "classes": [
+  {
+   "name": "DesignAPI",
+   "path": "openprotein.design.DesignAPI",
+   "kind": "class",
+   "signature": "class openprotein.design.DesignAPI(session)[source]",
+   "source": "../../_modules/openprotein/design/design.html#DesignAPI",
+   "members": [
+    {
+     "name": "list_designs",
+     "path": "openprotein.design.DesignAPI.list_designs",
+     "kind": "method",
+     "signature": "list_designs()[source]",
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.list_designs"
+    },
+    {
+     "name": "get_design",
+     "path": "openprotein.design.DesignAPI.get_design",
+     "kind": "method",
+     "signature": "get_design(design_id)[source]",
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.get_design"
+    },
+    {
+     "name": "create_genetic_algorithm_design",
+     "path": "openprotein.design.DesignAPI.create_genetic_algorithm_design",
+     "kind": "method",
+     "signature": "create_genetic_algorithm_design(assay, criteria, num_steps=25, pop_size=1024, n_offsprings=5120, crossover_prob=1.0, crossover_prob_pointwise=0.2, mutation_average_mutations_per_seq=1, allowed_tokens={})[source]",
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.create_genetic_algorithm_design"
+    }
+   ]
+  },
+  {
+   "name": "DesignFuture",
+   "path": "openprotein.design.DesignFuture",
+   "kind": "class",
+   "signature": "class openprotein.design.DesignFuture(session, job=None, metadata=None)[source]",
+   "source": "../../_modules/openprotein/design/future.html#DesignFuture",
+   "members": [
+    {
+     "name": "id",
+     "path": "openprotein.design.DesignFuture.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "assay",
+     "path": "openprotein.design.DesignFuture.assay",
+     "kind": "property",
+     "signature": "property assay: AssayDataset",
+     "source": null
+    },
+    {
+     "name": "algorithm",
+     "path": "openprotein.design.DesignFuture.algorithm",
+     "kind": "property",
+     "signature": "property algorithm: DesignAlgorithm",
+     "source": null
+    },
+    {
+     "name": "criteria",
+     "path": "openprotein.design.DesignFuture.criteria",
+     "kind": "property",
+     "signature": "property criteria: Criteria",
+     "source": null
+    },
+    {
+     "name": "num_steps",
+     "path": "openprotein.design.DesignFuture.num_steps",
+     "kind": "property",
+     "signature": "property num_steps",
+     "source": null
+    },
+    {
+     "name": "num_rows",
+     "path": "openprotein.design.DesignFuture.num_rows",
+     "kind": "property",
+     "signature": "property num_rows",
+     "source": null
+    },
+    {
+     "name": "allowed_tokens",
+     "path": "openprotein.design.DesignFuture.allowed_tokens",
+     "kind": "property",
+     "signature": "property allowed_tokens: dict[str, list[str]] | None",
+     "source": null
+    },
+    {
+     "name": "pop_size",
+     "path": "openprotein.design.DesignFuture.pop_size",
+     "kind": "property",
+     "signature": "property pop_size: int",
+     "source": null
+    },
+    {
+     "name": "n_offsprings",
+     "path": "openprotein.design.DesignFuture.n_offsprings",
+     "kind": "property",
+     "signature": "property n_offsprings: int",
+     "source": null
+    },
+    {
+     "name": "crossover_prob",
+     "path": "openprotein.design.DesignFuture.crossover_prob",
+     "kind": "property",
+     "signature": "property crossover_prob: float",
+     "source": null
+    },
+    {
+     "name": "crossover_prob_pointwise",
+     "path": "openprotein.design.DesignFuture.crossover_prob_pointwise",
+     "kind": "property",
+     "signature": "property crossover_prob_pointwise: float",
+     "source": null
+    },
+    {
+     "name": "mutation_average_mutations_per_seq",
+     "path": "openprotein.design.DesignFuture.mutation_average_mutations_per_seq",
+     "kind": "property",
+     "signature": "property mutation_average_mutations_per_seq: int",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.design.DesignFuture.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    },
+    {
+     "name": "stream",
+     "path": "openprotein.design.DesignFuture.stream",
+     "kind": "method",
+     "signature": "stream(step=None)[source]",
+     "source": "../../_modules/openprotein/design/future.html#DesignFuture.stream"
+    },
+    {
+     "name": "get_assay",
+     "path": "openprotein.design.DesignFuture.get_assay",
+     "kind": "method",
+     "signature": "get_assay()[source]",
+     "source": "../../_modules/openprotein/design/future.html#DesignFuture.get_assay"
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

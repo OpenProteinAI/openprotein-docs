@@ -1,0 +1,123 @@
+{
+ "page": "openprotein",
+ "title": "openprotein",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Session"
+  }
+ ],
+ "anchor_count": 16,
+ "classes": [
+  {
+   "name": "OpenProtein",
+   "path": "openprotein.OpenProtein",
+   "kind": "class",
+   "signature": "class openprotein.OpenProtein(username, password, backend, timeout=180)[source]",
+   "source": "../../_modules/openprotein.html#OpenProtein",
+   "members": [
+    {
+     "name": "data",
+     "path": "openprotein.OpenProtein.data",
+     "kind": "property",
+     "signature": "property data: DataAPI",
+     "source": null
+    },
+    {
+     "name": "jobs",
+     "path": "openprotein.OpenProtein.jobs",
+     "kind": "property",
+     "signature": "property jobs: JobsAPI",
+     "source": null
+    },
+    {
+     "name": "align",
+     "path": "openprotein.OpenProtein.align",
+     "kind": "property",
+     "signature": "property align: AlignAPI",
+     "source": null
+    },
+    {
+     "name": "prompt",
+     "path": "openprotein.OpenProtein.prompt",
+     "kind": "property",
+     "signature": "property prompt: PromptAPI",
+     "source": null
+    },
+    {
+     "name": "embedding",
+     "path": "openprotein.OpenProtein.embedding",
+     "kind": "property",
+     "signature": "property embedding: EmbeddingsAPI",
+     "source": null
+    },
+    {
+     "name": "embeddings",
+     "path": "openprotein.OpenProtein.embeddings",
+     "kind": "property",
+     "signature": "property embeddings: EmbeddingsAPI",
+     "source": null
+    },
+    {
+     "name": "svd",
+     "path": "openprotein.OpenProtein.svd",
+     "kind": "property",
+     "signature": "property svd: SVDAPI",
+     "source": null
+    },
+    {
+     "name": "umap",
+     "path": "openprotein.OpenProtein.umap",
+     "kind": "property",
+     "signature": "property umap: UMAPAPI",
+     "source": null
+    },
+    {
+     "name": "clustering",
+     "path": "openprotein.OpenProtein.clustering",
+     "kind": "property",
+     "signature": "property clustering: ClusteringAPI",
+     "source": null
+    },
+    {
+     "name": "predictor",
+     "path": "openprotein.OpenProtein.predictor",
+     "kind": "property",
+     "signature": "property predictor: PredictorAPI",
+     "source": null
+    },
+    {
+     "name": "design",
+     "path": "openprotein.OpenProtein.design",
+     "kind": "property",
+     "signature": "property design: DesignAPI",
+     "source": null
+    },
+    {
+     "name": "fold",
+     "path": "openprotein.OpenProtein.fold",
+     "kind": "property",
+     "signature": "property fold: FoldAPI",
+     "source": null
+    },
+    {
+     "name": "models",
+     "path": "openprotein.OpenProtein.models",
+     "kind": "property",
+     "signature": "property models: ModelsAPI",
+     "source": null
+    }
+   ]
+  }
+ ],
+ "module_level": [
+  {
+   "kind": "function",
+   "id": "openprotein.connect",
+   "source": "../../_modules/openprotein.html#connect",
+   "signature": "openprotein.connect(username=None, password=None, backend=None, timeout=180)[source]",
+   "parent": null
+  }
+ ],
+ "autosummary": []
+}

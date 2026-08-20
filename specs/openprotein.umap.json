@@ -1,0 +1,649 @@
+{
+ "module": "openprotein.umap",
+ "entries": [
+  {
+   "name": "UMAPModel",
+   "path": "openprotein.umap.UMAPModel",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None)",
+   "bases": [
+    "Future['UMAPModel']"
+   ],
+   "doc": "UMAP model that can be used to create projected embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job.\nThe projected embeddings of the sequences used to fit the UMAP can be\naccessed using `embeddings`.",
+   "module": "openprotein.umap.models",
+   "source": {
+    "file": "openprotein/umap/models.py",
+    "line": 14,
+    "end": 182
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "UMAP unique identifier.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 54,
+      "end": 57
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "UMAP unique identifier."
+      }
+     ]
+    },
+    {
+     "name": "n_components",
+     "kind": "property",
+     "doc": "Number of components specified for the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 60,
+      "end": 63
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of components specified for the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "n_neighbors",
+     "kind": "property",
+     "doc": "Number of neighbors specified for the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 66,
+      "end": 69
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of neighbors specified for the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "min_dist",
+     "kind": "property",
+     "doc": "Minimum distance specified for the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 72,
+      "end": 75
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Minimum distance specified for the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "sequence_length",
+     "kind": "property",
+     "doc": "Sequence length constraint of the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 78,
+      "end": 81
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Sequence length constraint of the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "reduction",
+     "kind": "property",
+     "doc": "Reduction used to fit the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 84,
+      "end": 87
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Reduction used to fit the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "Metadata of the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 90,
+      "end": 94
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Metadata of the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "sequences",
+     "kind": "property",
+     "doc": "The sequences used to fit the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 97,
+      "end": 103
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The sequences used to fit the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "embeddings",
+     "kind": "property",
+     "doc": "The projected embeddings of the sequences used to fit the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 106,
+      "end": 117
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The projected embeddings of the sequences used to fit the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "model",
+     "kind": "property",
+     "doc": "Base embeddings model used for the UMAP.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 130,
+      "end": 132
+     },
+     "annotation": "EmbeddingModel",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Base embeddings model used for the UMAP."
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete this UMAP model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 134,
+      "end": 138
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete this UMAP model."
+      }
+     ]
+    },
+    {
+     "name": "get_inputs",
+     "kind": "method",
+     "doc": "Get sequences used for umap job.\n\nReturns\n-------\nlist[bytes]\n    list of sequences",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 144,
+      "end": 153
+     },
+     "signature": "()",
+     "returns": "list[bytes]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get sequences used for umap job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[bytes]",
+         "text": "list of sequences"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Use this UMAP model to get projected embeddings from input sequences.\n\nParameters\n----------\nsequences : List[bytes]\n    List of protein sequences.\n\nReturns\n-------\nUMAPEmbeddingsResultFuture\n    Future result containing the projected embeddings.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 155,
+      "end": 182
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "UMAPEmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Use this UMAP model to get projected embeddings from input sequences."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "List[bytes]",
+         "default": null,
+         "text": "List of protein sequences."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPEmbeddingsResultFuture",
+         "text": "Future result containing the projected embeddings."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "UMAP unique identifier.",
+     "inherited_from": "openprotein.umap.models.UMAPModel",
+     "source": {
+      "file": "openprotein/umap/models.py",
+      "line": 54,
+      "end": 57
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "UMAP unique identifier."
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 378,
+      "end": 404
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "V",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Transform Models"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

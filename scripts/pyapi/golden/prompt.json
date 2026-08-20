@@ -1,0 +1,288 @@
+{
+ "page": "prompt",
+ "title": "openprotein.prompt",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Classes"
+  }
+ ],
+ "anchor_count": 38,
+ "classes": [
+  {
+   "name": "PromptAPI",
+   "path": "openprotein.prompt.PromptAPI",
+   "kind": "class",
+   "signature": "class openprotein.prompt.PromptAPI(session)[source]",
+   "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI",
+   "members": [
+    {
+     "name": "create_prompt",
+     "path": "openprotein.prompt.PromptAPI.create_prompt",
+     "kind": "method",
+     "signature": "create_prompt(context, name=None, description=None)[source]",
+     "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI.create_prompt"
+    },
+    {
+     "name": "get_prompt",
+     "path": "openprotein.prompt.PromptAPI.get_prompt",
+     "kind": "method",
+     "signature": "get_prompt(prompt_id)[source]",
+     "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI.get_prompt"
+    },
+    {
+     "name": "list_prompts",
+     "path": "openprotein.prompt.PromptAPI.list_prompts",
+     "kind": "method",
+     "signature": "list_prompts()[source]",
+     "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI.list_prompts"
+    },
+    {
+     "name": "create_query",
+     "path": "openprotein.prompt.PromptAPI.create_query",
+     "kind": "method",
+     "signature": "create_query(query, force_structure=False)[source]",
+     "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI.create_query"
+    },
+    {
+     "name": "get_query",
+     "path": "openprotein.prompt.PromptAPI.get_query",
+     "kind": "method",
+     "signature": "get_query(query_id)[source]",
+     "source": "../../_modules/openprotein/prompt/prompt.html#PromptAPI.get_query"
+    }
+   ]
+  },
+  {
+   "name": "Prompt",
+   "path": "openprotein.prompt.Prompt",
+   "kind": "class",
+   "signature": "class openprotein.prompt.Prompt(session, job=None, metadata=None, num_replicates=None)[source]",
+   "source": "../../_modules/openprotein/prompt/models.html#Prompt",
+   "members": [
+    {
+     "name": "get_as_complexes",
+     "path": "openprotein.prompt.Prompt.get_as_complexes",
+     "kind": "method",
+     "signature": "get_as_complexes()[source]",
+     "source": "../../_modules/openprotein/prompt/models.html#Prompt.get_as_complexes"
+    },
+    {
+     "name": "get_as_proteins",
+     "path": "openprotein.prompt.Prompt.get_as_proteins",
+     "kind": "method",
+     "signature": "get_as_proteins()[source]",
+     "source": "../../_modules/openprotein/prompt/models.html#Prompt.get_as_proteins"
+    },
+    {
+     "name": "id",
+     "path": "openprotein.prompt.Prompt.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "name",
+     "path": "openprotein.prompt.Prompt.name",
+     "kind": "property",
+     "signature": "property name",
+     "source": null
+    },
+    {
+     "name": "description",
+     "path": "openprotein.prompt.Prompt.description",
+     "kind": "property",
+     "signature": "property description",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.prompt.Prompt.created_date",
+     "kind": "property",
+     "signature": "property created_date",
+     "source": null
+    },
+    {
+     "name": "num_replicates",
+     "path": "openprotein.prompt.Prompt.num_replicates",
+     "kind": "property",
+     "signature": "property num_replicates",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.prompt.Prompt.status",
+     "kind": "property",
+     "signature": "property status",
+     "source": null
+    },
+    {
+     "name": "args",
+     "path": "openprotein.prompt.Prompt.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.prompt.Prompt.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.prompt.Prompt.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.prompt.Prompt.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.prompt.Prompt.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.prompt.Prompt.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.prompt.Prompt.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.prompt.Prompt.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.prompt.Prompt.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.prompt.Prompt.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.prompt.Prompt.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "Query",
+   "path": "openprotein.prompt.Query",
+   "kind": "class",
+   "signature": "class openprotein.prompt.Query(session, metadata)[source]",
+   "source": "../../_modules/openprotein/prompt/models.html#Query",
+   "members": [
+    {
+     "name": "get",
+     "path": "openprotein.prompt.Query.get",
+     "kind": "method",
+     "signature": "get()[source]",
+     "source": "../../_modules/openprotein/prompt/models.html#Query.get"
+    },
+    {
+     "name": "get_as_complex",
+     "path": "openprotein.prompt.Query.get_as_complex",
+     "kind": "method",
+     "signature": "get_as_complex()[source]",
+     "source": "../../_modules/openprotein/prompt/models.html#Query.get_as_complex"
+    },
+    {
+     "name": "get_as_protein",
+     "path": "openprotein.prompt.Query.get_as_protein",
+     "kind": "method",
+     "signature": "get_as_protein()[source]",
+     "source": "../../_modules/openprotein/prompt/models.html#Query.get_as_protein"
+    },
+    {
+     "name": "id",
+     "path": "openprotein.prompt.Query.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.prompt.Query.created_date",
+     "kind": "property",
+     "signature": "property created_date",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "PromptMetadata",
+   "path": "openprotein.prompt.PromptMetadata",
+   "kind": "class",
+   "signature": "class openprotein.prompt.PromptMetadata(*, id, name, description=None, created_date, num_replicates, job_id=None, status)[source]",
+   "source": "../../_modules/openprotein/prompt/schemas.html#PromptMetadata",
+   "members": []
+  },
+  {
+   "name": "QueryMetadata",
+   "path": "openprotein.prompt.QueryMetadata",
+   "kind": "class",
+   "signature": "class openprotein.prompt.QueryMetadata(*, id, created_date)[source]",
+   "source": "../../_modules/openprotein/prompt/schemas.html#QueryMetadata",
+   "members": []
+  },
+  {
+   "name": "PromptJob",
+   "path": "openprotein.prompt.PromptJob",
+   "kind": "class",
+   "signature": "class openprotein.prompt.PromptJob(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)[source]",
+   "source": "../../_modules/openprotein/prompt/schemas.html#PromptJob",
+   "members": [
+    {
+     "name": "msa_id",
+     "path": "openprotein.prompt.PromptJob.msa_id",
+     "kind": "property",
+     "signature": "property msa_id",
+     "source": null
+    },
+    {
+     "name": "prompt_id",
+     "path": "openprotein.prompt.PromptJob.prompt_id",
+     "kind": "property",
+     "signature": "property prompt_id",
+     "source": null
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

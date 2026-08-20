@@ -1,0 +1,596 @@
+{
+ "module": "openprotein.predictor",
+ "entries": [
+  {
+   "name": "PredictorAPI",
+   "path": "openprotein.predictor.PredictorAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "Predictor API providing the interface to train and predict predictors.",
+   "module": "openprotein.predictor.predictor",
+   "source": {
+    "file": "openprotein/predictor/predictor.py",
+    "line": 19,
+    "end": 303
+   },
+   "members": [
+    {
+     "name": "get_predictor",
+     "kind": "method",
+     "doc": "Get predictor by model_id.\n\nPredictorModel allows all the usual prediction job manipulation:\ne.g. making POST and GET requests for this predictor specifically.\n\nParameters\n----------\npredictor_id : str\n    The model identifier.\ninclude_stats : bool\n    Whether to include stats of the predictor from the latest evaluation\n    (pearson, spearman, ece). Default is False.\ninclude_calibration_curves : bool\n    Whether to include calibration curves of the predictor from the latest\n    evaluation. Default is False.\n\nReturns\n-------\nPredictorModel\n    The predictor model to inspect and make predictions with.\n\nRaises\n------\nHTTPError\n    If the GET request does not succeed.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/predictor.py",
+      "line": 28,
+      "end": 70
+     },
+     "signature": "(predictor_id, include_stats=False, include_calibration_curves=False)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get predictor by model_id.\n\nPredictorModel allows all the usual prediction job manipulation:\ne.g. making POST and GET requests for this predictor specifically."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "predictor_id",
+         "type": "str",
+         "default": null,
+         "text": "The model identifier."
+        },
+        {
+         "name": "include_stats",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether to include stats of the predictor from the latest evaluation\n(pearson, spearman, ece). Default is False."
+        },
+        {
+         "name": "include_calibration_curves",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether to include calibration curves of the predictor from the latest\nevaluation. Default is False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The predictor model to inspect and make predictions with."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "HTTPError",
+         "default": null,
+         "text": "If the GET request does not succeed."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "list_predictors",
+     "kind": "method",
+     "doc": "List predictors available.\n\nParameters\n----------\nlimit : int\n    Limit of the number of predictors to return in list. Default is 100.\noffset : int\n    Offset to the predictors to query for paged queries. Default is 0.\ninclude_stats : bool\n    Whether to include stats of each predictor from the latest evaluation\n    (pearson, spearman, ece). Default is False.\ninclude_calibration_curves : bool\n    Whether to include calibration curves of each predictor from the latest\n    evaluation. Default is False.\n\nReturns\n-------\nlist[PredictorModel]\n    List of predictor models to inspect and make predictions with.\n\nRaises\n------\nHTTPError\n    If the GET request does not succeed.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/predictor.py",
+      "line": 72,
+      "end": 118
+     },
+     "signature": "(limit=100, offset=0, include_stats=False, include_calibration_curves=False)",
+     "returns": "list[PredictorModel]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List predictors available."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "limit",
+         "type": "int",
+         "default": "100",
+         "text": "Limit of the number of predictors to return in list. Default is 100."
+        },
+        {
+         "name": "offset",
+         "type": "int",
+         "default": "0",
+         "text": "Offset to the predictors to query for paged queries. Default is 0."
+        },
+        {
+         "name": "include_stats",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether to include stats of each predictor from the latest evaluation\n(pearson, spearman, ece). Default is False."
+        },
+        {
+         "name": "include_calibration_curves",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether to include calibration curves of each predictor from the latest\nevaluation. Default is False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[PredictorModel]",
+         "text": "List of predictor models to inspect and make predictions with."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "HTTPError",
+         "default": null,
+         "text": "If the GET request does not succeed."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a GP on an assay with the specified feature model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata or AssayDataset or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the gp on.\nmodel : EmbeddingModel or SVDModel or str\n    Instance of either EmbeddingModel or SVDModel to use depending\n    on feature type. Can also be a str specifying the model id,\n    but then feature_type would have to be specified.\nfeature_type : Feature or FeatureType or None\n    Type of features to use for encoding sequences. \"SVD\" or \"PLM\".\n    None would require model to be EmbeddingModel or SVDModel.\nreduction  : Reduction or ReductionType or None, optional\n    Type of embedding reduction to use for computing features.\n    E.g. \"MEAN\" or \"SUM\". Used only if using EmbeddingModel, and\n    must be non-nil if using an EmbeddingModel. Defaults to None.\nkernel : KernelType or str, optional\n    Kernel for the GP. One of \"linear\", \"rbf\", \"matern12\", \"matern32\",\n    \"matern52\", \"periodic\", \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length, only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter, only valid for the \"rational_quadratic\"\n    kernel (must be > 0).\nkwargs :\n    Additional keyword arguments to be passed to foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nPredictorModel\n    The GP model being fit.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/predictor.py",
+      "line": 120,
+      "end": 266
+     },
+     "signature": "(assay, properties, model, feature_type=None, reduction=None, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a GP on an assay with the specified feature model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata or AssayDataset or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the gp on."
+        },
+        {
+         "name": "model",
+         "type": "EmbeddingModel or SVDModel or str",
+         "default": null,
+         "text": "Instance of either EmbeddingModel or SVDModel to use depending\non feature type. Can also be a str specifying the model id,\nbut then feature_type would have to be specified."
+        },
+        {
+         "name": "feature_type",
+         "type": "Feature or FeatureType or None",
+         "default": "None",
+         "text": "Type of features to use for encoding sequences. \"SVD\" or \"PLM\".\nNone would require model to be EmbeddingModel or SVDModel."
+        },
+        {
+         "name": "reduction",
+         "type": "Reduction | ReductionType | None",
+         "default": "None",
+         "text": "Type of embedding reduction to use for computing features.\nE.g. \"MEAN\" or \"SUM\". Used only if using EmbeddingModel, and\nmust be non-nil if using an EmbeddingModel. Defaults to None."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP. One of \"linear\", \"rbf\", \"matern12\", \"matern32\",\n\"matern52\", \"periodic\", \"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length, only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter, only valid for the \"rational_quadratic\"\nkernel (must be > 0)."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be passed to foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The GP model being fit."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "delete_predictor",
+     "kind": "method",
+     "doc": "Delete predictor model.\n\nParameters\n----------\npredictor_id : str\n    The ID of the predictor.\nReturns\n-------\nbool\n    True: successful deletion",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/predictor.py",
+      "line": 268,
+      "end": 282
+     },
+     "signature": "(predictor_id)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete predictor model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "predictor_id",
+         "type": "str",
+         "default": null,
+         "text": "The ID of the predictor."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True: successful deletion"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "ensemble",
+     "kind": "method",
+     "doc": "Ensemble predictor models together.\n\nParameters\n__________\npredictors: list[PredictorModel]\n    List of predictors to ensemble together.\nReturns\n-------\nPredictorModel\n    Ensembled predictor model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/predictor.py",
+      "line": 284,
+      "end": 303
+     },
+     "signature": "(predictors)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Ensemble predictor models together.\n\nParameters\n__________\npredictors: list[PredictorModel]\n    List of predictors to ensemble together."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "Ensembled predictor model"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": null
+  },
+  {
+   "name": "PredictorModel",
+   "path": "openprotein.predictor.PredictorModel",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None)",
+   "bases": [
+    "Future"
+   ],
+   "doc": "Class providing predict endpoint for fitted predictor models.\n\nAlso implements a Future that waits for train job.",
+   "module": "openprotein.predictor.models",
+   "source": {
+    "file": "openprotein/predictor/models.py",
+    "line": 26,
+    "end": 272
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "ID of predictor.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 135,
+      "end": 137
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ID of predictor."
+      }
+     ]
+    },
+    {
+     "name": "reduction",
+     "kind": "property",
+     "doc": "The reduction of th embeddings used to train the predictor, if any.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 140,
+      "end": 146
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The reduction of th embeddings used to train the predictor, if any."
+      }
+     ]
+    },
+    {
+     "name": "sequence_length",
+     "kind": "property",
+     "doc": "The sequence length constraint on the predictor, if any.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 149,
+      "end": 153
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The sequence length constraint on the predictor, if any."
+      }
+     ]
+    },
+    {
+     "name": "training_assay",
+     "kind": "property",
+     "doc": "The assay the predictor was trained on.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 156,
+      "end": 160
+     },
+     "annotation": "AssayDataset",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The assay the predictor was trained on."
+      }
+     ]
+    },
+    {
+     "name": "training_properties",
+     "kind": "property",
+     "doc": "The list of properties the predictor was trained on.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 163,
+      "end": 165
+     },
+     "annotation": "list[str]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The list of properties the predictor was trained on."
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "The predictor metadata.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 168,
+      "end": 171
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The predictor metadata."
+      }
+     ]
+    },
+    {
+     "name": "get_model",
+     "kind": "method",
+     "doc": "Retrieve the embeddings or SVD model used to create embeddings to train on.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 177,
+      "end": 193
+     },
+     "signature": "()",
+     "returns": "EmbeddingModel | SVDModel | None",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve the embeddings or SVD model used to create embeddings to train on."
+      }
+     ]
+    },
+    {
+     "name": "model",
+     "kind": "property",
+     "doc": "The embeddings or SVD model used to create embeddings to train on.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 196,
+      "end": 198
+     },
+     "annotation": "EmbeddingModel | SVDModel | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The embeddings or SVD model used to create embeddings to train on."
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete this predictor model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 200,
+      "end": 204
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete this predictor model."
+      }
+     ]
+    },
+    {
+     "name": "get_assay",
+     "kind": "method",
+     "doc": "Get assay used for train job.\n\nReturns\n-------\n    AssayDataset: Assay dataset used for train job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 212,
+      "end": 222
+     },
+     "signature": "()",
+     "returns": "AssayDataset",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get assay used for train job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "AssayDataset: Assay dataset used for train job.",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "crossvalidate",
+     "kind": "method",
+     "doc": "Run a crossvalidation on the trained predictor.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 224,
+      "end": 235
+     },
+     "signature": "(n_splits=None)",
+     "returns": "CVResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Run a crossvalidation on the trained predictor."
+      }
+     ]
+    },
+    {
+     "name": "predict",
+     "kind": "method",
+     "doc": "Make predictions about the trained properties for a list of sequences.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 237,
+      "end": 254
+     },
+     "signature": "(sequences)",
+     "returns": "PredictionResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Make predictions about the trained properties for a list of sequences."
+      }
+     ]
+    },
+    {
+     "name": "single_site",
+     "kind": "method",
+     "doc": "Compute the single-site mutated predictions of a base sequence.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/predictor/models.py",
+      "line": 256,
+      "end": 272
+     },
+     "signature": "(sequence)",
+     "returns": "PredictionResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute the single-site mutated predictions of a base sequence."
+      }
+     ]
+    }
+   ],
+   "section": null
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

@@ -1,0 +1,90 @@
+{
+ "module": "openprotein.align.schemas",
+ "entries": [
+  {
+   "name": "AbNumberScheme",
+   "path": "openprotein.align.schemas.AbNumberScheme",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "doc": "Antibody numbering scheme.\n\nAttributes\n----------\nIMGT : str\n    IMGT numbering scheme, a standardized system unifying numbering across\n    all immunoglobulin and T-cell receptor variable domains.\nCHOTHIA : str\n    Chothia numbering scheme, based on the structural location of\n    canonical loops in antibody variable domains.\nKABAT : str\n    Kabat numbering scheme, based on sequence variability across\n    antibody variable domains.\nAHO : str\n    AHo numbering scheme, a structure-based unified numbering scheme\n    for antibody variable domains.",
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 159,
+    "end": 182
+   },
+   "members": [
+    {
+     "name": "IMGT",
+     "kind": "attribute",
+     "doc": "IMGT numbering scheme, a standardized system unifying numbering across\nall immunoglobulin and T-cell receptor variable domains.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 179,
+      "end": 179
+     },
+     "annotation": null,
+     "value": "'imgt'",
+     "parsed": []
+    },
+    {
+     "name": "CHOTHIA",
+     "kind": "attribute",
+     "doc": "Chothia numbering scheme, based on the structural location of\ncanonical loops in antibody variable domains.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 180,
+      "end": 180
+     },
+     "annotation": null,
+     "value": "'chothia'",
+     "parsed": []
+    },
+    {
+     "name": "KABAT",
+     "kind": "attribute",
+     "doc": "Kabat numbering scheme, based on sequence variability across\nantibody variable domains.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 181,
+      "end": 181
+     },
+     "annotation": null,
+     "value": "'kabat'",
+     "parsed": []
+    },
+    {
+     "name": "AHO",
+     "kind": "attribute",
+     "doc": "AHo numbering scheme, a structure-based unified numbering scheme\nfor antibody variable domains.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 182,
+      "end": 182
+     },
+     "annotation": null,
+     "value": "'aho'",
+     "parsed": []
+    }
+   ],
+   "section": "AbNumber schemes"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

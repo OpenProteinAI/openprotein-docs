@@ -1,0 +1,169 @@
+{
+ "page": "align",
+ "title": "openprotein.align",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 3,
+   "text": "AbNumber schemes"
+  },
+  {
+   "level": 2,
+   "text": "Results"
+  }
+ ],
+ "anchor_count": 21,
+ "classes": [
+  {
+   "name": "AlignAPI",
+   "path": "openprotein.align.AlignAPI",
+   "kind": "class",
+   "signature": "class openprotein.align.AlignAPI(session)[source]",
+   "source": "../../_modules/openprotein/align/align.html#AlignAPI",
+   "members": [
+    {
+     "name": "mafft",
+     "path": "openprotein.align.AlignAPI.mafft",
+     "kind": "method",
+     "signature": "mafft(sequences, names=None, auto=True, ep=None, op=None)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft"
+    },
+    {
+     "name": "mafft_file",
+     "path": "openprotein.align.AlignAPI.mafft_file",
+     "kind": "method",
+     "signature": "mafft_file(file, auto=True, ep=None, op=None)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft_file"
+    },
+    {
+     "name": "clustalo",
+     "path": "openprotein.align.AlignAPI.clustalo",
+     "kind": "method",
+     "signature": "clustalo(sequences, names=None, clustersize=None, iterations=None)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo"
+    },
+    {
+     "name": "clustalo_file",
+     "path": "openprotein.align.AlignAPI.clustalo_file",
+     "kind": "method",
+     "signature": "clustalo_file(file, clustersize=None, iterations=None)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo_file"
+    },
+    {
+     "name": "abnumber",
+     "path": "openprotein.align.AlignAPI.abnumber",
+     "kind": "method",
+     "signature": "abnumber(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber"
+    },
+    {
+     "name": "abnumber_file",
+     "path": "openprotein.align.AlignAPI.abnumber_file",
+     "kind": "method",
+     "signature": "abnumber_file(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber_file"
+    },
+    {
+     "name": "upload_msa",
+     "path": "openprotein.align.AlignAPI.upload_msa",
+     "kind": "method",
+     "signature": "upload_msa(msa_file)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_msa"
+    },
+    {
+     "name": "create_msa",
+     "path": "openprotein.align.AlignAPI.create_msa",
+     "kind": "method",
+     "signature": "create_msa(seed)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.create_msa"
+    },
+    {
+     "name": "upload_prompt",
+     "path": "openprotein.align.AlignAPI.upload_prompt",
+     "kind": "method",
+     "signature": "upload_prompt(prompt_file)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_prompt"
+    },
+    {
+     "name": "get_prompt",
+     "path": "openprotein.align.AlignAPI.get_prompt",
+     "kind": "method",
+     "signature": "get_prompt(job, prompt_index=None)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_prompt"
+    },
+    {
+     "name": "get_seed",
+     "path": "openprotein.align.AlignAPI.get_seed",
+     "kind": "method",
+     "signature": "get_seed(job_id)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_seed"
+    },
+    {
+     "name": "get_msa",
+     "path": "openprotein.align.AlignAPI.get_msa",
+     "kind": "method",
+     "signature": "get_msa(job_id)[source]",
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_msa"
+    }
+   ]
+  },
+  {
+   "name": "AbNumberScheme",
+   "path": "openprotein.align.schemas.AbNumberScheme",
+   "kind": "class",
+   "signature": "class openprotein.align.schemas.AbNumberScheme[source]",
+   "source": "../../_modules/openprotein/align/schemas.html#AbNumberScheme",
+   "members": [
+    {
+     "name": "IMGT",
+     "path": "openprotein.align.schemas.AbNumberScheme.IMGT",
+     "kind": "attribute",
+     "signature": "IMGT",
+     "source": null
+    },
+    {
+     "name": "CHOTHIA",
+     "path": "openprotein.align.schemas.AbNumberScheme.CHOTHIA",
+     "kind": "attribute",
+     "signature": "CHOTHIA",
+     "source": null
+    },
+    {
+     "name": "KABAT",
+     "path": "openprotein.align.schemas.AbNumberScheme.KABAT",
+     "kind": "attribute",
+     "signature": "KABAT",
+     "source": null
+    },
+    {
+     "name": "AHO",
+     "path": "openprotein.align.schemas.AbNumberScheme.AHO",
+     "kind": "attribute",
+     "signature": "AHO",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "MSAFuture",
+   "path": "openprotein.align.MSAFuture",
+   "kind": "class",
+   "signature": "class openprotein.align.MSAFuture(session, job, page_size=50000)[source]",
+   "source": "../../_modules/openprotein/align/msa.html#MSAFuture",
+   "members": [
+    {
+     "name": "sample_prompt",
+     "path": "openprotein.align.MSAFuture.sample_prompt",
+     "kind": "method",
+     "signature": "sample_prompt(num_sequences=None, num_residues=None, method=MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT, homology_level=0.8, max_similarity=1.0, min_similarity=0.0, always_include_seed_sequence=False, num_ensemble_prompts=1, random_seed=None)[source]",
+     "source": "../../_modules/openprotein/align/msa.html#MSAFuture.sample_prompt"
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

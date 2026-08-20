@@ -1,0 +1,1410 @@
+{
+ "page": "embedding",
+ "title": "openprotein.embeddings",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Models"
+  },
+  {
+   "level": 3,
+   "text": "Transform Models"
+  },
+  {
+   "level": 3,
+   "text": "Reduction methods"
+  },
+  {
+   "level": 2,
+   "text": "Results"
+  }
+ ],
+ "anchor_count": 194,
+ "classes": [
+  {
+   "name": "EmbeddingsAPI",
+   "path": "openprotein.embeddings.EmbeddingsAPI",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.EmbeddingsAPI(session)[source]",
+   "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI",
+   "members": [
+    {
+     "name": "poet2",
+     "path": "openprotein.embeddings.EmbeddingsAPI.poet2",
+     "kind": "attribute",
+     "signature": "poet2: PoET2Model",
+     "source": null
+    },
+    {
+     "name": "poet",
+     "path": "openprotein.embeddings.EmbeddingsAPI.poet",
+     "kind": "attribute",
+     "signature": "poet: PoETModel",
+     "source": null
+    },
+    {
+     "name": "prot_seq",
+     "path": "openprotein.embeddings.EmbeddingsAPI.prot_seq",
+     "kind": "attribute",
+     "signature": "prot_seq: OpenProteinModel",
+     "source": null
+    },
+    {
+     "name": "rotaprot_large_uniref50w",
+     "path": "openprotein.embeddings.EmbeddingsAPI.rotaprot_large_uniref50w",
+     "kind": "attribute",
+     "signature": "rotaprot_large_uniref50w: OpenProteinModel",
+     "source": null
+    },
+    {
+     "name": "rotaprot_large_uniref90_ft",
+     "path": "openprotein.embeddings.EmbeddingsAPI.rotaprot_large_uniref90_ft",
+     "kind": "attribute",
+     "signature": "rotaprot_large_uniref90_ft: OpenProteinModel",
+     "source": null
+    },
+    {
+     "name": "esm1b",
+     "path": "openprotein.embeddings.EmbeddingsAPI.esm1b",
+     "kind": "attribute",
+     "signature": "esm1b: ESMModel",
+     "source": null
+    },
+    {
+     "name": "esm1v",
+     "path": "openprotein.embeddings.EmbeddingsAPI.esm1v",
+     "kind": "attribute",
+     "signature": "esm1v: ESMModel",
+     "source": null
+    },
+    {
+     "name": "esm2",
+     "path": "openprotein.embeddings.EmbeddingsAPI.esm2",
+     "kind": "attribute",
+     "signature": "esm2: ESMModel",
+     "source": null
+    },
+    {
+     "name": "esmc_300m",
+     "path": "openprotein.embeddings.EmbeddingsAPI.esmc_300m",
+     "kind": "attribute",
+     "signature": "esmc_300m: ESMModel",
+     "source": null
+    },
+    {
+     "name": "list_models",
+     "path": "openprotein.embeddings.EmbeddingsAPI.list_models",
+     "kind": "method",
+     "signature": "list_models()[source]",
+     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.list_models"
+    },
+    {
+     "name": "get_model",
+     "path": "openprotein.embeddings.EmbeddingsAPI.get_model",
+     "kind": "method",
+     "signature": "get_model(name)[source]",
+     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.get_model"
+    }
+   ]
+  },
+  {
+   "name": "PoET2Model",
+   "path": "openprotein.embeddings.PoET2Model",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.PoET2Model(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model",
+   "members": [
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.PoET2Model.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.embed"
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.PoET2Model.logits",
+     "kind": "method",
+     "signature": "logits(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.logits"
+    },
+    {
+     "name": "score",
+     "path": "openprotein.embeddings.PoET2Model.score",
+     "kind": "method",
+     "signature": "score(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.score"
+    },
+    {
+     "name": "indel",
+     "path": "openprotein.embeddings.PoET2Model.indel",
+     "kind": "method",
+     "signature": "indel(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, insert=None, delete=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.indel"
+    },
+    {
+     "name": "single_site",
+     "path": "openprotein.embeddings.PoET2Model.single_site",
+     "kind": "method",
+     "signature": "single_site(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.single_site"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.embeddings.PoET2Model.generate",
+     "kind": "method",
+     "signature": "generate(prompt, query=None, design=None, use_query_structure_in_decoder=True, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, ensemble_weights=None, ensemble_method=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.generate"
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.PoET2Model.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_svd"
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.PoET2Model.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_umap"
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.PoET2Model.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_gp"
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.PoET2Model.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.PoET2Model.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "PoETModel",
+   "path": "openprotein.embeddings.PoETModel",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.PoETModel(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel",
+   "members": [
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.PoETModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.embed"
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.PoETModel.logits",
+     "kind": "method",
+     "signature": "logits(sequences, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.logits"
+    },
+    {
+     "name": "score",
+     "path": "openprotein.embeddings.PoETModel.score",
+     "kind": "method",
+     "signature": "score(sequences, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.score"
+    },
+    {
+     "name": "indel",
+     "path": "openprotein.embeddings.PoETModel.indel",
+     "kind": "method",
+     "signature": "indel(sequence, prompt=None, insert=None, delete=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.indel"
+    },
+    {
+     "name": "single_site",
+     "path": "openprotein.embeddings.PoETModel.single_site",
+     "kind": "method",
+     "signature": "single_site(sequence, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.single_site"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.embeddings.PoETModel.generate",
+     "kind": "method",
+     "signature": "generate(prompt, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.generate"
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.PoETModel.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_svd"
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.PoETModel.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_umap"
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.PoETModel.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, reduction, name=None, description=None, prompt=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_gp"
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.PoETModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.PoETModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "AbLang2Model",
+   "path": "openprotein.embeddings.AbLang2Model",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.AbLang2Model(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/ablang.html#AbLang2Model",
+   "members": [
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.AbLang2Model.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.AbLang2Model.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.AbLang2Model.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.AbLang2Model.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "source": null
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.AbLang2Model.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()",
+     "source": null
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.AbLang2Model.logits",
+     "kind": "method",
+     "signature": "logits(sequences, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.AbLang2Model.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "OpenProteinModel",
+   "path": "openprotein.embeddings.OpenProteinModel",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.OpenProteinModel(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/openprotein.html#OpenProteinModel",
+   "members": [
+    {
+     "name": "attn",
+     "path": "openprotein.embeddings.OpenProteinModel.attn",
+     "kind": "method",
+     "signature": "attn(sequences, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.OpenProteinModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.OpenProteinModel.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.OpenProteinModel.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.OpenProteinModel.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "source": null
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.OpenProteinModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()",
+     "source": null
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.OpenProteinModel.logits",
+     "kind": "method",
+     "signature": "logits(sequences, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.OpenProteinModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "ESMModel",
+   "path": "openprotein.embeddings.ESMModel",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.ESMModel(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/esm.html#ESMModel",
+   "members": [
+    {
+     "name": "attn",
+     "path": "openprotein.embeddings.ESMModel.attn",
+     "kind": "method",
+     "signature": "attn(sequences, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.ESMModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.ESMModel.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.ESMModel.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.ESMModel.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "source": null
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.ESMModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()",
+     "source": null
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.ESMModel.logits",
+     "kind": "method",
+     "signature": "logits(sequences, **kwargs)",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.ESMModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "EmbeddingModel",
+   "path": "openprotein.embeddings.EmbeddingModel",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.EmbeddingModel(session, model_id, metadata=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel",
+   "members": [
+    {
+     "name": "get_model",
+     "path": "openprotein.embeddings.EmbeddingModel.get_model",
+     "kind": "method",
+     "signature": "classmethod get_model()[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_model"
+    },
+    {
+     "name": "create",
+     "path": "openprotein.embeddings.EmbeddingModel.create",
+     "kind": "method",
+     "signature": "classmethod create(session, model_id, default=None, metadata=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.create"
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.embeddings.EmbeddingModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    },
+    {
+     "name": "get_metadata",
+     "path": "openprotein.embeddings.EmbeddingModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_metadata"
+    },
+    {
+     "name": "embed",
+     "path": "openprotein.embeddings.EmbeddingModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.embed"
+    },
+    {
+     "name": "logits",
+     "path": "openprotein.embeddings.EmbeddingModel.logits",
+     "kind": "method",
+     "signature": "logits(sequences, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.logits"
+    },
+    {
+     "name": "fit_svd",
+     "path": "openprotein.embeddings.EmbeddingModel.fit_svd",
+     "kind": "method",
+     "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_svd"
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.embeddings.EmbeddingModel.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_umap"
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.embeddings.EmbeddingModel.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_gp"
+    }
+   ]
+  },
+  {
+   "name": "SVDModel",
+   "path": "openprotein.svd.SVDModel",
+   "kind": "class",
+   "signature": "class openprotein.svd.SVDModel(session, job=None, metadata=None)[source]",
+   "source": "../../_modules/openprotein/svd/models.html#SVDModel",
+   "members": [
+    {
+     "name": "id",
+     "path": "openprotein.svd.SVDModel.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "n_components",
+     "path": "openprotein.svd.SVDModel.n_components",
+     "kind": "property",
+     "signature": "property n_components",
+     "source": null
+    },
+    {
+     "name": "sequence_length",
+     "path": "openprotein.svd.SVDModel.sequence_length",
+     "kind": "property",
+     "signature": "property sequence_length",
+     "source": null
+    },
+    {
+     "name": "reduction",
+     "path": "openprotein.svd.SVDModel.reduction",
+     "kind": "property",
+     "signature": "property reduction",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.svd.SVDModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    },
+    {
+     "name": "model",
+     "path": "openprotein.svd.SVDModel.model",
+     "kind": "property",
+     "signature": "property model: EmbeddingModel",
+     "source": null
+    },
+    {
+     "name": "delete",
+     "path": "openprotein.svd.SVDModel.delete",
+     "kind": "method",
+     "signature": "delete()[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.delete"
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.svd.SVDModel.wait",
+     "kind": "method",
+     "signature": "wait(verbose=False, **kwargs)[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.wait"
+    },
+    {
+     "name": "get_inputs",
+     "path": "openprotein.svd.SVDModel.get_inputs",
+     "kind": "method",
+     "signature": "get_inputs()[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.get_inputs"
+    },
+    {
+     "name": "embed",
+     "path": "openprotein.svd.SVDModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, **kwargs)[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.embed"
+    },
+    {
+     "name": "fit_umap",
+     "path": "openprotein.svd.SVDModel.fit_umap",
+     "kind": "method",
+     "signature": "fit_umap(sequences=None, assay=None, n_components=2, **kwargs)[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_umap"
+    },
+    {
+     "name": "fit_gp",
+     "path": "openprotein.svd.SVDModel.fit_gp",
+     "kind": "method",
+     "signature": "fit_gp(assay, properties, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_gp"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.svd.SVDModel.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.svd.SVDModel.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.svd.SVDModel.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.svd.SVDModel.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.svd.SVDModel.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.svd.SVDModel.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.svd.SVDModel.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.svd.SVDModel.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.svd.SVDModel.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.svd.SVDModel.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.svd.SVDModel.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.svd.SVDModel.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "UMAPModel",
+   "path": "openprotein.umap.UMAPModel",
+   "kind": "class",
+   "signature": "class openprotein.umap.UMAPModel(session, job=None, metadata=None)[source]",
+   "source": "../../_modules/openprotein/umap/models.html#UMAPModel",
+   "members": [
+    {
+     "name": "id",
+     "path": "openprotein.umap.UMAPModel.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "n_components",
+     "path": "openprotein.umap.UMAPModel.n_components",
+     "kind": "property",
+     "signature": "property n_components",
+     "source": null
+    },
+    {
+     "name": "n_neighbors",
+     "path": "openprotein.umap.UMAPModel.n_neighbors",
+     "kind": "property",
+     "signature": "property n_neighbors",
+     "source": null
+    },
+    {
+     "name": "min_dist",
+     "path": "openprotein.umap.UMAPModel.min_dist",
+     "kind": "property",
+     "signature": "property min_dist",
+     "source": null
+    },
+    {
+     "name": "sequence_length",
+     "path": "openprotein.umap.UMAPModel.sequence_length",
+     "kind": "property",
+     "signature": "property sequence_length",
+     "source": null
+    },
+    {
+     "name": "reduction",
+     "path": "openprotein.umap.UMAPModel.reduction",
+     "kind": "property",
+     "signature": "property reduction",
+     "source": null
+    },
+    {
+     "name": "metadata",
+     "path": "openprotein.umap.UMAPModel.metadata",
+     "kind": "property",
+     "signature": "property metadata",
+     "source": null
+    },
+    {
+     "name": "sequences",
+     "path": "openprotein.umap.UMAPModel.sequences",
+     "kind": "property",
+     "signature": "property sequences",
+     "source": null
+    },
+    {
+     "name": "embeddings",
+     "path": "openprotein.umap.UMAPModel.embeddings",
+     "kind": "property",
+     "signature": "property embeddings",
+     "source": null
+    },
+    {
+     "name": "model",
+     "path": "openprotein.umap.UMAPModel.model",
+     "kind": "property",
+     "signature": "property model: EmbeddingModel",
+     "source": null
+    },
+    {
+     "name": "delete",
+     "path": "openprotein.umap.UMAPModel.delete",
+     "kind": "method",
+     "signature": "delete()[source]",
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.delete"
+    },
+    {
+     "name": "get_inputs",
+     "path": "openprotein.umap.UMAPModel.get_inputs",
+     "kind": "method",
+     "signature": "get_inputs()[source]",
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.get_inputs"
+    },
+    {
+     "name": "embed",
+     "path": "openprotein.umap.UMAPModel.embed",
+     "kind": "method",
+     "signature": "embed(sequences, **kwargs)[source]",
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.embed"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.umap.UMAPModel.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.umap.UMAPModel.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.umap.UMAPModel.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.umap.UMAPModel.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.umap.UMAPModel.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.umap.UMAPModel.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.umap.UMAPModel.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.umap.UMAPModel.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.umap.UMAPModel.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.umap.UMAPModel.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.umap.UMAPModel.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.umap.UMAPModel.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.umap.UMAPModel.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "ReductionType",
+   "path": "openprotein.common.ReductionType",
+   "kind": "class",
+   "signature": "class openprotein.common.ReductionType[source]",
+   "source": "../../_modules/openprotein/common/reduction.html#ReductionType",
+   "members": [
+    {
+     "name": "MEAN",
+     "path": "openprotein.common.ReductionType.MEAN",
+     "kind": "attribute",
+     "signature": "MEAN",
+     "source": null
+    },
+    {
+     "name": "SUM",
+     "path": "openprotein.common.ReductionType.SUM",
+     "kind": "attribute",
+     "signature": "SUM",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "EmbeddingsResultFuture",
+   "path": "openprotein.embeddings.EmbeddingsResultFuture",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.EmbeddingsResultFuture(session, job, sequences=None, max_workers=10)[source]",
+   "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture",
+   "members": [
+    {
+     "name": "stream_sync",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.stream_sync",
+     "kind": "method",
+     "signature": "stream_sync()[source]",
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.stream_sync"
+    },
+    {
+     "name": "id",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.id",
+     "kind": "property",
+     "signature": "property id",
+     "source": null
+    },
+    {
+     "name": "get_item",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.get_item",
+     "kind": "method",
+     "signature": "get_item(sequence)[source]",
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.get_item"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "stream",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.stream",
+     "kind": "method",
+     "signature": "stream(**kwargs)",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.embeddings.EmbeddingsResultFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "EmbeddingsScoreFuture",
+   "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.EmbeddingsScoreFuture(session, job, sequences=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreFuture",
+   "members": [
+    {
+     "name": "stream",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.stream",
+     "kind": "method",
+     "signature": "stream()[source]",
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreFuture.stream"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "id",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.id",
+     "kind": "property",
+     "signature": "property id: str",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.embeddings.EmbeddingsScoreFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "EmbeddingsScoreSingleSiteFuture",
+   "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture(session, job, sequences=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreSingleSiteFuture",
+   "members": [
+    {
+     "name": "stream",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.stream",
+     "kind": "method",
+     "signature": "stream()[source]",
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreSingleSiteFuture.stream"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "id",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.id",
+     "kind": "property",
+     "signature": "property id: str",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "EmbeddingsGenerateFuture",
+   "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+   "kind": "class",
+   "signature": "class openprotein.embeddings.EmbeddingsGenerateFuture(session, job, sequences=None)[source]",
+   "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsGenerateFuture",
+   "members": [
+    {
+     "name": "stream",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.stream",
+     "kind": "method",
+     "signature": "stream()[source]",
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsGenerateFuture.stream"
+    },
+    {
+     "name": "args",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "id",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.id",
+     "kind": "property",
+     "signature": "property id: str",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.embeddings.EmbeddingsGenerateFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

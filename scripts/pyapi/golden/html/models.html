@@ -1,0 +1,1579 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.models &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/models';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="REST API documentation" href="../../rest-api/index.html" />
+    <link rel="prev" title="openprotein.fold" href="fold.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.models</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-models">
+<h1>openprotein.models<a class="headerlink" href="#openprotein-models" title="Link to this heading">#</a></h1>
+<p>Unified access to models on the OpenProtein AI platform. Use them to work at a lower level to craft your own workflows.</p>
+<p>Note that the Models API is a WIP interface, but we are working hard on bringing all models here for a consistent and simple developer experience.</p>
+<section id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.ModelsAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">ModelsAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/models.html#ModelsAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ModelsAPI" title="Link to this definition">#</a></dt>
+<dd><p>API-like accessor that groups all available protein models.</p>
+<p>This class is attached to the main APISession and provides a single,
+consistent entry point for accessing various models.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading">#</a></h2>
+<section id="rfdiffusion">
+<h3>RFdiffusion<a class="headerlink" href="#rfdiffusion" title="Link to this heading">#</a></h3>
+<p>RFdiffusion is diffusion model that can be used for de novo structure design and binder design. It can be used with our <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> interface to define structure prediction objectives in a unified manner. It also supports taking in the <code class="docutils literal notranslate"><span class="pre">contigs</span></code> defined in official RFdiffusion repo.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">RFdiffusionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfdiffusion'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.RFdiffusionModel" title="Link to this definition">#</a></dt>
+<dd><p>RFdiffusion model for generating de novo protein structures.</p>
+<p>This model supports functionalities like unconditional design, scaffolding,
+and binder design.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionModel.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.RFdiffusionModel.get_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Get model metadata for this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metadata associated with this model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModelMetadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionModel.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contigs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inpaint_seq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provide_seq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotspot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_active_site_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_beta_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_potential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_target_structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_target_use_struct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.RFdiffusionModel.generate" title="Link to this definition">#</a></dt>
+<dd><p>Run a protein structure generate job using RFdiffusion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em>, </em><em>optional</em>) – A query representing the design specification. Use either <cite>query</cite> or <cite>contigs</cite>
+for default design. Or provide <cite>scaffold_target_structure_file</cite>
+for scaffold guided design.
+<cite>query</cite> provides a unified way to represent design specifications on the
+OpenProtein platform. In this case, the structure mask of the containing Complex
+proteins are specified to be designed. Other parameters like binding are passed
+as hotspots to RFdiffusion.</p></li>
+<li><p><strong>contigs</strong> (<em>int</em><em>, </em><em>str</em><em>, </em><em>optional</em>) – Defines the lengths and connectivity of chain segments for the desired
+structure, specified in RFdiffusion’s contig string format.
+Required for most design tasks. Example: 150, ‘10-20/A100-110/10-20’ for a
+binder design.</p></li>
+<li><p><strong>structure_file</strong> (<em>BinaryIO</em><em>, </em><em>optional</em>) – An input PDB file (as a file-like object) used for inpainting or other
+guided design tasks where parts of an existing structure are provided.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of unique design trajectories to run (default is 1).</p></li>
+<li><p><strong>inpaint_seq</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying the regions in the input structure to mask for
+in-painting. Example: ‘A1-A10/A30-40’.</p></li>
+<li><p><strong>provide_seq</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying which segments of the contig have a provided
+sequence. Example: ‘A1-A10/A30-40’.</p></li>
+<li><p><strong>hotspot</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying hotspot residues to constrain during design,
+typically for functional sites. Example: ‘A10,A12,A14’.</p></li>
+<li><p><strong>T</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of timesteps for the diffusion process.</p></li>
+<li><p><strong>partial_T</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of timesteps for partial diffusion.</p></li>
+<li><p><strong>use_active_site_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses the active site model checkpoint, which has been finetuned to
+better keep very small motifs in place in the output for motif scaffolding
+(default is False).</p></li>
+<li><p><strong>use_beta_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses the complex beta model checkpoint, which generates a
+greater diversity of topologies but has not been extensively
+experimentally validated (default is False).</p></li>
+<li><p><strong>symmetry</strong> (<em>{&quot;cyclic&quot;</em><em>, </em><em>&quot;dihedral&quot;</em><em>, </em><em>&quot;tetrahedral&quot;}</em><em>, </em><em>optional</em>) – The type of symmetry to apply to the design.</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) – The order of the symmetry (e.g., 3 for C3 or D3 symmetry).
+Must be provided if <cite>symmetry</cite> is set.</p></li>
+<li><p><strong>add_potential</strong> (<em>bool</em><em>, </em><em>optional</em>) – A flag to toggle an additional potential to guide the design.
+This defaults to true in the case of symmetric design.</p></li>
+<li><p><strong>scaffold_target_structure_file</strong> (<em>str</em><em>, </em><em>bytes</em><em>, </em><em>BinaryIO</em><em>, </em><em>optional</em>) – A PDB file (which can be the text string or bytes or the file-like
+object) containing a scaffold structure to be used as a structural
+guide. It could also be used as a target when doing scaffold guided
+binder design with <cite>scaffold_target_use_struct</cite>.</p></li>
+<li><p><strong>scaffold_target_use_struct</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to use the provided scaffold structure as a target.
+Otherwise, it is used only as a topology guide.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword args that are passed directly to the rfdiffusion
+inference script. Overwrites any preceding options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that can be used to retrieve the results of the design
+job upon completion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StructureGenerationFuture</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contigs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inpaint_seq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provide_seq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotspot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_active_site_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_beta_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_potential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_target_structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_target_use_struct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionModel.predict" title="Link to this definition">#</a></dt>
+<dd><p>Run a protein structure generate job using RFdiffusion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em>, </em><em>optional</em>) – A query representing the design specification. Use either <cite>query</cite> or <cite>contigs</cite>
+for default design. Or provide <cite>scaffold_target_structure_file</cite>
+for scaffold guided design.
+<cite>query</cite> provides a unified way to represent design specifications on the
+OpenProtein platform. In this case, the structure mask of the containing Complex
+proteins are specified to be designed. Other parameters like binding are passed
+as hotspots to RFdiffusion.</p></li>
+<li><p><strong>contigs</strong> (<em>int</em><em>, </em><em>str</em><em>, </em><em>optional</em>) – Defines the lengths and connectivity of chain segments for the desired
+structure, specified in RFdiffusion’s contig string format.
+Required for most design tasks. Example: 150, ‘10-20/A100-110/10-20’ for a
+binder design.</p></li>
+<li><p><strong>structure_file</strong> (<em>BinaryIO</em><em>, </em><em>optional</em>) – An input PDB file (as a file-like object) used for inpainting or other
+guided design tasks where parts of an existing structure are provided.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of unique design trajectories to run (default is 1).</p></li>
+<li><p><strong>inpaint_seq</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying the regions in the input structure to mask for
+in-painting. Example: ‘A1-A10/A30-40’.</p></li>
+<li><p><strong>provide_seq</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying which segments of the contig have a provided
+sequence. Example: ‘A1-A10/A30-40’.</p></li>
+<li><p><strong>hotspot</strong> (<em>str</em><em>, </em><em>optional</em>) – A string specifying hotspot residues to constrain during design,
+typically for functional sites. Example: ‘A10,A12,A14’.</p></li>
+<li><p><strong>T</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of timesteps for the diffusion process.</p></li>
+<li><p><strong>partial_T</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of timesteps for partial diffusion.</p></li>
+<li><p><strong>use_active_site_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses the active site model checkpoint, which has been finetuned to
+better keep very small motifs in place in the output for motif scaffolding
+(default is False).</p></li>
+<li><p><strong>use_beta_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses the complex beta model checkpoint, which generates a
+greater diversity of topologies but has not been extensively
+experimentally validated (default is False).</p></li>
+<li><p><strong>symmetry</strong> (<em>{&quot;cyclic&quot;</em><em>, </em><em>&quot;dihedral&quot;</em><em>, </em><em>&quot;tetrahedral&quot;}</em><em>, </em><em>optional</em>) – The type of symmetry to apply to the design.</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) – The order of the symmetry (e.g., 3 for C3 or D3 symmetry).
+Must be provided if <cite>symmetry</cite> is set.</p></li>
+<li><p><strong>add_potential</strong> (<em>bool</em><em>, </em><em>optional</em>) – A flag to toggle an additional potential to guide the design.
+This defaults to true in the case of symmetric design.</p></li>
+<li><p><strong>scaffold_target_structure_file</strong> (<em>str</em><em>, </em><em>bytes</em><em>, </em><em>BinaryIO</em><em>, </em><em>optional</em>) – A PDB file (which can be the text string or bytes or the file-like
+object) containing a scaffold structure to be used as a structural
+guide. It could also be used as a target when doing scaffold guided
+binder design with <cite>scaffold_target_use_struct</cite>.</p></li>
+<li><p><strong>scaffold_target_use_struct</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to use the provided scaffold structure as a target.
+Otherwise, it is used only as a topology guide.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword args that are passed directly to the rfdiffusion
+inference script. Overwrites any preceding options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that can be used to retrieve the results of the design
+job upon completion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StructureGenerationFuture</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="results">
+<h4>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">RFdiffusionFuture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionFuture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.RFdiffusionFuture" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated alias for <code class="xref py py-class docutils literal notranslate"><span class="pre">StructureGenerationFuture</span></code>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.args">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.args" title="Link to this definition">#</a></dt>
+<dd><p>The registered job arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.cancelled">
+<span class="sig-name descname"><span class="pre">cancelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.cancelled" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has been cancelled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is cancelled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.created_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.created_date" title="Link to this definition">#</a></dt>
+<dd><p>The creation timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.done" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is done, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.end_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.end_date" title="Link to this definition">#</a></dt>
+<dd><p>The end timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.get_item" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve a single item by its key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> – The key of the item to retrieve.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – This is an abstract method and must be implemented by a subclass.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.job_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.job_id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.job_type">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.job_type" title="Link to this definition">#</a></dt>
+<dd><p>The type of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.progress_counter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress_counter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.progress_counter" title="Link to this definition">#</a></dt>
+<dd><p>The progress counter of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.refresh" title="Link to this definition">#</a></dt>
+<dd><p>Refresh the job status and internal job object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.start_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.start_date" title="Link to this definition">#</a></dt>
+<dd><p>The start timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.status">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">JobStatus</span></em><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.status" title="Link to this definition">#</a></dt>
+<dd><p>The current status of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.stream" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve results for this job as a stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator that yields (key, value) tuples.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.wait" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete, then fetch results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The results of the job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.RFdiffusionFuture.wait_until_done">
+<span class="sig-name descname"><span class="pre">wait_until_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.RFdiffusionFuture.wait_until_done" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the job completed successfully.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method does not fetch the job results, unlike <cite>wait()</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="boltzgen">
+<h3>BoltzGen<a class="headerlink" href="#boltzgen" title="Link to this heading">#</a></h3>
+<p>BoltzGen is a structure generation model that can be used for generating de novo structures along with nanobody scaffolds. It can be used with our <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> interface to define structure prediction objectives in a unified manner. It also supports taking in a <code class="docutils literal notranslate"><span class="pre">design_spec</span></code> which follows the official design specification from BoltzGen.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">BoltzGenModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'boltzgen'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.BoltzGenModel" title="Link to this definition">#</a></dt>
+<dd><p>BoltzGen model for generating de novo protein structures.</p>
+<p>This model supports functionalities like unconditional design, scaffolding,
+and binder design.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenModel.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.BoltzGenModel.get_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Get model metadata for this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metadata associated with this model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModelMetadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenModel.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffolds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_structure_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.BoltzGenModel.generate" title="Link to this definition">#</a></dt>
+<dd><p>Run a protein structure generate job using BoltzGen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em>, </em><em>optional</em>) – A query representing the design specification. Either <cite>query</cite> or <cite>design_spec</cite>
+must be provided.
+<cite>query</cite> provides a unified way to represent design specifications on the
+OpenProtein platform. In this case, the structure mask of the containing Complex
+proteins are specified to be designed. Other parameters like binding, group,
+secondary structures, etc. are also passed through to BoltzGen.</p></li>
+<li><p><strong>design_spec</strong> (<em>BoltzGenDesignSpec</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – The BoltzGen design specification to run. Either <cite>query</cite> or <cite>design_spec</cite>
+must be provided.
+<cite>design_spec</cite> exposes a low-level interface to using BoltzGen by accepting the YAML
+specification used by official BoltzGen examples.
+Can be a typed BoltzGenDesignSpec object or a dict representing the
+BoltzGen yaml request specification.
+Note: If the design_spec includes file paths, provide
+these extra files either using <cite>scaffolds</cite> or <cite>extra_structure_files</cite>.</p></li>
+<li><p><strong>structure_file</strong> (<em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – (Deprecated: use <cite>extra_structure_files</cite>)
+An input PDB/CIF file used for inpainting or other guided design tasks
+where parts of an existing structure are provided. This parameter provides
+the actual structure content that corresponds to any FileEntity <cite>path</cite>
+fields in the design_spec. Can be:
+- A file path (str) to read from
+- Raw file content (bytes)
+- A file-like object (BinaryIO)</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of unique design trajectories to run (default is 1).</p></li>
+<li><p><strong>diffusion_batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The batch size for diffusion sampling. Controls how many samples are
+processed in parallel during the diffusion process.</p></li>
+<li><p><strong>step_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor for the number of diffusion steps. Higher values may
+improve quality at the cost of longer generation time.</p></li>
+<li><p><strong>noise_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor for the noise schedule during diffusion. Controls the
+amount of noise added at each step of the reverse diffusion process.</p></li>
+<li><p><strong>scaffolds</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Dictionary mapping scaffold filenames to their content. Each value can be:
+- A file path (str) to read from
+- Raw file content (bytes)
+- A file-like object (BinaryIO)
+These files will be packaged into a gzipped tar archive and made available
+to the design process under the ‘scaffolds/’ directory.</p></li>
+<li><p><strong>scaffold_set</strong> (<em>Scaffolds</em><em> | </em><em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – A pre-defined scaffold set object. Alternative to providing individual
+scaffold files via the <cite>scaffolds</cite> parameter.</p></li>
+<li><p><strong>extra_structure_files</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Dictionary mapping additional structure filenames to their content, with
+the same format options as <cite>scaffolds</cite>. These files will be packaged into
+the same archive under the ‘extra/’ directory and can be referenced in
+the design specification.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword args that are passed directly to the boltzgen
+inference script. Overwrites any preceding options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that can be used to retrieve the results of the design
+job upon completion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StructureGenerationFuture</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffolds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaffold_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_structure_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenModel.predict" title="Link to this definition">#</a></dt>
+<dd><p>Run a protein structure generate job using BoltzGen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em>, </em><em>optional</em>) – A query representing the design specification. Either <cite>query</cite> or <cite>design_spec</cite>
+must be provided.
+<cite>query</cite> provides a unified way to represent design specifications on the
+OpenProtein platform. In this case, the structure mask of the containing Complex
+proteins are specified to be designed. Other parameters like binding, group,
+secondary structures, etc. are also passed through to BoltzGen.</p></li>
+<li><p><strong>design_spec</strong> (<em>BoltzGenDesignSpec</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – The BoltzGen design specification to run. Either <cite>query</cite> or <cite>design_spec</cite>
+must be provided.
+<cite>design_spec</cite> exposes a low-level interface to using BoltzGen by accepting the YAML
+specification used by official BoltzGen examples.
+Can be a typed BoltzGenDesignSpec object or a dict representing the
+BoltzGen yaml request specification.
+Note: If the design_spec includes file paths, provide
+these extra files either using <cite>scaffolds</cite> or <cite>extra_structure_files</cite>.</p></li>
+<li><p><strong>structure_file</strong> (<em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – (Deprecated: use <cite>extra_structure_files</cite>)
+An input PDB/CIF file used for inpainting or other guided design tasks
+where parts of an existing structure are provided. This parameter provides
+the actual structure content that corresponds to any FileEntity <cite>path</cite>
+fields in the design_spec. Can be:
+- A file path (str) to read from
+- Raw file content (bytes)
+- A file-like object (BinaryIO)</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of unique design trajectories to run (default is 1).</p></li>
+<li><p><strong>diffusion_batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The batch size for diffusion sampling. Controls how many samples are
+processed in parallel during the diffusion process.</p></li>
+<li><p><strong>step_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor for the number of diffusion steps. Higher values may
+improve quality at the cost of longer generation time.</p></li>
+<li><p><strong>noise_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor for the noise schedule during diffusion. Controls the
+amount of noise added at each step of the reverse diffusion process.</p></li>
+<li><p><strong>scaffolds</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Dictionary mapping scaffold filenames to their content. Each value can be:
+- A file path (str) to read from
+- Raw file content (bytes)
+- A file-like object (BinaryIO)
+These files will be packaged into a gzipped tar archive and made available
+to the design process under the ‘scaffolds/’ directory.</p></li>
+<li><p><strong>scaffold_set</strong> (<em>Scaffolds</em><em> | </em><em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – A pre-defined scaffold set object. Alternative to providing individual
+scaffold files via the <cite>scaffolds</cite> parameter.</p></li>
+<li><p><strong>extra_structure_files</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>bytes</em><em> | </em><em>BinaryIO</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Dictionary mapping additional structure filenames to their content, with
+the same format options as <cite>scaffolds</cite>. These files will be packaged into
+the same archive under the ‘extra/’ directory and can be referenced in
+the design specification.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword args that are passed directly to the boltzgen
+inference script. Overwrites any preceding options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that can be used to retrieve the results of the design
+job upon completion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StructureGenerationFuture</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="id1">
+<h4>Results<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">BoltzGenFuture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenFuture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.BoltzGenFuture" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated alias for <code class="xref py py-class docutils literal notranslate"><span class="pre">StructureGenerationFuture</span></code>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.args">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.args" title="Link to this definition">#</a></dt>
+<dd><p>The registered job arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.cancelled">
+<span class="sig-name descname"><span class="pre">cancelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.cancelled" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has been cancelled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is cancelled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.created_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.created_date" title="Link to this definition">#</a></dt>
+<dd><p>The creation timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.done" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is done, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.end_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.end_date" title="Link to this definition">#</a></dt>
+<dd><p>The end timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.get_item" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve a single item by its key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> – The key of the item to retrieve.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – This is an abstract method and must be implemented by a subclass.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.job_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.job_id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.job_type">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.job_type" title="Link to this definition">#</a></dt>
+<dd><p>The type of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.progress_counter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress_counter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.progress_counter" title="Link to this definition">#</a></dt>
+<dd><p>The progress counter of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.refresh" title="Link to this definition">#</a></dt>
+<dd><p>Refresh the job status and internal job object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.start_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.start_date" title="Link to this definition">#</a></dt>
+<dd><p>The start timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.status">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">JobStatus</span></em><a class="headerlink" href="#openprotein.models.BoltzGenFuture.status" title="Link to this definition">#</a></dt>
+<dd><p>The current status of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.stream" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve results for this job as a stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator that yields (key, value) tuples.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.wait" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete, then fetch results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The results of the job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.BoltzGenFuture.wait_until_done">
+<span class="sig-name descname"><span class="pre">wait_until_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.models.BoltzGenFuture.wait_until_done" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the job completed successfully.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method does not fetch the job results, unlike <cite>wait()</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="proteinmpnn">
+<h3>ProteinMPNN<a class="headerlink" href="#proteinmpnn" title="Link to this heading">#</a></h3>
+<p>ProteinMPNN is a sequence generation model that can be used for inverse folding, and is a natural next step after using structure generation models. It can be used with our <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> interface to define sequence generation objectives in a unified manner, similar to our <a class="reference internal" href="embedding.html#openprotein.embeddings.PoET2Model" title="openprotein.embeddings.PoET2Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">PoET2Model</span></code></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">ProteinMPNNModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel" title="Link to this definition">#</a></dt>
+<dd><p>Class for ProteinMPNN model.</p>
+<p>Model inference requires an input structure which is provided by a <cite>query</cite>.</p>
+<p class="rubric">Examples</p>
+<p>View specific model details (including supported tokens) with the <cite>?</cite> operator.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">openprotein</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">session</span> <span class="o">=</span> <span class="n">openprotein</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> session.models.proteinmpnn<span class="o">?</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel.get_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Get model metadata for this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metadata associated with this model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModelMetadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel.score" title="Link to this definition">#</a></dt>
+<dd><p>Score query sequences based on the specified query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>list</em><em> of </em><em>bytes</em>) – Sequences to score.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query to use with prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the scores of the submitted sequences.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsScoreFuture" title="openprotein.embeddings.EmbeddingsScoreFuture">EmbeddingsScoreFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel.indel">
+<span class="sig-name descname"><span class="pre">indel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.indel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel.indel" title="Link to this definition">#</a></dt>
+<dd><p>Score all indels of the query sequence based on the specified query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequence</strong> (<em>bytes</em>) – Sequence to analyze.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query to use with prompt.</p></li>
+<li><p><strong>insert</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Insertion fragment at each site.</p></li>
+<li><p><strong>delete</strong> (<em>list</em><em> of </em><em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Range of size of fragment to delete at each site.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the scores of the indel-ed sequence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsScoreFuture" title="openprotein.embeddings.EmbeddingsScoreFuture">EmbeddingsScoreFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If neither insert nor delete is provided.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel.single_site">
+<span class="sig-name descname"><span class="pre">single_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.single_site"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel.single_site" title="Link to this definition">#</a></dt>
+<dd><p>Score all single substitutions of the query sequence using the specified query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequence</strong> (<em>bytes</em>) – Sequence to analyze.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query to use with prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the per-variant scores of the single substitutions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture" title="openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture">EmbeddingsScoreSingleSiteFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ProteinMPNNModel.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ProteinMPNNModel.generate" title="Link to this definition">#</a></dt>
+<dd><p>Generate protein sequences based on a masked input query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>list</em><em> of </em><em>these</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query specifying the structure to generate sequences for.</p></li>
+<li><p><strong>design</strong> (<em>str</em><em> or </em><em>StructureGenerationFuture</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Structure-generation design ID or future to condition generation from
+design outputs.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of samples to generate. Default is 100.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – The temperature for sampling. Higher values produce more random outputs. Default is 0.1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object representing the status and information about the generation job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsGenerateFuture" title="openprotein.embeddings.EmbeddingsGenerateFuture">EmbeddingsGenerateFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="esm-if1">
+<h3>ESM-IF1<a class="headerlink" href="#esm-if1" title="Link to this heading">#</a></h3>
+<p>ESM-IF1 is an inverse folding model pretrained on PDB and millions of AlphaFold-predicted structures. Given a backbone structure, it scores and generates sequences predicted to fold into it, making it another option for inverse folding alongside <a class="reference internal" href="#openprotein.models.ProteinMPNNModel" title="openprotein.models.ProteinMPNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProteinMPNNModel</span></code></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.models.</span></span><span class="sig-name descname"><span class="pre">ESMIF1Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model" title="Link to this definition">#</a></dt>
+<dd><p>Class for ESM Inverse Folding (ESM-IF1) model.</p>
+<p>Model inference requires an input structure which is provided by a <cite>query</cite>.</p>
+<p class="rubric">Examples</p>
+<p>View specific model details (including supported tokens) with the <cite>?</cite> operator.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">openprotein</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">session</span> <span class="o">=</span> <span class="n">openprotein</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> session.models.esmif1<span class="o">?</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model.get_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Get model metadata for this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metadata associated with this model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModelMetadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model.score" title="Link to this definition">#</a></dt>
+<dd><p>Score sequences based on the specified query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>list</em><em> of </em><em>bytes</em><em> or </em><em>str</em>) – Sequences to score.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a>) – Query to use with prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the scores of the submitted sequences.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsScoreFuture" title="openprotein.embeddings.EmbeddingsScoreFuture">EmbeddingsScoreFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model.single_site">
+<span class="sig-name descname"><span class="pre">single_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.single_site"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model.single_site" title="Link to this definition">#</a></dt>
+<dd><p>Score all single substitutions of <cite>sequence</cite> using the specified <cite>query</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequence</strong> (<em>bytes</em><em> or </em><em>str</em>) – Sequence to analyze.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a>) – Query to use with prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the per-variant scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture" title="openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture">EmbeddingsScoreSingleSiteFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model.indel">
+<span class="sig-name descname"><span class="pre">indel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.indel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model.indel" title="Link to this definition">#</a></dt>
+<dd><p>Score all indels of <cite>sequence</cite> based on the specified <cite>query</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequence</strong> (<em>bytes</em><em> or </em><em>str</em>) – Sequence to analyze.</p></li>
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query to use with prompt.</p></li>
+<li><p><strong>insert</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Insertion fragment at each site.</p></li>
+<li><p><strong>delete</strong> (<em>list</em><em> of </em><em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Range of size of fragment to delete at each site.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object that returns the scores of the indel-ed sequence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsScoreFuture" title="openprotein.embeddings.EmbeddingsScoreFuture">EmbeddingsScoreFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If neither insert nor delete is provided.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.models.ESMIF1Model.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.models.ESMIF1Model.generate" title="Link to this definition">#</a></dt>
+<dd><p>Generate protein sequences based on a masked input query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> or </em><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><em>Query</em></a><em> or </em><em>list</em><em> of </em><em>these</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Query specifying the structure to generate sequences for.</p></li>
+<li><p><strong>design</strong> (<em>str</em><em> or </em><em>StructureGenerationFuture</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Structure-generation design ID or future to condition generation from
+design outputs.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of sequences to sample. Default 100.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – Sampling temperature. Lower = more conservative; near-zero
+approximates greedy decoding. Default 1.0.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – PRNG seed for reproducible sampling.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A future object representing the status and information about the generation job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsGenerateFuture" title="openprotein.embeddings.EmbeddingsGenerateFuture">EmbeddingsGenerateFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ModelsAPI"><code class="docutils literal notranslate"><span class="pre">ModelsAPI</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models">Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rfdiffusion">RFdiffusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionModel"><code class="docutils literal notranslate"><span class="pre">RFdiffusionModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionModel.get_metadata"><code class="docutils literal notranslate"><span class="pre">RFdiffusionModel.get_metadata()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionModel.generate"><code class="docutils literal notranslate"><span class="pre">RFdiffusionModel.generate()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionModel.predict"><code class="docutils literal notranslate"><span class="pre">RFdiffusionModel.predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.args"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.args</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.cancelled"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.cancelled()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.created_date"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.created_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.done"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.done()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.end_date"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.end_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.get_item"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.get_item()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.id"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.id</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.job_id"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.job_id</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.job_type"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.job_type</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.progress_counter"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.progress_counter</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.refresh"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.refresh()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.start_date"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.start_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.status"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.status</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.stream"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.stream()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.wait"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.wait()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.RFdiffusionFuture.wait_until_done"><code class="docutils literal notranslate"><span class="pre">RFdiffusionFuture.wait_until_done()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boltzgen">BoltzGen</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenModel"><code class="docutils literal notranslate"><span class="pre">BoltzGenModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenModel.get_metadata"><code class="docutils literal notranslate"><span class="pre">BoltzGenModel.get_metadata()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenModel.generate"><code class="docutils literal notranslate"><span class="pre">BoltzGenModel.generate()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenModel.predict"><code class="docutils literal notranslate"><span class="pre">BoltzGenModel.predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.args"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.args</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.cancelled"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.cancelled()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.created_date"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.created_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.done"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.done()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.end_date"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.end_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.get_item"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.get_item()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.id"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.id</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.job_id"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.job_id</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.job_type"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.job_type</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.progress_counter"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.progress_counter</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.refresh"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.refresh()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.start_date"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.start_date</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.status"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.status</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.stream"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.stream()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.wait"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.wait()</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.BoltzGenFuture.wait_until_done"><code class="docutils literal notranslate"><span class="pre">BoltzGenFuture.wait_until_done()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proteinmpnn">ProteinMPNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel.get_metadata"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel.get_metadata()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel.score"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel.score()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel.indel"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel.indel()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel.single_site"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel.single_site()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ProteinMPNNModel.generate"><code class="docutils literal notranslate"><span class="pre">ProteinMPNNModel.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esm-if1">ESM-IF1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model.get_metadata"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model.get_metadata()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model.score"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model.score()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model.single_site"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model.single_site()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model.indel"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model.indel()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.models.ESMIF1Model.generate"><code class="docutils literal notranslate"><span class="pre">ESMIF1Model.generate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

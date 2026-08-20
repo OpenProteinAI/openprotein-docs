@@ -1,0 +1,94 @@
+{
+ "page": "jobs",
+ "title": "openprotein.jobs",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Classes"
+  }
+ ],
+ "anchor_count": 11,
+ "classes": [
+  {
+   "name": "JobsAPI",
+   "path": "openprotein.jobs.JobsAPI",
+   "kind": "class",
+   "signature": "class openprotein.jobs.JobsAPI(session)[source]",
+   "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI",
+   "members": [
+    {
+     "name": "list",
+     "path": "openprotein.jobs.JobsAPI.list",
+     "kind": "method",
+     "signature": "list(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None)[source]",
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.list"
+    },
+    {
+     "name": "get",
+     "path": "openprotein.jobs.JobsAPI.get",
+     "kind": "method",
+     "signature": "get(job_id, verbose=False)[source]",
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.get"
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.jobs.JobsAPI.wait",
+     "kind": "method",
+     "signature": "wait(future, interval=5, timeout=None, verbose=False)[source]",
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.wait"
+    }
+   ]
+  },
+  {
+   "name": "Job",
+   "path": "openprotein.jobs.Job",
+   "kind": "class",
+   "signature": "class openprotein.jobs.Job(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)[source]",
+   "source": "../../_modules/openprotein/jobs/schemas.html#Job",
+   "members": []
+  },
+  {
+   "name": "Future",
+   "path": "openprotein.jobs.Future",
+   "kind": "class",
+   "signature": "class openprotein.jobs.Future(session, job)[source]",
+   "source": "../../_modules/openprotein/jobs/futures.html#Future",
+   "members": [
+    {
+     "name": "done",
+     "path": "openprotein.jobs.Future.done",
+     "kind": "method",
+     "signature": "done()[source]",
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.done"
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.jobs.Future.refresh",
+     "kind": "method",
+     "signature": "refresh()[source]",
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.refresh"
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.jobs.Future.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)[source]",
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait_until_done"
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.jobs.Future.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)[source]",
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait"
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

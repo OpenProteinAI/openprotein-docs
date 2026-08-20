@@ -1,0 +1,15 @@
+# Exact pins: line numbers in the generated JSON are only meaningful against one SDK tree,
+# and griffe's member model changes between majors.
+#
+# Needs Python >= 3.10 (griffe's floor). The machine default `python3` may be older, so name
+# the interpreter explicitly:
+#
+#   python3.13 -m venv .venv-pyapi        # any >= 3.10 works
+#   .venv-pyapi/bin/pip install -r scripts/pyapi/requirements.txt
+#   pnpm sync:pyapi                       # or check:pyapi / diff:pyapi
+#
+# openprotein-python 0.16.1 == commit 85dc94bd15a33bdc8674ad899571043016427ce3 (tag v0.16.1),
+# verified byte-identical to the published wheel. Matches __old/pyproject.toml's
+# `openprotein-python>=0.16.0,<0.17.0`, which is what the Sphinx build documented.
+griffe==2.2.0
+openprotein-python==0.16.1

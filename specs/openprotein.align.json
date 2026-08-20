@@ -1,0 +1,821 @@
+{
+ "module": "openprotein.align",
+ "entries": [
+  {
+   "name": "AlignAPI",
+   "path": "openprotein.align.AlignAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks.",
+   "module": "openprotein.align.align",
+   "source": {
+    "file": "openprotein/align/align.py",
+    "line": 17,
+    "end": 414
+   },
+   "members": [
+    {
+     "name": "mafft",
+     "kind": "method",
+     "doc": "Align sequences using the `mafft` algorithm.\n\nSet `auto` to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults.\n\nParameters\n----------\nsequences : Sequence[bytes or str]\n    Sequences to align.\nnames : Sequence[str], optional\n    Optional list of sequence names, must be the same length as sequences if provided.\nauto : bool, default=True\n    Set to True to automatically set algorithm parameters.\nep : float, optional\n    MAFFT \"ep\" parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default.\nop : float, optional\n    MAFFT \"op\" parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.\n\nRaises\n------\nException\n    If names and sequences are not the same length.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 23,
+      "end": 78
+     },
+     "signature": "(sequences, names=None, auto=True, ep=None, op=None)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align sequences using the `mafft` algorithm.\n\nSet `auto` to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[bytes or str]",
+         "default": null,
+         "text": "Sequences to align."
+        },
+        {
+         "name": "names",
+         "type": "Sequence[str]",
+         "default": "None",
+         "text": "Optional list of sequence names, must be the same length as sequences if provided."
+        },
+        {
+         "name": "auto",
+         "type": "bool",
+         "default": "True",
+         "text": "Set to True to automatically set algorithm parameters."
+        },
+        {
+         "name": "ep",
+         "type": "float",
+         "default": "None",
+         "text": "MAFFT \"ep\" parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default."
+        },
+        {
+         "name": "op",
+         "type": "float",
+         "default": "None",
+         "text": "MAFFT \"op\" parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "Exception",
+         "default": null,
+         "text": "If names and sequences are not the same length."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "mafft_file",
+     "kind": "method",
+     "doc": "Align sequences using the `mafft` algorithm. Sequences can be provided as FASTA or CSV formats.\nIf CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nSet `auto` to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults.\n\nParameters\n----------\nfile : file-like object\n    Sequences to align in FASTA or CSV format.\nauto : bool, default=True\n    Set to True to automatically set algorithm parameters.\nep : float, optional\n    MAFFT \"ep\" parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default.\nop : float, optional\n    MAFFT \"op\" parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 80,
+      "end": 104
+     },
+     "signature": "(file, auto=True, ep=None, op=None)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align sequences using the `mafft` algorithm. Sequences can be provided as FASTA or CSV formats.\nIf CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nSet `auto` to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "file",
+         "type": "file-like object",
+         "default": null,
+         "text": "Sequences to align in FASTA or CSV format."
+        },
+        {
+         "name": "auto",
+         "type": "bool",
+         "default": "True",
+         "text": "Set to True to automatically set algorithm parameters."
+        },
+        {
+         "name": "ep",
+         "type": "float",
+         "default": "None",
+         "text": "MAFFT \"ep\" parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default."
+        },
+        {
+         "name": "op",
+         "type": "float",
+         "default": "None",
+         "text": "MAFFT \"op\" parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "clustalo",
+     "kind": "method",
+     "doc": "Align sequences using the `clustal omega` algorithm.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nParameters\n----------\nsequences : Sequence[bytes or str]\n    Sequences to align.\nnames : Sequence[str], optional\n    Optional list of sequence names, must be the same length as sequences if provided.\nclustersize : int, optional\n    Maximum number of sequences per cluster during guide tree generation. If None, uses the default value.\niterations : int, optional\n    Number of refinement iterations performed during alignment. If None, uses the default value.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.\n\nRaises\n------\nException\n    If names and sequences are not the same length.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 106,
+      "end": 160
+     },
+     "signature": "(sequences, names=None, clustersize=None, iterations=None)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align sequences using the `clustal omega` algorithm.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[bytes or str]",
+         "default": null,
+         "text": "Sequences to align."
+        },
+        {
+         "name": "names",
+         "type": "Sequence[str]",
+         "default": "None",
+         "text": "Optional list of sequence names, must be the same length as sequences if provided."
+        },
+        {
+         "name": "clustersize",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum number of sequences per cluster during guide tree generation. If None, uses the default value."
+        },
+        {
+         "name": "iterations",
+         "type": "int",
+         "default": "None",
+         "text": "Number of refinement iterations performed during alignment. If None, uses the default value."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "Exception",
+         "default": null,
+         "text": "If names and sequences are not the same length."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "clustalo_file",
+     "kind": "method",
+     "doc": "Align sequences using the `clustal omega` algorithm.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nParameters\n----------\nfile : file-like object\n    Sequences to align in FASTA or CSV format.\nclustersize : int, optional\n    Maximum number of sequences per cluster during guide tree generation. If None, uses the default value.\niterations : int, optional\n    Number of refinement iterations performed during alignment. If None, uses the default value.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 162,
+      "end": 185
+     },
+     "signature": "(file, clustersize=None, iterations=None)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align sequences using the `clustal omega` algorithm.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "file",
+         "type": "file-like object",
+         "default": null,
+         "text": "Sequences to align in FASTA or CSV format."
+        },
+        {
+         "name": "clustersize",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum number of sequences per cluster during guide tree generation. If None, uses the default value."
+        },
+        {
+         "name": "iterations",
+         "type": "int",
+         "default": "None",
+         "text": "Number of refinement iterations performed during alignment. If None, uses the default value."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "abnumber",
+     "kind": "method",
+     "doc": "Align antibody sequences using `AbNumber`.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nThe antibody numbering scheme can be specified.\n\nParameters\n----------\nsequences : Sequence[bytes or str]\n    Sequences to align.\nnames : Sequence[str], optional\n    Optional list of sequence names, must be the same length as sequences if provided.\nscheme : AbNumberScheme, default=AbNumberScheme.CHOTHIA\n    Antibody numbering scheme.\ndrop_minority_chains : bool, default=False\n    If True, drop sequences belonging to chain types that are in the\n    minority (e.g. heavy vs light) so the resulting alignment contains\n    only the dominant chain type.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.\n\nRaises\n------\nException\n    If names and sequences are not the same length.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 187,
+      "end": 245
+     },
+     "signature": "(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align antibody sequences using `AbNumber`.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nThe antibody numbering scheme can be specified."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[bytes or str]",
+         "default": null,
+         "text": "Sequences to align."
+        },
+        {
+         "name": "names",
+         "type": "Sequence[str]",
+         "default": "None",
+         "text": "Optional list of sequence names, must be the same length as sequences if provided."
+        },
+        {
+         "name": "scheme",
+         "type": "AbNumberScheme",
+         "default": "AbNumberScheme.CHOTHIA",
+         "text": "Antibody numbering scheme."
+        },
+        {
+         "name": "drop_minority_chains",
+         "type": "bool",
+         "default": "False",
+         "text": "If True, drop sequences belonging to chain types that are in the\nminority (e.g. heavy vs light) so the resulting alignment contains\nonly the dominant chain type."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "Exception",
+         "default": null,
+         "text": "If names and sequences are not the same length."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "abnumber_file",
+     "kind": "method",
+     "doc": "Align antibody sequences using `AbNumber`.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nThe antibody numbering scheme can be specified.\n\nParameters\n----------\nfile : file-like object\n    Sequences to align in FASTA or CSV format.\nscheme : AbNumberScheme, default=AbNumberScheme.CHOTHIA\n    Antibody numbering scheme.\ndrop_minority_chains : bool, default=False\n    If True, drop sequences belonging to chain types that are in the\n    minority (e.g. heavy vs light) so the resulting alignment contains\n    only the dominant chain type.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 247,
+      "end": 282
+     },
+     "signature": "(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Align antibody sequences using `AbNumber`.\n\nSequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.\n\nThe antibody numbering scheme can be specified."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "file",
+         "type": "file-like object",
+         "default": null,
+         "text": "Sequences to align in FASTA or CSV format."
+        },
+        {
+         "name": "scheme",
+         "type": "AbNumberScheme",
+         "default": "AbNumberScheme.CHOTHIA",
+         "text": "Antibody numbering scheme."
+        },
+        {
+         "name": "drop_minority_chains",
+         "type": "bool",
+         "default": "False",
+         "text": "If True, drop sequences belonging to chain types that are in the\nminority (e.g. heavy vs light) so the resulting alignment contains\nonly the dominant chain type."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "upload_msa",
+     "kind": "method",
+     "doc": "Upload an MSA from a file.\n\nParameters\n----------\nmsa_file : str\n    Path to a ready-made MSA file.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.\n\nRaises\n------\nAPIError\n    If there is an issue with the API request.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 284,
+      "end": 305
+     },
+     "signature": "(msa_file)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Upload an MSA from a file."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa_file",
+         "type": "str",
+         "default": null,
+         "text": "Path to a ready-made MSA file."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "APIError",
+         "default": null,
+         "text": "If there is an issue with the API request."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "create_msa",
+     "kind": "method",
+     "doc": "Construct an MSA via homology search with the seed sequence.\n\nParameters\n----------\nseed : bytes\n    Seed sequence for the MSA construction.\n\nReturns\n-------\nMSAFuture\n    Future object awaiting the contents of the MSA upload.\n\nRaises\n------\nAPIError\n    If there is an issue with the API request.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 307,
+      "end": 328
+     },
+     "signature": "(seed)",
+     "returns": "MSAFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Construct an MSA via homology search with the seed sequence."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "seed",
+         "type": "bytes",
+         "default": null,
+         "text": "Seed sequence for the MSA construction."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSAFuture",
+         "text": "Future object awaiting the contents of the MSA upload."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "APIError",
+         "default": null,
+         "text": "If there is an issue with the API request."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "upload_prompt",
+     "kind": "method",
+     "doc": "Directly upload a prompt.\n\nThis method is deprecated. Use `create_prompt` on the `prompt` module instead.\n\nParameters\n----------\nprompt_file : BinaryIO\n    Binary I/O object representing the prompt file.\n\nReturns\n-------\nPromptJob\n    An object representing the status and results of the prompt job.\n\nRaises\n------\nDeprecationError\n    This method is no longer supported.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 330,
+      "end": 353
+     },
+     "signature": "(prompt_file)",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Directly upload a prompt.\n\nThis method is deprecated. Use `create_prompt` on the `prompt` module instead."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt_file",
+         "type": "BinaryIO",
+         "default": null,
+         "text": "Binary I/O object representing the prompt file."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PromptJob",
+         "text": "An object representing the status and results of the prompt job."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "DeprecationError",
+         "default": null,
+         "text": "This method is no longer supported."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_prompt",
+     "kind": "method",
+     "doc": "Get prompts for a given job.\n\nThis method is deprecated. Use `get_prompt` on the `prompt` module instead.\n\nParameters\n----------\njob : Job\n    The job for which to retrieve data.\nprompt_index : int, optional\n    The replicate number for the prompt (input_type=-PROMPT only).\n\nReturns\n-------\nIterator[list[str]]\n    An iterator over rows of the prompt data.\n\nRaises\n------\nDeprecationError\n    This method is no longer supported.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 355,
+      "end": 382
+     },
+     "signature": "(job, prompt_index=None)",
+     "returns": "Iterator[list[str]]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get prompts for a given job.\n\nThis method is deprecated. Use `get_prompt` on the `prompt` module instead."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "job",
+         "type": "Job",
+         "default": null,
+         "text": "The job for which to retrieve data."
+        },
+        {
+         "name": "prompt_index",
+         "type": "int",
+         "default": "None",
+         "text": "The replicate number for the prompt (input_type=-PROMPT only)."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Iterator[list[str]]",
+         "text": "An iterator over rows of the prompt data."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "DeprecationError",
+         "default": null,
+         "text": "This method is no longer supported."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_seed",
+     "kind": "method",
+     "doc": "Get seed sequence for a given MSA job.\n\nParameters\n----------\njob : Job\n    The job for which to retrieve data.\n\nReturns\n-------\nstr\n    Seed sequence that was used to generate the MSA.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 384,
+      "end": 398
+     },
+     "signature": "(job_id)",
+     "returns": "str",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get seed sequence for a given MSA job."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "job",
+         "type": "Job",
+         "default": null,
+         "text": "The job for which to retrieve data."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "str",
+         "text": "Seed sequence that was used to generate the MSA."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_msa",
+     "kind": "method",
+     "doc": "Get generated MSA for a given job.\n\nParameters\n----------\njob : Job\n    The job for which to retrieve data.\n\nReturns\n-------\nIterator[tuple[str, str]]\n    An iterator over names and sequences of the MSA data.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/align.py",
+      "line": 400,
+      "end": 414
+     },
+     "signature": "(job_id)",
+     "returns": "Iterator[tuple[str, str]]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get generated MSA for a given job."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "job",
+         "type": "Job",
+         "default": null,
+         "text": "The job for which to retrieve data."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Iterator[tuple[str, str]]",
+         "text": "An iterator over names and sequences of the MSA data."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface"
+  },
+  {
+   "name": "MSAFuture",
+   "path": "openprotein.align.MSAFuture",
+   "kind": "class",
+   "signature": "(session, job, page_size=config.POET_PAGE_SIZE)",
+   "bases": [
+    "AlignFuture",
+    "Future"
+   ],
+   "doc": "Represents a future for MSA (Multiple Sequence Alignment) results.",
+   "module": "openprotein.align.msa",
+   "source": {
+    "file": "openprotein/align/msa.py",
+    "line": 22,
+    "end": 129
+   },
+   "members": [
+    {
+     "name": "sample_prompt",
+     "kind": "method",
+     "doc": "Create a protein sequence prompt from the linked MSA for PoET Jobs.\n\nParameters\n----------\nnum_sequences : int, optional\n    Maximum number of sequences in the prompt. Must be less than 100.\nnum_residues : int, optional\n    Maximum number of residues (tokens) in the prompt. Must be less than 24577.\nmethod : MSASamplingMethod, optional\n    Method to use for MSA sampling. Defaults to NEIGHBORS_NONGAP_NORM_NO_LIMIT.\nhomology_level : float, optional\n    Level of homology for sequences in the MSA (neighbors methods only). Must be between 0 and 1. Defaults to 0.8.\nmax_similarity : float, optional\n    Maximum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 1.0.\nmin_similarity : float, optional\n    Minimum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 0.0.\nalways_include_seed_sequence : bool, optional\n    Whether to always include the seed sequence in the MSA. Defaults to False.\nnum_ensemble_prompts : int, optional\n    Number of ensemble jobs to run. Defaults to 1.\nrandom_seed : int, optional\n    Seed for random number generation. Defaults to a random number between 0 and 2**32-1.\n\nRaises\n------\nInvalidParameterError\n    If provided parameter values are not in the allowed range.\nMissingParameterError\n    If both or none of 'num_sequences' and 'num_residues' are specified.\n\nReturns\n-------\nPrompt\n    A Prompt instance for the created prompt job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/align/msa.py",
+      "line": 64,
+      "end": 129
+     },
+     "signature": "(num_sequences=None, num_residues=None, method=MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT, homology_level=0.8, max_similarity=1.0, min_similarity=0.0, always_include_seed_sequence=False, num_ensemble_prompts=1, random_seed=None)",
+     "returns": "Prompt",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Create a protein sequence prompt from the linked MSA for PoET Jobs."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "num_sequences",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum number of sequences in the prompt. Must be less than 100."
+        },
+        {
+         "name": "num_residues",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum number of residues (tokens) in the prompt. Must be less than 24577."
+        },
+        {
+         "name": "method",
+         "type": "MSASamplingMethod",
+         "default": "MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT",
+         "text": "Method to use for MSA sampling. Defaults to NEIGHBORS_NONGAP_NORM_NO_LIMIT."
+        },
+        {
+         "name": "homology_level",
+         "type": "float",
+         "default": "0.8",
+         "text": "Level of homology for sequences in the MSA (neighbors methods only). Must be between 0 and 1. Defaults to 0.8."
+        },
+        {
+         "name": "max_similarity",
+         "type": "float",
+         "default": "1.0",
+         "text": "Maximum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 1.0."
+        },
+        {
+         "name": "min_similarity",
+         "type": "float",
+         "default": "0.0",
+         "text": "Minimum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 0.0."
+        },
+        {
+         "name": "always_include_seed_sequence",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether to always include the seed sequence in the MSA. Defaults to False."
+        },
+        {
+         "name": "num_ensemble_prompts",
+         "type": "int",
+         "default": "1",
+         "text": "Number of ensemble jobs to run. Defaults to 1."
+        },
+        {
+         "name": "random_seed",
+         "type": "int",
+         "default": "None",
+         "text": "Seed for random number generation. Defaults to a random number between 0 and 2**32-1."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If provided parameter values are not in the allowed range."
+        },
+        {
+         "name": null,
+         "type": "MissingParameterError",
+         "default": null,
+         "text": "If both or none of 'num_sequences' and 'num_residues' are specified."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Prompt",
+         "text": "A Prompt instance for the created prompt job."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Results"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

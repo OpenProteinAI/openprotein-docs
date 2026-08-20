@@ -1,0 +1,329 @@
+{
+ "page": "index",
+ "title": "API reference",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Session Management"
+  },
+  {
+   "level": 2,
+   "text": "Data Primitives"
+  },
+  {
+   "level": 2,
+   "text": "Property Regression Models"
+  },
+  {
+   "level": 3,
+   "text": "Data"
+  },
+  {
+   "level": 3,
+   "text": "Jobs"
+  },
+  {
+   "level": 2,
+   "text": "Align"
+  },
+  {
+   "level": 2,
+   "text": "Prompt"
+  },
+  {
+   "level": 2,
+   "text": "Foundation models"
+  },
+  {
+   "level": 3,
+   "text": "Models"
+  },
+  {
+   "level": 3,
+   "text": "Results"
+  },
+  {
+   "level": 2,
+   "text": "Transform"
+  },
+  {
+   "level": 3,
+   "text": "SVD"
+  },
+  {
+   "level": 3,
+   "text": "UMAP"
+  },
+  {
+   "level": 2,
+   "text": "Predictor"
+  },
+  {
+   "level": 2,
+   "text": "Design"
+  },
+  {
+   "level": 2,
+   "text": "Fold"
+  },
+  {
+   "level": 2,
+   "text": "Models"
+  }
+ ],
+ "anchor_count": 0,
+ "classes": [],
+ "module_level": [],
+ "autosummary": [
+  [
+   {
+    "path": "openprotein.OpenProtein",
+    "signature": "(username, password, ...)",
+    "summary": "The base class for accessing OpenProtein API functionality."
+   },
+   {
+    "path": "openprotein.connect",
+    "signature": "([username, password, ...])",
+    "summary": "Connect and create a OpenProtein session."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.molecules.Protein",
+    "signature": "(sequence[, name])",
+    "summary": "Represents a protein with an optional name."
+   },
+   {
+    "path": "openprotein.molecules.Complex",
+    "signature": "([chains, name])",
+    "summary": ""
+   },
+   {
+    "path": "openprotein.molecules.Structure",
+    "signature": "(complexes[, ...])",
+    "summary": "Represents a collection of Complex instances."
+   },
+   {
+    "path": "openprotein.molecules.Ligand",
+    "signature": "([ccd, smiles, ...])",
+    "summary": "Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string."
+   },
+   {
+    "path": "openprotein.molecules.DNA",
+    "signature": "(sequence[, ...])",
+    "summary": "Represents a DNA sequence."
+   },
+   {
+    "path": "openprotein.molecules.RNA",
+    "signature": "(sequence[, ...])",
+    "summary": "Represents an RNA sequence."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.data.DataAPI",
+    "signature": "(session)",
+    "summary": "API interface for calling AssayData endpoints"
+   },
+   {
+    "path": "openprotein.data.AssayDataset",
+    "signature": "(session, metadata)",
+    "summary": "Assay dataset which contains your sequences and measurements which can be used for training predictors."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.jobs.JobsAPI",
+    "signature": "(session)",
+    "summary": "API interface to get jobs."
+   },
+   {
+    "path": "openprotein.jobs.Job",
+    "signature": "(*, job_id, job_type, ...)",
+    "summary": ""
+   }
+  ],
+  [
+   {
+    "path": "openprotein.align.AlignAPI",
+    "signature": "(session)",
+    "summary": "Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks."
+   },
+   {
+    "path": "openprotein.align.MSAFuture",
+    "signature": "(session, job[, ...])",
+    "summary": "Represents a future for MSA (Multiple Sequence Alignment) results."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.prompt.PromptAPI",
+    "signature": "(session)",
+    "summary": "Prompt API providing the interface to create prompts for use with PoET models."
+   },
+   {
+    "path": "openprotein.prompt.Prompt",
+    "signature": "(session[, job, ...])",
+    "summary": "Prompt which contains a set of sequences and/or structures used to condition the PoET models."
+   },
+   {
+    "path": "openprotein.prompt.Query",
+    "signature": "(session, metadata)",
+    "summary": "Query containing a sequence/structure used to query the design models which opens up new workflows."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.embeddings.EmbeddingsAPI",
+    "signature": "(session)",
+    "summary": "Embeddings API providing the interface for creating embeddings using protein language models."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.embeddings.PoET2Model",
+    "signature": "(session, ...)",
+    "summary": "Class for OpenProtein's foundation model PoET 2."
+   },
+   {
+    "path": "openprotein.embeddings.PoETModel",
+    "signature": "(session, ...)",
+    "summary": "Class for OpenProtein's foundation model PoET."
+   },
+   {
+    "path": "openprotein.embeddings.OpenProteinModel",
+    "signature": "(...)",
+    "summary": "Proprietary protein embedding models served by OpenProtein."
+   },
+   {
+    "path": "openprotein.embeddings.ESMModel",
+    "signature": "(session, ...)",
+    "summary": "Class providing inference endpoints for Facebook's ESM protein language models."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.embeddings.EmbeddingsResultFuture",
+    "signature": "(...)",
+    "summary": "Future for manipulating results for embeddings-related requests."
+   },
+   {
+    "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+    "signature": "(...)",
+    "summary": "Future for manipulating results for embeddings score-related requests."
+   },
+   {
+    "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+    "signature": "(...)",
+    "summary": "Future for manipulating results for embeddings generate-related requests."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.svd.SVDModel",
+    "signature": "(session[, job, ...])",
+    "summary": "SVD model that can be used to create reduced embeddings."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.umap.UMAPModel",
+    "signature": "(session[, job, ...])",
+    "summary": "UMAP model that can be used to create projected embeddings."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.predictor.PredictorAPI",
+    "signature": "(session)",
+    "summary": "Predictor API providing the interface to train and predict predictors."
+   },
+   {
+    "path": "openprotein.predictor.PredictorModel",
+    "signature": "(session)",
+    "summary": "Class providing predict endpoint for fitted predictor models."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.design.DesignAPI",
+    "signature": "(session)",
+    "summary": "Design API providing the interface to design novel proteins based on your design criteria."
+   },
+   {
+    "path": "openprotein.design.DesignFuture",
+    "signature": "(session[, ...])",
+    "summary": "A future object that will hold the results of the design job."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.fold.FoldAPI",
+    "signature": "(session)",
+    "summary": "Fold API provides a high level interface for making protein structure predictions."
+   },
+   {
+    "path": "openprotein.fold.RosettaFold3Model",
+    "signature": "(session, ...)",
+    "summary": "Class providing inference endpoints for RosettaFold-3 structure prediction model."
+   },
+   {
+    "path": "openprotein.fold.Boltz2Model",
+    "signature": "(session, model_id)",
+    "summary": "Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities."
+   },
+   {
+    "path": "openprotein.fold.Boltz1xModel",
+    "signature": "(session, model_id)",
+    "summary": "Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance."
+   },
+   {
+    "path": "openprotein.fold.Boltz1Model",
+    "signature": "(session, model_id)",
+    "summary": "Class providing inference endpoints for Boltz-1 open-source structure prediction model."
+   },
+   {
+    "path": "openprotein.fold.AlphaFold2Model",
+    "signature": "(session, ...)",
+    "summary": "Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold."
+   },
+   {
+    "path": "openprotein.fold.ESMFoldModel",
+    "signature": "(session, model_id)",
+    "summary": "Class providing inference endpoints for Facebook's ESMFold structure prediction models."
+   },
+   {
+    "path": "openprotein.fold.FoldResultFuture",
+    "signature": "(session[, ...])",
+    "summary": "Fold results represented as a future."
+   }
+  ],
+  [
+   {
+    "path": "openprotein.models.ModelsAPI",
+    "signature": "(session)",
+    "summary": "API-like accessor that groups all available protein models."
+   },
+   {
+    "path": "openprotein.models.RFdiffusionModel",
+    "signature": "(session)",
+    "summary": "RFdiffusion model for generating de novo protein structures."
+   },
+   {
+    "path": "openprotein.models.ProteinMPNNModel",
+    "signature": "(session)",
+    "summary": "Class for ProteinMPNN model."
+   },
+   {
+    "path": "openprotein.models.ESMIF1Model",
+    "signature": "(session)",
+    "summary": "Class for ESM Inverse Folding (ESM-IF1) model."
+   },
+   {
+    "path": "openprotein.models.BoltzGenModel",
+    "signature": "(session[, ...])",
+    "summary": "BoltzGen model for generating de novo protein structures."
+   }
+  ]
+ ]
+}

@@ -1,0 +1,441 @@
+{
+ "page": "models",
+ "title": "openprotein.models",
+ "headings": [
+  {
+   "level": 2,
+   "text": "Interface"
+  },
+  {
+   "level": 2,
+   "text": "Models"
+  },
+  {
+   "level": 3,
+   "text": "RFdiffusion"
+  },
+  {
+   "level": 4,
+   "text": "Results"
+  },
+  {
+   "level": 3,
+   "text": "BoltzGen"
+  },
+  {
+   "level": 4,
+   "text": "Results"
+  },
+  {
+   "level": 3,
+   "text": "ProteinMPNN"
+  },
+  {
+   "level": 3,
+   "text": "ESM-IF1"
+  }
+ ],
+ "anchor_count": 56,
+ "classes": [
+  {
+   "name": "ModelsAPI",
+   "path": "openprotein.models.ModelsAPI",
+   "kind": "class",
+   "signature": "class openprotein.models.ModelsAPI(session)[source]",
+   "source": "../../_modules/openprotein/models/models.html#ModelsAPI",
+   "members": []
+  },
+  {
+   "name": "RFdiffusionModel",
+   "path": "openprotein.models.RFdiffusionModel",
+   "kind": "class",
+   "signature": "class openprotein.models.RFdiffusionModel(session, model_id='rfdiffusion')[source]",
+   "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel",
+   "members": [
+    {
+     "name": "get_metadata",
+     "path": "openprotein.models.RFdiffusionModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()[source]",
+     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.get_metadata"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.models.RFdiffusionModel.generate",
+     "kind": "method",
+     "signature": "generate(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)[source]",
+     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.generate"
+    },
+    {
+     "name": "predict",
+     "path": "openprotein.models.RFdiffusionModel.predict",
+     "kind": "method",
+     "signature": "predict(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "RFdiffusionFuture",
+   "path": "openprotein.models.RFdiffusionFuture",
+   "kind": "class",
+   "signature": "class openprotein.models.RFdiffusionFuture(*args, **kwargs)[source]",
+   "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionFuture",
+   "members": [
+    {
+     "name": "args",
+     "path": "openprotein.models.RFdiffusionFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.models.RFdiffusionFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.models.RFdiffusionFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.models.RFdiffusionFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.models.RFdiffusionFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "get_item",
+     "path": "openprotein.models.RFdiffusionFuture.get_item",
+     "kind": "method",
+     "signature": "get_item(replicate=0)",
+     "source": null
+    },
+    {
+     "name": "id",
+     "path": "openprotein.models.RFdiffusionFuture.id",
+     "kind": "property",
+     "signature": "property id: str",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.models.RFdiffusionFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.models.RFdiffusionFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.models.RFdiffusionFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.models.RFdiffusionFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.models.RFdiffusionFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.models.RFdiffusionFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "stream",
+     "path": "openprotein.models.RFdiffusionFuture.stream",
+     "kind": "method",
+     "signature": "stream(**kwargs)",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.models.RFdiffusionFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.models.RFdiffusionFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "BoltzGenModel",
+   "path": "openprotein.models.BoltzGenModel",
+   "kind": "class",
+   "signature": "class openprotein.models.BoltzGenModel(session, model_id='boltzgen')[source]",
+   "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel",
+   "members": [
+    {
+     "name": "get_metadata",
+     "path": "openprotein.models.BoltzGenModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()[source]",
+     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.get_metadata"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.models.BoltzGenModel.generate",
+     "kind": "method",
+     "signature": "generate(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.generate"
+    },
+    {
+     "name": "predict",
+     "path": "openprotein.models.BoltzGenModel.predict",
+     "kind": "method",
+     "signature": "predict(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "BoltzGenFuture",
+   "path": "openprotein.models.BoltzGenFuture",
+   "kind": "class",
+   "signature": "class openprotein.models.BoltzGenFuture(*args, **kwargs)[source]",
+   "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenFuture",
+   "members": [
+    {
+     "name": "args",
+     "path": "openprotein.models.BoltzGenFuture.args",
+     "kind": "property",
+     "signature": "property args: dict[str, Any]",
+     "source": null
+    },
+    {
+     "name": "cancelled",
+     "path": "openprotein.models.BoltzGenFuture.cancelled",
+     "kind": "method",
+     "signature": "cancelled()",
+     "source": null
+    },
+    {
+     "name": "created_date",
+     "path": "openprotein.models.BoltzGenFuture.created_date",
+     "kind": "property",
+     "signature": "property created_date: datetime",
+     "source": null
+    },
+    {
+     "name": "done",
+     "path": "openprotein.models.BoltzGenFuture.done",
+     "kind": "method",
+     "signature": "done()",
+     "source": null
+    },
+    {
+     "name": "end_date",
+     "path": "openprotein.models.BoltzGenFuture.end_date",
+     "kind": "property",
+     "signature": "property end_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "get_item",
+     "path": "openprotein.models.BoltzGenFuture.get_item",
+     "kind": "method",
+     "signature": "get_item(replicate=0)",
+     "source": null
+    },
+    {
+     "name": "id",
+     "path": "openprotein.models.BoltzGenFuture.id",
+     "kind": "property",
+     "signature": "property id: str",
+     "source": null
+    },
+    {
+     "name": "job_id",
+     "path": "openprotein.models.BoltzGenFuture.job_id",
+     "kind": "property",
+     "signature": "property job_id: str",
+     "source": null
+    },
+    {
+     "name": "job_type",
+     "path": "openprotein.models.BoltzGenFuture.job_type",
+     "kind": "property",
+     "signature": "property job_type: str",
+     "source": null
+    },
+    {
+     "name": "progress_counter",
+     "path": "openprotein.models.BoltzGenFuture.progress_counter",
+     "kind": "property",
+     "signature": "property progress_counter: int",
+     "source": null
+    },
+    {
+     "name": "refresh",
+     "path": "openprotein.models.BoltzGenFuture.refresh",
+     "kind": "method",
+     "signature": "refresh()",
+     "source": null
+    },
+    {
+     "name": "start_date",
+     "path": "openprotein.models.BoltzGenFuture.start_date",
+     "kind": "property",
+     "signature": "property start_date: datetime | None",
+     "source": null
+    },
+    {
+     "name": "status",
+     "path": "openprotein.models.BoltzGenFuture.status",
+     "kind": "property",
+     "signature": "property status: JobStatus",
+     "source": null
+    },
+    {
+     "name": "stream",
+     "path": "openprotein.models.BoltzGenFuture.stream",
+     "kind": "method",
+     "signature": "stream(**kwargs)",
+     "source": null
+    },
+    {
+     "name": "wait",
+     "path": "openprotein.models.BoltzGenFuture.wait",
+     "kind": "method",
+     "signature": "wait(interval=5, timeout=None, verbose=False)",
+     "source": null
+    },
+    {
+     "name": "wait_until_done",
+     "path": "openprotein.models.BoltzGenFuture.wait_until_done",
+     "kind": "method",
+     "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
+     "source": null
+    }
+   ]
+  },
+  {
+   "name": "ProteinMPNNModel",
+   "path": "openprotein.models.ProteinMPNNModel",
+   "kind": "class",
+   "signature": "class openprotein.models.ProteinMPNNModel(session)[source]",
+   "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel",
+   "members": [
+    {
+     "name": "get_metadata",
+     "path": "openprotein.models.ProteinMPNNModel.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()[source]",
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.get_metadata"
+    },
+    {
+     "name": "score",
+     "path": "openprotein.models.ProteinMPNNModel.score",
+     "kind": "method",
+     "signature": "score(sequences, query)[source]",
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.score"
+    },
+    {
+     "name": "indel",
+     "path": "openprotein.models.ProteinMPNNModel.indel",
+     "kind": "method",
+     "signature": "indel(sequence, query, insert=None, delete=None, **kwargs)[source]",
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.indel"
+    },
+    {
+     "name": "single_site",
+     "path": "openprotein.models.ProteinMPNNModel.single_site",
+     "kind": "method",
+     "signature": "single_site(sequence, query)[source]",
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.single_site"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.models.ProteinMPNNModel.generate",
+     "kind": "method",
+     "signature": "generate(query=None, design=None, num_samples=100, temperature=0.1, seed=None)[source]",
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.generate"
+    }
+   ]
+  },
+  {
+   "name": "ESMIF1Model",
+   "path": "openprotein.models.ESMIF1Model",
+   "kind": "class",
+   "signature": "class openprotein.models.ESMIF1Model(session)[source]",
+   "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model",
+   "members": [
+    {
+     "name": "get_metadata",
+     "path": "openprotein.models.ESMIF1Model.get_metadata",
+     "kind": "method",
+     "signature": "get_metadata()[source]",
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.get_metadata"
+    },
+    {
+     "name": "score",
+     "path": "openprotein.models.ESMIF1Model.score",
+     "kind": "method",
+     "signature": "score(sequences, query)[source]",
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.score"
+    },
+    {
+     "name": "single_site",
+     "path": "openprotein.models.ESMIF1Model.single_site",
+     "kind": "method",
+     "signature": "single_site(sequence, query)[source]",
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.single_site"
+    },
+    {
+     "name": "indel",
+     "path": "openprotein.models.ESMIF1Model.indel",
+     "kind": "method",
+     "signature": "indel(sequence, query, insert=None, delete=None)[source]",
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.indel"
+    },
+    {
+     "name": "generate",
+     "path": "openprotein.models.ESMIF1Model.generate",
+     "kind": "method",
+     "signature": "generate(query=None, design=None, num_samples=100, temperature=1.0, seed=None)[source]",
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.generate"
+    }
+   ]
+  }
+ ],
+ "module_level": [],
+ "autosummary": []
+}

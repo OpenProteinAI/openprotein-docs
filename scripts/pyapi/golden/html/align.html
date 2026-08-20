@@ -1,0 +1,1003 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.align &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/align';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein.prompt" href="prompt.html" />
+    <link rel="prev" title="openprotein.jobs" href="jobs.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.align</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-align">
+<h1>openprotein.align<a class="headerlink" href="#openprotein-align" title="Link to this heading">#</a></h1>
+<p>Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.</p>
+<section id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.align.</span></span><span class="sig-name descname"><span class="pre">AlignAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI" title="Link to this definition">#</a></dt>
+<dd><p>Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.mafft">
+<span class="sig-name descname"><span class="pre">mafft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.mafft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.mafft" title="Link to this definition">#</a></dt>
+<dd><p>Align sequences using the <cite>mafft</cite> algorithm.</p>
+<p>Set <cite>auto</cite> to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><em>bytes</em><em> or </em><em>str</em><em>]</em>) – Sequences to align.</p></li>
+<li><p><strong>names</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optional list of sequence names, must be the same length as sequences if provided.</p></li>
+<li><p><strong>auto</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Set to True to automatically set algorithm parameters.</p></li>
+<li><p><strong>ep</strong> (<em>float</em><em>, </em><em>optional</em>) – MAFFT “ep” parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default.</p></li>
+<li><p><strong>op</strong> (<em>float</em><em>, </em><em>optional</em>) – MAFFT “op” parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If names and sequences are not the same length.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.mafft_file">
+<span class="sig-name descname"><span class="pre">mafft_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.mafft_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.mafft_file" title="Link to this definition">#</a></dt>
+<dd><p>Align sequences using the <cite>mafft</cite> algorithm. Sequences can be provided as FASTA or CSV formats.
+If CSV, the file must be headerless with either a single sequence column or name, sequence columns.</p>
+<p>Set <cite>auto</cite> to True to automatically attempt the best parameters. Leave a parameter as None to use system defaults.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>file-like object</em>) – Sequences to align in FASTA or CSV format.</p></li>
+<li><p><strong>auto</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Set to True to automatically set algorithm parameters.</p></li>
+<li><p><strong>ep</strong> (<em>float</em><em>, </em><em>optional</em>) – MAFFT “ep” parameter. Sets the offset value for the scoring matrix; lower values make gap opening more difficult. If None, uses system default.</p></li>
+<li><p><strong>op</strong> (<em>float</em><em>, </em><em>optional</em>) – MAFFT “op” parameter. Sets the gap opening penalty; higher values increase the cost of opening gaps. If None, uses system default.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.clustalo">
+<span class="sig-name descname"><span class="pre">clustalo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.clustalo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.clustalo" title="Link to this definition">#</a></dt>
+<dd><p>Align sequences using the <cite>clustal omega</cite> algorithm.</p>
+<p>Sequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><em>bytes</em><em> or </em><em>str</em><em>]</em>) – Sequences to align.</p></li>
+<li><p><strong>names</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optional list of sequence names, must be the same length as sequences if provided.</p></li>
+<li><p><strong>clustersize</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of sequences per cluster during guide tree generation. If None, uses the default value.</p></li>
+<li><p><strong>iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of refinement iterations performed during alignment. If None, uses the default value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If names and sequences are not the same length.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.clustalo_file">
+<span class="sig-name descname"><span class="pre">clustalo_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.clustalo_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.clustalo_file" title="Link to this definition">#</a></dt>
+<dd><p>Align sequences using the <cite>clustal omega</cite> algorithm.</p>
+<p>Sequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>file-like object</em>) – Sequences to align in FASTA or CSV format.</p></li>
+<li><p><strong>clustersize</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of sequences per cluster during guide tree generation. If None, uses the default value.</p></li>
+<li><p><strong>iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of refinement iterations performed during alignment. If None, uses the default value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.abnumber">
+<span class="sig-name descname"><span class="pre">abnumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AbNumberScheme.CHOTHIA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_minority_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.abnumber"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.abnumber" title="Link to this definition">#</a></dt>
+<dd><p>Align antibody sequences using <cite>AbNumber</cite>.</p>
+<p>Sequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.</p>
+<p>The antibody numbering scheme can be specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><em>bytes</em><em> or </em><em>str</em><em>]</em>) – Sequences to align.</p></li>
+<li><p><strong>names</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optional list of sequence names, must be the same length as sequences if provided.</p></li>
+<li><p><strong>scheme</strong> (<a class="reference internal" href="#openprotein.align.schemas.AbNumberScheme" title="openprotein.align.schemas.AbNumberScheme"><em>AbNumberScheme</em></a><em>, </em><em>default=AbNumberScheme.CHOTHIA</em>) – Antibody numbering scheme.</p></li>
+<li><p><strong>drop_minority_chains</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, drop sequences belonging to chain types that are in the
+minority (e.g. heavy vs light) so the resulting alignment contains
+only the dominant chain type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If names and sequences are not the same length.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.abnumber_file">
+<span class="sig-name descname"><span class="pre">abnumber_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AbNumberScheme.CHOTHIA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_minority_chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.abnumber_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.abnumber_file" title="Link to this definition">#</a></dt>
+<dd><p>Align antibody sequences using <cite>AbNumber</cite>.</p>
+<p>Sequences can be provided as FASTA or CSV formats. If CSV, the file must be headerless with either a single sequence column or name, sequence columns.</p>
+<p>The antibody numbering scheme can be specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>file-like object</em>) – Sequences to align in FASTA or CSV format.</p></li>
+<li><p><strong>scheme</strong> (<a class="reference internal" href="#openprotein.align.schemas.AbNumberScheme" title="openprotein.align.schemas.AbNumberScheme"><em>AbNumberScheme</em></a><em>, </em><em>default=AbNumberScheme.CHOTHIA</em>) – Antibody numbering scheme.</p></li>
+<li><p><strong>drop_minority_chains</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, drop sequences belonging to chain types that are in the
+minority (e.g. heavy vs light) so the resulting alignment contains
+only the dominant chain type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.upload_msa">
+<span class="sig-name descname"><span class="pre">upload_msa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msa_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.upload_msa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.upload_msa" title="Link to this definition">#</a></dt>
+<dd><p>Upload an MSA from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msa_file</strong> (<em>str</em>) – Path to a ready-made MSA file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>APIError</strong> – If there is an issue with the API request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.create_msa">
+<span class="sig-name descname"><span class="pre">create_msa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.create_msa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.create_msa" title="Link to this definition">#</a></dt>
+<dd><p>Construct an MSA via homology search with the seed sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<em>bytes</em>) – Seed sequence for the MSA construction.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future object awaiting the contents of the MSA upload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture">MSAFuture</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>APIError</strong> – If there is an issue with the API request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.upload_prompt">
+<span class="sig-name descname"><span class="pre">upload_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.upload_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.upload_prompt" title="Link to this definition">#</a></dt>
+<dd><p>Directly upload a prompt.</p>
+<p>This method is deprecated. Use <cite>create_prompt</cite> on the <cite>prompt</cite> module instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompt_file</strong> (<em>BinaryIO</em>) – Binary I/O object representing the prompt file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An object representing the status and results of the prompt job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="prompt.html#openprotein.prompt.PromptJob" title="openprotein.prompt.PromptJob">PromptJob</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DeprecationError</strong> – This method is no longer supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.get_prompt">
+<span class="sig-name descname"><span class="pre">get_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.get_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.get_prompt" title="Link to this definition">#</a></dt>
+<dd><p>Get prompts for a given job.</p>
+<p>This method is deprecated. Use <cite>get_prompt</cite> on the <cite>prompt</cite> module instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job"><em>Job</em></a>) – The job for which to retrieve data.</p></li>
+<li><p><strong>prompt_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The replicate number for the prompt (input_type=-PROMPT only).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An iterator over rows of the prompt data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator[list[str]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DeprecationError</strong> – This method is no longer supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.get_seed">
+<span class="sig-name descname"><span class="pre">get_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.get_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.get_seed" title="Link to this definition">#</a></dt>
+<dd><p>Get seed sequence for a given MSA job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job"><em>Job</em></a>) – The job for which to retrieve data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Seed sequence that was used to generate the MSA.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.AlignAPI.get_msa">
+<span class="sig-name descname"><span class="pre">get_msa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/align.html#AlignAPI.get_msa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.AlignAPI.get_msa" title="Link to this definition">#</a></dt>
+<dd><p>Get generated MSA for a given job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job"><em>Job</em></a>) – The job for which to retrieve data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An iterator over names and sequences of the MSA data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator[tuple[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="abnumber-schemes">
+<h3>AbNumber schemes<a class="headerlink" href="#abnumber-schemes" title="Link to this heading">#</a></h3>
+<p>AbNumber supports the following schemes:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.align.schemas.AbNumberScheme">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.align.schemas.</span></span><span class="sig-name descname"><span class="pre">AbNumberScheme</span></span><a class="reference internal" href="../../_modules/openprotein/align/schemas.html#AbNumberScheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.schemas.AbNumberScheme" title="Link to this definition">#</a></dt>
+<dd><p>Antibody numbering scheme.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.align.schemas.AbNumberScheme.IMGT">
+<span class="sig-name descname"><span class="pre">IMGT</span></span><a class="headerlink" href="#openprotein.align.schemas.AbNumberScheme.IMGT" title="Link to this definition">#</a></dt>
+<dd><p>IMGT numbering scheme, a standardized system unifying numbering across
+all immunoglobulin and T-cell receptor variable domains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.align.schemas.AbNumberScheme.CHOTHIA">
+<span class="sig-name descname"><span class="pre">CHOTHIA</span></span><a class="headerlink" href="#openprotein.align.schemas.AbNumberScheme.CHOTHIA" title="Link to this definition">#</a></dt>
+<dd><p>Chothia numbering scheme, based on the structural location of
+canonical loops in antibody variable domains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.align.schemas.AbNumberScheme.KABAT">
+<span class="sig-name descname"><span class="pre">KABAT</span></span><a class="headerlink" href="#openprotein.align.schemas.AbNumberScheme.KABAT" title="Link to this definition">#</a></dt>
+<dd><p>Kabat numbering scheme, based on sequence variability across
+antibody variable domains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.align.schemas.AbNumberScheme.AHO">
+<span class="sig-name descname"><span class="pre">AHO</span></span><a class="headerlink" href="#openprotein.align.schemas.AbNumberScheme.AHO" title="Link to this definition">#</a></dt>
+<dd><p>AHo numbering scheme, a structure-based unified numbering scheme
+for antibody variable domains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.align.MSAFuture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.align.</span></span><span class="sig-name descname"><span class="pre">MSAFuture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/msa.html#MSAFuture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.MSAFuture" title="Link to this definition">#</a></dt>
+<dd><p>Represents a future for MSA (Multiple Sequence Alignment) results.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.align.MSAFuture.sample_prompt">
+<span class="sig-name descname"><span class="pre">sample_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_sequences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">homology_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_include_seed_sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_ensemble_prompts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/align/msa.html#MSAFuture.sample_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.align.MSAFuture.sample_prompt" title="Link to this definition">#</a></dt>
+<dd><p>Create a protein sequence prompt from the linked MSA for PoET Jobs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_sequences</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of sequences in the prompt. Must be less than 100.</p></li>
+<li><p><strong>num_residues</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of residues (tokens) in the prompt. Must be less than 24577.</p></li>
+<li><p><strong>method</strong> (<em>MSASamplingMethod</em><em>, </em><em>optional</em>) – Method to use for MSA sampling. Defaults to NEIGHBORS_NONGAP_NORM_NO_LIMIT.</p></li>
+<li><p><strong>homology_level</strong> (<em>float</em><em>, </em><em>optional</em>) – Level of homology for sequences in the MSA (neighbors methods only). Must be between 0 and 1. Defaults to 0.8.</p></li>
+<li><p><strong>max_similarity</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 1.0.</p></li>
+<li><p><strong>min_similarity</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum similarity between sequences in the MSA and the seed. Must be between 0 and 1. Defaults to 0.0.</p></li>
+<li><p><strong>always_include_seed_sequence</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to always include the seed sequence in the MSA. Defaults to False.</p></li>
+<li><p><strong>num_ensemble_prompts</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of ensemble jobs to run. Defaults to 1.</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Seed for random number generation. Defaults to a random number between 0 and 2**32-1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>InvalidParameterError</strong> – If provided parameter values are not in the allowed range.</p></li>
+<li><p><strong>MissingParameterError</strong> – If both or none of ‘num_sequences’ and ‘num_residues’ are specified.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Prompt instance for the created prompt job.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="prompt.html#openprotein.prompt.Prompt" title="openprotein.prompt.Prompt">Prompt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI"><code class="docutils literal notranslate"><span class="pre">AlignAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.mafft"><code class="docutils literal notranslate"><span class="pre">AlignAPI.mafft()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.mafft_file"><code class="docutils literal notranslate"><span class="pre">AlignAPI.mafft_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.clustalo"><code class="docutils literal notranslate"><span class="pre">AlignAPI.clustalo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.clustalo_file"><code class="docutils literal notranslate"><span class="pre">AlignAPI.clustalo_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.abnumber"><code class="docutils literal notranslate"><span class="pre">AlignAPI.abnumber()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.abnumber_file"><code class="docutils literal notranslate"><span class="pre">AlignAPI.abnumber_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.upload_msa"><code class="docutils literal notranslate"><span class="pre">AlignAPI.upload_msa()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.create_msa"><code class="docutils literal notranslate"><span class="pre">AlignAPI.create_msa()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.upload_prompt"><code class="docutils literal notranslate"><span class="pre">AlignAPI.upload_prompt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.get_prompt"><code class="docutils literal notranslate"><span class="pre">AlignAPI.get_prompt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.get_seed"><code class="docutils literal notranslate"><span class="pre">AlignAPI.get_seed()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.AlignAPI.get_msa"><code class="docutils literal notranslate"><span class="pre">AlignAPI.get_msa()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abnumber-schemes">AbNumber schemes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.schemas.AbNumberScheme"><code class="docutils literal notranslate"><span class="pre">AbNumberScheme</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.schemas.AbNumberScheme.IMGT"><code class="docutils literal notranslate"><span class="pre">AbNumberScheme.IMGT</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.schemas.AbNumberScheme.CHOTHIA"><code class="docutils literal notranslate"><span class="pre">AbNumberScheme.CHOTHIA</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.schemas.AbNumberScheme.KABAT"><code class="docutils literal notranslate"><span class="pre">AbNumberScheme.KABAT</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.schemas.AbNumberScheme.AHO"><code class="docutils literal notranslate"><span class="pre">AbNumberScheme.AHO</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.MSAFuture"><code class="docutils literal notranslate"><span class="pre">MSAFuture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.align.MSAFuture.sample_prompt"><code class="docutils literal notranslate"><span class="pre">MSAFuture.sample_prompt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

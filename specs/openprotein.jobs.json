@@ -1,0 +1,283 @@
+{
+ "module": "openprotein.jobs",
+ "entries": [
+  {
+   "name": "JobsAPI",
+   "path": "openprotein.jobs.JobsAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "API interface to get jobs.",
+   "module": "openprotein.jobs.jobs",
+   "source": {
+    "file": "openprotein/jobs/jobs.py",
+    "line": 12,
+    "end": 88
+   },
+   "members": [
+    {
+     "name": "list",
+     "kind": "method",
+     "doc": "List jobs.\n\nPass `page_size` / `page_offset` to paginate. `limit` is a deprecated\nalias for `page_size` \u2014 pass one, not both.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/jobs.py",
+      "line": 20,
+      "end": 57
+     },
+     "signature": "(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None)",
+     "returns": "list[Job]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List jobs.\n\nPass `page_size` / `page_offset` to paginate. `limit` is a deprecated\nalias for `page_size` \u2014 pass one, not both."
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Get job by ID.\n\nNotes\n-----\nThis retrieves the job and loads it as a future so you can do `wait` and `get`.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/jobs.py",
+      "line": 65,
+      "end": 73
+     },
+     "signature": "(job_id, verbose=False)",
+     "returns": "Future",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get job by ID.\n\nNotes\n-----\nThis retrieves the job and loads it as a future so you can do `wait` and `get`."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Waits on a job result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/jobs.py",
+      "line": 80,
+      "end": 88
+     },
+     "signature": "(future, interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Waits on a job result."
+      }
+     ]
+    }
+   ],
+   "section": "Interface"
+  },
+  {
+   "name": "Job",
+   "path": "openprotein.jobs.Job",
+   "kind": "class",
+   "signature": "(*, job_id, job_type, status, created_date, start_date, end_date, prerequisite_job_id, progress_message, progress_counter, sequence_length, failure_message)",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": null,
+   "module": "openprotein.jobs.schemas",
+   "source": {
+    "file": "openprotein/jobs/schemas.py",
+    "line": 90,
+    "end": 135
+   },
+   "members": [],
+   "section": "Classes"
+  },
+  {
+   "name": "Future",
+   "path": "openprotein.jobs.Future",
+   "kind": "class",
+   "signature": "(session, job)",
+   "bases": [
+    "ABC",
+    "Generic[V]"
+   ],
+   "doc": "Base class for all Futures returning results from a job.",
+   "module": "openprotein.jobs.futures",
+   "source": {
+    "file": "openprotein/jobs/futures.py",
+    "line": 40,
+    "end": 404
+   },
+   "members": [
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 378,
+      "end": 404
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "V",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Classes"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

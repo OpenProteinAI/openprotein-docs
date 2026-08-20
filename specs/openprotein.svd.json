@@ -1,0 +1,641 @@
+{
+ "module": "openprotein.svd",
+ "entries": [
+  {
+   "name": "SVDModel",
+   "path": "openprotein.svd.SVDModel",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None)",
+   "bases": [
+    "Future"
+   ],
+   "doc": "SVD model that can be used to create reduced embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job.",
+   "module": "openprotein.svd.models",
+   "source": {
+    "file": "openprotein/svd/models.py",
+    "line": 23,
+    "end": 272
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 60,
+      "end": 61
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "n_components",
+     "kind": "property",
+     "doc": "Number of components of the SVD.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 64,
+      "end": 66
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of components of the SVD."
+      }
+     ]
+    },
+    {
+     "name": "sequence_length",
+     "kind": "property",
+     "doc": "Sequence length constraint of the SVD.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 69,
+      "end": 71
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Sequence length constraint of the SVD."
+      }
+     ]
+    },
+    {
+     "name": "reduction",
+     "kind": "property",
+     "doc": "Reduction of embeddings used to fit the SVD.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 74,
+      "end": 76
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Reduction of embeddings used to fit the SVD."
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "Metadata of the SVD.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 79,
+      "end": 82
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Metadata of the SVD."
+      }
+     ]
+    },
+    {
+     "name": "model",
+     "kind": "property",
+     "doc": "Base embeddings model used for the SVD.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 93,
+      "end": 95
+     },
+     "annotation": "EmbeddingModel",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Base embeddings model used for the SVD."
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete this SVD model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 97,
+      "end": 101
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete this SVD model."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 107,
+      "end": 108
+     },
+     "signature": "(verbose=False, **kwargs)",
+     "returns": "Self",
+     "parsed": []
+    },
+    {
+     "name": "get_inputs",
+     "kind": "method",
+     "doc": "Get sequences used for svd job.\n\nReturns\n-------\nlist[bytes]\n    List of sequences",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 110,
+      "end": 119
+     },
+     "signature": "()",
+     "returns": "list[bytes]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get sequences used for svd job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[bytes]",
+         "text": "List of sequences"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Use this SVD model to get reduced embeddings from input sequences.\n\nParameters\n----------\nsequences : List[bytes]\n    List of protein sequences.\n\nReturns\n-------\nSVDEmbeddingsResultFuture\n    Future result containing the reduced embeddings.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 121,
+      "end": 148
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "SVDEmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Use this SVD model to get reduced embeddings from input sequences."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "List[bytes]",
+         "default": null,
+         "text": "List of protein sequences."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDEmbeddingsResultFuture",
+         "text": "Future result containing the reduced embeddings."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit an UMAP on the embedding results of this model. \n\nThis function will create an UMAPModel based on the embeddings from this model             as well as the hyperparameters specified in the args.  \n\nParameters\n----------\nsequences : List[bytes] \n    sequences to UMAP\nn_components: int \n    number of components in UMAP. Will determine output shapes\nreduction: ReductionType | None\n    embeddings reduction to use (e.g. mean)\n\nReturns\n-------\nUMAPModel\n    UMAP model fitted on the reduced embeddings from provided sequences or assay.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 150,
+      "end": 197
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an UMAP on the embedding results of this model. \n\nThis function will create an UMAPModel based on the embeddings from this model             as well as the hyperparameters specified in the args.  "
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "List[bytes]",
+         "default": "None",
+         "text": "sequences to UMAP"
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "number of components in UMAP. Will determine output shapes"
+        },
+        {
+         "name": "reduction",
+         "type": null,
+         "default": null,
+         "text": "embeddings reduction to use (e.g. mean)"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "UMAP model fitted on the reduced embeddings from provided sequences or assay."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a GP on assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata or AssayDataset or str\n    Assay to fit GP on. Or its assay_id.\nproperties: list of str\n    Properties in the assay to fit the gp on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\n\nReturns\n-------\nPredictorModel\n    Property predictor model trained using the reduced embeddings with provided assay and properties.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 199,
+      "end": 272
+     },
+     "signature": "(assay, properties, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a GP on assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata or AssayDataset or str",
+         "default": null,
+         "text": "Assay to fit GP on. Or its assay_id."
+        },
+        {
+         "name": "properties",
+         "type": "list[str]",
+         "default": null,
+         "text": "Properties in the assay to fit the gp on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "Property predictor model trained using the reduced embeddings with provided assay and properties."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.svd.models.SVDModel",
+     "source": {
+      "file": "openprotein/svd/models.py",
+      "line": 60,
+      "end": 61
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Transform Models"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

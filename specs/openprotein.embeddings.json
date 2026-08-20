@@ -1,0 +1,4556 @@
+{
+ "module": "openprotein.embeddings",
+ "entries": [
+  {
+   "name": "EmbeddingsAPI",
+   "path": "openprotein.embeddings.EmbeddingsAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "Embeddings API providing the interface for creating embeddings using protein language models.\n\nYou can access all our models either via :meth:`get_model` or directly through the session's embedding attribute using the model's ID and the desired method. For example, to use the attention method on the protein sequence model, you would use ``session.embedding.prot_seq.attn()``.\n\nExamples\n--------\nAccessing a model's method:\n\n.. code-block:: python\n\n    # To call the attention method on the protein sequence model:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    session.embedding.prot_seq.attn()\n\nUsing the `get_model` method:\n\n.. code-block:: python\n\n    # Get a model instance by name:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    # list available models:\n    print(session.embedding.list_models() )\n    # init model by name\n    model = session.embedding.get_model('prot-seq')",
+   "module": "openprotein.embeddings.embeddings",
+   "source": {
+    "file": "openprotein/embeddings/embeddings.py",
+    "line": 15,
+    "end": 161
+   },
+   "members": [
+    {
+     "name": "poet2",
+     "kind": "attribute",
+     "doc": "PoET-2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 49,
+      "end": 49
+     },
+     "annotation": "PoET2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "poet",
+     "kind": "attribute",
+     "doc": "PoET model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 51,
+      "end": 51
+     },
+     "annotation": "PoETModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "prot_seq",
+     "kind": "attribute",
+     "doc": "Prot-seq model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 53,
+      "end": 53
+     },
+     "annotation": "OpenProteinModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "rotaprot_large_uniref50w",
+     "kind": "attribute",
+     "doc": "Rotaprot model trained on UniRef50",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 55,
+      "end": 55
+     },
+     "annotation": "OpenProteinModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "rotaprot_large_uniref90_ft",
+     "kind": "attribute",
+     "doc": "Rotaprot model trained on UniRef90",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 57,
+      "end": 57
+     },
+     "annotation": "OpenProteinModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esm1b",
+     "kind": "attribute",
+     "doc": "ESM1b model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 62,
+      "end": 62
+     },
+     "annotation": "ESMModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esm1v",
+     "kind": "attribute",
+     "doc": "ESM1v model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 66,
+      "end": 66
+     },
+     "annotation": "ESMModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esm2",
+     "kind": "attribute",
+     "doc": "ESM2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 74,
+      "end": 74
+     },
+     "annotation": "ESMModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esmc_300m",
+     "kind": "attribute",
+     "doc": "ESM-C (Cambrian) model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 82,
+      "end": 82
+     },
+     "annotation": "ESMModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "list_models",
+     "kind": "method",
+     "doc": "list models available for creating embeddings of your sequences",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 107,
+      "end": 119
+     },
+     "signature": "()",
+     "returns": "list[EmbeddingModel]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "list models available for creating embeddings of your sequences"
+      }
+     ]
+    },
+    {
+     "name": "get_model",
+     "kind": "method",
+     "doc": "Get model by model_id. \n\nProtembedModel allows all the usual job manipulation:             e.g. making POST and GET requests for this model specifically. \n\n\nParameters\n----------\nmodel_id : str\n    the model identifier\n\nReturns\n-------\nProtembedModel\n    The model\n\nRaises\n------\nHTTPError\n    If the GET request does not succeed.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/embeddings.py",
+      "line": 121,
+      "end": 145
+     },
+     "signature": "(name)",
+     "returns": "EmbeddingModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model by model_id. \n\nProtembedModel allows all the usual job manipulation:             e.g. making POST and GET requests for this model specifically. "
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "model_id",
+         "type": "str",
+         "default": null,
+         "text": "the model identifier"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ProtembedModel",
+         "text": "The model"
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "HTTPError",
+         "default": null,
+         "text": "If the GET request does not succeed."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface"
+  },
+  {
+   "name": "PoET2Model",
+   "path": "openprotein.embeddings.PoET2Model",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "PoETModel",
+    "EmbeddingModel"
+   ],
+   "doc": "Class for OpenProtein's foundation model PoET 2.\n\nPoET functions are dependent on a prompt supplied via the prompt endpoints.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet2?",
+   "module": "openprotein.embeddings.poet2",
+   "source": {
+    "file": "openprotein/embeddings/poet2.py",
+    "line": 31,
+    "end": 588
+   },
+   "members": [
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Default is ReductionType.MEAN.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    A future object that returns the embeddings of the submitted sequences.\n\n    Note: The embeddings for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the dimensions of the ensemble.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 61,
+      "end": 113
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Default is ReductionType.MEAN.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    A future object that returns the embeddings of the submitted sequences.\n\n    Note: The embeddings for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the dimensions of the ensemble."
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to analyze.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    A future object that returns the logits of the submitted sequences.\n\n    Note: The logits for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the size of the vocabulary.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 115,
+      "end": 163
+     },
+     "signature": "(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to analyze.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    A future object that returns the logits of the submitted sequences.\n\n    Note: The logits for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the size of the vocabulary."
+      }
+     ]
+    },
+    {
+     "name": "score",
+     "kind": "method",
+     "doc": "Score query sequences using the specified prompt.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to score.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the submitted sequences.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 165,
+      "end": 207
+     },
+     "signature": "(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "EmbeddingsScoreFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score query sequences using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes",
+         "default": null,
+         "text": "Sequences to score."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt or prompt_id or prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreFuture",
+         "text": "A future object that returns the scores of the submitted sequences."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "indel",
+     "kind": "method",
+     "doc": "Score all indels of the query sequence using the specified prompt.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\ninsert : str or None, optional\n    Insertion fragment at each site.\ndelete : list of int or None, optional\n    Range of size of fragment to delete at each site.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the indel-ed sequence.\n\nRaises\n------\nValueError\n    If neither insert nor delete is provided.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 209,
+      "end": 264
+     },
+     "signature": "(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, insert=None, delete=None, **kwargs)",
+     "returns": "EmbeddingsScoreFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score all indels of the query sequence using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "bytes",
+         "default": null,
+         "text": "Sequence to analyze."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "insert",
+         "type": "str or None",
+         "default": "None",
+         "text": "Insertion fragment at each site."
+        },
+        {
+         "name": "delete",
+         "type": "list of int or None",
+         "default": "None",
+         "text": "Range of size of fragment to delete at each site."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreFuture",
+         "text": "A future object that returns the scores of the indel-ed sequence."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "ValueError",
+         "default": null,
+         "text": "If neither insert nor delete is provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "single_site",
+     "kind": "method",
+     "doc": "Score all single substitutions of the query sequence using the specified prompt.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nprompt : str or Prompt or None, optional\n    Prompt or prompt_id or prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the mutated sequence.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 266,
+      "end": 308
+     },
+     "signature": "(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "EmbeddingsScoreSingleSiteFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score all single substitutions of the query sequence using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "bytes",
+         "default": null,
+         "text": "Sequence to analyze."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt or prompt_id or prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreFuture",
+         "text": "A future object that returns the scores of the mutated sequence."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "generate",
+     "kind": "method",
+     "doc": "Generate protein sequences conditioned on a prompt.\n\nParameters\n----------\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or list of these or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\nnum_samples : int, optional\n    The number of samples to generate. Default is 100.\ntemperature : float, optional\n    The temperature for sampling. Higher values produce more random outputs. Default is 1.0.\ntopk : float or None, optional\n    The number of top-k residues to consider during sampling. Default is None.\ntopp : float or None, optional\n    The cumulative probability threshold for top-p sampling. Default is None.\nmax_length : int, optional\n    The maximum length of generated proteins. Default is 1000.\nseed : int or None, optional\n    Seed for random number generation. Default is None.\nensemble_weights : Sequence of float or None, optional\n    Weights for combining likelihoods from multiple prompts in the ensemble.\n    The length of this sequence must match the number of prompts.\n    All weights must be finite. If ensemble_method is \"arithmetic\", then weights\n    must also be non-negative, and have a non-zero sum.\nensemble_method : {'arithmetic', 'geometric'} or None, optional\n    Method used to combine likelihoods from multiple prompts in the ensemble.\n    If \"arithmetic\", the weighted mean is used; if \"geometric\", the weighted\n    geometric mean is used. If None (default), the method defaults to\n    \"arithmetic\", but this behavior may change in the future.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsGenerateFuture\n    A future object representing the status and information about the generation job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 310,
+      "end": 409
+     },
+     "signature": "(prompt, query=None, design=None, use_query_structure_in_decoder=True, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, ensemble_weights=None, ensemble_method=None, **kwargs)",
+     "returns": "EmbeddingsGenerateFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Generate protein sequences conditioned on a prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": null,
+         "text": "Prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or list of these or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "num_samples",
+         "type": "int",
+         "default": "100",
+         "text": "The number of samples to generate. Default is 100."
+        },
+        {
+         "name": "temperature",
+         "type": "float",
+         "default": "1.0",
+         "text": "The temperature for sampling. Higher values produce more random outputs. Default is 1.0."
+        },
+        {
+         "name": "topk",
+         "type": "float or None",
+         "default": "None",
+         "text": "The number of top-k residues to consider during sampling. Default is None."
+        },
+        {
+         "name": "topp",
+         "type": "float or None",
+         "default": "None",
+         "text": "The cumulative probability threshold for top-p sampling. Default is None."
+        },
+        {
+         "name": "max_length",
+         "type": "int",
+         "default": "1000",
+         "text": "The maximum length of generated proteins. Default is 1000."
+        },
+        {
+         "name": "seed",
+         "type": "int or None",
+         "default": "None",
+         "text": "Seed for random number generation. Default is None."
+        },
+        {
+         "name": "ensemble_weights",
+         "type": "Sequence of float or None",
+         "default": "None",
+         "text": "Weights for combining likelihoods from multiple prompts in the ensemble.\nThe length of this sequence must match the number of prompts.\nAll weights must be finite. If ensemble_method is \"arithmetic\", then weights\nmust also be non-negative, and have a non-zero sum."
+        },
+        {
+         "name": "ensemble_method",
+         "type": "(arithmetic, geometric)",
+         "default": "'arithmetic'",
+         "text": "Method used to combine likelihoods from multiple prompts in the ensemble.\nIf \"arithmetic\", the weighted mean is used; if \"geometric\", the weighted\ngeometric mean is used. If None (default), the method defaults to\n\"arithmetic\", but this behavior may change in the future."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsGenerateFuture",
+         "text": "A future object representing the status and information about the generation job."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of PoET.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit SVD. If None, assay must be provided.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit SVD. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean).\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments for the model.\n\nReturns\n-------\nSVDModel\n    A future that represents the fitted SVD model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 411,
+      "end": 468
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of PoET.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit SVD. If None, assay must be provided."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit SVD. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g. mean)."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments for the model."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "A future that represents the fitted SVD model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on assay using PoET and hyperparameters.\n\nThis function will create a UMAP based on the embeddings from this PoET model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit UMAP. If None, assay must be provided.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit UMAP. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Default is ReductionType.MEAN.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments for the model.\n\nReturns\n-------\nUMAPModel\n    A future that represents the fitted UMAP model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 470,
+      "end": 527
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on assay using PoET and hyperparameters.\n\nThis function will create a UMAP based on the embeddings from this PoET model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit UMAP. If None, assay must be provided."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit UMAP. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Embeddings reduction to use (e.g. mean). Default is ReductionType.MEAN."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments for the model."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "A future that represents the fitted UMAP model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata or AssayDataset or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition PoET model.\nquery : str or bytes or Protein or Complex or Query or None, optional\n    Query to use with prompt.\nuse_query_structure_in_decoder : bool, optional\n    Whether to use query structure in decoder. Default is True.\ndecoder_type : {'mlm', 'clm'} or None, optional\n    Decoder type. Default is None.\n**kwargs\n    Additional keyword arguments for the model.\n\nReturns\n-------\nPredictorModel\n    A future that represents the trained predictor model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet2.py",
+      "line": 529,
+      "end": 588
+     },
+     "signature": "(assay, properties, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata or AssayDataset or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition PoET model."
+        },
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query or None",
+         "default": "None",
+         "text": "Query to use with prompt."
+        },
+        {
+         "name": "use_query_structure_in_decoder",
+         "type": "bool",
+         "default": "True",
+         "text": "Whether to use query structure in decoder. Default is True."
+        },
+        {
+         "name": "decoder_type",
+         "type": "(mlm, clm)",
+         "default": "'mlm'",
+         "text": "Decoder type. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments for the model."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "A future that represents the trained predictor model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "PoETModel",
+   "path": "openprotein.embeddings.PoETModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "EmbeddingModel"
+   ],
+   "doc": "Class for OpenProtein's foundation model PoET.\n\nNote\n----\nPoET functions are dependent on a prompt supplied via the prompt endpoints.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet.<embeddings_method>",
+   "module": "openprotein.embeddings.poet",
+   "source": {
+    "file": "openprotein/embeddings/poet.py",
+    "line": 26,
+    "end": 482
+   },
+   "members": [
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using the PoET model.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to embed.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g., mean). Default is ReductionType.MEAN.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object that returns the embeddings of the submitted sequences.\n\n    Note: The embeddings for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the dimensions of the ensemble.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 54,
+      "end": 95
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, prompt=None, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using the PoET model.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to embed.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g., mean). Default is ReductionType.MEAN.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object that returns the embeddings of the submitted sequences.\n\n    Note: The embeddings for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the dimensions of the ensemble."
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logits for sequences using the PoET model.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to analyze.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object that returns the logits of the submitted sequences.\n\n    Note: The logits for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the size of the vocabulary.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 97,
+      "end": 130
+     },
+     "signature": "(sequences, prompt=None, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logits for sequences using the PoET model.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to analyze.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object that returns the logits of the submitted sequences.\n\n    Note: The logits for PoET can have an extra first dimension if using ensemble\n    prompts, where the first dimension is the number of replicates in the ensemble\n    prompt. i.e. the shape is ``(N, L, D)`` if ``N`` > 1 else ``(L, D)`` where ``N`` is\n    the number of replicates in the prompt, ``L`` is the length of the sequence, ``D`` is\n    the size of the vocabulary."
+      }
+     ]
+    },
+    {
+     "name": "score",
+     "kind": "method",
+     "doc": "Score query sequences using the specified prompt.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to score.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    Future object that returns the scores of the submitted sequences.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 145,
+      "end": 181
+     },
+     "signature": "(sequences, prompt=None, **kwargs)",
+     "returns": "EmbeddingsScoreFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score query sequences using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes",
+         "default": null,
+         "text": "Sequences to score."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreFuture",
+         "text": "Future object that returns the scores of the submitted sequences."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "indel",
+     "kind": "method",
+     "doc": "Score all indels of the query sequence using the specified prompt.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\ninsert : str or None, optional\n    Insertion fragment at each site.\ndelete : list of int or None, optional\n    Range of size of fragment to delete at each site.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    Future object that returns the scores of the indel-ed sequence.\n\nRaises\n------\nValueError\n    If neither insert nor delete is provided.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 183,
+      "end": 234
+     },
+     "signature": "(sequence, prompt=None, insert=None, delete=None, **kwargs)",
+     "returns": "EmbeddingsScoreFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score all indels of the query sequence using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "bytes",
+         "default": null,
+         "text": "Sequence to analyze."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "insert",
+         "type": "str or None",
+         "default": "None",
+         "text": "Insertion fragment at each site."
+        },
+        {
+         "name": "delete",
+         "type": "list of int or None",
+         "default": "None",
+         "text": "Range of size of fragment to delete at each site."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreFuture",
+         "text": "Future object that returns the scores of the indel-ed sequence."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "ValueError",
+         "default": null,
+         "text": "If neither insert nor delete is provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "single_site",
+     "kind": "method",
+     "doc": "Score all single substitutions of the query sequence using the specified prompt.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreSingleSiteFuture\n    Future object that returns the per-variant scores of the single substitutions.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 236,
+      "end": 272
+     },
+     "signature": "(sequence, prompt=None, **kwargs)",
+     "returns": "EmbeddingsScoreSingleSiteFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Score all single substitutions of the query sequence using the specified prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "bytes",
+         "default": null,
+         "text": "Sequence to analyze."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsScoreSingleSiteFuture",
+         "text": "Future object that returns the per-variant scores of the single substitutions."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "generate",
+     "kind": "method",
+     "doc": "Generate protein sequences conditioned on a prompt.\n\nParameters\n----------\nprompt : str or Prompt\n    Prompt from an align workflow to condition the PoET model.\nnum_samples : int, optional\n    Number of samples to generate. Default is 100.\ntemperature : float, optional\n    Temperature for sampling. Higher values produce more random outputs. Default is 1.0.\ntopk : float or None, optional\n    Number of top-k residues to consider during sampling. Default is None.\ntopp : float or None, optional\n    Cumulative probability threshold for top-p sampling. Default is None.\nmax_length : int, optional\n    Maximum length of generated proteins. Default is 1000.\nseed : int or None, optional\n    Seed for random number generation. Default is None.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsGenerateFuture\n    Future object representing the status and information about the generation job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 274,
+      "end": 330
+     },
+     "signature": "(prompt, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, **kwargs)",
+     "returns": "EmbeddingsGenerateFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Generate protein sequences conditioned on a prompt."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt",
+         "type": "str or Prompt",
+         "default": null,
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "num_samples",
+         "type": "int",
+         "default": "100",
+         "text": "Number of samples to generate. Default is 100."
+        },
+        {
+         "name": "temperature",
+         "type": "float",
+         "default": "1.0",
+         "text": "Temperature for sampling. Higher values produce more random outputs. Default is 1.0."
+        },
+        {
+         "name": "topk",
+         "type": "float or None",
+         "default": "None",
+         "text": "Number of top-k residues to consider during sampling. Default is None."
+        },
+        {
+         "name": "topp",
+         "type": "float or None",
+         "default": "None",
+         "text": "Cumulative probability threshold for top-p sampling. Default is None."
+        },
+        {
+         "name": "max_length",
+         "type": "int",
+         "default": "1000",
+         "text": "Maximum length of generated proteins. Default is 1000."
+        },
+        {
+         "name": "seed",
+         "type": "int or None",
+         "default": "None",
+         "text": "Seed for random number generation. Default is None."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsGenerateFuture",
+         "text": "Future object representing the status and information about the generation job."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of PoET.\n\nThis function creates an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\nsequences : list of bytes or list of str or None, optional\n    Sequences to use for SVD.\nassay : AssayDataset or None, optional\n    Assay dataset to use for SVD.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g., mean).\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nSVDModel\n    Future that represents the fitted SVD model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 332,
+      "end": 378
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of PoET.\n\nThis function creates an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to use for SVD."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay dataset to use for SVD."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g., mean)."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "Future that represents the fitted SVD model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on assay using PoET and hyperparameters.\n\nThis function creates a UMAP based on the embeddings from this PoET model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\nsequences : list of bytes or list of str or None, optional\n    Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred.\nassay : AssayDataset or None, optional\n    Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g., mean). Default is ReductionType.MEAN.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nUMAPModel\n    Future that represents the fitted UMAP model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 380,
+      "end": 426
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on assay using PoET and hyperparameters.\n\nThis function creates a UMAP based on the embeddings from this PoET model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Embeddings reduction to use (e.g., mean). Default is ReductionType.MEAN."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "Future that represents the fitted UMAP model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata or AssayDataset or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nprompt : str or Prompt or None, optional\n    Prompt from an align workflow to condition the PoET model.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nPredictorModel\n    Future that represents the trained predictor model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/poet.py",
+      "line": 428,
+      "end": 482
+     },
+     "signature": "(assay, properties, reduction, name=None, description=None, prompt=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata or AssayDataset or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "prompt",
+         "type": "str or Prompt or None",
+         "default": "None",
+         "text": "Prompt from an align workflow to condition the PoET model."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "Future that represents the trained predictor model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "AbLang2Model",
+   "path": "openprotein.embeddings.AbLang2Model",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "EmbeddingModel"
+   ],
+   "doc": "Community AbLang2 model that targets antibodies.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.ablang2?",
+   "module": "openprotein.embeddings.ablang",
+   "source": {
+    "file": "openprotein/embeddings/ablang.py",
+    "line": 6,
+    "end": 21
+   },
+   "members": [
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Reduction to use (e.g. mean). Defaults to mean embedding.\nkwargs:\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the embedding result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 148,
+      "end": 181
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to embed."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Reduction to use (e.g. mean). Defaults to mean embedding."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the embedding result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata, AssayDataset, or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nreduction : ReductionType\n    Type of embedding reduction to use for computing features. PLM must use reduction.\nname : str or None, optional\n    Optional name for the predictor model.\ndescription : str or None, optional\n    Optional description for the predictor model.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nPredictorModel\n    The fitted predictor model.\n\nRaises\n------\nInvalidParameterError\n    If no properties are provided, properties are not a subset of assay measurements,\n    or multitask GP is requested.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 349,
+      "end": 416
+     },
+     "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata, AssayDataset, or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType",
+         "default": null,
+         "text": "Type of embedding reduction to use for computing features. PLM must use reduction."
+        },
+        {
+         "name": "name",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional name for the predictor model."
+        },
+        {
+         "name": "description",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional description for the predictor model."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The fitted predictor model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If no properties are provided, properties are not a subset of assay measurements,\nor multitask GP is requested."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit SVD on.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit SVD on.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean).\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nSVDModel\n    The fitted SVD model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 214,
+      "end": 276
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit SVD on."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit SVD on."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g. mean)."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "The fitted SVD model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred.\nassay : AssayDataset or AssayMetadata or None, optional\n    Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : Reduction or ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Defaults to MEAN.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nUMAPModel\n    The fitted UMAP model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 278,
+      "end": 347
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or AssayMetadata or None",
+         "default": "None",
+         "text": "Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "Reduction or ReductionType or None",
+         "default": "'MEAN'",
+         "text": "Embeddings reduction to use (e.g. mean). Defaults to MEAN."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "The fitted UMAP model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute logits for.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the logits result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 183,
+      "end": 212
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logit embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute logits for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the logits result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "OpenProteinModel",
+   "path": "openprotein.embeddings.OpenProteinModel",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "AttnModel",
+    "EmbeddingModel"
+   ],
+   "doc": "Proprietary protein embedding models served by OpenProtein.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.prot_seq?",
+   "module": "openprotein.embeddings.openprotein",
+   "source": {
+    "file": "openprotein/embeddings/openprotein.py",
+    "line": 6,
+    "end": 21
+   },
+   "members": [
+    {
+     "name": "attn",
+     "kind": "method",
+     "doc": "Compute attention embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute attention embeddings for.\nkwargs :\n    Additional keyword arguments to be used from foundational models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the attention result.",
+     "inherited_from": "openprotein.embeddings.models.AttnModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 422,
+      "end": 451
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute attention embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute attention embeddings for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the attention result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Reduction to use (e.g. mean). Defaults to mean embedding.\nkwargs:\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the embedding result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 148,
+      "end": 181
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to embed."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Reduction to use (e.g. mean). Defaults to mean embedding."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the embedding result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata, AssayDataset, or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nreduction : ReductionType\n    Type of embedding reduction to use for computing features. PLM must use reduction.\nname : str or None, optional\n    Optional name for the predictor model.\ndescription : str or None, optional\n    Optional description for the predictor model.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nPredictorModel\n    The fitted predictor model.\n\nRaises\n------\nInvalidParameterError\n    If no properties are provided, properties are not a subset of assay measurements,\n    or multitask GP is requested.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 349,
+      "end": 416
+     },
+     "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata, AssayDataset, or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType",
+         "default": null,
+         "text": "Type of embedding reduction to use for computing features. PLM must use reduction."
+        },
+        {
+         "name": "name",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional name for the predictor model."
+        },
+        {
+         "name": "description",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional description for the predictor model."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The fitted predictor model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If no properties are provided, properties are not a subset of assay measurements,\nor multitask GP is requested."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit SVD on.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit SVD on.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean).\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nSVDModel\n    The fitted SVD model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 214,
+      "end": 276
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit SVD on."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit SVD on."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g. mean)."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "The fitted SVD model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred.\nassay : AssayDataset or AssayMetadata or None, optional\n    Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : Reduction or ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Defaults to MEAN.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nUMAPModel\n    The fitted UMAP model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 278,
+      "end": 347
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or AssayMetadata or None",
+         "default": "None",
+         "text": "Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "Reduction or ReductionType or None",
+         "default": "'MEAN'",
+         "text": "Embeddings reduction to use (e.g. mean). Defaults to MEAN."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "The fitted UMAP model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute logits for.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the logits result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 183,
+      "end": 212
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logit embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute logits for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the logits result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "ESMModel",
+   "path": "openprotein.embeddings.ESMModel",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "AttnModel",
+    "EmbeddingModel"
+   ],
+   "doc": "Class providing inference endpoints for Facebook's ESM protein language models.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.esm2_t12_35M_UR50D?",
+   "module": "openprotein.embeddings.esm",
+   "source": {
+    "file": "openprotein/embeddings/esm.py",
+    "line": 6,
+    "end": 36
+   },
+   "members": [
+    {
+     "name": "attn",
+     "kind": "method",
+     "doc": "Compute attention embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute attention embeddings for.\nkwargs :\n    Additional keyword arguments to be used from foundational models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the attention result.",
+     "inherited_from": "openprotein.embeddings.models.AttnModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 422,
+      "end": 451
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute attention embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute attention embeddings for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the attention result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Reduction to use (e.g. mean). Defaults to mean embedding.\nkwargs:\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the embedding result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 148,
+      "end": 181
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to embed."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Reduction to use (e.g. mean). Defaults to mean embedding."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the embedding result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata, AssayDataset, or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nreduction : ReductionType\n    Type of embedding reduction to use for computing features. PLM must use reduction.\nname : str or None, optional\n    Optional name for the predictor model.\ndescription : str or None, optional\n    Optional description for the predictor model.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nPredictorModel\n    The fitted predictor model.\n\nRaises\n------\nInvalidParameterError\n    If no properties are provided, properties are not a subset of assay measurements,\n    or multitask GP is requested.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 349,
+      "end": 416
+     },
+     "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata, AssayDataset, or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType",
+         "default": null,
+         "text": "Type of embedding reduction to use for computing features. PLM must use reduction."
+        },
+        {
+         "name": "name",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional name for the predictor model."
+        },
+        {
+         "name": "description",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional description for the predictor model."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The fitted predictor model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If no properties are provided, properties are not a subset of assay measurements,\nor multitask GP is requested."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit SVD on.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit SVD on.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean).\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nSVDModel\n    The fitted SVD model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 214,
+      "end": 276
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit SVD on."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit SVD on."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g. mean)."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "The fitted SVD model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred.\nassay : AssayDataset or AssayMetadata or None, optional\n    Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : Reduction or ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Defaults to MEAN.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nUMAPModel\n    The fitted UMAP model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 278,
+      "end": 347
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or AssayMetadata or None",
+         "default": "None",
+         "text": "Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "Reduction or ReductionType or None",
+         "default": "'MEAN'",
+         "text": "Embeddings reduction to use (e.g. mean). Defaults to MEAN."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "The fitted UMAP model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute logits for.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the logits result.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 183,
+      "end": 212
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logit embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute logits for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the logits result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": "openprotein.embeddings.models.EmbeddingModel",
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "EmbeddingModel",
+   "path": "openprotein.embeddings.EmbeddingModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [],
+   "doc": "Base embeddings model used to understand and provide embeddings from sequences.",
+   "module": "openprotein.embeddings.models",
+   "source": {
+    "file": "openprotein/embeddings/models.py",
+    "line": 26,
+    "end": 416
+   },
+   "members": [
+    {
+     "name": "get_model",
+     "kind": "method",
+     "doc": "Get the model_id(s) for this EmbeddingModel subclass.\n\nReturns\n-------\nlist of str\n    List of model_id strings associated with this class.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 58,
+      "end": 70
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the model_id(s) for this EmbeddingModel subclass."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list of str",
+         "text": "List of model_id strings associated with this class."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "create",
+     "kind": "method",
+     "doc": "Create and return an instance of the appropriate EmbeddingModel subclass based on the model_id.\n\nParameters\n----------\nsession : APISession\n    The API session to use.\nmodel_id : str\n    The model identifier.\ndefault : type variable of EmbeddingModel or None, optional\n    Default EmbeddingModel subclass to use if no match is found.\nmetadata : ModelMetadata or None, optional\n    Pre-fetched metadata to avoid an extra API call.\nkwargs :\n    Additional keyword arguments to pass to the model constructor.\n\nReturns\n-------\nEmbeddingModel\n    An instance of the appropriate EmbeddingModel subclass.\n\nRaises\n------\nValueError\n    If no suitable EmbeddingModel subclass is found and no default is provided.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 72,
+      "end": 121
+     },
+     "signature": "(session, model_id, default=None, metadata=None, **kwargs)",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Create and return an instance of the appropriate EmbeddingModel subclass based on the model_id."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "session",
+         "type": "APISession",
+         "default": null,
+         "text": "The API session to use."
+        },
+        {
+         "name": "model_id",
+         "type": "str",
+         "default": null,
+         "text": "The model identifier."
+        },
+        {
+         "name": "default",
+         "type": "type variable of EmbeddingModel or None",
+         "default": "None",
+         "text": "Default EmbeddingModel subclass to use if no match is found."
+        },
+        {
+         "name": "metadata",
+         "type": "ModelMetadata or None",
+         "default": "None",
+         "text": "Pre-fetched metadata to avoid an extra API call."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to pass to the model constructor."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingModel",
+         "text": "An instance of the appropriate EmbeddingModel subclass."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "ValueError",
+         "default": null,
+         "text": "If no suitable EmbeddingModel subclass is found and no default is provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "ModelMetadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 124,
+      "end": 135
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ModelMetadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metadata",
+     "kind": "method",
+     "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 137,
+      "end": 146
+     },
+     "signature": "()",
+     "returns": "ModelMetadata",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "embed",
+     "kind": "method",
+     "doc": "Embed sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to embed.\nreduction : ReductionType or None, optional\n    Reduction to use (e.g. mean). Defaults to mean embedding.\nkwargs:\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the embedding result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 148,
+      "end": 181
+     },
+     "signature": "(sequences, reduction=ReductionType.MEAN, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Embed sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to embed."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "ReductionType.MEAN",
+         "text": "Reduction to use (e.g. mean). Defaults to mean embedding."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the embedding result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "logits",
+     "kind": "method",
+     "doc": "Compute logit embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute logits for.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the logits result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 183,
+      "end": 212
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute logit embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "default": null,
+         "text": "Sequences to compute logits for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "text": "Future object representing the logits result."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_svd",
+     "kind": "method",
+     "doc": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Sequences to fit SVD on.\nassay : AssayDataset or None, optional\n    Assay containing sequences to fit SVD on.\nn_components : int, optional\n    Number of components in SVD. Determines output shapes. Default is 1024.\nreduction : ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean).\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nSVDModel\n    The fitted SVD model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 214,
+      "end": 276
+     },
+     "signature": "(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
+     "returns": "SVDModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit an SVD on the embedding results of this model.\n\nThis function will create an SVDModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Sequences to fit SVD on."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or None",
+         "default": "None",
+         "text": "Assay containing sequences to fit SVD on."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "1024",
+         "text": "Number of components in SVD. Determines output shapes. Default is 1024."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType or None",
+         "default": "None",
+         "text": "Embeddings reduction to use (e.g. mean)."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "SVDModel",
+         "text": "The fitted SVD model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_umap",
+     "kind": "method",
+     "doc": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments.\n\nParameters\n----------\nsequences : list of bytes or list of str or None, optional\n    Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred.\nassay : AssayDataset or AssayMetadata or None, optional\n    Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided.\nn_components : int, optional\n    Number of components in UMAP fit. Determines output shapes. Default is 2.\nreduction : Reduction or ReductionType or None, optional\n    Embeddings reduction to use (e.g. mean). Defaults to MEAN.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nUMAPModel\n    The fitted UMAP model.\n\nRaises\n------\nInvalidParameterError\n    If neither or both of `assay` and `sequences` are provided.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 278,
+      "end": 347
+     },
+     "signature": "(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
+     "returns": "UMAPModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a UMAP on the embedding results of this model.\n\nThis function will create a UMAPModel based on the embeddings from this model\nas well as the hyperparameters specified in the arguments."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str or None",
+         "default": "None",
+         "text": "Optional sequences to fit UMAP with. Either use sequences or assay. Sequences is preferred."
+        },
+        {
+         "name": "assay",
+         "type": "AssayDataset or AssayMetadata or None",
+         "default": "None",
+         "text": "Optional assay containing sequences to fit UMAP with. Either use sequences or assay. Ignored if sequences are provided."
+        },
+        {
+         "name": "n_components",
+         "type": "int",
+         "default": "2",
+         "text": "Number of components in UMAP fit. Determines output shapes. Default is 2."
+        },
+        {
+         "name": "reduction",
+         "type": "Reduction or ReductionType or None",
+         "default": "'MEAN'",
+         "text": "Embeddings reduction to use (e.g. mean). Defaults to MEAN."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "UMAPModel",
+         "text": "The fitted UMAP model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If neither or both of `assay` and `sequences` are provided."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "fit_gp",
+     "kind": "method",
+     "doc": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters.\n\nParameters\n----------\nassay : AssayMetadata, AssayDataset, or str\n    Assay to fit GP on.\nproperties : list of str\n    Properties in the assay to fit the GP on.\nkernel : KernelType or str, optional\n    Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n    \"rational_quadratic\". Defaults to \"rbf\".\nperiod : float or None, optional\n    Period length; only valid for the \"periodic\" kernel (must be > 0).\nalpha : float or None, optional\n    Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0).\nreduction : ReductionType\n    Type of embedding reduction to use for computing features. PLM must use reduction.\nname : str or None, optional\n    Optional name for the predictor model.\ndescription : str or None, optional\n    Optional description for the predictor model.\nkwargs :\n    Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models.\n\nReturns\n-------\nPredictorModel\n    The fitted predictor model.\n\nRaises\n------\nInvalidParameterError\n    If no properties are provided, properties are not a subset of assay measurements,\n    or multitask GP is requested.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 349,
+      "end": 416
+     },
+     "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
+     "returns": "PredictorModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a Gaussian Process (GP) on an assay using this embedding model and hyperparameters."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayMetadata, AssayDataset, or str",
+         "default": null,
+         "text": "Assay to fit GP on."
+        },
+        {
+         "name": "properties",
+         "type": "list of str",
+         "default": null,
+         "text": "Properties in the assay to fit the GP on."
+        },
+        {
+         "name": "kernel",
+         "type": "KernelType or str",
+         "default": "'rbf'",
+         "text": "Kernel for the GP, e.g. \"rbf\", \"matern52\", \"periodic\",\n\"rational_quadratic\". Defaults to \"rbf\"."
+        },
+        {
+         "name": "period",
+         "type": "float or None",
+         "default": "None",
+         "text": "Period length; only valid for the \"periodic\" kernel (must be > 0)."
+        },
+        {
+         "name": "alpha",
+         "type": "float or None",
+         "default": "None",
+         "text": "Scale-mixture parameter; only valid for \"rational_quadratic\" (must be > 0)."
+        },
+        {
+         "name": "reduction",
+         "type": "ReductionType",
+         "default": null,
+         "text": "Type of embedding reduction to use for computing features. PLM must use reduction."
+        },
+        {
+         "name": "name",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional name for the predictor model."
+        },
+        {
+         "name": "description",
+         "type": "str or None",
+         "default": "None",
+         "text": "Optional description for the predictor model."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models, e.g. prompt_id for PoET models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PredictorModel",
+         "text": "The fitted predictor model."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "InvalidParameterError",
+         "default": null,
+         "text": "If no properties are provided, properties are not a subset of assay measurements,\nor multitask GP is requested."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "EmbeddingsResultFuture",
+   "path": "openprotein.embeddings.EmbeddingsResultFuture",
+   "kind": "class",
+   "signature": "(session, job, sequences=None, max_workers=config.MAX_CONCURRENT_WORKERS)",
+   "bases": [
+    "MappedFuture[bytes, np.ndarray]"
+   ],
+   "doc": "Future for manipulating results for embeddings-related requests.",
+   "module": "openprotein.embeddings.future",
+   "source": {
+    "file": "openprotein/embeddings/future.py",
+    "line": 28,
+    "end": 96
+   },
+   "members": [
+    {
+     "name": "stream_sync",
+     "kind": "method",
+     "doc": "Stream the embeddings results synchronously using the streaming endpoint.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 48,
+      "end": 55
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Stream the embeddings results synchronously using the streaming endpoint."
+      }
+     ]
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 66,
+      "end": 67
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "get_item",
+     "kind": "method",
+     "doc": "Get embedding results for specified sequence.\n\nArgs:\n    sequence (str | bytes): sequence to fetch results for\n\nReturns:\n    np.ndarray: embeddings",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 80,
+      "end": 96
+     },
+     "signature": "(sequence)",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get embedding results for specified sequence."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "str | bytes",
+         "default": null,
+         "text": "sequence to fetch results for"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "np.ndarray",
+         "text": "np.ndarray: embeddings"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.embeddings.future.EmbeddingsResultFuture",
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 66,
+      "end": 67
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "stream",
+     "kind": "method",
+     "doc": "Retrieve results for this job as a stream.\n\nReturns\n-------\nGenerator\n    A generator that yields (key, value) tuples.",
+     "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 571,
+      "end": 582
+     },
+     "signature": "(**kwargs)",
+     "returns": "Iterator[tuple[K, V]]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve results for this job as a stream."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Generator",
+         "text": "A generator that yields (key, value) tuples."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 584,
+      "end": 590
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "list[tuple[K, V]]",
+     "parsed": []
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Results"
+  },
+  {
+   "name": "EmbeddingsScoreFuture",
+   "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "BaseScoreFuture[Score]"
+   ],
+   "doc": "Future for manipulating results for embeddings score-related requests.",
+   "module": "openprotein.embeddings.future",
+   "source": {
+    "file": "openprotein/embeddings/future.py",
+    "line": 130,
+    "end": 148
+   },
+   "members": [
+    {
+     "name": "stream",
+     "kind": "method",
+     "doc": "Return the results from this job as a generator.\n\nParameters\n----------\n**kwargs\n    Keyword arguments passed to the streaming implementation.\n\nReturns\n-------\nGenerator\n    A generator that yields job results.\n\nRaises\n------\nNotImplementedError\n    This is an abstract method and must be implemented by a subclass.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 135,
+      "end": 148
+     },
+     "signature": "()",
+     "returns": "Iterator[Score]",
+     "parsed": []
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.StreamingFuture",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 458,
+      "end": 464
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "list[V]",
+     "parsed": []
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Results"
+  },
+  {
+   "name": "EmbeddingsGenerateFuture",
+   "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "BaseScoreFuture[Score]"
+   ],
+   "doc": "Future for manipulating results for embeddings generate-related requests.",
+   "module": "openprotein.embeddings.future",
+   "source": {
+    "file": "openprotein/embeddings/future.py",
+    "line": 172,
+    "end": 194
+   },
+   "members": [
+    {
+     "name": "stream",
+     "kind": "method",
+     "doc": "Return the results from this job as a generator.\n\nParameters\n----------\n**kwargs\n    Keyword arguments passed to the streaming implementation.\n\nReturns\n-------\nGenerator\n    A generator that yields job results.\n\nRaises\n------\nNotImplementedError\n    This is an abstract method and must be implemented by a subclass.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/embeddings/future.py",
+      "line": 177,
+      "end": 190
+     },
+     "signature": "()",
+     "returns": "Iterator[Score]",
+     "parsed": []
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.StreamingFuture",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 458,
+      "end": 464
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "list[V]",
+     "parsed": []
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Results"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

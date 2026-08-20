@@ -1,0 +1,2335 @@
+{
+ "module": "openprotein.fold",
+ "entries": [
+  {
+   "name": "FoldAPI",
+   "path": "openprotein.fold.FoldAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "Fold API provides a high level interface for making protein structure predictions.",
+   "module": "openprotein.fold.fold",
+   "source": {
+    "file": "openprotein/fold/fold.py",
+    "line": 19,
+    "end": 126
+   },
+   "members": [
+    {
+     "name": "boltz2",
+     "kind": "attribute",
+     "doc": "Boltz-2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 25,
+      "end": 25
+     },
+     "annotation": "Boltz2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "boltz_2",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 26,
+      "end": 26
+     },
+     "annotation": "Boltz2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "boltz1x",
+     "kind": "attribute",
+     "doc": "Boltz-1x model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 28,
+      "end": 28
+     },
+     "annotation": "Boltz1xModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "boltz_1x",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 29,
+      "end": 29
+     },
+     "annotation": "Boltz1xModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "boltz1",
+     "kind": "attribute",
+     "doc": "Boltz-1 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 31,
+      "end": 31
+     },
+     "annotation": "Boltz1Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "boltz_1",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 32,
+      "end": 32
+     },
+     "annotation": "Boltz1Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "af2",
+     "kind": "attribute",
+     "doc": "AlphaFold-2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 34,
+      "end": 34
+     },
+     "annotation": "AlphaFold2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "alphafold2",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 35,
+      "end": 35
+     },
+     "annotation": "AlphaFold2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "rf3",
+     "kind": "attribute",
+     "doc": "RosettaFold-3 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 37,
+      "end": 37
+     },
+     "annotation": "RosettaFold3Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "rosettafold_3",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 38,
+      "end": 38
+     },
+     "annotation": "RosettaFold3Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esmfold",
+     "kind": "attribute",
+     "doc": "ESMFold model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 40,
+      "end": 40
+     },
+     "annotation": "ESMFoldModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esmfold2",
+     "kind": "attribute",
+     "doc": "ESMFold2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 42,
+      "end": 42
+     },
+     "annotation": "ESMFold2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "esmfold2_fast",
+     "kind": "attribute",
+     "doc": "ESMFold2-Fast model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 44,
+      "end": 44
+     },
+     "annotation": "ESMFold2FastModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "minifold",
+     "kind": "attribute",
+     "doc": "MiniFold model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 46,
+      "end": 46
+     },
+     "annotation": "MiniFoldModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "protenix",
+     "kind": "attribute",
+     "doc": "Protenix model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 48,
+      "end": 48
+     },
+     "annotation": "ProtenixModel",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "protenix_v2",
+     "kind": "attribute",
+     "doc": "Protenix-v2 model",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 50,
+      "end": 50
+     },
+     "annotation": "ProtenixV2Model",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "list_models",
+     "kind": "method",
+     "doc": "list models available for creating folds of your sequences",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 74,
+      "end": 83
+     },
+     "signature": "()",
+     "returns": "list[FoldModel]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "list models available for creating folds of your sequences"
+      }
+     ]
+    },
+    {
+     "name": "get_model",
+     "kind": "method",
+     "doc": "Get model by model_id. \n\nFoldModel allows all the usual job manipulation:             e.g. making POST and GET requests for this model specifically. \n\n\nParameters\n----------\nmodel_id : str\n    the model identifier\n\nReturns\n-------\nFoldModel\n    The model\n\nRaises\n------\nHTTPError\n    If the GET request does not succeed.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 85,
+      "end": 110
+     },
+     "signature": "(model_id)",
+     "returns": "FoldModel",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model by model_id. \n\nFoldModel allows all the usual job manipulation:             e.g. making POST and GET requests for this model specifically. "
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "model_id",
+         "type": "str",
+         "default": null,
+         "text": "the model identifier"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldModel",
+         "text": "The model"
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "HTTPError",
+         "default": null,
+         "text": "If the GET request does not succeed."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_results",
+     "kind": "method",
+     "doc": "Retrieves the results of a fold job.\n\nParameters\n----------\njob : Job\n    The fold job whose results are to be retrieved.\n\nReturns\n-------\nFoldResultFuture\n    An instance of FoldResultFuture",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/fold.py",
+      "line": 112,
+      "end": 126
+     },
+     "signature": "(job)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieves the results of a fold job."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "job",
+         "type": "Job",
+         "default": null,
+         "text": "The fold job whose results are to be retrieved."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "An instance of FoldResultFuture"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface"
+  },
+  {
+   "name": "ProtenixModel",
+   "path": "openprotein.fold.ProtenixModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for Protenix structure prediction.",
+   "module": "openprotein.fold.protenix",
+   "source": {
+    "file": "openprotein/fold/protenix.py",
+    "line": 82,
+    "end": 157
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with Protenix.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of protein complexes to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/protenix.py",
+      "line": 97,
+      "end": 157
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, templates=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with Protenix."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein complexes to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "10",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "200",
+         "text": "Number of sampling steps to use"
+        },
+        {
+         "name": "templates",
+         "type": "Sequence[Protein | Complex | Template] | None",
+         "default": "None",
+         "text": "List of templates to use for structure prediction."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding results."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "Boltz2Model",
+   "path": "openprotein.fold.Boltz2Model",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "BoltzModel",
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities.",
+   "module": "openprotein.fold.boltz",
+   "source": {
+    "file": "openprotein/fold/boltz.py",
+    "line": 121,
+    "end": 220
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with Boltz-2 model.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : list[dict] | None = None\n    List of constraints.\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\nproperties: list[dict] | None = None\n    List of additional properties to predict. Should match the `BoltzProperties`\nmethod: str | None\n    The experimental method or supervision source used for the prediction. Defults to None.\n    Supported values (case-insensitive) include:\n    'MD', 'X-RAY DIFFRACTION', 'ELECTRON MICROSCOPY', 'SOLUTION NMR',\n    'SOLID-STATE NMR', 'NEUTRON DIFFRACTION', 'ELECTRON CRYSTALLOGRAPHY',\n    'FIBER DIFFRACTION', 'POWDER DIFFRACTION', 'INFRARED SPECTROSCOPY',\n    'FLUORESCENCE TRANSFER', 'EPR', 'THEORETICAL MODEL',\n    'SOLUTION SCATTERING', 'OTHER', 'AFDB', 'BOLTZ-1'.\n    View the documentation on Boltz for upstream details.\n\nReturns\n-------\nFoldResultFuture\n     Future for the folding result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/boltz.py",
+      "line": 128,
+      "end": 220
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, templates=None, properties=None, method=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with Boltz-2 model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "3",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "200",
+         "text": "Number of sampling steps to use"
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "default": "1.638",
+         "text": "Scaling factor for diffusion steps."
+        },
+        {
+         "name": "use_potentials",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether or not to use potentials."
+        },
+        {
+         "name": "constraints",
+         "type": "list[dict] | None = None",
+         "default": "None",
+         "text": "List of constraints."
+        },
+        {
+         "name": "templates",
+         "type": "Sequence[Protein | Complex | Template] | None",
+         "default": "None",
+         "text": "List of templates to use for structure prediction."
+        },
+        {
+         "name": "properties",
+         "type": "Sequence[Mapping] | None",
+         "default": "None",
+         "text": "List of additional properties to predict. Should match the `BoltzProperties`"
+        },
+        {
+         "name": "method",
+         "type": "str | None",
+         "default": "None",
+         "text": "The experimental method or supervision source used for the prediction. Defults to None.\nSupported values (case-insensitive) include:\n'MD', 'X-RAY DIFFRACTION', 'ELECTRON MICROSCOPY', 'SOLUTION NMR',\n'SOLID-STATE NMR', 'NEUTRON DIFFRACTION', 'ELECTRON CRYSTALLOGRAPHY',\n'FIBER DIFFRACTION', 'POWDER DIFFRACTION', 'INFRARED SPECTROSCOPY',\n'FLUORESCENCE TRANSFER', 'EPR', 'THEORETICAL MODEL',\n'SOLUTION SCATTERING', 'OTHER', 'AFDB', 'BOLTZ-1'.\nView the documentation on Boltz for upstream details."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "Boltz1xModel",
+   "path": "openprotein.fold.Boltz1xModel",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "Boltz1Model",
+    "BoltzModel",
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance.",
+   "module": "openprotein.fold.boltz",
+   "source": {
+    "file": "openprotein/fold/boltz.py",
+    "line": 295,
+    "end": 347
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with Boltz-1x model. Uses potentials with Boltz-1 model.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/boltz.py",
+      "line": 302,
+      "end": 347
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=True, constraints=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with Boltz-1x model. Uses potentials with Boltz-1 model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "3",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "200",
+         "text": "Number of sampling steps to use"
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "default": "1.638",
+         "text": "Scaling factor for diffusion steps."
+        },
+        {
+         "name": "constraints",
+         "type": "Optional[List[dict]]",
+         "default": "None",
+         "text": "List of constraints."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding complex result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "Boltz1Model",
+   "path": "openprotein.fold.Boltz1Model",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "BoltzModel",
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for Boltz-1 open-source structure prediction model.",
+   "module": "openprotein.fold.boltz",
+   "source": {
+    "file": "openprotein/fold/boltz.py",
+    "line": 223,
+    "end": 292
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with Boltz-1 model.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : Optional[List[dict]]\n    List of constraints.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/boltz.py",
+      "line": 230,
+      "end": 292
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with Boltz-1 model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "3",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "200",
+         "text": "Number of sampling steps to use"
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "default": "1.638",
+         "text": "Scaling factor for diffusion steps."
+        },
+        {
+         "name": "use_potentials",
+         "type": "bool",
+         "default": "False",
+         "text": "Whether or not to use potentials."
+        },
+        {
+         "name": "constraints",
+         "type": "Optional[List[dict]]",
+         "default": "None",
+         "text": "List of constraints."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding complex result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "RosettaFold3Model",
+   "path": "openprotein.fold.RosettaFold3Model",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for RosettaFold-3 structure prediction model.",
+   "module": "openprotein.fold.rosettafold3",
+   "source": {
+    "file": "openprotein/fold/rosettafold3.py",
+    "line": 21,
+    "end": 98
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with RosettaFold-3 model.\n\nParameters\n----------\nsequences: list[Complex | Protein | str | bytes] | MSAFuture,\n    List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/rosettafold3.py",
+      "line": 36,
+      "end": 98
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=50, **kwargs)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with RosettaFold-3 model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "10",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "50",
+         "text": "Number of sampling steps to use"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding results."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "AlphaFold2Model",
+   "path": "openprotein.fold.AlphaFold2Model",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold.",
+   "module": "openprotein.fold.alphafold2",
+   "source": {
+    "file": "openprotein/fold/alphafold2.py",
+    "line": 21,
+    "end": 113
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Post sequences to alphafold model.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\nnum_recycles : int\n    number of times to recycle models\nnum_models : int\n    number of models to train - best model will be used\nnum_relax : int\n    maximum number of iterations for relax\n\nReturns\n-------\njob : Job",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/alphafold2.py",
+      "line": 36,
+      "end": 113
+     },
+     "signature": "(sequences, num_recycles=None, num_models=1, num_relax=0, **kwargs)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Post sequences to alphafold model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of protein sequences to include in folded output. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "None",
+         "text": "number of times to recycle models"
+        },
+        {
+         "name": "num_models",
+         "type": "int",
+         "default": "1",
+         "text": "number of models to train - best model will be used"
+        },
+        {
+         "name": "num_relax",
+         "type": "int",
+         "default": "0",
+         "text": "maximum number of iterations for relax"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": "job",
+         "type": "Job",
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "ESMFoldModel",
+   "path": "openprotein.fold.ESMFoldModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for Facebook's ESMFold structure prediction models.",
+   "module": "openprotein.fold.esmfold",
+   "source": {
+    "file": "openprotein/fold/esmfold.py",
+    "line": 16,
+    "end": 79
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Fold sequences using this model.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes]\n    sequences to fold\nnum_recycles : int | None\n    number of times to recycle models\nReturns\n-------\n    FoldResultFuture",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold.py",
+      "line": 31,
+      "end": 79
+     },
+     "signature": "(sequences, num_recycles=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fold sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes]",
+         "default": null,
+         "text": "sequences to fold"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int | None",
+         "default": "None",
+         "text": "number of times to recycle models"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "ESMFold2Model",
+   "path": "openprotein.fold.ESMFold2Model",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for ESMFold2 structure prediction.",
+   "module": "openprotein.fold.esmfold2",
+   "source": {
+    "file": "openprotein/fold/esmfold2.py",
+    "line": 107,
+    "end": 164
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with ESMFold2.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes] | MSAFuture\n    List of complexes to fold. `Protein` objects must be tagged with\n    an `msa`, which can be `Protein.single_sequence_mode` for single\n    sequence mode. Alternatively, supply an `MSAFuture` to use all\n    query sequences as a multimer.\ndiffusion_samples : int\n    Number of diffusion samples to use.\nnum_recycles : int\n    Number of recycling steps to use.\nnum_steps : int\n    Number of sampling steps to use.\nseed : int | None\n    Seed for the diffusion sampler.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 122,
+      "end": 164
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=100, seed=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with ESMFold2."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture",
+         "default": null,
+         "text": "List of complexes to fold. `Protein` objects must be tagged with\nan `msa`, which can be `Protein.single_sequence_mode` for single\nsequence mode. Alternatively, supply an `MSAFuture` to use all\nquery sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use."
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "3",
+         "text": "Number of recycling steps to use."
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "100",
+         "text": "Number of sampling steps to use."
+        },
+        {
+         "name": "seed",
+         "type": "int | None",
+         "default": "None",
+         "text": "Seed for the diffusion sampler."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "ESMFold2FastModel",
+   "path": "openprotein.fold.ESMFold2FastModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for ESMFold2-Fast structure prediction.\n\nSingle-sequence variant of ESMFold2 (no MSA).",
+   "module": "openprotein.fold.esmfold2",
+   "source": {
+    "file": "openprotein/fold/esmfold2.py",
+    "line": 167,
+    "end": 227
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with ESMFold2-Fast.\n\nSingle-sequence variant: protein chains must use `Protein.single_sequence_mode`\nrather than an MSA.\n\nParameters\n----------\nsequences : Sequence[Complex | Protein | str | bytes]\n    List of complexes to fold. `Protein` objects must be tagged with\n    `Protein.single_sequence_mode`.\ndiffusion_samples : int\n    Number of diffusion samples to use.\nnum_recycles : int\n    Number of recycling steps to use.\nnum_steps : int\n    Number of sampling steps to use.\nseed : int | None\n    Seed for the diffusion sampler.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 184,
+      "end": 227
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=100, seed=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with ESMFold2-Fast.\n\nSingle-sequence variant: protein chains must use `Protein.single_sequence_mode`\nrather than an MSA."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[Complex | Protein | str | bytes]",
+         "default": null,
+         "text": "List of complexes to fold. `Protein` objects must be tagged with\n`Protein.single_sequence_mode`."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "default": "1",
+         "text": "Number of diffusion samples to use."
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "default": "3",
+         "text": "Number of recycling steps to use."
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "default": "100",
+         "text": "Number of sampling steps to use."
+        },
+        {
+         "name": "seed",
+         "type": "int | None",
+         "default": "None",
+         "text": "Seed for the diffusion sampler."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": "Future for the folding result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "MiniFoldModel",
+   "path": "openprotein.fold.MiniFoldModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "doc": "Class providing inference endpoints for MiniFold.",
+   "module": "openprotein.fold.minifold",
+   "source": {
+    "file": "openprotein/fold/minifold.py",
+    "line": 15,
+    "end": 67
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Fold sequences using this model.\n\nParameters\n----------\nsequences : Sequence[bytes | str]\n    sequences to fold\nnum_recycles : int | None\n    number of times to recycle models\nReturns\n-------\n    FoldResultFuture",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/minifold.py",
+      "line": 30,
+      "end": 67
+     },
+     "signature": "(sequences, num_recycles=None, **_)",
+     "returns": "FoldResultFuture",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fold sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "Sequence[bytes | str]",
+         "default": null,
+         "text": "sequences to fold"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int | None",
+         "default": "None",
+         "text": "number of times to recycle models"
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models"
+  },
+  {
+   "name": "ESMFold2Confidence",
+   "path": "openprotein.fold.ESMFold2Confidence",
+   "kind": "class",
+   "signature": "(*, ptm, iptm, complex_plddt, chains_ptm, pair_chains_iptm)",
+   "bases": [
+    "BaseModel"
+   ],
+   "doc": "Per-sample confidence scores from an ESMFold2 structure prediction.\n\nAttributes\n----------\nptm : float\n    Predicted TM-score for the full complex.\niptm : float\n    Interface pTM aggregated over inter-chain residue pairs.\ncomplex_plddt : float\n    Mean per-atom pLDDT for the complex.\nchains_ptm : dict[str, float]\n    Per-chain pTM scores, keyed by chain index as a string.\npair_chains_iptm : dict[str, dict[str, float]]\n    Predicted ipTM between each pair of chains, keyed by chain indices\n    as strings.",
+   "module": "openprotein.fold.esmfold2",
+   "source": {
+    "file": "openprotein/fold/esmfold2.py",
+    "line": 22,
+    "end": 45
+   },
+   "members": [
+    {
+     "name": "ptm",
+     "kind": "attribute",
+     "doc": "Predicted TM-score for the full complex.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 41,
+      "end": 41
+     },
+     "annotation": "float",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "iptm",
+     "kind": "attribute",
+     "doc": "Interface pTM aggregated over inter-chain residue pairs.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 42,
+      "end": 42
+     },
+     "annotation": "float",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "complex_plddt",
+     "kind": "attribute",
+     "doc": "Mean per-atom pLDDT for the complex.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 43,
+      "end": 43
+     },
+     "annotation": "float",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "chains_ptm",
+     "kind": "attribute",
+     "doc": "Per-chain pTM scores, keyed by chain index as a string.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 44,
+      "end": 44
+     },
+     "annotation": "dict[str, float]",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "pair_chains_iptm",
+     "kind": "attribute",
+     "doc": "Predicted ipTM between each pair of chains, keyed by chain indices\nas strings.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/esmfold2.py",
+      "line": 45,
+      "end": 45
+     },
+     "annotation": "dict[str, dict[str, float]]",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "model_config",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "source": null,
+     "synthetic": "pydantic"
+    }
+   ],
+   "section": "Results"
+  },
+  {
+   "name": "FoldResultFuture",
+   "path": "openprotein.fold.FoldResultFuture",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None, sequences=None, complexes=None, max_workers=config.MAX_CONCURRENT_WORKERS)",
+   "bases": [
+    "MappedFuture[int, FoldResult]"
+   ],
+   "doc": "Fold results represented as a future.\n\nAttributes\n----------\njob : FoldJob\n    The fold job associated with this future.",
+   "module": "openprotein.fold.future",
+   "source": {
+    "file": "openprotein/fold/future.py",
+    "line": 29,
+    "end": 878
+   },
+   "members": [
+    {
+     "name": "job",
+     "kind": "attribute",
+     "doc": "The fold job associated with this future.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 44,
+      "end": 44
+     },
+     "annotation": "FoldJob",
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "sequences",
+     "kind": "property",
+     "doc": "Get the sequences submitted for the fold request.\n\nReturns\n-------\nlist[bytes]\n    List of sequences.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 80,
+      "end": 96
+     },
+     "annotation": "list[bytes]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the sequences submitted for the fold request."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[bytes]",
+         "text": "List of sequences."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "complexes",
+     "kind": "property",
+     "doc": "Get the molecular complexes submitted for the fold request.\n\nReturns\n-------\nlist[Complex]\n    List of complexes.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 99,
+      "end": 184
+     },
+     "annotation": "list[Complex]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the molecular complexes submitted for the fold request."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[Complex]",
+         "text": "List of complexes."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "Get the ID of the fold request.\n\nReturns\n-------\nstr\n    Fold job ID.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 187,
+      "end": 196
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the ID of the fold request."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "str",
+         "text": "Fold job ID."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "The fold metadata.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 199,
+      "end": 201
+     },
+     "annotation": "FoldMetadata",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The fold metadata."
+      }
+     ]
+    },
+    {
+     "name": "model_id",
+     "kind": "property",
+     "doc": "The fold model used.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 204,
+      "end": 206
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The fold model used."
+      }
+     ]
+    },
+    {
+     "name": "get_item",
+     "kind": "method",
+     "doc": "Get fold results for a specified sequence.\n\nParameters\n----------\nsequence : bytes\n    Sequence to fetch results for.\n\nReturns\n-------\nComplex\n    Complex containing the folded structure.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 269,
+      "end": 324
+     },
+     "signature": "(k, key=None, **kwargs)",
+     "returns": "FoldResult",
+     "overloads": [
+      "(k, key=None)",
+      "(k, key=None)",
+      "(k, key)",
+      "(k, key)",
+      "(k, key=None)"
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get fold results for a specified sequence."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "bytes",
+         "default": null,
+         "text": "Sequence to fetch results for."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Complex",
+         "text": "Complex containing the folded structure."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "stream",
+     "kind": "method",
+     "doc": "Retrieve results for this job as a stream.\n\nReturns\n-------\nGenerator\n    A generator that yields (key, value) tuples.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 372,
+      "end": 390
+     },
+     "signature": "(key=None)",
+     "returns": "Iterator[Structure] | Iterator[np.ndarray] | Iterator[pd.DataFrame] | Iterator[BoltzAffinity] | Iterator[list[BoltzConfidence]] | Iterator[list[ProtenixConfidence]] | Iterator[list[ESMFold2Confidence]]",
+     "overloads": [
+      "(key=None)",
+      "(key=None)",
+      "(key)",
+      "(key)",
+      "(key=None)"
+     ],
+     "parsed": []
+    },
+    {
+     "name": "get_pae",
+     "kind": "method",
+     "doc": "Get the Predicted Aligned Error (PAE) matrix for all outputs.\n\nReturns\n-------\nlist[np.ndarray]\n    PAE matrix.\n\nRaises\n------\nAttributeError\n    If PAE is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 462,
+      "end": 493
+     },
+     "signature": "()",
+     "returns": "list[np.ndarray]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the Predicted Aligned Error (PAE) matrix for all outputs."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[np.ndarray]",
+         "text": "PAE matrix."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If PAE is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_pde",
+     "kind": "method",
+     "doc": "Get the Predicted Distance Error (PDE) matrix.\n\nReturns\n-------\nlist[np.ndarray]\n    PDE matrix.\n\nRaises\n------\nAttributeError\n    If PDE is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 495,
+      "end": 522
+     },
+     "signature": "()",
+     "returns": "list[np.ndarray]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the Predicted Distance Error (PDE) matrix."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[np.ndarray]",
+         "text": "PDE matrix."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If PDE is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_plddt",
+     "kind": "method",
+     "doc": "Get the Predicted Local Distance Difference Test (pLDDT) scores.\n\nReturns\n-------\nlist[np.ndarray]\n    pLDDT scores.\n\nRaises\n------\nAttributeError\n    If pLDDT is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 524,
+      "end": 554
+     },
+     "signature": "()",
+     "returns": "list[np.ndarray]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the Predicted Local Distance Difference Test (pLDDT) scores."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[np.ndarray]",
+         "text": "pLDDT scores."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If pLDDT is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_ptm",
+     "kind": "method",
+     "doc": "Get the Predicted TM (pTM) scores.\n\nReturns\n-------\nlist[np.ndarray]\n    pTM scores.\n\nRaises\n------\nAttributeError\n    If pTM is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 556,
+      "end": 577
+     },
+     "signature": "()",
+     "returns": "list[np.ndarray]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the Predicted TM (pTM) scores."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[np.ndarray]",
+         "text": "pTM scores."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If pTM is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_ipae",
+     "kind": "method",
+     "doc": "Get the interface PAE (iPAE) \u2014 a synthetic scalar per unit derived\nfrom ``pae`` and the per-unit protein-chain layout. Returns one\nshape-``(1,)`` array per fold output.\n\nReturns\n-------\nlist[np.ndarray]\n    iPAE scalars (one ``(1,)`` array per unit).\n\nRaises\n------\nAttributeError\n    If iPAE is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 579,
+      "end": 612
+     },
+     "signature": "()",
+     "returns": "list[np.ndarray]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the interface PAE (iPAE) \u2014 a synthetic scalar per unit derived\nfrom ``pae`` and the per-unit protein-chain layout. Returns one\nshape-``(1,)`` array per fold output."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[np.ndarray]",
+         "text": "iPAE scalars (one ``(1,)`` array per unit)."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If iPAE is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_score",
+     "kind": "method",
+     "doc": "Get the predicted scores.\n\nReturns\n-------\nlist[pd.DataFrame]\n    Structure prediction scores.\n\nRaises\n------\nAttributeError\n    If score is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 614,
+      "end": 635
+     },
+     "signature": "()",
+     "returns": "list[pd.DataFrame]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the predicted scores."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[pd.DataFrame]",
+         "text": "Structure prediction scores."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If score is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_metrics",
+     "kind": "method",
+     "doc": "Get the predicted metrics.\n\nReturns\n-------\nlist[pd.DataFrame]\n    Structure prediction metrics.\n\nRaises\n------\nAttributeError\n    If metrics is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 637,
+      "end": 658
+     },
+     "signature": "()",
+     "returns": "list[pd.DataFrame]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the predicted metrics."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[pd.DataFrame]",
+         "text": "Structure prediction metrics."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If metrics is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_confidence",
+     "kind": "method",
+     "doc": "Retrieve the confidences of the structure prediction.\n\nNote\n----\nThis is currently supported for Boltz, Protenix, and ESMFold2 models.\n\nReturns\n-------\nlist[list[BoltzConfidence]] | list[list[ProtenixConfidence]] | list[list[ESMFold2Confidence]]\n    List of list of confidence objects (model-specific schema).\n\nRaises\n------\nAttributeError\n    If confidence is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 660,
+      "end": 695
+     },
+     "signature": "()",
+     "returns": "list[list[BoltzConfidence]] | list[list[ProtenixConfidence]] | list[list[ESMFold2Confidence]]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve the confidences of the structure prediction."
+      },
+      {
+       "kind": "admonition",
+       "title": "Note",
+       "text": "This is currently supported for Boltz, Protenix, and ESMFold2 models."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[list[BoltzConfidence]] | list[list[ProtenixConfidence]] | list[list[ESMFold2Confidence]]",
+         "text": "List of list of confidence objects (model-specific schema)."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If confidence is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_affinity",
+     "kind": "method",
+     "doc": "Retrieve the predicted binding affinities.\n\nNote\n----\nThis is only currently supported for Boltz models.\n\nReturns\n-------\nlist[list[BoltzAffinity]]\n    BoltzAffinity object containing the predicted affinities.\n\nRaises\n------\nAttributeError\n    If affinity is not supported for the model.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 697,
+      "end": 723
+     },
+     "signature": "()",
+     "returns": "list[BoltzAffinity]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve the predicted binding affinities."
+      },
+      {
+       "kind": "admonition",
+       "title": "Note",
+       "text": "This is only currently supported for Boltz models."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list[list[BoltzAffinity]]",
+         "text": "BoltzAffinity object containing the predicted affinities."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "AttributeError",
+         "default": null,
+         "text": "If affinity is not supported for the model."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_pae_batch",
+     "kind": "method",
+     "doc": "Get the Predicted Aligned Error (PAE) for every unit as a single\nstacked ``np.ndarray`` of shape ``[N, ...]``. Per-unit arrays that\ndiffer in size are NaN-padded to the per-axis max shape.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 730,
+      "end": 750
+     },
+     "signature": "()",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the Predicted Aligned Error (PAE) for every unit as a single\nstacked ``np.ndarray`` of shape ``[N, ...]``. Per-unit arrays that\ndiffer in size are NaN-padded to the per-axis max shape."
+      }
+     ]
+    },
+    {
+     "name": "get_pde_batch",
+     "kind": "method",
+     "doc": "Like ``get_pae_batch`` but for PDE. Shape ``[N, ...]``, NaN-padded.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 752,
+      "end": 764
+     },
+     "signature": "()",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Like ``get_pae_batch`` but for PDE. Shape ``[N, ...]``, NaN-padded."
+      }
+     ]
+    },
+    {
+     "name": "get_plddt_batch",
+     "kind": "method",
+     "doc": "Like ``get_pae_batch`` but for pLDDT. Shape ``[N, ...]``, NaN-padded.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 766,
+      "end": 781
+     },
+     "signature": "()",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Like ``get_pae_batch`` but for pLDDT. Shape ``[N, ...]``, NaN-padded."
+      }
+     ]
+    },
+    {
+     "name": "get_ptm_batch",
+     "kind": "method",
+     "doc": "Like ``get_pae_batch`` but for pTM. Shape ``[N, ...]``, NaN-padded.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 783,
+      "end": 789
+     },
+     "signature": "()",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Like ``get_pae_batch`` but for pTM. Shape ``[N, ...]``, NaN-padded."
+      }
+     ]
+    },
+    {
+     "name": "get_ipae_batch",
+     "kind": "method",
+     "doc": "Get iPAE for every unit as a single ``np.ndarray`` of shape ``[N]``.\nUnits whose per-unit iPAE could not be computed appear as ``NaN``.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 791,
+      "end": 811
+     },
+     "signature": "()",
+     "returns": "np.ndarray",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get iPAE for every unit as a single ``np.ndarray`` of shape ``[N]``.\nUnits whose per-unit iPAE could not be computed appear as ``NaN``."
+      }
+     ]
+    },
+    {
+     "name": "get_confidence_batch",
+     "kind": "method",
+     "doc": "Retrieve per-unit confidence objects in a single HTTP call.\n\nReturns a length-``N`` list; each entry is that unit's parsed\nconfidence list, or ``None`` if the server could not fetch the\nresult for that unit.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 813,
+      "end": 861
+     },
+     "signature": "()",
+     "returns": "list[list[BoltzConfidence] | None] | list[list[ProtenixConfidence] | None] | list[list[ESMFold2Confidence] | None]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve per-unit confidence objects in a single HTTP call.\n\nReturns a length-``N`` list; each entry is that unit's parsed\nconfidence list, or ``None`` if the server could not fetch the\nresult for that unit."
+      }
+     ]
+    },
+    {
+     "name": "get_affinity_batch",
+     "kind": "method",
+     "doc": "Retrieve per-unit affinity objects in a single HTTP call.\n\nReturns a length-``N`` list; each entry is a ``BoltzAffinity`` or\n``None`` if the server could not fetch that unit's result.",
+     "inherited_from": null,
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 863,
+      "end": 878
+     },
+     "signature": "()",
+     "returns": "list[BoltzAffinity | None]",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve per-unit affinity objects in a single HTTP call.\n\nReturns a length-``N`` list; each entry is a ``BoltzAffinity`` or\n``None`` if the server could not fetch that unit's result."
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 179,
+      "end": 181
+     },
+     "annotation": "dict[str, Any]",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 194,
+      "end": 203
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 159,
+      "end": 161
+     },
+     "annotation": "datetime",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 183,
+      "end": 192
+     },
+     "signature": "()",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 169,
+      "end": 171
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "Get the ID of the fold request.\n\nReturns\n-------\nstr\n    Fold job ID.",
+     "inherited_from": "openprotein.fold.future.FoldResultFuture",
+     "source": {
+      "file": "openprotein/fold/future.py",
+      "line": 187,
+      "end": 196
+     },
+     "annotation": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the ID of the fold request."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "str",
+         "text": "Fold job ID."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 149,
+      "end": 151
+     },
+     "annotation": "str",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 174,
+      "end": 176
+     },
+     "annotation": "int",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "signature": "()",
+     "returns": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 164,
+      "end": 166
+     },
+     "annotation": "datetime | None",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 154,
+      "end": 156
+     },
+     "annotation": "JobStatus",
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 584,
+      "end": 590
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "list[tuple[K, V]]",
+     "parsed": []
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 347,
+      "end": 376
+     },
+     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "returns": "bool",
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Results"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.16.1"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "v0.16.1"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}
