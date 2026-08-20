@@ -11,6 +11,41 @@
     "Enum"
    ],
    "doc": "Antibody numbering scheme.\n\nAttributes\n----------\nIMGT : str\n    IMGT numbering scheme, a standardized system unifying numbering across\n    all immunoglobulin and T-cell receptor variable domains.\nCHOTHIA : str\n    Chothia numbering scheme, based on the structural location of\n    canonical loops in antibody variable domains.\nKABAT : str\n    Kabat numbering scheme, based on sequence variability across\n    antibody variable domains.\nAHO : str\n    AHo numbering scheme, a structure-based unified numbering scheme\n    for antibody variable domains.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Antibody numbering scheme."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "IMGT",
+       "type": "str",
+       "default": null,
+       "text": "IMGT numbering scheme, a standardized system unifying numbering across\nall immunoglobulin and T-cell receptor variable domains."
+      },
+      {
+       "name": "CHOTHIA",
+       "type": "str",
+       "default": null,
+       "text": "Chothia numbering scheme, based on the structural location of\ncanonical loops in antibody variable domains."
+      },
+      {
+       "name": "KABAT",
+       "type": "str",
+       "default": null,
+       "text": "Kabat numbering scheme, based on sequence variability across\nantibody variable domains."
+      },
+      {
+       "name": "AHO",
+       "type": "str",
+       "default": null,
+       "text": "AHo numbering scheme, a structure-based unified numbering scheme\nfor antibody variable domains."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.align.schemas",
    "source": {
     "file": "openprotein/align/schemas.py",
@@ -75,7 +110,8 @@
      "parsed": []
     }
    ],
-   "section": "AbNumber schemes"
+   "section": "AbNumber schemes",
+   "page": "align"
   }
  ],
  "sdk": {

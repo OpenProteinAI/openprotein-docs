@@ -201,8 +201,9 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
         )
 
     # Members the class docstring documents but that exist nowhere in the class body.
+    # An explicit `:members:` list is exhaustive, so nothing is added past it.
     known = {name for name, _, _ in chosen}
-    for name, text in attr_docs.items():
+    for name, text in attr_docs.items() if explicit is None else []:
         if name not in known and not name.startswith("_"):
             chosen.append((name, None, {"doc": text, "kind": "attribute", "from_docstring": True}))
 

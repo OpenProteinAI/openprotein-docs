@@ -9,7 +9,11 @@ import { z } from 'zod';
 export const docsPageSchema = pageSchema.extend({
   notebook: z.string().optional(),
   openapi: z.string().optional(),
-  pythonApi: z.string().optional(),
+  // A flag, not a value: the classes a page renders are declared inline with <PyClass>,
+  // and a page can draw on several modules (embedding.mdx pulls from openprotein.embeddings,
+  // .svd, .umap, .common and .embeddings.future). Typed boolean so nobody reads meaning
+  // into a string that nothing consumes.
+  pythonApi: z.boolean().optional(),
   status: z.string().optional(),
 });
 

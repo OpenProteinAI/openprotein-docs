@@ -33,7 +33,13 @@ sys.path.insert(0, str(HERE))
 
 import griffe  # noqa: E402
 
-from members import describe, pydantic_signature, select, signature_of  # noqa: E402
+from members import (  # noqa: E402
+    _sections,
+    describe,
+    pydantic_signature,
+    select,
+    signature_of,
+)
 from sdk import REPO, deref, docstring_text, kind_of, load_sdk  # noqa: E402
 
 ROOT = HERE.parents[1]
@@ -80,6 +86,10 @@ def emit_class(package, dotted: str, options: dict) -> dict:
         "signature": signature,
         "bases": bases,
         "doc": docstring_text(target) or None,
+        # The class docstring's own sections. Its `Attributes` section is already folded into
+        # members (napoleon turned those into `.. attribute::` directives), but Parameters,
+        # Returns, Raises and Examples on a class docstring would otherwise be dropped.
+        "parsed": _sections(target),
         "module": getattr(target, "module", None) and target.module.path,
         "source": _source(target),
         "members": [describe(package, target, name, member, extras) for name, member, extras in chosen],
@@ -95,6 +105,7 @@ def emit_function(package, dotted: str) -> dict:
         "signature": signature_of(func),
         "returns": str(func.returns) if getattr(func, "returns", None) else None,
         "doc": docstring_text(func) or None,
+        "parsed": _sections(func),
         "source": _source(func),
     }
 
@@ -130,6 +141,7 @@ def main() -> None:
 
     documents: dict[str, dict] = {}
     per_page: dict[str, list[dict]] = {}
+    summarised: set[str] = set()
     for page in manifest["pages"]:
         if wanted and page["page"] not in wanted:
             continue
@@ -148,11 +160,44 @@ def main() -> None:
                     print(f"  FAIL {dotted}: {type(error).__name__}: {error}")
                     continue
                 emitted["section"] = section["heading"]
+                # Which reference page documents this object, so a cross-page autosummary
+                # link and any `:py:class:` role can resolve without a second lookup table.
+                emitted["page"] = page["page"]
                 entries.append(emitted)
                 module = dotted.rsplit(".", 1)[0]
                 documents.setdefault(module, {"module": module, "entries": []})
                 documents[module]["entries"].append(emitted)
         per_page[page["page"]] = entries
+        summarised.update(
+            dotted
+            for section in page["sections"]
+            for table in section["autosummary"]
+            for dotted in table
+        )
+
+    # Second pass, after every page has contributed its documented entries. The index is the
+    # FIRST page in the manifest, so doing this inline emitted a stub for every target before
+    # its real entry existed — and `readPyEntry` does a `.find()`, so the stub won.
+    #
+    # Three of the 47 autosummary targets are documented by no `.. autoclass::` at all
+    # (svd.SVDAPI, umap.UMAPAPI, predictor.PredictionResultFuture). Sphinx silently dropped
+    # those rows — 47 declared, 44 rendered. All three resolve, so emit a summary-only entry
+    # and let the new index show all 47.
+    documented = {e["path"] for d in documents.values() for e in d["entries"]}
+    for dotted in sorted(summarised - documented):
+        module = dotted.rsplit(".", 1)[0]
+        try:
+            emitted = emit_class(package, dotted, {"members": []})
+        except Exception:
+            try:
+                emitted = emit_function(package, dotted)
+            except Exception as error:  # noqa: BLE001
+                print(f"  FAIL autosummary {dotted}: {type(error).__name__}: {error}")
+                continue
+        emitted["summary_only"] = True
+        emitted["page"] = None
+        documents.setdefault(module, {"module": module, "entries": []})
+        documents[module]["entries"].append(emitted)
 
     if args.diff:
         report(per_page)

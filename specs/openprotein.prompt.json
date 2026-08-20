@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Prompt API providing the interface to create prompts for use with PoET models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Prompt API providing the interface to create prompts for use with PoET models."
+    }
+   ],
    "module": "openprotein.prompt.prompt",
    "source": {
     "file": "openprotein/prompt/prompt.py",
@@ -223,7 +229,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "prompt"
   },
   {
    "name": "Prompt",
@@ -234,6 +241,12 @@
     "Future"
    ],
    "doc": "Prompt which contains a set of sequences and/or structures used to condition the PoET models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Prompt which contains a set of sequences and/or structures used to condition the PoET models."
+    }
+   ],
    "module": "openprotein.prompt.models",
    "source": {
     "file": "openprotein/prompt/models.py",
@@ -694,7 +707,8 @@
      ]
     }
    ],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "prompt"
   },
   {
    "name": "Query",
@@ -703,6 +717,12 @@
    "signature": "(session, metadata)",
    "bases": [],
    "doc": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using :py:meth:`~openprotein.molecules.Protein.mask_sequence_at` for :py:class:`~openprotein.embeddings.PoET2Model` to run inverse folding.\n\nCreate a query with a masked structure using :py:meth:`~openprotein.molecules.Protein.mask_structure_at` for :py:class:`~openprotein.models.RFdiffusionModel` to run inverse folding.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using :py:meth:`~openprotein.molecules.Protein.mask_sequence_at` for :py:class:`~openprotein.embeddings.PoET2Model` to run inverse folding.\n\nCreate a query with a masked structure using :py:meth:`~openprotein.molecules.Protein.mask_structure_at` for :py:class:`~openprotein.models.RFdiffusionModel` to run inverse folding."
+    }
+   ],
    "module": "openprotein.prompt.models",
    "source": {
     "file": "openprotein/prompt/models.py",
@@ -816,7 +836,8 @@
      ]
     }
    ],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "prompt"
   },
   {
    "name": "PromptMetadata",
@@ -827,6 +848,12 @@
     "BaseModel"
    ],
    "doc": "Metadata about a prompt.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Metadata about a prompt."
+    }
+   ],
    "module": "openprotein.prompt.schemas",
    "source": {
     "file": "openprotein/prompt/schemas.py",
@@ -834,7 +861,8 @@
     "end": 42
    },
    "members": [],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "prompt"
   },
   {
    "name": "QueryMetadata",
@@ -845,6 +873,12 @@
     "BaseModel"
    ],
    "doc": "Metadata about a query.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Metadata about a query."
+    }
+   ],
    "module": "openprotein.prompt.schemas",
    "source": {
     "file": "openprotein/prompt/schemas.py",
@@ -852,7 +886,8 @@
     "end": 49
    },
    "members": [],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "prompt"
   },
   {
    "name": "PromptJob",
@@ -863,6 +898,12 @@
     "Job"
    ],
    "doc": "A representation of a prompt job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A representation of a prompt job."
+    }
+   ],
    "module": "openprotein.prompt.schemas",
    "source": {
     "file": "openprotein/prompt/schemas.py",
@@ -909,7 +950,8 @@
      ]
     }
    ],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "prompt"
   }
  ],
  "sdk": {

@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Predictor API providing the interface to train and predict predictors.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Predictor API providing the interface to train and predict predictors."
+    }
+   ],
    "module": "openprotein.predictor.predictor",
    "source": {
     "file": "openprotein/predictor/predictor.py",
@@ -305,7 +311,8 @@
      ]
     }
    ],
-   "section": null
+   "section": null,
+   "page": "predictor"
   },
   {
    "name": "PredictorModel",
@@ -316,6 +323,12 @@
     "Future"
    ],
    "doc": "Class providing predict endpoint for fitted predictor models.\n\nAlso implements a Future that waits for train job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing predict endpoint for fitted predictor models.\n\nAlso implements a Future that waits for train job."
+    }
+   ],
    "module": "openprotein.predictor.models",
    "source": {
     "file": "openprotein/predictor/models.py",
@@ -581,7 +594,33 @@
      ]
     }
    ],
-   "section": null
+   "section": null,
+   "page": "predictor"
+  },
+  {
+   "name": "PredictionResultFuture",
+   "path": "openprotein.predictor.PredictionResultFuture",
+   "kind": "class",
+   "signature": "(session, job, sequences=None)",
+   "bases": [
+    "Future"
+   ],
+   "doc": "Prediction results represented as a future.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Prediction results represented as a future."
+    }
+   ],
+   "module": "openprotein.predictor.prediction",
+   "source": {
+    "file": "openprotein/predictor/prediction.py",
+    "line": 17,
+    "end": 79
+   },
+   "members": [],
+   "summary_only": true,
+   "page": null
   }
  ],
  "sdk": {

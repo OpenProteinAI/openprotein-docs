@@ -11,6 +11,29 @@
     "Enum"
    ],
    "doc": "ReductionType is an enumeration of the possible reduction types available.\n\nAttributes:\n    MEAN : Mean reduction takes the mean of the embeddings across the sequence length dimension.\n    SUM : Sum reduction takes the sum of the embeddings across the sequence length dimension.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "ReductionType is an enumeration of the possible reduction types available."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "MEAN",
+       "type": null,
+       "default": null,
+       "text": "Mean reduction takes the mean of the embeddings across the sequence length dimension."
+      },
+      {
+       "name": "SUM",
+       "type": null,
+       "default": null,
+       "text": "Sum reduction takes the sum of the embeddings across the sequence length dimension."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.common.reduction",
    "source": {
     "file": "openprotein/common/reduction.py",
@@ -47,7 +70,8 @@
      "parsed": []
     }
    ],
-   "section": "Reduction methods"
+   "section": "Reduction methods",
+   "page": "embedding"
   }
  ],
  "sdk": {

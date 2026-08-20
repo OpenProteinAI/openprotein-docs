@@ -10,6 +10,12 @@
     "BaseScoreFuture[SingleSiteScore]"
    ],
    "doc": "Future for manipulating results for embeddings score-related requests.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future for manipulating results for embeddings score-related requests."
+    }
+   ],
    "module": "openprotein.embeddings.future",
    "source": {
     "file": "openprotein/embeddings/future.py",
@@ -351,7 +357,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "embedding"
   }
  ],
  "sdk": {

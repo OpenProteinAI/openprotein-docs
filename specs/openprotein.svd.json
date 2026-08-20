@@ -10,6 +10,12 @@
     "Future"
    ],
    "doc": "SVD model that can be used to create reduced embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "SVD model that can be used to create reduced embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job."
+    }
+   ],
    "module": "openprotein.svd.models",
    "source": {
     "file": "openprotein/svd/models.py",
@@ -626,7 +632,31 @@
      ]
     }
    ],
-   "section": "Transform Models"
+   "section": "Transform Models",
+   "page": "embedding"
+  },
+  {
+   "name": "SVDAPI",
+   "path": "openprotein.svd.SVDAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "SVD API providing the interface for creating and using SVD models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "SVD API providing the interface for creating and using SVD models."
+    }
+   ],
+   "module": "openprotein.svd.svd",
+   "source": {
+    "file": "openprotein/svd/svd.py",
+    "line": 14,
+    "end": 147
+   },
+   "members": [],
+   "summary_only": true,
+   "page": null
   }
  ],
  "sdk": {

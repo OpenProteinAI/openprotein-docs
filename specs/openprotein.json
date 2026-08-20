@@ -8,12 +8,42 @@
    "signature": "(username=None, password=None, backend=None, timeout=180)",
    "returns": "OpenProtein",
    "doc": "Connect and create a :py:class:`OpenProtein` session.\n\nParameters\n----------\nusername : str, optional\n    The username of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_USERNAME`` or a\n    configuration file at ``~/.openprotein/config.toml``.\npassword : str, optional\n    The password of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_PASSWORD`` or a\n    configuration file at ``~/.openprotein/config.toml``.\n\nExamples\n--------\n>>> session = openprotein.connect(\"username\", \"password\")",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Connect and create a :py:class:`OpenProtein` session."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "username",
+       "type": "str",
+       "default": "None",
+       "text": "The username of the user. If not provided, taken from the\nenvironment variable ``OPENPROTEIN_USERNAME`` or a\nconfiguration file at ``~/.openprotein/config.toml``."
+      },
+      {
+       "name": "password",
+       "type": "str",
+       "default": "None",
+       "text": "The password of the user. If not provided, taken from the\nenvironment variable ``OPENPROTEIN_PASSWORD`` or a\nconfiguration file at ``~/.openprotein/config.toml``."
+      }
+     ]
+    },
+    {
+     "kind": "examples",
+     "items": [
+      ">>> session = openprotein.connect(\"username\", \"password\")"
+     ]
+    }
+   ],
    "source": {
     "file": "openprotein/__init__.py",
     "line": 175,
     "end": 219
    },
-   "section": "Session"
+   "section": "Session",
+   "page": "openprotein"
   },
   {
    "name": "OpenProtein",
@@ -24,6 +54,12 @@
     "APISession"
    ],
    "doc": "The base class for accessing OpenProtein API functionality.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "The base class for accessing OpenProtein API functionality."
+    }
+   ],
    "module": "openprotein",
    "source": {
     "file": "openprotein/__init__.py",
@@ -279,7 +315,8 @@
      ]
     }
    ],
-   "section": "Session"
+   "section": "Session",
+   "page": "openprotein"
   }
  ],
  "sdk": {

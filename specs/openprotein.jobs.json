@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "API interface to get jobs.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "API interface to get jobs."
+    }
+   ],
    "module": "openprotein.jobs.jobs",
    "source": {
     "file": "openprotein/jobs/jobs.py",
@@ -73,7 +79,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "jobs"
   },
   {
    "name": "Job",
@@ -84,6 +91,7 @@
     "BaseModel"
    ],
    "doc": null,
+   "parsed": [],
    "module": "openprotein.jobs.schemas",
    "source": {
     "file": "openprotein/jobs/schemas.py",
@@ -91,7 +99,8 @@
     "end": 135
    },
    "members": [],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "jobs"
   },
   {
    "name": "Future",
@@ -103,6 +112,12 @@
     "Generic[V]"
    ],
    "doc": "Base class for all Futures returning results from a job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Base class for all Futures returning results from a job."
+    }
+   ],
    "module": "openprotein.jobs.futures",
    "source": {
     "file": "openprotein/jobs/futures.py",
@@ -268,7 +283,8 @@
      ]
     }
    ],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "jobs"
   }
  ],
  "sdk": {

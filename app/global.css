@@ -344,3 +344,24 @@ figure.shiki > div:first-child > span:has(> svg) {
 [data-rest-api] button:has(> svg.lucide-link) {
   display: none;
 }
+
+/* Python API reference: one accent per member kind, replacing Sphinx's `py class` /
+   `py property` / `py method` labels. Declared as tokens rather than Tailwind utilities so
+   the badge, its 12% background tint and the type colour all come from one place. */
+:root {
+  --py-class: oklch(0.52 0.19 264);
+  --py-function: oklch(0.52 0.19 264);
+  --py-method: oklch(0.48 0.15 200);
+  --py-property: oklch(0.5 0.13 155);
+  --py-attribute: oklch(0.52 0.11 60);
+  --py-type: oklch(0.5 0.12 300);
+}
+
+.dark {
+  --py-class: oklch(0.78 0.14 264);
+  --py-function: oklch(0.78 0.14 264);
+  --py-method: oklch(0.78 0.12 200);
+  --py-property: oklch(0.78 0.11 155);
+  --py-attribute: oklch(0.8 0.1 60);
+  --py-type: oklch(0.79 0.1 300);
+}

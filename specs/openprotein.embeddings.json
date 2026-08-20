@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Embeddings API providing the interface for creating embeddings using protein language models.\n\nYou can access all our models either via :meth:`get_model` or directly through the session's embedding attribute using the model's ID and the desired method. For example, to use the attention method on the protein sequence model, you would use ``session.embedding.prot_seq.attn()``.\n\nExamples\n--------\nAccessing a model's method:\n\n.. code-block:: python\n\n    # To call the attention method on the protein sequence model:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    session.embedding.prot_seq.attn()\n\nUsing the `get_model` method:\n\n.. code-block:: python\n\n    # Get a model instance by name:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    # list available models:\n    print(session.embedding.list_models() )\n    # init model by name\n    model = session.embedding.get_model('prot-seq')",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Embeddings API providing the interface for creating embeddings using protein language models.\n\nYou can access all our models either via :meth:`get_model` or directly through the session's embedding attribute using the model's ID and the desired method. For example, to use the attention method on the protein sequence model, you would use ``session.embedding.prot_seq.attn()``.\n\nExamples\n--------\nAccessing a model's method:\n\n.. code-block:: python\n\n    # To call the attention method on the protein sequence model:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    session.embedding.prot_seq.attn()\n\nUsing the `get_model` method:\n\n.. code-block:: python\n\n    # Get a model instance by name:\n    import openprotein\n    session = openprotein.connect(username=\"user\", password=\"password\")\n    # list available models:\n    print(session.embedding.list_models() )\n    # init model by name\n    model = session.embedding.get_model('prot-seq')"
+    }
+   ],
    "module": "openprotein.embeddings.embeddings",
    "source": {
     "file": "openprotein/embeddings/embeddings.py",
@@ -212,7 +218,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "embedding"
   },
   {
    "name": "PoET2Model",
@@ -224,6 +231,12 @@
     "EmbeddingModel"
    ],
    "doc": "Class for OpenProtein's foundation model PoET 2.\n\nPoET functions are dependent on a prompt supplied via the prompt endpoints.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet2?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class for OpenProtein's foundation model PoET 2.\n\nPoET functions are dependent on a prompt supplied via the prompt endpoints.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet2?"
+    }
+   ],
    "module": "openprotein.embeddings.poet2",
    "source": {
     "file": "openprotein/embeddings/poet2.py",
@@ -937,7 +950,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "PoETModel",
@@ -948,6 +962,23 @@
     "EmbeddingModel"
    ],
    "doc": "Class for OpenProtein's foundation model PoET.\n\nNote\n----\nPoET functions are dependent on a prompt supplied via the prompt endpoints.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet.<embeddings_method>",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class for OpenProtein's foundation model PoET."
+    },
+    {
+     "kind": "admonition",
+     "title": "Note",
+     "text": "PoET functions are dependent on a prompt supplied via the prompt endpoints."
+    },
+    {
+     "kind": "examples",
+     "items": [
+      "View specific model details (including supported tokens) with the `?` operator.\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.poet.<embeddings_method>"
+     ]
+    }
+   ],
    "module": "openprotein.embeddings.poet",
    "source": {
     "file": "openprotein/embeddings/poet.py",
@@ -1529,7 +1560,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "AbLang2Model",
@@ -1540,6 +1572,12 @@
     "EmbeddingModel"
    ],
    "doc": "Community AbLang2 model that targets antibodies.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.ablang2?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Community AbLang2 model that targets antibodies.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.ablang2?"
+    }
+   ],
    "module": "openprotein.embeddings.ablang",
    "source": {
     "file": "openprotein/embeddings/ablang.py",
@@ -1953,7 +1991,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "OpenProteinModel",
@@ -1965,6 +2004,12 @@
     "EmbeddingModel"
    ],
    "doc": "Proprietary protein embedding models served by OpenProtein.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.prot_seq?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Proprietary protein embedding models served by OpenProtein.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.prot_seq?"
+    }
+   ],
    "module": "openprotein.embeddings.openprotein",
    "source": {
     "file": "openprotein/embeddings/openprotein.py",
@@ -2424,7 +2469,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "ESMModel",
@@ -2436,6 +2482,12 @@
     "EmbeddingModel"
    ],
    "doc": "Class providing inference endpoints for Facebook's ESM protein language models.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.esm2_t12_35M_UR50D?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Facebook's ESM protein language models.\n\nExamples\n--------\nView specific model details (inc supported tokens) with the `?` operator.\n\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.embedding.esm2_t12_35M_UR50D?"
+    }
+   ],
    "module": "openprotein.embeddings.esm",
    "source": {
     "file": "openprotein/embeddings/esm.py",
@@ -2895,7 +2947,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "EmbeddingModel",
@@ -2904,6 +2957,12 @@
    "signature": "(session, model_id, metadata=None)",
    "bases": [],
    "doc": "Base embeddings model used to understand and provide embeddings from sequences.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Base embeddings model used to understand and provide embeddings from sequences."
+    }
+   ],
    "module": "openprotein.embeddings.models",
    "source": {
     "file": "openprotein/embeddings/models.py",
@@ -3421,7 +3480,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "embedding"
   },
   {
    "name": "EmbeddingsResultFuture",
@@ -3432,6 +3492,12 @@
     "MappedFuture[bytes, np.ndarray]"
    ],
    "doc": "Future for manipulating results for embeddings-related requests.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future for manipulating results for embeddings-related requests."
+    }
+   ],
    "module": "openprotein.embeddings.future",
    "source": {
     "file": "openprotein/embeddings/future.py",
@@ -3837,7 +3903,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "embedding"
   },
   {
    "name": "EmbeddingsScoreFuture",
@@ -3848,6 +3915,12 @@
     "BaseScoreFuture[Score]"
    ],
    "doc": "Future for manipulating results for embeddings score-related requests.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future for manipulating results for embeddings score-related requests."
+    }
+   ],
    "module": "openprotein.embeddings.future",
    "source": {
     "file": "openprotein/embeddings/future.py",
@@ -4189,7 +4262,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "embedding"
   },
   {
    "name": "EmbeddingsGenerateFuture",
@@ -4200,6 +4274,12 @@
     "BaseScoreFuture[Score]"
    ],
    "doc": "Future for manipulating results for embeddings generate-related requests.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future for manipulating results for embeddings generate-related requests."
+    }
+   ],
    "module": "openprotein.embeddings.future",
    "source": {
     "file": "openprotein/embeddings/future.py",
@@ -4541,7 +4621,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "embedding"
   }
  ],
  "sdk": {

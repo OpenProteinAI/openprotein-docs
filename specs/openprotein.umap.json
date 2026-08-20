@@ -10,6 +10,12 @@
     "Future['UMAPModel']"
    ],
    "doc": "UMAP model that can be used to create projected embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job.\nThe projected embeddings of the sequences used to fit the UMAP can be\naccessed using `embeddings`.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "UMAP model that can be used to create projected embeddings.\n\nThe model is also implemented as a `Future` to allow waiting for a fit job.\nThe projected embeddings of the sequences used to fit the UMAP can be\naccessed using `embeddings`."
+    }
+   ],
    "module": "openprotein.umap.models",
    "source": {
     "file": "openprotein/umap/models.py",
@@ -634,7 +640,31 @@
      ]
     }
    ],
-   "section": "Transform Models"
+   "section": "Transform Models",
+   "page": "embedding"
+  },
+  {
+   "name": "UMAPAPI",
+   "path": "openprotein.umap.UMAPAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "doc": "UMAP API providing the interface to fit and run UMAP visualizations.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "UMAP API providing the interface to fit and run UMAP visualizations."
+    }
+   ],
+   "module": "openprotein.umap.umap",
+   "source": {
+    "file": "openprotein/umap/umap.py",
+    "line": 18,
+    "end": 222
+   },
+   "members": [],
+   "summary_only": true,
+   "page": null
   }
  ],
  "sdk": {

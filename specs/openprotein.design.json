@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Design API providing the interface to design novel proteins based on your design criteria.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Design API providing the interface to design novel proteins based on your design criteria."
+    }
+   ],
    "module": "openprotein.design.design",
    "source": {
     "file": "openprotein/design/design.py",
@@ -173,7 +179,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "design"
   },
   {
    "name": "DesignFuture",
@@ -185,6 +192,12 @@
     "Future"
    ],
    "doc": "A future object that will hold the results of the design job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A future object that will hold the results of the design job."
+    }
+   ],
    "module": "openprotein.design.future",
    "source": {
     "file": "openprotein/design/future.py",
@@ -483,7 +496,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "design"
   }
  ],
  "sdk": {

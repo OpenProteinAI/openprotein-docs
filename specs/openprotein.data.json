@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "API interface for calling AssayData endpoints",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "API interface for calling AssayData endpoints"
+    }
+   ],
    "module": "openprotein.data.data",
    "source": {
     "file": "openprotein/data/data.py",
@@ -148,7 +154,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "data"
   },
   {
    "name": "AssayDataset",
@@ -157,6 +164,12 @@
    "signature": "(session, metadata)",
    "bases": [],
    "doc": "Assay dataset which contains your sequences and measurements which can be used for training predictors.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Assay dataset which contains your sequences and measurements which can be used for training predictors."
+    }
+   ],
    "module": "openprotein.data.assaydataset",
    "source": {
     "file": "openprotein/data/assaydataset.py",
@@ -315,7 +328,8 @@
      ]
     }
    ],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "data"
   },
   {
    "name": "AssayMetadata",
@@ -326,6 +340,7 @@
     "BaseModel"
    ],
    "doc": null,
+   "parsed": [],
    "module": "openprotein.data.schemas",
    "source": {
     "file": "openprotein/data/schemas.py",
@@ -333,7 +348,8 @@
     "end": 16
    },
    "members": [],
-   "section": "Classes"
+   "section": "Classes",
+   "page": "data"
   }
  ],
  "sdk": {

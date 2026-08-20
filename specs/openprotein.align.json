@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks."
+    }
+   ],
    "module": "openprotein.align.align",
    "source": {
     "file": "openprotein/align/align.py",
@@ -681,7 +687,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "align"
   },
   {
    "name": "MSAFuture",
@@ -693,6 +700,12 @@
     "Future"
    ],
    "doc": "Represents a future for MSA (Multiple Sequence Alignment) results.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents a future for MSA (Multiple Sequence Alignment) results."
+    }
+   ],
    "module": "openprotein.align.msa",
    "source": {
     "file": "openprotein/align/msa.py",
@@ -806,7 +819,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "align"
   }
  ],
  "sdk": {

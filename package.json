@@ -20,6 +20,7 @@
     "check:layout": "node ./scripts/geom.mjs",
     "shots": "node ./scripts/shots.mjs",
     "check:restapi": "node ./scripts/check-restapi.mjs",
+    "check:pyapi:render": "node ./scripts/check-pyapi.mjs",
     "check:auth": "node ./scripts/check-auth.mjs"
   },
   "dependencies": {

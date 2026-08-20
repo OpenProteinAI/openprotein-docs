@@ -8,6 +8,23 @@
    "signature": "(sequence, name=None)",
    "bases": [],
    "doc": "Represents a protein with an optional name.\n\nThis class supports partial or complete information: users may create a Protein\nwith only a sequence, only a structure, or both. The class ensures that all\nprovided fields have consistent residue-level lengths and provides convenient\nmethods for indexing, masking, and structural comparisons.\n\nConventions:\n    - Missing or unknown residues in the sequence are denoted by b\"X\".\n    - Missing structural data (coordinates or pLDDT) are represented by NaN.\n    - Residue indices are 1-indexed for user-facing methods suffixed with `at` E.g.\n      `.at`, `mask_sequence_at`\n\nExamples:\n    Create a Protein from sequence only:\n        Protein(sequence=\"ACDEFGHIK\")\n\n    Create a Protein from sequence and name:\n        Protein(sequence=\"ACDEFGHIK\", name=\"my_protein\")",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents a protein with an optional name.\n\nThis class supports partial or complete information: users may create a Protein\nwith only a sequence, only a structure, or both. The class ensures that all\nprovided fields have consistent residue-level lengths and provides convenient\nmethods for indexing, masking, and structural comparisons."
+    },
+    {
+     "kind": "admonition",
+     "title": "Conventions",
+     "text": "- Missing or unknown residues in the sequence are denoted by b\"X\".\n- Missing structural data (coordinates or pLDDT) are represented by NaN.\n- Residue indices are 1-indexed for user-facing methods suffixed with `at` E.g.\n  `.at`, `mask_sequence_at`"
+    },
+    {
+     "kind": "examples",
+     "items": [
+      "Create a Protein from sequence only:\n    Protein(sequence=\"ACDEFGHIK\")\n\nCreate a Protein from sequence and name:\n    Protein(sequence=\"ACDEFGHIK\", name=\"my_protein\")"
+     ]
+    }
+   ],
    "module": "openprotein.molecules.protein",
    "source": {
     "file": "openprotein/molecules/protein.py",
@@ -447,7 +464,8 @@
      ]
     }
    ],
-   "section": "Protein"
+   "section": "Protein",
+   "page": "molecules"
   },
   {
    "name": "Complex",
@@ -456,6 +474,7 @@
    "signature": "(chains=None, name=None)",
    "bases": [],
    "doc": null,
+   "parsed": [],
    "module": "openprotein.molecules.complex",
    "source": {
     "file": "openprotein/molecules/complex.py",
@@ -502,7 +521,8 @@
      ]
     }
    ],
-   "section": "Complex"
+   "section": "Complex",
+   "page": "molecules"
   },
   {
    "name": "Structure",
@@ -511,6 +531,12 @@
    "signature": "(complexes, name=None)",
    "bases": [],
    "doc": "Represents a collection of :class:`Complex` instances.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents a collection of :class:`Complex` instances."
+    }
+   ],
    "module": "openprotein.molecules.structure",
    "source": {
     "file": "openprotein/molecules/structure.py",
@@ -595,7 +621,8 @@
      ]
     }
    ],
-   "section": "Structure"
+   "section": "Structure",
+   "page": "molecules"
   },
   {
    "name": "Ligand",
@@ -606,6 +633,29 @@
     "_BasicSerde"
    ],
    "doc": "Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string.\n\nRequires either a CCD identifier or SMILES string.\n\nAttributes:\n    ccd (str | None): The CCD identifier for the ligand.\n    smiles (str | None): The SMILES representation of the ligand.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string.\n\nRequires either a CCD identifier or SMILES string."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "ccd",
+       "type": "str | None",
+       "default": null,
+       "text": "The CCD identifier for the ligand."
+      },
+      {
+       "name": "smiles",
+       "type": "str | None",
+       "default": null,
+       "text": "The SMILES representation of the ligand."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.molecules.chains",
    "source": {
     "file": "openprotein/molecules/chains.py",
@@ -642,7 +692,8 @@
      "parsed": []
     }
    ],
-   "section": "Ligand"
+   "section": "Ligand",
+   "page": "molecules"
   },
   {
    "name": "DNA",
@@ -653,6 +704,23 @@
     "_BasicSerde"
    ],
    "doc": "Represents a DNA sequence.\n\nAttributes:\n    sequence (str): The nucleotide sequence of the DNA.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents a DNA sequence."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "sequence",
+       "type": "str",
+       "default": null,
+       "text": "The nucleotide sequence of the DNA."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.molecules.chains",
    "source": {
     "file": "openprotein/molecules/chains.py",
@@ -675,7 +743,8 @@
      "parsed": []
     }
    ],
-   "section": "DNA"
+   "section": "DNA",
+   "page": "molecules"
   },
   {
    "name": "RNA",
@@ -686,6 +755,23 @@
     "_BasicSerde"
    ],
    "doc": "Represents an RNA sequence.\n\nAttributes:\n    sequence (str): The nucleotide sequence of the RNA.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Represents an RNA sequence."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "sequence",
+       "type": "str",
+       "default": null,
+       "text": "The nucleotide sequence of the RNA."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.molecules.chains",
    "source": {
     "file": "openprotein/molecules/chains.py",
@@ -708,7 +794,8 @@
      "parsed": []
     }
    ],
-   "section": "RNA"
+   "section": "RNA",
+   "page": "molecules"
   },
   {
    "name": "Template",
@@ -717,6 +804,41 @@
    "signature": "(template, mapping=None, index=None, index_intervals=None)",
    "bases": [],
    "doc": "A structural template used to guide the folding of a target chain or complex.\n\nThis class wraps a structural source (Protein or Complex) and defines how it\nshould map to the target(s).\n\nAttributes:\n    template (Protein | Complex): The structural object to be used as a template.\n        Must contain structural data (coordinates).\n    mapping (Mapping[str, str] | str | None): The rule for assigning this template\n        to the target.\n\n        - Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.\n        - str: Apply this template to a specific target_chain_id. (If template is\n          a Complex, a selection algorithm is used to pick the best source chain).\n        - None: Automatic assignment. The folding algorithm will determine which\n          chain(s) this template applies to.\n    index (Sequence[int] | None): Restrict this template to specific sequence\n        positions in the batched fold job. The default (``None``) applies the\n        template to every sequence \u2014 matching the passthrough behavior callers\n        see today. Populate to scope a template to a subset, e.g. in a\n        binder-design refold where structure ``M[k]`` templates only sequences\n        ``[k*N, k*N+N)``.\n    index_intervals (Sequence[tuple[int, int]] | None): Range-form alternative\n        to ``index`` for scoping the template to contiguous spans of sequence\n        positions. Each tuple is a half-open ``[start, end)`` range. Useful\n        when the subset is large and contiguous (e.g. ``[(0, 1000)]`` instead\n        of ``list(range(1000))``). May be combined with ``index``; the server\n        unions the two.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A structural template used to guide the folding of a target chain or complex.\n\nThis class wraps a structural source (Protein or Complex) and defines how it\nshould map to the target(s)."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "template",
+       "type": "Protein | Complex",
+       "default": null,
+       "text": "The structural object to be used as a template.\nMust contain structural data (coordinates)."
+      },
+      {
+       "name": "mapping",
+       "type": "Mapping[str, str] | str | None",
+       "default": null,
+       "text": "The rule for assigning this template\nto the target.\n\n- Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.\n- str: Apply this template to a specific target_chain_id. (If template is\n  a Complex, a selection algorithm is used to pick the best source chain).\n- None: Automatic assignment. The folding algorithm will determine which\n  chain(s) this template applies to."
+      },
+      {
+       "name": "index",
+       "type": "Sequence[int] | None",
+       "default": null,
+       "text": "Restrict this template to specific sequence\npositions in the batched fold job. The default (``None``) applies the\ntemplate to every sequence \u2014 matching the passthrough behavior callers\nsee today. Populate to scope a template to a subset, e.g. in a\nbinder-design refold where structure ``M[k]`` templates only sequences\n``[k*N, k*N+N)``."
+      },
+      {
+       "name": "index_intervals",
+       "type": "Sequence[tuple[int, int]] | None",
+       "default": null,
+       "text": "Range-form alternative\nto ``index`` for scoping the template to contiguous spans of sequence\npositions. Each tuple is a half-open ``[start, end)`` range. Useful\nwhen the subset is large and contiguous (e.g. ``[(0, 1000)]`` instead\nof ``list(range(1000))``). May be combined with ``index``; the server\nunions the two."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.molecules.template",
    "source": {
     "file": "openprotein/molecules/template.py",
@@ -828,7 +950,8 @@
      ]
     }
    ],
-   "section": "Template"
+   "section": "Template",
+   "page": "molecules"
   }
  ],
  "sdk": {

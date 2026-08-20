@@ -9,6 +9,7 @@ Replaces `sphinx.ext.autodoc` + `sphinx.ext.viewcode` for the 11 pages under
 | `sdk.py` | griffe loading plus the five things griffe does not hand you directly |
 | `members.py` | which members autodoc emitted, and what each one looks like |
 | `generate.py` | the driver: `pnpm sync:pyapi` / `check:pyapi` / `diff:pyapi` |
+| `seed_pages.py` | wrote `content/docs/python-api/api-reference/*.mdx` once from `pages.json`; refuses to overwrite without `--force` |
 | `pages.json` | **the curation**: which classes appear on which page, in what order, under which heading, with which autodoc options. Lifted once from the old `.rst`, hand-maintained since |
 | `extract_manifest.py` | how `pages.json` was produced. Provenance only — `__old/` goes away |
 | `fetch_golden.py` | captures what the live Sphinx site rendered, into `golden/` |
@@ -31,6 +32,22 @@ rows on the index. Per page: `openprotein` 1/13, `molecules` 7/29, `data` 3/7, `
   the preceding "Data Primitives" heading with no table at all.
 
 ## Fidelity
+
+Two checks, at the two ends of the pipeline.
+
+`pnpm check:pyapi:render` (`scripts/check-pyapi.mjs`) drives the rendered pages in Chrome and
+asserts that **every dotted anchor the live Sphinx site published exists here, exactly once** —
+those are the inbound deep links (`…/fold.html#openprotein.fold.FoldAPI.get_results`), and a
+slugified or missing id breaks them silently:
+
+```
+all checks passed — 501 dotted anchors present and unique
+```
+
+501 = 61 classes + 439 members + `openprotein.connect`. It also checks TOC anchors resolve
+1:1, that every entry carries a kind badge and a source link pinned to a `v*` tag, that the
+index renders at least as many autosummary rows as Sphinx did (47 vs 44 — see below), and that
+the console is clean.
 
 `pnpm diff:pyapi` scores the generated member sets against `golden/`:
 

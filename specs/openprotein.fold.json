@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "Fold API provides a high level interface for making protein structure predictions.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Fold API provides a high level interface for making protein structure predictions."
+    }
+   ],
    "module": "openprotein.fold.fold",
    "source": {
     "file": "openprotein/fold/fold.py",
@@ -350,7 +356,8 @@
      ]
     }
    ],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "fold"
   },
   {
    "name": "ProtenixModel",
@@ -361,6 +368,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for Protenix structure prediction.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Protenix structure prediction."
+    }
+   ],
    "module": "openprotein.fold.protenix",
    "source": {
     "file": "openprotein/fold/protenix.py",
@@ -433,7 +446,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "Boltz2Model",
@@ -445,6 +459,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities."
+    }
+   ],
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
@@ -547,7 +567,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "Boltz1xModel",
@@ -560,6 +581,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance."
+    }
+   ],
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
@@ -638,7 +665,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "Boltz1Model",
@@ -650,6 +678,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for Boltz-1 open-source structure prediction model.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Boltz-1 open-source structure prediction model."
+    }
+   ],
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
@@ -734,7 +768,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "RosettaFold3Model",
@@ -745,6 +780,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for RosettaFold-3 structure prediction model.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for RosettaFold-3 structure prediction model."
+    }
+   ],
    "module": "openprotein.fold.rosettafold3",
    "source": {
     "file": "openprotein/fold/rosettafold3.py",
@@ -811,7 +852,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "AlphaFold2Model",
@@ -822,6 +864,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold."
+    }
+   ],
    "module": "openprotein.fold.alphafold2",
    "source": {
     "file": "openprotein/fold/alphafold2.py",
@@ -888,7 +936,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "ESMFoldModel",
@@ -899,6 +948,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for Facebook's ESMFold structure prediction models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Facebook's ESMFold structure prediction models."
+    }
+   ],
    "module": "openprotein.fold.esmfold",
    "source": {
     "file": "openprotein/fold/esmfold.py",
@@ -953,7 +1008,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "ESMFold2Model",
@@ -964,6 +1020,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for ESMFold2 structure prediction.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for ESMFold2 structure prediction."
+    }
+   ],
    "module": "openprotein.fold.esmfold2",
    "source": {
     "file": "openprotein/fold/esmfold2.py",
@@ -1036,7 +1098,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "ESMFold2FastModel",
@@ -1047,6 +1110,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for ESMFold2-Fast structure prediction.\n\nSingle-sequence variant of ESMFold2 (no MSA).",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for ESMFold2-Fast structure prediction.\n\nSingle-sequence variant of ESMFold2 (no MSA)."
+    }
+   ],
    "module": "openprotein.fold.esmfold2",
    "source": {
     "file": "openprotein/fold/esmfold2.py",
@@ -1119,7 +1188,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "MiniFoldModel",
@@ -1130,6 +1200,12 @@
     "FoldModel"
    ],
    "doc": "Class providing inference endpoints for MiniFold.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for MiniFold."
+    }
+   ],
    "module": "openprotein.fold.minifold",
    "source": {
     "file": "openprotein/fold/minifold.py",
@@ -1184,7 +1260,8 @@
      ]
     }
    ],
-   "section": "Models"
+   "section": "Models",
+   "page": "fold"
   },
   {
    "name": "ESMFold2Confidence",
@@ -1195,6 +1272,47 @@
     "BaseModel"
    ],
    "doc": "Per-sample confidence scores from an ESMFold2 structure prediction.\n\nAttributes\n----------\nptm : float\n    Predicted TM-score for the full complex.\niptm : float\n    Interface pTM aggregated over inter-chain residue pairs.\ncomplex_plddt : float\n    Mean per-atom pLDDT for the complex.\nchains_ptm : dict[str, float]\n    Per-chain pTM scores, keyed by chain index as a string.\npair_chains_iptm : dict[str, dict[str, float]]\n    Predicted ipTM between each pair of chains, keyed by chain indices\n    as strings.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Per-sample confidence scores from an ESMFold2 structure prediction."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "ptm",
+       "type": "float",
+       "default": null,
+       "text": "Predicted TM-score for the full complex."
+      },
+      {
+       "name": "iptm",
+       "type": "float",
+       "default": null,
+       "text": "Interface pTM aggregated over inter-chain residue pairs."
+      },
+      {
+       "name": "complex_plddt",
+       "type": "float",
+       "default": null,
+       "text": "Mean per-atom pLDDT for the complex."
+      },
+      {
+       "name": "chains_ptm",
+       "type": "dict[str, float]",
+       "default": null,
+       "text": "Per-chain pTM scores, keyed by chain index as a string."
+      },
+      {
+       "name": "pair_chains_iptm",
+       "type": "dict[str, dict[str, float]]",
+       "default": null,
+       "text": "Predicted ipTM between each pair of chains, keyed by chain indices\nas strings."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.fold.esmfold2",
    "source": {
     "file": "openprotein/fold/esmfold2.py",
@@ -1281,7 +1399,8 @@
      "synthetic": "pydantic"
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "fold"
   },
   {
    "name": "FoldResultFuture",
@@ -1292,6 +1411,23 @@
     "MappedFuture[int, FoldResult]"
    ],
    "doc": "Fold results represented as a future.\n\nAttributes\n----------\njob : FoldJob\n    The fold job associated with this future.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Fold results represented as a future."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "job",
+       "type": "FoldJob",
+       "default": null,
+       "text": "The fold job associated with this future."
+      }
+     ]
+    }
+   ],
    "module": "openprotein.fold.future",
    "source": {
     "file": "openprotein/fold/future.py",
@@ -2320,7 +2456,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "fold"
   }
  ],
  "sdk": {

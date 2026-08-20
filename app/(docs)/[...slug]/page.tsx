@@ -15,6 +15,7 @@ import { PageActions } from '@/components/site/page-actions';
 import { readNotebook } from '@/lib/notebook';
 import { getApiPageProps, getSpecDocument, specIdForSlug } from '@/lib/openapi';
 import { endpointsToc } from '@/lib/openapi-toc';
+import { pyToc } from '@/lib/python-api';
 import { source } from '@/lib/source';
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
@@ -32,6 +33,9 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   let toc = page.data.toc;
   if (notebook) toc = [...toc, ...(await readNotebook(notebook)).toc];
   if (specId) toc = [...toc, ...endpointsToc(await getSpecDocument(specId))];
+  // <PyClass> blocks render at request time, so the compile-time TOC sees only this page's
+  // own headings and every class under them would be unnavigable.
+  if (page.data.pythonApi) toc = await pyToc(page.path, toc);
 
   return (
     <DocsPage

@@ -67,6 +67,16 @@ def parse_options(lines: list[str], start: int) -> tuple[dict, int]:
     return options, i
 
 
+DOC_ROLE = re.compile(r":doc:`([^<`]+?)\s*<([^>`]+)>`")
+PY_ROLE = re.compile(r":py:(?:class|meth|func|attr|obj|mod):`~?([^`]+)`")
+
+
+def rewrite_roles(text: str) -> str:
+    """RST roles the reference prose uses, as MDX. Only two forms occur."""
+    text = DOC_ROLE.sub(lambda m: f"[{m.group(1).strip()}](./{m.group(2).strip()})", text)
+    return PY_ROLE.sub(lambda m: f"[`{m.group(1).split('.')[-1]}`](#{m.group(1)})", text)
+
+
 def parse(page: str) -> dict:
     lines = (SRC / f"{page}.rst").read_text(encoding="utf-8").split("\n")
     levels = heading_levels(lines)
@@ -75,11 +85,21 @@ def parse(page: str) -> dict:
     sections: list[dict] = []
     current = {"heading": None, "level": 0, "prose": [], "entries": [], "autosummary": []}
     i = 0
+    first = next(iter(levels), -1)
     while i < len(lines):
-        if i in levels and i != next(iter(levels)):
-            level, text = levels[i]
-            sections.append(current)
-            current = {"heading": text, "level": level, "prose": [], "entries": [], "autosummary": []}
+        if i in levels:
+            # Always skip the heading line and its underline, title included — otherwise the
+            # title text and its `====` rule land in the first section's prose.
+            if i != first:
+                level, text = levels[i]
+                sections.append(current)
+                current = {
+                    "heading": text,
+                    "level": level,
+                    "prose": [],
+                    "entries": [],
+                    "autosummary": [],
+                }
             i += 2
             continue
 
@@ -112,7 +132,7 @@ def parse(page: str) -> dict:
 
         text = lines[i].strip()
         if text:
-            current["prose"].append(text)
+            current["prose"].append(rewrite_roles(text))
         i += 1
 
     sections.append(current)

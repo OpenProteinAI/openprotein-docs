@@ -1,0 +1,16 @@
+{
+  "title": "API reference",
+  "pages": [
+    "openprotein",
+    "molecules",
+    "data",
+    "jobs",
+    "align",
+    "prompt",
+    "embedding",
+    "predictor",
+    "design",
+    "fold",
+    "models"
+  ]
+}

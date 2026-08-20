@@ -2,6 +2,7 @@
   "pages": [
     "getting-started",
     "walkthroughs",
+    "python-api",
     "rest-api"
   ]
 }

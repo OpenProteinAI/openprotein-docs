@@ -8,6 +8,12 @@
    "signature": "(session)",
    "bases": [],
    "doc": "API-like accessor that groups all available protein models.\n\nThis class is attached to the main APISession and provides a single,\nconsistent entry point for accessing various models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "API-like accessor that groups all available protein models.\n\nThis class is attached to the main APISession and provides a single,\nconsistent entry point for accessing various models."
+    }
+   ],
    "module": "openprotein.models.models",
    "source": {
     "file": "openprotein/models/models.py",
@@ -15,7 +21,8 @@
     "end": 37
    },
    "members": [],
-   "section": "Interface"
+   "section": "Interface",
+   "page": "models"
   },
   {
    "name": "RFdiffusionModel",
@@ -26,6 +33,12 @@
     "ProteinModel"
    ],
    "doc": "RFdiffusion model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "RFdiffusion model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design."
+    }
+   ],
    "module": "openprotein.models.foundation.rfdiffusion",
    "source": {
     "file": "openprotein/models/foundation/rfdiffusion.py",
@@ -330,7 +343,8 @@
      ]
     }
    ],
-   "section": "RFdiffusion"
+   "section": "RFdiffusion",
+   "page": "models"
   },
   {
    "name": "RFdiffusionFuture",
@@ -341,6 +355,12 @@
     "StructureGenerationFuture"
    ],
    "doc": "Deprecated alias for :class:`StructureGenerationFuture`.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Deprecated alias for :class:`StructureGenerationFuture`."
+    }
+   ],
    "module": "openprotein.models.foundation.rfdiffusion",
    "source": {
     "file": "openprotein/models/foundation/rfdiffusion.py",
@@ -696,7 +716,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "models"
   },
   {
    "name": "BoltzGenModel",
@@ -707,6 +728,12 @@
     "ProteinModel"
    ],
    "doc": "BoltzGen model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "BoltzGen model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design."
+    }
+   ],
    "module": "openprotein.models.foundation.boltzgen",
    "source": {
     "file": "openprotein/models/foundation/boltzgen.py",
@@ -767,7 +794,8 @@
      ]
     }
    ],
-   "section": "BoltzGen"
+   "section": "BoltzGen",
+   "page": "models"
   },
   {
    "name": "BoltzGenFuture",
@@ -778,6 +806,12 @@
     "StructureGenerationFuture"
    ],
    "doc": "Deprecated alias for :class:`StructureGenerationFuture`.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Deprecated alias for :class:`StructureGenerationFuture`."
+    }
+   ],
    "module": "openprotein.models.foundation.boltzgen",
    "source": {
     "file": "openprotein/models/foundation/boltzgen.py",
@@ -1133,7 +1167,8 @@
      ]
     }
    ],
-   "section": "Results"
+   "section": "Results",
+   "page": "models"
   },
   {
    "name": "ProteinMPNNModel",
@@ -1144,6 +1179,12 @@
     "ProteinModel"
    ],
    "doc": "Class for ProteinMPNN model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.models.proteinmpnn?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class for ProteinMPNN model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.models.proteinmpnn?"
+    }
+   ],
    "module": "openprotein.models.foundation.proteinmpnn",
    "source": {
     "file": "openprotein/models/foundation/proteinmpnn.py",
@@ -1391,7 +1432,8 @@
      ]
     }
    ],
-   "section": "ProteinMPNN"
+   "section": "ProteinMPNN",
+   "page": "models"
   },
   {
    "name": "ESMIF1Model",
@@ -1402,6 +1444,12 @@
     "ProteinModel"
    ],
    "doc": "Class for ESM Inverse Folding (ESM-IF1) model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect()\n    >>> session.models.esmif1?",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class for ESM Inverse Folding (ESM-IF1) model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect()\n    >>> session.models.esmif1?"
+    }
+   ],
    "module": "openprotein.models.foundation.esmif1",
    "source": {
     "file": "openprotein/models/foundation/esmif1.py",
@@ -1655,7 +1703,8 @@
      ]
     }
    ],
-   "section": "ESM-IF1"
+   "section": "ESM-IF1",
+   "page": "models"
   }
  ],
  "sdk": {
