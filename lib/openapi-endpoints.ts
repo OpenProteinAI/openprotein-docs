@@ -33,8 +33,6 @@ export interface EndpointOperation {
   method: EndpointMethod;
   /** The heading text fumadocs-openapi renders, which its anchor is derived from. */
   title: string;
-  /** Shorter TOC label: the computation type on hierarchical specs, else the title. */
-  label: string;
   anchor: string;
   deprecated: boolean;
 }
@@ -178,12 +176,10 @@ export function buildEndpointTree(document: SpecDocument): EndpointTree {
   eachOperation(document, (path, method, operation, pathItem) => {
     const tags = operation.tags ?? [];
     const title = operationTitle(operation, pathItem, path);
-    const label = hierarchical && tags.length >= 3 ? tags[tags.length - 1] : title;
     const entry: EndpointOperation = {
       path,
       method,
       title,
-      label,
       anchor: operationAnchor(title),
       deprecated: operation.deprecated ?? false,
     };
