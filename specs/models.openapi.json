@@ -1,0 +1,38 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "OpenProtein",
+  "description": "\n\nOpenProtein API helps you engineer better proteins 🚀\n\n# Getting Started\n\nHere's a quick overview of our authentication and jobs system, as well as some\nof our APIs.\n\n## Navigating the Job System\n\nOur endpoints follow an asynchronous POST and GET framework. Once you initiate\na task via our POST endpoints, the system schedules the job. This means that\neven for tasks that may take a while to complete, your request will return\nimmediately.\n\nThe POST response will contain a job ID (`job_id`) in its response json. This\njob ID is a unique identifier that allows you to track your job. You can use\nthis same job ID with our GET endpoints to monitor the progress of your task.\nPlease note that only **you** can access your jobs, a different user cannot\naccess your jobs even with your specific job ID.\n\nWhilst your job is underway, the API will indicate the status as `PENDING`.\nOnce the job has concluded (`SUCCESS`), you can retrieve your results by\ninvoking the same endpoint using your job ID in the payload (see specific\nendpoint details for more guidance).\nThe `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of\na job before obtaining all the results.\n\nThis design ensures that long-running tasks don't keep you waiting, and ensures\nyou can always get the results of a job back at a later date.\n\nRemember, your job ID is both unique and crucial for fetching the results of\nyour task. So, ensure to keep a note of it when you initiate a task.\n\n# Endpoints\n\n## Login\n\nEndpoints to login from your IDE. Here's a brief user-guide:\n\n### Steps to Log in\n\n#### On this Page\n\nYou can log in directly on this page using the `Authorize` button. This action\nwill let you browse the API documentation and execute test queries directly in\nyour browser.\n\n\n## Jobs\n\nEndpoints to track job status for asynchronous jobs.\n\nUse these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and\nview basic metadata (e.g., job creation date).\n\n## Align\n\nEndpoints to perform multiple sequence alignment (MSA) workflows. See the [User Guide](https://docs.openprotein.ai/poet-defining-prompts-page.html).\n\nYou can create a multiple sequence alignment from a seed sequence, upload a\ncustom MSA, or even upload your own prompt for use with `PoET` and `Fold`\nendpoints!\n\n\n## Assaydata\n\nEndpoints to upload your dataset to OpenProtein's engineering platform for\n`train`, `predict` and `evaluate` tasks. See the\n[User Guide](https://docs.openprotein.ai/dataset-page.html).\n\nFormat your data as 2 column CSV:\n* The full sequence of each variant (mutation codes are also accepted)\n* 1+ columns with your measured properties (missing values are acceptable)\n\n## Libraries\n\nEndpoints to fetch of all your designed OpenProtein sequence variants. This\nenables you to reference previously created variants easily.\n",
+  "version": "0.1.0"
+ },
+ "paths": {},
+ "components": {
+  "schemas": {},
+  "securitySchemes": {
+   "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+     "password": {
+      "scopes": {},
+      "tokenUrl": "/api/auth/login"
+     }
+    }
+   },
+   "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ },
+ "tags": [],
+ "servers": [
+  {
+   "url": "https://dev.api.openprotein.ai",
+   "description": "Development"
+  },
+  {
+   "url": "https://api.openprotein.ai",
+   "description": "Production"
+  }
+ ]
+}

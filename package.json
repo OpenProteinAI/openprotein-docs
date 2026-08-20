@@ -13,11 +13,13 @@
     "types:check": "next typegen && tsc --noEmit",
     "check:contrast": "node ./scripts/check-contrast.mjs",
     "check:layout": "node ./scripts/geom.mjs",
-    "shots": "node ./scripts/shots.mjs"
+    "shots": "node ./scripts/shots.mjs",
+    "check:restapi": "node ./scripts/check-restapi.mjs"
   },
   "dependencies": {
     "fumadocs-core": "16.14.3",
     "fumadocs-mdx": "15.2.3",
+    "fumadocs-openapi": "11.2.3",
     "fumadocs-ui": "16.14.3",
     "github-slugger": "^2.0.0",
     "jose": "^6.2.9",

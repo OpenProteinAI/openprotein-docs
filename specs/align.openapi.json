@@ -1,0 +1,2476 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "OpenProtein",
+  "description": "\n\nOpenProtein API helps you engineer better proteins 🚀\n\n# Getting Started\n\nHere's a quick overview of our authentication and jobs system, as well as some\nof our APIs.\n\n## Navigating the Job System\n\nOur endpoints follow an asynchronous POST and GET framework. Once you initiate\na task via our POST endpoints, the system schedules the job. This means that\neven for tasks that may take a while to complete, your request will return\nimmediately.\n\nThe POST response will contain a job ID (`job_id`) in its response json. This\njob ID is a unique identifier that allows you to track your job. You can use\nthis same job ID with our GET endpoints to monitor the progress of your task.\nPlease note that only **you** can access your jobs, a different user cannot\naccess your jobs even with your specific job ID.\n\nWhilst your job is underway, the API will indicate the status as `PENDING`.\nOnce the job has concluded (`SUCCESS`), you can retrieve your results by\ninvoking the same endpoint using your job ID in the payload (see specific\nendpoint details for more guidance).\nThe `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of\na job before obtaining all the results.\n\nThis design ensures that long-running tasks don't keep you waiting, and ensures\nyou can always get the results of a job back at a later date.\n\nRemember, your job ID is both unique and crucial for fetching the results of\nyour task. So, ensure to keep a note of it when you initiate a task.\n\n# Endpoints\n\n## Login\n\nEndpoints to login from your IDE. Here's a brief user-guide:\n\n### Steps to Log in\n\n#### On this Page\n\nYou can log in directly on this page using the `Authorize` button. This action\nwill let you browse the API documentation and execute test queries directly in\nyour browser.\n\n\n## Jobs\n\nEndpoints to track job status for asynchronous jobs.\n\nUse these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and\nview basic metadata (e.g., job creation date).\n\n## Align\n\nEndpoints to perform multiple sequence alignment (MSA) workflows. See the [User Guide](https://docs.openprotein.ai/poet-defining-prompts-page.html).\n\nYou can create a multiple sequence alignment from a seed sequence, upload a\ncustom MSA, or even upload your own prompt for use with `PoET` and `Fold`\nendpoints!\n\n\n## Assaydata\n\nEndpoints to upload your dataset to OpenProtein's engineering platform for\n`train`, `predict` and `evaluate` tasks. See the\n[User Guide](https://docs.openprotein.ai/dataset-page.html).\n\nFormat your data as 2 column CSV:\n* The full sequence of each variant (mutation codes are also accepted)\n* 1+ columns with your measured properties (missing values are acceptable)\n\n## Libraries\n\nEndpoints to fetch of all your designed OpenProtein sequence variants. This\nenables you to reference previously created variants easily.\n",
+  "version": "0.1.0"
+ },
+ "paths": {
+  "/api/v1/align/upload_prompt": {
+   "post": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "User Upload Prompt",
+    "description": "Upload a pre-made prompt and bypass all MSA and Sampling criteria steps.\n\nThe number of replicates is determined by the number of prompts         included in the upload.\nEach individual prompt in the file should be seperated with `<END_PROMPT>` flags.\n\nCurrently supports CSV and Fa formats.\nFor CSV we expect a headerless upload including either:\n\n    * a 2 column file: Names, Sequences\n    * a 1 column file: Sequences\n\n---\n\nArgs: \n\n    - prompt_file (File): csv or fa file to use as prompt as-is\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "user_upload_prompt_api_v1_align_upload_prompt_post",
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_user_upload_prompt_api_v1_align_upload_prompt_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PromptJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/align/prompt": {
+   "post": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "Create Msa Sample",
+    "description": "Creates a prompt from an existing MSA created from /align/msa endpoint.\n\nFiltering criteria (e.g. homology_level) are applied to the MSA to create a prompt        for use downstream use in poet applications.\n\nYou can and should view the results of this step with `/align/inputs msa_type='PROMPT'` before proceeding to poet endpoints.\n\n---\n\nArgs: \n\n    - msa_id (str): A job_id from POST /aign/msa results.\n    - max_msa_sequences (int): maximum number of sequences to sample from MSA.\n        Exclusive with max_msa_tokens.\n    - max_msa_tokens (int): maximum number of combined residues to sample from MSA.\n        Exclusive with max_msa_sequences.\n    - homology_level (float): The level of sequence identity used for sampling\n        non-redundant sequences from the MSA (neighbors sampling only).\n        For example, a homology level of 0.8 means that a sequence is considered to\n        belong to the same redundant group as other sequences to which it has >=80% identity.\n    - seed (int): seed for random sampling\n    - max_similarity (float): the max allowed similarity between the seed\n        and subsequent sequences from the MSA.\n    - min_similarity (float): the min allowed similarity between the seed\n        and subsequent sequences from the MSA.\n    - force_include_first (bool): whether to always include the seed (first)\n        sequence from the MSA\n    - msa_method (str): one of the following sampling strategies:\n        - Top: Select sequences in the order in which they occur in the MSA.\n        - Random: Sample sequences randomly without replacement from the MSA.\n        - Neighbors (reccomended): Sample more diverse, less redundant sequences\n            from the MSA by sampling each sequence with weight inversely\n            proportional to its number of homologs in the MSA.\n            see homology_level for finer control of this strategy.\n    - replicates: the number of unique prompts to create.\n        Used to ensemble models downstream.\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "create_msa_sample_api_v1_align_prompt_post",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "msa_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Msa Id"
+      }
+     },
+     {
+      "name": "max_msa_sequences",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 99,
+       "minimum": 1,
+       "title": "Max Msa Sequences"
+      }
+     },
+     {
+      "name": "max_msa_tokens",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 128000,
+       "minimum": 1,
+       "title": "Max Msa Tokens"
+      }
+     },
+     {
+      "name": "msa_method",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MSASamplingStrategy",
+       "default": "NEIGHBORS_NONGAP_NORM_NO_LIMIT"
+      }
+     },
+     {
+      "name": "homology_level",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number",
+       "maximum": 1,
+       "minimum": 0,
+       "default": 0.8,
+       "title": "Homology Level"
+      }
+     },
+     {
+      "name": "seed",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 4294967295,
+       "minimum": 0,
+       "title": "Seed"
+      }
+     },
+     {
+      "name": "max_similarity",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number",
+       "maximum": 1,
+       "minimum": 0,
+       "default": 1,
+       "title": "Max Similarity"
+      }
+     },
+     {
+      "name": "min_similarity",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number",
+       "maximum": 1,
+       "minimum": 0,
+       "default": 0,
+       "title": "Min Similarity"
+      }
+     },
+     {
+      "name": "force_include_first",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Force Include First"
+      }
+     },
+     {
+      "name": "replicates",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 15,
+       "minimum": 1,
+       "default": 1,
+       "title": "Replicates"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PromptJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/mafft": {
+   "post": {
+    "tags": [
+     "general msa"
+    ],
+    "summary": "Create Mafft Alignment",
+    "description": "Create a multiple sequence alignment (MSA) from your file of unaligned protein sequences.\n\nSet auto to True to automatically attempt the best params.\nLeave a parameter as None to use system defaults.\n\nCurrently supports CSV and Fa formats.\nFor CSV we expect a headerless upload including either:\n\n    * a 2 column file: Names, Sequences\n    * a 1 column file: Sequences\n\nArgs: \n\n    - file (File): CSV or Fa (see above)\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "create_mafft_alignment_api_v1_align_mafft_post",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "method",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "const": "MAFFT",
+       "type": "string",
+       "default": "MAFFT",
+       "title": "Method"
+      }
+     },
+     {
+      "name": "auto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "boolean"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": true,
+       "title": "Auto"
+      }
+     },
+     {
+      "name": "ep",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Ep"
+      }
+     },
+     {
+      "name": "op",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Op"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_mafft_alignment_api_v1_align_mafft_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AlignJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/abnumber": {
+   "post": {
+    "tags": [
+     "antibody msa"
+    ],
+    "summary": "Create Abnumber Alignment",
+    "description": "Create a multiple sequence alignment (MSA) from your file of unaligned protein sequences.\n\nLeave a parameter as None to use system defaults.\n\nCurrently supports CSV and Fa formats.\nFor CSV we expect a headerless upload including either:\n\n    * a 2 column file: Names, Sequences\n    * a 1 column file: Sequences\n\nArgs: \n\n    - file (File): CSV or Fa (see above)\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "create_abnumber_alignment_api_v1_align_abnumber_post",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "method",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "const": "ABNUMBER",
+       "type": "string",
+       "default": "ABNUMBER",
+       "title": "Method"
+      }
+     },
+     {
+      "name": "scheme",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "imgt",
+        "chothia",
+        "kabat",
+        "aho"
+       ],
+       "type": "string",
+       "default": "imgt",
+       "title": "Scheme"
+      }
+     },
+     {
+      "name": "drop_minority_chains",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Drop Minority Chains"
+      }
+     },
+     {
+      "name": "unnumbered_policy",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "error",
+        "drop",
+        "retain"
+       ],
+       "type": "string",
+       "default": "error",
+       "title": "Unnumbered Policy"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_abnumber_alignment_api_v1_align_abnumber_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AlignJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/clustalo": {
+   "post": {
+    "tags": [
+     "general msa"
+    ],
+    "summary": "Create Clustalo Alignment",
+    "description": "Create a multiple sequence alignment (MSA) from your file of unaligned protein sequences.\n\nLeave a parameter as None to use system defaults.\n\nCurrently supports CSV and Fa formats.\nFor CSV we expect a headerless upload including either:\n\n    * a 2 column file: Names, Sequences\n    * a 1 column file: Sequences\n\nArgs: \n\n    - file (File): CSV or Fa (see above)\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "create_clustalo_alignment_api_v1_align_clustalo_post",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "method",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "const": "CLUSTALO",
+       "type": "string",
+       "default": "CLUSTALO",
+       "title": "Method"
+      }
+     },
+     {
+      "name": "clustersize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Clustersize"
+      }
+     },
+     {
+      "name": "iterations",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Iterations"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_clustalo_alignment_api_v1_align_clustalo_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AlignJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/msa": {
+   "post": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "Create Msa Job",
+    "description": "Create a multiple sequence alignment (MSA).\n\n**Deprecated.** For seed-based MSA generation use `POST /align/search/mmseqs2/msa`;\nto store a ready-made MSA use `POST /api/v1/data/msa`. Retained for backward\ncompatibility until callers migrate.\n\nEither upload a seed sequence (is_seed = True) to have ColabFold generate an MSA,         or upload an entire, pre-made MSA directly (is_seed = False).\n\nFor a complex, upload a single MSA in ColabFold combined-a3m form: chains joined         with `:`, or the `#<lengths>       <cardinalities>` header.\n\nFile Uploads:\nWe currently support CSV, Fasta / a3m formats.\nFor CSV we expect a headerless upload including either:\n\n    * a 2 column file: Names, Sequences\n    * a 1 column file: Sequences\n\nArgs: \n\n    - msa_file (File): CSV or Fa/a3m (see above)\n    - is_seed (bool): whether to use the first sequence as a seed for the MSA.\n        Note that if True, everything past the first sequence is discarded.\n\nRaises: \n\n    - HTTPException (40X): If job can not be created\n\nReturns: \n\n    - Job: submitted Job details\n---",
+    "operationId": "create_msa_job_api_v1_align_msa_post",
+    "deprecated": true,
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "is_seed",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": true,
+       "title": "Is Seed"
+      }
+     },
+     {
+      "name": "force",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Force"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_msa_job_api_v1_align_msa_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AlignJob"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/antibody_schema": {
+   "get": {
+    "tags": [
+     "antibody msa"
+    ],
+    "summary": "Get Antibody Schemas",
+    "description": "Get antibody numbering from a align/abnumber msa job.\n\n---\nArgs: \n\n    - job_id (str): msa_id\n\nRaises: \n\n    - HTTPException (40X): If job can not be found\n\nReturns:\n    - json\n---",
+    "operationId": "get_antibody_schemas_api_v1_align_antibody_schema_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/antibody/annotate": {
+   "post": {
+    "tags": [
+     "antibody msa"
+    ],
+    "summary": "Annotate antibody sequences",
+    "description": "Annotate one or more antibody sequences and stream the result back as a CSV.\n\nThe endpoint accepts either an inline list of antibody amino-acid\nsequences (`sequences`) or a reference to an existing assay\n(`assay_id`). Exactly one of those two fields must be supplied. Each\ninput sequence is one or more chains joined by `:` (e.g.\n`EVQLVES...:DIQMTQS...`), in any combination of chain types and any\nnumber of them — a single chain, a heavy/light pair, two heavy\nchains, or a four-chain construct are all accepted. A chain is\nuppercase letters only, with no whitespace, and at most 1000 of them;\na sequence holds at most 100 chains.\n\nFor each input sequence the service:\n\n1. Numbers the sequence according to the chosen `scheme` (IMGT,\n   Kabat, Chothia, or AHo) and chosen CDR definition.\n2. Determines the chain type (`H`, `K`, or `L`) and assigns the\n   best-matching V and J germline genes, along with the species\n   whose germline database they came from.\n3. Computes the number of mutations, substitutions, insertions, and\n   deletions relative to the assigned germline. Mutation metrics are\n   always computed in IMGT numbering over the V region (IMGT\n   positions <= 104), independent of the chosen `scheme`, so that\n   the counts are directly comparable across schemes.\n\n### Output format\n\nThe response is a `text/csv` stream consisting of:\n\n1. A single metadata comment line beginning with `# ` and containing\n   a JSON object of scheme-specific metadata: region boundaries plus\n   the position-ordering information needed to reconstruct\n   alignments from the `numbering` labels. See the \"Metadata\n   comment\" section below for the fields.\n2. A header row listing the columns:\n   `chain_type,numbering,species,v_gene,j_gene,v_identity,j_identity,n_mutations,n_substitutions,n_insertions,n_deletions,error`.\n3. One data row per input sequence, in input order.\n\nColumn meanings:\n\n| Column | Description |\n| --- | --- |\n| `chain_type` | One character per chain, in input order, concatenated with no separator: `H` (heavy), `K` (kappa light), `L` (lambda light), or `?` for a chain that could not be numbered. Always exactly one more character than the number of `:` in the input, so `HK`, `HH`, `H?`, `HKHL` and `?` are all possible. |\n| `numbering` | Comma-separated list of position labels in the chosen scheme, with one entry per residue of the input sequence. Each label is the residue number with an optional insertion letter appended (e.g. `35`, `35A`, `100A`). Residues that the scheme could not number (only ever at the sequence ends) appear as `?`. Position numbers may not be contiguous: gaps indicate residues that the scheme considers deleted relative to its canonical numbering, and inserted residues take the next free insertion letter. See the \"Numbering examples\" section below. |\n| `species` | Species whose germline database the V and J genes were assigned from. Empty when no V gene could be assigned. |\n| `v_gene` | Best-matching V germline gene call. |\n| `j_gene` | Best-matching J germline gene call. |\n| `v_identity` | Sequence identity to the assigned V gene, from `0` to `1`, to four decimals. |\n| `j_identity` | Sequence identity to the assigned J gene. Empty whenever `j_gene` is. |\n| `n_mutations` | Total residues differing from the assigned germline (`n_substitutions + n_insertions + n_deletions`), measured over the IMGT V region (positions <= 104). |\n| `n_substitutions` | Substitutions relative to germline, measured over the IMGT V region. |\n| `n_insertions` | Insertions relative to germline, measured over the IMGT V region. |\n| `n_deletions` | Deletions relative to germline, measured over the IMGT V region. |\n| `error` | Empty when every chain was annotated. Otherwise a message per failed chain, prefixed with its 1-based position and joined with `; ` — for example `Chain 2: Variable chain sequence not recognized`. A chain failing here does not stop the others in the same row from being annotated. A row that could not be attempted at all carries a single message that is not in this per-chain form. |\n\nEvery column except `chain_type` and `error` holds one value per\nchain, joined with `:` in input order, so a three-chain sequence\nyields three `:`-separated values in each. An individual value may be\nempty, either because that chain could not be numbered at all (its\n`chain_type` is `?`) or because that particular annotation is not\ndefined for it — the latter is not an error and is not reported in\nthe `error` column.\n\n### Error modes\n\nThe `error_mode` field controls how a chain that cannot be annotated\nis handled:\n\n- `row` (default): the chain is reported as `?` in `chain_type` with\n  a message in `error`, and every other chain in that row is still\n  annotated; processing continues with the remaining sequences. The\n  CSV is streamed progressively as rows become available.\n- `strict`: any chain that fails to annotate aborts the request with\n  a `400` response; on success, every row is complete and the\n  `error` column is empty throughout.\n\nWhen `assay_id` is supplied, `error_mode` must be `row`.\n\nA chain must hold exactly one variable domain. An scFv or other\nmulti-domain construct passed as a single chain fails with `Found N\nantibody domains`; split it on `:` into one chain per domain,\ndropping any linker, to annotate the domains separately.\n\n### Species\n\nBy default (`allowed_species: null`) germlines are assigned from\nevery species ANARCI carries — human, mouse, rat, rabbit, rhesus,\npig, alpaca, and cow — and the closest match overall wins. The\n`species` column reports which one it came from.\n\nSetting `allowed_species` narrows the search but does not filter the\noutput: the closest germline *within* the requested species is still\nassigned, however distant, so a human antibody submitted with\n`[\"cow\"]` comes back with a cow gene call.\n\nThe order of `allowed_species` is a preference order that settles\nties: where two species' germlines match the input equally well, the\none listed first wins. Because the J gene is then assigned from the\nspecies chosen for the V gene, that preference carries into `j_gene`\nas well. Reordering the list can therefore change the gene call.\n\nHow much germline data backs a given species and chain type varies,\nand follows whatever the underlying germline databases currently\ncarry, so it may shift as those improve. Where the requested species\nhave nothing usable for a chain type, that chain's germline columns\ncome back empty rather than in error; where a species is thinly\nrepresented, the assigned gene may be a distant relative of the\ninput. Reading `v_identity` alongside `v_gene` is usually the\neasiest way to tell those apart.\n\n### Numbering scheme and CDR definition\n\nThe `scheme` field selects the numbering convention applied to each\nchain. For `imgt`, `chothia`, and `kabat` the CDR boundaries default\nto the scheme's native definition; you may override them by setting\n`cdr_definition`. The `aho` scheme does not define CDR boundaries on\nits own, so `cdr_definition` is **required** when `scheme=\"aho\"` and\nmust be one of `imgt`, `chothia`, `kabat`, or `north`.\n\n### Numbering examples\n\nBasic single chain (one label per input residue):\n\n```\n1,2,3,...,113\n```\n\nPaired heavy/light, the two chains' label lists joined with `:`:\n\n```\n1,2,...,113:1,2,...,107\n```\n\nInput residues that the scheme could not number, marked `?` (one\n`?` per unnumbered residue; only ever appears at the sequence\nends):\n\n```\n?,?,1,2,3,...,113\n```\n\n### Metadata comment\n\nThe metadata comment line on the first row of the CSV is a single\nJSON object with the following fields:\n\n- `region_number_ranges`: per chain type (`H`, `K`, `L`), the\n  start/end residue numbers of each region (`FR1`, `CDR1`, `FR2`,\n  `CDR2`, `FR3`, `CDR3`, `FR4`).\n- `reverse_insertion_letter_numbers`: residue positions whose\n  insertion-letter ordering is reversed for the chosen scheme (e.g.\n  IMGT positions 33, 61, and 112).\n- `canonical_cys_numbers`: per chain type, the two residue numbers of\n  the conserved framework cysteines that form the intradomain\n  disulfide, in the chosen scheme (e.g. IMGT 23 and 104; Kabat 22 and\n  92 for `H`, 23 and 88 for `K`/`L`). These are positions only — a\n  mutated or engineered chain may not carry a cysteine there.\n- `vernier_numbers`: present only when `scheme=\"kabat\"`; per chain\n  type, the residue numbers that are part of the Vernier zone.\n\n### Retrieving a result again\n\nEvery response that has a job behind it carries the job's ID in an\n`X-Job-Id` header. Set `retain: true` to guarantee one: the result is\nkept and can be fetched again from `GET\n/api/v1/align/antibody/annotate/{job_id}`, which replays this same CSV.\n`error_mode` must be `row` when `retain` is set, because a `strict`\nrequest aborts partway and leaves no complete result to keep.",
+    "operationId": "annotateAntibodies",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AntibodyAnnotateRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Streaming CSV containing one row per input sequence, prefixed by a metadata comment line and a header row. See the endpoint description for column meanings.",
+      "content": {
+       "text/csv": {
+        "example": "# {\"region_number_ranges\":{\"H\":[{\"region\":\"FR1\",\"start\":1,\"end\":30},{\"region\":\"CDR1\",\"start\":31,\"end\":35},{\"region\":\"FR2\",\"start\":36,\"end\":49},{\"region\":\"CDR2\",\"start\":50,\"end\":65},{\"region\":\"FR3\",\"start\":66,\"end\":94},{\"region\":\"CDR3\",\"start\":95,\"end\":102},{\"region\":\"FR4\",\"start\":103,\"end\":113}],\"K\":[{\"region\":\"FR1\",\"start\":1,\"end\":23},{\"region\":\"CDR1\",\"start\":24,\"end\":34},{\"region\":\"FR2\",\"start\":35,\"end\":49},{\"region\":\"CDR2\",\"start\":50,\"end\":56},{\"region\":\"FR3\",\"start\":57,\"end\":88},{\"region\":\"CDR3\",\"start\":89,\"end\":97},{\"region\":\"FR4\",\"start\":98,\"end\":107}],\"L\":[{\"region\":\"FR1\",\"start\":1,\"end\":23},{\"region\":\"CDR1\",\"start\":24,\"end\":34},{\"region\":\"FR2\",\"start\":35,\"end\":49},{\"region\":\"CDR2\",\"start\":50,\"end\":56},{\"region\":\"FR3\",\"start\":57,\"end\":88},{\"region\":\"CDR3\",\"start\":89,\"end\":97},{\"region\":\"FR4\",\"start\":98,\"end\":107}]},\"reverse_insertion_letter_numbers\":[],\"canonical_cys_numbers\":{\"H\":[22,92],\"K\":[23,88],\"L\":[23,88]},\"vernier_numbers\":{\"H\":[2,27,28,29,30,47,48,49,67,69,71,73,78,93,94,103],\"K\":[2,4,35,36,46,47,48,49,64,66,68,69,71,98],\"L\":[2,4,35,36,46,47,48,49,64,66,68,69,71,98]}}\nchain_type,numbering,species,v_gene,j_gene,v_identity,j_identity,n_mutations,n_substitutions,n_insertions,n_deletions,error\nHK,\"1,2,3,4,5,...,35,35A,35B,36,...,82,82A,82B,82C,83,...,100,100A,100B,100C,101,102,103,...,113:1,2,3,4,5,...,103,?\",human:human,IGHV4-59*02:IGKV4-1*01,IGHJ4*01:IGKJ3*01,0.7732:0.8469,0.8571:0.5000,24:14,22:14,2:0,0:0,\nH,\"1,2,3,...,113\",alpaca,IGHV3-3*01,IGHJ4*01,0.9796,1.0000,2,2,0,0,\nH?,\"1,2,3,...,113:\",human:,IGHV3-23*01:,IGHJ5*02:,0.9381:,0.9200:,15:,15:,0:,0:,Chain 2: Variable chain sequence not recognized\n"
+       }
+      }
+     },
+     "400": {
+      "description": "Invalid request. Returned when the payload fails validation (e.g. neither or both of `sequences` and `assay_id` provided, `scheme=\"aho\"` without `cdr_definition`, `assay_id` combined with `error_mode=\"strict\"`, or, under `error_mode=\"strict\"`, when any chain cannot be annotated)."
+     },
+     "401": {
+      "description": "Bad or expired token. The token is missing, revoked, or has expired; re-authenticate with credentials."
+     },
+     "403": {
+      "description": "The authenticated user is not permitted to access the referenced assay."
+     },
+     "404": {
+      "description": "The referenced `assay_id` does not exist."
+     },
+     "422": {
+      "description": "Unexpected request format. The submitted body could not be parsed against the request schema. Double-check field names, types, and constraints."
+     },
+     "429": {
+      "description": "Too many requests. Retry later."
+     }
+    },
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/align/metadata": {
+   "get": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "Get Metadata",
+    "description": "Get metadata for MSA and prompts.\n\nMSA and prompts are created by align/msa & align/prompt or align/upload_prompt.\n\nSet replicate to None to fetch all available replicates.\n\n---\nArgs: \n\n    - job_id (str): job_id\n    - msa_type (MSAType): One of the following:\n        - RAW: user uploaded file\n        - GENERATED: MSA from ColabFold (or User upload)\n        - PROMPT: returns the sub-sample of MSA used for poet (if available)\n    - replicate (int): the replicate to return, only applied to msa_type=PROMPT.\n\nRaises: \n\n    - HTTPException (40X): If job can not be found\n\nReturns:\n    - List(jsons)\n---",
+    "operationId": "get_metadata_api_v1_align_metadata_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     },
+     {
+      "name": "msa_type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "$ref": "#/components/schemas/MSAType"
+        },
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": "RAW",
+       "title": "Msa Type"
+      }
+     },
+     {
+      "name": "replicate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Replicate"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/app__schemas__job__MSAMetadata"
+         },
+         "title": "Response Get Metadata Api V1 Align Metadata Get"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/inputs": {
+   "get": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "Get MSAs (raw, generated, prompt)",
+    "description": "Get MSA and prompts created by align/msa, align/prompt or align/upload_prompt.\n\nSet replicate to None to fetch all available replicates.\n\n---\nArgs: \n\n    - job_id (str): job_id\n    - msa_type (MSAType): One of the following:\n        - RAW: user uploaded file or seed.\n        - GENERATED: MSA from ColabFold (or User upload)\n        - PROMPT: returns the sub-sample of MSA used for poet (if available)\n    - replicate (int): the replicate to return, only applied to msa_type=PROMPT.\n\nRaises: \n\n    - HTTPException (40X): If job can not be found\n\nReturns:\n    - List(jsons)\n---",
+    "operationId": "get_msa_inputs_api_v1_align_inputs_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     },
+     {
+      "name": "msa_type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MSAType",
+       "default": "GENERATED"
+      }
+     },
+     {
+      "name": "paired",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Paired"
+      }
+     },
+     {
+      "name": "replicate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Replicate"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/InputsResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/align/seed": {
+   "get": {
+    "tags": [
+     "align data"
+    ],
+    "summary": "Get Msa Seed",
+    "description": "Get the seed (or just first entry) in an MSA.\n\n---\nArgs: \n\n    - msa_id (str): job_id\n    - replicate (int): the replicate to return, only applied to msa_type=PROMPT.\n\nRaises: \n\n    - HTTPException (40X): If job can not be found\n\nReturns:\n    - List(jsons)\n---",
+    "operationId": "get_msa_seed_api_v1_align_seed_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "msa_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Msa Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MSASeed"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AlignJob": {
+    "properties": {
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid"
+     },
+     "tags": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Tags",
+      "default": {}
+     },
+     "prerequisite_job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prerequisite Job Id"
+     },
+     "job_type": {
+      "type": "string",
+      "title": "Job Type"
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date"
+     },
+     "start_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Start Date"
+     },
+     "end_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "End Date"
+     },
+     "status": {
+      "$ref": "#/components/schemas/JobStatus"
+     },
+     "progress_counter": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Counter"
+     },
+     "progress_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Message"
+     },
+     "failure_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Failure Message"
+     },
+     "args": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Args"
+     },
+     "msa_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Msa Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "job_type",
+     "created_date",
+     "status"
+    ],
+    "title": "AlignJob",
+    "description": "Properties returned about job via API."
+   },
+   "AntibodyAnnotateRequest": {
+    "properties": {
+     "sequences": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array",
+        "maxItems": 50000,
+        "minItems": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sequences",
+      "description": "List of antibody amino-acid sequences to annotate, in the order the results should appear in the response CSV. Each entry is one or more chains joined by `:`. Mutually exclusive with `assay_id`.",
+      "examples": [
+       [
+        "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGFYAMDYWGQGTLVTVSS"
+       ]
+      ]
+     },
+     "assay_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Assay ID",
+      "description": "ID of an assay whose sequences should be annotated. Mutually exclusive with `sequences`; when set, `error_mode` must be `row`."
+     },
+     "scheme": {
+      "type": "string",
+      "enum": [
+       "imgt",
+       "chothia",
+       "kabat",
+       "aho"
+      ],
+      "title": "Numbering scheme",
+      "description": "Antibody numbering scheme.\n\n- `imgt`: IMGT unique numbering.\n- `chothia`: Chothia numbering.\n- `kabat`: Kabat numbering.\n- `aho`: AHo numbering. Requires `cdr_definition` to be set.",
+      "default": "kabat"
+     },
+     "cdr_definition": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "imgt",
+         "chothia",
+         "kabat",
+         "north"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "CDR definition",
+      "description": "CDR boundary definition used when reporting region ranges. Optional for `imgt`, `chothia`, and `kabat` (which fall back to their native CDR boundaries); **required** when `scheme` is `aho`."
+     },
+     "allowed_species": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string",
+         "enum": [
+          "human",
+          "mouse",
+          "rat",
+          "rabbit",
+          "rhesus",
+          "pig",
+          "alpaca",
+          "cow"
+         ]
+        },
+        "type": "array",
+        "minItems": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Allowed species",
+      "description": "Species germline databases to draw V/J gene assignments from. `null` (the default) allows all of them, and assigns whichever germline is the closest match overall. Ties are broken by order. A species may not be listed twice."
+     },
+     "error_mode": {
+      "type": "string",
+      "enum": [
+       "row",
+       "strict"
+      ],
+      "title": "Error mode",
+      "description": "How a chain that cannot be annotated is handled.\n\n- `row`: the chain is reported as `?` in `chain_type` with a message in the `error` column, and the rest of the row is still annotated; processing continues. Required when `assay_id` is used.\n- `strict`: any chain that fails to annotate aborts the request with a `400`.",
+      "default": "row"
+     },
+     "retain": {
+      "type": "boolean",
+      "title": "Retain result",
+      "description": "Whether to keep the result for later retrieval by job ID. When `true` the response carries an `X-Job-Id` header and the result can be fetched again from `GET /api/v1/align/antibody/annotate/{job_id}`; `error_mode` must be `row`.",
+      "default": false
+     }
+    },
+    "type": "object",
+    "title": "AntibodyAnnotateRequest",
+    "description": "Request body for `POST /api/v1/align/antibody/annotate`.\n\nSee the operation description for accepted input forms, output format,\nand cross-field validation rules.",
+    "example": {
+     "error_mode": "row",
+     "scheme": "kabat",
+     "sequences": [
+      "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGFYAMDYWGQGTLVTVSS"
+     ]
+    }
+   },
+   "Body_create_abnumber_alignment_api_v1_align_abnumber_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file"
+    ],
+    "title": "Body_create_abnumber_alignment_api_v1_align_abnumber_post"
+   },
+   "Body_create_clustalo_alignment_api_v1_align_clustalo_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file"
+    ],
+    "title": "Body_create_clustalo_alignment_api_v1_align_clustalo_post"
+   },
+   "Body_create_mafft_alignment_api_v1_align_mafft_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file"
+    ],
+    "title": "Body_create_mafft_alignment_api_v1_align_mafft_post"
+   },
+   "Body_create_msa_job_api_v1_align_msa_post": {
+    "properties": {
+     "msa_file": {
+      "type": "string",
+      "format": "binary",
+      "title": "Msa File"
+     }
+    },
+    "type": "object",
+    "required": [
+     "msa_file"
+    ],
+    "title": "Body_create_msa_job_api_v1_align_msa_post"
+   },
+   "Body_user_upload_prompt_api_v1_align_upload_prompt_post": {
+    "properties": {
+     "prompt_file": {
+      "type": "string",
+      "format": "binary",
+      "title": "Prompt File"
+     }
+    },
+    "type": "object",
+    "required": [
+     "prompt_file"
+    ],
+    "title": "Body_user_upload_prompt_api_v1_align_upload_prompt_post"
+   },
+   "HTTPExceptionResponse": {
+    "properties": {
+     "detail": {
+      "type": "string",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "required": [
+     "detail"
+    ],
+    "title": "HTTPExceptionResponse",
+    "description": "Standard HTTP response."
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "InputsResponse": {
+    "properties": {
+     "media_type": {
+      "type": "string",
+      "title": "Media Type",
+      "default": "application/octet-stream"
+     },
+     "content": {
+      "type": "string",
+      "title": "Content",
+      "default": "sequence-1,AAAAA\nsequence-1,HHHHHH\n"
+     }
+    },
+    "type": "object",
+    "title": "InputsResponse"
+   },
+   "JobStatus": {
+    "type": "string",
+    "enum": [
+     "PENDING",
+     "RETRYING",
+     "RUNNING",
+     "SUCCESS",
+     "FAILURE",
+     "CANCELED"
+    ],
+    "title": "JobStatus",
+    "description": "Status type for job.\n\nDescribes the current status of a job."
+   },
+   "JobType": {
+    "type": "string",
+    "enum": [
+     "prerequisite",
+     "/workflow/preprocess",
+     "/workflow/train",
+     "/workflow/embed/umap",
+     "/workflow/predict",
+     "/workflow/predict/single_site",
+     "/workflow/crossvalidate",
+     "/workflow/evaluate",
+     "/workflow/design",
+     "/align/align",
+     "/align/clustalo",
+     "/align/mafft",
+     "/align/abnumber",
+     "/align/antibody/annotate",
+     "/align/prompt",
+     "/poet",
+     "/poet/single_site",
+     "/poet/generate",
+     "/poet/score",
+     "/poet/score/indel",
+     "/poet/embed",
+     "/poet/logits",
+     "/embeddings/embed",
+     "/embeddings/embed_reduced",
+     "/embeddings/svd",
+     "/svd/fit",
+     "/svd/embed",
+     "/umap/fit",
+     "/umap/embed",
+     "/embeddings/attn",
+     "/embeddings/logits",
+     "/embeddings/fold",
+     "/embeddings/generate",
+     "/selection/v-optimality",
+     "/predictor/train",
+     "/predictor/predict",
+     "/predictor/crossvalidate",
+     "/predictor/predict_single_site",
+     "/predictor/predict_multi",
+     "/predictor/predict_multi_single_site",
+     "/design"
+    ],
+    "title": "JobType",
+    "description": "Type of job.\n\nDescribes the types of jobs that can be done."
+   },
+   "MSAGeneratedMetaData": {
+    "properties": {
+     "kwargs": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Kwargs"
+     },
+     "filename": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Filename",
+      "default": "blob"
+     },
+     "max_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Sequence Length",
+      "default": 0
+     },
+     "min_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Sequence Length",
+      "default": 0
+     },
+     "n_sequences": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Sequences",
+      "default": 0
+     },
+     "metadata": {
+      "type": "string",
+      "const": "GENERATED",
+      "title": "Metadata"
+     },
+     "seed_sequence": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Seed Sequence"
+     },
+     "is_complex": {
+      "type": "boolean",
+      "title": "Is Complex",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "metadata"
+    ],
+    "title": "MSAGeneratedMetaData",
+    "description": "MSA GENERATED response schema."
+   },
+   "MSAMetadata": {
+    "properties": {
+     "msa_id": {
+      "type": "string",
+      "title": "Msa Id"
+     },
+     "msa_hash": {
+      "type": "string",
+      "title": "Msa Hash"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "tags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Tags"
+     },
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id"
+     },
+     "source_format": {
+      "type": "string",
+      "title": "Source Format"
+     },
+     "num_sequences": {
+      "type": "integer",
+      "title": "Num Sequences"
+     },
+     "num_match_columns": {
+      "type": "integer",
+      "title": "Num Match Columns"
+     },
+     "has_insertions": {
+      "type": "boolean",
+      "title": "Has Insertions"
+     },
+     "original_filename": {
+      "type": "string",
+      "title": "Original Filename"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "msa_id",
+     "msa_hash",
+     "source_format",
+     "num_sequences",
+     "num_match_columns",
+     "has_insertions",
+     "original_filename",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "MSAMetadata",
+    "description": "Metadata for an MSA record — used for both list items and single reads.\n\nNever includes the sequence body; every field is cheap (from the DB row)."
+   },
+   "MSARawMetaData": {
+    "properties": {
+     "kwargs": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Kwargs"
+     },
+     "filename": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Filename",
+      "default": "blob"
+     },
+     "max_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Sequence Length",
+      "default": 0
+     },
+     "min_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Sequence Length",
+      "default": 0
+     },
+     "n_sequences": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Sequences",
+      "default": 0
+     },
+     "metadata": {
+      "type": "string",
+      "const": "RAW",
+      "title": "Metadata"
+     },
+     "isseed": {
+      "type": "boolean",
+      "title": "Isseed",
+      "default": false
+     },
+     "seed_sequence": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Seed Sequence"
+     },
+     "is_complex": {
+      "type": "boolean",
+      "title": "Is Complex",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "metadata"
+    ],
+    "title": "MSARawMetaData",
+    "description": "MSA RAW response schema."
+   },
+   "MSASampledMetaData": {
+    "properties": {
+     "kwargs": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Kwargs"
+     },
+     "filename": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Filename",
+      "default": "blob"
+     },
+     "max_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Sequence Length",
+      "default": 0
+     },
+     "min_sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Sequence Length",
+      "default": 0
+     },
+     "n_sequences": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Sequences",
+      "default": 0
+     },
+     "metadata": {
+      "type": "string",
+      "const": "PROMPT",
+      "title": "Metadata"
+     },
+     "max_msa_sequences": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Msa Sequences"
+     },
+     "msa_method": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/MSASamplingStrategy"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "homology_level": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Homology Level"
+     },
+     "seed": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Seed"
+     },
+     "replicate": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Replicate",
+      "default": 0
+     },
+     "force_include_first": {
+      "type": "boolean",
+      "title": "Force Include First",
+      "default": false
+     },
+     "max_similarity": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Similarity"
+     },
+     "min_similarity": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Similarity"
+     },
+     "max_msa_tokens": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Msa Tokens"
+     },
+     "replicates": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Replicates"
+     },
+     "seed_sequence": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Seed Sequence"
+     }
+    },
+    "type": "object",
+    "required": [
+     "metadata"
+    ],
+    "title": "MSASampledMetaData",
+    "description": "MSA PROMPT response schema."
+   },
+   "MSASamplingStrategy": {
+    "type": "string",
+    "enum": [
+     "RANDOM",
+     "NEIGHBORS",
+     "NEIGHBORS_NO_LIMIT",
+     "NEIGHBORS_NONGAP_NORM_NO_LIMIT",
+     "TOP",
+     "CUSTOM"
+    ],
+    "title": "MSASamplingStrategy",
+    "description": "MSA Sampling Strategy. Will downsample to max_msa_sequences.\n\nmax_msa_sequences is set elsewhere"
+   },
+   "MSASeed": {
+    "properties": {
+     "sequence": {
+      "type": "string",
+      "title": "Sequence"
+     },
+     "length": {
+      "type": "integer",
+      "title": "Length"
+     }
+    },
+    "type": "object",
+    "required": [
+     "sequence",
+     "length"
+    ],
+    "title": "MSASeed",
+    "description": "MSA seed information."
+   },
+   "MSAType": {
+    "type": "string",
+    "enum": [
+     "RAW",
+     "GENERATED",
+     "PROMPT"
+    ],
+    "title": "MSAType",
+    "description": "Type for MSA.\n\nDescribes the type of an MSA."
+   },
+   "PromptJob": {
+    "properties": {
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid"
+     },
+     "tags": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Tags",
+      "default": {}
+     },
+     "prerequisite_job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prerequisite Job Id"
+     },
+     "job_type": {
+      "type": "string",
+      "title": "Job Type"
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date"
+     },
+     "start_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Start Date"
+     },
+     "end_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "End Date"
+     },
+     "status": {
+      "$ref": "#/components/schemas/JobStatus"
+     },
+     "progress_counter": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Counter"
+     },
+     "progress_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Message"
+     },
+     "failure_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Failure Message"
+     },
+     "args": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Args"
+     },
+     "prompt_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prompt Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "job_type",
+     "created_date",
+     "status"
+    ],
+    "title": "PromptJob",
+    "description": "Properties returned about job via API."
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "app__schemas__job__MSAMetadata": {
+    "oneOf": [
+     {
+      "$ref": "#/components/schemas/MSAGeneratedMetaData"
+     },
+     {
+      "$ref": "#/components/schemas/MSASampledMetaData"
+     },
+     {
+      "$ref": "#/components/schemas/MSARawMetaData"
+     }
+    ],
+    "title": "MSAMetadata",
+    "description": "Metadata for MSA.",
+    "discriminator": {
+     "propertyName": "metadata",
+     "mapping": {
+      "GENERATED": "#/components/schemas/MSAGeneratedMetaData",
+      "PROMPT": "#/components/schemas/MSASampledMetaData",
+      "RAW": "#/components/schemas/MSARawMetaData"
+     }
+    }
+   }
+  },
+  "securitySchemes": {
+   "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+     "password": {
+      "scopes": {},
+      "tokenUrl": "/api/auth/login"
+     }
+    }
+   },
+   "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ },
+ "tags": [
+  {
+   "name": "align data",
+   "description": "Data, upload, and homology search"
+  },
+  {
+   "name": "general msa",
+   "description": "Multiple sequence aligners [General]"
+  },
+  {
+   "name": "antibody msa",
+   "description": "Multiple sequence aligners [Antibodies]"
+  }
+ ],
+ "servers": [
+  {
+   "url": "https://dev.api.openprotein.ai",
+   "description": "Development"
+  },
+  {
+   "url": "https://api.openprotein.ai",
+   "description": "Production"
+  }
+ ]
+}

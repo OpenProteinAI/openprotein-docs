@@ -1,0 +1,1083 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "OpenProtein",
+  "description": "\n\nOpenProtein API helps you engineer better proteins 🚀\n\n# Getting Started\n\nHere's a quick overview of our authentication and jobs system, as well as some\nof our APIs.\n\n## Navigating the Job System\n\nOur endpoints follow an asynchronous POST and GET framework. Once you initiate\na task via our POST endpoints, the system schedules the job. This means that\neven for tasks that may take a while to complete, your request will return\nimmediately.\n\nThe POST response will contain a job ID (`job_id`) in its response json. This\njob ID is a unique identifier that allows you to track your job. You can use\nthis same job ID with our GET endpoints to monitor the progress of your task.\nPlease note that only **you** can access your jobs, a different user cannot\naccess your jobs even with your specific job ID.\n\nWhilst your job is underway, the API will indicate the status as `PENDING`.\nOnce the job has concluded (`SUCCESS`), you can retrieve your results by\ninvoking the same endpoint using your job ID in the payload (see specific\nendpoint details for more guidance).\nThe `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of\na job before obtaining all the results.\n\nThis design ensures that long-running tasks don't keep you waiting, and ensures\nyou can always get the results of a job back at a later date.\n\nRemember, your job ID is both unique and crucial for fetching the results of\nyour task. So, ensure to keep a note of it when you initiate a task.\n\n# Endpoints\n\n## Login\n\nEndpoints to login from your IDE. Here's a brief user-guide:\n\n### Steps to Log in\n\n#### On this Page\n\nYou can log in directly on this page using the `Authorize` button. This action\nwill let you browse the API documentation and execute test queries directly in\nyour browser.\n\n\n## Jobs\n\nEndpoints to track job status for asynchronous jobs.\n\nUse these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and\nview basic metadata (e.g., job creation date).\n\n## Align\n\nEndpoints to perform multiple sequence alignment (MSA) workflows. See the [User Guide](https://docs.openprotein.ai/poet-defining-prompts-page.html).\n\nYou can create a multiple sequence alignment from a seed sequence, upload a\ncustom MSA, or even upload your own prompt for use with `PoET` and `Fold`\nendpoints!\n\n\n## Assaydata\n\nEndpoints to upload your dataset to OpenProtein's engineering platform for\n`train`, `predict` and `evaluate` tasks. See the\n[User Guide](https://docs.openprotein.ai/dataset-page.html).\n\nFormat your data as 2 column CSV:\n* The full sequence of each variant (mutation codes are also accepted)\n* 1+ columns with your measured properties (missing values are acceptable)\n\n## Libraries\n\nEndpoints to fetch of all your designed OpenProtein sequence variants. This\nenables you to reference previously created variants easily.\n",
+  "version": "0.1.0"
+ },
+ "paths": {
+  "/api/v1/auth/login": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Login Access Token",
+    "description": "OAuth2 compatible token login.\n\nProvides an access token (+ rotating refresh token) for future requests.",
+    "operationId": "login_access_token_api_v1_auth_login_post",
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_login_access_token_api_v1_auth_login_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Token"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/jobs": {
+   "get": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "List all jobs under current user",
+    "description": "List jobs associated with current user.\n\n---\n\nArgs:\n\n    status (Optional[schemas.JobStatus], optional): filter by job status\n    job_type (Optional[schemas.JobType], optional): filter by job type\n    more_recent_than (Optional[datetime], optional): filter by jobs created after\n    assay_id (Optional[str], optional): filter by assay id\n    args (Optional[bool], optional): whether or not to return args in job list\n    page_size (int, optional): how many results to return per page\n    page_offset (int, optional): offset to query. used with page_size\n    limit (int, optional): deprecated alias for page_size\n    offset (int, optional): deprecated alias for page_offset\n\n\nReturns:\n\n    List: list of jobs",
+    "operationId": "list_jobs_api_v1_jobs_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "$ref": "#/components/schemas/JobStatus"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Status"
+      }
+     },
+     {
+      "name": "job_type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "anyOf": [
+           {
+            "$ref": "#/components/schemas/JobType"
+           },
+           {
+            "type": "string"
+           }
+          ]
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Job Type"
+      }
+     },
+     {
+      "name": "more_recent_than",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date-time"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "More Recent Than"
+      }
+     },
+     {
+      "name": "assay_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Assay Id"
+      }
+     },
+     {
+      "name": "project_uuid",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Project Uuid"
+      }
+     },
+     {
+      "name": "filters",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Filters"
+      }
+     },
+     {
+      "name": "args",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Args"
+      }
+     },
+     {
+      "name": "page_size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "maximum": 1000,
+         "minimum": 0
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Page Size"
+      }
+     },
+     {
+      "name": "page_offset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "minimum": 0
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Page Offset"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "maximum": 1000,
+         "minimum": 0
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "deprecated": true,
+       "title": "Limit"
+      },
+      "deprecated": true
+     },
+     {
+      "name": "offset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "minimum": 0
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "deprecated": true,
+       "title": "Offset"
+      },
+      "deprecated": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/Job"
+         },
+         "title": "Response List Jobs Api V1 Jobs Get"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/jobs/{job_id}": {
+   "put": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Update Job",
+    "description": "Get information about specific job.\n\n---\n\nArgs:\n\n    job_id (str): job identifier\n\nReturns:\n\n    json: job metadata",
+    "operationId": "update_job_api_v1_jobs__job_id__put",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobMetadataUpdate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Job"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Get job metadata by job id",
+    "description": "Get information about specific job.\n\n---\n\nArgs:\n\n    job_id (str): job identifier\n    args (Optional[bool], optional): whether or not to return args in job list\n\nReturns:\n\n    json: job metadata",
+    "operationId": "get_job_api_v1_jobs__job_id__get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     },
+     {
+      "name": "args",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Args"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Job"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Delete Job",
+    "description": "Cancel job.",
+    "operationId": "delete_job_api_v1_jobs__job_id__delete",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Job"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "401": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Unauthorized"
+     },
+     "403": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPExceptionResponse"
+        }
+       }
+      },
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not found."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Body_login_access_token_api_v1_auth_login_post": {
+    "properties": {
+     "grant_type": {
+      "anyOf": [
+       {
+        "type": "string",
+        "pattern": "^password$"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grant Type"
+     },
+     "username": {
+      "type": "string",
+      "title": "Username"
+     },
+     "password": {
+      "type": "string",
+      "format": "password",
+      "title": "Password"
+     },
+     "scope": {
+      "type": "string",
+      "title": "Scope",
+      "default": ""
+     },
+     "client_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Client Id"
+     },
+     "client_secret": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "format": "password",
+      "title": "Client Secret"
+     }
+    },
+    "type": "object",
+    "required": [
+     "username",
+     "password"
+    ],
+    "title": "Body_login_access_token_api_v1_auth_login_post"
+   },
+   "HTTPExceptionResponse": {
+    "properties": {
+     "detail": {
+      "type": "string",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "required": [
+     "detail"
+    ],
+    "title": "HTTPExceptionResponse",
+    "description": "Standard HTTP response."
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "Job": {
+    "properties": {
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid"
+     },
+     "tags": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Tags",
+      "default": {}
+     },
+     "prerequisite_job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prerequisite Job Id"
+     },
+     "job_type": {
+      "type": "string",
+      "title": "Job Type"
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date"
+     },
+     "start_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Start Date"
+     },
+     "end_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "End Date"
+     },
+     "status": {
+      "$ref": "#/components/schemas/JobStatus"
+     },
+     "progress_counter": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Counter"
+     },
+     "progress_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Message"
+     },
+     "failure_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Failure Message"
+     },
+     "args": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Args"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "job_type",
+     "created_date",
+     "status"
+    ],
+    "title": "Job",
+    "description": "Properties returned about job via API."
+   },
+   "JobMetadataUpdate": {
+    "properties": {
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid"
+     }
+    },
+    "type": "object",
+    "title": "JobMetadataUpdate",
+    "description": "Properties required to update a job's name."
+   },
+   "JobStatus": {
+    "type": "string",
+    "enum": [
+     "PENDING",
+     "RETRYING",
+     "RUNNING",
+     "SUCCESS",
+     "FAILURE",
+     "CANCELED"
+    ],
+    "title": "JobStatus",
+    "description": "Status type for job.\n\nDescribes the current status of a job."
+   },
+   "JobType": {
+    "type": "string",
+    "enum": [
+     "prerequisite",
+     "/workflow/preprocess",
+     "/workflow/train",
+     "/workflow/embed/umap",
+     "/workflow/predict",
+     "/workflow/predict/single_site",
+     "/workflow/crossvalidate",
+     "/workflow/evaluate",
+     "/workflow/design",
+     "/align/align",
+     "/align/clustalo",
+     "/align/mafft",
+     "/align/abnumber",
+     "/align/antibody/annotate",
+     "/align/prompt",
+     "/poet",
+     "/poet/single_site",
+     "/poet/generate",
+     "/poet/score",
+     "/poet/score/indel",
+     "/poet/embed",
+     "/poet/logits",
+     "/embeddings/embed",
+     "/embeddings/embed_reduced",
+     "/embeddings/svd",
+     "/svd/fit",
+     "/svd/embed",
+     "/umap/fit",
+     "/umap/embed",
+     "/embeddings/attn",
+     "/embeddings/logits",
+     "/embeddings/fold",
+     "/embeddings/generate",
+     "/selection/v-optimality",
+     "/predictor/train",
+     "/predictor/predict",
+     "/predictor/crossvalidate",
+     "/predictor/predict_single_site",
+     "/predictor/predict_multi",
+     "/predictor/predict_multi_single_site",
+     "/design"
+    ],
+    "title": "JobType",
+    "description": "Type of job.\n\nDescribes the types of jobs that can be done."
+   },
+   "Token": {
+    "properties": {
+     "access_token": {
+      "type": "string",
+      "title": "Access Token"
+     },
+     "token_type": {
+      "type": "string",
+      "title": "Token Type"
+     },
+     "expires_in": {
+      "type": "integer",
+      "title": "Expires In"
+     },
+     "refresh_token": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Refresh Token"
+     },
+     "csrf": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Csrf"
+     }
+    },
+    "type": "object",
+    "required": [
+     "access_token",
+     "token_type",
+     "expires_in"
+    ],
+    "title": "Token",
+    "description": "OAuth2 token response.\n\nrefresh_token is present only in body-delivery mode; in cookie mode it is\nset as an httpOnly cookie and omitted here. csrf is the double-submit token\nreturned in cookie-delivery mode (it mirrors the op_csrf cookie) so a\ncross-origin SPA can echo it as X-CSRF-Token without reading the cookie."
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   }
+  },
+  "securitySchemes": {
+   "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+     "password": {
+      "scopes": {},
+      "tokenUrl": "/api/auth/login"
+     }
+    }
+   },
+   "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ },
+ "tags": [
+  {
+   "name": "auth",
+   "description": "Login to authorize your API requests!"
+  },
+  {
+   "name": "jobs",
+   "description": "Track your submitted workflow jobs!"
+  }
+ ],
+ "servers": [
+  {
+   "url": "https://dev.api.openprotein.ai",
+   "description": "Development"
+  },
+  {
+   "url": "https://api.openprotein.ai",
+   "description": "Production"
+  }
+ ]
+}

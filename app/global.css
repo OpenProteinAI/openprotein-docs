@@ -1,8 +1,10 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+@import 'fumadocs-openapi/css/preset.css';
 
 @source '../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../node_modules/fumadocs-openapi/dist/**/*.js';
 
 /* ink = on the page background, moves with theme. fill = own background, theme-invariant. */
 :root {
@@ -333,4 +335,12 @@ figure.shiki > div:first-child > span:has(> svg) {
   margin-top: 0;
   font-size: var(--text-3xl);
   letter-spacing: -0.5px;
+}
+
+/* Schema fields carry a copy-anchor button whose id is not unique across operations
+   (fumadocs-openapi renders no per-operation AnchorSection), so the link it hands out
+   jumps to the first field of that name on the page. `svg.lucide-link` is theirs; our own
+   Copy link button renders `lucide-link-2` and is untouched. */
+[data-rest-api] button:has(> svg.lucide-link) {
+  display: none;
 }

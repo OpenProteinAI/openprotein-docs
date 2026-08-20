@@ -8,6 +8,7 @@ import { z } from 'zod';
 /** pageSchema plus the fields the custom renderers read. */
 export const docsPageSchema = pageSchema.extend({
   notebook: z.string().optional(),
+  openapi: z.string().optional(),
   pythonApi: z.string().optional(),
   status: z.string().optional(),
 });

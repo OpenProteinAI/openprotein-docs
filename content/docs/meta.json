@@ -1,6 +1,7 @@
 {
   "pages": [
     "getting-started",
-    "walkthroughs"
+    "walkthroughs",
+    "rest-api"
   ]
 }

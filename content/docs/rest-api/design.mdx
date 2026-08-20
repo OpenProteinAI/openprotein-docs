@@ -1,0 +1,11 @@
+---
+title: Design
+description: The Design API provided by OpenProtein.ai builds on top of our predictive models to empower you to achieve your protein design goals easily.
+openapi: design
+---
+
+Currently, we support the following design algorithms/models:
+
+- **Genetic Algorithm** - Evolutionary optimization for sequence design using trained [predictors](/rest-api/predictor).
+- **RFdiffusion** - Diffusion-based structure generation for motif scaffolding, binder design, and symmetric assemblies. [GitHub link](https://github.com/RosettaCommons/RFdiffusion), [Reference](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1). Licensed under [BSD License](https://github.com/RosettaCommons/RFdiffusion/blob/main/LICENSE).
+- **BoltzGen** - Advanced diffusion model for protein structure and sequence design, supporting protein-ligand complexes, multi-chain assemblies, and cyclic peptides. [GitHub link](https://github.com/HannesStark/boltzgen), [Reference](https://hannes-stark.com/assets/boltzgen.pdf). Licensed under [MIT License](https://choosealicense.com/licenses/mit/).

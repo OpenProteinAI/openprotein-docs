@@ -1,0 +1,1352 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "OpenProtein Prompt",
+  "description": "# Prompt API The Prompt API provided by OpenProtein.ai allows you to construct and upload prompts to use with our PoET models. ",
+  "version": "1.0.0"
+ },
+ "paths": {
+  "/api/v1/prompt/create_prompt": {
+   "post": {
+    "tags": [
+     "Prompts"
+    ],
+    "summary": "Create a prompt",
+    "description": "Create a prompt with provided context and query.  This endpoint accepts a list of files as context.",
+    "operationId": "create_prompt_api_v1_prompt_create_prompt_post",
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_prompt_api_v1_prompt_create_prompt_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Prompt created successfully.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PromptMetadata"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Invalid input provided.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/prompt/query": {
+   "post": {
+    "tags": [
+     "Queries"
+    ],
+    "summary": "Create a query",
+    "description": "Create a query to be used to augment prompts for queries.  This endpoint accepts a single file as a query.",
+    "operationId": "create_query_api_v1_prompt_query_post",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/x-www-form-urlencoded": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_create_query_api_v1_prompt_query_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Query created successfully.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QueryMetadata"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Invalid input provided.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "Queries"
+    ],
+    "summary": "List queries",
+    "description": "List queries available.",
+    "operationId": "list_queries_api_v1_prompt_query_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "project_uuid",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Optional project UUID to filter queries by.",
+       "title": "Project Uuid"
+      },
+      "description": "Optional project UUID to filter queries by."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "List of queries",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/QueryMetadata"
+         },
+         "title": "Response 200 List Queries Api V1 Prompt Query Get"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/prompt/{prompt_id}/content": {
+   "get": {
+    "tags": [
+     "Prompts"
+    ],
+    "summary": "Get prompt content",
+    "description": "Get content of prompt by downloading the uploaded context files in a single zip.",
+    "operationId": "get_prompt_api_v1_prompt__prompt_id__content_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "prompt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Prompt ID to fetch",
+       "title": "Prompt Id"
+      },
+      "description": "Prompt ID to fetch"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The prompt containing the context files in a zip file.",
+      "content": {
+       "application/json": {
+        "schema": {}
+       },
+       "application/zip": {}
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Prompt not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/prompt/{prompt_id}": {
+   "get": {
+    "tags": [
+     "Prompts"
+    ],
+    "summary": "Get prompt metadata",
+    "description": "Get metadata of a prompt. A retired system prompt (one that has been superseded by a newer version) remains resolvable by UUID through this endpoint, so client workflows that pinned to a specific prompt UUID continue to work after the prompt is retired from the listing.",
+    "operationId": "get_prompt_metadata_api_v1_prompt__prompt_id__get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "prompt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Prompt ID to fetch metadata",
+       "title": "Prompt Id"
+      },
+      "description": "Prompt ID to fetch metadata"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The metadata of the prompt.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PromptMetadata"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Prompt not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "Prompts"
+    ],
+    "summary": "Update prompt metadata",
+    "description": "Update the name, description, or project attachment of a prompt.  Only the fields provided in the request body are changed; fields that are omitted retain their existing value. Nullable fields may be cleared by passing an explicit null value.",
+    "operationId": "update_prompt_api_v1_prompt__prompt_id__put",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "prompt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Prompt ID to update",
+       "title": "Prompt Id"
+      },
+      "description": "Prompt ID to update"
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PromptUpdate",
+        "description": "Fields to update on the prompt."
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "The updated prompt metadata.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PromptMetadata"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Invalid input provided.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "The target prompt is a platform system prompt and cannot be modified over the HTTP API.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Prompt not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/prompt/query/{query_id}/content": {
+   "get": {
+    "tags": [
+     "Queries"
+    ],
+    "summary": "Get query content",
+    "description": "Get content of query by downloading the uploaded query file.",
+    "operationId": "get_query_api_v1_prompt_query__query_id__content_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "query_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Query ID to fetch",
+       "title": "Query Id"
+      },
+      "description": "Query ID to fetch"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The query file in either fasta or cif format depending on whether a sequence or structure was uploaded.",
+      "content": {
+       "application/json": {
+        "schema": {}
+       },
+       "application/zip": {}
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Query not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/prompt/query/{query_id}": {
+   "get": {
+    "tags": [
+     "Queries"
+    ],
+    "summary": "Get query metadata",
+    "description": "Get metadata of a query.",
+    "operationId": "get_query_metadata_api_v1_prompt_query__query_id__get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "query_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Query ID to fetch metadata",
+       "title": "Query Id"
+      },
+      "description": "Query ID to fetch metadata"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The metadata of the query.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QueryMetadata"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Query not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "Queries"
+    ],
+    "summary": "Update query metadata",
+    "description": "Update the project attachment of a query.  Only the fields provided in the request body are changed; fields that are omitted retain their existing value. Nullable fields may be cleared by passing an explicit null value.",
+    "operationId": "update_query_api_v1_prompt_query__query_id__put",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "query_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "description": "Query ID to update",
+       "title": "Query Id"
+      },
+      "description": "Query ID to update"
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/QueryUpdate",
+        "description": "Fields to update on the query."
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "The updated query metadata.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QueryMetadata"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Invalid input provided.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Query not found.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/prompt": {
+   "get": {
+    "tags": [
+     "Prompts"
+    ],
+    "summary": "List prompts",
+    "description": "List prompts available.",
+    "operationId": "list_prompts_api_v1_prompt_get",
+    "security": [
+     {
+      "OAuth2PasswordBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "project_uuid",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Optional project UUID to filter prompts by.",
+       "title": "Project Uuid"
+      },
+      "description": "Optional project UUID to filter prompts by."
+     },
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Restrict the listing to caller-owned prompts (&#x60;mine&#x60;, the default), platform system prompts (&#x60;system&#x60;), or both (&#x60;all&#x60;).",
+       "default": "mine",
+       "title": "Scope"
+      },
+      "description": "Restrict the listing to caller-owned prompts (&#x60;mine&#x60;, the default), platform system prompts (&#x60;system&#x60;), or both (&#x60;all&#x60;)."
+     },
+     {
+      "name": "search",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Case-insensitive substring matched against prompt name and description.",
+       "title": "Search"
+      },
+      "description": "Case-insensitive substring matched against prompt name and description."
+     },
+     {
+      "name": "page_size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Maximum number of prompts to return.",
+       "default": 1024,
+       "title": "Page Size"
+      },
+      "description": "Maximum number of prompts to return."
+     },
+     {
+      "name": "page_offset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Number of prompts to skip before returning results.",
+       "default": 0,
+       "title": "Page Offset"
+      },
+      "description": "Number of prompts to skip before returning results."
+     },
+     {
+      "name": "model",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Repeatable. Filter prompts to those compatible with at least one of the named models. A prompt with an empty &#x60;&#x60;models&#x60;&#x60; list (no compatibility claim) matches any value here — unspecified means unrestricted.",
+       "title": "Model"
+      },
+      "description": "Repeatable. Filter prompts to those compatible with at least one of the named models. A prompt with an empty &#x60;&#x60;models&#x60;&#x60; list (no compatibility claim) matches any value here — unspecified means unrestricted."
+     },
+     {
+      "name": "protein",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Repeatable. Filter prompts to those tagged with at least one of the named protein classes.",
+       "title": "Protein"
+      },
+      "description": "Repeatable. Filter prompts to those tagged with at least one of the named protein classes."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "List of prompts",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/PromptMetadata"
+         },
+         "title": "Response 200 List Prompts Api V1 Prompt Get"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Bad or expired token. This can happen if the token is revoked or expired. User should re-authenticate with their credentials.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Body_create_prompt_api_v1_prompt_create_prompt_post": {
+    "properties": {
+     "context": {
+      "items": {
+       "type": "string",
+       "format": "binary"
+      },
+      "type": "array",
+      "title": "Context",
+      "description": "A list of zip files, where the i&#39;th file specifies the data for the i&#39;th context in the prompt. Each zip file may contain:   - fasta files containing lists of sequences   - cif structure files The file extensions of the zipped files have to match. "
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name",
+      "description": ""
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description",
+      "description": ""
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Optional project UUID to attach the prompt to."
+     },
+     "tags": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tags",
+      "description": "Optional. Prompt metadata as a JSON object, e.g. {\"multichain\": true}. Sent as a JSON-encoded string in this multipart form; shape is not validated."
+     }
+    },
+    "type": "object",
+    "title": "Body_create_prompt_api_v1_prompt_create_prompt_post"
+   },
+   "Body_create_query_api_v1_prompt_query_post": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "format": "binary",
+      "title": "Query",
+      "description": "A file specifying the query. The file may be a specify a sequence (fasta) or a structure (cif). The file extension have to match. "
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Optional project UUID to attach the query to."
+     }
+    },
+    "type": "object",
+    "title": "Body_create_query_api_v1_prompt_query_post"
+   },
+   "Error": {
+    "properties": {
+     "detail": {
+      "type": "string",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "required": [
+     "detail"
+    ],
+    "title": "Error",
+    "description": "A error object providing details of the error."
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "PromptMetadata": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Prompt unique identifier."
+     },
+     "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Name of the prompt"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description",
+      "description": "Description of the prompt"
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date",
+      "description": "The date the prompt was created."
+     },
+     "num_replicates": {
+      "type": "integer",
+      "title": "Num Replicates",
+      "description": "Number of replicates provided as context."
+     },
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id",
+      "description": "Job ID of any associated job for the prompt."
+     },
+     "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "Status of the prompt."
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Project this prompt is attached to."
+     },
+     "is_system": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Is System",
+      "description": "True for platform-curated system prompts available to every user. System prompts are read-only over the HTTP API; users cannot create, modify, or delete them. False or absent for user-uploaded prompts.",
+      "default": false
+     },
+     "sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sequence Length",
+      "description": "Length of the prompt's context chains. Set when every chain across every Complex across every replicate has the same length; null when chain lengths vary or no context has been parsed yet."
+     },
+     "models": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Models",
+      "description": "Curated, options-validated list of model slugs this prompt claims compatibility with."
+     },
+     "proteins": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Proteins",
+      "description": "Curated, options-validated list of protein-class descriptors. Empty means \"uncategorized\" and does not match a ``protein=...`` filter."
+     },
+     "tags": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tags",
+      "description": "Free-form JSON object of prompt metadata (e.g. allows_query, multichain, multichain_mode). Shape is not validated by the service."
+     },
+     "prompt_type": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prompt Type",
+      "description": "Free-form text classifier for the prompt — no service-side vocab. Curators and clients can use this to group prompts in the UI (e.g. \"inverse-folding\", \"design\"). Null = unset."
+     },
+     "warnings": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Warnings",
+      "description": "Non-fatal warnings about normalizations applied to the uploaded sequences during creation (e.g. gap characters removed, residues uppercased). Empty for prompts retrieved after creation."
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "description",
+     "created_date",
+     "num_replicates",
+     "job_id",
+     "status",
+     "project_uuid"
+    ],
+    "title": "PromptMetadata",
+    "description": "The metadata of a prompt entity containing sequences and/or structures as context and an optional query used to condition PoET models."
+   },
+   "PromptUpdate": {
+    "properties": {
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name",
+      "description": "Name of the prompt."
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description",
+      "description": "Description of the prompt."
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Project to attach the prompt to."
+     },
+     "tags": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tags",
+      "description": "Replace the prompt's tags with this JSON object. Shape is not validated by the service."
+     }
+    },
+    "type": "object",
+    "title": "PromptUpdate",
+    "description": "Fields to update on a prompt. Omitted fields are left unchanged; fields provided with an explicit null value (for nullable fields) are cleared."
+   },
+   "QueryMetadata": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Query unique identifier."
+     },
+     "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Display name of the query. Defaults to the query's UUID string when the user has not set a name explicitly; clearing the name via PUT (passing `null` to `QueryUpdate.name`) resets it to this default."
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date",
+      "description": "The date the query was created."
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Project this query is attached to."
+     },
+     "sequence_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sequence Length",
+      "description": "Length of the query's protein chain(s). Set when every chain in the query has the same length; null when chains differ in length."
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "created_date",
+     "project_uuid"
+    ],
+    "title": "QueryMetadata",
+    "description": "The metadata of a query entity containing the sequence and/or structure used as a query to condition PoET2 models."
+   },
+   "QueryUpdate": {
+    "properties": {
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name",
+      "description": "Name of the query."
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid",
+      "description": "Project to attach the query to."
+     }
+    },
+    "type": "object",
+    "title": "QueryUpdate",
+    "description": "Fields to update on a query. Omitted fields are left unchanged; fields provided with an explicit null value (for nullable fields) are cleared."
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   }
+  },
+  "securitySchemes": {
+   "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+     "password": {
+      "scopes": {},
+      "tokenUrl": "/api/auth/login"
+     }
+    }
+   }
+  }
+ },
+ "tags": [
+  {
+   "name": "Prompts",
+   "description": "Prompt _context_ upload, get, and list operations."
+  },
+  {
+   "name": "Queries",
+   "description": "Prompt _query_ upload, get, and list operations."
+  }
+ ],
+ "servers": [
+  {
+   "url": "https://dev.api.openprotein.ai",
+   "description": "Development"
+  },
+  {
+   "url": "https://api.openprotein.ai",
+   "description": "Production"
+  }
+ ]
+}
