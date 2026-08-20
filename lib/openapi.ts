@@ -45,7 +45,11 @@ export function specIdForSlug(slug: string): SpecId | undefined {
   return REST_API_PAGES.find((page) => page.slug === slug)?.id;
 }
 
-/** showTitle drives the per-operation heading every TOC anchor points at. */
+/**
+ * showTitle is not what anchors point at - renderOperationLayout drops the heading it builds,
+ * and TOC anchors come from our own rows. It bumps fumadocs' headingLevel 2 -> 3 for the inner
+ * Request/Response headings, and suppresses its duplicate Deprecated callout.
+ */
 export async function getApiPageProps(id: SpecId): Promise<OpenAPIPageProps_Spec> {
   const bundled = await getSpecDocument(id);
   return {

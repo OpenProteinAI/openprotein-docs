@@ -11,6 +11,8 @@
     "build": "next build",
     "start": "next start --port ${PORT:-5001}",
     "types:check": "next typegen && tsc --noEmit",
+    "sync:specs": "node ./scripts/sync-specs.mjs",
+    "check:specs": "node ./scripts/sync-specs.mjs --check",
     "check:contrast": "node ./scripts/check-contrast.mjs",
     "check:layout": "node ./scripts/geom.mjs",
     "shots": "node ./scripts/shots.mjs",

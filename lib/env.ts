@@ -1,3 +1,5 @@
+import 'server-only';
+
 const DEFAULT_PROXY = 'https://dev.api.openprotein.ai';
 const DEFAULT_ROOT = '/api/v1/';
 

@@ -13,8 +13,9 @@ import { buildEndpointTree, operationKey } from '@/lib/openapi-endpoints';
 const PROXY_URL = '/api/playground-proxy';
 
 export const OpenAPIPage = createOpenAPIPage({
-  // Nothing renders the generated cURL / JavaScript / Go / Python tabs any more - the
-  // `apiExample` slot is dropped below - so nothing should generate them either.
+  // Suppresses only EXTRA per-endpoint generators (and any `x-codeSamples`). The seven
+  // default languages stay registered in `codeUsages`; what actually removes the tabs is
+  // dropping the `apiExample` slot below. Re-add that slot and all seven reappear.
   generateCodeSamples: () => [],
 
   components: {
@@ -97,7 +98,10 @@ export const OpenAPIPage = createOpenAPIPage({
     transformAuthInputs: () => [],
     fetchOptions: {
       proxyUrl: PROXY_URL,
-      // Defaults to true, which forwards our session cookie to the upstream API as a query parameter.
+      // Must stay false. The default (true) sets `credentials: 'omit'` on the request to
+      // our own proxy, so op_docs_session never arrives, getSession() is null and every
+      // Send answers 401. It has nothing to do with leaking the cookie upstream - JS
+      // cannot read an httpOnly cookie, and attach() deletes the header regardless.
       proxyForwardCookie: false,
       requestTimeout: false,
     },

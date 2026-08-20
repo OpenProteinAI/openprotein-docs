@@ -51,7 +51,10 @@ for (const slug of SLUGS) {
       decodeURIComponent(a.getAttribute('href').slice(1)),
     );
 
+    // Scoped to the endpoint tree: unscoped, any visible element whose whole text is
+    // exactly 'Go' or 'Python' - a nav item, a table cell - is a false positive.
     const visibleText = (node) => {
+      if (!node) return [];
       const walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
       const out = [];
       let n;
@@ -61,6 +64,13 @@ for (const slug of SLUGS) {
       }
       return out;
     };
+
+    // One pass over every id, so no attribute selector has to be escaped. CSS.escape
+    // emits '\\31 x' for an id starting with a digit, which no naive quoting survives.
+    const idCounts = new Map();
+    for (const el of document.querySelectorAll('[id]')) {
+      idCounts.set(el.id, (idCounts.get(el.id) ?? 0) + 1);
+    }
 
     return {
       root: Boolean(root),
@@ -73,14 +83,11 @@ for (const slug of SLUGS) {
         (p) => p.offsetParent !== null,
       ).length,
       authInputs: document.querySelectorAll('[data-type="authorization"]').length,
-      langTabs: langs.filter((l) => visibleText(document.body).includes(l)),
-      anchorButtons: document.querySelectorAll('[data-rest-api] button:has(> svg.lucide-link)').length,
-      visibleAnchorButtons: [...document.querySelectorAll('[data-rest-api] button:has(> svg.lucide-link)')].filter(
-        (b) => b.offsetParent !== null,
-      ).length,
+      langTabs: langs.filter((l) => visibleText(root).includes(l)),
       toc: tocLinks.length,
-      tocUnresolved: tocLinks.filter((id) => document.querySelectorAll(`[id="${CSS.escape(id).replace(/\\/g, '')}"]`).length !== 1),
+      tocUnresolved: tocLinks.filter((id) => (idCounts.get(id) ?? 0) !== 1),
       firstRow: rows[0]?.id ?? null,
+      rowIds: rows.slice(0, 3).map((h) => h.id),
     };
   }, LANGS);
 
@@ -101,32 +108,52 @@ for (const slug of SLUGS) {
   }
   if (seen.langTabs.length) fail(`code sample tabs present: ${seen.langTabs.join(', ')}`);
   if (seen.authInputs) fail(`${seen.authInputs} authorization panels`);
-  if (seen.visibleAnchorButtons) fail(`${seen.visibleAnchorButtons} non-unique schema anchor buttons visible`);
   if (seen.tocUnresolved.length) fail(`toc anchors unresolved: ${seen.tocUnresolved.join(', ')}`);
 
-  // Expand the first endpoint: its body must appear, still with no snippet tabs.
-  if (seen.firstRow) {
-    await page.click(`[id="${seen.firstRow}"] button[aria-expanded]`);
-    await page.waitForTimeout(400);
+  // Expand up to three endpoints. Three, not one: it is the only way to exercise the
+  // duplicate-id case (fumadocs emits a literal `request-body` id per operation) and to
+  // reach a body with schema fields, which is what the anchor-button CSS rule guards.
+  if (seen.rowIds.length) {
+    for (const id of seen.rowIds) {
+      await page.click(`[id="${id}"] button[aria-expanded]`);
+    }
+    await page.waitForTimeout(1200);
     const after = await page.evaluate(
-      ({ id, langs }) => {
-        const panel = document.getElementById(`${id}-content`);
-        const visibleText = new Set(
-          [...document.querySelectorAll('body *')]
-            .filter((e) => e.offsetParent !== null && e.children.length === 0)
-            .map((e) => e.textContent.trim()),
-        );
+      ({ ids, langs }) => {
+        const root = document.querySelector('[data-rest-api]');
+        const panels = ids.map((id) => document.getElementById(`${id}-content`));
+        const leaves = [...(root?.querySelectorAll('*') ?? [])]
+          .filter((e) => e.offsetParent !== null && e.children.length === 0)
+          .map((e) => e.textContent.trim());
+        const anchorButtons = [...(root?.querySelectorAll('button:has(> svg.lucide-link)') ?? [])];
+        const counts = new Map();
+        for (const el of document.querySelectorAll('[id]')) {
+          counts.set(el.id, (counts.get(el.id) ?? 0) + 1);
+        }
         return {
-          open: Boolean(panel && panel.offsetParent !== null),
-          playground: Boolean(panel?.querySelector('form,button')),
-          langTabs: langs.filter((l) => visibleText.has(l)),
+          open: panels.every((p) => p && p.offsetParent !== null),
+          playground: panels.every((p) => Boolean(p?.querySelector('form,button'))),
+          langTabs: langs.filter((l) => leaves.includes(l)),
+          // Present in the DOM, hidden by app/global.css: the ids they copy are not
+          // unique across operations. `anchorButtons` is logged so a zero - which would
+          // make the assertion vacuous - is visible rather than silent.
+          anchorButtons: anchorButtons.length,
+          visibleAnchorButtons: anchorButtons.filter((b) => b.offsetParent !== null).length,
+          // Informational: expected to be non-empty once two bodies are open.
+          duplicateIds: [...counts].filter(([, n]) => n > 1).length,
         };
       },
-      { id: seen.firstRow, langs: LANGS },
+      { ids: seen.rowIds, langs: LANGS },
     );
-    if (!after.open) fail(`clicking ${seen.firstRow} did not open it`);
-    if (!after.playground) fail(`${seen.firstRow} opened with no playground`);
+    console.log(
+      `  expanded ${seen.rowIds.length}: ${after.anchorButtons} vendor anchor buttons ` +
+        `(${after.visibleAnchorButtons} visible), ${after.duplicateIds} duplicated ids`,
+    );
+    if (!after.open) fail(`expanding ${seen.rowIds.join(', ')} did not open every panel`);
+    if (!after.playground) fail(`an expanded panel rendered no playground`);
     if (after.langTabs.length) fail(`code sample tabs after expand: ${after.langTabs.join(', ')}`);
+    if (after.visibleAnchorButtons)
+      fail(`${after.visibleAnchorButtons} non-unique schema anchor buttons visible`);
 
     // Deep link: a fresh load on the fragment must arrive expanded.
     await page.goto(`${BASE}/rest-api/${slug}#${seen.firstRow}`, { waitUntil: 'networkidle' });
