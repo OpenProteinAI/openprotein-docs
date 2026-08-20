@@ -130,6 +130,29 @@ def hash_comment(package: griffe.Module, obj) -> str | None:
     return "\n".join(reversed(collected)) or None
 
 
+def inherited_docstring_owner(cls, name: str):
+    """The nearest ancestor member that actually carries a docstring, or None.
+
+    Needed as well as the text: the docstring's *sections* have to be parsed from the object
+    that owns it. Parsing the override instead leaves 21 inherited members
+    (`wait`, `stream`, `get_item`, `get_metadata`) with prose but no parameter table.
+    """
+    try:
+        chain = cls.mro()
+    except Exception:
+        return None
+    for base in chain:
+        try:
+            member = base.members.get(name)
+        except Exception:
+            continue
+        if member is None:
+            continue
+        if docstring_text(member).strip():
+            return member
+    return None
+
+
 def inherited_docstring(cls, name: str) -> str:
     """autodoc_inherit_docstrings defaults True, so an override with no docstring of its own
     is still 'documented' via its base. 18 members across the 61 classes rely on this.

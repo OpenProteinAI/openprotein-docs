@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections import Counter
 from importlib.metadata import version
@@ -37,8 +38,10 @@ from members import (  # noqa: E402
     _sections,
     describe,
     pydantic_signature,
+    rewrite_roles,
     select,
     signature_of,
+    type_parts,
 )
 from sdk import REPO, deref, docstring_text, kind_of, load_sdk  # noqa: E402
 
@@ -46,6 +49,15 @@ ROOT = HERE.parents[1]
 SPECS = ROOT / "specs"
 GOLDEN = HERE / "golden"
 PAGES = HERE / "pages.json"
+
+
+# NumPy `Parameters\n----------` and Google `Args:` section headers.
+SECTION_HEADER = re.compile(
+    r"^(?:(Parameters|Returns|Yields|Raises|Warns|Attributes|Other Parameters|Examples|Notes"
+    r"|See Also)[ \t]*\n[ \t]*-{3,}[ \t]*$"
+    r"|(Args|Arguments|Returns|Yields|Raises|Attributes|Examples?|Notes?):[ \t]*$)",
+    re.MULTILINE,
+)
 
 
 def site_packages() -> Path:
@@ -60,6 +72,92 @@ def site_packages() -> Path:
     )
 
 
+def build_resolver(package: griffe.Module, manifest: dict):
+    """canonical-or-public dotted path -> the public path a reference page documents.
+
+    Two spellings have to resolve to the same target. An annotation's `ExprName` reports the
+    path the *annotating* module imported (`openprotein.molecules.Complex`), while the class
+    read directly reports its defining module (`openprotein.molecules.complex.Complex`). Both
+    are registered, plus every documented member, so a type in a signature can link straight
+    to the member that defines it.
+    """
+    index: dict[str, str] = {}
+    owner_page: dict[str, str] = {}
+    for page in manifest["pages"]:
+        for section in page["sections"]:
+            for entry in section["entries"]:
+                dotted = entry["target"]
+                index[dotted] = dotted
+                owner_page[dotted] = page["page"]
+                try:
+                    obj = deref(lookup(package, dotted))
+                except Exception:
+                    continue
+                canonical = getattr(obj, "canonical_path", None)
+                if canonical:
+                    index.setdefault(canonical, dotted)
+
+    # The member names of each documented class, so a member reference can be verified
+    # before it becomes a link. Selection is cheap and deterministic, so running it here and
+    # again during emission costs nothing but keeps the resolver a pure function.
+    members: dict[str, set[str]] = {}
+    for page in manifest["pages"]:
+        for section in page["sections"]:
+            for entry in section["entries"]:
+                if entry["directive"] != "autoclass":
+                    continue
+                dotted = entry["target"]
+                try:
+                    obj = deref(lookup(package, dotted))
+                    members[dotted] = {n for n, _, _ in select(package, obj, entry["options"])}
+                except Exception:
+                    members[dotted] = set()
+
+    # Bare-name index for docstring roles: `:py:class:`Protein``. Ambiguous last components
+    # are dropped rather than guessed — a wrong link is worse than a code span.
+    by_name: dict[str, dict | None] = {}
+    for public, page_name in owner_page.items():
+        name = public.rsplit(".", 1)[-1]
+        by_name[name] = None if name in by_name else {"path": public, "page": page_name}
+
+    def resolve(path: str) -> dict | None:
+        """-> {"path": public dotted path, "page": reference page} or None."""
+        # Only ever link into what this site documents; stdlib and third-party names stay plain.
+        if not path.startswith("openprotein"):
+            return None
+        if path in index:
+            public = index[path]
+            return {"path": public, "page": owner_page[public]}
+        # A dotted child of a documented class — but only link it if it is genuinely a
+        # documented member. `Type[NullMSA]` resolves to
+        # openprotein.molecules.protein.Protein.NullMSA, a nested class autodoc never
+        # emitted, and a link to it would land on an anchor that does not exist.
+        head, _, tail = path.rpartition(".")
+        public = index.get(head)
+        if not public or tail not in members.get(public, ()):
+            return None
+        return {"path": f"{public}.{tail}", "page": owner_page[public]}
+
+    def link(target: str, owner: str | None) -> dict | None:
+        """Resolve a docstring role target. Tried in order: as written; as a member of the
+        class the docstring belongs to (`get_as_complex` inside `Query`); as a sibling of
+        that class in the same module; and finally as a unique bare name anywhere."""
+        hit = resolve(target)
+        if hit:
+            return hit
+        if "." not in target:
+            if owner:
+                cls_path = owner.rsplit(".", 1)[0]
+                for candidate in (f"{cls_path}.{target}", f"{cls_path.rsplit('.', 1)[0]}.{target}"):
+                    hit = resolve(candidate)
+                    if hit:
+                        return hit
+            return by_name.get(target)
+        return None
+
+    return resolve, link
+
+
 def lookup(package: griffe.Module, dotted: str):
     if dotted == "openprotein":
         return package
@@ -68,7 +166,7 @@ def lookup(package: griffe.Module, dotted: str):
     return package[dotted[len("openprotein.") :]]
 
 
-def emit_class(package, dotted: str, options: dict) -> dict:
+def emit_class(package, dotted: str, options: dict, resolve=None, link=None) -> dict:
     cls = lookup(package, dotted)
     target = deref(cls)
     chosen = select(package, target, options)
@@ -85,18 +183,22 @@ def emit_class(package, dotted: str, options: dict) -> dict:
         "kind": kind_of(cls),
         "signature": signature,
         "bases": bases,
-        "doc": docstring_text(target) or None,
+        "bases_parts": [type_parts(b, resolve) for b in (getattr(target, "bases", None) or [])],
+        "doc": rewrite_roles(docstring_text(target), dotted, link) or None,
         # The class docstring's own sections. Its `Attributes` section is already folded into
         # members (napoleon turned those into `.. attribute::` directives), but Parameters,
         # Returns, Raises and Examples on a class docstring would otherwise be dropped.
-        "parsed": _sections(target),
+        "parsed": _sections(target, resolve, dotted, link),
         "module": getattr(target, "module", None) and target.module.path,
         "source": _source(target),
-        "members": [describe(package, target, name, member, extras) for name, member, extras in chosen],
+        "members": [
+            describe(package, target, name, member, extras, resolve, link)
+            for name, member, extras in chosen
+        ],
     }
 
 
-def emit_function(package, dotted: str) -> dict:
+def emit_function(package, dotted: str, resolve=None, link=None) -> dict:
     func = deref(lookup(package, dotted))
     return {
         "name": dotted.rsplit(".", 1)[-1],
@@ -104,8 +206,9 @@ def emit_function(package, dotted: str) -> dict:
         "kind": "function",
         "signature": signature_of(func),
         "returns": str(func.returns) if getattr(func, "returns", None) else None,
-        "doc": docstring_text(func) or None,
-        "parsed": _sections(func),
+        "returns_parts": type_parts(getattr(func, "returns", None), resolve),
+        "doc": rewrite_roles(docstring_text(func), dotted, link) or None,
+        "parsed": _sections(func, resolve, dotted, link),
         "source": _source(func),
     }
 
@@ -137,6 +240,7 @@ def main() -> None:
         print(f"  shimmed namespace package(s): {', '.join(shimmed)}")
 
     manifest = json.loads(PAGES.read_text(encoding="utf-8"))
+    resolve, link = build_resolver(package, manifest)
     wanted = args.only.split(",") if args.only else None
 
     documents: dict[str, dict] = {}
@@ -151,9 +255,9 @@ def main() -> None:
                 dotted = entry["target"]
                 try:
                     if entry["directive"] == "autoclass":
-                        emitted = emit_class(package, dotted, entry["options"])
+                        emitted = emit_class(package, dotted, entry["options"], resolve, link)
                     elif entry["directive"] == "autofunction":
-                        emitted = emit_function(package, dotted)
+                        emitted = emit_function(package, dotted, resolve, link)
                     else:
                         continue
                 except Exception as error:  # noqa: BLE001
@@ -187,10 +291,10 @@ def main() -> None:
     for dotted in sorted(summarised - documented):
         module = dotted.rsplit(".", 1)[0]
         try:
-            emitted = emit_class(package, dotted, {"members": []})
+            emitted = emit_class(package, dotted, {"members": []}, resolve, link)
         except Exception:
             try:
-                emitted = emit_function(package, dotted)
+                emitted = emit_function(package, dotted, resolve, link)
             except Exception as error:  # noqa: BLE001
                 print(f"  FAIL autosummary {dotted}: {type(error).__name__}: {error}")
                 continue
@@ -221,6 +325,24 @@ def main() -> None:
         else:
             path.write_text(body, encoding="utf-8")
         written += 1
+
+    # A docstring that carries a section header but parsed to prose means the parser did not
+    # recognise its style — 34 were in that state before `parsed_sections` fell back to the
+    # explicit parsers, and every one rendered its parameter table as a paragraph.
+    unparsed = [
+        entry["path"] + ("" if member is None else "." + member["name"])
+        for document in documents.values()
+        for entry in document["entries"]
+        for member in [None, *entry.get("members", [])]
+        for doc in [(member or entry).get("doc")]
+        if doc
+        and len((member or entry).get("parsed") or []) <= 1
+        and SECTION_HEADER.search(doc)
+    ]
+    if unparsed:
+        print(f"\n  WARN  {len(unparsed)} docstring(s) have a section header but parsed as prose:")
+        for path in unparsed[:10]:
+            print(f"          {path}")
 
     kinds = Counter(
         m["kind"] for d in documents.values() for e in d["entries"] for m in e.get("members", [])

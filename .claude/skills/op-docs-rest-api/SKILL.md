@@ -48,7 +48,7 @@ The page is an **ordinary MDX page** with `openapi:` frontmatter. This site does
 | `components/api-page.tsx` | `createOpenAPIPage` config: layout overrides + playground lockdown |
 | `components/rest-api/endpoint-list.tsx` | the collapsible section / card UI |
 | `components/rest-api/method-label.tsx` | coloured HTTP verb, shared by TOC and rows |
-| `components/rest-api/use-hash-target.ts` | deep-link / TOC-click opening |
+| `components/use-hash-target.ts` | deep-link / TOC-click opening |
 | `app/api/playground-proxy/route.ts` | server-side bearer injection, origin allowlist |
 | `app/(docs)/[...slug]/page.tsx` | the `openapi` frontmatter branch and TOC merge |
 | `content/docs/rest-api/*.mdx` + `meta.json` | prose, frontmatter, sidebar order |

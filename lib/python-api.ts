@@ -16,9 +16,16 @@ export interface PySourceRef {
   end: number;
 }
 
+export interface TypePart {
+  text: string;
+  path?: string;
+  page?: string;
+}
+
 export interface PySectionItem {
   name?: string | null;
   type?: string | null;
+  type_parts?: TypePart[] | null;
   default?: string | null;
   text?: string | null;
 }
@@ -35,11 +42,15 @@ export interface PyMember {
   kind: PyKind;
   doc: string | null;
   inherited_from: string | null;
+  /** The *documented* path for `inherited_from`, which reports the defining module. */
+  inherited_from_ref?: { path: string; page: string } | null;
   source: PySourceRef | null;
   signature?: string;
   returns?: string | null;
+  returns_parts?: TypePart[] | null;
   overloads?: string[];
   annotation?: string | null;
+  annotation_parts?: TypePart[] | null;
   value?: string | null;
   parsed?: PySection[];
   /** pydantic's model_config, which exists only on BaseModel. */
@@ -54,12 +65,14 @@ export interface PyEntry {
   kind: 'class' | 'function';
   signature: string;
   bases?: string[];
+  bases_parts?: (TypePart[] | null)[];
   doc: string | null;
   parsed?: PySection[];
   module?: string | null;
   source: PySourceRef | null;
   members?: PyMember[];
   returns?: string | null;
+  returns_parts?: TypePart[] | null;
   section?: string | null;
   /** The reference page that documents it; null for autosummary-only objects. */
   page?: string | null;
@@ -140,10 +153,15 @@ export async function readPySummary(paths: string[]): Promise<PySummaryRow[]> {
   );
 }
 
-/** `:py:class:`~openprotein.fold.FoldAPI`` -> `FoldAPI`; ``x`` -> x. Plain text, for a
- *  table cell and a <meta> description — not markdown, so nothing is linked here. */
+/**
+ * Plain text, for a table cell and a `<meta>` description — nothing is linked here, so both
+ * markdown and leftover RST markup have to come out. The generator rewrites docstring roles
+ * into markdown links, so `[`Protein`](/python-api/…)` is the common case; a role that it
+ * could not resolve stays as RST.
+ */
 function plainText(text: string): string {
   return text
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/:(?:py:)?(?:class|meth|func|attr|obj|mod|exc|data)::?`~?([^`]+)`/g, (_m, target: string) =>
       target.split('.').pop() ?? target,
     )
@@ -178,15 +196,18 @@ export function pyAnchor(dotted: string): string {
   return dotted;
 }
 
-const PY_CLASS = /<PyClass\s+path=["']([^"']+)["']/g;
+const PY_CLASS = /<Py(?:Class|Function)\s+path=["']([^"']+)["']/;
+const PY_GROUP = /<PyGroup\s+id=["']([^"']+)["']\s+title=(?:["']([^"']+)["']|\{"((?:[^"\\]|\\.)*)"\})/;
 const HEADING = /^(#{2,4})\s+(.+?)\s*$/;
 
 /**
- * Interleave one TOC entry per `<PyClass>` into the page's own headings.
+ * Build the page TOC from the raw MDX.
  *
- * The class blocks render at request time, so fumadocs' compile-time TOC sees only the `##`
- * headings and every class under them would be unnavigable. Matching is positional against
- * the raw MDX rather than by re-slugifying heading text — re-slugging is how anchors drift.
+ * Everything on a reference page renders at request time — the `<PyGroup>` headings as much
+ * as the classes inside them — so fumadocs' compile-time TOC sees almost nothing. Scanning
+ * the source keeps one order of truth and avoids re-slugifying anything, which is how anchors
+ * drift. Ordinary markdown headings (the index page's `##`s) are taken from `toc` in the
+ * order they appear, so their compile-time slugs are used verbatim.
  */
 export async function pyToc(pagePath: string, toc: TOCItemType[]): Promise<TOCItemType[]> {
   let raw: string;
@@ -196,38 +217,48 @@ export async function pyToc(pagePath: string, toc: TOCItemType[]): Promise<TOCIt
     return toc;
   }
 
-  const lines = raw.split('\n');
-  const headingDepths = toc.map((item) => item.depth);
-  let headingIndex = 0;
   const out: TOCItemType[] = [];
+  let headingIndex = 0;
+  let depth = 2;
   let fenced = false;
 
-  for (const line of lines) {
-    if (line.startsWith('```')) fenced = !fenced;
+  for (const line of raw.split('\n')) {
+    if (line.startsWith('```')) {
+      fenced = !fenced;
+      continue;
+    }
     if (fenced) continue;
 
     const heading = HEADING.exec(line);
     if (heading) {
-      if (headingIndex < toc.length) out.push(toc[headingIndex]);
+      if (headingIndex < toc.length) {
+        out.push(toc[headingIndex]);
+        depth = toc[headingIndex].depth;
+      }
       headingIndex += 1;
       continue;
     }
 
-    PY_CLASS.lastIndex = 0;
-    const match = PY_CLASS.exec(line);
-    if (!match) continue;
-    const dotted = match[1];
-    // One level below the heading it sits under, so the rail nests it.
-    const parent = headingDepths[headingIndex - 1] ?? 2;
-    out.push({
-      title: dotted.split('.').pop() ?? dotted,
-      url: `#${pyAnchor(dotted)}`,
-      depth: Math.min(parent + 1, 4),
-    });
+    const group = PY_GROUP.exec(line);
+    if (group) {
+      const title = group[2] ?? JSON.parse(`"${group[3]}"`);
+      out.push({ title, url: `#${group[1]}`, depth: 2 });
+      depth = 2;
+      continue;
+    }
+
+    const entry = PY_CLASS.exec(line);
+    if (entry) {
+      const dotted = entry[1];
+      out.push({
+        title: dotted.split('.').pop() ?? dotted,
+        url: `#${pyAnchor(dotted)}`,
+        depth: Math.min(depth + 1, 4),
+      });
+    }
   }
 
-  // Any heading the scan did not reach (none today, but a trailing heading after the last
-  // PyClass must not vanish).
+  // A trailing markdown heading after the last component must not vanish.
   out.push(...toc.slice(headingIndex));
   return out;
 }

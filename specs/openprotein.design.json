@@ -7,6 +7,7 @@
    "kind": "class",
    "signature": "(session)",
    "bases": [],
+   "bases_parts": [],
    "doc": "Design API providing the interface to design novel proteins based on your design criteria.",
    "parsed": [
     {
@@ -26,6 +27,7 @@
      "kind": "method",
      "doc": "List all designs.\n\nReturns\n-------\nlist of DesignFuture\n    A list of DesignFuture objects representing all designs.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/design.py",
       "line": 21,
@@ -33,6 +35,19 @@
      },
      "signature": "()",
      "returns": "list[DesignFuture]",
+     "returns_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -44,6 +59,11 @@
         {
          "name": null,
          "type": "list of DesignFuture",
+         "type_parts": [
+          {
+           "text": "list of DesignFuture"
+          }
+         ],
          "text": "A list of DesignFuture objects representing all designs."
         }
        ]
@@ -55,6 +75,7 @@
      "kind": "method",
      "doc": "Retrieve a specific design by its ID.\n\nParameters\n----------\ndesign_id : str\n    ID of the design to retrieve.\n\nReturns\n-------\nDesignFuture\n    A future object representing the design job and its results.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/design.py",
       "line": 38,
@@ -62,6 +83,13 @@
      },
      "signature": "(design_id)",
      "returns": "DesignFuture",
+     "returns_parts": [
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -73,6 +101,11 @@
         {
          "name": "design_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "ID of the design to retrieve."
         }
@@ -84,6 +117,13 @@
         {
          "name": null,
          "type": "DesignFuture",
+         "type_parts": [
+          {
+           "text": "DesignFuture",
+           "path": "openprotein.design.DesignFuture",
+           "page": "design"
+          }
+         ],
          "text": "A future object representing the design job and its results."
         }
        ]
@@ -95,6 +135,7 @@
      "kind": "method",
      "doc": "Start a protein design job using a genetic algorithm based on assay data, a trained ML model, and specified criteria.\n\nParameters\n----------\nassay : AssayDataset\n    The AssayDataset to design from.\ncriteria : Criteria or Subcriterion or Criterion\n    Criteria for evaluating the design.\nnum_steps : int, optional\n    The number of steps in the genetic algorithm. Default is 25.\npop_size : int, optional\n    The population size for the genetic algorithm. Default is 1024.\nn_offsprings : int, optional\n    The number of offspring for the genetic algorithm. Default is 5120.\ncrossover_prob : float, optional\n    The crossover probability for the genetic algorithm. Default is 1.0.\ncrossover_prob_pointwise : float, optional\n    The pointwise crossover probability for the genetic algorithm. Default is 0.2.\nmutation_average_mutations_per_seq : int, optional\n    The average number of mutations per sequence. Default is 1.\nallowed_tokens : DesignConstraint or dict of int to list of str, optional\n    A dict of positions and allowed tokens (e.g. {1: ['G', 'L']}) designating how mutations may occur. Defaults to empty dict.\n\nReturns\n-------\nDesignFuture\n    A future object representing the design job and its results.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/design.py",
       "line": 57,
@@ -102,6 +143,13 @@
      },
      "signature": "(assay, criteria, num_steps=25, pop_size=1024, n_offsprings=5120, crossover_prob=1.0, crossover_prob_pointwise=0.2, mutation_average_mutations_per_seq=1, allowed_tokens={})",
      "returns": "DesignFuture",
+     "returns_parts": [
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -113,54 +161,101 @@
         {
          "name": "assay",
          "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
          "default": null,
          "text": "The AssayDataset to design from."
         },
         {
          "name": "criteria",
          "type": "Criteria or Subcriterion or Criterion",
+         "type_parts": [
+          {
+           "text": "Criteria or Subcriterion or Criterion"
+          }
+         ],
          "default": null,
          "text": "Criteria for evaluating the design."
         },
         {
          "name": "num_steps",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "25",
          "text": "The number of steps in the genetic algorithm. Default is 25."
         },
         {
          "name": "pop_size",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "1024",
          "text": "The population size for the genetic algorithm. Default is 1024."
         },
         {
          "name": "n_offsprings",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "5120",
          "text": "The number of offspring for the genetic algorithm. Default is 5120."
         },
         {
          "name": "crossover_prob",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "1.0",
          "text": "The crossover probability for the genetic algorithm. Default is 1.0."
         },
         {
          "name": "crossover_prob_pointwise",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "0.2",
          "text": "The pointwise crossover probability for the genetic algorithm. Default is 0.2."
         },
         {
          "name": "mutation_average_mutations_per_seq",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "1",
          "text": "The average number of mutations per sequence. Default is 1."
         },
         {
          "name": "allowed_tokens",
          "type": "DesignConstraint or dict of int to list of str",
+         "type_parts": [
+          {
+           "text": "DesignConstraint or dict of int to list of str"
+          }
+         ],
          "default": "{}",
          "text": "A dict of positions and allowed tokens (e.g. {1: ['G', 'L']}) designating how mutations may occur. Defaults to empty dict."
         }
@@ -172,6 +267,13 @@
         {
          "name": null,
          "type": "DesignFuture",
+         "type_parts": [
+          {
+           "text": "DesignFuture",
+           "path": "openprotein.design.DesignFuture",
+           "page": "design"
+          }
+         ],
          "text": "A future object representing the design job and its results."
         }
        ]
@@ -190,6 +292,20 @@
    "bases": [
     "StreamingFuture",
     "Future"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "StreamingFuture"
+     }
+    ],
+    [
+     {
+      "text": "Future",
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     }
+    ]
    ],
    "doc": "A future object that will hold the results of the design job.",
    "parsed": [
@@ -210,12 +326,14 @@
      "kind": "property",
      "doc": "ID of the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 45,
       "end": 47
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -229,12 +347,20 @@
      "kind": "property",
      "doc": "Assay used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 50,
       "end": 54
      },
      "annotation": "AssayDataset",
+     "annotation_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -248,12 +374,18 @@
      "kind": "property",
      "doc": "Algorithm used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 57,
       "end": 59
      },
      "annotation": "DesignAlgorithm",
+     "annotation_parts": [
+      {
+       "text": "DesignAlgorithm"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -267,12 +399,18 @@
      "kind": "property",
      "doc": "Criteria used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 62,
       "end": 64
      },
      "annotation": "Criteria",
+     "annotation_parts": [
+      {
+       "text": "Criteria"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -286,12 +424,14 @@
      "kind": "property",
      "doc": "Number of steps used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 67,
       "end": 69
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -305,12 +445,14 @@
      "kind": "property",
      "doc": "Number of rows in the total design output (across all steps).",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 72,
       "end": 74
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -324,12 +466,18 @@
      "kind": "property",
      "doc": "Allowed tokens used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 77,
       "end": 79
      },
      "annotation": "dict[str, list[str]] | None",
+     "annotation_parts": [
+      {
+       "text": "dict[str, list[str]] | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -343,12 +491,18 @@
      "kind": "property",
      "doc": "Population size used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 82,
       "end": 84
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -362,12 +516,18 @@
      "kind": "property",
      "doc": "Number of offsprings used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 87,
       "end": 89
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -381,12 +541,18 @@
      "kind": "property",
      "doc": "Crossover probability used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 92,
       "end": 94
      },
      "annotation": "float",
+     "annotation_parts": [
+      {
+       "text": "float"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -400,12 +566,18 @@
      "kind": "property",
      "doc": "Crossover probability pointwise used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 97,
       "end": 99
      },
      "annotation": "float",
+     "annotation_parts": [
+      {
+       "text": "float"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -419,12 +591,18 @@
      "kind": "property",
      "doc": "Average mutations per sequence used in the design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 102,
       "end": 104
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -438,12 +616,14 @@
      "kind": "property",
      "doc": "Design metadata.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 107,
       "end": 110
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -457,6 +637,7 @@
      "kind": "method",
      "doc": "Return the results from this job as a generator.\n\nParameters\n----------\n**kwargs\n    Keyword arguments passed to the streaming implementation.\n\nReturns\n-------\nGenerator\n    A generator that yields job results.\n\nRaises\n------\nNotImplementedError\n    This is an abstract method and must be implemented by a subclass.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 126,
@@ -464,13 +645,67 @@
      },
      "signature": "(step=None)",
      "returns": "Iterator[DesignResult]",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "Iterator[DesignResult]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Return the results from this job as a generator."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "**kwargs",
+         "type": null,
+         "type_parts": null,
+         "default": "{}",
+         "text": "Keyword arguments passed to the streaming implementation."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Generator",
+         "type_parts": [
+          {
+           "text": "Generator"
+          }
+         ],
+         "text": "A generator that yields job results."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "NotImplementedError",
+         "type_parts": [
+          {
+           "text": "NotImplementedError"
+          }
+         ],
+         "default": null,
+         "text": "This is an abstract method and must be implemented by a subclass."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "get_assay",
      "kind": "method",
      "doc": "Get assay used for design job.\n\nReturns\n-------\nAssayDataset\n    Assay dataset used for design.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/design/future.py",
       "line": 135,
@@ -478,6 +713,13 @@
      },
      "signature": "()",
      "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -489,6 +731,13 @@
         {
          "name": null,
          "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
          "text": "Assay dataset used for design."
         }
        ]

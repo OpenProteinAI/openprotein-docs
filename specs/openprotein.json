@@ -7,11 +7,18 @@
    "kind": "function",
    "signature": "(username=None, password=None, backend=None, timeout=180)",
    "returns": "OpenProtein",
-   "doc": "Connect and create a :py:class:`OpenProtein` session.\n\nParameters\n----------\nusername : str, optional\n    The username of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_USERNAME`` or a\n    configuration file at ``~/.openprotein/config.toml``.\npassword : str, optional\n    The password of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_PASSWORD`` or a\n    configuration file at ``~/.openprotein/config.toml``.\n\nExamples\n--------\n>>> session = openprotein.connect(\"username\", \"password\")",
+   "returns_parts": [
+    {
+     "text": "OpenProtein",
+     "path": "openprotein.OpenProtein",
+     "page": "openprotein"
+    }
+   ],
+   "doc": "Connect and create a [`OpenProtein`](/python-api/api-reference/openprotein#openprotein.OpenProtein) session.\n\nParameters\n----------\nusername : str, optional\n    The username of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_USERNAME`` or a\n    configuration file at ``~/.openprotein/config.toml``.\npassword : str, optional\n    The password of the user. If not provided, taken from the\n    environment variable ``OPENPROTEIN_PASSWORD`` or a\n    configuration file at ``~/.openprotein/config.toml``.\n\nExamples\n--------\n>>> session = openprotein.connect(\"username\", \"password\")",
    "parsed": [
     {
      "kind": "text",
-     "text": "Connect and create a :py:class:`OpenProtein` session."
+     "text": "Connect and create a [`OpenProtein`](/python-api/api-reference/openprotein#openprotein.OpenProtein) session."
     },
     {
      "kind": "parameters",
@@ -19,12 +26,22 @@
       {
        "name": "username",
        "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
        "default": "None",
        "text": "The username of the user. If not provided, taken from the\nenvironment variable ``OPENPROTEIN_USERNAME`` or a\nconfiguration file at ``~/.openprotein/config.toml``."
       },
       {
        "name": "password",
        "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
        "default": "None",
        "text": "The password of the user. If not provided, taken from the\nenvironment variable ``OPENPROTEIN_PASSWORD`` or a\nconfiguration file at ``~/.openprotein/config.toml``."
       }
@@ -53,6 +70,13 @@
    "bases": [
     "APISession"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "APISession"
+     }
+    ]
+   ],
    "doc": "The base class for accessing OpenProtein API functionality.",
    "parsed": [
     {
@@ -72,12 +96,20 @@
      "kind": "property",
      "doc": "The data submodule gives access to functionality for uploading and accessing user data.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 57,
       "end": 63
      },
      "annotation": "DataAPI",
+     "annotation_parts": [
+      {
+       "text": "DataAPI",
+       "path": "openprotein.data.DataAPI",
+       "page": "data"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -91,12 +123,20 @@
      "kind": "property",
      "doc": "The jobs submodule gives access to functionality for listing jobs and checking their status.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 66,
       "end": 72
      },
      "annotation": "JobsAPI",
+     "annotation_parts": [
+      {
+       "text": "JobsAPI",
+       "path": "openprotein.jobs.JobsAPI",
+       "page": "jobs"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -110,12 +150,20 @@
      "kind": "property",
      "doc": "The Align submodule gives access to the sequence alignment capabilities by building MSAs and prompts that can be used with PoET.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 75,
       "end": 81
      },
      "annotation": "AlignAPI",
+     "annotation_parts": [
+      {
+       "text": "AlignAPI",
+       "path": "openprotein.align.AlignAPI",
+       "page": "align"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -129,12 +177,20 @@
      "kind": "property",
      "doc": "The prompt submodule gives access to creating and retrieving prompts and queries used to condition PoET models.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 84,
       "end": 90
      },
      "annotation": "PromptAPI",
+     "annotation_parts": [
+      {
+       "text": "PromptAPI",
+       "path": "openprotein.prompt.PromptAPI",
+       "page": "prompt"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -148,12 +204,20 @@
      "kind": "property",
      "doc": "The embedding submodule gives access to protein embedding models and their inference endpoints.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 93,
       "end": 99
      },
      "annotation": "EmbeddingsAPI",
+     "annotation_parts": [
+      {
+       "text": "EmbeddingsAPI",
+       "path": "openprotein.embeddings.EmbeddingsAPI",
+       "page": "embedding"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -167,12 +231,20 @@
      "kind": "property",
      "doc": "The embedding submodule gives access to protein embedding models and their inference endpoints.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 93,
       "end": 99
      },
      "annotation": "EmbeddingsAPI",
+     "annotation_parts": [
+      {
+       "text": "EmbeddingsAPI",
+       "path": "openprotein.embeddings.EmbeddingsAPI",
+       "page": "embedding"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -186,12 +258,18 @@
      "kind": "property",
      "doc": "The embedding submodule gives access to protein embedding models and their inference endpoints.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 104,
       "end": 112
      },
      "annotation": "SVDAPI",
+     "annotation_parts": [
+      {
+       "text": "SVDAPI"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -205,12 +283,18 @@
      "kind": "property",
      "doc": "The embedding submodule gives access to protein embedding models and their inference endpoints.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 115,
       "end": 123
      },
      "annotation": "UMAPAPI",
+     "annotation_parts": [
+      {
+       "text": "UMAPAPI"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -224,12 +308,18 @@
      "kind": "property",
      "doc": "The clustering API for fitting hierarchical clustering jobs.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 126,
       "end": 132
      },
      "annotation": "ClusteringAPI",
+     "annotation_parts": [
+      {
+       "text": "ClusteringAPI"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -243,12 +333,20 @@
      "kind": "property",
      "doc": "The predictor submodule gives access to training and predicting with predictors built on top of embeddings.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 135,
       "end": 143
      },
      "annotation": "PredictorAPI",
+     "annotation_parts": [
+      {
+       "text": "PredictorAPI",
+       "path": "openprotein.predictor.PredictorAPI",
+       "page": "predictor"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -262,12 +360,20 @@
      "kind": "property",
      "doc": "The designer submodule gives access to functionality for designing new sequences using models from predictor train.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 146,
       "end": 154
      },
      "annotation": "DesignAPI",
+     "annotation_parts": [
+      {
+       "text": "DesignAPI",
+       "path": "openprotein.design.DesignAPI",
+       "page": "design"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -281,12 +387,20 @@
      "kind": "property",
      "doc": "The fold submodule gives access to functionality for folding sequences and returning PDBs.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 157,
       "end": 163
      },
      "annotation": "FoldAPI",
+     "annotation_parts": [
+      {
+       "text": "FoldAPI",
+       "path": "openprotein.fold.FoldAPI",
+       "page": "fold"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -300,12 +414,20 @@
      "kind": "property",
      "doc": "The models submodule provides a unified entry point to all protein models.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/__init__.py",
       "line": 166,
       "end": 172
      },
      "annotation": "ModelsAPI",
+     "annotation_parts": [
+      {
+       "text": "ModelsAPI",
+       "path": "openprotein.models.ModelsAPI",
+       "page": "models"
+      }
+     ],
      "value": null,
      "parsed": [
       {

@@ -9,7 +9,7 @@
 | `lib/openapi-toc.tsx` | server | imports `lib/env.ts` — must not reach the client |
 | `components/api-page.tsx` | client (`'use client'`) | `createOpenAPIPage` returns a client component |
 | `components/rest-api/endpoint-list.tsx` | client | |
-| `components/rest-api/use-hash-target.ts` | client | |
+| `components/use-hash-target.ts` | client | |
 | `components/rest-api/method-label.tsx` | neither directive | plain leaf; the server TOC and the client list both use it |
 
 `lib/env.ts` reads `process.env.OP_SERVER_PROXY` / `OP_SERVER_ROOT_API` at module scope. Neither
@@ -192,7 +192,7 @@ path · a Deprecated badge · Copy path · Copy link.
 `role="region" aria-labelledby={anchor}` with id `` `${anchor}-content` ``. A section's panel
 is `role="group"` with id `` `${anchor}-endpoints` ``.
 
-### `CopyButton`
+### `CopyButton` — now shared, at `components/copy-button.tsx`
 
 Icon-only — the row already carries a verb, a path and a summary. Not fumadocs'
 `useCopyButton`, which ticks on `Promise.resolve(onCopy()).then()` with **no rejection
@@ -200,8 +200,13 @@ branch**, so a failed write leaves an unhandled rejection and is indistinguishab
 copy that worked. `navigator.clipboard` really can be missing: it is gated on a secure
 context and `next dev` prints a plain-http LAN URL people preview from.
 
-Copy link builds `origin + pathname + '#' + anchor` rather than mutating `location.href`,
-because the reader may have arrived on a URL that already carries a query string.
+Copy link builds `origin + pathname + '#' + anchor` (the exported `anchorUrl` helper) rather
+than mutating `location.href`, because the reader may have arrived on a URL that already
+carries a query string.
+
+**Shared with the Python API renderer**, which puts the same two buttons — same `Copy` and
+`Link2` icons — on each class card. That is why it lives at `components/` rather than under
+`rest-api/`.
 
 ### `use-hash-target.ts`
 
@@ -212,6 +217,13 @@ useHashTarget(ids: string[], onTarget: (id: string) => void): void
 Runs `onTarget` when `location.hash` names one of `ids` — on mount and on every later
 navigation to it. Latest `ids`/`onTarget` are held in a ref and the effect keys on
 `ids.join(',')`, because the array identity changes every render.
+
+**Shared with the Python API renderer** (`components/python-api/collapsible.tsx`), which is
+why it lives at `components/` rather than under `rest-api/`. That consumer passes
+`{ descendants: true }` so a group opens for `openprotein.fold.FoldAPI.get_model` while only
+being told about `openprotein.fold.FoldAPI` — the REST renderer does not use that option.
+A malformed fragment such as `#%` used to throw `URIError` out of `decodeURIComponent` and
+break the effect for every consumer on the page; that is now caught.
 
 It listens for **`popstate` as well as `hashchange`**, and that is not belt-and-braces:
 fumadocs renders TOC entries as plain `<a href="#id">`, and no browser fires `hashchange`

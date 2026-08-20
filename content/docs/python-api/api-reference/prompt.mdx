@@ -1,16 +1,34 @@
 ---
 title: "openprotein.prompt"
-description: "Create prompts to be used with PoET <embedding.rst#openprotein.embeddings.PoETModel>_ models, along with queries which opens up use-cases like inverse folding <../../walkthroughs/PoET-2_inverse_folding.ipynb>_ with PoET-2 <embedding.rst#openprotein.embeddings.PoET2Model>_."
+description: "Create prompts to be used with PoET models, along with queries which opens up use-cases like inverse folding with PoET-2."
 pythonApi: true
 ---
-## Interface
+Create prompts to be used with [PoET](./embedding#openprotein.embeddings.PoETModel) models, along with queries which opens up use-cases like inverse folding with [PoET-2](./embedding#openprotein.embeddings.PoET2Model).
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.prompt.PromptAPI",
+  ]}
+>
 
 <PyClass path="openprotein.prompt.PromptAPI" />
 
-## Classes
+</PyGroup>
+
+<PyGroup id="classes" title="Classes"
+  anchors={[
+    "openprotein.prompt.Prompt",
+    "openprotein.prompt.Query",
+    "openprotein.prompt.PromptMetadata",
+    "openprotein.prompt.QueryMetadata",
+    "openprotein.prompt.PromptJob",
+  ]}
+>
 
 <PyClass path="openprotein.prompt.Prompt" />
 <PyClass path="openprotein.prompt.Query" />
 <PyClass path="openprotein.prompt.PromptMetadata" />
 <PyClass path="openprotein.prompt.QueryMetadata" />
 <PyClass path="openprotein.prompt.PromptJob" />
+
+</PyGroup>

@@ -50,7 +50,12 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
       {notebook ? null : (
         <>
           <DocsTitle>{page.data.title}</DocsTitle>
-          <DocsDescription>{page.data.description}</DocsDescription>
+          {/* Python API reference pages open with their own intro paragraph, which carries
+              cross-links the description cannot. Rendering both would print the same sentence
+              twice; the description still feeds <meta>, the sidebar and search. */}
+          {page.data.pythonApi ? null : (
+            <DocsDescription>{page.data.description}</DocsDescription>
+          )}
         </>
       )}
       <DocsBody>

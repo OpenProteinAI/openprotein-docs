@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Check, ChevronDown, ChevronRight, Copy, Link2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, Copy, Link2 } from 'lucide-react';
+import { CopyButton, anchorUrl } from '@/components/copy-button';
 import { MethodLabel } from './method-label';
-import { useHashTarget } from './use-hash-target';
+import { useHashTarget } from '@/components/use-hash-target';
 import {
   operationKey,
   type EndpointOperation,
@@ -228,15 +229,7 @@ function EndpointCard({
         </button>
 
         <CopyButton label="Copy path" icon={Copy} getText={() => operation.path} />
-        <CopyButton
-          label="Copy link"
-          icon={Link2}
-          // origin + pathname + hash, not `location.href` with the hash swapped: the
-          // reader may have arrived on a URL carrying its own query string.
-          getText={() =>
-            `${window.location.origin}${window.location.pathname}#${operation.anchor}`
-          }
-        />
+        <CopyButton label="Copy link" icon={Link2} getText={() => anchorUrl(operation.anchor)} />
       </Tag>
 
       {everOpened ? (
@@ -250,59 +243,5 @@ function EndpointCard({
         </div>
       ) : null}
     </div>
-  );
-}
-
-/**
- * Icon-only: the row already carries a verb, a path and a summary, and two text labels
- * on every row would crowd out the path they sit beside.
- *
- * Not fumadocs' `useCopyButton`, which ticks on `Promise.resolve(onCopy()).then()` with
- * no rejection branch - so a failed write is indistinguishable from one that worked.
- * `navigator.clipboard` is gated on a secure context, and `next dev` prints a plain-http
- * LAN URL people preview from.
- */
-function CopyButton({
-  label,
-  icon: Icon,
-  getText,
-}: {
-  label: string;
-  icon: typeof Copy;
-  getText: () => string;
-}) {
-  const [copied, setCopied] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout>>(undefined);
-
-  useEffect(() => () => clearTimeout(timeout.current), []);
-
-  async function copy() {
-    try {
-      if (!navigator.clipboard) throw new Error('clipboard unavailable (insecure context?)');
-      await navigator.clipboard.writeText(getText());
-    } catch (error) {
-      console.error(`[docs] ${label} failed`, error);
-      return;
-    }
-
-    setCopied(true);
-    clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => setCopied(false), 1500);
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      aria-label={label}
-      title={label}
-      className="shrink-0 rounded-md p-1.5 text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground focus-visible:ring-2 focus-visible:ring-fd-ring focus-visible:outline-none"
-    >
-      {copied ? (
-        <Check aria-hidden className="size-3.5 text-fd-primary" />
-      ) : (
-        <Icon aria-hidden className="size-3.5" />
-      )}
-    </button>
   );
 }

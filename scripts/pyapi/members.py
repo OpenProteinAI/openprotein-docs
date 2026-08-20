@@ -7,16 +7,48 @@ hoping. Each clause below cites the case that forced it.
 
 from __future__ import annotations
 
+import re
+
+import griffe
+
 from sdk import (
     alias_target,
     deref,
     docstring_text,
     hash_comment,
     inherited_docstring,
+    inherited_docstring_owner,
     kind_of,
 )
 
 META_PRIVATE = ":meta private:"
+
+# `:py:meth:`~openprotein.molecules.Protein.mask_sequence_at``, `:py:class:`Protein``,
+# `:meth:`get_as_complex`` — all three spellings occur, and a bare name is the common one.
+ROLE = re.compile(r":(?:py:)?(?:class|meth|func|attr|obj|mod|exc|data):`~?([^`]+)`")
+
+
+def rewrite_roles(text: str, owner: str | None, link=None) -> str:
+    """Turn RST cross-reference roles into markdown links.
+
+    Done here rather than in the renderer because only the generator knows which page
+    documents what. A role that cannot be resolved becomes a plain code span, which is what
+    Sphinx effectively rendered for the ones it could not resolve either.
+
+    `link(target, owner)` returns `{"path", "page"}` or None.
+    """
+    if not text:
+        return text
+
+    def replace(match: re.Match[str]) -> str:
+        target = match.group(1).strip()
+        label = target.split(".")[-1]
+        hit = link(target, owner) if link else None
+        if not hit:
+            return f"`{label}`"
+        return f"[`{label}`](/python-api/api-reference/{hit['page']}#{hit['path']})"
+
+    return ROLE.sub(replace, text)
 
 
 def _type_text(annotation) -> str | None:
@@ -24,6 +56,48 @@ def _type_text(annotation) -> str | None:
         return None
     text = str(annotation).strip()
     return text or None
+
+
+def type_parts(annotation, resolve=None) -> list[dict] | None:
+    """Split a type annotation into tokens, each optionally carrying a link target.
+
+    griffe hands back an expression tree rather than a string, and every `ExprName` in it
+    exposes `canonical_path` resolved through the import graph — which is exactly what turns
+    `Sequence[Complex | Protein | str | bytes] | MSAFuture` into four linkable names and the
+    punctuation between them. Note the path an *annotation* resolves to is the one the
+    annotating module imported (`openprotein.molecules.Complex`), while the same class read
+    directly reports its defining module (`openprotein.molecules.complex.Complex`) — so the
+    resolver has to accept both spellings.
+    """
+    if annotation is None or isinstance(annotation, str):
+        text = _type_text(annotation)
+        return [{"text": text}] if text else None
+
+    parts: list[dict] = []
+    try:
+        tokens = list(annotation.iterate(flat=True))
+    except Exception:
+        text = _type_text(annotation)
+        return [{"text": text}] if text else None
+
+    for token in tokens:
+        text = str(token)
+        if not text:
+            continue
+        target = None
+        canonical = None
+        try:
+            canonical = token.canonical_path
+        except Exception:
+            canonical = None
+        if canonical and resolve is not None:
+            target = resolve(canonical)
+        # Merge runs of plain punctuation so the rendered output is not one span per bracket.
+        if target is None and parts and parts[-1].get("path") is None:
+            parts[-1]["text"] += text
+        else:
+            parts.append({"text": text, **target} if target else {"text": text})
+    return parts or None
 
 
 def signature_of(func) -> str:
@@ -139,10 +213,17 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
 
         own_doc = docstring_text(member)
         resolved = None
+        # The object whose docstring `doc` came from — its sections are parsed from there.
+        doc_owner = member if own_doc.strip() else None
         comment = hash_comment(package, member) if kind == "attribute" else None
         section_doc = attr_docs.get(name, "")
         # autodoc_inherit_docstrings defaults True.
-        doc = own_doc or comment or section_doc or inherited_docstring(cls, name)
+        doc = own_doc or comment or section_doc
+        if not doc.strip():
+            ancestor = inherited_docstring_owner(cls, name)
+            if ancestor is not None:
+                doc = docstring_text(ancestor)
+                doc_owner = ancestor
 
         # A bare assignment binds another object: `job_id = id`, `embeddings = embedding`,
         # `predict = generate`. The alias carries no docs, no type and no property-ness of
@@ -155,7 +236,14 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
                 # The sibling itself may be an undocumented override — `SVDModel.id` and
                 # `EmbeddingsResultFuture.id` both shadow the documented `Future.id` — so the
                 # MRO walk has to run on the alias target too, not just on the alias.
-                doc = doc or docstring_text(sibling) or inherited_docstring(cls, sibling.name)
+                if not doc.strip():
+                    doc = docstring_text(sibling)
+                    doc_owner = sibling if doc.strip() else doc_owner
+                    if not doc.strip():
+                        ancestor = inherited_docstring_owner(cls, sibling.name)
+                        if ancestor is not None:
+                            doc = docstring_text(ancestor)
+                            doc_owner = ancestor
                 kind = kind_of(sibling)
 
         if META_PRIVATE in (own_doc or ""):
@@ -165,7 +253,7 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
         # `openprotein.jobs.Future` lists `get`, which has no docstring and is not rendered.
         if explicit is not None:
             if name in explicit and doc.strip():
-                chosen.append((name, member, {"doc": doc, "kind": kind, "resolved": resolved}))
+                chosen.append((name, member, {"doc": doc, "kind": kind, "resolved": resolved, "doc_owner": doc_owner}))
             continue
 
         # `self.x = ...` with no annotation and no `#:` is invisible to autodoc: it collects
@@ -184,7 +272,9 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
         if not doc.strip() and not undoc:
             continue
 
-        chosen.append((name, member, {"doc": doc, "kind": kind, "resolved": resolved}))
+        chosen.append(
+            (name, member, {"doc": doc, "kind": kind, "resolved": resolved, "doc_owner": doc_owner})
+        )
 
     # pydantic v2 puts `model_config` on BaseModel, so no subclass has it statically. Sphinx
     # rendered it on every pydantic class whose directive did not exclude it — which is why
@@ -236,7 +326,7 @@ def _ordered(chosen, cls):
     return sorted(chosen, key=key)
 
 
-def describe(package, cls, name, member, extras) -> dict:
+def describe(package, cls, name, member, extras, resolve=None, link=None) -> dict:
     """One rendered member."""
     kind = extras["kind"]
     target = deref(member) if member is not None else None
@@ -249,11 +339,13 @@ def describe(package, cls, name, member, extras) -> dict:
         # Sphinx labels it a method. Take the kind from whatever the name is actually bound to.
         kind = kind_of(sibling)
 
+    owner = f"{cls.path}.{name}"
     out: dict = {
         "name": name,
         "kind": kind,
-        "doc": (extras["doc"] or None) if extras.get("doc") else None,
+        "doc": rewrite_roles(extras["doc"], owner, link) if extras.get("doc") else None,
         "inherited_from": None,
+        "inherited_from_ref": None,
         "source": None,
     }
 
@@ -266,21 +358,30 @@ def describe(package, cls, name, member, extras) -> dict:
 
     if name not in cls.members:
         parent = getattr(target, "parent", None)
-        out["inherited_from"] = getattr(parent, "path", None)
+        defining = getattr(parent, "path", None)
+        out["inherited_from"] = defining
+        # The defining path (openprotein.jobs.futures.Future) is not the documented one
+        # (openprotein.jobs.Future), so resolve it before offering it as a link.
+        if defining and resolve is not None:
+            out["inherited_from_ref"] = resolve(defining)
 
     if kind in {"method"}:
         out["signature"] = signature_of(target)
         out["returns"] = _type_text(getattr(target, "returns", None))
+        out["returns_parts"] = type_parts(getattr(target, "returns", None), resolve)
         overloads = getattr(target, "overloads", None) or []
         if overloads:
             out["overloads"] = [signature_of(o) for o in overloads]
     else:
         out["annotation"] = _type_text(getattr(target, "annotation", None))
+        out["annotation_parts"] = type_parts(getattr(target, "annotation", None), resolve)
         value = getattr(target, "value", None)
         out["value"] = str(value) if value is not None else None
 
     out["source"] = _source(target)
-    out["parsed"] = _sections(target)
+    # Sections come from whatever object owns the docstring — for an inherited member that is
+    # an ancestor, not the override, which has no docstring of its own.
+    out["parsed"] = _sections(extras.get("doc_owner") or target, resolve, owner, link)
     return out
 
 
@@ -303,10 +404,38 @@ SECTION_KINDS = {
 }
 
 
-def _sections(target) -> list[dict]:
+def parsed_sections(doc):
+    """The richest parse of a docstring, not whatever `auto` guessed.
+
+    griffe's `Parser.auto` infers a style per docstring and gets it wrong for 34 of this
+    SDK's 504 docstrings: `infer_docstring_style` calls `PoET2Model.embed` google-style, so
+    its NumPy `Parameters\n----------` block comes back as one prose blob and the whole
+    parameter table renders as a paragraph. Falling back to the explicit parsers when `auto`
+    finds no structure recovers all 34 and changes nothing else — `auto` already produces the
+    maximum for the other 470.
+    """
+    if doc is None:
+        return []
+    try:
+        best = doc.parse(griffe.Parser.auto)
+    except Exception:
+        best = []
+    if len(best) > 1:
+        return best
+    for parser in (griffe.Parser.numpy, griffe.Parser.google):
+        try:
+            candidate = doc.parse(parser)
+        except Exception:
+            continue
+        if len(candidate) > len(best):
+            best = candidate
+    return best
+
+
+def _sections(target, resolve=None, owner=None, link=None) -> list[dict]:
     """The 8 docstring section kinds this SDK actually uses, out of griffe's 18."""
     try:
-        parsed = target.docstring.parsed if target.docstring else []
+        parsed = parsed_sections(getattr(target, "docstring", None))
     except Exception:
         return []
     out = []
@@ -315,7 +444,7 @@ def _sections(target) -> list[dict]:
         if kind not in SECTION_KINDS:
             continue
         if kind == "text":
-            out.append({"kind": "text", "text": section.value})
+            out.append({"kind": "text", "text": rewrite_roles(section.value, owner, link)})
         elif kind in {"parameters", "other parameters", "raises", "attributes"}:
             out.append(
                 {
@@ -324,8 +453,12 @@ def _sections(target) -> list[dict]:
                         {
                             "name": getattr(item, "name", None),
                             "type": _type_text(getattr(item, "annotation", None)),
+                            "type_parts": type_parts(getattr(item, "annotation", None), resolve),
                             "default": str(getattr(item, "default", "") or "") or None,
-                            "text": (getattr(item, "description", "") or "").strip() or None,
+                            "text": rewrite_roles(
+                                (getattr(item, "description", "") or "").strip(), owner, link
+                            )
+                            or None,
                         }
                         for item in section.value
                     ],
@@ -339,7 +472,11 @@ def _sections(target) -> list[dict]:
                         {
                             "name": getattr(item, "name", None) or None,
                             "type": _type_text(getattr(item, "annotation", None)),
-                            "text": (getattr(item, "description", "") or "").strip() or None,
+                            "type_parts": type_parts(getattr(item, "annotation", None), resolve),
+                            "text": rewrite_roles(
+                                (getattr(item, "description", "") or "").strip(), owner, link
+                            )
+                            or None,
                         }
                         for item in section.value
                     ],
@@ -350,7 +487,9 @@ def _sections(target) -> list[dict]:
                 {
                     "kind": "admonition",
                     "title": getattr(section, "title", None),
-                    "text": getattr(section.value, "description", str(section.value)),
+                    "text": rewrite_roles(
+                        getattr(section.value, "description", str(section.value)), owner, link
+                    ),
                 }
             )
         elif kind == "examples":

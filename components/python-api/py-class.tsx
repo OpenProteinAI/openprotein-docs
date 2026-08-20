@@ -1,57 +1,64 @@
+import Link from 'next/link';
 import { readPyEntry, type PyDocument, type PyMember } from '@/lib/python-api';
+import { PyCard } from './collapsible';
 import { Prose, Sections } from './sections';
 import { DottedName, KindLabel, Signature } from './signature';
 import { SourceLink } from './source-link';
+import { TypeRef } from './type-ref';
 
 /**
- * One `.. autoclass::` block.
+ * One `.. autoclass::` block, as a collapsed card.
  *
  * The element ids are the dotted paths Sphinx used, verbatim and unslugified, so every
  * inbound deep link — `…/api-reference/fold.html#openprotein.fold.FoldAPI.get_results` —
- * still resolves after the migration.
+ * still resolves.
  */
 export async function PyClass({ path }: { path: string }) {
   const { entry, document } = await readPyEntry(path);
+  const members = entry.members ?? [];
 
   return (
-    <section className="mt-10 first:mt-0">
-      <h3
-        id={entry.path}
-        className="not-prose m-0 flex scroll-mt-24 flex-wrap items-baseline gap-x-2 gap-y-1 border-b border-fd-border pb-2 text-base font-normal"
-      >
-        <KindLabel kind={entry.kind} />
-        <DottedName path={entry.path} />
-        <Signature text={entry.signature} />
-        <SourceLink document={document} source={entry.source} />
-      </h3>
-
-      {entry.bases?.length ? (
-        <p className="not-prose mt-2 text-xs text-fd-muted-foreground">
-          Bases: <span className="font-mono">{entry.bases.join(', ')}</span>
+    <PyCard
+      id={entry.path}
+      code={`${entry.path}${entry.signature}`}
+      memberAnchors={members.map((member) => `${entry.path}.${member.name}`)}
+      action={<SourceLink document={document} source={entry.source} />}
+      header={
+        <>
+          <KindLabel kind={entry.kind} />
+          <DottedName path={entry.path} />
+          <Signature text={entry.signature} />
+        </>
+      }
+    >
+      {entry.bases_parts?.length ? (
+        <p className="not-prose mb-2 text-xs text-fd-muted-foreground">
+          Bases:{' '}
+          {entry.bases_parts.map((parts, index) => (
+            <span key={index}>
+              {index > 0 ? ', ' : ''}
+              <TypeRef parts={parts} className="font-mono text-xs" />
+            </span>
+          ))}
         </p>
       ) : null}
 
-      <div className="mt-3">
-        {/* The raw docstring still contains its NumPy `Attributes` / `Returns` blocks as
-            plain text, and those are already rendered as members and as sections below — so
-            prefer the parsed `text` section and fall back to the raw docstring only when the
-            parser found nothing. */}
-        {entry.parsed?.some((section) => section.kind === 'text') ? null : (
-          <Prose text={entry.doc} shift={4} />
-        )}
-        {/* `attributes` is skipped: napoleon turned that section into members, which the
-            member list below already renders. */}
-        <Sections sections={entry.parsed} skip={['attributes']} />
-      </div>
+      {/* The raw docstring still carries its NumPy `Attributes` / `Returns` blocks as plain
+          text, and those render as members and as sections below — so prefer the parsed
+          `text` section and fall back to the raw docstring only when nothing was parsed. */}
+      {entry.parsed?.some((section) => section.kind === 'text') ? null : (
+        <Prose text={entry.doc} shift={4} />
+      )}
+      <Sections sections={entry.parsed} skip={['attributes']} />
 
-      {entry.members?.length ? (
-        <div className="mt-5 flex flex-col">
-          {entry.members.map((member) => (
+      {members.length ? (
+        <div className="mt-4 flex flex-col">
+          {members.map((member) => (
             <Member key={member.name} owner={entry.path} member={member} document={document} />
           ))}
         </div>
       ) : null}
-    </section>
+    </PyCard>
   );
 }
 
@@ -80,17 +87,35 @@ function Member({
         {isCallable ? (
           <Signature text={member.signature} />
         ) : (
-          <Signature text={member.annotation} kind={member.kind} />
+          <>
+            {member.annotation ? <span className="font-mono text-sm text-fd-muted-foreground">:</span> : null}
+            <TypeRef parts={member.annotation_parts} fallback={member.annotation} />
+          </>
         )}
-        {isCallable && member.returns ? (
-          <span className="font-mono text-sm text-[color:var(--py-type)]">→ {member.returns}</span>
+        {isCallable && (member.returns_parts?.length || member.returns) ? (
+          <>
+            <span className="font-mono text-sm text-fd-muted-foreground">→</span>
+            <TypeRef parts={member.returns_parts} fallback={member.returns} />
+          </>
         ) : null}
         <SourceLink document={document} source={member.source} />
       </h4>
 
       {member.inherited_from ? (
         <p className="not-prose mt-1 text-xs text-fd-muted-foreground">
-          inherited from <span className="font-mono">{member.inherited_from}</span>
+          inherited from{' '}
+          {member.inherited_from_ref ? (
+            /* `inherited_from` is the *defining* module path; the link goes to the documented
+               one, which is where the reader can actually read it. */
+            <Link
+              href={`/python-api/api-reference/${member.inherited_from_ref.page}#${member.inherited_from_ref.path}`}
+              className="font-mono text-[color:var(--py-type)] underline-offset-4 hover:underline"
+            >
+              {member.inherited_from_ref.path}
+            </Link>
+          ) : (
+            <span className="font-mono">{member.inherited_from}</span>
+          )}
         </p>
       ) : null}
 
@@ -112,8 +137,6 @@ function Member({
       ) : null}
 
       <div className="mt-1">
-        {/* A parsed `text` section already carries the summary prose, so rendering `doc` too
-            would print it twice. Fall back to `doc` only when nothing was parsed. */}
         {member.parsed?.some((section) => section.kind === 'text') ? null : (
           <Prose text={member.doc} />
         )}

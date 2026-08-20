@@ -3,11 +3,18 @@ title: "openprotein"
 description: "This document describes the base dataclasses and primitives for working with the platform."
 pythonApi: true
 ---
-This includes the [`OpenProtein`](#openprotein.OpenProtein) session object, as well as primitives like the `Protein` and `Model` objects.
+This document describes the base dataclasses and primitives for working with the platform. This includes the [`OpenProtein`](#openprotein.OpenProtein) session object, as well as primitives like the `Protein` and `Model` objects.
 
-## Session
+<PyGroup id="session" title="Session"
+  anchors={[
+    "openprotein.connect",
+    "openprotein.OpenProtein",
+  ]}
+>
 
 Create an authorized session to OpenProtein.AI backend.
 
 <PyFunction path="openprotein.connect" />
 <PyClass path="openprotein.OpenProtein" />
+
+</PyGroup>

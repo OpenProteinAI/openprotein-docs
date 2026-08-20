@@ -23,7 +23,20 @@ const fail = (msg) => {
   console.log(`  FAIL ${msg}`);
 };
 
+// Every anchor the site publishes, so a cross-page type link can be checked without
+// loading the page it points at.
+const universe = new Map();
+for (const name of PAGES) {
+  const g = JSON.parse(readFileSync(`${GOLDEN}/${name}.json`, 'utf8'));
+  for (const c of g.classes) {
+    universe.set(c.path, name);
+    for (const m of c.members) universe.set(m.path, name);
+  }
+  for (const m of g.module_level) universe.set(m.id, name);
+}
+
 let anchorsTotal = 0;
+let linksTotal = 0;
 for (const name of PAGES) {
   const golden = JSON.parse(readFileSync(`${GOLDEN}/${name}.json`, 'utf8'));
   const expected = [
@@ -58,6 +71,40 @@ for (const name of PAGES) {
       sourceLinks: [...document.querySelectorAll('article a[href*="/blob/"]')].map((a) => a.href),
       summaryRows: document.querySelectorAll('article table tbody tr').length,
       h1: document.querySelector('article h1')?.textContent?.trim() ?? null,
+      // Collapse state: groups open, classes closed.
+      groups: [...document.querySelectorAll('article section > h2 > button[aria-expanded]')].map(
+        (b) => b.getAttribute('aria-expanded'),
+      ),
+      cards: [...document.querySelectorAll('article h3 > button[aria-expanded]')].map((b) =>
+        b.getAttribute('aria-expanded'),
+      ),
+      // Copy code + Copy link on every card, both before the source link.
+      // Only PyCard headings — a plain markdown `###` also lives in an <h3> and carries
+      // fumadocs' own "Copy Anchor Link" button.
+      copyButtons: [...document.querySelectorAll('article h3:has(> button[aria-expanded])')].map((h) => {
+        const labels = [...h.querySelectorAll('button[aria-label^="Copy"]')].map((b) =>
+          b.getAttribute('aria-label'),
+        );
+        const source = h.querySelector('a[href*="/blob/"]');
+        const last = labels.length ? h.querySelector('button[aria-label="Copy link"]') : null;
+        const ordered =
+          !source || !last || last.compareDocumentPosition(source) & Node.DOCUMENT_POSITION_FOLLOWING;
+        return { labels, ordered: Boolean(ordered) };
+      }),
+      visibleBodies: [...document.querySelectorAll('article [role="region"]')].filter(
+        (r) => r.offsetParent !== null,
+      ).length,
+      // Docstring prose must arrive as rendered markdown, not as RST source. `code-block::`
+      // leaking means the directive was not fenced; a blockquote inside a card means a `>>>`
+      // doctest was read as markdown quoting; `](/ ` means a link printed literally.
+      rstLeaks: [...document.querySelectorAll('article')].flatMap((a) =>
+        ['code-block::', '``python', '](/python-api'].filter((needle) => a.textContent.includes(needle)),
+      ),
+      quotedDoctests: document.querySelectorAll('article div[class*="rounded-xl"] blockquote').length,
+      // Cross-references emitted by <TypeRef> / <PySummary>.
+      typeLinks: [...document.querySelectorAll('article a[href*="/python-api/api-reference/"]')].map(
+        (a) => a.getAttribute('href'),
+      ),
     };
   }, expected);
 
@@ -65,7 +112,10 @@ for (const name of PAGES) {
   console.log(
     `  ${name.padEnd(13)} ${String(expected.length).padStart(3)} anchors  ` +
       `${String(seen.toc).padStart(3)} toc  ${String(seen.badges).padStart(3)} badges  ` +
-      `${String(seen.sourceLinks.length).padStart(3)} source links` +
+      `${String(seen.sourceLinks.length).padStart(3)} src  ` +
+      `${String(seen.groups.length).padStart(2)} groups  ${String(seen.cards.length).padStart(3)} cards  ` +
+      `${String(seen.typeLinks.length).padStart(3)} xrefs  ` +
+      `${seen.copyButtons.filter((c) => c.labels.length === 2).length}/${seen.copyButtons.length} copy pairs` +
       (summaryRows ? `  ${seen.summaryRows}/${summaryRows} summary rows` : ''),
   );
 
@@ -77,6 +127,37 @@ for (const name of PAGES) {
     fail(`${name}: ${seen.summaryRows} summary rows, Sphinx rendered ${summaryRows}`);
   const bad = seen.sourceLinks.filter((h) => !/^https:\/\/github\.com\/OpenProteinAI\/openprotein-python\/blob\/v\d/.test(h));
   if (bad.length) fail(`${name}: source link not pinned to a tag: ${bad[0]}`);
+  // Groups open by default, classes collapsed by default, no body visible on arrival.
+  if (seen.groups.some((state) => state !== 'true'))
+    fail(`${name}: ${seen.groups.filter((s) => s !== 'true').length} group(s) collapsed`);
+  if (seen.cards.length && seen.cards.some((state) => state !== 'false'))
+    fail(`${name}: ${seen.cards.filter((s) => s !== 'false').length} class(es) expanded on load`);
+  if (seen.visibleBodies) fail(`${name}: ${seen.visibleBodies} class body/bodies visible on load`);
+
+  const missingCopy = seen.copyButtons.filter(
+    (c) => c.labels.join(',') !== 'Copy code,Copy link',
+  );
+  if (missingCopy.length)
+    fail(`${name}: ${missingCopy.length} card(s) without Copy code + Copy link: ${JSON.stringify(missingCopy[0])}`);
+  if (seen.rstLeaks.length) fail(`${name}: unrendered RST in prose: ${seen.rstLeaks.join(', ')}`);
+  if (seen.quotedDoctests)
+    fail(`${name}: ${seen.quotedDoctests} doctest block(s) rendered as a blockquote`);
+
+  const misordered = seen.copyButtons.filter((c) => !c.ordered);
+  if (misordered.length) fail(`${name}: ${misordered.length} card(s) put the source link before the copy buttons`);
+
+  // Every cross-reference must point at an anchor this site actually publishes.
+  const broken = [];
+  for (const href of seen.typeLinks) {
+    const [route, fragment] = href.split('#');
+    const target = route.replace('/python-api/api-reference/', '') || 'index';
+    if (!fragment) continue;
+    linksTotal += 1;
+    if (universe.get(fragment) !== target) broken.push(href);
+  }
+  if (broken.length)
+    fail(`${name}: ${broken.length} cross-reference(s) point nowhere: ${broken.slice(0, 4).join(', ')}`);
+
   if (errors.length) fail(`${name}: console errors: ${errors.slice(0, 2).join(' | ')}`);
 }
 
@@ -84,6 +165,7 @@ await browser.close();
 console.log(
   failures
     ? `\n${failures} failure(s)`
-    : `\nall checks passed — ${anchorsTotal} dotted anchors present and unique`,
+    : `\nall checks passed — ${anchorsTotal} dotted anchors present and unique, ` +
+      `${linksTotal} cross-references resolve`,
 );
 process.exit(failures ? 1 : 0);

@@ -83,23 +83,59 @@ def quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def slugify(text: str, seen: dict[str, int]) -> str:
+    """Same slug rehype-slug would have produced, so `#models` still resolves after the
+    heading moved from MDX into <PyGroup>, with its `-1` suffix for a repeat.
+
+    models.rst has two sections called "Results" (RFdiffusion's and BoltzGen's). Sphinx
+    numbered the second `#id1` — a generic fallback nobody links deliberately — so matching
+    rehype-slug's `results-1` is both a better anchor and consistent with every other page
+    on this site. That is the one anchor this migration deliberately changes.
+    """
+    base = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    count = seen.get(base, 0)
+    seen[base] = count + 1
+    return base if count == 0 else f"{base}-{count}"
+
+
 def body(page: dict, pages: dict[str, str | None]) -> str:
     lines: list[str] = []
+    seen: dict[str, int] = {}
     for section in page["sections"]:
+        directives = [e for e in section["entries"] if e["directive"] in DIRECTIVE_COMPONENT]
+        prose = resolve_links(section["prose"], pages, page["page"]) if section["prose"] else None
+
+        # A section that documents objects becomes a collapsible <PyGroup>, which renders the
+        # heading itself. Sections that only carry prose or autosummary tables keep an
+        # ordinary markdown heading.
+        if directives and section["heading"]:
+            anchors = ",\n    ".join(quote(e["target"]) for e in directives)
+            lines += [
+                "",
+                f'<PyGroup id="{slugify(section["heading"], seen)}" title={quote(section["heading"])}',
+                f"  anchors={{[\n    {anchors},\n  ]}}",
+                ">",
+                "",
+            ]
+            if prose:
+                lines += [prose, ""]
+            for entry in directives:
+                lines.append(f'<{DIRECTIVE_COMPONENT[entry["directive"]]} path="{entry["target"]}" />')
+            lines += ["", "</PyGroup>", ""]
+            continue
+
         if section["heading"]:
+            slugify(section["heading"], seen)  # keep the slug namespace in step
             level = min(max(section["level"], 2), 4)
             lines += ["", f"{'#' * level} {section['heading']}", ""]
-        if section["prose"]:
-            lines += [resolve_links(section["prose"], pages, page["page"]), ""]
+        if prose:
+            lines += [prose, ""]
         for table in section["autosummary"]:
             entries = ",\n    ".join(quote(t) for t in table)
             lines += ["<PySummary", f"  paths={{[\n    {entries},\n  ]}}", "/>", ""]
-        for entry in section["entries"]:
-            component = DIRECTIVE_COMPONENT.get(entry["directive"])
-            if not component:
-                continue
-            lines.append(f'<{component} path="{entry["target"]}" />')
-        if section["entries"]:
+        for entry in directives:
+            lines.append(f'<{DIRECTIVE_COMPONENT[entry["directive"]]} path="{entry["target"]}" />')
+        if directives:
             lines.append("")
     # Collapse runs of blank lines.
     out: list[str] = []
@@ -147,18 +183,13 @@ def main() -> None:
             skipped += 1
             continue
 
+        # The intro paragraph stays in the body, links and all. It used to be de-duplicated
+        # against the frontmatter description, but that quietly discarded the whole paragraph
+        # whenever the intro was a single sentence — losing `[align](./align)` from fold and
+        # both PoET links from prompt. The route suppresses the visible subtitle on these
+        # pages instead, so nothing is printed twice; the description still feeds <meta>,
+        # the sidebar and search.
         text = body(page, pages)
-        # The frontmatter description renders directly under the h1, so a body that opens
-        # with the same sentence prints it twice.
-        summary = sentence(resolve_links(intro or "", pages, name))
-        if summary:
-            first = text.split("\n", 1)[0]
-            # Drop only the duplicated *sentence*, not the whole paragraph — the openprotein
-            # page's opening paragraph carries a second sentence that must survive.
-            head, sep, tail = first.partition(". ")
-            if plain(head).startswith(plain(summary).rstrip(".")):
-                remainder = tail.strip()
-                text = (remainder + text[len(first) :]).lstrip() if sep else text[len(first) :].lstrip()
         target.write_text("\n".join(front) + text, encoding="utf-8")
         written += 1
 

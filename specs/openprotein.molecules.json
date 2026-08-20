@@ -7,6 +7,7 @@
    "kind": "class",
    "signature": "(sequence, name=None)",
    "bases": [],
+   "bases_parts": [],
    "doc": "Represents a protein with an optional name.\n\nThis class supports partial or complete information: users may create a Protein\nwith only a sequence, only a structure, or both. The class ensures that all\nprovided fields have consistent residue-level lengths and provides convenient\nmethods for indexing, masking, and structural comparisons.\n\nConventions:\n    - Missing or unknown residues in the sequence are denoted by b\"X\".\n    - Missing structural data (coordinates or pLDDT) are represented by NaN.\n    - Residue indices are 1-indexed for user-facing methods suffixed with `at` E.g.\n      `.at`, `mask_sequence_at`\n\nExamples:\n    Create a Protein from sequence only:\n        Protein(sequence=\"ACDEFGHIK\")\n\n    Create a Protein from sequence and name:\n        Protein(sequence=\"ACDEFGHIK\", name=\"my_protein\")",
    "parsed": [
     {
@@ -37,12 +38,26 @@
      "kind": "property",
      "doc": "A reference identifier to the MSA associated to this protein.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 134,
       "end": 136
      },
      "annotation": "str | MSAFuture | None | Type[NullMSA]",
+     "annotation_parts": [
+      {
+       "text": "str | "
+      },
+      {
+       "text": "MSAFuture",
+       "path": "openprotein.align.MSAFuture",
+       "page": "align"
+      },
+      {
+       "text": " | None | Type[NullMSA]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -56,12 +71,42 @@
      "kind": "property",
      "doc": "A list of templates for guiding the structure prediction of this protein.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 152,
       "end": 154
      },
      "annotation": "Sequence[Protein | Complex | Template]",
+     "annotation_parts": [
+      {
+       "text": "Sequence["
+      },
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Template",
+       "path": "openprotein.molecules.Template",
+       "page": "molecules"
+      },
+      {
+       "text": "]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -75,6 +120,7 @@
      "kind": "method",
      "doc": "Return a new Protein object containing residues at given 1-indexed positions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 240,
@@ -82,6 +128,13 @@
      },
      "signature": "(positions)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -94,6 +147,7 @@
      "kind": "method",
      "doc": "Mask entire sequence.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 248,
@@ -101,6 +155,13 @@
      },
      "signature": "()",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -113,6 +174,7 @@
      "kind": "method",
      "doc": "Mask sequence at given 1-indexed positions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 252,
@@ -120,6 +182,13 @@
      },
      "signature": "(positions)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -132,6 +201,7 @@
      "kind": "method",
      "doc": "Mask sequence at all positions except the given 1-indexed positions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 262,
@@ -139,6 +209,13 @@
      },
      "signature": "(positions)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -151,6 +228,7 @@
      "kind": "method",
      "doc": "Mask entire structure.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 274,
@@ -158,6 +236,13 @@
      },
      "signature": "(side_chain_only=False)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -170,6 +255,7 @@
      "kind": "method",
      "doc": "Mask structure at given 1-indexed positions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 278,
@@ -177,6 +263,13 @@
      },
      "signature": "(positions, side_chain_only=False)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -189,6 +282,7 @@
      "kind": "method",
      "doc": "Mask structure at all positions except the given 1-indexed positions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 297,
@@ -196,6 +290,13 @@
      },
      "signature": "(positions, side_chain_only=False)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -208,6 +309,7 @@
      "kind": "method",
      "doc": "Computes the structure mask of the protein. The structure mask is a boolean\narray indicating, at each position, whether the structure is undefined at that\nposition.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 311,
@@ -215,6 +317,11 @@
      },
      "signature": "()",
      "returns": "npt.NDArray[np.bool_]",
+     "returns_parts": [
+      {
+       "text": "npt.NDArray[np.bool_]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -227,12 +334,18 @@
      "kind": "property",
      "doc": "Whether or not the structure is known at any position in the protein.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 320,
       "end": 324
      },
      "annotation": "bool",
+     "annotation_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -246,6 +359,7 @@
      "kind": "method",
      "doc": "Compute the root-mean-square deviation (RMSD) between this Protein and a target\nProtein.\n\nOnly atoms that are present (i.e., not NaN) in both structures are included in\nthe calculation.\n\nArgs:\n    tgt: The target Protein to compare against.\n    backbone_only: Specifies which atoms to include in the RMSD calculation.\n\n        - If False (default), all atom types are included.\n        - If True, only backbone atoms (\"N\", \"CA\", \"C\") are included.\n        - If a string, it must be a single atom type (e.g., \"CA\").\n        - If a sequence of strings, it must be a non-empty list of atom types\n          (e.g., [\"CA\", \"CB\", \"O\"]). All specified atom types must be valid.\n    return_transform: If True, returns both the rmsd and the transformation that\n        should be applied to `tgt` to superimpose it onto this Protein. If False\n        (default), returns only the rmsd value.\n\nReturns:\n    The RMSD value (float) if `return_transform` is False (default).\n\n    If `return_transform` is True, a tuple\n    `(float, np.ndarray, np.ndarray)` containing the RMSD value, the\n    rotation matrix, and the translation vector.\n\nNotes:\n    This method assumes that sequences of `self` and `tgt` are already aligned.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 394,
@@ -253,6 +367,11 @@
      },
      "signature": "(tgt, backbone_only=False, return_transform=False)",
      "returns": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]",
+     "returns_parts": [
+      {
+       "text": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]"
+      }
+     ],
      "overloads": [
       "(tgt, backbone_only=False, return_transform=False)",
       "(tgt, backbone_only=False, return_transform=True)"
@@ -268,18 +387,35 @@
         {
          "name": "tgt",
          "type": "Protein",
+         "type_parts": [
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          }
+         ],
          "default": null,
          "text": "The target Protein to compare against."
         },
         {
          "name": "backbone_only",
          "type": "bool | str | Sequence[str]",
+         "type_parts": [
+          {
+           "text": "bool | str | Sequence[str]"
+          }
+         ],
          "default": "False",
          "text": "Specifies which atoms to include in the RMSD calculation.\n\n- If False (default), all atom types are included.\n- If True, only backbone atoms (\"N\", \"CA\", \"C\") are included.\n- If a string, it must be a single atom type (e.g., \"CA\").\n- If a sequence of strings, it must be a non-empty list of atom types\n  (e.g., [\"CA\", \"CB\", \"O\"]). All specified atom types must be valid."
         },
         {
          "name": "return_transform",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "If True, returns both the rmsd and the transformation that\nshould be applied to `tgt` to superimpose it onto this Protein. If False\n(default), returns only the rmsd value."
         }
@@ -291,21 +427,41 @@
         {
          "name": null,
          "type": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]",
+         "type_parts": [
+          {
+           "text": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]"
+          }
+         ],
          "text": "The RMSD value (float) if `return_transform` is False (default)."
         },
         {
          "name": null,
          "type": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]",
+         "type_parts": [
+          {
+           "text": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]"
+          }
+         ],
          "text": "If `return_transform` is True, a tuple"
         },
         {
          "name": null,
          "type": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]",
+         "type_parts": [
+          {
+           "text": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]"
+          }
+         ],
          "text": "`(float, np.ndarray, np.ndarray)` containing the RMSD value, the"
         },
         {
          "name": null,
          "type": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]",
+         "type_parts": [
+          {
+           "text": "float | tuple[float, npt.NDArray[np.floating], npt.NDArray[np.floating]]"
+          }
+         ],
          "text": "rotation matrix, and the translation vector."
         }
        ]
@@ -322,6 +478,7 @@
      "kind": "method",
      "doc": "Serialize this Protein to a string. Note that format=\"pdb\" may not serialize all\naspects of this object, so format=\"cif\", the default, is preferred.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 472,
@@ -329,6 +486,11 @@
      },
      "signature": "(format='cif')",
      "returns": "str",
+     "returns_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -339,8 +501,9 @@
     {
      "name": "from_expr",
      "kind": "method",
-     "doc": "Create a Protein from a sequence expression.\n\nA sequence expression allows you to define protein sequences using a concise\nnotation that mixes fixed sequences, design regions, and length ranges.\n\nUseful for creating a design :py:class:`~openprotein.prompt.Query`.\n\nArgs:\n    expr: Sequence expression string or integer\n        - Fixed sequences: \"ACGT\" (literal amino acids)\n        - Design regions: \"6\" or 6 (any 6 amino acids)\n        - Length ranges: \"3..5\" (between 3-5 amino acids)\n        - Combined: \"AAAA6C3..5\" (AAAA + 6 design + C + 3-5 design)\n    name: Optional name for the protein\n\nReturns:\n    Protein object with the parsed sequence\n\nExamples:\n    >>> # Fixed sequence with 6 flexible positions and fixed end\n    >>> Protein.from_expr(\"MKLL6VVAA\").sequence\n    >>> b'MKLLXXXXXXVVAA'\n\n    >>> # Design region of any 15 amino acids\n    >>> Protein.from_expr(15).sequence\n    >>> b'XXXXXXXXXXXXXXX'\n\n    >>> # Variable length region between 10-20 residues\n    >>> Protein.from_expr(\"10..20\").sequence\n    >>> b'XXXXXXXXXX??????????'",
+     "doc": "Create a Protein from a sequence expression.\n\nA sequence expression allows you to define protein sequences using a concise\nnotation that mixes fixed sequences, design regions, and length ranges.\n\nUseful for creating a design [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query).\n\nArgs:\n    expr: Sequence expression string or integer\n        - Fixed sequences: \"ACGT\" (literal amino acids)\n        - Design regions: \"6\" or 6 (any 6 amino acids)\n        - Length ranges: \"3..5\" (between 3-5 amino acids)\n        - Combined: \"AAAA6C3..5\" (AAAA + 6 design + C + 3-5 design)\n    name: Optional name for the protein\n\nReturns:\n    Protein object with the parsed sequence\n\nExamples:\n    >>> # Fixed sequence with 6 flexible positions and fixed end\n    >>> Protein.from_expr(\"MKLL6VVAA\").sequence\n    >>> b'MKLLXXXXXXVVAA'\n\n    >>> # Design region of any 15 amino acids\n    >>> Protein.from_expr(15).sequence\n    >>> b'XXXXXXXXXXXXXXX'\n\n    >>> # Variable length region between 10-20 residues\n    >>> Protein.from_expr(\"10..20\").sequence\n    >>> b'XXXXXXXXXX??????????'",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 512,
@@ -348,10 +511,17 @@
      },
      "signature": "(expr, name=None)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Create a Protein from a sequence expression.\n\nA sequence expression allows you to define protein sequences using a concise\nnotation that mixes fixed sequences, design regions, and length ranges.\n\nUseful for creating a design :py:class:`~openprotein.prompt.Query`."
+       "text": "Create a Protein from a sequence expression.\n\nA sequence expression allows you to define protein sequences using a concise\nnotation that mixes fixed sequences, design regions, and length ranges.\n\nUseful for creating a design [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query)."
       },
       {
        "kind": "parameters",
@@ -359,12 +529,22 @@
         {
          "name": "expr",
          "type": "str | int",
+         "type_parts": [
+          {
+           "text": "str | int"
+          }
+         ],
          "default": null,
          "text": "Sequence expression string or integer\n- Fixed sequences: \"ACGT\" (literal amino acids)\n- Design regions: \"6\" or 6 (any 6 amino acids)\n- Length ranges: \"3..5\" (between 3-5 amino acids)\n- Combined: \"AAAA6C3..5\" (AAAA + 6 design + C + 3-5 design)"
         },
         {
          "name": "name",
          "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
          "default": "None",
          "text": "Optional name for the protein"
         }
@@ -376,6 +556,13 @@
         {
          "name": null,
          "type": "Protein",
+         "type_parts": [
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          }
+         ],
          "text": "Protein object with the parsed sequence"
         }
        ]
@@ -395,6 +582,7 @@
      "kind": "method",
      "doc": "Create a Protein from a structure file.\n\nIf the structure file has multiple conformers, the first conformer is always\nused.\n\nArgs:\n    path: path to structure file (e.g. pdb or cif file)\n    chain_id: id of the chain in the structure file to use\n    use_bfactor_as_plddt: whether or not to use bfactors as pLDDTs. If None,\n        this parameter will be determined based on heuristics. These heuristics\n        may change over time.\n    model_idx: index of the model in the structure file to use\n    verbose: whether or not to print debugging information such as oddities in\n        the structure e.g. missing atoms",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 551,
@@ -402,6 +590,13 @@
      },
      "signature": "(path, chain_id, use_bfactor_as_plddt=None, model_idx=0, verbose=True)",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -413,30 +608,55 @@
         {
          "name": "path",
          "type": "Path | str",
+         "type_parts": [
+          {
+           "text": "Path | str"
+          }
+         ],
          "default": null,
          "text": "path to structure file (e.g. pdb or cif file)"
         },
         {
          "name": "chain_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "id of the chain in the structure file to use"
         },
         {
          "name": "use_bfactor_as_plddt",
          "type": "bool | None",
+         "type_parts": [
+          {
+           "text": "bool | None"
+          }
+         ],
          "default": "None",
          "text": "whether or not to use bfactors as pLDDTs. If None,\nthis parameter will be determined based on heuristics. These heuristics\nmay change over time."
         },
         {
          "name": "model_idx",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "0",
          "text": "index of the model in the structure file to use"
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "True",
          "text": "whether or not to print debugging information such as oddities in\nthe structure e.g. missing atoms"
         }
@@ -449,6 +669,7 @@
      "kind": "method",
      "doc": "Format the sequence and/or additional feature tracks aligned and wrapped to a\nspecific width.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/protein.py",
       "line": 619,
@@ -456,6 +677,11 @@
      },
      "signature": "(include=('sequence',), width=60, value_maps=None)",
      "returns": "str",
+     "returns_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -473,6 +699,7 @@
    "kind": "class",
    "signature": "(chains=None, name=None)",
    "bases": [],
+   "bases_parts": [],
    "doc": null,
    "parsed": [],
    "module": "openprotein.molecules.complex",
@@ -487,12 +714,42 @@
      "kind": "property",
      "doc": "A list of templates for guiding the structure prediction of this molecular complex.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/complex.py",
       "line": 56,
       "end": 58
      },
      "annotation": "Sequence[Protein | Complex | Template]",
+     "annotation_parts": [
+      {
+       "text": "Sequence["
+      },
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Template",
+       "path": "openprotein.molecules.Template",
+       "page": "molecules"
+      },
+      {
+       "text": "]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -506,6 +763,7 @@
      "kind": "method",
      "doc": "Serialize this Complex to a string. Note that format=\"pdb\" may not serialize all\naspects of this object, so format=\"cif\", the default, is preferred.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/complex.py",
       "line": 211,
@@ -513,6 +771,11 @@
      },
      "signature": "(format='cif')",
      "returns": "str",
+     "returns_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -530,11 +793,12 @@
    "kind": "class",
    "signature": "(complexes, name=None)",
    "bases": [],
-   "doc": "Represents a collection of :class:`Complex` instances.",
+   "bases_parts": [],
+   "doc": "Represents a collection of [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex) instances.",
    "parsed": [
     {
      "kind": "text",
-     "text": "Represents a collection of :class:`Complex` instances."
+     "text": "Represents a collection of [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex) instances."
     }
    ],
    "module": "openprotein.molecules.structure",
@@ -549,6 +813,7 @@
      "kind": "method",
      "doc": "Serialize this Structure to a string. Note that format=\"pdb\" may not serialize\nall aspects of this object, so format=\"cif\", the default, is preferred.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/structure.py",
       "line": 51,
@@ -556,6 +821,11 @@
      },
      "signature": "(format='cif')",
      "returns": "str",
+     "returns_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -568,6 +838,7 @@
      "kind": "method",
      "doc": "Creates a Structure instance by downloading data from the RCSB PDB.\n\nThis method performs an HTTP GET request to the RCSB web server to fetch\nthe structure file (in CIF format) associated with the given PDB ID.\n\nArgs:\n    pdb_id (str): The 4-character PDB identifier (e.g. \"1XYZ\").\n    verbose (bool, optional): Whether to print warnings to stdout. Defaults to\n        True.\n\nReturns:\n    Structure: A new instance containing the parsed structure data.\n\nRaises:\n    requests.HTTPError: If the PDB ID is invalid, the server is unreachable,\n        or the request returns a 404/500 status code.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/structure.py",
       "line": 114,
@@ -575,6 +846,13 @@
      },
      "signature": "(pdb_id, verbose=True)",
      "returns": "Structure",
+     "returns_parts": [
+      {
+       "text": "Structure",
+       "path": "openprotein.molecules.Structure",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -586,12 +864,22 @@
         {
          "name": "pdb_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "The 4-character PDB identifier (e.g. \"1XYZ\")."
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "True",
          "text": "Whether to print warnings to stdout. Defaults to\nTrue."
         }
@@ -603,6 +891,13 @@
         {
          "name": "Structure",
          "type": "Structure",
+         "type_parts": [
+          {
+           "text": "Structure",
+           "path": "openprotein.molecules.Structure",
+           "page": "molecules"
+          }
+         ],
          "text": "A new instance containing the parsed structure data."
         }
        ]
@@ -613,6 +908,11 @@
         {
          "name": null,
          "type": "requests.HTTPError",
+         "type_parts": [
+          {
+           "text": "requests.HTTPError"
+          }
+         ],
          "default": null,
          "text": "If the PDB ID is invalid, the server is unreachable,\nor the request returns a 404/500 status code."
         }
@@ -632,6 +932,13 @@
    "bases": [
     "_BasicSerde"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "_BasicSerde"
+     }
+    ]
+   ],
    "doc": "Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string.\n\nRequires either a CCD identifier or SMILES string.\n\nAttributes:\n    ccd (str | None): The CCD identifier for the ligand.\n    smiles (str | None): The SMILES representation of the ligand.",
    "parsed": [
     {
@@ -644,12 +951,22 @@
       {
        "name": "ccd",
        "type": "str | None",
+       "type_parts": [
+        {
+         "text": "str | None"
+        }
+       ],
        "default": null,
        "text": "The CCD identifier for the ligand."
       },
       {
        "name": "smiles",
        "type": "str | None",
+       "type_parts": [
+        {
+         "text": "str | None"
+        }
+       ],
        "default": null,
        "text": "The SMILES representation of the ligand."
       }
@@ -668,12 +985,18 @@
      "kind": "attribute",
      "doc": "The CCD identifier for the ligand.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/chains.py",
       "line": 198,
       "end": 198
      },
      "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
      "value": "None",
      "parsed": []
     },
@@ -682,12 +1005,18 @@
      "kind": "attribute",
      "doc": "The SMILES representation of the ligand.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/chains.py",
       "line": 199,
       "end": 199
      },
      "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
      "value": "None",
      "parsed": []
     }
@@ -703,6 +1032,13 @@
    "bases": [
     "_BasicSerde"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "_BasicSerde"
+     }
+    ]
+   ],
    "doc": "Represents a DNA sequence.\n\nAttributes:\n    sequence (str): The nucleotide sequence of the DNA.",
    "parsed": [
     {
@@ -715,6 +1051,11 @@
       {
        "name": "sequence",
        "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
        "default": null,
        "text": "The nucleotide sequence of the DNA."
       }
@@ -733,12 +1074,18 @@
      "kind": "attribute",
      "doc": "The nucleotide sequence of the DNA.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/chains.py",
       "line": 95,
       "end": 95
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": []
     }
@@ -754,6 +1101,13 @@
    "bases": [
     "_BasicSerde"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "_BasicSerde"
+     }
+    ]
+   ],
    "doc": "Represents an RNA sequence.\n\nAttributes:\n    sequence (str): The nucleotide sequence of the RNA.",
    "parsed": [
     {
@@ -766,6 +1120,11 @@
       {
        "name": "sequence",
        "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
        "default": null,
        "text": "The nucleotide sequence of the RNA."
       }
@@ -784,12 +1143,18 @@
      "kind": "attribute",
      "doc": "The nucleotide sequence of the RNA.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/chains.py",
       "line": 145,
       "end": 145
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": []
     }
@@ -803,6 +1168,7 @@
    "kind": "class",
    "signature": "(template, mapping=None, index=None, index_intervals=None)",
    "bases": [],
+   "bases_parts": [],
    "doc": "A structural template used to guide the folding of a target chain or complex.\n\nThis class wraps a structural source (Protein or Complex) and defines how it\nshould map to the target(s).\n\nAttributes:\n    template (Protein | Complex): The structural object to be used as a template.\n        Must contain structural data (coordinates).\n    mapping (Mapping[str, str] | str | None): The rule for assigning this template\n        to the target.\n\n        - Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.\n        - str: Apply this template to a specific target_chain_id. (If template is\n          a Complex, a selection algorithm is used to pick the best source chain).\n        - None: Automatic assignment. The folding algorithm will determine which\n          chain(s) this template applies to.\n    index (Sequence[int] | None): Restrict this template to specific sequence\n        positions in the batched fold job. The default (``None``) applies the\n        template to every sequence \u2014 matching the passthrough behavior callers\n        see today. Populate to scope a template to a subset, e.g. in a\n        binder-design refold where structure ``M[k]`` templates only sequences\n        ``[k*N, k*N+N)``.\n    index_intervals (Sequence[tuple[int, int]] | None): Range-form alternative\n        to ``index`` for scoping the template to contiguous spans of sequence\n        positions. Each tuple is a half-open ``[start, end)`` range. Useful\n        when the subset is large and contiguous (e.g. ``[(0, 1000)]`` instead\n        of ``list(range(1000))``). May be combined with ``index``; the server\n        unions the two.",
    "parsed": [
     {
@@ -815,24 +1181,54 @@
       {
        "name": "template",
        "type": "Protein | Complex",
+       "type_parts": [
+        {
+         "text": "Protein",
+         "path": "openprotein.molecules.Protein",
+         "page": "molecules"
+        },
+        {
+         "text": " | "
+        },
+        {
+         "text": "Complex",
+         "path": "openprotein.molecules.Complex",
+         "page": "molecules"
+        }
+       ],
        "default": null,
        "text": "The structural object to be used as a template.\nMust contain structural data (coordinates)."
       },
       {
        "name": "mapping",
        "type": "Mapping[str, str] | str | None",
+       "type_parts": [
+        {
+         "text": "Mapping[str, str] | str | None"
+        }
+       ],
        "default": null,
        "text": "The rule for assigning this template\nto the target.\n\n- Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.\n- str: Apply this template to a specific target_chain_id. (If template is\n  a Complex, a selection algorithm is used to pick the best source chain).\n- None: Automatic assignment. The folding algorithm will determine which\n  chain(s) this template applies to."
       },
       {
        "name": "index",
        "type": "Sequence[int] | None",
+       "type_parts": [
+        {
+         "text": "Sequence[int] | None"
+        }
+       ],
        "default": null,
        "text": "Restrict this template to specific sequence\npositions in the batched fold job. The default (``None``) applies the\ntemplate to every sequence \u2014 matching the passthrough behavior callers\nsee today. Populate to scope a template to a subset, e.g. in a\nbinder-design refold where structure ``M[k]`` templates only sequences\n``[k*N, k*N+N)``."
       },
       {
        "name": "index_intervals",
        "type": "Sequence[tuple[int, int]] | None",
+       "type_parts": [
+        {
+         "text": "Sequence[tuple[int, int]] | None"
+        }
+       ],
        "default": null,
        "text": "Range-form alternative\nto ``index`` for scoping the template to contiguous spans of sequence\npositions. Each tuple is a half-open ``[start, end)`` range. Useful\nwhen the subset is large and contiguous (e.g. ``[(0, 1000)]`` instead\nof ``list(range(1000))``). May be combined with ``index``; the server\nunions the two."
       }
@@ -851,12 +1247,18 @@
      "kind": "attribute",
      "doc": "The structural object to be used as a template.\nMust contain structural data (coordinates).",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/template.py",
       "line": 46,
       "end": 46
      },
      "annotation": "TemplateSource",
+     "annotation_parts": [
+      {
+       "text": "TemplateSource"
+      }
+     ],
      "value": null,
      "parsed": []
     },
@@ -865,12 +1267,18 @@
      "kind": "attribute",
      "doc": "The rule for assigning this template\nto the target.\n\n- Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.\n- str: Apply this template to a specific target_chain_id. (If template is\n  a Complex, a selection algorithm is used to pick the best source chain).\n- None: Automatic assignment. The folding algorithm will determine which\n  chain(s) this template applies to.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/template.py",
       "line": 47,
       "end": 47
      },
      "annotation": "ChainMapping",
+     "annotation_parts": [
+      {
+       "text": "ChainMapping"
+      }
+     ],
      "value": "None",
      "parsed": []
     },
@@ -879,12 +1287,18 @@
      "kind": "attribute",
      "doc": "Restrict this template to specific sequence\npositions in the batched fold job. The default (``None``) applies the\ntemplate to every sequence \u2014 matching the passthrough behavior callers\nsee today. Populate to scope a template to a subset, e.g. in a\nbinder-design refold where structure ``M[k]`` templates only sequences\n``[k*N, k*N+N)``.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/template.py",
       "line": 48,
       "end": 48
      },
      "annotation": "Sequence[int] | None",
+     "annotation_parts": [
+      {
+       "text": "Sequence[int] | None"
+      }
+     ],
      "value": "None",
      "parsed": []
     },
@@ -893,12 +1307,18 @@
      "kind": "attribute",
      "doc": "Range-form alternative\nto ``index`` for scoping the template to contiguous spans of sequence\npositions. Each tuple is a half-open ``[start, end)`` range. Useful\nwhen the subset is large and contiguous (e.g. ``[(0, 1000)]`` instead\nof ``list(range(1000))``). May be combined with ``index``; the server\nunions the two.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/template.py",
       "line": 49,
       "end": 49
      },
      "annotation": "Sequence[tuple[int, int]] | None",
+     "annotation_parts": [
+      {
+       "text": "Sequence[tuple[int, int]] | None"
+      }
+     ],
      "value": "None",
      "parsed": []
     },
@@ -907,6 +1327,7 @@
      "kind": "method",
      "doc": "Ensures this Template is compatible with a specific target Molecule.\n\nArgs:\n    target: The Protein or Complex that is being folded.\n\nRaises:\n    ValueError: If this Template is invalid, or if chain IDs referenced in\n                mapping do not exist in the target.\n    TypeError: If the template/target combination is structurally incompatible.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/molecules/template.py",
       "line": 91,
@@ -914,6 +1335,11 @@
      },
      "signature": "(target)",
      "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -925,6 +1351,11 @@
         {
          "name": "target",
          "type": "TargetMolecule",
+         "type_parts": [
+          {
+           "text": "TargetMolecule"
+          }
+         ],
          "default": null,
          "text": "The Protein or Complex that is being folded."
         }
@@ -936,12 +1367,22 @@
         {
          "name": null,
          "type": "ValueError",
+         "type_parts": [
+          {
+           "text": "ValueError"
+          }
+         ],
          "default": null,
          "text": "If this Template is invalid, or if chain IDs referenced in\n        mapping do not exist in the target."
         },
         {
          "name": null,
          "type": "TypeError",
+         "type_parts": [
+          {
+           "text": "TypeError"
+          }
+         ],
          "default": null,
          "text": "If the template/target combination is structurally incompatible."
         }

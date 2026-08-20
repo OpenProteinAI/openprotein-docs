@@ -7,6 +7,7 @@
    "kind": "class",
    "signature": "(session)",
    "bases": [],
+   "bases_parts": [],
    "doc": "API interface for calling AssayData endpoints",
    "parsed": [
     {
@@ -26,6 +27,7 @@
      "kind": "method",
      "doc": "List all assay datasets.\n\nlimit : int, optional\n    Limit the number of assays to return.\noffset : int, optional\n    Offset of assays to retrieve. Useful with limit.\n\nReturns\n-------\nList[AssayDataset]\n    List of all assay datasets.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/data.py",
       "line": 19,
@@ -33,6 +35,24 @@
      },
      "signature": "(limit=None, offset=None)",
      "returns": "list[AssayDataset]",
+     "returns_parts": [
+      {
+       "text": "list",
+       "path": "openprotein.data.DataAPI.list",
+       "page": "data"
+      },
+      {
+       "text": "["
+      },
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      },
+      {
+       "text": "]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -44,6 +64,19 @@
         {
          "name": null,
          "type": "List[AssayDataset]",
+         "type_parts": [
+          {
+           "text": "List["
+          },
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          },
+          {
+           "text": "]"
+          }
+         ],
          "text": "List of all assay datasets."
         }
        ]
@@ -55,6 +88,7 @@
      "kind": "method",
      "doc": "Create a new assay dataset.\n\nParameters\n----------\ntable : pd.DataFrame\n    DataFrame containing the assay data.\nname : str\n    Name of the assay dataset.\ndescription : str, optional\n    Description of the assay dataset, by default None.\n\nReturns\n-------\nAssayDataset\n    Created assay dataset.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/data.py",
       "line": 38,
@@ -62,6 +96,13 @@
      },
      "signature": "(table, name, description=None)",
      "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -73,18 +114,33 @@
         {
          "name": "table",
          "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
          "default": null,
          "text": "DataFrame containing the assay data."
         },
         {
          "name": "name",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "Name of the assay dataset."
         },
         {
          "name": "description",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "Description of the assay dataset, by default None."
         }
@@ -96,6 +152,13 @@
         {
          "name": null,
          "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
          "text": "Created assay dataset."
         }
        ]
@@ -107,6 +170,7 @@
      "kind": "method",
      "doc": "Get an assay dataset by its ID.\n\nParameters\n----------\nassay_id : str\n    ID of the assay dataset.\n\nReturns\n-------\nAssayDataset\n    Assay dataset with the specified ID.\n\nRaises\n------\nKeyError\n    If no assay dataset with the given ID is found.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/data.py",
       "line": 68,
@@ -114,6 +178,13 @@
      },
      "signature": "(assay_id, verbose=False)",
      "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -125,6 +196,11 @@
         {
          "name": "assay_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "ID of the assay dataset."
         }
@@ -136,6 +212,13 @@
         {
          "name": null,
          "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
          "text": "Assay dataset with the specified ID."
         }
        ]
@@ -146,6 +229,11 @@
         {
          "name": null,
          "type": "KeyError",
+         "type_parts": [
+          {
+           "text": "KeyError"
+          }
+         ],
          "default": null,
          "text": "If no assay dataset with the given ID is found."
         }
@@ -163,6 +251,7 @@
    "kind": "class",
    "signature": "(session, metadata)",
    "bases": [],
+   "bases_parts": [],
    "doc": "Assay dataset which contains your sequences and measurements which can be used for training predictors.",
    "parsed": [
     {
@@ -182,6 +271,7 @@
      "kind": "method",
      "doc": "List models assoicated with assay.\n\nReturns\n-------\nList\n    List of models",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/assaydataset.py",
       "line": 64,
@@ -189,6 +279,7 @@
      },
      "signature": "()",
      "returns": null,
+     "returns_parts": null,
      "parsed": [
       {
        "kind": "text",
@@ -200,6 +291,11 @@
         {
          "name": null,
          "type": "List",
+         "type_parts": [
+          {
+           "text": "List"
+          }
+         ],
          "text": "List of models"
         }
        ]
@@ -211,6 +307,7 @@
      "kind": "method",
      "doc": "Update the assay metadata.\n\nParameters\n----------\nassay_name : str, optional\n    New name of the assay, by default None.\nassay_description : str, optional\n    New description of the assay, by default None.\n\nReturns\n-------\nNone",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/assaydataset.py",
       "line": 75,
@@ -218,6 +315,11 @@
      },
      "signature": "(assay_name=None, assay_description=None)",
      "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -229,12 +331,22 @@
         {
          "name": "assay_name",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "New name of the assay, by default None."
         },
         {
          "name": "assay_description",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "New description of the assay, by default None."
         }
@@ -246,6 +358,11 @@
         {
          "name": null,
          "type": "None",
+         "type_parts": [
+          {
+           "text": "None"
+          }
+         ],
          "text": null
         }
        ]
@@ -257,6 +374,7 @@
      "kind": "method",
      "doc": "Get head slice of assay data.\n\nReturns\n-------\npd.DataFrame\n    Dataframe containing the slice of assay data.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/assaydataset.py",
       "line": 127,
@@ -264,6 +382,11 @@
      },
      "signature": "()",
      "returns": "pd.DataFrame",
+     "returns_parts": [
+      {
+       "text": "pd.DataFrame"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -275,6 +398,11 @@
         {
          "name": null,
          "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
          "text": "Dataframe containing the slice of assay data."
         }
        ]
@@ -286,6 +414,7 @@
      "kind": "method",
      "doc": "Get a slice of assay data.\n\nParameters\n----------\nstart : int\n    Start index of the slice.\nend : int\n    End index of the slice.\n\nReturns\n-------\npd.DataFrame\n    Dataframe containing the slice of assay data.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/data/assaydataset.py",
       "line": 146,
@@ -293,6 +422,11 @@
      },
      "signature": "(start, end)",
      "returns": "pd.DataFrame",
+     "returns_parts": [
+      {
+       "text": "pd.DataFrame"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -304,12 +438,22 @@
         {
          "name": "start",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": null,
          "text": "Start index of the slice."
         },
         {
          "name": "end",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": null,
          "text": "End index of the slice."
         }
@@ -321,6 +465,11 @@
         {
          "name": null,
          "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
          "text": "Dataframe containing the slice of assay data."
         }
        ]
@@ -338,6 +487,13 @@
    "signature": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length, has_name_column)",
    "bases": [
     "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
    ],
    "doc": null,
    "parsed": [],

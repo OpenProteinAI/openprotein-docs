@@ -3,18 +3,36 @@ title: "openprotein.align"
 description: "Some tools (e.g."
 pythonApi: true
 ---
-PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.
+Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.
 
-## Interface
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.align.AlignAPI",
+  ]}
+>
 
 <PyClass path="openprotein.align.AlignAPI" />
 
-### AbNumber schemes
+</PyGroup>
+
+<PyGroup id="abnumber-schemes" title="AbNumber schemes"
+  anchors={[
+    "openprotein.align.schemas.AbNumberScheme",
+  ]}
+>
 
 AbNumber supports the following schemes:
 
 <PyClass path="openprotein.align.schemas.AbNumberScheme" />
 
-## Results
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.align.MSAFuture",
+  ]}
+>
 
 <PyClass path="openprotein.align.MSAFuture" />
+
+</PyGroup>

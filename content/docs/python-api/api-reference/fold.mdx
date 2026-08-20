@@ -3,11 +3,32 @@ title: "openprotein.fold"
 description: "Create PDBs of your protein sequences via our folding models! Note that for Boltz and AlphaFold2 Models, you will also need to utilize our align workflow to create MSAs."
 pythonApi: true
 ---
-## Interface
+Create PDBs of your protein sequences via our folding models! Note that for Boltz and AlphaFold2 Models, you will also need to utilize our [align](./align) workflow to create MSAs.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.fold.FoldAPI",
+  ]}
+>
 
 <PyClass path="openprotein.fold.FoldAPI" />
 
-## Models
+</PyGroup>
+
+<PyGroup id="models" title="Models"
+  anchors={[
+    "openprotein.fold.ProtenixModel",
+    "openprotein.fold.Boltz2Model",
+    "openprotein.fold.Boltz1xModel",
+    "openprotein.fold.Boltz1Model",
+    "openprotein.fold.RosettaFold3Model",
+    "openprotein.fold.AlphaFold2Model",
+    "openprotein.fold.ESMFoldModel",
+    "openprotein.fold.ESMFold2Model",
+    "openprotein.fold.ESMFold2FastModel",
+    "openprotein.fold.MiniFoldModel",
+  ]}
+>
 
 <PyClass path="openprotein.fold.ProtenixModel" />
 <PyClass path="openprotein.fold.Boltz2Model" />
@@ -20,7 +41,16 @@ pythonApi: true
 <PyClass path="openprotein.fold.ESMFold2FastModel" />
 <PyClass path="openprotein.fold.MiniFoldModel" />
 
-## Results
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.fold.ESMFold2Confidence",
+    "openprotein.fold.FoldResultFuture",
+  ]}
+>
 
 <PyClass path="openprotein.fold.ESMFold2Confidence" />
 <PyClass path="openprotein.fold.FoldResultFuture" />
+
+</PyGroup>

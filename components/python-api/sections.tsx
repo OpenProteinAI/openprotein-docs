@@ -1,5 +1,6 @@
-import { normaliseDocstring, renderDocstring } from '@/lib/python-doc';
+import { renderDocstring } from '@/lib/python-doc';
 import type { PySection, PySectionItem } from '@/lib/python-api';
+import { TypeRef } from './type-ref';
 
 const TITLE: Record<string, string> = {
   parameters: 'Parameters',
@@ -26,7 +27,7 @@ export async function Prose({
   );
 }
 
-function Row({ item }: { item: PySectionItem }) {
+function Row({ item, html }: { item: PySectionItem; html?: string }) {
   return (
     <div className="border-t border-fd-border/70 py-2 first:border-t-0">
       <div className="flex flex-wrap items-baseline gap-x-2">
@@ -35,10 +36,12 @@ function Row({ item }: { item: PySectionItem }) {
             {item.name}
           </code>
         ) : null}
-        {item.type ? (
-          <span className="not-prose font-mono text-xs break-all text-[color:var(--py-type)]">
-            {item.type}
-          </span>
+        {item.type_parts?.length || item.type ? (
+          <TypeRef
+            parts={item.type_parts}
+            fallback={item.type}
+            className="not-prose font-mono text-xs break-all text-[color:var(--py-type)]"
+          />
         ) : null}
         {item.default ? (
           <span className="not-prose font-mono text-xs text-fd-muted-foreground">
@@ -46,10 +49,14 @@ function Row({ item }: { item: PySectionItem }) {
           </span>
         ) : null}
       </div>
-      {item.text ? (
-        <p className="not-prose mt-0.5 text-sm text-fd-muted-foreground">
-          {normaliseDocstring(item.text).replace(/[`*]/g, '')}
-        </p>
+      {/* Markdown, not plain text: the generator rewrites RST roles into links, so a
+          parameter description routinely contains `[Protein](/python-api/…)`. Rendering it
+          as text printed the link syntax verbatim. */}
+      {html ? (
+        <div
+          className="prose-no-margin mt-0.5 text-sm text-fd-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       ) : null}
     </div>
   );
@@ -82,7 +89,15 @@ export async function Sections({ sections, skip = [] }: { sections?: PySection[]
           examples: await Promise.all(section.items.map((item) => renderDocstring(item, 5))),
         };
       }
-      return { section };
+      if (section.kind === 'admonition') {
+        return { section, html: await renderDocstring(section.text, 5) };
+      }
+      return {
+        section,
+        rows: await Promise.all(
+          section.items.map((item) => (item.text ? renderDocstring(item.text, 5) : undefined)),
+        ),
+      };
     }),
   );
 
@@ -112,7 +127,10 @@ export async function Sections({ sections, skip = [] }: { sections?: PySection[]
                   {section.title}
                 </div>
               ) : null}
-              <div className="text-sm text-fd-foreground">{section.text}</div>
+              <div
+                className="prose-no-margin text-sm text-fd-foreground"
+                dangerouslySetInnerHTML={{ __html: entry.html! }}
+              />
             </div>
           );
         }
@@ -133,7 +151,7 @@ export async function Sections({ sections, skip = [] }: { sections?: PySection[]
             <Title>{TITLE[section.kind] ?? section.kind}</Title>
             <div className="flex flex-col">
               {section.items.map((item, i) => (
-                <Row key={i} item={item} />
+                <Row key={i} item={item} html={entry.rows?.[i]} />
               ))}
             </div>
           </div>

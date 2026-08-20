@@ -7,6 +7,7 @@
    "kind": "class",
    "signature": "(session)",
    "bases": [],
+   "bases_parts": [],
    "doc": "API-like accessor that groups all available protein models.\n\nThis class is attached to the main APISession and provides a single,\nconsistent entry point for accessing various models.",
    "parsed": [
     {
@@ -32,6 +33,13 @@
    "bases": [
     "ProteinModel"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "ProteinModel"
+     }
+    ]
+   ],
    "doc": "RFdiffusion model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design.",
    "parsed": [
     {
@@ -51,6 +59,7 @@
      "kind": "method",
      "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/rfdiffusion.py",
       "line": 114,
@@ -58,13 +67,39 @@
      },
      "signature": "()",
      "returns": "ModelMetadata",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "ModelMetadata"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "type_parts": [
+          {
+           "text": "ModelMetadata"
+          }
+         ],
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "generate",
      "kind": "method",
      "doc": "Run a protein structure generate job using RFdiffusion.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Use either `query` or `contigs`\n    for default design. Or provide `scaffold_target_structure_file`\n    for scaffold guided design.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding are passed\n    as hotspots to RFdiffusion.\ncontigs : int, str, optional\n    Defines the lengths and connectivity of chain segments for the desired\n    structure, specified in RFdiffusion's contig string format.\n    Required for most design tasks. Example: 150, '10-20/A100-110/10-20' for a\n    binder design.\nstructure_file : BinaryIO, optional\n    An input PDB file (as a file-like object) used for inpainting or other\n    guided design tasks where parts of an existing structure are provided.\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ninpaint_seq : str, optional\n    A string specifying the regions in the input structure to mask for\n    in-painting. Example: 'A1-A10/A30-40'.\nprovide_seq : str, optional\n    A string specifying which segments of the contig have a provided\n    sequence. Example: 'A1-A10/A30-40'.\nhotspot : str, optional\n    A string specifying hotspot residues to constrain during design,\n    typically for functional sites. Example: 'A10,A12,A14'.\nT : int, optional\n    The number of timesteps for the diffusion process.\npartial_T : int, optional\n    The number of timesteps for partial diffusion.\nuse_active_site_model : bool, optional\n    If True, uses the active site model checkpoint, which has been finetuned to\n    better keep very small motifs in place in the output for motif scaffolding\n    (default is False).\nuse_beta_model : bool, optional\n    If True, uses the complex beta model checkpoint, which generates a\n    greater diversity of topologies but has not been extensively\n    experimentally validated (default is False).\nsymmetry : {\"cyclic\", \"dihedral\", \"tetrahedral\"}, optional\n    The type of symmetry to apply to the design.\norder : int, optional\n    The order of the symmetry (e.g., 3 for C3 or D3 symmetry).\n    Must be provided if `symmetry` is set.\nadd_potential : bool, optional\n    A flag to toggle an additional potential to guide the design.\n    This defaults to true in the case of symmetric design.\nscaffold_target_structure_file : str, bytes, BinaryIO, optional\n    A PDB file (which can be the text string or bytes or the file-like\n    object) containing a scaffold structure to be used as a structural\n    guide. It could also be used as a target when doing scaffold guided\n    binder design with `scaffold_target_use_struct`.\nscaffold_target_use_struct : bool, optional\n    Whether or not to use the provided scaffold structure as a target.\n    Otherwise, it is used only as a topology guide.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the rfdiffusion\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/rfdiffusion.py",
       "line": 124,
@@ -72,6 +107,11 @@
      },
      "signature": "(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)",
      "returns": "StructureGenerationFuture",
+     "returns_parts": [
+      {
+       "text": "StructureGenerationFuture"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -83,96 +123,197 @@
         {
          "name": "query",
          "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
          "default": "None",
          "text": "A query representing the design specification. Use either `query` or `contigs`\nfor default design. Or provide `scaffold_target_structure_file`\nfor scaffold guided design.\n`query` provides a unified way to represent design specifications on the\nOpenProtein platform. In this case, the structure mask of the containing Complex\nproteins are specified to be designed. Other parameters like binding are passed\nas hotspots to RFdiffusion."
         },
         {
          "name": "contigs",
          "type": "(int, str)",
+         "type_parts": [
+          {
+           "text": "(int, str)"
+          }
+         ],
          "default": "None",
          "text": "Defines the lengths and connectivity of chain segments for the desired\nstructure, specified in RFdiffusion's contig string format.\nRequired for most design tasks. Example: 150, '10-20/A100-110/10-20' for a\nbinder design."
         },
         {
          "name": "structure_file",
          "type": "BinaryIO",
+         "type_parts": [
+          {
+           "text": "BinaryIO"
+          }
+         ],
          "default": "None",
          "text": "An input PDB file (as a file-like object) used for inpainting or other\nguided design tasks where parts of an existing structure are provided."
         },
         {
          "name": "n",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": null,
          "text": "The number of unique design trajectories to run (default is 1)."
         },
         {
          "name": "inpaint_seq",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "A string specifying the regions in the input structure to mask for\nin-painting. Example: 'A1-A10/A30-40'."
         },
         {
          "name": "provide_seq",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "A string specifying which segments of the contig have a provided\nsequence. Example: 'A1-A10/A30-40'."
         },
         {
          "name": "hotspot",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "A string specifying hotspot residues to constrain during design,\ntypically for functional sites. Example: 'A10,A12,A14'."
         },
         {
          "name": "T",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "The number of timesteps for the diffusion process."
         },
         {
          "name": "partial_T",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "The number of timesteps for partial diffusion."
         },
         {
          "name": "use_active_site_model",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "None",
          "text": "If True, uses the active site model checkpoint, which has been finetuned to\nbetter keep very small motifs in place in the output for motif scaffolding\n(default is False)."
         },
         {
          "name": "use_beta_model",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "None",
          "text": "If True, uses the complex beta model checkpoint, which generates a\ngreater diversity of topologies but has not been extensively\nexperimentally validated (default is False)."
         },
         {
          "name": "symmetry",
          "type": "(cyclic, dihedral, tetrahedral)",
+         "type_parts": [
+          {
+           "text": "(cyclic, dihedral, tetrahedral)"
+          }
+         ],
          "default": "\"cyclic\"",
          "text": "The type of symmetry to apply to the design."
         },
         {
          "name": "order",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "The order of the symmetry (e.g., 3 for C3 or D3 symmetry).\nMust be provided if `symmetry` is set."
         },
         {
          "name": "add_potential",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "None",
          "text": "A flag to toggle an additional potential to guide the design.\nThis defaults to true in the case of symmetric design."
         },
         {
          "name": "scaffold_target_structure_file",
          "type": "(str, bytes, BinaryIO)",
+         "type_parts": [
+          {
+           "text": "(str, bytes, BinaryIO)"
+          }
+         ],
          "default": "None",
          "text": "A PDB file (which can be the text string or bytes or the file-like\nobject) containing a scaffold structure to be used as a structural\nguide. It could also be used as a target when doing scaffold guided\nbinder design with `scaffold_target_use_struct`."
         },
         {
          "name": "scaffold_target_use_struct",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Whether or not to use the provided scaffold structure as a target.\nOtherwise, it is used only as a topology guide."
         }
@@ -184,6 +325,11 @@
         {
          "name": "**kwargs",
          "type": "dict",
+         "type_parts": [
+          {
+           "text": "dict"
+          }
+         ],
          "default": "{}",
          "text": "Additional keyword args that are passed directly to the rfdiffusion\ninference script. Overwrites any preceding options."
         }
@@ -195,6 +341,11 @@
         {
          "name": null,
          "type": "StructureGenerationFuture",
+         "type_parts": [
+          {
+           "text": "StructureGenerationFuture"
+          }
+         ],
          "text": "A future object that can be used to retrieve the results of the design\njob upon completion."
         }
        ]
@@ -206,6 +357,7 @@
      "kind": "method",
      "doc": "Alias for the `design` method to conform to the base ProteinModel.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/rfdiffusion.py",
       "line": 124,
@@ -213,132 +365,15 @@
      },
      "signature": "(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)",
      "returns": "StructureGenerationFuture",
+     "returns_parts": [
+      {
+       "text": "StructureGenerationFuture"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Run a protein structure generate job using RFdiffusion."
-      },
-      {
-       "kind": "parameters",
-       "items": [
-        {
-         "name": "query",
-         "type": "str or bytes or Protein or Complex or Query",
-         "default": "None",
-         "text": "A query representing the design specification. Use either `query` or `contigs`\nfor default design. Or provide `scaffold_target_structure_file`\nfor scaffold guided design.\n`query` provides a unified way to represent design specifications on the\nOpenProtein platform. In this case, the structure mask of the containing Complex\nproteins are specified to be designed. Other parameters like binding are passed\nas hotspots to RFdiffusion."
-        },
-        {
-         "name": "contigs",
-         "type": "(int, str)",
-         "default": "None",
-         "text": "Defines the lengths and connectivity of chain segments for the desired\nstructure, specified in RFdiffusion's contig string format.\nRequired for most design tasks. Example: 150, '10-20/A100-110/10-20' for a\nbinder design."
-        },
-        {
-         "name": "structure_file",
-         "type": "BinaryIO",
-         "default": "None",
-         "text": "An input PDB file (as a file-like object) used for inpainting or other\nguided design tasks where parts of an existing structure are provided."
-        },
-        {
-         "name": "n",
-         "type": "int",
-         "default": null,
-         "text": "The number of unique design trajectories to run (default is 1)."
-        },
-        {
-         "name": "inpaint_seq",
-         "type": "str",
-         "default": "None",
-         "text": "A string specifying the regions in the input structure to mask for\nin-painting. Example: 'A1-A10/A30-40'."
-        },
-        {
-         "name": "provide_seq",
-         "type": "str",
-         "default": "None",
-         "text": "A string specifying which segments of the contig have a provided\nsequence. Example: 'A1-A10/A30-40'."
-        },
-        {
-         "name": "hotspot",
-         "type": "str",
-         "default": "None",
-         "text": "A string specifying hotspot residues to constrain during design,\ntypically for functional sites. Example: 'A10,A12,A14'."
-        },
-        {
-         "name": "T",
-         "type": "int",
-         "default": "None",
-         "text": "The number of timesteps for the diffusion process."
-        },
-        {
-         "name": "partial_T",
-         "type": "int",
-         "default": "None",
-         "text": "The number of timesteps for partial diffusion."
-        },
-        {
-         "name": "use_active_site_model",
-         "type": "bool",
-         "default": "None",
-         "text": "If True, uses the active site model checkpoint, which has been finetuned to\nbetter keep very small motifs in place in the output for motif scaffolding\n(default is False)."
-        },
-        {
-         "name": "use_beta_model",
-         "type": "bool",
-         "default": "None",
-         "text": "If True, uses the complex beta model checkpoint, which generates a\ngreater diversity of topologies but has not been extensively\nexperimentally validated (default is False)."
-        },
-        {
-         "name": "symmetry",
-         "type": "(cyclic, dihedral, tetrahedral)",
-         "default": "\"cyclic\"",
-         "text": "The type of symmetry to apply to the design."
-        },
-        {
-         "name": "order",
-         "type": "int",
-         "default": "None",
-         "text": "The order of the symmetry (e.g., 3 for C3 or D3 symmetry).\nMust be provided if `symmetry` is set."
-        },
-        {
-         "name": "add_potential",
-         "type": "bool",
-         "default": "None",
-         "text": "A flag to toggle an additional potential to guide the design.\nThis defaults to true in the case of symmetric design."
-        },
-        {
-         "name": "scaffold_target_structure_file",
-         "type": "(str, bytes, BinaryIO)",
-         "default": "None",
-         "text": "A PDB file (which can be the text string or bytes or the file-like\nobject) containing a scaffold structure to be used as a structural\nguide. It could also be used as a target when doing scaffold guided\nbinder design with `scaffold_target_use_struct`."
-        },
-        {
-         "name": "scaffold_target_use_struct",
-         "type": "bool",
-         "default": "False",
-         "text": "Whether or not to use the provided scaffold structure as a target.\nOtherwise, it is used only as a topology guide."
-        }
-       ]
-      },
-      {
-       "kind": "other parameters",
-       "items": [
-        {
-         "name": "**kwargs",
-         "type": "dict",
-         "default": "{}",
-         "text": "Additional keyword args that are passed directly to the rfdiffusion\ninference script. Overwrites any preceding options."
-        }
-       ]
-      },
-      {
-       "kind": "returns",
-       "items": [
-        {
-         "name": null,
-         "type": "StructureGenerationFuture",
-         "text": "A future object that can be used to retrieve the results of the design\njob upon completion."
-        }
-       ]
+       "text": "Alias for the `design` method to conform to the base ProteinModel."
       }
      ]
     }
@@ -354,11 +389,18 @@
    "bases": [
     "StructureGenerationFuture"
    ],
-   "doc": "Deprecated alias for :class:`StructureGenerationFuture`.",
+   "bases_parts": [
+    [
+     {
+      "text": "StructureGenerationFuture"
+     }
+    ]
+   ],
+   "doc": "Deprecated alias for `StructureGenerationFuture`.",
    "parsed": [
     {
      "kind": "text",
-     "text": "Deprecated alias for :class:`StructureGenerationFuture`."
+     "text": "Deprecated alias for `StructureGenerationFuture`."
     }
    ],
    "module": "openprotein.models.foundation.rfdiffusion",
@@ -373,12 +415,21 @@
      "kind": "property",
      "doc": "The registered job arguments.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 179,
       "end": 181
      },
      "annotation": "dict[str, Any]",
+     "annotation_parts": [
+      {
+       "text": "dict[str, Any]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -392,6 +443,10 @@
      "kind": "method",
      "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 194,
@@ -399,6 +454,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -410,6 +470,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is cancelled, False otherwise."
         }
        ]
@@ -421,12 +486,21 @@
      "kind": "property",
      "doc": "The creation timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 159,
       "end": 161
      },
      "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -440,6 +514,10 @@
      "kind": "method",
      "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 183,
@@ -447,6 +525,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -458,6 +541,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is done, False otherwise."
         }
        ]
@@ -469,12 +557,21 @@
      "kind": "property",
      "doc": "The end timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 169,
       "end": 171
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -488,6 +585,7 @@
      "kind": "method",
      "doc": "Retrieve a single item by its key.\n\nParameters\n----------\nk\n    The key of the item to retrieve.\n\nRaises\n------\nNotImplementedError\n    This is an abstract method and must be implemented by a subclass.",
      "inherited_from": "openprotein.models.structure_generation.StructureGenerationFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/structure_generation.py",
       "line": 41,
@@ -495,19 +593,72 @@
      },
      "signature": "(replicate=0)",
      "returns": "Complex",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve a single item by its key."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "k",
+         "type": "K",
+         "type_parts": [
+          {
+           "text": "K"
+          }
+         ],
+         "default": null,
+         "text": "The key of the item to retrieve."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "NotImplementedError",
+         "type_parts": [
+          {
+           "text": "NotImplementedError"
+          }
+         ],
+         "default": null,
+         "text": "This is an abstract method and must be implemented by a subclass."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "id",
      "kind": "property",
      "doc": "The unique identifier of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 142,
       "end": 144
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -521,12 +672,21 @@
      "kind": "property",
      "doc": "The unique identifier of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 142,
       "end": 144
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -540,12 +700,21 @@
      "kind": "property",
      "doc": "The type of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 149,
       "end": 151
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -559,12 +728,21 @@
      "kind": "property",
      "doc": "The progress counter of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 174,
       "end": 176
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -578,6 +756,10 @@
      "kind": "method",
      "doc": "Refresh the job status and internal job object.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 248,
@@ -585,6 +767,7 @@
      },
      "signature": "()",
      "returns": null,
+     "returns_parts": null,
      "parsed": [
       {
        "kind": "text",
@@ -597,12 +780,21 @@
      "kind": "property",
      "doc": "The start timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 164,
       "end": 166
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -616,12 +808,21 @@
      "kind": "property",
      "doc": "The current status of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 154,
       "end": 156
      },
      "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -635,6 +836,7 @@
      "kind": "method",
      "doc": "Retrieve results for this job as a stream.\n\nReturns\n-------\nGenerator\n    A generator that yields (key, value) tuples.",
      "inherited_from": "openprotein.models.structure_generation.StructureGenerationFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/structure_generation.py",
       "line": 47,
@@ -642,13 +844,47 @@
      },
      "signature": "(**kwargs)",
      "returns": "Iterator[Complex]",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "Iterator["
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve results for this job as a stream."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Generator",
+         "type_parts": [
+          {
+           "text": "Generator"
+          }
+         ],
+         "text": "A generator that yields (key, value) tuples."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "wait",
      "kind": "method",
      "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 584,
@@ -656,13 +892,80 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "list[tuple[K, V]]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
      "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 347,
@@ -670,6 +973,11 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -681,18 +989,33 @@
         {
          "name": "interval",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "config.POLLING_INTERVAL",
          "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
         },
         {
          "name": "timeout",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "Maximum time in seconds to wait. Defaults to None."
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Verbosity flag. Defaults to False."
         }
@@ -704,6 +1027,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job completed successfully."
         }
        ]
@@ -727,6 +1055,13 @@
    "bases": [
     "ProteinModel"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "ProteinModel"
+     }
+    ]
+   ],
    "doc": "BoltzGen model for generating de novo protein structures.\n\nThis model supports functionalities like unconditional design, scaffolding,\nand binder design.",
    "parsed": [
     {
@@ -746,6 +1081,7 @@
      "kind": "method",
      "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/boltzgen.py",
       "line": 150,
@@ -753,13 +1089,39 @@
      },
      "signature": "()",
      "returns": "ModelMetadata",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "ModelMetadata"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "type_parts": [
+          {
+           "text": "ModelMetadata"
+          }
+         ],
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "generate",
      "kind": "method",
      "doc": "Run a protein structure generate job using BoltzGen.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Either `query` or `design_spec`\n    must be provided.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding, group,\n    secondary structures, etc. are also passed through to BoltzGen.\ndesign_spec : BoltzGenDesignSpec | dict[str, Any] | None, optional\n    The BoltzGen design specification to run. Either `query` or `design_spec`\n    must be provided.\n    `design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\n    specification used by official BoltzGen examples.\n    Can be a typed BoltzGenDesignSpec object or a dict representing the\n    BoltzGen yaml request specification.\n    Note: If the design_spec includes file paths, provide\n    these extra files either using `scaffolds` or `extra_structure_files`.\nstructure_file : str | bytes | BinaryIO | None, optional\n    (Deprecated: use `extra_structure_files`)\n    An input PDB/CIF file used for inpainting or other guided design tasks\n    where parts of an existing structure are provided. This parameter provides\n    the actual structure content that corresponds to any FileEntity `path`\n    fields in the design_spec. Can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ndiffusion_batch_size : int, optional\n    The batch size for diffusion sampling. Controls how many samples are\n    processed in parallel during the diffusion process.\nstep_scale : float, optional\n    Scaling factor for the number of diffusion steps. Higher values may\n    improve quality at the cost of longer generation time.\nnoise_scale : float, optional\n    Scaling factor for the noise schedule during diffusion. Controls the\n    amount of noise added at each step of the reverse diffusion process.\nscaffolds : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping scaffold filenames to their content. Each value can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\n    These files will be packaged into a gzipped tar archive and made available\n    to the design process under the 'scaffolds/' directory.\nscaffold_set : Scaffolds | str | None, optional\n    A pre-defined scaffold set object. Alternative to providing individual\n    scaffold files via the `scaffolds` parameter.\nextra_structure_files : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping additional structure filenames to their content, with\n    the same format options as `scaffolds`. These files will be packaged into\n    the same archive under the 'extra/' directory and can be referenced in\n    the design specification.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the boltzgen\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/boltzgen.py",
       "line": 153,
@@ -767,10 +1129,182 @@
      },
      "signature": "(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)",
      "returns": "StructureGenerationFuture",
+     "returns_parts": [
+      {
+       "text": "StructureGenerationFuture"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Run a protein structure generate job using BoltzGen.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Either `query` or `design_spec`\n    must be provided.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding, group,\n    secondary structures, etc. are also passed through to BoltzGen.\ndesign_spec : BoltzGenDesignSpec | dict[str, Any] | None, optional\n    The BoltzGen design specification to run. Either `query` or `design_spec`\n    must be provided.\n    `design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\n    specification used by official BoltzGen examples.\n    Can be a typed BoltzGenDesignSpec object or a dict representing the\n    BoltzGen yaml request specification.\n    Note: If the design_spec includes file paths, provide\n    these extra files either using `scaffolds` or `extra_structure_files`.\nstructure_file : str | bytes | BinaryIO | None, optional\n    (Deprecated: use `extra_structure_files`)\n    An input PDB/CIF file used for inpainting or other guided design tasks\n    where parts of an existing structure are provided. This parameter provides\n    the actual structure content that corresponds to any FileEntity `path`\n    fields in the design_spec. Can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ndiffusion_batch_size : int, optional\n    The batch size for diffusion sampling. Controls how many samples are\n    processed in parallel during the diffusion process.\nstep_scale : float, optional\n    Scaling factor for the number of diffusion steps. Higher values may\n    improve quality at the cost of longer generation time.\nnoise_scale : float, optional\n    Scaling factor for the noise schedule during diffusion. Controls the\n    amount of noise added at each step of the reverse diffusion process.\nscaffolds : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping scaffold filenames to their content. Each value can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\n    These files will be packaged into a gzipped tar archive and made available\n    to the design process under the 'scaffolds/' directory.\nscaffold_set : Scaffolds | str | None, optional\n    A pre-defined scaffold set object. Alternative to providing individual\n    scaffold files via the `scaffolds` parameter.\nextra_structure_files : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping additional structure filenames to their content, with\n    the same format options as `scaffolds`. These files will be packaged into\n    the same archive under the 'extra/' directory and can be referenced in\n    the design specification.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the boltzgen\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion."
+       "text": "Run a protein structure generate job using BoltzGen."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
+         "default": "None",
+         "text": "A query representing the design specification. Either `query` or `design_spec`\nmust be provided.\n`query` provides a unified way to represent design specifications on the\nOpenProtein platform. In this case, the structure mask of the containing Complex\nproteins are specified to be designed. Other parameters like binding, group,\nsecondary structures, etc. are also passed through to BoltzGen."
+        },
+        {
+         "name": "design_spec",
+         "type": "BoltzGenDesignSpec | dict[str, Any] | None",
+         "type_parts": [
+          {
+           "text": "BoltzGenDesignSpec | dict[str, Any] | None"
+          }
+         ],
+         "default": "None",
+         "text": "The BoltzGen design specification to run. Either `query` or `design_spec`\nmust be provided.\n`design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\nspecification used by official BoltzGen examples.\nCan be a typed BoltzGenDesignSpec object or a dict representing the\nBoltzGen yaml request specification.\nNote: If the design_spec includes file paths, provide\nthese extra files either using `scaffolds` or `extra_structure_files`."
+        },
+        {
+         "name": "structure_file",
+         "type": "str | bytes | BinaryIO | None",
+         "type_parts": [
+          {
+           "text": "str | bytes | BinaryIO | None"
+          }
+         ],
+         "default": "None",
+         "text": "(Deprecated: use `extra_structure_files`)\nAn input PDB/CIF file used for inpainting or other guided design tasks\nwhere parts of an existing structure are provided. This parameter provides\nthe actual structure content that corresponds to any FileEntity `path`\nfields in the design_spec. Can be:\n- A file path (str) to read from\n- Raw file content (bytes)\n- A file-like object (BinaryIO)"
+        },
+        {
+         "name": "n",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": null,
+         "text": "The number of unique design trajectories to run (default is 1)."
+        },
+        {
+         "name": "diffusion_batch_size",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "The batch size for diffusion sampling. Controls how many samples are\nprocessed in parallel during the diffusion process."
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Scaling factor for the number of diffusion steps. Higher values may\nimprove quality at the cost of longer generation time."
+        },
+        {
+         "name": "noise_scale",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Scaling factor for the noise schedule during diffusion. Controls the\namount of noise added at each step of the reverse diffusion process."
+        },
+        {
+         "name": "scaffolds",
+         "type": "dict[str, str | bytes | BinaryIO] | None",
+         "type_parts": [
+          {
+           "text": "dict[str, str | bytes | BinaryIO] | None"
+          }
+         ],
+         "default": "None",
+         "text": "Dictionary mapping scaffold filenames to their content. Each value can be:\n- A file path (str) to read from\n- Raw file content (bytes)\n- A file-like object (BinaryIO)\nThese files will be packaged into a gzipped tar archive and made available\nto the design process under the 'scaffolds/' directory."
+        },
+        {
+         "name": "scaffold_set",
+         "type": "Scaffolds | str | None",
+         "type_parts": [
+          {
+           "text": "Scaffolds | str | None"
+          }
+         ],
+         "default": "None",
+         "text": "A pre-defined scaffold set object. Alternative to providing individual\nscaffold files via the `scaffolds` parameter."
+        },
+        {
+         "name": "extra_structure_files",
+         "type": "dict[str, str | bytes | BinaryIO] | None",
+         "type_parts": [
+          {
+           "text": "dict[str, str | bytes | BinaryIO] | None"
+          }
+         ],
+         "default": "None",
+         "text": "Dictionary mapping additional structure filenames to their content, with\nthe same format options as `scaffolds`. These files will be packaged into\nthe same archive under the 'extra/' directory and can be referenced in\nthe design specification."
+        }
+       ]
+      },
+      {
+       "kind": "other parameters",
+       "items": [
+        {
+         "name": "**kwargs",
+         "type": "dict",
+         "type_parts": [
+          {
+           "text": "dict"
+          }
+         ],
+         "default": "{}",
+         "text": "Additional keyword args that are passed directly to the boltzgen\ninference script. Overwrites any preceding options."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "StructureGenerationFuture",
+         "type_parts": [
+          {
+           "text": "StructureGenerationFuture"
+          }
+         ],
+         "text": "A future object that can be used to retrieve the results of the design\njob upon completion."
+        }
+       ]
       }
      ]
     },
@@ -779,6 +1313,7 @@
      "kind": "method",
      "doc": "Alias for the `design` method to conform to the base ProteinModel.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/boltzgen.py",
       "line": 153,
@@ -786,10 +1321,15 @@
      },
      "signature": "(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)",
      "returns": "StructureGenerationFuture",
+     "returns_parts": [
+      {
+       "text": "StructureGenerationFuture"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Run a protein structure generate job using BoltzGen.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Either `query` or `design_spec`\n    must be provided.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding, group,\n    secondary structures, etc. are also passed through to BoltzGen.\ndesign_spec : BoltzGenDesignSpec | dict[str, Any] | None, optional\n    The BoltzGen design specification to run. Either `query` or `design_spec`\n    must be provided.\n    `design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\n    specification used by official BoltzGen examples.\n    Can be a typed BoltzGenDesignSpec object or a dict representing the\n    BoltzGen yaml request specification.\n    Note: If the design_spec includes file paths, provide\n    these extra files either using `scaffolds` or `extra_structure_files`.\nstructure_file : str | bytes | BinaryIO | None, optional\n    (Deprecated: use `extra_structure_files`)\n    An input PDB/CIF file used for inpainting or other guided design tasks\n    where parts of an existing structure are provided. This parameter provides\n    the actual structure content that corresponds to any FileEntity `path`\n    fields in the design_spec. Can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ndiffusion_batch_size : int, optional\n    The batch size for diffusion sampling. Controls how many samples are\n    processed in parallel during the diffusion process.\nstep_scale : float, optional\n    Scaling factor for the number of diffusion steps. Higher values may\n    improve quality at the cost of longer generation time.\nnoise_scale : float, optional\n    Scaling factor for the noise schedule during diffusion. Controls the\n    amount of noise added at each step of the reverse diffusion process.\nscaffolds : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping scaffold filenames to their content. Each value can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\n    These files will be packaged into a gzipped tar archive and made available\n    to the design process under the 'scaffolds/' directory.\nscaffold_set : Scaffolds | str | None, optional\n    A pre-defined scaffold set object. Alternative to providing individual\n    scaffold files via the `scaffolds` parameter.\nextra_structure_files : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping additional structure filenames to their content, with\n    the same format options as `scaffolds`. These files will be packaged into\n    the same archive under the 'extra/' directory and can be referenced in\n    the design specification.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the boltzgen\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion."
+       "text": "Alias for the `design` method to conform to the base ProteinModel."
       }
      ]
     }
@@ -805,11 +1345,18 @@
    "bases": [
     "StructureGenerationFuture"
    ],
-   "doc": "Deprecated alias for :class:`StructureGenerationFuture`.",
+   "bases_parts": [
+    [
+     {
+      "text": "StructureGenerationFuture"
+     }
+    ]
+   ],
+   "doc": "Deprecated alias for `StructureGenerationFuture`.",
    "parsed": [
     {
      "kind": "text",
-     "text": "Deprecated alias for :class:`StructureGenerationFuture`."
+     "text": "Deprecated alias for `StructureGenerationFuture`."
     }
    ],
    "module": "openprotein.models.foundation.boltzgen",
@@ -824,12 +1371,21 @@
      "kind": "property",
      "doc": "The registered job arguments.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 179,
       "end": 181
      },
      "annotation": "dict[str, Any]",
+     "annotation_parts": [
+      {
+       "text": "dict[str, Any]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -843,6 +1399,10 @@
      "kind": "method",
      "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 194,
@@ -850,6 +1410,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -861,6 +1426,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is cancelled, False otherwise."
         }
        ]
@@ -872,12 +1442,21 @@
      "kind": "property",
      "doc": "The creation timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 159,
       "end": 161
      },
      "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -891,6 +1470,10 @@
      "kind": "method",
      "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 183,
@@ -898,6 +1481,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -909,6 +1497,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is done, False otherwise."
         }
        ]
@@ -920,12 +1513,21 @@
      "kind": "property",
      "doc": "The end timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 169,
       "end": 171
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -939,6 +1541,7 @@
      "kind": "method",
      "doc": "Retrieve a single item by its key.\n\nParameters\n----------\nk\n    The key of the item to retrieve.\n\nRaises\n------\nNotImplementedError\n    This is an abstract method and must be implemented by a subclass.",
      "inherited_from": "openprotein.models.structure_generation.StructureGenerationFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/structure_generation.py",
       "line": 41,
@@ -946,19 +1549,72 @@
      },
      "signature": "(replicate=0)",
      "returns": "Complex",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve a single item by its key."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "k",
+         "type": "K",
+         "type_parts": [
+          {
+           "text": "K"
+          }
+         ],
+         "default": null,
+         "text": "The key of the item to retrieve."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "NotImplementedError",
+         "type_parts": [
+          {
+           "text": "NotImplementedError"
+          }
+         ],
+         "default": null,
+         "text": "This is an abstract method and must be implemented by a subclass."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "id",
      "kind": "property",
      "doc": "The unique identifier of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 142,
       "end": 144
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -972,12 +1628,21 @@
      "kind": "property",
      "doc": "The unique identifier of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 142,
       "end": 144
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -991,12 +1656,21 @@
      "kind": "property",
      "doc": "The type of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 149,
       "end": 151
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -1010,12 +1684,21 @@
      "kind": "property",
      "doc": "The progress counter of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 174,
       "end": 176
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -1029,6 +1712,10 @@
      "kind": "method",
      "doc": "Refresh the job status and internal job object.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 248,
@@ -1036,6 +1723,7 @@
      },
      "signature": "()",
      "returns": null,
+     "returns_parts": null,
      "parsed": [
       {
        "kind": "text",
@@ -1048,12 +1736,21 @@
      "kind": "property",
      "doc": "The start timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 164,
       "end": 166
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -1067,12 +1764,21 @@
      "kind": "property",
      "doc": "The current status of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 154,
       "end": 156
      },
      "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -1086,6 +1792,7 @@
      "kind": "method",
      "doc": "Retrieve results for this job as a stream.\n\nReturns\n-------\nGenerator\n    A generator that yields (key, value) tuples.",
      "inherited_from": "openprotein.models.structure_generation.StructureGenerationFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/structure_generation.py",
       "line": 47,
@@ -1093,13 +1800,47 @@
      },
      "signature": "(**kwargs)",
      "returns": "Iterator[Complex]",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "Iterator["
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve results for this job as a stream."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Generator",
+         "type_parts": [
+          {
+           "text": "Generator"
+          }
+         ],
+         "text": "A generator that yields (key, value) tuples."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "wait",
      "kind": "method",
      "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 584,
@@ -1107,13 +1848,80 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "list[tuple[K, V]]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
      "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 347,
@@ -1121,6 +1929,11 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1132,18 +1945,33 @@
         {
          "name": "interval",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "config.POLLING_INTERVAL",
          "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
         },
         {
          "name": "timeout",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "Maximum time in seconds to wait. Defaults to None."
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Verbosity flag. Defaults to False."
         }
@@ -1155,6 +1983,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job completed successfully."
         }
        ]
@@ -1178,11 +2011,30 @@
    "bases": [
     "ProteinModel"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "ProteinModel"
+     }
+    ]
+   ],
    "doc": "Class for ProteinMPNN model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.models.proteinmpnn?",
    "parsed": [
     {
      "kind": "text",
-     "text": "Class for ProteinMPNN model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.models.proteinmpnn?"
+     "text": "Class for ProteinMPNN model.\n\nModel inference requires an input structure which is provided by a `query`."
+    },
+    {
+     "kind": "examples",
+     "items": [
+      "View specific model details (including supported tokens) with the `?` operator."
+     ]
+    },
+    {
+     "kind": "examples",
+     "items": [
+      ".. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect(username=\"user\", password=\"password\")\n    >>> session.models.proteinmpnn?"
+     ]
     }
    ],
    "module": "openprotein.models.foundation.proteinmpnn",
@@ -1197,6 +2049,7 @@
      "kind": "method",
      "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/proteinmpnn.py",
       "line": 49,
@@ -1204,13 +2057,39 @@
      },
      "signature": "()",
      "returns": "ModelMetadata",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "ModelMetadata"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "type_parts": [
+          {
+           "text": "ModelMetadata"
+          }
+         ],
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "score",
      "kind": "method",
      "doc": "Score query sequences based on the specified query.\n\nParameters\n----------\nsequences : list of bytes\n    Sequences to score.\nquery : str or bytes or Protein or Query or None, optional\n    Query to use with prompt.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the submitted sequences.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/proteinmpnn.py",
       "line": 52,
@@ -1218,6 +2097,13 @@
      },
      "signature": "(sequences, query)",
      "returns": "EmbeddingsScoreFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreFuture",
+       "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1229,12 +2115,38 @@
         {
          "name": "sequences",
          "type": "list of bytes",
+         "type_parts": [
+          {
+           "text": "list of bytes"
+          }
+         ],
          "default": null,
          "text": "Sequences to score."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Query or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          },
+          {
+           "text": " or None"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         }
@@ -1246,6 +2158,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreFuture",
+           "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the scores of the submitted sequences."
         }
        ]
@@ -1257,6 +2176,7 @@
      "kind": "method",
      "doc": "Score all indels of the query sequence based on the specified query.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nquery : str or bytes or Protein or Query or None, optional\n    Query to use with prompt.\ninsert : str or None, optional\n    Insertion fragment at each site.\ndelete : list of int or None, optional\n    Range of size of fragment to delete at each site.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the indel-ed sequence.\n\nRaises\n------\nValueError\n    If neither insert nor delete is provided.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/proteinmpnn.py",
       "line": 74,
@@ -1264,6 +2184,13 @@
      },
      "signature": "(sequence, query, insert=None, delete=None, **kwargs)",
      "returns": "EmbeddingsScoreFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreFuture",
+       "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1275,30 +2202,67 @@
         {
          "name": "sequence",
          "type": "bytes",
+         "type_parts": [
+          {
+           "text": "bytes"
+          }
+         ],
          "default": null,
          "text": "Sequence to analyze."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Query or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          },
+          {
+           "text": " or None"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         },
         {
          "name": "insert",
          "type": "str or None",
+         "type_parts": [
+          {
+           "text": "str or None"
+          }
+         ],
          "default": "None",
          "text": "Insertion fragment at each site."
         },
         {
          "name": "delete",
          "type": "list of int or None",
+         "type_parts": [
+          {
+           "text": "list of int or None"
+          }
+         ],
          "default": "None",
          "text": "Range of size of fragment to delete at each site."
         },
         {
          "name": "**kwargs",
          "type": null,
+         "type_parts": null,
          "default": "{}",
          "text": "Additional keyword arguments."
         }
@@ -1310,6 +2274,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreFuture",
+           "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the scores of the indel-ed sequence."
         }
        ]
@@ -1320,6 +2291,11 @@
         {
          "name": null,
          "type": "ValueError",
+         "type_parts": [
+          {
+           "text": "ValueError"
+          }
+         ],
          "default": null,
          "text": "If neither insert nor delete is provided."
         }
@@ -1332,6 +2308,7 @@
      "kind": "method",
      "doc": "Score all single substitutions of the query sequence using the specified query.\n\nParameters\n----------\nsequence : bytes\n    Sequence to analyze.\nquery : str or bytes or Protein or Query or None, optional\n    Query to use with prompt.\n\nReturns\n-------\nEmbeddingsScoreSingleSiteFuture\n    A future object that returns the per-variant scores of the single substitutions.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/proteinmpnn.py",
       "line": 110,
@@ -1339,6 +2316,13 @@
      },
      "signature": "(sequence, query)",
      "returns": "EmbeddingsScoreSingleSiteFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreSingleSiteFuture",
+       "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1350,12 +2334,38 @@
         {
          "name": "sequence",
          "type": "bytes",
+         "type_parts": [
+          {
+           "text": "bytes"
+          }
+         ],
          "default": null,
          "text": "Sequence to analyze."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Query or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          },
+          {
+           "text": " or None"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         }
@@ -1367,6 +2377,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreSingleSiteFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreSingleSiteFuture",
+           "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the per-variant scores of the single substitutions."
         }
        ]
@@ -1378,6 +2395,7 @@
      "kind": "method",
      "doc": "Generate protein sequences based on a masked input query.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query or list of these or None, optional\n    Query specifying the structure to generate sequences for.\ndesign : str or StructureGenerationFuture or None, optional\n    Structure-generation design ID or future to condition generation from\n    design outputs.\nnum_samples : int, optional\n    The number of samples to generate. Default is 100.\ntemperature : float, optional\n    The temperature for sampling. Higher values produce more random outputs. Default is 0.1.\n\nReturns\n-------\nEmbeddingsGenerateFuture\n    A future object representing the status and information about the generation job.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/proteinmpnn.py",
       "line": 132,
@@ -1385,6 +2403,13 @@
      },
      "signature": "(query=None, design=None, num_samples=100, temperature=0.1, seed=None)",
      "returns": "EmbeddingsGenerateFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsGenerateFuture",
+       "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1396,24 +2421,44 @@
         {
          "name": "query",
          "type": "str or bytes or Protein or Complex or Query or list of these or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or Protein or Complex or Query or list of these or None"
+          }
+         ],
          "default": "None",
          "text": "Query specifying the structure to generate sequences for."
         },
         {
          "name": "design",
          "type": "str or StructureGenerationFuture or None",
+         "type_parts": [
+          {
+           "text": "str or StructureGenerationFuture or None"
+          }
+         ],
          "default": "None",
          "text": "Structure-generation design ID or future to condition generation from\ndesign outputs."
         },
         {
          "name": "num_samples",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "100",
          "text": "The number of samples to generate. Default is 100."
         },
         {
          "name": "temperature",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "0.1",
          "text": "The temperature for sampling. Higher values produce more random outputs. Default is 0.1."
         }
@@ -1425,6 +2470,13 @@
         {
          "name": null,
          "type": "EmbeddingsGenerateFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsGenerateFuture",
+           "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object representing the status and information about the generation job."
         }
        ]
@@ -1443,11 +2495,30 @@
    "bases": [
     "ProteinModel"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "ProteinModel"
+     }
+    ]
+   ],
    "doc": "Class for ESM Inverse Folding (ESM-IF1) model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect()\n    >>> session.models.esmif1?",
    "parsed": [
     {
      "kind": "text",
-     "text": "Class for ESM Inverse Folding (ESM-IF1) model.\n\nModel inference requires an input structure which is provided by a `query`.\n\nExamples\n--------\nView specific model details (including supported tokens) with the `?` operator.\n\nExamples\n--------\n.. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect()\n    >>> session.models.esmif1?"
+     "text": "Class for ESM Inverse Folding (ESM-IF1) model.\n\nModel inference requires an input structure which is provided by a `query`."
+    },
+    {
+     "kind": "examples",
+     "items": [
+      "View specific model details (including supported tokens) with the `?` operator."
+     ]
+    },
+    {
+     "kind": "examples",
+     "items": [
+      ".. code-block:: ipython3\n\n    >>> import openprotein\n    >>> session = openprotein.connect()\n    >>> session.models.esmif1?"
+     ]
     }
    ],
    "module": "openprotein.models.foundation.esmif1",
@@ -1462,6 +2533,7 @@
      "kind": "method",
      "doc": "Get model metadata for this model.\n\nReturns\n-------\nModelMetadata\n    The metadata associated with this model.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/esmif1.py",
       "line": 45,
@@ -1469,13 +2541,39 @@
      },
      "signature": "()",
      "returns": "ModelMetadata",
-     "parsed": []
+     "returns_parts": [
+      {
+       "text": "ModelMetadata"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get model metadata for this model."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "ModelMetadata",
+         "type_parts": [
+          {
+           "text": "ModelMetadata"
+          }
+         ],
+         "text": "The metadata associated with this model."
+        }
+       ]
+      }
+     ]
     },
     {
      "name": "score",
      "kind": "method",
      "doc": "Score sequences based on the specified query.\n\nParameters\n----------\nsequences : list of bytes or str\n    Sequences to score.\nquery : str or bytes or Protein or Complex or Query\n    Query to use with prompt.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the submitted sequences.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/esmif1.py",
       "line": 48,
@@ -1483,6 +2581,13 @@
      },
      "signature": "(sequences, query)",
      "returns": "EmbeddingsScoreFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreFuture",
+       "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1494,12 +2599,43 @@
         {
          "name": "sequences",
          "type": "list of bytes or str",
+         "type_parts": [
+          {
+           "text": "list of bytes or str"
+          }
+         ],
          "default": null,
          "text": "Sequences to score."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         }
@@ -1511,6 +2647,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreFuture",
+           "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the scores of the submitted sequences."
         }
        ]
@@ -1522,6 +2665,7 @@
      "kind": "method",
      "doc": "Score all single substitutions of `sequence` using the specified `query`.\n\nParameters\n----------\nsequence : bytes or str\n    Sequence to analyze.\nquery : str or bytes or Protein or Complex or Query\n    Query to use with prompt.\n\nReturns\n-------\nEmbeddingsScoreSingleSiteFuture\n    A future object that returns the per-variant scores.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/esmif1.py",
       "line": 82,
@@ -1529,6 +2673,13 @@
      },
      "signature": "(sequence, query)",
      "returns": "EmbeddingsScoreSingleSiteFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreSingleSiteFuture",
+       "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1540,12 +2691,43 @@
         {
          "name": "sequence",
          "type": "bytes or str",
+         "type_parts": [
+          {
+           "text": "bytes or str"
+          }
+         ],
          "default": null,
          "text": "Sequence to analyze."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         }
@@ -1557,6 +2739,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreSingleSiteFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreSingleSiteFuture",
+           "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the per-variant scores."
         }
        ]
@@ -1568,6 +2757,7 @@
      "kind": "method",
      "doc": "Score all indels of `sequence` based on the specified `query`.\n\nParameters\n----------\nsequence : bytes or str\n    Sequence to analyze.\nquery : str or bytes or Protein or Query or None, optional\n    Query to use with prompt.\ninsert : str or None, optional\n    Insertion fragment at each site.\ndelete : list of int or None, optional\n    Range of size of fragment to delete at each site.\n**kwargs\n    Additional keyword arguments.\n\nReturns\n-------\nEmbeddingsScoreFuture\n    A future object that returns the scores of the indel-ed sequence.\n\nRaises\n------\nValueError\n    If neither insert nor delete is provided.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/esmif1.py",
       "line": 115,
@@ -1575,6 +2765,13 @@
      },
      "signature": "(sequence, query, insert=None, delete=None)",
      "returns": "EmbeddingsScoreFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsScoreFuture",
+       "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1586,30 +2783,67 @@
         {
          "name": "sequence",
          "type": "bytes or str",
+         "type_parts": [
+          {
+           "text": "bytes or str"
+          }
+         ],
          "default": null,
          "text": "Sequence to analyze."
         },
         {
          "name": "query",
          "type": "str or bytes or Protein or Query or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          },
+          {
+           "text": " or None"
+          }
+         ],
          "default": null,
          "text": "Query to use with prompt."
         },
         {
          "name": "insert",
          "type": "str or None",
+         "type_parts": [
+          {
+           "text": "str or None"
+          }
+         ],
          "default": "None",
          "text": "Insertion fragment at each site."
         },
         {
          "name": "delete",
          "type": "list of int or None",
+         "type_parts": [
+          {
+           "text": "list of int or None"
+          }
+         ],
          "default": "None",
          "text": "Range of size of fragment to delete at each site."
         },
         {
          "name": "**kwargs",
          "type": null,
+         "type_parts": null,
          "default": null,
          "text": "Additional keyword arguments."
         }
@@ -1621,6 +2855,13 @@
         {
          "name": null,
          "type": "EmbeddingsScoreFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsScoreFuture",
+           "path": "openprotein.embeddings.EmbeddingsScoreFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object that returns the scores of the indel-ed sequence."
         }
        ]
@@ -1631,6 +2872,11 @@
         {
          "name": null,
          "type": "ValueError",
+         "type_parts": [
+          {
+           "text": "ValueError"
+          }
+         ],
          "default": null,
          "text": "If neither insert nor delete is provided."
         }
@@ -1643,6 +2889,7 @@
      "kind": "method",
      "doc": "Generate protein sequences based on a masked input query.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query or list of these or None, optional\n    Query specifying the structure to generate sequences for.\ndesign : str or StructureGenerationFuture or None, optional\n    Structure-generation design ID or future to condition generation from\n    design outputs.\nnum_samples : int, optional\n    Number of sequences to sample. Default 100.\ntemperature : float, optional\n    Sampling temperature. Lower = more conservative; near-zero\n    approximates greedy decoding. Default 1.0.\nseed : int, optional\n    PRNG seed for reproducible sampling.\n\nReturns\n-------\nEmbeddingsGenerateFuture\n    A future object representing the status and information about the generation job.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundation/esmif1.py",
       "line": 150,
@@ -1650,6 +2897,13 @@
      },
      "signature": "(query=None, design=None, num_samples=100, temperature=1.0, seed=None)",
      "returns": "EmbeddingsGenerateFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsGenerateFuture",
+       "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+       "page": "embedding"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -1661,30 +2915,55 @@
         {
          "name": "query",
          "type": "str or bytes or Protein or Complex or Query or list of these or None",
+         "type_parts": [
+          {
+           "text": "str or bytes or Protein or Complex or Query or list of these or None"
+          }
+         ],
          "default": "None",
          "text": "Query specifying the structure to generate sequences for."
         },
         {
          "name": "design",
          "type": "str or StructureGenerationFuture or None",
+         "type_parts": [
+          {
+           "text": "str or StructureGenerationFuture or None"
+          }
+         ],
          "default": "None",
          "text": "Structure-generation design ID or future to condition generation from\ndesign outputs."
         },
         {
          "name": "num_samples",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "100",
          "text": "Number of sequences to sample. Default 100."
         },
         {
          "name": "temperature",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "1.0",
          "text": "Sampling temperature. Lower = more conservative; near-zero\napproximates greedy decoding. Default 1.0."
         },
         {
          "name": "seed",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "PRNG seed for reproducible sampling."
         }
@@ -1696,6 +2975,13 @@
         {
          "name": null,
          "type": "EmbeddingsGenerateFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsGenerateFuture",
+           "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
+           "page": "embedding"
+          }
+         ],
          "text": "A future object representing the status and information about the generation job."
         }
        ]

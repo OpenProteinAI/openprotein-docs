@@ -3,40 +3,82 @@ title: "openprotein.models"
 description: "Unified access to models on the OpenProtein AI platform."
 pythonApi: true
 ---
-Use them to work at a lower level to craft your own workflows. Note that the Models API is a WIP interface, but we are working hard on bringing all models here for a consistent and simple developer experience.
+Unified access to models on the OpenProtein AI platform. Use them to work at a lower level to craft your own workflows. Note that the Models API is a WIP interface, but we are working hard on bringing all models here for a consistent and simple developer experience.
 
-## Interface
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.models.ModelsAPI",
+  ]}
+>
 
 <PyClass path="openprotein.models.ModelsAPI" />
 
-### RFdiffusion
+</PyGroup>
+
+<PyGroup id="rfdiffusion" title="RFdiffusion"
+  anchors={[
+    "openprotein.models.RFdiffusionModel",
+  ]}
+>
 
 RFdiffusion is diffusion model that can be used for de novo structure design and binder design. It can be used with our [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query) interface to define structure prediction objectives in a unified manner. It also supports taking in the ``contigs`` defined in official RFdiffusion repo.
 
 <PyClass path="openprotein.models.RFdiffusionModel" />
 
-#### Results
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.models.RFdiffusionFuture",
+  ]}
+>
 
 <PyClass path="openprotein.models.RFdiffusionFuture" />
 
-### BoltzGen
+</PyGroup>
+
+<PyGroup id="boltzgen" title="BoltzGen"
+  anchors={[
+    "openprotein.models.BoltzGenModel",
+  ]}
+>
 
 BoltzGen is a structure generation model that can be used for generating de novo structures along with nanobody scaffolds. It can be used with our [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query) interface to define structure prediction objectives in a unified manner. It also supports taking in a ``design_spec`` which follows the official design specification from BoltzGen.
 
 <PyClass path="openprotein.models.BoltzGenModel" />
 
-#### Results
+</PyGroup>
+
+<PyGroup id="results-1" title="Results"
+  anchors={[
+    "openprotein.models.BoltzGenFuture",
+  ]}
+>
 
 <PyClass path="openprotein.models.BoltzGenFuture" />
 
-### ProteinMPNN
+</PyGroup>
+
+<PyGroup id="proteinmpnn" title="ProteinMPNN"
+  anchors={[
+    "openprotein.models.ProteinMPNNModel",
+  ]}
+>
 
 ProteinMPNN is a sequence generation model that can be used for inverse folding, and is a natural next step after using structure generation models. It can be used with our [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query) interface to define sequence generation objectives in a unified manner, similar to our [`PoET2Model`](/python-api/api-reference/embedding#openprotein.embeddings.PoET2Model).
 
 <PyClass path="openprotein.models.ProteinMPNNModel" />
 
-### ESM-IF1
+</PyGroup>
+
+<PyGroup id="esm-if1" title="ESM-IF1"
+  anchors={[
+    "openprotein.models.ESMIF1Model",
+  ]}
+>
 
 ESM-IF1 is an inverse folding model pretrained on PDB and millions of AlphaFold-predicted structures. Given a backbone structure, it scores and generates sequences predicted to fold into it, making it another option for inverse folding alongside [`ProteinMPNNModel`](#openprotein.models.ProteinMPNNModel).
 
 <PyClass path="openprotein.models.ESMIF1Model" />
+
+</PyGroup>

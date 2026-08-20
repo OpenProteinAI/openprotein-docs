@@ -7,6 +7,7 @@
    "kind": "class",
    "signature": "(session)",
    "bases": [],
+   "bases_parts": [],
    "doc": "Prompt API providing the interface to create prompts for use with PoET models.",
    "parsed": [
     {
@@ -24,8 +25,9 @@
     {
      "name": "create_prompt",
      "kind": "method",
-     "doc": "Create a prompt.\n\nParameters\n----------\ncontext : Context | Sequence[Context]\n    Context or list of contexts. Each context is a sequence of entries\n    where each entry is a raw sequence (``bytes``/``str``, optionally with\n    ``:`` chain breaks for multichain), :py:class:`Protein`, or\n    :py:class:`Complex`. Currently only protein chains are accepted;\n    passing a Complex with DNA, RNA, or Ligand chains raises\n    :py:class:`InvalidParameterError`. This restriction may be relaxed\n    in the future.\nname : str\n    Name of the prompt.\ndescription : Optional[str]\n    Description of the prompt.\n\nReturns\n-------\nPrompt\n    The created prompt.",
+     "doc": "Create a prompt.\n\nParameters\n----------\ncontext : Context | Sequence[Context]\n    Context or list of contexts. Each context is a sequence of entries\n    where each entry is a raw sequence (``bytes``/``str``, optionally with\n    ``:`` chain breaks for multichain), [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein), or\n    [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex). Currently only protein chains are accepted;\n    passing a Complex with DNA, RNA, or Ligand chains raises\n    `InvalidParameterError`. This restriction may be relaxed\n    in the future.\nname : str\n    Name of the prompt.\ndescription : Optional[str]\n    Description of the prompt.\n\nReturns\n-------\nPrompt\n    The created prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/prompt.py",
       "line": 20,
@@ -33,6 +35,13 @@
      },
      "signature": "(context, name=None, description=None)",
      "returns": "Prompt",
+     "returns_parts": [
+      {
+       "text": "Prompt",
+       "path": "openprotein.prompt.Prompt",
+       "page": "prompt"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -44,18 +53,33 @@
         {
          "name": "context",
          "type": "Context | Sequence[Context]",
+         "type_parts": [
+          {
+           "text": "Context | Sequence[Context]"
+          }
+         ],
          "default": null,
-         "text": "Context or list of contexts. Each context is a sequence of entries\nwhere each entry is a raw sequence (``bytes``/``str``, optionally with\n``:`` chain breaks for multichain), :py:class:`Protein`, or\n:py:class:`Complex`. Currently only protein chains are accepted;\npassing a Complex with DNA, RNA, or Ligand chains raises\n:py:class:`InvalidParameterError`. This restriction may be relaxed\nin the future."
+         "text": "Context or list of contexts. Each context is a sequence of entries\nwhere each entry is a raw sequence (``bytes``/``str``, optionally with\n``:`` chain breaks for multichain), [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein), or\n[`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex). Currently only protein chains are accepted;\npassing a Complex with DNA, RNA, or Ligand chains raises\n`InvalidParameterError`. This restriction may be relaxed\nin the future."
         },
         {
          "name": "name",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": "None",
          "text": "Name of the prompt."
         },
         {
          "name": "description",
          "type": "Optional[str]",
+         "type_parts": [
+          {
+           "text": "Optional[str]"
+          }
+         ],
          "default": "None",
          "text": "Description of the prompt."
         }
@@ -67,6 +91,13 @@
         {
          "name": null,
          "type": "Prompt",
+         "type_parts": [
+          {
+           "text": "Prompt",
+           "path": "openprotein.prompt.Prompt",
+           "page": "prompt"
+          }
+         ],
          "text": "The created prompt."
         }
        ]
@@ -78,6 +109,7 @@
      "kind": "method",
      "doc": "Get the prompt for a given prompt ID.\n\nParameters\n----------\nprompt_id : str\n    The prompt ID.\n\nReturns\n-------\nPrompt\n    The prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/prompt.py",
       "line": 59,
@@ -85,6 +117,13 @@
      },
      "signature": "(prompt_id)",
      "returns": "Prompt",
+     "returns_parts": [
+      {
+       "text": "Prompt",
+       "path": "openprotein.prompt.Prompt",
+       "page": "prompt"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -96,6 +135,11 @@
         {
          "name": "prompt_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "The prompt ID."
         }
@@ -107,6 +151,13 @@
         {
          "name": null,
          "type": "Prompt",
+         "type_parts": [
+          {
+           "text": "Prompt",
+           "path": "openprotein.prompt.Prompt",
+           "page": "prompt"
+          }
+         ],
          "text": "The prompt."
         }
        ]
@@ -118,6 +169,7 @@
      "kind": "method",
      "doc": "List all prompts.\n\nReturns\n-------\nList[Prompt]\n    List of prompts.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/prompt.py",
       "line": 78,
@@ -125,6 +177,19 @@
      },
      "signature": "()",
      "returns": "List[Prompt]",
+     "returns_parts": [
+      {
+       "text": "List["
+      },
+      {
+       "text": "Prompt",
+       "path": "openprotein.prompt.Prompt",
+       "page": "prompt"
+      },
+      {
+       "text": "]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -136,6 +201,19 @@
         {
          "name": null,
          "type": "List[Prompt]",
+         "type_parts": [
+          {
+           "text": "List["
+          },
+          {
+           "text": "Prompt",
+           "path": "openprotein.prompt.Prompt",
+           "page": "prompt"
+          },
+          {
+           "text": "]"
+          }
+         ],
          "text": "List of prompts."
         }
        ]
@@ -145,8 +223,9 @@
     {
      "name": "create_query",
      "kind": "method",
-     "doc": "Create a query.\n\nParameters\n----------\nquery : bytes or str or Protein or Complex\n    A query protein or complex. Raw ``bytes``/``str`` inputs may include\n    ``:`` chain breaks to denote a multichain protein. Currently only\n    protein chains are accepted; passing a Complex with DNA, RNA, or\n    Ligand chains raises :py:class:`InvalidParameterError`. This\n    restriction may be relaxed in the future.\nforce_structure : bool, optional\n    Optionally force a query to be interpreted with a structure.\n    Useful for creating structure prediction queries which can have\n    no structure.\n\nReturns\n-------\nQuery\n    The created query.",
+     "doc": "Create a query.\n\nParameters\n----------\nquery : bytes or str or Protein or Complex\n    A query protein or complex. Raw ``bytes``/``str`` inputs may include\n    ``:`` chain breaks to denote a multichain protein. Currently only\n    protein chains are accepted; passing a Complex with DNA, RNA, or\n    Ligand chains raises `InvalidParameterError`. This\n    restriction may be relaxed in the future.\nforce_structure : bool, optional\n    Optionally force a query to be interpreted with a structure.\n    Useful for creating structure prediction queries which can have\n    no structure.\n\nReturns\n-------\nQuery\n    The created query.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/prompt.py",
       "line": 92,
@@ -154,6 +233,13 @@
      },
      "signature": "(query, force_structure=False)",
      "returns": "Query",
+     "returns_parts": [
+      {
+       "text": "Query",
+       "path": "openprotein.prompt.Query",
+       "page": "prompt"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -165,12 +251,35 @@
         {
          "name": "query",
          "type": "bytes or str or Protein or Complex",
+         "type_parts": [
+          {
+           "text": "bytes or str or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          }
+         ],
          "default": null,
-         "text": "A query protein or complex. Raw ``bytes``/``str`` inputs may include\n``:`` chain breaks to denote a multichain protein. Currently only\nprotein chains are accepted; passing a Complex with DNA, RNA, or\nLigand chains raises :py:class:`InvalidParameterError`. This\nrestriction may be relaxed in the future."
+         "text": "A query protein or complex. Raw ``bytes``/``str`` inputs may include\n``:`` chain breaks to denote a multichain protein. Currently only\nprotein chains are accepted; passing a Complex with DNA, RNA, or\nLigand chains raises `InvalidParameterError`. This\nrestriction may be relaxed in the future."
         },
         {
          "name": "force_structure",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Optionally force a query to be interpreted with a structure.\nUseful for creating structure prediction queries which can have\nno structure."
         }
@@ -182,6 +291,13 @@
         {
          "name": null,
          "type": "Query",
+         "type_parts": [
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
          "text": "The created query."
         }
        ]
@@ -193,6 +309,7 @@
      "kind": "method",
      "doc": "Get the query for a given query ID.\n\nParameters\n----------\nquery_id : str\n    The query ID.\n\nReturns\n-------\nQuery\n    The query.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/prompt.py",
       "line": 127,
@@ -200,6 +317,13 @@
      },
      "signature": "(query_id)",
      "returns": "Query",
+     "returns_parts": [
+      {
+       "text": "Query",
+       "path": "openprotein.prompt.Query",
+       "page": "prompt"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -211,6 +335,11 @@
         {
          "name": "query_id",
          "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
          "default": null,
          "text": "The query ID."
         }
@@ -222,6 +351,13 @@
         {
          "name": null,
          "type": "Query",
+         "type_parts": [
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
          "text": "The query."
         }
        ]
@@ -240,6 +376,15 @@
    "bases": [
     "Future"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "Future",
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     }
+    ]
+   ],
    "doc": "Prompt which contains a set of sequences and/or structures used to condition the PoET models.",
    "parsed": [
     {
@@ -257,8 +402,9 @@
     {
      "name": "get_as_complexes",
      "kind": "method",
-     "doc": "Retrieve the prompt context with every entry as a :py:class:`Complex`.\n\nSingle-chain entries are wrapped as ``Complex({\"A\": protein})`` so the\nreturn type is uniform regardless of chain count.",
+     "doc": "Retrieve the prompt context with every entry as a [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nSingle-chain entries are wrapped as ``Complex({\"A\": protein})`` so the\nreturn type is uniform regardless of chain count.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 92,
@@ -266,18 +412,32 @@
      },
      "signature": "()",
      "returns": "list[list[Complex]]",
+     "returns_parts": [
+      {
+       "text": "list[list["
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      },
+      {
+       "text": "]]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve the prompt context with every entry as a :py:class:`Complex`.\n\nSingle-chain entries are wrapped as ``Complex({\"A\": protein})`` so the\nreturn type is uniform regardless of chain count."
+       "text": "Retrieve the prompt context with every entry as a [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nSingle-chain entries are wrapped as ``Complex({\"A\": protein})`` so the\nreturn type is uniform regardless of chain count."
       }
      ]
     },
     {
      "name": "get_as_proteins",
      "kind": "method",
-     "doc": "Retrieve the prompt context with every entry as a :py:class:`Protein`.\n\nRaises :py:class:`InvalidParameterError` if any entry is multichain \u2014 use\n:py:meth:`get_as_complexes` instead when multichain entries may be present.",
+     "doc": "Retrieve the prompt context with every entry as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein).\n\nRaises `InvalidParameterError` if any entry is multichain \u2014 use\n[`get_as_complexes`](/python-api/api-reference/prompt#openprotein.prompt.Prompt.get_as_complexes) instead when multichain entries may be present.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 112,
@@ -285,10 +445,23 @@
      },
      "signature": "()",
      "returns": "list[list[Protein]]",
+     "returns_parts": [
+      {
+       "text": "list[list["
+      },
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      },
+      {
+       "text": "]]"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve the prompt context with every entry as a :py:class:`Protein`.\n\nRaises :py:class:`InvalidParameterError` if any entry is multichain \u2014 use\n:py:meth:`get_as_complexes` instead when multichain entries may be present."
+       "text": "Retrieve the prompt context with every entry as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein).\n\nRaises `InvalidParameterError` if any entry is multichain \u2014 use\n[`get_as_complexes`](/python-api/api-reference/prompt#openprotein.prompt.Prompt.get_as_complexes) instead when multichain entries may be present."
       }
      ]
     },
@@ -297,12 +470,14 @@
      "kind": "property",
      "doc": "The unique identifier of the prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 143,
       "end": 145
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -316,12 +491,14 @@
      "kind": "property",
      "doc": "The name of the prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 148,
       "end": 150
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -335,12 +512,14 @@
      "kind": "property",
      "doc": "The description of the prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 153,
       "end": 155
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -354,12 +533,14 @@
      "kind": "property",
      "doc": "The timestamp when the prompt was created.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 158,
       "end": 160
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -373,12 +554,14 @@
      "kind": "property",
      "doc": "The number of replicates in the prompt for an ensemble prompt.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 163,
       "end": 165
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -390,19 +573,21 @@
     {
      "name": "status",
      "kind": "property",
-     "doc": "The status of the prompt if sampling from an :py:class:`~openprotein.align.MSAFuture`.",
+     "doc": "The status of the prompt if sampling from an [`MSAFuture`](/python-api/api-reference/align#openprotein.align.MSAFuture).",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 168,
       "end": 172
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
        "kind": "text",
-       "text": "The status of the prompt if sampling from an :py:class:`~openprotein.align.MSAFuture`."
+       "text": "The status of the prompt if sampling from an [`MSAFuture`](/python-api/api-reference/align#openprotein.align.MSAFuture)."
       }
      ]
     },
@@ -411,12 +596,21 @@
      "kind": "property",
      "doc": "The registered job arguments.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 179,
       "end": 181
      },
      "annotation": "dict[str, Any]",
+     "annotation_parts": [
+      {
+       "text": "dict[str, Any]"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -430,6 +624,10 @@
      "kind": "method",
      "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 194,
@@ -437,6 +635,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -448,6 +651,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is cancelled, False otherwise."
         }
        ]
@@ -459,6 +667,10 @@
      "kind": "method",
      "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 183,
@@ -466,6 +678,11 @@
      },
      "signature": "()",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -477,6 +694,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job is done, False otherwise."
         }
        ]
@@ -488,12 +710,21 @@
      "kind": "property",
      "doc": "The end timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 169,
       "end": 171
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -507,12 +738,17 @@
      "kind": "property",
      "doc": "The unique identifier of the prompt.",
      "inherited_from": "openprotein.prompt.models.Prompt",
+     "inherited_from_ref": {
+      "path": "openprotein.prompt.Prompt",
+      "page": "prompt"
+     },
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 143,
       "end": 145
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -526,12 +762,21 @@
      "kind": "property",
      "doc": "The type of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 149,
       "end": 151
      },
      "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -545,12 +790,21 @@
      "kind": "property",
      "doc": "The progress counter of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 174,
       "end": 176
      },
      "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -564,6 +818,10 @@
      "kind": "method",
      "doc": "Refresh the job status and internal job object.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 248,
@@ -571,6 +829,7 @@
      },
      "signature": "()",
      "returns": null,
+     "returns_parts": null,
      "parsed": [
       {
        "kind": "text",
@@ -583,12 +842,21 @@
      "kind": "property",
      "doc": "The start timestamp of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 164,
       "end": 166
      },
      "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -602,6 +870,10 @@
      "kind": "method",
      "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nAny\n    The results of the job.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 378,
@@ -609,6 +881,11 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "V",
+     "returns_parts": [
+      {
+       "text": "V"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -620,18 +897,33 @@
         {
          "name": "interval",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "config.POLLING_INTERVAL",
          "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
         },
         {
          "name": "timeout",
          "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
          "default": "None",
          "text": "Maximum time in seconds to wait. Defaults to None."
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Verbosity flag. Defaults to False."
         }
@@ -643,6 +935,11 @@
         {
          "name": null,
          "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
          "text": "The results of the job."
         }
        ]
@@ -654,6 +951,10 @@
      "kind": "method",
      "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
      "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
      "source": {
       "file": "openprotein/jobs/futures.py",
       "line": 347,
@@ -661,6 +962,11 @@
      },
      "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
      "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
@@ -672,18 +978,33 @@
         {
          "name": "interval",
          "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
          "default": "config.POLLING_INTERVAL",
          "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
         },
         {
          "name": "timeout",
          "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
          "default": "None",
          "text": "Maximum time in seconds to wait. Defaults to None."
         },
         {
          "name": "verbose",
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "default": "False",
          "text": "Verbosity flag. Defaults to False."
         }
@@ -695,6 +1016,11 @@
         {
          "name": null,
          "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
          "text": "True if the job completed successfully."
         }
        ]
@@ -716,11 +1042,12 @@
    "kind": "class",
    "signature": "(session, metadata)",
    "bases": [],
-   "doc": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using :py:meth:`~openprotein.molecules.Protein.mask_sequence_at` for :py:class:`~openprotein.embeddings.PoET2Model` to run inverse folding.\n\nCreate a query with a masked structure using :py:meth:`~openprotein.molecules.Protein.mask_structure_at` for :py:class:`~openprotein.models.RFdiffusionModel` to run inverse folding.",
+   "bases_parts": [],
+   "doc": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using [`mask_sequence_at`](/python-api/api-reference/molecules#openprotein.molecules.Protein.mask_sequence_at) for [`PoET2Model`](/python-api/api-reference/embedding#openprotein.embeddings.PoET2Model) to run inverse folding.\n\nCreate a query with a masked structure using [`mask_structure_at`](/python-api/api-reference/molecules#openprotein.molecules.Protein.mask_structure_at) for [`RFdiffusionModel`](/python-api/api-reference/models#openprotein.models.RFdiffusionModel) to run inverse folding.",
    "parsed": [
     {
      "kind": "text",
-     "text": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using :py:meth:`~openprotein.molecules.Protein.mask_sequence_at` for :py:class:`~openprotein.embeddings.PoET2Model` to run inverse folding.\n\nCreate a query with a masked structure using :py:meth:`~openprotein.molecules.Protein.mask_structure_at` for :py:class:`~openprotein.models.RFdiffusionModel` to run inverse folding."
+     "text": "Query containing a sequence/structure used to query the design models which opens up new workflows.\n\nCreate a query with a masked sequence using [`mask_sequence_at`](/python-api/api-reference/molecules#openprotein.molecules.Protein.mask_sequence_at) for [`PoET2Model`](/python-api/api-reference/embedding#openprotein.embeddings.PoET2Model) to run inverse folding.\n\nCreate a query with a masked structure using [`mask_structure_at`](/python-api/api-reference/molecules#openprotein.molecules.Protein.mask_structure_at) for [`RFdiffusionModel`](/python-api/api-reference/models#openprotein.models.RFdiffusionModel) to run inverse folding."
     }
    ],
    "module": "openprotein.prompt.models",
@@ -733,8 +1060,9 @@
     {
      "name": "get",
      "kind": "method",
-     "doc": "Retrieve the query as a :py:class:`~openprotein.molecules.Protein` or  :py:class:`~openprotein.molecules.Complex`.\n\nSingle-chain queries collapse to :py:class:`Protein`; multichain queries are\nreturned as :py:class:`Complex`. For a uniform return type, see\n:py:meth:`get_as_complex` or :py:meth:`get_as_protein`.\n\nReturns:\n    Protein or Complex representing the query",
+     "doc": "Retrieve the query as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein) or  [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nSingle-chain queries collapse to [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein); multichain queries are\nreturned as [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex). For a uniform return type, see\n[`get_as_complex`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_complex) or [`get_as_protein`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_protein).\n\nReturns:\n    Protein or Complex representing the query",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 207,
@@ -742,10 +1070,25 @@
      },
      "signature": "()",
      "returns": "Protein | Complex",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve the query as a :py:class:`~openprotein.molecules.Protein` or  :py:class:`~openprotein.molecules.Complex`.\n\nSingle-chain queries collapse to :py:class:`Protein`; multichain queries are\nreturned as :py:class:`Complex`. For a uniform return type, see\n:py:meth:`get_as_complex` or :py:meth:`get_as_protein`."
+       "text": "Retrieve the query as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein) or  [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nSingle-chain queries collapse to [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein); multichain queries are\nreturned as [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex). For a uniform return type, see\n[`get_as_complex`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_complex) or [`get_as_protein`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_protein)."
       },
       {
        "kind": "returns",
@@ -753,6 +1096,21 @@
         {
          "name": null,
          "type": "Protein | Complex",
+         "type_parts": [
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " | "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          }
+         ],
          "text": "Protein or Complex representing the query"
         }
        ]
@@ -762,8 +1120,9 @@
     {
      "name": "get_as_complex",
      "kind": "method",
-     "doc": "Retrieve the query as a :py:class:`Complex`.\n\nA single-chain :py:class:`Protein` result is wrapped as\n``Complex({\"A\": protein})`` so the return type is uniform.",
+     "doc": "Retrieve the query as a [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nA single-chain [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein) result is wrapped as\n``Complex({\"A\": protein})`` so the return type is uniform.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 221,
@@ -771,18 +1130,26 @@
      },
      "signature": "()",
      "returns": "Complex",
+     "returns_parts": [
+      {
+       "text": "Complex",
+       "path": "openprotein.molecules.Complex",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve the query as a :py:class:`Complex`.\n\nA single-chain :py:class:`Protein` result is wrapped as\n``Complex({\"A\": protein})`` so the return type is uniform."
+       "text": "Retrieve the query as a [`Complex`](/python-api/api-reference/molecules#openprotein.molecules.Complex).\n\nA single-chain [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein) result is wrapped as\n``Complex({\"A\": protein})`` so the return type is uniform."
       }
      ]
     },
     {
      "name": "get_as_protein",
      "kind": "method",
-     "doc": "Retrieve the query as a :py:class:`Protein`.\n\nRaises :py:class:`InvalidParameterError` if the query is multichain \u2014 use\n:py:meth:`get_as_complex` instead when multichain queries may be present.",
+     "doc": "Retrieve the query as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein).\n\nRaises `InvalidParameterError` if the query is multichain \u2014 use\n[`get_as_complex`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_complex) instead when multichain queries may be present.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 233,
@@ -790,10 +1157,17 @@
      },
      "signature": "()",
      "returns": "Protein",
+     "returns_parts": [
+      {
+       "text": "Protein",
+       "path": "openprotein.molecules.Protein",
+       "page": "molecules"
+      }
+     ],
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve the query as a :py:class:`Protein`.\n\nRaises :py:class:`InvalidParameterError` if the query is multichain \u2014 use\n:py:meth:`get_as_complex` instead when multichain queries may be present."
+       "text": "Retrieve the query as a [`Protein`](/python-api/api-reference/molecules#openprotein.molecules.Protein).\n\nRaises `InvalidParameterError` if the query is multichain \u2014 use\n[`get_as_complex`](/python-api/api-reference/prompt#openprotein.prompt.Query.get_as_complex) instead when multichain queries may be present."
       }
      ]
     },
@@ -802,12 +1176,14 @@
      "kind": "property",
      "doc": "The unique identifier of the query.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 246,
       "end": 248
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -821,12 +1197,14 @@
      "kind": "property",
      "doc": "The timestamp when the query was created.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/models.py",
       "line": 251,
       "end": 253
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -846,6 +1224,13 @@
    "signature": "(*, id, name, description, created_date, num_replicates, job_id, status)",
    "bases": [
     "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
    ],
    "doc": "Metadata about a prompt.",
    "parsed": [
@@ -872,6 +1257,13 @@
    "bases": [
     "BaseModel"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
    "doc": "Metadata about a query.",
    "parsed": [
     {
@@ -897,6 +1289,15 @@
    "bases": [
     "Job"
    ],
+   "bases_parts": [
+    [
+     {
+      "text": "Job",
+      "path": "openprotein.jobs.Job",
+      "page": "jobs"
+     }
+    ]
+   ],
    "doc": "A representation of a prompt job.",
    "parsed": [
     {
@@ -916,12 +1317,14 @@
      "kind": "property",
      "doc": "ID of the underlying MSA.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/schemas.py",
       "line": 18,
       "end": 20
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {
@@ -935,12 +1338,14 @@
      "kind": "property",
      "doc": "Prompt ID.",
      "inherited_from": null,
+     "inherited_from_ref": null,
      "source": {
       "file": "openprotein/prompt/schemas.py",
       "line": 23,
       "end": 25
      },
      "annotation": null,
+     "annotation_parts": null,
      "value": null,
      "parsed": [
       {

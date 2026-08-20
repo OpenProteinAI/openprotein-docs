@@ -3,44 +3,88 @@ title: "openprotein.molecules"
 description: "These data primitives represent a unified interface to working with our platform, whether it be structure prediction, binder design or inverse folding."
 pythonApi: true
 ---
-## Protein
+These data primitives represent a unified interface to working with our platform, whether it be structure prediction, binder design or inverse folding.
+
+<PyGroup id="protein" title="Protein"
+  anchors={[
+    "openprotein.molecules.Protein",
+  ]}
+>
 
 [`Protein`](#openprotein.molecules.Protein) is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query) to be used with models like [`ProteinMPNNModel`](/python-api/api-reference/models#openprotein.models.ProteinMPNNModel) or [`ESMIF1Model`](/python-api/api-reference/models#openprotein.models.ESMIF1Model) (e.g. for inverse-folding), as well as for ease of reuse.
 
 <PyClass path="openprotein.molecules.Protein" />
 
-## Complex
+</PyGroup>
+
+<PyGroup id="complex" title="Complex"
+  anchors={[
+    "openprotein.molecules.Complex",
+  ]}
+>
 
 [`Complex`](#openprotein.molecules.Complex) describes a molecular complex representation. These can be uploaded to our platform as a [`Query`](/python-api/api-reference/prompt#openprotein.prompt.Query) to be used with models like [`RFdiffusionModel`](/python-api/api-reference/models#openprotein.models.RFdiffusionModel), (e.g. for multi-chain binder design) as well as for easy reuse.
 
 <PyClass path="openprotein.molecules.Complex" />
 
-## Structure
+</PyGroup>
+
+<PyGroup id="structure" title="Structure"
+  anchors={[
+    "openprotein.molecules.Structure",
+  ]}
+>
 
 [`Structure`](#openprotein.molecules.Structure) describes a collection of [`Complex`](#Complex) instances. These are typically created when parsing structure files (e.g., CIF, PDB) that contain multiple models of the same molecular complex, such as NMR ensembles or computational predictions with multiple conformations.
 
 <PyClass path="openprotein.molecules.Structure" />
 
-## Ligand
+</PyGroup>
+
+<PyGroup id="ligand" title="Ligand"
+  anchors={[
+    "openprotein.molecules.Ligand",
+  ]}
+>
 
 [`Ligand`](#openprotein.molecules.Ligand) represents a ligand that can be described either by ``smiles`` or ``ccd``. These are intended to be used as part of a [`Complex`](#Complex).
 
 <PyClass path="openprotein.molecules.Ligand" />
 
-## DNA
+</PyGroup>
+
+<PyGroup id="dna" title="DNA"
+  anchors={[
+    "openprotein.molecules.DNA",
+  ]}
+>
 
 [`DNA`](#openprotein.molecules.DNA) represents a DNA chain. These are intended to be used as part of a [`Complex`](#Complex).
 
 <PyClass path="openprotein.molecules.DNA" />
 
-## RNA
+</PyGroup>
+
+<PyGroup id="rna" title="RNA"
+  anchors={[
+    "openprotein.molecules.RNA",
+  ]}
+>
 
 [`RNA`](#openprotein.molecules.RNA) represents a RNA chain. These are intended to be used as part of a [`Complex`](#Complex).
 
 <PyClass path="openprotein.molecules.RNA" />
 
-## Template
+</PyGroup>
+
+<PyGroup id="template" title="Template"
+  anchors={[
+    "openprotein.molecules.Template",
+  ]}
+>
 
 [`Template`](#openprotein.molecules.Template) describes a template that can be used for constraining fold jobs.
 
 <PyClass path="openprotein.molecules.Template" />
+
+</PyGroup>

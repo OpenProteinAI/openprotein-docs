@@ -11,6 +11,7 @@ import { Screencast } from '@/components/mdx/screencast';
 import { SectionCards } from '@/components/mdx/section-cards';
 import { TipRow } from '@/components/mdx/tip-row';
 import { PyClass } from '@/components/python-api/py-class';
+import { PyGroup } from '@/components/python-api/collapsible';
 import { PyFunction } from '@/components/python-api/py-function';
 import { PySummary } from '@/components/python-api/py-summary';
 
@@ -31,6 +32,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     TypeTable,
     PyClass,
     PyFunction,
+    PyGroup,
     PySummary,
     Screencast,
     SectionCards,
