@@ -484,7 +484,7 @@
    "name": "AssayMetadata",
    "path": "openprotein.data.AssayMetadata",
    "kind": "class",
-   "signature": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length, has_name_column)",
+   "signature": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False)",
    "bases": [
     "BaseModel"
    ],
@@ -514,7 +514,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

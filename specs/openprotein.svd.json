@@ -732,18 +732,22 @@
      "name": "job_id",
      "kind": "property",
      "doc": "The unique identifier of the job.",
-     "inherited_from": "openprotein.svd.models.SVDModel",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.svd.SVDModel",
-      "page": "embedding"
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
      },
      "source": {
-      "file": "openprotein/svd/models.py",
-      "line": 60,
-      "end": 61
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
      },
-     "annotation": null,
-     "annotation_parts": null,
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -902,7 +906,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -1009,7 +1013,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

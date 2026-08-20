@@ -355,7 +355,7 @@
     {
      "name": "predict",
      "kind": "method",
-     "doc": "Alias for the `design` method to conform to the base ProteinModel.",
+     "doc": "Run a protein structure generate job using RFdiffusion.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Use either `query` or `contigs`\n    for default design. Or provide `scaffold_target_structure_file`\n    for scaffold guided design.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding are passed\n    as hotspots to RFdiffusion.\ncontigs : int, str, optional\n    Defines the lengths and connectivity of chain segments for the desired\n    structure, specified in RFdiffusion's contig string format.\n    Required for most design tasks. Example: 150, '10-20/A100-110/10-20' for a\n    binder design.\nstructure_file : BinaryIO, optional\n    An input PDB file (as a file-like object) used for inpainting or other\n    guided design tasks where parts of an existing structure are provided.\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ninpaint_seq : str, optional\n    A string specifying the regions in the input structure to mask for\n    in-painting. Example: 'A1-A10/A30-40'.\nprovide_seq : str, optional\n    A string specifying which segments of the contig have a provided\n    sequence. Example: 'A1-A10/A30-40'.\nhotspot : str, optional\n    A string specifying hotspot residues to constrain during design,\n    typically for functional sites. Example: 'A10,A12,A14'.\nT : int, optional\n    The number of timesteps for the diffusion process.\npartial_T : int, optional\n    The number of timesteps for partial diffusion.\nuse_active_site_model : bool, optional\n    If True, uses the active site model checkpoint, which has been finetuned to\n    better keep very small motifs in place in the output for motif scaffolding\n    (default is False).\nuse_beta_model : bool, optional\n    If True, uses the complex beta model checkpoint, which generates a\n    greater diversity of topologies but has not been extensively\n    experimentally validated (default is False).\nsymmetry : {\"cyclic\", \"dihedral\", \"tetrahedral\"}, optional\n    The type of symmetry to apply to the design.\norder : int, optional\n    The order of the symmetry (e.g., 3 for C3 or D3 symmetry).\n    Must be provided if `symmetry` is set.\nadd_potential : bool, optional\n    A flag to toggle an additional potential to guide the design.\n    This defaults to true in the case of symmetric design.\nscaffold_target_structure_file : str, bytes, BinaryIO, optional\n    A PDB file (which can be the text string or bytes or the file-like\n    object) containing a scaffold structure to be used as a structural\n    guide. It could also be used as a target when doing scaffold guided\n    binder design with `scaffold_target_use_struct`.\nscaffold_target_use_struct : bool, optional\n    Whether or not to use the provided scaffold structure as a target.\n    Otherwise, it is used only as a topology guide.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the rfdiffusion\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
@@ -373,7 +373,240 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Alias for the `design` method to conform to the base ProteinModel."
+       "text": "Run a protein structure generate job using RFdiffusion."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
+         "default": "None",
+         "text": "A query representing the design specification. Use either `query` or `contigs`\nfor default design. Or provide `scaffold_target_structure_file`\nfor scaffold guided design.\n`query` provides a unified way to represent design specifications on the\nOpenProtein platform. In this case, the structure mask of the containing Complex\nproteins are specified to be designed. Other parameters like binding are passed\nas hotspots to RFdiffusion."
+        },
+        {
+         "name": "contigs",
+         "type": "(int, str)",
+         "type_parts": [
+          {
+           "text": "(int, str)"
+          }
+         ],
+         "default": "None",
+         "text": "Defines the lengths and connectivity of chain segments for the desired\nstructure, specified in RFdiffusion's contig string format.\nRequired for most design tasks. Example: 150, '10-20/A100-110/10-20' for a\nbinder design."
+        },
+        {
+         "name": "structure_file",
+         "type": "BinaryIO",
+         "type_parts": [
+          {
+           "text": "BinaryIO"
+          }
+         ],
+         "default": "None",
+         "text": "An input PDB file (as a file-like object) used for inpainting or other\nguided design tasks where parts of an existing structure are provided."
+        },
+        {
+         "name": "n",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": null,
+         "text": "The number of unique design trajectories to run (default is 1)."
+        },
+        {
+         "name": "inpaint_seq",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "A string specifying the regions in the input structure to mask for\nin-painting. Example: 'A1-A10/A30-40'."
+        },
+        {
+         "name": "provide_seq",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "A string specifying which segments of the contig have a provided\nsequence. Example: 'A1-A10/A30-40'."
+        },
+        {
+         "name": "hotspot",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "A string specifying hotspot residues to constrain during design,\ntypically for functional sites. Example: 'A10,A12,A14'."
+        },
+        {
+         "name": "T",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "The number of timesteps for the diffusion process."
+        },
+        {
+         "name": "partial_T",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "The number of timesteps for partial diffusion."
+        },
+        {
+         "name": "use_active_site_model",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "None",
+         "text": "If True, uses the active site model checkpoint, which has been finetuned to\nbetter keep very small motifs in place in the output for motif scaffolding\n(default is False)."
+        },
+        {
+         "name": "use_beta_model",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "None",
+         "text": "If True, uses the complex beta model checkpoint, which generates a\ngreater diversity of topologies but has not been extensively\nexperimentally validated (default is False)."
+        },
+        {
+         "name": "symmetry",
+         "type": "(cyclic, dihedral, tetrahedral)",
+         "type_parts": [
+          {
+           "text": "(cyclic, dihedral, tetrahedral)"
+          }
+         ],
+         "default": "\"cyclic\"",
+         "text": "The type of symmetry to apply to the design."
+        },
+        {
+         "name": "order",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "The order of the symmetry (e.g., 3 for C3 or D3 symmetry).\nMust be provided if `symmetry` is set."
+        },
+        {
+         "name": "add_potential",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "None",
+         "text": "A flag to toggle an additional potential to guide the design.\nThis defaults to true in the case of symmetric design."
+        },
+        {
+         "name": "scaffold_target_structure_file",
+         "type": "(str, bytes, BinaryIO)",
+         "type_parts": [
+          {
+           "text": "(str, bytes, BinaryIO)"
+          }
+         ],
+         "default": "None",
+         "text": "A PDB file (which can be the text string or bytes or the file-like\nobject) containing a scaffold structure to be used as a structural\nguide. It could also be used as a target when doing scaffold guided\nbinder design with `scaffold_target_use_struct`."
+        },
+        {
+         "name": "scaffold_target_use_struct",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Whether or not to use the provided scaffold structure as a target.\nOtherwise, it is used only as a topology guide."
+        }
+       ]
+      },
+      {
+       "kind": "other parameters",
+       "items": [
+        {
+         "name": "**kwargs",
+         "type": "dict",
+         "type_parts": [
+          {
+           "text": "dict"
+          }
+         ],
+         "default": "{}",
+         "text": "Additional keyword args that are passed directly to the rfdiffusion\ninference script. Overwrites any preceding options."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "StructureGenerationFuture",
+         "type_parts": [
+          {
+           "text": "StructureGenerationFuture"
+          }
+         ],
+         "text": "A future object that can be used to retrieve the results of the design\njob upon completion."
+        }
+       ]
       }
      ]
     }
@@ -890,7 +1123,7 @@
       "line": 584,
       "end": 590
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
      "returns_parts": [
       {
@@ -971,7 +1204,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -1311,7 +1544,7 @@
     {
      "name": "predict",
      "kind": "method",
-     "doc": "Alias for the `design` method to conform to the base ProteinModel.",
+     "doc": "Run a protein structure generate job using BoltzGen.\n\nParameters\n----------\nquery : str or bytes or Protein or Complex or Query, optional\n    A query representing the design specification. Either `query` or `design_spec`\n    must be provided.\n    `query` provides a unified way to represent design specifications on the\n    OpenProtein platform. In this case, the structure mask of the containing Complex\n    proteins are specified to be designed. Other parameters like binding, group,\n    secondary structures, etc. are also passed through to BoltzGen.\ndesign_spec : BoltzGenDesignSpec | dict[str, Any] | None, optional\n    The BoltzGen design specification to run. Either `query` or `design_spec`\n    must be provided.\n    `design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\n    specification used by official BoltzGen examples.\n    Can be a typed BoltzGenDesignSpec object or a dict representing the\n    BoltzGen yaml request specification.\n    Note: If the design_spec includes file paths, provide\n    these extra files either using `scaffolds` or `extra_structure_files`.\nstructure_file : str | bytes | BinaryIO | None, optional\n    (Deprecated: use `extra_structure_files`)\n    An input PDB/CIF file used for inpainting or other guided design tasks\n    where parts of an existing structure are provided. This parameter provides\n    the actual structure content that corresponds to any FileEntity `path`\n    fields in the design_spec. Can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\nn : int, optional\n    The number of unique design trajectories to run (default is 1).\ndiffusion_batch_size : int, optional\n    The batch size for diffusion sampling. Controls how many samples are\n    processed in parallel during the diffusion process.\nstep_scale : float, optional\n    Scaling factor for the number of diffusion steps. Higher values may\n    improve quality at the cost of longer generation time.\nnoise_scale : float, optional\n    Scaling factor for the noise schedule during diffusion. Controls the\n    amount of noise added at each step of the reverse diffusion process.\nscaffolds : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping scaffold filenames to their content. Each value can be:\n    - A file path (str) to read from\n    - Raw file content (bytes)\n    - A file-like object (BinaryIO)\n    These files will be packaged into a gzipped tar archive and made available\n    to the design process under the 'scaffolds/' directory.\nscaffold_set : Scaffolds | str | None, optional\n    A pre-defined scaffold set object. Alternative to providing individual\n    scaffold files via the `scaffolds` parameter.\nextra_structure_files : dict[str, str | bytes | BinaryIO] | None, optional\n    Dictionary mapping additional structure filenames to their content, with\n    the same format options as `scaffolds`. These files will be packaged into\n    the same archive under the 'extra/' directory and can be referenced in\n    the design specification.\n\nOther Parameters\n----------------\n**kwargs : dict\n    Additional keyword args that are passed directly to the boltzgen\n    inference script. Overwrites any preceding options.\n\nReturns\n-------\nStructureGenerationFuture\n    A future object that can be used to retrieve the results of the design\n    job upon completion.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
@@ -1329,7 +1562,174 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Alias for the `design` method to conform to the base ProteinModel."
+       "text": "Run a protein structure generate job using BoltzGen."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "query",
+         "type": "str or bytes or Protein or Complex or Query",
+         "type_parts": [
+          {
+           "text": "str or bytes or "
+          },
+          {
+           "text": "Protein",
+           "path": "openprotein.molecules.Protein",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Complex",
+           "path": "openprotein.molecules.Complex",
+           "page": "molecules"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Query",
+           "path": "openprotein.prompt.Query",
+           "page": "prompt"
+          }
+         ],
+         "default": "None",
+         "text": "A query representing the design specification. Either `query` or `design_spec`\nmust be provided.\n`query` provides a unified way to represent design specifications on the\nOpenProtein platform. In this case, the structure mask of the containing Complex\nproteins are specified to be designed. Other parameters like binding, group,\nsecondary structures, etc. are also passed through to BoltzGen."
+        },
+        {
+         "name": "design_spec",
+         "type": "BoltzGenDesignSpec | dict[str, Any] | None",
+         "type_parts": [
+          {
+           "text": "BoltzGenDesignSpec | dict[str, Any] | None"
+          }
+         ],
+         "default": "None",
+         "text": "The BoltzGen design specification to run. Either `query` or `design_spec`\nmust be provided.\n`design_spec` exposes a low-level interface to using BoltzGen by accepting the YAML\nspecification used by official BoltzGen examples.\nCan be a typed BoltzGenDesignSpec object or a dict representing the\nBoltzGen yaml request specification.\nNote: If the design_spec includes file paths, provide\nthese extra files either using `scaffolds` or `extra_structure_files`."
+        },
+        {
+         "name": "structure_file",
+         "type": "str | bytes | BinaryIO | None",
+         "type_parts": [
+          {
+           "text": "str | bytes | BinaryIO | None"
+          }
+         ],
+         "default": "None",
+         "text": "(Deprecated: use `extra_structure_files`)\nAn input PDB/CIF file used for inpainting or other guided design tasks\nwhere parts of an existing structure are provided. This parameter provides\nthe actual structure content that corresponds to any FileEntity `path`\nfields in the design_spec. Can be:\n- A file path (str) to read from\n- Raw file content (bytes)\n- A file-like object (BinaryIO)"
+        },
+        {
+         "name": "n",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": null,
+         "text": "The number of unique design trajectories to run (default is 1)."
+        },
+        {
+         "name": "diffusion_batch_size",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "The batch size for diffusion sampling. Controls how many samples are\nprocessed in parallel during the diffusion process."
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Scaling factor for the number of diffusion steps. Higher values may\nimprove quality at the cost of longer generation time."
+        },
+        {
+         "name": "noise_scale",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Scaling factor for the noise schedule during diffusion. Controls the\namount of noise added at each step of the reverse diffusion process."
+        },
+        {
+         "name": "scaffolds",
+         "type": "dict[str, str | bytes | BinaryIO] | None",
+         "type_parts": [
+          {
+           "text": "dict[str, str | bytes | BinaryIO] | None"
+          }
+         ],
+         "default": "None",
+         "text": "Dictionary mapping scaffold filenames to their content. Each value can be:\n- A file path (str) to read from\n- Raw file content (bytes)\n- A file-like object (BinaryIO)\nThese files will be packaged into a gzipped tar archive and made available\nto the design process under the 'scaffolds/' directory."
+        },
+        {
+         "name": "scaffold_set",
+         "type": "Scaffolds | str | None",
+         "type_parts": [
+          {
+           "text": "Scaffolds | str | None"
+          }
+         ],
+         "default": "None",
+         "text": "A pre-defined scaffold set object. Alternative to providing individual\nscaffold files via the `scaffolds` parameter."
+        },
+        {
+         "name": "extra_structure_files",
+         "type": "dict[str, str | bytes | BinaryIO] | None",
+         "type_parts": [
+          {
+           "text": "dict[str, str | bytes | BinaryIO] | None"
+          }
+         ],
+         "default": "None",
+         "text": "Dictionary mapping additional structure filenames to their content, with\nthe same format options as `scaffolds`. These files will be packaged into\nthe same archive under the 'extra/' directory and can be referenced in\nthe design specification."
+        }
+       ]
+      },
+      {
+       "kind": "other parameters",
+       "items": [
+        {
+         "name": "**kwargs",
+         "type": "dict",
+         "type_parts": [
+          {
+           "text": "dict"
+          }
+         ],
+         "default": "{}",
+         "text": "Additional keyword args that are passed directly to the boltzgen\ninference script. Overwrites any preceding options."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "StructureGenerationFuture",
+         "type_parts": [
+          {
+           "text": "StructureGenerationFuture"
+          }
+         ],
+         "text": "A future object that can be used to retrieve the results of the design\njob upon completion."
+        }
+       ]
       }
      ]
     }
@@ -1846,7 +2246,7 @@
       "line": 584,
       "end": 590
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
      "returns_parts": [
       {
@@ -1927,7 +2327,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -2999,7 +3399,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

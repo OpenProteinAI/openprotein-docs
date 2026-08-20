@@ -19,27 +19,84 @@
    "kind": "class",
    "signature": "class openprotein.design.DesignAPI(session)[source]",
    "source": "../../_modules/openprotein/design/design.html#DesignAPI",
+   "fields": {},
    "members": [
     {
      "name": "list_designs",
      "path": "openprotein.design.DesignAPI.list_designs",
      "kind": "method",
      "signature": "list_designs()[source]",
-     "source": "../../_modules/openprotein/design/design.html#DesignAPI.list_designs"
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.list_designs",
+     "fields": {
+      "returns": "A list of DesignFuture objects representing all designs.",
+      "return_type": "list of DesignFuture"
+     }
     },
     {
      "name": "get_design",
      "path": "openprotein.design.DesignAPI.get_design",
      "kind": "method",
      "signature": "get_design(design_id)[source]",
-     "source": "../../_modules/openprotein/design/design.html#DesignAPI.get_design"
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.get_design",
+     "fields": {
+      "parameters": [
+       {
+        "name": "design_id",
+        "type": "str"
+       }
+      ],
+      "returns": "A future object representing the design job and its results.",
+      "return_type": "DesignFuture"
+     }
     },
     {
      "name": "create_genetic_algorithm_design",
      "path": "openprotein.design.DesignAPI.create_genetic_algorithm_design",
      "kind": "method",
      "signature": "create_genetic_algorithm_design(assay, criteria, num_steps=25, pop_size=1024, n_offsprings=5120, crossover_prob=1.0, crossover_prob_pointwise=0.2, mutation_average_mutations_per_seq=1, allowed_tokens={})[source]",
-     "source": "../../_modules/openprotein/design/design.html#DesignAPI.create_genetic_algorithm_design"
+     "source": "../../_modules/openprotein/design/design.html#DesignAPI.create_genetic_algorithm_design",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayDataset"
+       },
+       {
+        "name": "criteria",
+        "type": "Criteria or Subcriterion or Criterion"
+       },
+       {
+        "name": "num_steps",
+        "type": "int, optional"
+       },
+       {
+        "name": "pop_size",
+        "type": "int, optional"
+       },
+       {
+        "name": "n_offsprings",
+        "type": "int, optional"
+       },
+       {
+        "name": "crossover_prob",
+        "type": "float, optional"
+       },
+       {
+        "name": "crossover_prob_pointwise",
+        "type": "float, optional"
+       },
+       {
+        "name": "mutation_average_mutations_per_seq",
+        "type": "int, optional"
+       },
+       {
+        "name": "allowed_tokens",
+        "type": "DesignConstraint or dict of int to list of str, optional"
+       }
+      ],
+      "returns": "A future object representing the design job and its results.",
+      "return_type": "DesignFuture"
+     }
     }
    ]
   },
@@ -49,111 +106,145 @@
    "kind": "class",
    "signature": "class openprotein.design.DesignFuture(session, job=None, metadata=None)[source]",
    "source": "../../_modules/openprotein/design/future.html#DesignFuture",
+   "fields": {},
    "members": [
     {
      "name": "id",
      "path": "openprotein.design.DesignFuture.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "assay",
      "path": "openprotein.design.DesignFuture.assay",
      "kind": "property",
      "signature": "property assay: AssayDataset",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "algorithm",
      "path": "openprotein.design.DesignFuture.algorithm",
      "kind": "property",
      "signature": "property algorithm: DesignAlgorithm",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "criteria",
      "path": "openprotein.design.DesignFuture.criteria",
      "kind": "property",
      "signature": "property criteria: Criteria",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "num_steps",
      "path": "openprotein.design.DesignFuture.num_steps",
      "kind": "property",
      "signature": "property num_steps",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "num_rows",
      "path": "openprotein.design.DesignFuture.num_rows",
      "kind": "property",
      "signature": "property num_rows",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "allowed_tokens",
      "path": "openprotein.design.DesignFuture.allowed_tokens",
      "kind": "property",
      "signature": "property allowed_tokens: dict[str, list[str]] | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "pop_size",
      "path": "openprotein.design.DesignFuture.pop_size",
      "kind": "property",
      "signature": "property pop_size: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "n_offsprings",
      "path": "openprotein.design.DesignFuture.n_offsprings",
      "kind": "property",
      "signature": "property n_offsprings: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "crossover_prob",
      "path": "openprotein.design.DesignFuture.crossover_prob",
      "kind": "property",
      "signature": "property crossover_prob: float",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "crossover_prob_pointwise",
      "path": "openprotein.design.DesignFuture.crossover_prob_pointwise",
      "kind": "property",
      "signature": "property crossover_prob_pointwise: float",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "mutation_average_mutations_per_seq",
      "path": "openprotein.design.DesignFuture.mutation_average_mutations_per_seq",
      "kind": "property",
      "signature": "property mutation_average_mutations_per_seq: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "metadata",
      "path": "openprotein.design.DesignFuture.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "stream",
      "path": "openprotein.design.DesignFuture.stream",
      "kind": "method",
      "signature": "stream(step=None)[source]",
-     "source": "../../_modules/openprotein/design/future.html#DesignFuture.stream"
+     "source": "../../_modules/openprotein/design/future.html#DesignFuture.stream",
+     "fields": {
+      "parameters": [
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A generator that yields job results.",
+      "return_type": "Generator",
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_assay",
      "path": "openprotein.design.DesignFuture.get_assay",
      "kind": "method",
      "signature": "get_assay()[source]",
-     "source": "../../_modules/openprotein/design/future.html#DesignFuture.get_assay"
+     "source": "../../_modules/openprotein/design/future.html#DesignFuture.get_assay",
+     "fields": {
+      "returns": "Assay dataset used for design.",
+      "return_type": "AssayDataset"
+     }
     }
    ]
   }

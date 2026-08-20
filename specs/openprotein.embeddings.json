@@ -3155,7 +3155,7 @@
    "name": "AbLang2Model",
    "path": "openprotein.embeddings.AbLang2Model",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "EmbeddingModel"
    ],
@@ -3868,7 +3868,7 @@
    "name": "OpenProteinModel",
    "path": "openprotein.embeddings.OpenProteinModel",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "AttnModel",
     "EmbeddingModel"
@@ -4654,7 +4654,7 @@
    "name": "ESMModel",
    "path": "openprotein.embeddings.ESMModel",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "AttnModel",
     "EmbeddingModel"
@@ -6262,7 +6262,7 @@
    "name": "EmbeddingsResultFuture",
    "path": "openprotein.embeddings.EmbeddingsResultFuture",
    "kind": "class",
-   "signature": "(session, job, sequences=None, max_workers=config.MAX_CONCURRENT_WORKERS)",
+   "signature": "(session, job, sequences=None, max_workers=10)",
    "bases": [
     "MappedFuture[bytes, np.ndarray]"
    ],
@@ -6559,18 +6559,22 @@
      "name": "job_id",
      "kind": "property",
      "doc": "The unique identifier of the job.",
-     "inherited_from": "openprotein.embeddings.future.EmbeddingsResultFuture",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.embeddings.EmbeddingsResultFuture",
-      "page": "embedding"
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
      },
      "source": {
-      "file": "openprotein/embeddings/future.py",
-      "line": 66,
-      "end": 67
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
      },
-     "annotation": null,
-     "annotation_parts": null,
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
@@ -6766,7 +6770,7 @@
       "line": 584,
       "end": 590
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
      "returns_parts": [
       {
@@ -6847,7 +6851,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -6927,7 +6931,7 @@
    "name": "EmbeddingsScoreFuture",
    "path": "openprotein.embeddings.EmbeddingsScoreFuture",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, job, sequences=None)",
    "bases": [
     "BaseScoreFuture[Score]"
    ],
@@ -7393,7 +7397,7 @@
       "line": 458,
       "end": 464
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[V]",
      "returns_parts": [
       {
@@ -7474,7 +7478,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -7554,7 +7558,7 @@
    "name": "EmbeddingsGenerateFuture",
    "path": "openprotein.embeddings.EmbeddingsGenerateFuture",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, job, sequences=None)",
    "bases": [
     "BaseScoreFuture[Score]"
    ],
@@ -8020,7 +8024,7 @@
       "line": 458,
       "end": 464
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[V]",
      "returns_parts": [
       {
@@ -8101,7 +8105,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -8184,7 +8188,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

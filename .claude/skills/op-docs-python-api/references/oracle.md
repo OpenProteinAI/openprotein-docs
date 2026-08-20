@@ -88,21 +88,63 @@ reintroduce the raw RST. Add a `:ref:` rule before re-lifting, or re-fix that li
 
 ## Fidelity — `pnpm diff:pyapi`
 
-Compares generated member **sets** and **kinds** against `golden/`, per class:
+Scores all four dimensions the plan's Phase 7 verify step asks for — member list, order,
+signatures and types — against `golden/`:
 
 ```
 member sets: 61 exact / 61 classes   members 439 generated vs 439 rendered by Sphinx   kinds all match
+member order: 60 match / 61   differs: openprotein.fold.FoldResultFuture
+signatures & types: 484 exact / 501   3 overload-primary, 14 typed-beyond-sphinx   no unexpected drift
+documented types: 657 exact / 679   7 docstring-stale, 15 griffe-tuple-normalised   no unexpected drift
 ```
+
+**`golden/` captures a rendered signature per entry**, which is what makes the third line
+possible: `class openprotein.fold.FoldAPI(session)[source]`, `fold(sequences, num_recycles=10)`,
+`property msa: str | MSAFuture | None`, `boltz2: Boltz2Model`. `golden_signature()` reduces each
+to the part we emit. Only sets and kinds were scored originally; adding the other two found
+**44 real regressions** and they are all fixed — see `generator.md` gaps 4, 5 and the alias
+subtlety in 2.
+
+### What the fixture had to learn to capture
+
+`autodoc_typehints = "description"` put every parameter and return **type** in the `<dd>` field
+list, and the original capture threw that away — so the plan's "types" clause could not be
+checked at all, however the comparator was written. `fetch_golden.py:field_list()` now records
+`Parameters` / `Returns` / `Return type` / `Raises` per entry: **540 parameters, 192 return
+types and 49 raises across 198 entries**. Re-deriving with `--offline` changed nothing else —
+still 61 classes, 439 members, 512 anchors — so the fixture grew additively.
+
+The window is cut at the first nested `<dl class="py …">`, because a class's `<dd>` contains its
+members' definition lists and only its own field list precedes them.
+
+### The four expected-drift classes
+
+Asserted as **expected**, so a change in either direction shows up as UNEXPECTED:
+
+| reason | count | why it is not a defect |
+|---|---|---|
+| `typed-beyond-sphinx` | 14 | napoleon's `.. attribute::` directives and pydantic fields carry no type on the live page; we print the real annotation. Strictly more informative |
+| `overload-primary` | 3 | Sphinx rendered the first `@overload` as the member's signature, annotated and with a return arrow (`get_item`, `stream`, `rmsd`). We render the implementation signature — what you can actually call — and list *every* overload beside it |
+| `griffe-tuple-normalised` | 15 | griffe parses a NumPy choice set or comma list (`{'mlm', 'clm'} or None`, `int, str, optional`) into a tuple expression, losing the braces and the `or None`. A griffe limitation; 540 parameters go through that path, so out-parsing it is not worth the risk |
+| `docstring-stale` | 7 | the docstring's type disagrees with the annotation and we print the annotation, because it is what the code enforces. All 7 are upstream defects, tabulated in `UPSTREAM.md` |
+
+Before comparing, ` or ` is normalised to `|`, `list of X` to `list[X]`, and the NumPy
+`, optional` / `, default=…` suffix is stripped — griffe keeps the type and the default apart
+and we emit the default separately, so without that 335 of 341 "mismatches" were that one
+convention.
+
+All four assertions were proven non-vacuous: reverting the inherited-`__init__` lookup reports
+10 UNEXPECTED, disabling constant folding 25, and removing the NumPy-underline repair 1.
 
 The rule reached this by iteration: **32 → 36 → 49 → 59 → 61** exact, each step forced by a
 named failure (see `generator.md`).
 
-**Order is not compared at all** — `report()` diffs member name sets and kinds, nothing else,
-and no order line is printed. The emitted order (own-by-source, then inherited, then
-docstring-only) in practice matches Sphinx everywhere except `openprotein.fold.FoldResultFuture`,
-where autodoc's `tagorder.get(name, len(tagorder))` tie scatters the inherited members into the
-middle instead of grouping them at the end. Adding an order assertion would mean encoding that
-tie, which is why it was left out.
+**Order is scored but not enforced.** The emitted order (own-by-source, then inherited, then
+docstring-only) matches Sphinx for **60 of 61** classes. The one exception is
+`openprotein.fold.FoldResultFuture`, where autodoc's `tagorder.get(name, len(tagorder))` tie
+scatters the inherited members into the middle instead of grouping them at the end. Matching that
+would mean encoding the tie; the line reports the class by name instead, so a *new* order
+divergence is visible.
 
 A class not present in `golden/` is skipped, so adding a class the old site never documented
 does not break the score.

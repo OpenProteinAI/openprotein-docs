@@ -154,6 +154,62 @@ def fetch(page: str, offline: bool) -> str:
     return body
 
 
+FIELD_LIST = re.compile(r'<dl class="field-list[^"]*">(.*?)</dl>', re.S)
+FIELD_ROW = re.compile(r'<dt class="field-\w+">(.*?)</dt>\s*<dd class="field-\w+">(.*?)</dd>', re.S)
+FIELD_ITEM = re.compile(
+    r"<strong>(?P<name>[^<]+)</strong>\s*(?:\((?P<type>.*?)\))?\s*(?:&#8211;|–|-)?", re.S
+)
+
+
+def _plain(html: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", html)).strip()
+
+
+def field_list(html: str, start: int) -> dict:
+    """The `Parameters` / `Returns` / `Return type` / `Raises` table Sphinx renders for one entry.
+
+    This is where `autodoc_typehints = "description"` put every parameter and return type, so it
+    is the only place the oracle can hold *types* — without it the plan's Verify step cannot
+    compare them at all, which is why they went unchecked.
+
+    Scoped by cutting the window at the first nested member `<dl class="py …">`: a class's `<dd>`
+    contains its members' definition lists, but its own field list always precedes them.
+    """
+    body = html[start:]
+    nested = re.search(r'<dl class="py ', body)
+    end = re.search(r"</dd></dl>", body)
+    limit = min(x.start() for x in (nested, end) if x) if (nested or end) else len(body)
+    match = FIELD_LIST.search(body[:limit])
+    if not match or not match.group(1).strip():
+        return {}
+    out: dict = {}
+    for row in FIELD_ROW.finditer(match.group(1)):
+        label_html, value_html = row.group(1), row.group(2)
+        label = _plain(label_html).rstrip(":").strip().lower()
+        if label in {"parameters", "raises"}:
+            items = re.findall(r"<li><p>(.*?)</p>", value_html, re.S) or [
+                re.sub(r"^\s*<p>|</p>\s*$", "", value_html.strip(), flags=re.S)
+            ]
+            rows = []
+            for item in items:
+                found = FIELD_ITEM.search(item)
+                if not found:
+                    continue
+                rows.append(
+                    {
+                        "name": _plain(found.group("name")),
+                        "type": _plain(found.group("type") or "") or None,
+                    }
+                )
+            if rows:
+                out[label] = rows
+        elif label == "return type":
+            out["return_type"] = _plain(value_html) or None
+        elif label == "returns":
+            out["returns"] = _plain(value_html) or None
+    return out
+
+
 def extract(page: str, html: str) -> dict:
     parser = Autodoc()
     parser.feed(html)
@@ -162,6 +218,9 @@ def extract(page: str, html: str) -> dict:
     order: list[str] = []
     loose: list[dict] = []
     for entry in parser.entries:
+        anchor = f'id="{entry["id"]}"'
+        at = html.find(anchor)
+        entry["fields"] = field_list(html, at) if at >= 0 else {}
         if entry["kind"] in {"class", "exception"}:
             classes[entry["id"]] = {
                 "name": entry["id"].rsplit(".", 1)[-1],
@@ -169,6 +228,7 @@ def extract(page: str, html: str) -> dict:
                 "kind": entry["kind"],
                 "signature": entry["signature"],
                 "source": entry["source"],
+                "fields": entry["fields"],
                 "members": [],
             }
             order.append(entry["id"])
@@ -180,6 +240,7 @@ def extract(page: str, html: str) -> dict:
                     "kind": entry["kind"],
                     "signature": entry["signature"],
                     "source": entry["source"],
+                    "fields": entry["fields"],
                 }
             )
         else:

@@ -5,7 +5,7 @@
    "name": "EmbeddingsScoreSingleSiteFuture",
    "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, job, sequences=None)",
    "bases": [
     "BaseScoreFuture[SingleSiteScore]"
    ],
@@ -471,7 +471,7 @@
       "line": 458,
       "end": 464
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[V]",
      "returns_parts": [
       {
@@ -552,7 +552,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -635,7 +635,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

@@ -498,7 +498,31 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Ensemble predictor models together.\n\nParameters\n__________\npredictors: list[PredictorModel]\n    List of predictors to ensemble together."
+       "text": "Ensemble predictor models together."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "predictors",
+         "type": "list[PredictorModel]",
+         "type_parts": [
+          {
+           "text": "list["
+          },
+          {
+           "text": "PredictorModel",
+           "path": "openprotein.predictor.PredictorModel",
+           "page": "predictor"
+          },
+          {
+           "text": "]"
+          }
+         ],
+         "default": null,
+         "text": "List of predictors to ensemble together."
+        }
+       ]
       },
       {
        "kind": "returns",
@@ -953,7 +977,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

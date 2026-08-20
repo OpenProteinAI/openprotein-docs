@@ -19,27 +19,66 @@
    "kind": "class",
    "signature": "class openprotein.data.DataAPI(session)[source]",
    "source": "../../_modules/openprotein/data/data.html#DataAPI",
+   "fields": {},
    "members": [
     {
      "name": "list",
      "path": "openprotein.data.DataAPI.list",
      "kind": "method",
      "signature": "list(limit=None, offset=None)[source]",
-     "source": "../../_modules/openprotein/data/data.html#DataAPI.list"
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.list",
+     "fields": {
+      "returns": "List of all assay datasets.",
+      "return_type": "List[AssayDataset]"
+     }
     },
     {
      "name": "create",
      "path": "openprotein.data.DataAPI.create",
      "kind": "method",
      "signature": "create(table, name, description=None)[source]",
-     "source": "../../_modules/openprotein/data/data.html#DataAPI.create"
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.create",
+     "fields": {
+      "parameters": [
+       {
+        "name": "table",
+        "type": "pd.DataFrame"
+       },
+       {
+        "name": "name",
+        "type": "str"
+       },
+       {
+        "name": "description",
+        "type": "str, optional"
+       }
+      ],
+      "returns": "Created assay dataset.",
+      "return_type": "AssayDataset"
+     }
     },
     {
      "name": "get",
      "path": "openprotein.data.DataAPI.get",
      "kind": "method",
      "signature": "get(assay_id, verbose=False)[source]",
-     "source": "../../_modules/openprotein/data/data.html#DataAPI.get"
+     "source": "../../_modules/openprotein/data/data.html#DataAPI.get",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay_id",
+        "type": "str"
+       }
+      ],
+      "returns": "Assay dataset with the specified ID.",
+      "return_type": "AssayDataset",
+      "raises": [
+       {
+        "name": "KeyError",
+        "type": null
+       }
+      ]
+     }
     }
    ]
   },
@@ -49,34 +88,70 @@
    "kind": "class",
    "signature": "class openprotein.data.AssayDataset(session, metadata)[source]",
    "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset",
+   "fields": {},
    "members": [
     {
      "name": "list_models",
      "path": "openprotein.data.AssayDataset.list_models",
      "kind": "method",
      "signature": "list_models()[source]",
-     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.list_models"
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.list_models",
+     "fields": {
+      "returns": "List of models",
+      "return_type": "List"
+     }
     },
     {
      "name": "update",
      "path": "openprotein.data.AssayDataset.update",
      "kind": "method",
      "signature": "update(assay_name=None, assay_description=None)[source]",
-     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.update"
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.update",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay_name",
+        "type": "str, optional"
+       },
+       {
+        "name": "assay_description",
+        "type": "str, optional"
+       }
+      ],
+      "return_type": "None"
+     }
     },
     {
      "name": "get_first",
      "path": "openprotein.data.AssayDataset.get_first",
      "kind": "method",
      "signature": "get_first()[source]",
-     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_first"
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_first",
+     "fields": {
+      "returns": "Dataframe containing the slice of assay data.",
+      "return_type": "pd.DataFrame"
+     }
     },
     {
      "name": "get_slice",
      "path": "openprotein.data.AssayDataset.get_slice",
      "kind": "method",
      "signature": "get_slice(start, end)[source]",
-     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_slice"
+     "source": "../../_modules/openprotein/data/assaydataset.html#AssayDataset.get_slice",
+     "fields": {
+      "parameters": [
+       {
+        "name": "start",
+        "type": "int"
+       },
+       {
+        "name": "end",
+        "type": "int"
+       }
+      ],
+      "returns": "Dataframe containing the slice of assay data.",
+      "return_type": "pd.DataFrame"
+     }
     }
    ]
   },
@@ -86,6 +161,7 @@
    "kind": "class",
    "signature": "class openprotein.data.AssayMetadata(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False)[source]",
    "source": "../../_modules/openprotein/data/schemas.html#AssayMetadata",
+   "fields": {},
    "members": []
   }
  ],

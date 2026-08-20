@@ -55,7 +55,7 @@ any attribute the class docstring's `Attributes` section documents but the class
 not (see napoleon, below). Both are skipped when an explicit `:members:` list is given,
 because such a list is exhaustive.
 
-## The five things griffe does not hand you
+## The six things griffe does not hand you
 
 **1. `#:` attribute comments.** griffe 2.2.0 does not read them at all — `attr.docstring` is
 `None` for every class-level attribute of `FoldAPI`, including the 11 that carry one. They are
@@ -77,11 +77,21 @@ and the **kind** — `predict` is a *method* on the live page but an attribute s
 Resolution runs for **every** attribute, not only undocumented ones: `predict` is documented by
 its class docstring, so an `if not doc` guard skipped it and left the kind wrong.
 
-A second subtlety: the alias target may itself be an undocumented override. `SVDModel` and
-`EmbeddingsResultFuture` each define their own `def id(self)` with no docstring, shadowing the
-documented `Future.id`, so the MRO walk has to run on the alias target too — without it `job_id`
-disappears from exactly those two classes. (`job_id` is emitted on 10 classes across 4 pages —
-embedding 6, models 2, fold 1, prompt 1; the other 8 get their docs from the sibling directly.)
+A second subtlety, and the direction matters: **resolve from the class that owns the
+assignment, not from `cls`.** `job_id = id` is written in `Future`'s body, so Python binds
+`Future.id` there and for ever — and `EmbeddingsResultFuture` overrides `id` with an
+*unannotated* property. Starting the walk at `cls` finds that override and loses the `str`,
+which is exactly why the live page shows `property id` with no type but `property job_id: str`.
+Sphinx is right on both; `alias_target()` now tries `target.parent` and its MRO first, then
+`cls`. (`job_id` is emitted on 10 classes across 4 pages — embedding 6, models 2, fold 1,
+prompt 1.)
+
+**Assignment aliases outrank the MRO.** At runtime `predict` *is* `generate` — the assignment
+binds the function object — so autodoc read `generate.__doc__`, and the live page showed
+`predict` with the full "Run a protein structure generate job using RFdiffusion" prose and all
+16 parameters. Deferring to the MRO instead picked up `ProteinModel.predict`'s one-line "Alias
+for the design method" and dropped the parameter table on both `predict` members. Only the
+alias's *own* docstring outranks the target, and a bare assignment cannot have one.
 
 **3. MRO docstring inheritance.** `inherited_members` deliberately omits names the subclass
 overrides, so it cannot answer this; `cls.mro()` can. It is C3-linearised, excludes the class
@@ -94,11 +104,41 @@ just its text, because the docstring's *sections* have to be parsed from whateve
 subclass, so there is no `__init__` statically. `force_inspection=True` makes it **strictly
 worse**: `ESMFold2Confidence` goes from 5 real fields to 22 members of pydantic machinery with
 the fields gone, and it imports the package. `pydantic_signature()` synthesises the signature
-from the class's own annotation-only attributes, keyword-only — which reproduces the live
+from annotation-only attributes, keyword-only — reproducing the live
 `(*, ptm, iptm, complex_plddt, chains_ptm, pair_chains_iptm)` exactly. Field *descriptions* come
 from the class docstring's `Attributes` section, not from the attributes.
 
-**5. Overloads and properties.** `.overloads` is read off the **function**, not the parent — the
+Four details it has to get right, each forced by a signature mismatch against `golden/`:
+
+| detail | without it |
+|---|---|
+| Detect pydantic through the **MRO**, not `cls.bases` | `PromptJob(Job)` has no `BaseModel` base of its own, fell through to the `__init__` lookup and rendered `()` |
+| Collect fields **base-first**, a re-declaration updating in place | `PromptJob` would list its own `job_type` first instead of in `Job`'s position |
+| Unwrap `Field(…)`: a keyword-only call means **required**, a positional first argument or `default=` is the default | printed `id=Field(description='Prompt unique identifier.')` on the page |
+| `model_config = ConfigDict(extra="allow")` anywhere up the chain appends `**extra_data` | `Job` and `PromptJob` dropped the trailing `**extra_data` Sphinx showed |
+
+The synthetic `model_config` also carries `ClassVar[ConfigDict]` and the value `{}`, because it
+is otherwise the only untyped attribute on its page.
+
+**5. Signatures.** Three separate gaps, all found by scoring signatures against `golden/`
+(see `oracle.md`) — 434 of 501 matched before, 484 after.
+
+- **The class signature comes from the MRO.** `autoclass_content = "class"` picks the class
+  docstring, but `autodoc_class_signature = "mixed"` still introspects the runtime class, so an
+  inherited `__init__` supplies the parameters. `target.members.get("__init__")` is own-members
+  only and left **11 classes rendering `()`** — `OpenProtein` among them, whose `__init__` lives
+  on `openprotein.base.APISession`. `sdk.inherited_member()` walks `[cls, *cls.mro()]`.
+- **Constant defaults fold.** griffe reports a default as written; Sphinx printed the runtime
+  value. `sdk.constant_value()` follows the expression's `canonical_path` from the package root
+  and substitutes a plain literal — `interval=config.POLLING_INTERVAL` → `interval=5`, 25
+  signatures. **Module-level only**: an enum member resolves the same way, but Sphinx printed
+  `reduction=ReductionType.MEAN`, not `'MEAN'`, so folding those made 11 signatures worse. The
+  guard is `parent.kind == "module"`.
+- **Annotations are absent from the signature on purpose.** `autodoc_typehints = "description"`
+  moved them into the parameter table, which the golden signatures confirm
+  (`fold(sequences, diffusion_samples=1, …)`, no types). Do not "restore" them.
+
+**6. Overloads and properties.** `.overloads` is read off the **function**, not the parent — the
 parent's `overloads` dict is emptied when the implementation is visited, and it is a
 `defaultdict` that grows stray empty entries just from being read. 3 members carry overloads.
 A property is `Kind.ATTRIBUTE` with `'property' in labels`; a plain attribute carries
@@ -119,9 +159,18 @@ rendering because those entries are already members.
 
 ## Source links
 
-`ref` is `v<version>` from the installed distribution. The wheel was verified **byte-identical**
-to commit `85dc94bd15a33bdc8674ad899571043016427ce3` (tag `v0.16.1`) for `fold/fold.py`,
-`jobs/futures.py` and `molecules/__init__.py`, so the line numbers mean something.
+**`ref` is the commit, never the tag.** `sdk.SDK_COMMIT` is
+`85dc94bd15a33bdc8674ad899571043016427ce3`; the emitted `source` is
+`{repository, ref: <commit>, tag: "v0.16.1"}` and every `[source]` URL resolves through the SHA.
+A tag is movable and all ~500 line ranges are only meaningful against one exact tree — re-tagging
+`v0.16.1` would silently point them all at different code.
+
+The commit is **proven, not assumed**: the annotated tag `v0.16.1` is object `c1e67f31…`
+pointing at it, and all **51** SDK files the specs line-link are byte-identical to it.
+`sdk-pin.json` records the sha256 of each; `pnpm verify:pyapi:pin` re-checks them offline and
+`--online` re-fetches every one from GitHub. Both directions are proven non-vacuous — tampering
+with one installed file reports `sha256 … != pinned`. `check-pyapi.mjs` reads the SHA out of the
+pin, so the rendered-link assertion cannot drift from the generator.
 
 Paths come from **`relative_package_filepath`** — never `relative_filepath`, which falls back to
 an absolute path when the file is outside `cwd`. Two caveats encoded in `_source()`: a decorated

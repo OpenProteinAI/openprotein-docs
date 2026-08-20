@@ -14,7 +14,11 @@ The generator is scored against what the old Sphinx site actually published:
 
 ```
 member sets: 61 exact / 61 classes   members 439 generated vs 439 rendered by Sphinx   kinds all match
-all checks passed — 501 dotted anchors present and unique, 652 cross-references resolve
+member order: 60 match / 61   differs: openprotein.fold.FoldResultFuture
+signatures & types: 484 exact / 501   3 overload-primary, 14 typed-beyond-sphinx   no unexpected drift
+documented types: 657 exact / 679   7 docstring-stale, 15 griffe-tuple-normalised   no unexpected drift
+all checks passed — 501 dotted anchors present and unique, 659 cross-references resolve
+51/51 line-linked SDK files match sdk-pin.json at 85dc94bd15a3 — every [source] line number is anchored
 ```
 
 ## The whole path, end to end
@@ -52,7 +56,9 @@ openprotein-python 0.16.1 (.venv-pyapi)        scripts/pyapi/pages.json   ← th
 | `scripts/pyapi/generate.py` | the driver and the cross-reference resolver |
 | `scripts/pyapi/pages.json` | **the curation** — page → section → class → autodoc options |
 | `scripts/pyapi/extract_manifest.py` | how `pages.json` was lifted from the old `.rst`. Provenance only |
-| `scripts/pyapi/fetch_golden.py` + `golden/` | **the oracle** — what the live Sphinx site rendered, plus its HTML |
+| `scripts/pyapi/fetch_golden.py` + `golden/` | **the oracle** — what the live Sphinx site rendered (members, kinds, order, signatures **and** documented types), plus its HTML |
+| `scripts/pyapi/sdk-pin.json` | sha256 of all 51 SDK files the specs line-link, at the pinned commit |
+| `scripts/pyapi/UPSTREAM.md` | generated record of the SDK's own docstring defects — report, do not reproduce |
 | `scripts/pyapi/seed_pages.py` | wrote the 12 `.mdx` once; refuses to overwrite without `--force` |
 | `specs/openprotein*.json` | 16 committed documents; the build reads nothing else |
 | `lib/python-api.ts` | reader (`cache()`d per request), `pyToc`, source URLs. **server-only** |
@@ -90,6 +96,13 @@ openprotein-python 0.16.1 (.venv-pyapi)        scripts/pyapi/pages.json   ← th
    *documented member*; `Type[NullMSA]` resolves to a nested class autodoc never emitted.
 8. **`Parser.auto` is not enough**, and sections come from whichever object owns the docstring.
    Both are load-bearing; together they recovered 34 of the 495 docstrings in the corpus.
+9. **Signatures carry no annotations, and that is correct.** `autodoc_typehints = "description"`
+   moved them into the parameter table. But defaults *are* resolved (`interval=5`, not
+   `config.POLLING_INTERVAL`) and the class signature comes from the **MRO** `__init__`, or 11
+   classes render `()`. `pnpm diff:pyapi` scores all of this.
+10. **`[source]` links resolve through the pinned commit, never the tag**, and
+    `pnpm verify:pyapi:pin` re-proves the wheel is that tree. A moved tag would silently
+    re-point every one of the ~500 line ranges.
 
 ## Recipes
 
@@ -108,6 +121,10 @@ then `sync:pyapi`, then add or remove the `<PyClass path="…" />` line and the 
 specific failure against the oracle; read the table before touching it.
 → `references/generator.md`
 
+**A signature looks wrong** — run `pnpm diff:pyapi` and read the `signatures & types` line. It
+compares against the signature the live Sphinx page rendered, which `golden/` captured verbatim.
+→ `references/oracle.md`
+
 **A type is not linked** — either it is not documented here (correct — `str`, `Sequence`), or
 the resolver could not map its canonical path. → `references/docstrings.md`
 
@@ -123,13 +140,15 @@ parsed from the ancestor that owns the docstring. → `references/generator.md`
 
 ## Known gaps, carried deliberately
 
-- **Member order is not bit-compatible with autodoc.** Sphinx's `bysource` keys on
+- **One class's member order differs.** Sphinx's `bysource` keys on
   `tagorder.get(name, len(tagorder))` — the dict's *size*, not max+1 — so inherited members tie
   with whichever own member sits at that index and the groups interleave. We emit own-by-source,
-  then inherited, then docstring-only. `diff:pyapi` compares sets and kinds, not order — but in
-  practice **60 of the 61 classes match Sphinx's order exactly**; only
-  `openprotein.fold.FoldResultFuture` differs, where the inherited members were scattered into
-  the middle by that tie.
+  then inherited, then docstring-only, which matches Sphinx for **60 of 61** classes;
+  `openprotein.fold.FoldResultFuture` is the exception. `diff:pyapi` reports it by name.
+- **Two signature classes deliberately differ from the live page**, both asserted as expected by
+  `diff:pyapi`: 14 attributes where we print a type Sphinx left blank (napoleon `.. attribute::`
+  entries and pydantic fields), and 3 members where Sphinx printed the first `@overload` and we
+  print the implementation signature plus every overload.
 - **Two anchors change**, both off Sphinx's numeric fallback: `models#id1` → `#results-1` and
   `index#id1` → `#models-1`, each the second heading of a duplicated title. Also unpublished:
   the 11 `openprotein-<page>` h1 slugs, which pointed at the top of their own page anyway.

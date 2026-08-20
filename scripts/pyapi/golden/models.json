@@ -43,6 +43,7 @@
    "kind": "class",
    "signature": "class openprotein.models.ModelsAPI(session)[source]",
    "source": "../../_modules/openprotein/models/models.html#ModelsAPI",
+   "fields": {},
    "members": []
   },
   {
@@ -51,27 +52,180 @@
    "kind": "class",
    "signature": "class openprotein.models.RFdiffusionModel(session, model_id='rfdiffusion')[source]",
    "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel",
+   "fields": {},
    "members": [
     {
      "name": "get_metadata",
      "path": "openprotein.models.RFdiffusionModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()[source]",
-     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.get_metadata"
+     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.get_metadata",
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.models.RFdiffusionModel.generate",
      "kind": "method",
      "signature": "generate(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)[source]",
-     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.generate"
+     "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionModel.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query, optional"
+       },
+       {
+        "name": "contigs",
+        "type": "int, str, optional"
+       },
+       {
+        "name": "structure_file",
+        "type": "BinaryIO, optional"
+       },
+       {
+        "name": "n",
+        "type": "int, optional"
+       },
+       {
+        "name": "inpaint_seq",
+        "type": "str, optional"
+       },
+       {
+        "name": "provide_seq",
+        "type": "str, optional"
+       },
+       {
+        "name": "hotspot",
+        "type": "str, optional"
+       },
+       {
+        "name": "T",
+        "type": "int, optional"
+       },
+       {
+        "name": "partial_T",
+        "type": "int, optional"
+       },
+       {
+        "name": "use_active_site_model",
+        "type": "bool, optional"
+       },
+       {
+        "name": "use_beta_model",
+        "type": "bool, optional"
+       },
+       {
+        "name": "symmetry",
+        "type": "{&quot;cyclic&quot;, &quot;dihedral&quot;, &quot;tetrahedral&quot;}, optional"
+       },
+       {
+        "name": "order",
+        "type": "int, optional"
+       },
+       {
+        "name": "add_potential",
+        "type": "bool, optional"
+       },
+       {
+        "name": "scaffold_target_structure_file",
+        "type": "str, bytes, BinaryIO, optional"
+       },
+       {
+        "name": "scaffold_target_use_struct",
+        "type": "bool, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": "dict"
+       }
+      ],
+      "returns": "A future object that can be used to retrieve the results of the design job upon completion.",
+      "return_type": "StructureGenerationFuture"
+     }
     },
     {
      "name": "predict",
      "path": "openprotein.models.RFdiffusionModel.predict",
      "kind": "method",
      "signature": "predict(query=None, contigs=None, structure_file=None, N=1, inpaint_seq=None, provide_seq=None, hotspot=None, T=None, partial_T=None, use_active_site_model=None, use_beta_model=None, symmetry=None, order=None, add_potential=None, scaffold_target_structure_file=None, scaffold_target_use_struct=False, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query, optional"
+       },
+       {
+        "name": "contigs",
+        "type": "int, str, optional"
+       },
+       {
+        "name": "structure_file",
+        "type": "BinaryIO, optional"
+       },
+       {
+        "name": "n",
+        "type": "int, optional"
+       },
+       {
+        "name": "inpaint_seq",
+        "type": "str, optional"
+       },
+       {
+        "name": "provide_seq",
+        "type": "str, optional"
+       },
+       {
+        "name": "hotspot",
+        "type": "str, optional"
+       },
+       {
+        "name": "T",
+        "type": "int, optional"
+       },
+       {
+        "name": "partial_T",
+        "type": "int, optional"
+       },
+       {
+        "name": "use_active_site_model",
+        "type": "bool, optional"
+       },
+       {
+        "name": "use_beta_model",
+        "type": "bool, optional"
+       },
+       {
+        "name": "symmetry",
+        "type": "{&quot;cyclic&quot;, &quot;dihedral&quot;, &quot;tetrahedral&quot;}, optional"
+       },
+       {
+        "name": "order",
+        "type": "int, optional"
+       },
+       {
+        "name": "add_potential",
+        "type": "bool, optional"
+       },
+       {
+        "name": "scaffold_target_structure_file",
+        "type": "str, bytes, BinaryIO, optional"
+       },
+       {
+        "name": "scaffold_target_use_struct",
+        "type": "bool, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": "dict"
+       }
+      ],
+      "returns": "A future object that can be used to retrieve the results of the design job upon completion.",
+      "return_type": "StructureGenerationFuture"
+     }
     }
    ]
   },
@@ -81,118 +235,191 @@
    "kind": "class",
    "signature": "class openprotein.models.RFdiffusionFuture(*args, **kwargs)[source]",
    "source": "../../_modules/openprotein/models/foundation/rfdiffusion.html#RFdiffusionFuture",
+   "fields": {},
    "members": [
     {
      "name": "args",
      "path": "openprotein.models.RFdiffusionFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.models.RFdiffusionFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.models.RFdiffusionFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.models.RFdiffusionFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.models.RFdiffusionFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_item",
      "path": "openprotein.models.RFdiffusionFuture.get_item",
      "kind": "method",
      "signature": "get_item(replicate=0)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "k",
+        "type": null
+       }
+      ],
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "id",
      "path": "openprotein.models.RFdiffusionFuture.id",
      "kind": "property",
      "signature": "property id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.models.RFdiffusionFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.models.RFdiffusionFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.models.RFdiffusionFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.models.RFdiffusionFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.models.RFdiffusionFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.models.RFdiffusionFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "stream",
      "path": "openprotein.models.RFdiffusionFuture.stream",
      "kind": "method",
      "signature": "stream(**kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "A generator that yields (key, value) tuples.",
+      "return_type": "Generator"
+     }
     },
     {
      "name": "wait",
      "path": "openprotein.models.RFdiffusionFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.models.RFdiffusionFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -202,27 +429,132 @@
    "kind": "class",
    "signature": "class openprotein.models.BoltzGenModel(session, model_id='boltzgen')[source]",
    "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel",
+   "fields": {},
    "members": [
     {
      "name": "get_metadata",
      "path": "openprotein.models.BoltzGenModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()[source]",
-     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.get_metadata"
+     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.get_metadata",
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.models.BoltzGenModel.generate",
      "kind": "method",
      "signature": "generate(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.generate"
+     "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenModel.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query, optional"
+       },
+       {
+        "name": "design_spec",
+        "type": "BoltzGenDesignSpec | dict[str, Any] | None, optional"
+       },
+       {
+        "name": "structure_file",
+        "type": "str | bytes | BinaryIO | None, optional"
+       },
+       {
+        "name": "n",
+        "type": "int, optional"
+       },
+       {
+        "name": "diffusion_batch_size",
+        "type": "int, optional"
+       },
+       {
+        "name": "step_scale",
+        "type": "float, optional"
+       },
+       {
+        "name": "noise_scale",
+        "type": "float, optional"
+       },
+       {
+        "name": "scaffolds",
+        "type": "dict[str, str | bytes | BinaryIO] | None, optional"
+       },
+       {
+        "name": "scaffold_set",
+        "type": "Scaffolds | str | None, optional"
+       },
+       {
+        "name": "extra_structure_files",
+        "type": "dict[str, str | bytes | BinaryIO] | None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": "dict"
+       }
+      ],
+      "returns": "A future object that can be used to retrieve the results of the design job upon completion.",
+      "return_type": "StructureGenerationFuture"
+     }
     },
     {
      "name": "predict",
      "path": "openprotein.models.BoltzGenModel.predict",
      "kind": "method",
      "signature": "predict(query=None, design_spec=None, structure_file=None, N=1, diffusion_batch_size=None, step_scale=None, noise_scale=None, scaffolds=None, scaffold_set=None, extra_structure_files=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query, optional"
+       },
+       {
+        "name": "design_spec",
+        "type": "BoltzGenDesignSpec | dict[str, Any] | None, optional"
+       },
+       {
+        "name": "structure_file",
+        "type": "str | bytes | BinaryIO | None, optional"
+       },
+       {
+        "name": "n",
+        "type": "int, optional"
+       },
+       {
+        "name": "diffusion_batch_size",
+        "type": "int, optional"
+       },
+       {
+        "name": "step_scale",
+        "type": "float, optional"
+       },
+       {
+        "name": "noise_scale",
+        "type": "float, optional"
+       },
+       {
+        "name": "scaffolds",
+        "type": "dict[str, str | bytes | BinaryIO] | None, optional"
+       },
+       {
+        "name": "scaffold_set",
+        "type": "Scaffolds | str | None, optional"
+       },
+       {
+        "name": "extra_structure_files",
+        "type": "dict[str, str | bytes | BinaryIO] | None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": "dict"
+       }
+      ],
+      "returns": "A future object that can be used to retrieve the results of the design job upon completion.",
+      "return_type": "StructureGenerationFuture"
+     }
     }
    ]
   },
@@ -232,118 +564,191 @@
    "kind": "class",
    "signature": "class openprotein.models.BoltzGenFuture(*args, **kwargs)[source]",
    "source": "../../_modules/openprotein/models/foundation/boltzgen.html#BoltzGenFuture",
+   "fields": {},
    "members": [
     {
      "name": "args",
      "path": "openprotein.models.BoltzGenFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.models.BoltzGenFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.models.BoltzGenFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.models.BoltzGenFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.models.BoltzGenFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_item",
      "path": "openprotein.models.BoltzGenFuture.get_item",
      "kind": "method",
      "signature": "get_item(replicate=0)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "k",
+        "type": null
+       }
+      ],
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "id",
      "path": "openprotein.models.BoltzGenFuture.id",
      "kind": "property",
      "signature": "property id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.models.BoltzGenFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.models.BoltzGenFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.models.BoltzGenFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.models.BoltzGenFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.models.BoltzGenFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.models.BoltzGenFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "stream",
      "path": "openprotein.models.BoltzGenFuture.stream",
      "kind": "method",
      "signature": "stream(**kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "A generator that yields (key, value) tuples.",
+      "return_type": "Generator"
+     }
     },
     {
      "name": "wait",
      "path": "openprotein.models.BoltzGenFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.models.BoltzGenFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -353,41 +758,128 @@
    "kind": "class",
    "signature": "class openprotein.models.ProteinMPNNModel(session)[source]",
    "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel",
+   "fields": {},
    "members": [
     {
      "name": "get_metadata",
      "path": "openprotein.models.ProteinMPNNModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()[source]",
-     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.get_metadata"
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.get_metadata",
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "score",
      "path": "openprotein.models.ProteinMPNNModel.score",
      "kind": "method",
      "signature": "score(sequences, query)[source]",
-     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.score"
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.score",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Query or None, optional"
+       }
+      ],
+      "returns": "A future object that returns the scores of the submitted sequences.",
+      "return_type": "EmbeddingsScoreFuture"
+     }
     },
     {
      "name": "indel",
      "path": "openprotein.models.ProteinMPNNModel.indel",
      "kind": "method",
      "signature": "indel(sequence, query, insert=None, delete=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.indel"
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.indel",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Query or None, optional"
+       },
+       {
+        "name": "insert",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "delete",
+        "type": "list of int or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the scores of the indel-ed sequence.",
+      "return_type": "EmbeddingsScoreFuture",
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "single_site",
      "path": "openprotein.models.ProteinMPNNModel.single_site",
      "kind": "method",
      "signature": "single_site(sequence, query)[source]",
-     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.single_site"
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.single_site",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Query or None, optional"
+       }
+      ],
+      "returns": "A future object that returns the per-variant scores of the single substitutions.",
+      "return_type": "EmbeddingsScoreSingleSiteFuture"
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.models.ProteinMPNNModel.generate",
      "kind": "method",
      "signature": "generate(query=None, design=None, num_samples=100, temperature=0.1, seed=None)[source]",
-     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.generate"
+     "source": "../../_modules/openprotein/models/foundation/proteinmpnn.html#ProteinMPNNModel.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or list of these or None, optional"
+       },
+       {
+        "name": "design",
+        "type": "str or StructureGenerationFuture or None, optional"
+       },
+       {
+        "name": "num_samples",
+        "type": "int, optional"
+       },
+       {
+        "name": "temperature",
+        "type": "float, optional"
+       }
+      ],
+      "returns": "A future object representing the status and information about the generation job.",
+      "return_type": "EmbeddingsGenerateFuture"
+     }
     }
    ]
   },
@@ -397,41 +889,132 @@
    "kind": "class",
    "signature": "class openprotein.models.ESMIF1Model(session)[source]",
    "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model",
+   "fields": {},
    "members": [
     {
      "name": "get_metadata",
      "path": "openprotein.models.ESMIF1Model.get_metadata",
      "kind": "method",
      "signature": "get_metadata()[source]",
-     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.get_metadata"
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.get_metadata",
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "score",
      "path": "openprotein.models.ESMIF1Model.score",
      "kind": "method",
      "signature": "score(sequences, query)[source]",
-     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.score"
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.score",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or str"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query"
+       }
+      ],
+      "returns": "A future object that returns the scores of the submitted sequences.",
+      "return_type": "EmbeddingsScoreFuture"
+     }
     },
     {
      "name": "single_site",
      "path": "openprotein.models.ESMIF1Model.single_site",
      "kind": "method",
      "signature": "single_site(sequence, query)[source]",
-     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.single_site"
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.single_site",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes or str"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query"
+       }
+      ],
+      "returns": "A future object that returns the per-variant scores.",
+      "return_type": "EmbeddingsScoreSingleSiteFuture"
+     }
     },
     {
      "name": "indel",
      "path": "openprotein.models.ESMIF1Model.indel",
      "kind": "method",
      "signature": "indel(sequence, query, insert=None, delete=None)[source]",
-     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.indel"
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.indel",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes or str"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Query or None, optional"
+       },
+       {
+        "name": "insert",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "delete",
+        "type": "list of int or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the scores of the indel-ed sequence.",
+      "return_type": "EmbeddingsScoreFuture",
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.models.ESMIF1Model.generate",
      "kind": "method",
      "signature": "generate(query=None, design=None, num_samples=100, temperature=1.0, seed=None)[source]",
-     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.generate"
+     "source": "../../_modules/openprotein/models/foundation/esmif1.html#ESMIF1Model.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or list of these or None, optional"
+       },
+       {
+        "name": "design",
+        "type": "str or StructureGenerationFuture or None, optional"
+       },
+       {
+        "name": "num_samples",
+        "type": "int, optional"
+       },
+       {
+        "name": "temperature",
+        "type": "float, optional"
+       },
+       {
+        "name": "seed",
+        "type": "int, optional"
+       }
+      ],
+      "returns": "A future object representing the status and information about the generation job.",
+      "return_type": "EmbeddingsGenerateFuture"
+     }
     }
    ]
   }

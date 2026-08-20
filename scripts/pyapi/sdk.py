@@ -6,6 +6,7 @@ live Sphinx output for openprotein-python 0.16.1; see README.md.
 
 from __future__ import annotations
 
+import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -16,6 +17,17 @@ PACKAGE = "openprotein"
 
 # The public re-export path is what the .rst documents; griffe reports the defining module.
 REPO = "https://github.com/OpenProteinAI/openprotein-python"
+
+# `[source]` links resolve through this COMMIT, never the tag. A tag is movable, and every one
+# of the ~500 line ranges in specs/ is only meaningful against one exact tree — re-tagging
+# v0.16.1 would silently point them all at different code.
+#
+# Verified, not assumed: the annotated tag `v0.16.1` is object c1e67f31… pointing at this
+# commit, and all 51 SDK files the specs line-link are byte-identical to it. `sdk-pin.json`
+# records the sha256 of each, and `generate.py --verify-pin` re-checks them; add `--online` to
+# re-fetch from GitHub and re-prove the commit itself.
+SDK_COMMIT = "85dc94bd15a33bdc8674ad899571043016427ce3"
+SDK_TAG_OBJECT = "c1e67f31f3dbbc3de07f39c77470da6ec2b852c5"
 
 
 def load_sdk(site_packages: Path) -> tuple[griffe.Module, Path, list[str]]:
@@ -182,16 +194,29 @@ def inherited_docstring(cls, name: str) -> str:
 def alias_target(cls, obj):
     """`job_id = id` binds the sibling property object; griffe reports a bare attribute
     whose `value` is ExprName('id'). Resolve it so the type and docs come through.
+
+    Resolution starts at the class that **owns the assignment**, not at `cls`. `job_id = id`
+    is written in `Future`'s body, so Python binds `Future.id` there and for ever — and
+    `EmbeddingsResultFuture` overrides `id` with an *unannotated* property. Starting from
+    `cls` finds that override and loses the `str`, which is why the live page showed
+    `property id` with no type but `property job_id: str`. Sphinx is right on both counts;
+    starting from the owner reproduces it.
     """
     target = deref(obj)
     value = getattr(target, "value", None)
     name = getattr(value, "name", None)
     if not name or not isinstance(name, str):
         return None
-    try:
-        chain = [cls, *cls.mro()]
-    except Exception:
-        chain = [cls]
+    owner = getattr(target, "parent", None)
+    chain = []
+    for start in (owner, cls):
+        if start is None or start in chain:
+            continue
+        chain.append(start)
+        try:
+            chain.extend(base for base in start.mro() if base not in chain)
+        except Exception:
+            pass
     for holder in chain:
         try:
             sibling = holder.members.get(name)
@@ -199,4 +224,91 @@ def alias_target(cls, obj):
             continue
         if sibling is not None and sibling is not obj:
             return sibling
+    return None
+
+
+def inherited_member(cls, name: str):
+    """The first `name` found on `cls` or up its MRO, dereferenced, or None.
+
+    Sphinx's `autodoc_class_signature = "mixed"` introspects the runtime class, so an
+    inherited `__init__` still supplies the class signature — `OpenProtein` renders
+    `(username, password, backend, timeout=180)` from `APISession.__init__`. Reading
+    `cls.members` alone gives `()` for 11 classes.
+    """
+    chain = [cls]
+    try:
+        chain.extend(cls.mro())
+    except Exception:
+        pass
+    for holder in chain:
+        try:
+            member = holder.members.get(name)
+        except Exception:
+            continue
+        if member is not None:
+            return deref(member)
+    return None
+
+
+def inherited_annotation(cls, name: str):
+    """The first non-None annotation for `name` on `cls` or up its MRO.
+
+    An unannotated override does not erase the documented type: `Future.id` is
+    `def id(self) -> str`, and a subclass that re-declares `id` without an annotation still
+    renders as `str` under autodoc's runtime introspection when nothing shadows the return.
+    """
+    chain = [cls]
+    try:
+        chain.extend(cls.mro())
+    except Exception:
+        pass
+    for holder in chain:
+        try:
+            member = holder.members.get(name)
+        except Exception:
+            continue
+        if member is None:
+            continue
+        annotation = getattr(deref(member), "annotation", None)
+        if annotation is not None:
+            return annotation
+    return None
+
+
+def constant_value(package, expr):
+    """The literal a module-level constant reference stands for, or None.
+
+    griffe reports a default as written — `config.POLLING_INTERVAL` — where Sphinx, which
+    introspects the runtime, printed `5`. 25 signatures across the corpus carried an
+    unresolved reference. `canonical_path` on the expression gives
+    `openprotein.config.POLLING_INTERVAL`; follow it from the package root and read `.value`.
+
+    Only module-level plain literals are substituted. A constant whose own value is another
+    expression, and any enum member, are left alone rather than half-resolved.
+    """
+    path = getattr(expr, "canonical_path", None)
+    if not path or not isinstance(path, str):
+        return None
+    root = getattr(package, "path", None)
+    if not root or not (path == root or path.startswith(root + ".")):
+        return None
+    node = package
+    for part in path[len(root) + 1 :].split("."):
+        try:
+            node = deref(node.members[part])
+        except Exception:
+            return None
+    # Only module-level constants fold. An enum member resolves the same way but Sphinx
+    # printed the member, not its value — `reduction=ReductionType.MEAN`, not `'MEAN'` —
+    # so folding it changed 11 signatures for the worse.
+    parent = getattr(node, "parent", None)
+    if getattr(getattr(parent, "kind", None), "value", None) != "module":
+        return None
+    value = getattr(node, "value", None)
+    if value is None:
+        return None
+    text = str(value)
+    # A literal, not another name: digits, a quoted string, a bool or None.
+    if re.fullmatch(r"-?\d+(\.\d+)?|True|False|None|'[^']*'|\"[^\"]*\"", text):
+        return text
     return None

@@ -23,90 +23,325 @@
    "kind": "class",
    "signature": "class openprotein.align.AlignAPI(session)[source]",
    "source": "../../_modules/openprotein/align/align.html#AlignAPI",
+   "fields": {},
    "members": [
     {
      "name": "mafft",
      "path": "openprotein.align.AlignAPI.mafft",
      "kind": "method",
      "signature": "mafft(sequences, names=None, auto=True, ep=None, op=None)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[bytes or str]"
+       },
+       {
+        "name": "names",
+        "type": "Sequence[str], optional"
+       },
+       {
+        "name": "auto",
+        "type": "bool, default=True"
+       },
+       {
+        "name": "ep",
+        "type": "float, optional"
+       },
+       {
+        "name": "op",
+        "type": "float, optional"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture",
+      "raises": [
+       {
+        "name": "Exception",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "mafft_file",
      "path": "openprotein.align.AlignAPI.mafft_file",
      "kind": "method",
      "signature": "mafft_file(file, auto=True, ep=None, op=None)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft_file"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.mafft_file",
+     "fields": {
+      "parameters": [
+       {
+        "name": "file",
+        "type": "file-like object"
+       },
+       {
+        "name": "auto",
+        "type": "bool, default=True"
+       },
+       {
+        "name": "ep",
+        "type": "float, optional"
+       },
+       {
+        "name": "op",
+        "type": "float, optional"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture"
+     }
     },
     {
      "name": "clustalo",
      "path": "openprotein.align.AlignAPI.clustalo",
      "kind": "method",
      "signature": "clustalo(sequences, names=None, clustersize=None, iterations=None)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[bytes or str]"
+       },
+       {
+        "name": "names",
+        "type": "Sequence[str], optional"
+       },
+       {
+        "name": "clustersize",
+        "type": "int, optional"
+       },
+       {
+        "name": "iterations",
+        "type": "int, optional"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture",
+      "raises": [
+       {
+        "name": "Exception",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "clustalo_file",
      "path": "openprotein.align.AlignAPI.clustalo_file",
      "kind": "method",
      "signature": "clustalo_file(file, clustersize=None, iterations=None)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo_file"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.clustalo_file",
+     "fields": {
+      "parameters": [
+       {
+        "name": "file",
+        "type": "file-like object"
+       },
+       {
+        "name": "clustersize",
+        "type": "int, optional"
+       },
+       {
+        "name": "iterations",
+        "type": "int, optional"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture"
+     }
     },
     {
      "name": "abnumber",
      "path": "openprotein.align.AlignAPI.abnumber",
      "kind": "method",
      "signature": "abnumber(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[bytes or str]"
+       },
+       {
+        "name": "names",
+        "type": "Sequence[str], optional"
+       },
+       {
+        "name": "scheme",
+        "type": "AbNumberScheme, default=AbNumberScheme.CHOTHIA"
+       },
+       {
+        "name": "drop_minority_chains",
+        "type": "bool, default=False"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture",
+      "raises": [
+       {
+        "name": "Exception",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "abnumber_file",
      "path": "openprotein.align.AlignAPI.abnumber_file",
      "kind": "method",
      "signature": "abnumber_file(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber_file"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.abnumber_file",
+     "fields": {
+      "parameters": [
+       {
+        "name": "file",
+        "type": "file-like object"
+       },
+       {
+        "name": "scheme",
+        "type": "AbNumberScheme, default=AbNumberScheme.CHOTHIA"
+       },
+       {
+        "name": "drop_minority_chains",
+        "type": "bool, default=False"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture"
+     }
     },
     {
      "name": "upload_msa",
      "path": "openprotein.align.AlignAPI.upload_msa",
      "kind": "method",
      "signature": "upload_msa(msa_file)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_msa"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_msa",
+     "fields": {
+      "parameters": [
+       {
+        "name": "msa_file",
+        "type": "str"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture",
+      "raises": [
+       {
+        "name": "APIError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "create_msa",
      "path": "openprotein.align.AlignAPI.create_msa",
      "kind": "method",
      "signature": "create_msa(seed)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.create_msa"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.create_msa",
+     "fields": {
+      "parameters": [
+       {
+        "name": "seed",
+        "type": "bytes"
+       }
+      ],
+      "returns": "Future object awaiting the contents of the MSA upload.",
+      "return_type": "MSAFuture",
+      "raises": [
+       {
+        "name": "APIError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "upload_prompt",
      "path": "openprotein.align.AlignAPI.upload_prompt",
      "kind": "method",
      "signature": "upload_prompt(prompt_file)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_prompt"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.upload_prompt",
+     "fields": {
+      "parameters": [
+       {
+        "name": "prompt_file",
+        "type": "BinaryIO"
+       }
+      ],
+      "returns": "An object representing the status and results of the prompt job.",
+      "return_type": "PromptJob",
+      "raises": [
+       {
+        "name": "DeprecationError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_prompt",
      "path": "openprotein.align.AlignAPI.get_prompt",
      "kind": "method",
      "signature": "get_prompt(job, prompt_index=None)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_prompt"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_prompt",
+     "fields": {
+      "parameters": [
+       {
+        "name": "job",
+        "type": "Job"
+       },
+       {
+        "name": "prompt_index",
+        "type": "int, optional"
+       }
+      ],
+      "returns": "An iterator over rows of the prompt data.",
+      "return_type": "Iterator[list[str]]",
+      "raises": [
+       {
+        "name": "DeprecationError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_seed",
      "path": "openprotein.align.AlignAPI.get_seed",
      "kind": "method",
      "signature": "get_seed(job_id)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_seed"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_seed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "job",
+        "type": "Job"
+       }
+      ],
+      "returns": "Seed sequence that was used to generate the MSA.",
+      "return_type": "str"
+     }
     },
     {
      "name": "get_msa",
      "path": "openprotein.align.AlignAPI.get_msa",
      "kind": "method",
      "signature": "get_msa(job_id)[source]",
-     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_msa"
+     "source": "../../_modules/openprotein/align/align.html#AlignAPI.get_msa",
+     "fields": {
+      "parameters": [
+       {
+        "name": "job",
+        "type": "Job"
+       }
+      ],
+      "returns": "An iterator over names and sequences of the MSA data.",
+      "return_type": "Iterator[tuple[str, str]]"
+     }
     }
    ]
   },
@@ -116,34 +351,39 @@
    "kind": "class",
    "signature": "class openprotein.align.schemas.AbNumberScheme[source]",
    "source": "../../_modules/openprotein/align/schemas.html#AbNumberScheme",
+   "fields": {},
    "members": [
     {
      "name": "IMGT",
      "path": "openprotein.align.schemas.AbNumberScheme.IMGT",
      "kind": "attribute",
      "signature": "IMGT",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "CHOTHIA",
      "path": "openprotein.align.schemas.AbNumberScheme.CHOTHIA",
      "kind": "attribute",
      "signature": "CHOTHIA",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "KABAT",
      "path": "openprotein.align.schemas.AbNumberScheme.KABAT",
      "kind": "attribute",
      "signature": "KABAT",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "AHO",
      "path": "openprotein.align.schemas.AbNumberScheme.AHO",
      "kind": "attribute",
      "signature": "AHO",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -153,13 +393,66 @@
    "kind": "class",
    "signature": "class openprotein.align.MSAFuture(session, job, page_size=50000)[source]",
    "source": "../../_modules/openprotein/align/msa.html#MSAFuture",
+   "fields": {},
    "members": [
     {
      "name": "sample_prompt",
      "path": "openprotein.align.MSAFuture.sample_prompt",
      "kind": "method",
      "signature": "sample_prompt(num_sequences=None, num_residues=None, method=MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT, homology_level=0.8, max_similarity=1.0, min_similarity=0.0, always_include_seed_sequence=False, num_ensemble_prompts=1, random_seed=None)[source]",
-     "source": "../../_modules/openprotein/align/msa.html#MSAFuture.sample_prompt"
+     "source": "../../_modules/openprotein/align/msa.html#MSAFuture.sample_prompt",
+     "fields": {
+      "parameters": [
+       {
+        "name": "num_sequences",
+        "type": "int, optional"
+       },
+       {
+        "name": "num_residues",
+        "type": "int, optional"
+       },
+       {
+        "name": "method",
+        "type": "MSASamplingMethod, optional"
+       },
+       {
+        "name": "homology_level",
+        "type": "float, optional"
+       },
+       {
+        "name": "max_similarity",
+        "type": "float, optional"
+       },
+       {
+        "name": "min_similarity",
+        "type": "float, optional"
+       },
+       {
+        "name": "always_include_seed_sequence",
+        "type": "bool, optional"
+       },
+       {
+        "name": "num_ensemble_prompts",
+        "type": "int, optional"
+       },
+       {
+        "name": "random_seed",
+        "type": "int, optional"
+       }
+      ],
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       },
+       {
+        "name": "MissingParameterError",
+        "type": null
+       }
+      ],
+      "returns": "A Prompt instance for the created prompt job.",
+      "return_type": "Prompt"
+     }
     }
    ]
   }

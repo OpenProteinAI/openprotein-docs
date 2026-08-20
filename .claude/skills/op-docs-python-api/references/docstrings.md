@@ -18,8 +18,15 @@ google   -> ['text']
 ```
 
 `parsed_sections()` therefore parses with `auto`, and **only if that finds no structure** tries
-`numpy` then `google`, keeping the richest result. Preferring `auto` on a tie means the other
-470 docstrings are unaffected.
+`numpy` then `google`, keeping the richest result. Preferring `auto` on a tie means the rest are
+unaffected.
+
+It also repairs one thing before parsing: a NumPy section underline typed with `_` instead of
+`-`. napoleon accepted `Parameters\n__________`; griffe returns prose. Exactly one docstring in
+the SDK has it (`predictor/predictor.py:289`) and it cost `PredictorAPI.ensemble` its entire
+parameter table. `_repair_underline()` touches only an underline of 3+ characters directly below
+a known NumPy header — and the typo is still filed in `UPSTREAM.md`, because repairing the render
+is not the same as excusing it.
 
 **Sections come from whichever object owns the docstring.** For an inherited member that is an
 ancestor, not the override — the override has no docstring at all, so parsing it left `wait`,

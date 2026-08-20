@@ -31,83 +31,110 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.EmbeddingsAPI(session)[source]",
    "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI",
+   "fields": {},
    "members": [
     {
      "name": "poet2",
      "path": "openprotein.embeddings.EmbeddingsAPI.poet2",
      "kind": "attribute",
      "signature": "poet2: PoET2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "poet",
      "path": "openprotein.embeddings.EmbeddingsAPI.poet",
      "kind": "attribute",
      "signature": "poet: PoETModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "prot_seq",
      "path": "openprotein.embeddings.EmbeddingsAPI.prot_seq",
      "kind": "attribute",
      "signature": "prot_seq: OpenProteinModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "rotaprot_large_uniref50w",
      "path": "openprotein.embeddings.EmbeddingsAPI.rotaprot_large_uniref50w",
      "kind": "attribute",
      "signature": "rotaprot_large_uniref50w: OpenProteinModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "rotaprot_large_uniref90_ft",
      "path": "openprotein.embeddings.EmbeddingsAPI.rotaprot_large_uniref90_ft",
      "kind": "attribute",
      "signature": "rotaprot_large_uniref90_ft: OpenProteinModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esm1b",
      "path": "openprotein.embeddings.EmbeddingsAPI.esm1b",
      "kind": "attribute",
      "signature": "esm1b: ESMModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esm1v",
      "path": "openprotein.embeddings.EmbeddingsAPI.esm1v",
      "kind": "attribute",
      "signature": "esm1v: ESMModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esm2",
      "path": "openprotein.embeddings.EmbeddingsAPI.esm2",
      "kind": "attribute",
      "signature": "esm2: ESMModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esmc_300m",
      "path": "openprotein.embeddings.EmbeddingsAPI.esmc_300m",
      "kind": "attribute",
      "signature": "esmc_300m: ESMModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "list_models",
      "path": "openprotein.embeddings.EmbeddingsAPI.list_models",
      "kind": "method",
      "signature": "list_models()[source]",
-     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.list_models"
+     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.list_models",
+     "fields": {}
     },
     {
      "name": "get_model",
      "path": "openprotein.embeddings.EmbeddingsAPI.get_model",
      "kind": "method",
      "signature": "get_model(name)[source]",
-     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.get_model"
+     "source": "../../_modules/openprotein/embeddings/embeddings.html#EmbeddingsAPI.get_model",
+     "fields": {
+      "parameters": [
+       {
+        "name": "model_id",
+        "type": "str"
+       }
+      ],
+      "returns": "The model",
+      "return_type": "ProtembedModel",
+      "raises": [
+       {
+        "name": "HTTPError",
+        "type": null
+       }
+      ]
+     }
     }
    ]
   },
@@ -117,83 +144,444 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.PoET2Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model",
+   "fields": {},
    "members": [
     {
      "name": "embed",
      "path": "openprotein.embeddings.PoET2Model.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.embed"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.embed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the embeddings of the submitted sequences. Note: The embeddings for PoET can have an extra first dimension if using ensemble prompts, where the first dimension is the number of replicates in the ensemble prompt. i.e. the shape is (N, L, D) if N &gt; 1 else (L, D) where N is the number of replicates in the prompt, L is the length of the sequence, D is the dimensions of the ensemble.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.PoET2Model.logits",
      "kind": "method",
      "signature": "logits(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.logits"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.logits",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the logits of the submitted sequences. Note: The logits for PoET can have an extra first dimension if using ensemble prompts, where the first dimension is the number of replicates in the ensemble prompt. i.e. the shape is (N, L, D) if N &gt; 1 else (L, D) where N is the number of replicates in the prompt, L is the length of the sequence, D is the size of the vocabulary.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "score",
      "path": "openprotein.embeddings.PoET2Model.score",
      "kind": "method",
      "signature": "score(sequences, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.score"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.score",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the scores of the submitted sequences.",
+      "return_type": "EmbeddingsScoreFuture"
+     }
     },
     {
      "name": "indel",
      "path": "openprotein.embeddings.PoET2Model.indel",
      "kind": "method",
      "signature": "indel(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, insert=None, delete=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.indel"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.indel",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "insert",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "delete",
+        "type": "list of int or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the scores of the indel-ed sequence.",
+      "return_type": "EmbeddingsScoreFuture",
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "single_site",
      "path": "openprotein.embeddings.PoET2Model.single_site",
      "kind": "method",
      "signature": "single_site(sequence, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.single_site"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.single_site",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object that returns the scores of the mutated sequence.",
+      "return_type": "EmbeddingsScoreFuture"
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.embeddings.PoET2Model.generate",
      "kind": "method",
      "signature": "generate(prompt, query=None, design=None, use_query_structure_in_decoder=True, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, ensemble_weights=None, ensemble_method=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.generate"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or list of these or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "num_samples",
+        "type": "int, optional"
+       },
+       {
+        "name": "temperature",
+        "type": "float, optional"
+       },
+       {
+        "name": "topk",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "topp",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "max_length",
+        "type": "int, optional"
+       },
+       {
+        "name": "seed",
+        "type": "int or None, optional"
+       },
+       {
+        "name": "ensemble_weights",
+        "type": "Sequence of float or None, optional"
+       },
+       {
+        "name": "ensemble_method",
+        "type": "{'arithmetic', 'geometric'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future object representing the status and information about the generation job.",
+      "return_type": "EmbeddingsGenerateFuture"
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.PoET2Model.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_svd"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_svd",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future that represents the fitted SVD model.",
+      "return_type": "SVDModel"
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.PoET2Model.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_umap"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_umap",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future that represents the fitted UMAP model.",
+      "return_type": "UMAPModel"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.PoET2Model.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, prompt=None, query=None, use_query_structure_in_decoder=True, decoder_type=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_gp"
+     "source": "../../_modules/openprotein/embeddings/poet2.html#PoET2Model.fit_gp",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata or AssayDataset or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "query",
+        "type": "str or bytes or Protein or Complex or Query or None, optional"
+       },
+       {
+        "name": "use_query_structure_in_decoder",
+        "type": "bool, optional"
+       },
+       {
+        "name": "decoder_type",
+        "type": "{'mlm', 'clm'} or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A future that represents the trained predictor model.",
+      "return_type": "PredictorModel"
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.PoET2Model.get_metadata",
      "kind": "method",
      "signature": "get_metadata()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.PoET2Model.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     }
    ]
   },
@@ -203,83 +591,332 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.PoETModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel",
+   "fields": {},
    "members": [
     {
      "name": "embed",
      "path": "openprotein.embeddings.PoETModel.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.embed"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.embed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object that returns the embeddings of the submitted sequences. Note: The embeddings for PoET can have an extra first dimension if using ensemble prompts, where the first dimension is the number of replicates in the ensemble prompt. i.e. the shape is (N, L, D) if N &gt; 1 else (L, D) where N is the number of replicates in the prompt, L is the length of the sequence, D is the dimensions of the ensemble.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.PoETModel.logits",
      "kind": "method",
      "signature": "logits(sequences, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.logits"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.logits",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object that returns the logits of the submitted sequences. Note: The logits for PoET can have an extra first dimension if using ensemble prompts, where the first dimension is the number of replicates in the ensemble prompt. i.e. the shape is (N, L, D) if N &gt; 1 else (L, D) where N is the number of replicates in the prompt, L is the length of the sequence, D is the size of the vocabulary.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "score",
      "path": "openprotein.embeddings.PoETModel.score",
      "kind": "method",
      "signature": "score(sequences, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.score"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.score",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object that returns the scores of the submitted sequences.",
+      "return_type": "EmbeddingsScoreFuture"
+     }
     },
     {
      "name": "indel",
      "path": "openprotein.embeddings.PoETModel.indel",
      "kind": "method",
      "signature": "indel(sequence, prompt=None, insert=None, delete=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.indel"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.indel",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "insert",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "delete",
+        "type": "list of int or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object that returns the scores of the indel-ed sequence.",
+      "return_type": "EmbeddingsScoreFuture",
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "single_site",
      "path": "openprotein.embeddings.PoETModel.single_site",
      "kind": "method",
      "signature": "single_site(sequence, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.single_site"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.single_site",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object that returns the per-variant scores of the single substitutions.",
+      "return_type": "EmbeddingsScoreSingleSiteFuture"
+     }
     },
     {
      "name": "generate",
      "path": "openprotein.embeddings.PoETModel.generate",
      "kind": "method",
      "signature": "generate(prompt, num_samples=100, temperature=1.0, topk=None, topp=None, max_length=1000, seed=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.generate"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.generate",
+     "fields": {
+      "parameters": [
+       {
+        "name": "prompt",
+        "type": "str or Prompt"
+       },
+       {
+        "name": "num_samples",
+        "type": "int, optional"
+       },
+       {
+        "name": "temperature",
+        "type": "float, optional"
+       },
+       {
+        "name": "topk",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "topp",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "max_length",
+        "type": "int, optional"
+       },
+       {
+        "name": "seed",
+        "type": "int or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the status and information about the generation job.",
+      "return_type": "EmbeddingsGenerateFuture"
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.PoETModel.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_svd"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_svd",
+     "fields": {
+      "parameters": [
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future that represents the fitted SVD model.",
+      "return_type": "SVDModel"
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.PoETModel.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction=ReductionType.MEAN, prompt=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_umap"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_umap",
+     "fields": {
+      "parameters": [
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future that represents the fitted UMAP model.",
+      "return_type": "UMAPModel"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.PoETModel.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, reduction, name=None, description=None, prompt=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_gp"
+     "source": "../../_modules/openprotein/embeddings/poet.html#PoETModel.fit_gp",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata or AssayDataset or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "prompt",
+        "type": "str or Prompt or None, optional"
+       },
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future that represents the trained predictor model.",
+      "return_type": "PredictorModel"
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.PoETModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.PoETModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     }
    ]
   },
@@ -289,55 +926,208 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.AbLang2Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/ablang.html#AbLang2Model",
+   "fields": {},
    "members": [
     {
      "name": "embed",
      "path": "openprotein.embeddings.AbLang2Model.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the embedding result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.AbLang2Model.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata, AssayDataset, or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType"
+       },
+       {
+        "name": "name",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "description",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted predictor model.",
+      "return_type": "PredictorModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.AbLang2Model.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted SVD model.",
+      "return_type": "SVDModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.AbLang2Model.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or AssayMetadata or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "Reduction or ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted UMAP model.",
+      "return_type": "UMAPModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.AbLang2Model.get_metadata",
      "kind": "method",
      "signature": "get_metadata()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.AbLang2Model.logits",
      "kind": "method",
      "signature": "logits(sequences, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the logits result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.AbLang2Model.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     }
    ]
   },
@@ -347,62 +1137,229 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.OpenProteinModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/openprotein.html#OpenProteinModel",
+   "fields": {},
    "members": [
     {
      "name": "attn",
      "path": "openprotein.embeddings.OpenProteinModel.attn",
      "kind": "method",
      "signature": "attn(sequences, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the attention result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "embed",
      "path": "openprotein.embeddings.OpenProteinModel.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the embedding result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.OpenProteinModel.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata, AssayDataset, or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType"
+       },
+       {
+        "name": "name",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "description",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted predictor model.",
+      "return_type": "PredictorModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.OpenProteinModel.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted SVD model.",
+      "return_type": "SVDModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.OpenProteinModel.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or AssayMetadata or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "Reduction or ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted UMAP model.",
+      "return_type": "UMAPModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.OpenProteinModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.OpenProteinModel.logits",
      "kind": "method",
      "signature": "logits(sequences, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the logits result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.OpenProteinModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     }
    ]
   },
@@ -412,62 +1369,229 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.ESMModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/esm.html#ESMModel",
+   "fields": {},
    "members": [
     {
      "name": "attn",
      "path": "openprotein.embeddings.ESMModel.attn",
      "kind": "method",
      "signature": "attn(sequences, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the attention result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "embed",
      "path": "openprotein.embeddings.ESMModel.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the embedding result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.ESMModel.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata, AssayDataset, or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType"
+       },
+       {
+        "name": "name",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "description",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted predictor model.",
+      "return_type": "PredictorModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.ESMModel.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted SVD model.",
+      "return_type": "SVDModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.ESMModel.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or AssayMetadata or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "Reduction or ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted UMAP model.",
+      "return_type": "UMAPModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.ESMModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.ESMModel.logits",
      "kind": "method",
      "signature": "logits(sequences, **kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the logits result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.ESMModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     }
    ]
   },
@@ -477,69 +1601,258 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.EmbeddingModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel",
+   "fields": {},
    "members": [
     {
      "name": "get_model",
      "path": "openprotein.embeddings.EmbeddingModel.get_model",
      "kind": "method",
      "signature": "classmethod get_model()[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_model"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_model",
+     "fields": {
+      "returns": "List of model_id strings associated with this class.",
+      "return_type": "list of str"
+     }
     },
     {
      "name": "create",
      "path": "openprotein.embeddings.EmbeddingModel.create",
      "kind": "method",
      "signature": "classmethod create(session, model_id, default=None, metadata=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.create"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.create",
+     "fields": {
+      "parameters": [
+       {
+        "name": "session",
+        "type": "APISession"
+       },
+       {
+        "name": "model_id",
+        "type": "str"
+       },
+       {
+        "name": "default",
+        "type": "type variable of EmbeddingModel or None, optional"
+       },
+       {
+        "name": "metadata",
+        "type": "ModelMetadata or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "An instance of the appropriate EmbeddingModel subclass.",
+      "return_type": "EmbeddingModel",
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.embeddings.EmbeddingModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "get_metadata",
      "path": "openprotein.embeddings.EmbeddingModel.get_metadata",
      "kind": "method",
      "signature": "get_metadata()[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_metadata"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.get_metadata",
+     "fields": {
+      "returns": "The metadata associated with this model.",
+      "return_type": "ModelMetadata"
+     }
     },
     {
      "name": "embed",
      "path": "openprotein.embeddings.EmbeddingModel.embed",
      "kind": "method",
      "signature": "embed(sequences, reduction=ReductionType.MEAN, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.embed"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.embed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the embedding result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "logits",
      "path": "openprotein.embeddings.EmbeddingModel.logits",
      "kind": "method",
      "signature": "logits(sequences, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.logits"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.logits",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "Future object representing the logits result.",
+      "return_type": "EmbeddingsResultFuture"
+     }
     },
     {
      "name": "fit_svd",
      "path": "openprotein.embeddings.EmbeddingModel.fit_svd",
      "kind": "method",
      "signature": "fit_svd(sequences=None, assay=None, n_components=1024, reduction=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_svd"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_svd",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted SVD model.",
+      "return_type": "SVDModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.embeddings.EmbeddingModel.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, reduction='MEAN', **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_umap"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_umap",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list of bytes or list of str or None, optional"
+       },
+       {
+        "name": "assay",
+        "type": "AssayDataset or AssayMetadata or None, optional"
+       },
+       {
+        "name": "n_components",
+        "type": "int, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "Reduction or ReductionType or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted UMAP model.",
+      "return_type": "UMAPModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.embeddings.EmbeddingModel.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_gp"
+     "source": "../../_modules/openprotein/embeddings/models.html#EmbeddingModel.fit_gp",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata, AssayDataset, or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType"
+       },
+       {
+        "name": "name",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "description",
+        "type": "str or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The fitted predictor model.",
+      "return_type": "PredictorModel",
+      "raises": [
+       {
+        "name": "InvalidParameterError",
+        "type": null
+       }
+      ]
+     }
     }
    ]
   },
@@ -549,174 +1862,293 @@
    "kind": "class",
    "signature": "class openprotein.svd.SVDModel(session, job=None, metadata=None)[source]",
    "source": "../../_modules/openprotein/svd/models.html#SVDModel",
+   "fields": {},
    "members": [
     {
      "name": "id",
      "path": "openprotein.svd.SVDModel.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "n_components",
      "path": "openprotein.svd.SVDModel.n_components",
      "kind": "property",
      "signature": "property n_components",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "sequence_length",
      "path": "openprotein.svd.SVDModel.sequence_length",
      "kind": "property",
      "signature": "property sequence_length",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "reduction",
      "path": "openprotein.svd.SVDModel.reduction",
      "kind": "property",
      "signature": "property reduction",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "metadata",
      "path": "openprotein.svd.SVDModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "model",
      "path": "openprotein.svd.SVDModel.model",
      "kind": "property",
      "signature": "property model: EmbeddingModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "delete",
      "path": "openprotein.svd.SVDModel.delete",
      "kind": "method",
      "signature": "delete()[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.delete"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.delete",
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.svd.SVDModel.wait",
      "kind": "method",
      "signature": "wait(verbose=False, **kwargs)[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.wait"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.wait",
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "get_inputs",
      "path": "openprotein.svd.SVDModel.get_inputs",
      "kind": "method",
      "signature": "get_inputs()[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.get_inputs"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.get_inputs",
+     "fields": {
+      "returns": "List of sequences",
+      "return_type": "list[bytes]"
+     }
     },
     {
      "name": "embed",
      "path": "openprotein.svd.SVDModel.embed",
      "kind": "method",
      "signature": "embed(sequences, **kwargs)[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.embed"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.embed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "List[bytes]"
+       }
+      ],
+      "returns": "Future result containing the reduced embeddings.",
+      "return_type": "SVDEmbeddingsResultFuture"
+     }
     },
     {
      "name": "fit_umap",
      "path": "openprotein.svd.SVDModel.fit_umap",
      "kind": "method",
      "signature": "fit_umap(sequences=None, assay=None, n_components=2, **kwargs)[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_umap"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_umap",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "List[bytes]"
+       },
+       {
+        "name": "n_components",
+        "type": "int"
+       },
+       {
+        "name": "reduction",
+        "type": "ReductionType | None"
+       }
+      ],
+      "returns": "UMAP model fitted on the reduced embeddings from provided sequences or assay.",
+      "return_type": "UMAPModel"
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.svd.SVDModel.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_gp"
+     "source": "../../_modules/openprotein/svd/models.html#SVDModel.fit_gp",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata or AssayDataset or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       }
+      ],
+      "returns": "Property predictor model trained using the reduced embeddings with provided assay and properties.",
+      "return_type": "PredictorModel"
+     }
     },
     {
      "name": "args",
      "path": "openprotein.svd.SVDModel.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.svd.SVDModel.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.svd.SVDModel.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.svd.SVDModel.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.svd.SVDModel.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.svd.SVDModel.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.svd.SVDModel.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.svd.SVDModel.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.svd.SVDModel.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.svd.SVDModel.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.svd.SVDModel.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.svd.SVDModel.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -726,188 +2158,267 @@
    "kind": "class",
    "signature": "class openprotein.umap.UMAPModel(session, job=None, metadata=None)[source]",
    "source": "../../_modules/openprotein/umap/models.html#UMAPModel",
+   "fields": {},
    "members": [
     {
      "name": "id",
      "path": "openprotein.umap.UMAPModel.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "n_components",
      "path": "openprotein.umap.UMAPModel.n_components",
      "kind": "property",
      "signature": "property n_components",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "n_neighbors",
      "path": "openprotein.umap.UMAPModel.n_neighbors",
      "kind": "property",
      "signature": "property n_neighbors",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "min_dist",
      "path": "openprotein.umap.UMAPModel.min_dist",
      "kind": "property",
      "signature": "property min_dist",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "sequence_length",
      "path": "openprotein.umap.UMAPModel.sequence_length",
      "kind": "property",
      "signature": "property sequence_length",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "reduction",
      "path": "openprotein.umap.UMAPModel.reduction",
      "kind": "property",
      "signature": "property reduction",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "metadata",
      "path": "openprotein.umap.UMAPModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "sequences",
      "path": "openprotein.umap.UMAPModel.sequences",
      "kind": "property",
      "signature": "property sequences",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "embeddings",
      "path": "openprotein.umap.UMAPModel.embeddings",
      "kind": "property",
      "signature": "property embeddings",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "model",
      "path": "openprotein.umap.UMAPModel.model",
      "kind": "property",
      "signature": "property model: EmbeddingModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "delete",
      "path": "openprotein.umap.UMAPModel.delete",
      "kind": "method",
      "signature": "delete()[source]",
-     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.delete"
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.delete",
+     "fields": {}
     },
     {
      "name": "get_inputs",
      "path": "openprotein.umap.UMAPModel.get_inputs",
      "kind": "method",
      "signature": "get_inputs()[source]",
-     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.get_inputs"
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.get_inputs",
+     "fields": {
+      "returns": "list of sequences",
+      "return_type": "list[bytes]"
+     }
     },
     {
      "name": "embed",
      "path": "openprotein.umap.UMAPModel.embed",
      "kind": "method",
      "signature": "embed(sequences, **kwargs)[source]",
-     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.embed"
+     "source": "../../_modules/openprotein/umap/models.html#UMAPModel.embed",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "List[bytes]"
+       }
+      ],
+      "returns": "Future result containing the projected embeddings.",
+      "return_type": "UMAPEmbeddingsResultFuture"
+     }
     },
     {
      "name": "args",
      "path": "openprotein.umap.UMAPModel.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.umap.UMAPModel.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.umap.UMAPModel.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.umap.UMAPModel.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.umap.UMAPModel.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.umap.UMAPModel.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.umap.UMAPModel.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.umap.UMAPModel.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.umap.UMAPModel.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.umap.UMAPModel.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.umap.UMAPModel.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.umap.UMAPModel.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.umap.UMAPModel.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -917,20 +2428,23 @@
    "kind": "class",
    "signature": "class openprotein.common.ReductionType[source]",
    "source": "../../_modules/openprotein/common/reduction.html#ReductionType",
+   "fields": {},
    "members": [
     {
      "name": "MEAN",
      "path": "openprotein.common.ReductionType.MEAN",
      "kind": "attribute",
      "signature": "MEAN",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "SUM",
      "path": "openprotein.common.ReductionType.SUM",
      "kind": "attribute",
      "signature": "SUM",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -940,125 +2454,195 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.EmbeddingsResultFuture(session, job, sequences=None, max_workers=10)[source]",
    "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture",
+   "fields": {},
    "members": [
     {
      "name": "stream_sync",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.stream_sync",
      "kind": "method",
      "signature": "stream_sync()[source]",
-     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.stream_sync"
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.stream_sync",
+     "fields": {}
     },
     {
      "name": "id",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_item",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.get_item",
      "kind": "method",
      "signature": "get_item(sequence)[source]",
-     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.get_item"
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsResultFuture.get_item",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "str | bytes"
+       }
+      ],
+      "returns": "embeddings",
+      "return_type": "np.ndarray"
+     }
     },
     {
      "name": "args",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "stream",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.stream",
      "kind": "method",
      "signature": "stream(**kwargs)",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "A generator that yields (key, value) tuples.",
+      "return_type": "Generator"
+     }
     },
     {
      "name": "wait",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.embeddings.EmbeddingsResultFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -1068,111 +2652,182 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.EmbeddingsScoreFuture(session, job, sequences=None)[source]",
    "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreFuture",
+   "fields": {},
    "members": [
     {
      "name": "stream",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.stream",
      "kind": "method",
      "signature": "stream()[source]",
-     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreFuture.stream"
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreFuture.stream",
+     "fields": {
+      "parameters": [
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A generator that yields job results.",
+      "return_type": "Generator",
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "args",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "id",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.id",
      "kind": "property",
      "signature": "property id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.embeddings.EmbeddingsScoreFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -1182,111 +2837,182 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture(session, job, sequences=None)[source]",
    "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreSingleSiteFuture",
+   "fields": {},
    "members": [
     {
      "name": "stream",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.stream",
      "kind": "method",
      "signature": "stream()[source]",
-     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreSingleSiteFuture.stream"
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsScoreSingleSiteFuture.stream",
+     "fields": {
+      "parameters": [
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A generator that yields job results.",
+      "return_type": "Generator",
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "args",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "id",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.id",
      "kind": "property",
      "signature": "property id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   },
@@ -1296,111 +3022,182 @@
    "kind": "class",
    "signature": "class openprotein.embeddings.EmbeddingsGenerateFuture(session, job, sequences=None)[source]",
    "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsGenerateFuture",
+   "fields": {},
    "members": [
     {
      "name": "stream",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.stream",
      "kind": "method",
      "signature": "stream()[source]",
-     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsGenerateFuture.stream"
+     "source": "../../_modules/openprotein/embeddings/future.html#EmbeddingsGenerateFuture.stream",
+     "fields": {
+      "parameters": [
+       {
+        "name": "**kwargs",
+        "type": null
+       }
+      ],
+      "returns": "A generator that yields job results.",
+      "return_type": "Generator",
+      "raises": [
+       {
+        "name": "NotImplementedError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "args",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "id",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.id",
      "kind": "property",
      "signature": "property id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_id",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.embeddings.EmbeddingsGenerateFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     }
    ]
   }

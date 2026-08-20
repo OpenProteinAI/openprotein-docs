@@ -736,24 +736,28 @@
     {
      "name": "job_id",
      "kind": "property",
-     "doc": "The unique identifier of the prompt.",
-     "inherited_from": "openprotein.prompt.models.Prompt",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.prompt.Prompt",
-      "page": "prompt"
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
      },
      "source": {
-      "file": "openprotein/prompt/models.py",
-      "line": 143,
-      "end": 145
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
      },
-     "annotation": null,
-     "annotation_parts": null,
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
        "kind": "text",
-       "text": "The unique identifier of the prompt."
+       "text": "The unique identifier of the job."
       }
      ]
     },
@@ -879,7 +883,7 @@
       "line": 378,
       "end": 404
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "V",
      "returns_parts": [
       {
@@ -960,7 +964,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -1221,7 +1225,7 @@
    "name": "PromptMetadata",
    "path": "openprotein.prompt.PromptMetadata",
    "kind": "class",
-   "signature": "(*, id, name, description, created_date, num_replicates, job_id, status)",
+   "signature": "(*, id, name, description=None, created_date, num_replicates, job_id=None, status)",
    "bases": [
     "BaseModel"
    ],
@@ -1285,7 +1289,7 @@
    "name": "PromptJob",
    "path": "openprotein.prompt.PromptJob",
    "kind": "class",
-   "signature": "()",
+   "signature": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
    "bases": [
     "Job"
    ],
@@ -1365,7 +1369,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

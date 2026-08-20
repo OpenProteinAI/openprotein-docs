@@ -19,27 +19,31 @@
    "kind": "class",
    "signature": "class openprotein.jobs.JobsAPI(session)[source]",
    "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI",
+   "fields": {},
    "members": [
     {
      "name": "list",
      "path": "openprotein.jobs.JobsAPI.list",
      "kind": "method",
      "signature": "list(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None)[source]",
-     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.list"
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.list",
+     "fields": {}
     },
     {
      "name": "get",
      "path": "openprotein.jobs.JobsAPI.get",
      "kind": "method",
      "signature": "get(job_id, verbose=False)[source]",
-     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.get"
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.get",
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.jobs.JobsAPI.wait",
      "kind": "method",
      "signature": "wait(future, interval=5, timeout=None, verbose=False)[source]",
-     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.wait"
+     "source": "../../_modules/openprotein/jobs/jobs.html#JobsAPI.wait",
+     "fields": {}
     }
    ]
   },
@@ -49,6 +53,7 @@
    "kind": "class",
    "signature": "class openprotein.jobs.Job(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)[source]",
    "source": "../../_modules/openprotein/jobs/schemas.html#Job",
+   "fields": {},
    "members": []
   },
   {
@@ -57,34 +62,76 @@
    "kind": "class",
    "signature": "class openprotein.jobs.Future(session, job)[source]",
    "source": "../../_modules/openprotein/jobs/futures.html#Future",
+   "fields": {},
    "members": [
     {
      "name": "done",
      "path": "openprotein.jobs.Future.done",
      "kind": "method",
      "signature": "done()[source]",
-     "source": "../../_modules/openprotein/jobs/futures.html#Future.done"
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.done",
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "refresh",
      "path": "openprotein.jobs.Future.refresh",
      "kind": "method",
      "signature": "refresh()[source]",
-     "source": "../../_modules/openprotein/jobs/futures.html#Future.refresh"
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.refresh",
+     "fields": {}
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.jobs.Future.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)[source]",
-     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait_until_done"
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait_until_done",
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "wait",
      "path": "openprotein.jobs.Future.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)[source]",
-     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait"
+     "source": "../../_modules/openprotein/jobs/futures.html#Future.wait",
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     }
    ]
   }

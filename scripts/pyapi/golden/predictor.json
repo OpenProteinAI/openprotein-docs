@@ -10,41 +10,156 @@
    "kind": "class",
    "signature": "class openprotein.predictor.PredictorAPI(session)[source]",
    "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI",
+   "fields": {},
    "members": [
     {
      "name": "get_predictor",
      "path": "openprotein.predictor.PredictorAPI.get_predictor",
      "kind": "method",
      "signature": "get_predictor(predictor_id, include_stats=False, include_calibration_curves=False)[source]",
-     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.get_predictor"
+     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.get_predictor",
+     "fields": {
+      "parameters": [
+       {
+        "name": "predictor_id",
+        "type": "str"
+       },
+       {
+        "name": "include_stats",
+        "type": "bool"
+       },
+       {
+        "name": "include_calibration_curves",
+        "type": "bool"
+       }
+      ],
+      "returns": "The predictor model to inspect and make predictions with.",
+      "return_type": "PredictorModel",
+      "raises": [
+       {
+        "name": "HTTPError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "list_predictors",
      "path": "openprotein.predictor.PredictorAPI.list_predictors",
      "kind": "method",
      "signature": "list_predictors(limit=100, offset=0, include_stats=False, include_calibration_curves=False)[source]",
-     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.list_predictors"
+     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.list_predictors",
+     "fields": {
+      "parameters": [
+       {
+        "name": "limit",
+        "type": "int"
+       },
+       {
+        "name": "offset",
+        "type": "int"
+       },
+       {
+        "name": "include_stats",
+        "type": "bool"
+       },
+       {
+        "name": "include_calibration_curves",
+        "type": "bool"
+       }
+      ],
+      "returns": "List of predictor models to inspect and make predictions with.",
+      "return_type": "list[PredictorModel]",
+      "raises": [
+       {
+        "name": "HTTPError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "fit_gp",
      "path": "openprotein.predictor.PredictorAPI.fit_gp",
      "kind": "method",
      "signature": "fit_gp(assay, properties, model, feature_type=None, reduction=None, name=None, description=None, kernel='rbf', period=None, alpha=None, **kwargs)[source]",
-     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.fit_gp"
+     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.fit_gp",
+     "fields": {
+      "parameters": [
+       {
+        "name": "assay",
+        "type": "AssayMetadata or AssayDataset or str"
+       },
+       {
+        "name": "properties",
+        "type": "list of str"
+       },
+       {
+        "name": "model",
+        "type": "EmbeddingModel or SVDModel or str"
+       },
+       {
+        "name": "feature_type",
+        "type": "Feature or FeatureType or None"
+       },
+       {
+        "name": "reduction",
+        "type": "Reduction or ReductionType or None, optional"
+       },
+       {
+        "name": "kernel",
+        "type": "KernelType or str, optional"
+       },
+       {
+        "name": "period",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "alpha",
+        "type": "float or None, optional"
+       },
+       {
+        "name": "kwargs",
+        "type": null
+       }
+      ],
+      "returns": "The GP model being fit.",
+      "return_type": "PredictorModel"
+     }
     },
     {
      "name": "delete_predictor",
      "path": "openprotein.predictor.PredictorAPI.delete_predictor",
      "kind": "method",
      "signature": "delete_predictor(predictor_id)[source]",
-     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.delete_predictor"
+     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.delete_predictor",
+     "fields": {
+      "parameters": [
+       {
+        "name": "predictor_id",
+        "type": "str"
+       }
+      ],
+      "returns": "True: successful deletion",
+      "return_type": "bool"
+     }
     },
     {
      "name": "ensemble",
      "path": "openprotein.predictor.PredictorAPI.ensemble",
      "kind": "method",
      "signature": "ensemble(predictors)[source]",
-     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.ensemble"
+     "source": "../../_modules/openprotein/predictor/predictor.html#PredictorAPI.ensemble",
+     "fields": {
+      "parameters": [
+       {
+        "name": "predictors",
+        "type": "list[PredictorModel]"
+       }
+      ],
+      "returns": "Ensembled predictor model",
+      "return_type": "PredictorModel"
+     }
     }
    ]
   },
@@ -54,97 +169,114 @@
    "kind": "class",
    "signature": "class openprotein.predictor.PredictorModel(session, job=None, metadata=None)[source]",
    "source": "../../_modules/openprotein/predictor/models.html#PredictorModel",
+   "fields": {},
    "members": [
     {
      "name": "id",
      "path": "openprotein.predictor.PredictorModel.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "reduction",
      "path": "openprotein.predictor.PredictorModel.reduction",
      "kind": "property",
      "signature": "property reduction",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "sequence_length",
      "path": "openprotein.predictor.PredictorModel.sequence_length",
      "kind": "property",
      "signature": "property sequence_length",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "training_assay",
      "path": "openprotein.predictor.PredictorModel.training_assay",
      "kind": "property",
      "signature": "property training_assay: AssayDataset",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "training_properties",
      "path": "openprotein.predictor.PredictorModel.training_properties",
      "kind": "property",
      "signature": "property training_properties: list[str]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "metadata",
      "path": "openprotein.predictor.PredictorModel.metadata",
      "kind": "property",
      "signature": "property metadata",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_model",
      "path": "openprotein.predictor.PredictorModel.get_model",
      "kind": "method",
      "signature": "get_model()[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.get_model"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.get_model",
+     "fields": {}
     },
     {
      "name": "model",
      "path": "openprotein.predictor.PredictorModel.model",
      "kind": "property",
      "signature": "property model: EmbeddingModel | SVDModel | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "delete",
      "path": "openprotein.predictor.PredictorModel.delete",
      "kind": "method",
      "signature": "delete()[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.delete"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.delete",
+     "fields": {}
     },
     {
      "name": "get_assay",
      "path": "openprotein.predictor.PredictorModel.get_assay",
      "kind": "method",
      "signature": "get_assay()[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.get_assay"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.get_assay",
+     "fields": {
+      "returns": "AssayDataset",
+      "return_type": "Assay dataset used for train job."
+     }
     },
     {
      "name": "crossvalidate",
      "path": "openprotein.predictor.PredictorModel.crossvalidate",
      "kind": "method",
      "signature": "crossvalidate(n_splits=None)[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.crossvalidate"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.crossvalidate",
+     "fields": {}
     },
     {
      "name": "predict",
      "path": "openprotein.predictor.PredictorModel.predict",
      "kind": "method",
      "signature": "predict(sequences)[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.predict"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.predict",
+     "fields": {}
     },
     {
      "name": "single_site",
      "path": "openprotein.predictor.PredictorModel.single_site",
      "kind": "method",
      "signature": "single_site(sequence)[source]",
-     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.single_site"
+     "source": "../../_modules/openprotein/predictor/models.html#PredictorModel.single_site",
+     "fields": {}
     }
    ]
   }

@@ -8,13 +8,30 @@
 | `pnpm build` | must be warning-free; all 12 pages prerender (38 static pages total) | — |
 | `pnpm sync:pyapi` | regenerate `specs/openprotein*.json` | `.venv-pyapi` + the installed SDK |
 | `pnpm check:pyapi` | rebuilds in memory, fails if `specs/` has drifted | same |
-| `pnpm diff:pyapi` | scores member sets and kinds against `golden/` | same |
+| `pnpm diff:pyapi` | scores member sets, kinds, **order**, **signatures** and **documented types** against `golden/` | same |
+| `pnpm upstream:pyapi` | rewrite `scripts/pyapi/UPSTREAM.md` — the SDK's own docstring defects | same |
+| `pnpm check:pyapi:upstream` | fail if `UPSTREAM.md` has drifted | same |
+| `pnpm verify:pyapi:pin` | re-prove the installed wheel is the tree the `[source]` line numbers came from | same; add `--online` to re-fetch from GitHub |
 | `pnpm check:pyapi:render` | the 12 rendered pages, in Chrome | dev server on `:5001` |
 | `python3 scripts/pyapi/fetch_golden.py --offline` | re-derive `golden/` from the cached HTML | — |
 | `python3 scripts/pyapi/extract_manifest.py` | re-lift `pages.json` | `__old/` still present |
 
 Order after touching the generator: `sync:pyapi` → **restart `pnpm dev`** → `check:pyapi` →
 `diff:pyapi` → `build` → `check:pyapi:render`.
+
+`diff:pyapi` is the one that catches a signature or type regression, and it is the only check
+that reads `golden/`'s rendered signatures. Its bottom line must read `no unexpected drift`:
+
+```
+member sets: 61 exact / 61 classes   members 439 generated vs 439 rendered by Sphinx   kinds all match
+member order: 60 match / 61   differs: openprotein.fold.FoldResultFuture
+signatures & types: 484 exact / 501   3 overload-primary, 14 typed-beyond-sphinx   no unexpected drift
+documented types: 657 exact / 679   7 docstring-stale, 15 griffe-tuple-normalised   no unexpected drift
+```
+
+The four named drift classes are expected and explained in `oracle.md`; anything else prints as
+`sphinx:` / `ours:` pairs above the summary. `--diff` is **informational — it exits 0 even with
+UNEXPECTED drift**, so read the two `no unexpected drift` lines rather than the exit code.
 
 ### Environment caveats
 
@@ -53,7 +70,7 @@ asserts:
 | every `#nd-toc a[href^="#"]` resolves to exactly one element | catches TOC drift and anchor collisions |
 | every page with entries renders kind badges | catches the `--py-*` tokens or the badge going missing |
 | the index renders **at least** as many autosummary rows as Sphinx did | 47 vs 44 — the three rows Sphinx dropped |
-| every source link matches `github.com/OpenProteinAI/openprotein-python/blob/v<digit>` | catches an unpinned or relative ref |
+| every source link starts `github.com/OpenProteinAI/openprotein-python/blob/<the pinned commit>/` | line numbers are only meaningful against one tree; a movable tag would silently re-point all ~500 of them. The SHA is read from `sdk-pin.json` so the assertion cannot drift from the generator |
 | every `PyGroup` is `aria-expanded="true"` | groups are open by default |
 | every `PyCard` is `aria-expanded="false"` and no `[role="region"]` is visible | classes are collapsed on arrival |
 | every card has exactly `Copy code, Copy link`, and the source link comes after them | the ordering the header depends on |

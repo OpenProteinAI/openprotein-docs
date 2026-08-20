@@ -719,7 +719,7 @@
    "name": "Boltz2Model",
    "path": "openprotein.fold.Boltz2Model",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "BoltzModel",
     "FoldModel"
@@ -962,7 +962,7 @@
    "name": "Boltz1xModel",
    "path": "openprotein.fold.Boltz1xModel",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "Boltz1Model",
     "BoltzModel",
@@ -1145,7 +1145,7 @@
    "name": "Boltz1Model",
    "path": "openprotein.fold.Boltz1Model",
    "kind": "class",
-   "signature": "()",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "BoltzModel",
     "FoldModel"
@@ -2346,7 +2346,14 @@
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": null,
-     "synthetic": "pydantic"
+     "synthetic": "pydantic",
+     "annotation": "ClassVar[ConfigDict]",
+     "annotation_parts": [
+      {
+       "text": "ClassVar[ConfigDict]"
+      }
+     ],
+     "value": "{}"
     }
    ],
    "section": "Results",
@@ -2356,7 +2363,7 @@
    "name": "FoldResultFuture",
    "path": "openprotein.fold.FoldResultFuture",
    "kind": "class",
-   "signature": "(session, job=None, metadata=None, sequences=None, complexes=None, max_workers=config.MAX_CONCURRENT_WORKERS)",
+   "signature": "(session, job=None, metadata=None, sequences=None, complexes=None, max_workers=10)",
    "bases": [
     "MappedFuture[int, FoldResult]"
    ],
@@ -3613,39 +3620,28 @@
     {
      "name": "job_id",
      "kind": "property",
-     "doc": "Get the ID of the fold request.\n\nReturns\n-------\nstr\n    Fold job ID.",
-     "inherited_from": "openprotein.fold.future.FoldResultFuture",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.fold.FoldResultFuture",
-      "page": "fold"
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
      },
      "source": {
-      "file": "openprotein/fold/future.py",
-      "line": 187,
-      "end": 196
+      "file": "openprotein/jobs/futures.py",
+      "line": 142,
+      "end": 144
      },
-     "annotation": null,
-     "annotation_parts": null,
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
      "value": null,
      "parsed": [
       {
        "kind": "text",
-       "text": "Get the ID of the fold request."
-      },
-      {
-       "kind": "returns",
-       "items": [
-        {
-         "name": null,
-         "type": "str",
-         "type_parts": [
-          {
-           "text": "str"
-          }
-         ],
-         "text": "Fold job ID."
-        }
-       ]
+       "text": "The unique identifier of the job."
       }
      ]
     },
@@ -3796,7 +3792,7 @@
       "line": 584,
       "end": 590
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "list[tuple[K, V]]",
      "returns_parts": [
       {
@@ -3877,7 +3873,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -3960,7 +3956,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

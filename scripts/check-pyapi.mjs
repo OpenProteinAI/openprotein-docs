@@ -8,6 +8,7 @@ import { chromium } from 'playwright';
 
 const BASE = process.env.BASE ?? 'http://localhost:5001';
 const GOLDEN = 'scripts/pyapi/golden';
+const SDK_COMMIT = JSON.parse(readFileSync('scripts/pyapi/sdk-pin.json', 'utf8')).commit;
 const ALL_PAGES = readdirSync(GOLDEN)
   .filter((f) => f.endsWith('.json'))
   .map((f) => f.replace(/\.json$/, ''));
@@ -126,7 +127,12 @@ for (const name of PAGES) {
   if (expected.length && !seen.badges) fail(`${name}: no kind badges rendered`);
   if (summaryRows && seen.summaryRows < summaryRows)
     fail(`${name}: ${seen.summaryRows} summary rows, Sphinx rendered ${summaryRows}`);
-  const bad = seen.sourceLinks.filter((h) => !/^https:\/\/github\.com\/OpenProteinAI\/openprotein-python\/blob\/v\d/.test(h));
+  // Every [source] link must resolve through the pinned COMMIT, not a movable tag: the ~500
+  // line ranges are only meaningful against one exact tree. The SHA is read from the committed
+  // pin so this cannot drift from the generator.
+  const bad = seen.sourceLinks.filter(
+    (h) => !h.startsWith(`https://github.com/OpenProteinAI/openprotein-python/blob/${SDK_COMMIT}/`),
+  );
   if (bad.length) fail(`${name}: source link not pinned to a tag: ${bad[0]}`);
   // Groups open by default, classes collapsed by default, no body visible on arrival.
   if (seen.groups.some((state) => state !== 'true'))

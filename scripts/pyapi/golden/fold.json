@@ -23,139 +23,183 @@
    "kind": "class",
    "signature": "class openprotein.fold.FoldAPI(session)[source]",
    "source": "../../_modules/openprotein/fold/fold.html#FoldAPI",
+   "fields": {},
    "members": [
     {
      "name": "boltz2",
      "path": "openprotein.fold.FoldAPI.boltz2",
      "kind": "attribute",
      "signature": "boltz2: Boltz2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "boltz_2",
      "path": "openprotein.fold.FoldAPI.boltz_2",
      "kind": "attribute",
      "signature": "boltz_2: Boltz2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "boltz1x",
      "path": "openprotein.fold.FoldAPI.boltz1x",
      "kind": "attribute",
      "signature": "boltz1x: Boltz1xModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "boltz_1x",
      "path": "openprotein.fold.FoldAPI.boltz_1x",
      "kind": "attribute",
      "signature": "boltz_1x: Boltz1xModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "boltz1",
      "path": "openprotein.fold.FoldAPI.boltz1",
      "kind": "attribute",
      "signature": "boltz1: Boltz1Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "boltz_1",
      "path": "openprotein.fold.FoldAPI.boltz_1",
      "kind": "attribute",
      "signature": "boltz_1: Boltz1Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "af2",
      "path": "openprotein.fold.FoldAPI.af2",
      "kind": "attribute",
      "signature": "af2: AlphaFold2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "alphafold2",
      "path": "openprotein.fold.FoldAPI.alphafold2",
      "kind": "attribute",
      "signature": "alphafold2: AlphaFold2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "rf3",
      "path": "openprotein.fold.FoldAPI.rf3",
      "kind": "attribute",
      "signature": "rf3: RosettaFold3Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "rosettafold_3",
      "path": "openprotein.fold.FoldAPI.rosettafold_3",
      "kind": "attribute",
      "signature": "rosettafold_3: RosettaFold3Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esmfold",
      "path": "openprotein.fold.FoldAPI.esmfold",
      "kind": "attribute",
      "signature": "esmfold: ESMFoldModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esmfold2",
      "path": "openprotein.fold.FoldAPI.esmfold2",
      "kind": "attribute",
      "signature": "esmfold2: ESMFold2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "esmfold2_fast",
      "path": "openprotein.fold.FoldAPI.esmfold2_fast",
      "kind": "attribute",
      "signature": "esmfold2_fast: ESMFold2FastModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "minifold",
      "path": "openprotein.fold.FoldAPI.minifold",
      "kind": "attribute",
      "signature": "minifold: MiniFoldModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "protenix",
      "path": "openprotein.fold.FoldAPI.protenix",
      "kind": "attribute",
      "signature": "protenix: ProtenixModel",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "protenix_v2",
      "path": "openprotein.fold.FoldAPI.protenix_v2",
      "kind": "attribute",
      "signature": "protenix_v2: ProtenixV2Model",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "list_models",
      "path": "openprotein.fold.FoldAPI.list_models",
      "kind": "method",
      "signature": "list_models()[source]",
-     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.list_models"
+     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.list_models",
+     "fields": {}
     },
     {
      "name": "get_model",
      "path": "openprotein.fold.FoldAPI.get_model",
      "kind": "method",
      "signature": "get_model(model_id)[source]",
-     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.get_model"
+     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.get_model",
+     "fields": {
+      "parameters": [
+       {
+        "name": "model_id",
+        "type": "str"
+       }
+      ],
+      "returns": "The model",
+      "return_type": "FoldModel",
+      "raises": [
+       {
+        "name": "HTTPError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_results",
      "path": "openprotein.fold.FoldAPI.get_results",
      "kind": "method",
      "signature": "get_results(job)[source]",
-     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.get_results"
+     "source": "../../_modules/openprotein/fold/fold.html#FoldAPI.get_results",
+     "fields": {
+      "parameters": [
+       {
+        "name": "job",
+        "type": "Job"
+       }
+      ],
+      "returns": "An instance of FoldResultFuture",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -165,13 +209,40 @@
    "kind": "class",
    "signature": "class openprotein.fold.ProtenixModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/protenix.html#ProtenixModel",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.ProtenixModel.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, templates=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/protenix.html#ProtenixModel.fold"
+     "source": "../../_modules/openprotein/fold/protenix.html#ProtenixModel.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "templates",
+        "type": "list[Protein | Complex | Template] | None = None"
+       }
+      ],
+      "returns": "Future for the folding results.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -181,13 +252,60 @@
    "kind": "class",
    "signature": "class openprotein.fold.Boltz2Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/boltz.html#Boltz2Model",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.Boltz2Model.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, templates=None, properties=None, method=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/boltz.html#Boltz2Model.fold"
+     "source": "../../_modules/openprotein/fold/boltz.html#Boltz2Model.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "step_scale",
+        "type": "float"
+       },
+       {
+        "name": "use_potentials",
+        "type": "bool = False."
+       },
+       {
+        "name": "constraints",
+        "type": "list[dict] | None = None"
+       },
+       {
+        "name": "templates",
+        "type": "list[Protein | Complex | Template] | None = None"
+       },
+       {
+        "name": "properties",
+        "type": "list[dict] | None = None"
+       },
+       {
+        "name": "method",
+        "type": "str | None"
+       }
+      ],
+      "returns": "Future for the folding result.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -197,13 +315,44 @@
    "kind": "class",
    "signature": "class openprotein.fold.Boltz1xModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/boltz.html#Boltz1xModel",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.Boltz1xModel.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=True, constraints=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/boltz.html#Boltz1xModel.fold"
+     "source": "../../_modules/openprotein/fold/boltz.html#Boltz1xModel.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "step_scale",
+        "type": "float"
+       },
+       {
+        "name": "constraints",
+        "type": "Optional[List[dict]]"
+       }
+      ],
+      "returns": "Future for the folding complex result.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -213,13 +362,48 @@
    "kind": "class",
    "signature": "class openprotein.fold.Boltz1Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/boltz.html#Boltz1Model",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.Boltz1Model.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/boltz.html#Boltz1Model.fold"
+     "source": "../../_modules/openprotein/fold/boltz.html#Boltz1Model.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "step_scale",
+        "type": "float"
+       },
+       {
+        "name": "use_potentials",
+        "type": "bool = False."
+       },
+       {
+        "name": "constraints",
+        "type": "Optional[List[dict]]"
+       }
+      ],
+      "returns": "Future for the folding complex result.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -229,13 +413,36 @@
    "kind": "class",
    "signature": "class openprotein.fold.RosettaFold3Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/rosettafold3.html#RosettaFold3Model",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.RosettaFold3Model.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=10, num_steps=50, **kwargs)[source]",
-     "source": "../../_modules/openprotein/fold/rosettafold3.html#RosettaFold3Model.fold"
+     "source": "../../_modules/openprotein/fold/rosettafold3.html#RosettaFold3Model.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "list[Complex | Protein | str | bytes] | MSAFuture,"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       }
+      ],
+      "returns": "Future for the folding results.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -245,13 +452,36 @@
    "kind": "class",
    "signature": "class openprotein.fold.AlphaFold2Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/alphafold2.html#AlphaFold2Model",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.AlphaFold2Model.fold",
      "kind": "method",
      "signature": "fold(sequences, num_recycles=None, num_models=1, num_relax=0, **kwargs)[source]",
-     "source": "../../_modules/openprotein/fold/alphafold2.html#AlphaFold2Model.fold"
+     "source": "../../_modules/openprotein/fold/alphafold2.html#AlphaFold2Model.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_models",
+        "type": "int"
+       },
+       {
+        "name": "num_relax",
+        "type": "int"
+       }
+      ],
+      "returns": "job",
+      "return_type": "Job"
+     }
     }
    ]
   },
@@ -261,13 +491,27 @@
    "kind": "class",
    "signature": "class openprotein.fold.ESMFoldModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/esmfold.html#ESMFoldModel",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.ESMFoldModel.fold",
      "kind": "method",
      "signature": "fold(sequences, num_recycles=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/esmfold.html#ESMFoldModel.fold"
+     "source": "../../_modules/openprotein/fold/esmfold.html#ESMFoldModel.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes]"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int | None"
+       }
+      ],
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -277,13 +521,40 @@
    "kind": "class",
    "signature": "class openprotein.fold.ESMFold2Model(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2Model",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.ESMFold2Model.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=3, num_steps=100, seed=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2Model.fold"
+     "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2Model.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes] | MSAFuture"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "seed",
+        "type": "int | None"
+       }
+      ],
+      "returns": "Future for the folding result.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -293,13 +564,40 @@
    "kind": "class",
    "signature": "class openprotein.fold.ESMFold2FastModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2FastModel",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.ESMFold2FastModel.fold",
      "kind": "method",
      "signature": "fold(sequences, diffusion_samples=1, num_recycles=3, num_steps=100, seed=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2FastModel.fold"
+     "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2FastModel.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[Complex | Protein | str | bytes]"
+       },
+       {
+        "name": "diffusion_samples",
+        "type": "int"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int"
+       },
+       {
+        "name": "num_steps",
+        "type": "int"
+       },
+       {
+        "name": "seed",
+        "type": "int | None"
+       }
+      ],
+      "returns": "Future for the folding result.",
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -309,13 +607,27 @@
    "kind": "class",
    "signature": "class openprotein.fold.MiniFoldModel(session, model_id, metadata=None)[source]",
    "source": "../../_modules/openprotein/fold/minifold.html#MiniFoldModel",
+   "fields": {},
    "members": [
     {
      "name": "fold",
      "path": "openprotein.fold.MiniFoldModel.fold",
      "kind": "method",
      "signature": "fold(sequences, num_recycles=None, **_)[source]",
-     "source": "../../_modules/openprotein/fold/minifold.html#MiniFoldModel.fold"
+     "source": "../../_modules/openprotein/fold/minifold.html#MiniFoldModel.fold",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequences",
+        "type": "Sequence[bytes | str]"
+       },
+       {
+        "name": "num_recycles",
+        "type": "int | None"
+       }
+      ],
+      "return_type": "FoldResultFuture"
+     }
     }
    ]
   },
@@ -325,48 +637,55 @@
    "kind": "class",
    "signature": "class openprotein.fold.ESMFold2Confidence(*, ptm, iptm, complex_plddt, chains_ptm, pair_chains_iptm)[source]",
    "source": "../../_modules/openprotein/fold/esmfold2.html#ESMFold2Confidence",
+   "fields": {},
    "members": [
     {
      "name": "ptm",
      "path": "openprotein.fold.ESMFold2Confidence.ptm",
      "kind": "attribute",
      "signature": "ptm",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "iptm",
      "path": "openprotein.fold.ESMFold2Confidence.iptm",
      "kind": "attribute",
      "signature": "iptm",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "complex_plddt",
      "path": "openprotein.fold.ESMFold2Confidence.complex_plddt",
      "kind": "attribute",
      "signature": "complex_plddt",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "chains_ptm",
      "path": "openprotein.fold.ESMFold2Confidence.chains_ptm",
      "kind": "attribute",
      "signature": "chains_ptm",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "pair_chains_iptm",
      "path": "openprotein.fold.ESMFold2Confidence.pair_chains_iptm",
      "kind": "attribute",
      "signature": "pair_chains_iptm",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "model_config",
      "path": "openprotein.fold.ESMFold2Confidence.model_config",
      "kind": "attribute",
      "signature": "model_config: ClassVar[ConfigDict] = {}",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -376,265 +695,445 @@
    "kind": "class",
    "signature": "class openprotein.fold.FoldResultFuture(session, job=None, metadata=None, sequences=None, complexes=None, max_workers=10)[source]",
    "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture",
+   "fields": {},
    "members": [
     {
      "name": "job",
      "path": "openprotein.fold.FoldResultFuture.job",
      "kind": "attribute",
      "signature": "job",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "sequences",
      "path": "openprotein.fold.FoldResultFuture.sequences",
      "kind": "property",
      "signature": "property sequences: list[bytes]",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "List of sequences.",
+      "return_type": "list[bytes]"
+     }
     },
     {
      "name": "complexes",
      "path": "openprotein.fold.FoldResultFuture.complexes",
      "kind": "property",
      "signature": "property complexes: list[Complex]",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "List of complexes.",
+      "return_type": "list[Complex]"
+     }
     },
     {
      "name": "id",
      "path": "openprotein.fold.FoldResultFuture.id",
      "kind": "property",
      "signature": "property id",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "Fold job ID.",
+      "return_type": "str"
+     }
     },
     {
      "name": "metadata",
      "path": "openprotein.fold.FoldResultFuture.metadata",
      "kind": "property",
      "signature": "property metadata: FoldMetadata",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "model_id",
      "path": "openprotein.fold.FoldResultFuture.model_id",
      "kind": "property",
      "signature": "property model_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_item",
      "path": "openprotein.fold.FoldResultFuture.get_item",
      "kind": "method",
      "signature": "get_item(k: int, key: None = None) \u2192 Structure[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_item"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_item",
+     "fields": {
+      "parameters": [
+       {
+        "name": "sequence",
+        "type": "bytes"
+       }
+      ],
+      "returns": "Complex containing the folded structure.",
+      "return_type": "Complex"
+     }
     },
     {
      "name": "stream",
      "path": "openprotein.fold.FoldResultFuture.stream",
      "kind": "method",
      "signature": "stream(key: None = None) \u2192 Iterator[Structure][source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.stream"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.stream",
+     "fields": {
+      "returns": "A generator that yields (key, value) tuples.",
+      "return_type": "Generator"
+     }
     },
     {
      "name": "get_pae",
      "path": "openprotein.fold.FoldResultFuture.get_pae",
      "kind": "method",
      "signature": "get_pae()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae",
+     "fields": {
+      "returns": "PAE matrix.",
+      "return_type": "list[np.ndarray]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "args",
      "path": "openprotein.fold.FoldResultFuture.args",
      "kind": "property",
      "signature": "property args: dict[str, Any]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "cancelled",
      "path": "openprotein.fold.FoldResultFuture.cancelled",
      "kind": "method",
      "signature": "cancelled()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is cancelled, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "created_date",
      "path": "openprotein.fold.FoldResultFuture.created_date",
      "kind": "property",
      "signature": "property created_date: datetime",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "done",
      "path": "openprotein.fold.FoldResultFuture.done",
      "kind": "method",
      "signature": "done()",
-     "source": null
+     "source": null,
+     "fields": {
+      "returns": "True if the job is done, False otherwise.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "end_date",
      "path": "openprotein.fold.FoldResultFuture.end_date",
      "kind": "property",
      "signature": "property end_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "get_pde",
      "path": "openprotein.fold.FoldResultFuture.get_pde",
      "kind": "method",
      "signature": "get_pde()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde",
+     "fields": {
+      "returns": "PDE matrix.",
+      "return_type": "list[np.ndarray]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "job_id",
      "path": "openprotein.fold.FoldResultFuture.job_id",
      "kind": "property",
      "signature": "property job_id: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "job_type",
      "path": "openprotein.fold.FoldResultFuture.job_type",
      "kind": "property",
      "signature": "property job_type: str",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "progress_counter",
      "path": "openprotein.fold.FoldResultFuture.progress_counter",
      "kind": "property",
      "signature": "property progress_counter: int",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "refresh",
      "path": "openprotein.fold.FoldResultFuture.refresh",
      "kind": "method",
      "signature": "refresh()",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "start_date",
      "path": "openprotein.fold.FoldResultFuture.start_date",
      "kind": "property",
      "signature": "property start_date: datetime | None",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "status",
      "path": "openprotein.fold.FoldResultFuture.status",
      "kind": "property",
      "signature": "property status: JobStatus",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "wait",
      "path": "openprotein.fold.FoldResultFuture.wait",
      "kind": "method",
      "signature": "wait(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "int, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int | None, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "The results of the job.",
+      "return_type": "Any"
+     }
     },
     {
      "name": "wait_until_done",
      "path": "openprotein.fold.FoldResultFuture.wait_until_done",
      "kind": "method",
      "signature": "wait_until_done(interval=5, timeout=None, verbose=False)",
-     "source": null
+     "source": null,
+     "fields": {
+      "parameters": [
+       {
+        "name": "interval",
+        "type": "float, optional"
+       },
+       {
+        "name": "timeout",
+        "type": "int, optional"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "True if the job completed successfully.",
+      "return_type": "bool"
+     }
     },
     {
      "name": "get_plddt",
      "path": "openprotein.fold.FoldResultFuture.get_plddt",
      "kind": "method",
      "signature": "get_plddt()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt",
+     "fields": {
+      "returns": "pLDDT scores.",
+      "return_type": "list[np.ndarray]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_ptm",
      "path": "openprotein.fold.FoldResultFuture.get_ptm",
      "kind": "method",
      "signature": "get_ptm()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm",
+     "fields": {
+      "returns": "pTM scores.",
+      "return_type": "list[np.ndarray]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_ipae",
      "path": "openprotein.fold.FoldResultFuture.get_ipae",
      "kind": "method",
      "signature": "get_ipae()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae",
+     "fields": {
+      "returns": "iPAE scalars (one (1,) array per unit).",
+      "return_type": "list[np.ndarray]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_score",
      "path": "openprotein.fold.FoldResultFuture.get_score",
      "kind": "method",
      "signature": "get_score()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_score"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_score",
+     "fields": {
+      "returns": "Structure prediction scores.",
+      "return_type": "list[pd.DataFrame]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_metrics",
      "path": "openprotein.fold.FoldResultFuture.get_metrics",
      "kind": "method",
      "signature": "get_metrics()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_metrics"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_metrics",
+     "fields": {
+      "returns": "Structure prediction metrics.",
+      "return_type": "list[pd.DataFrame]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_confidence",
      "path": "openprotein.fold.FoldResultFuture.get_confidence",
      "kind": "method",
      "signature": "get_confidence()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence",
+     "fields": {
+      "returns": "List of list of confidence objects (model-specific schema).",
+      "return_type": "list[list[BoltzConfidence]] | list[list[ProtenixConfidence]] | list[list[ESMFold2Confidence]]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_affinity",
      "path": "openprotein.fold.FoldResultFuture.get_affinity",
      "kind": "method",
      "signature": "get_affinity()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity",
+     "fields": {
+      "returns": "BoltzAffinity object containing the predicted affinities.",
+      "return_type": "list[list[BoltzAffinity]]",
+      "raises": [
+       {
+        "name": "AttributeError",
+        "type": null
+       }
+      ]
+     }
     },
     {
      "name": "get_pae_batch",
      "path": "openprotein.fold.FoldResultFuture.get_pae_batch",
      "kind": "method",
      "signature": "get_pae_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae_batch",
+     "fields": {}
     },
     {
      "name": "get_pde_batch",
      "path": "openprotein.fold.FoldResultFuture.get_pde_batch",
      "kind": "method",
      "signature": "get_pde_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde_batch",
+     "fields": {}
     },
     {
      "name": "get_plddt_batch",
      "path": "openprotein.fold.FoldResultFuture.get_plddt_batch",
      "kind": "method",
      "signature": "get_plddt_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt_batch",
+     "fields": {}
     },
     {
      "name": "get_ptm_batch",
      "path": "openprotein.fold.FoldResultFuture.get_ptm_batch",
      "kind": "method",
      "signature": "get_ptm_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm_batch",
+     "fields": {}
     },
     {
      "name": "get_ipae_batch",
      "path": "openprotein.fold.FoldResultFuture.get_ipae_batch",
      "kind": "method",
      "signature": "get_ipae_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae_batch",
+     "fields": {}
     },
     {
      "name": "get_confidence_batch",
      "path": "openprotein.fold.FoldResultFuture.get_confidence_batch",
      "kind": "method",
      "signature": "get_confidence_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence_batch",
+     "fields": {}
     },
     {
      "name": "get_affinity_batch",
      "path": "openprotein.fold.FoldResultFuture.get_affinity_batch",
      "kind": "method",
      "signature": "get_affinity_batch()[source]",
-     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity_batch"
+     "source": "../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity_batch",
+     "fields": {}
     }
    ]
   }

@@ -103,7 +103,7 @@
       "line": 80,
       "end": 88
      },
-     "signature": "(future, interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(future, interval=5, timeout=None, verbose=False)",
      "returns": null,
      "returns_parts": null,
      "parsed": [
@@ -121,7 +121,7 @@
    "name": "Job",
    "path": "openprotein.jobs.Job",
    "kind": "class",
-   "signature": "(*, job_id, job_type, status, created_date, start_date, end_date, prerequisite_job_id, progress_message, progress_counter, sequence_length, failure_message)",
+   "signature": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
    "bases": [
     "BaseModel"
    ],
@@ -251,7 +251,7 @@
       "line": 347,
       "end": 376
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
      "returns_parts": [
       {
@@ -334,7 +334,7 @@
       "line": 378,
       "end": 404
      },
-     "signature": "(interval=config.POLLING_INTERVAL, timeout=None, verbose=False)",
+     "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "V",
      "returns_parts": [
       {
@@ -412,7 +412,8 @@
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "v0.16.1"
+  "ref": "85dc94bd15a33bdc8674ad899571043016427ce3",
+  "tag": "v0.16.1"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

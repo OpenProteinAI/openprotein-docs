@@ -39,118 +39,187 @@
    "kind": "class",
    "signature": "class openprotein.molecules.Protein(sequence, name=None)[source]",
    "source": "../../_modules/openprotein/molecules/protein.html#Protein",
+   "fields": {},
    "members": [
     {
      "name": "msa",
      "path": "openprotein.molecules.Protein.msa",
      "kind": "property",
      "signature": "property msa: str | MSAFuture | None | Type[NullMSA]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "templates",
      "path": "openprotein.molecules.Protein.templates",
      "kind": "property",
      "signature": "property templates: Sequence[Protein | Complex | Template]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "at",
      "path": "openprotein.molecules.Protein.at",
      "kind": "method",
      "signature": "at(positions)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.at"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.at",
+     "fields": {}
     },
     {
      "name": "mask_sequence",
      "path": "openprotein.molecules.Protein.mask_sequence",
      "kind": "method",
      "signature": "mask_sequence()[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence",
+     "fields": {}
     },
     {
      "name": "mask_sequence_at",
      "path": "openprotein.molecules.Protein.mask_sequence_at",
      "kind": "method",
      "signature": "mask_sequence_at(positions)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_at"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_at",
+     "fields": {}
     },
     {
      "name": "mask_sequence_except_at",
      "path": "openprotein.molecules.Protein.mask_sequence_except_at",
      "kind": "method",
      "signature": "mask_sequence_except_at(positions)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_except_at"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_except_at",
+     "fields": {}
     },
     {
      "name": "mask_structure",
      "path": "openprotein.molecules.Protein.mask_structure",
      "kind": "method",
      "signature": "mask_structure(side_chain_only=False)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure",
+     "fields": {}
     },
     {
      "name": "mask_structure_at",
      "path": "openprotein.molecules.Protein.mask_structure_at",
      "kind": "method",
      "signature": "mask_structure_at(positions, side_chain_only=False)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_at"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_at",
+     "fields": {}
     },
     {
      "name": "mask_structure_except_at",
      "path": "openprotein.molecules.Protein.mask_structure_except_at",
      "kind": "method",
      "signature": "mask_structure_except_at(positions, side_chain_only=False)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_except_at"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_except_at",
+     "fields": {}
     },
     {
      "name": "get_structure_mask",
      "path": "openprotein.molecules.Protein.get_structure_mask",
      "kind": "method",
      "signature": "get_structure_mask()[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.get_structure_mask"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.get_structure_mask",
+     "fields": {}
     },
     {
      "name": "has_structure",
      "path": "openprotein.molecules.Protein.has_structure",
      "kind": "property",
      "signature": "property has_structure: bool",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "rmsd",
      "path": "openprotein.molecules.Protein.rmsd",
      "kind": "method",
      "signature": "rmsd(tgt: Protein, backbone_only: bool | str | Sequence[str] = False, return_transform: Literal[False] = False) \u2192 float[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.rmsd"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.rmsd",
+     "fields": {
+      "parameters": [
+       {
+        "name": "tgt",
+        "type": null
+       },
+       {
+        "name": "backbone_only",
+        "type": null
+       },
+       {
+        "name": "return_transform",
+        "type": null
+       }
+      ],
+      "returns": "The RMSD value (float) if return_transform is False (default). If return_transform is True, a tuple (float, np.ndarray, np.ndarray) containing the RMSD value, the rotation matrix, and the translation vector."
+     }
     },
     {
      "name": "to_string",
      "path": "openprotein.molecules.Protein.to_string",
      "kind": "method",
      "signature": "to_string(format='cif')[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.to_string"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.to_string",
+     "fields": {}
     },
     {
      "name": "from_expr",
      "path": "openprotein.molecules.Protein.from_expr",
      "kind": "method",
      "signature": "static from_expr(expr, name=None)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.from_expr"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.from_expr",
+     "fields": {
+      "parameters": [
+       {
+        "name": "expr",
+        "type": "str | int"
+       },
+       {
+        "name": "name",
+        "type": "str | None"
+       }
+      ],
+      "returns": "Protein object with the parsed sequence",
+      "return_type": "Protein"
+     }
     },
     {
      "name": "from_filepath",
      "path": "openprotein.molecules.Protein.from_filepath",
      "kind": "method",
      "signature": "static from_filepath(path, chain_id, use_bfactor_as_plddt=None, model_idx=0, verbose=True)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.from_filepath"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.from_filepath",
+     "fields": {
+      "parameters": [
+       {
+        "name": "path",
+        "type": "Path | str"
+       },
+       {
+        "name": "chain_id",
+        "type": "str"
+       },
+       {
+        "name": "use_bfactor_as_plddt",
+        "type": "bool | None"
+       },
+       {
+        "name": "model_idx",
+        "type": "int"
+       },
+       {
+        "name": "verbose",
+        "type": "bool"
+       }
+      ]
+     }
     },
     {
      "name": "formatted",
      "path": "openprotein.molecules.Protein.formatted",
      "kind": "method",
      "signature": "formatted(include=('sequence',), width=60, value_maps=None)[source]",
-     "source": "../../_modules/openprotein/molecules/protein.html#Protein.formatted"
+     "source": "../../_modules/openprotein/molecules/protein.html#Protein.formatted",
+     "fields": {}
     }
    ]
   },
@@ -160,20 +229,23 @@
    "kind": "class",
    "signature": "class openprotein.molecules.Complex(chains=None, name=None)[source]",
    "source": "../../_modules/openprotein/molecules/complex.html#Complex",
+   "fields": {},
    "members": [
     {
      "name": "templates",
      "path": "openprotein.molecules.Complex.templates",
      "kind": "property",
      "signature": "property templates: Sequence[Protein | Complex | Template]",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "to_string",
      "path": "openprotein.molecules.Complex.to_string",
      "kind": "method",
      "signature": "to_string(format='cif')[source]",
-     "source": "../../_modules/openprotein/molecules/complex.html#Complex.to_string"
+     "source": "../../_modules/openprotein/molecules/complex.html#Complex.to_string",
+     "fields": {}
     }
    ]
   },
@@ -183,20 +255,42 @@
    "kind": "class",
    "signature": "class openprotein.molecules.Structure(complexes, name=None)[source]",
    "source": "../../_modules/openprotein/molecules/structure.html#Structure",
+   "fields": {},
    "members": [
     {
      "name": "to_string",
      "path": "openprotein.molecules.Structure.to_string",
      "kind": "method",
      "signature": "to_string(format='cif')[source]",
-     "source": "../../_modules/openprotein/molecules/structure.html#Structure.to_string"
+     "source": "../../_modules/openprotein/molecules/structure.html#Structure.to_string",
+     "fields": {}
     },
     {
      "name": "from_pdb_id",
      "path": "openprotein.molecules.Structure.from_pdb_id",
      "kind": "method",
      "signature": "static from_pdb_id(pdb_id, verbose=True)[source]",
-     "source": "../../_modules/openprotein/molecules/structure.html#Structure.from_pdb_id"
+     "source": "../../_modules/openprotein/molecules/structure.html#Structure.from_pdb_id",
+     "fields": {
+      "parameters": [
+       {
+        "name": "pdb_id",
+        "type": "str"
+       },
+       {
+        "name": "verbose",
+        "type": "bool, optional"
+       }
+      ],
+      "returns": "A new instance containing the parsed structure data.",
+      "return_type": "Structure",
+      "raises": [
+       {
+        "name": "requests.HTTPError",
+        "type": null
+       }
+      ]
+     }
     }
    ]
   },
@@ -206,20 +300,23 @@
    "kind": "class",
    "signature": "class openprotein.molecules.Ligand(ccd=None, smiles=None, _structure_block=None)[source]",
    "source": "../../_modules/openprotein/molecules/chains.html#Ligand",
+   "fields": {},
    "members": [
     {
      "name": "ccd",
      "path": "openprotein.molecules.Ligand.ccd",
      "kind": "attribute",
      "signature": "ccd",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "smiles",
      "path": "openprotein.molecules.Ligand.smiles",
      "kind": "attribute",
      "signature": "smiles",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -229,13 +326,15 @@
    "kind": "class",
    "signature": "class openprotein.molecules.DNA(sequence, cyclic=False, _structure_block=None)[source]",
    "source": "../../_modules/openprotein/molecules/chains.html#DNA",
+   "fields": {},
    "members": [
     {
      "name": "sequence",
      "path": "openprotein.molecules.DNA.sequence",
      "kind": "attribute",
      "signature": "sequence",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -245,13 +344,15 @@
    "kind": "class",
    "signature": "class openprotein.molecules.RNA(sequence, cyclic=False, _structure_block=None)[source]",
    "source": "../../_modules/openprotein/molecules/chains.html#RNA",
+   "fields": {},
    "members": [
     {
      "name": "sequence",
      "path": "openprotein.molecules.RNA.sequence",
      "kind": "attribute",
      "signature": "sequence",
-     "source": null
+     "source": null,
+     "fields": {}
     }
    ]
   },
@@ -261,41 +362,64 @@
    "kind": "class",
    "signature": "class openprotein.molecules.Template(template, mapping=None, index=None, index_intervals=None)[source]",
    "source": "../../_modules/openprotein/molecules/template.html#Template",
+   "fields": {},
    "members": [
     {
      "name": "template",
      "path": "openprotein.molecules.Template.template",
      "kind": "attribute",
      "signature": "template",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "mapping",
      "path": "openprotein.molecules.Template.mapping",
      "kind": "attribute",
      "signature": "mapping",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "index",
      "path": "openprotein.molecules.Template.index",
      "kind": "attribute",
      "signature": "index",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "index_intervals",
      "path": "openprotein.molecules.Template.index_intervals",
      "kind": "attribute",
      "signature": "index_intervals",
-     "source": null
+     "source": null,
+     "fields": {}
     },
     {
      "name": "validate_for_target",
      "path": "openprotein.molecules.Template.validate_for_target",
      "kind": "method",
      "signature": "validate_for_target(target)[source]",
-     "source": "../../_modules/openprotein/molecules/template.html#Template.validate_for_target"
+     "source": "../../_modules/openprotein/molecules/template.html#Template.validate_for_target",
+     "fields": {
+      "parameters": [
+       {
+        "name": "target",
+        "type": "Protein | Complex"
+       }
+      ],
+      "raises": [
+       {
+        "name": "ValueError",
+        "type": null
+       },
+       {
+        "name": "TypeError",
+        "type": null
+       }
+      ]
+     }
     }
    ]
   }

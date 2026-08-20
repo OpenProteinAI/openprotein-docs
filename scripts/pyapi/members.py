@@ -13,6 +13,7 @@ import griffe
 
 from sdk import (
     alias_target,
+    constant_value,
     deref,
     docstring_text,
     hash_comment,
@@ -100,12 +101,19 @@ def type_parts(annotation, resolve=None) -> list[dict] | None:
     return parts or None
 
 
-def signature_of(func) -> str:
+def signature_of(func, package=None) -> str:
     """Rebuild the call signature from griffe parameters.
 
     Not `str(func)` — that is not a signature. `self`/`cls` are dropped and a bare `*` is
     inserted before the first keyword-only parameter, which is what reproduces the live text
     (`fold(sequences, diffusion_samples=1, ..., **_)`).
+
+    Annotations are deliberately absent: `conf.py` sets `autodoc_typehints = "description"`,
+    so Sphinx moved them out of the signature and into the parameter table. The golden
+    signatures confirm it — `fold(sequences, diffusion_samples=1, ...)`, no types.
+
+    `package` enables constant folding. Pass it, or 25 signatures print
+    `interval=config.POLLING_INTERVAL` where the live page printed `interval=5`.
     """
     parts: list[str] = []
     star = False
@@ -125,8 +133,71 @@ def signature_of(func) -> str:
             parts.append("*")
             star = True
         default = getattr(param, "default", None)
-        parts.append(f"{name}={default}" if default is not None else name)
+        if default is None:
+            parts.append(name)
+            continue
+        folded = constant_value(package, default) if package is not None else None
+        parts.append(f"{name}={folded or default}")
     return "(" + ", ".join(parts) + ")"
+
+
+def _field_default(target) -> str | None:
+    """The default a pydantic field declares, or None when it is required.
+
+    `id: str = Field(description="…")` is **required** — the `Field(...)` call is not a
+    default. `description: str | None = Field(None, description="…")` defaults to `None`,
+    positionally, and `Field(default=None)` says it by keyword. Printing the raw value gave
+    `id=Field(description='Prompt unique identifier.')` on the page.
+    """
+    value = getattr(target, "value", None)
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not re.match(r"^(pydantic\.)?Field\s*\(", text):
+        return text
+    inner = text[text.index("(") + 1 : text.rindex(")")].strip()
+    if not inner:
+        return None
+    # Split on top-level commas only — a Field argument can itself contain one.
+    depth = 0
+    args: list[str] = []
+    current = ""
+    for char in inner:
+        if char in "([{":
+            depth += 1
+        elif char in ")]}":
+            depth -= 1
+        if char == "," and depth == 0:
+            args.append(current.strip())
+            current = ""
+            continue
+        current += char
+    if current.strip():
+        args.append(current.strip())
+    for arg in args:
+        if arg.startswith("default="):
+            return arg[len("default=") :].strip()
+    first = args[0]
+    if "=" in first.split("(")[0]:
+        return None  # keyword-only call: the field is required
+    return first
+
+
+def _pydantic_chain(cls) -> list:
+    """`cls` then its MRO, or [] when nothing in that chain derives from `BaseModel`.
+
+    Checking `cls.bases` alone misses a subclass of a model: `PromptJob(Job)` has no
+    `BaseModel` base of its own, so it fell through to the `__init__` lookup and rendered
+    `()` where the live page showed all twelve inherited fields.
+    """
+    try:
+        chain = [cls, *cls.mro()]
+    except Exception:
+        chain = [cls]
+    for entry in chain:
+        if any("BaseModel" in str(base) for base in (getattr(entry, "bases", None) or [])):
+            return chain
+    return []
 
 
 def pydantic_signature(cls) -> str | None:
@@ -134,19 +205,37 @@ def pydantic_signature(cls) -> str | None:
     subclass, so no `__init__` exists statically and `force_inspection=True` makes it worse
     (it returns pydantic machinery and loses the real fields).
 
-    The live signature is reproducible from the class's own annotation-only attributes in
-    source order, all keyword-only: `ESMFold2Confidence(*, ptm, iptm, complex_plddt, ...)`.
+    The live signature is reproducible from the annotation-only attributes in source order,
+    all keyword-only: `ESMFold2Confidence(*, ptm, iptm, complex_plddt, ...)`. Fields are
+    collected **base-first** so an inherited field keeps the position pydantic gives it, and
+    a re-declaration (`PromptJob.job_type`) updates in place rather than appending.
     """
-    if not any("BaseModel" in str(base) for base in (getattr(cls, "bases", None) or [])):
+    chain = _pydantic_chain(cls)
+    if not chain:
         return None
-    fields = [
-        name
-        for name, member in cls.members.items()
-        if not name.startswith("_")
-        and kind_of(member) == "attribute"
-        and _type_text(getattr(deref(member), "annotation", None))
-    ]
-    return "(*, " + ", ".join(fields) + ")" if fields else None
+    fields: dict[str, str | None] = {}
+    for holder in reversed(chain):
+        for name, member in (getattr(holder, "members", None) or {}).items():
+            if name.startswith("_") or kind_of(member) != "attribute":
+                continue
+            target = deref(member)
+            if not _type_text(getattr(target, "annotation", None)):
+                continue
+            fields[name] = _field_default(target)
+    if not fields:
+        return None
+    parts = [name if default is None else f"{name}={default}" for name, default in fields.items()]
+    # `model_config = ConfigDict(extra="allow")` makes pydantic accept and expose arbitrary
+    # extras, which it surfaces as a trailing `**extra_data` — `openprotein.jobs.Job` and
+    # everything deriving from it.
+    for holder in chain:
+        config = (getattr(holder, "members", None) or {}).get("model_config")
+        if config is None:
+            continue
+        if 'extra="allow"' in str(getattr(deref(config), "value", "")).replace("'", '"'):
+            parts.append("**extra_data")
+            break
+    return "(*, " + ", ".join(parts) + ")"
 
 
 def docstring_attributes(cls) -> dict[str, str]:
@@ -233,17 +322,25 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
             sibling = alias_target(cls, member)
             if sibling is not None:
                 resolved = sibling
+                # The target's docstring outranks an MRO-inherited one, and only the alias's
+                # OWN docstring outranks the target. At runtime `predict` *is* `generate`, so
+                # autodoc read `generate.__doc__` — which is why the live page showed
+                # `predict` with the whole "Run a protein structure generate job using
+                # RFdiffusion" prose and all 16 parameters. Deferring to the MRO instead
+                # picked up `ProteinModel.predict`'s one-line "Alias for the design method"
+                # and lost the parameter table on both `predict` members.
+                #
                 # The sibling itself may be an undocumented override — `SVDModel.id` and
                 # `EmbeddingsResultFuture.id` both shadow the documented `Future.id` — so the
-                # MRO walk has to run on the alias target too, not just on the alias.
-                if not doc.strip():
-                    doc = docstring_text(sibling)
-                    doc_owner = sibling if doc.strip() else doc_owner
-                    if not doc.strip():
+                # MRO walk still has to run, just on the alias target.
+                if not own_doc.strip():
+                    sibling_doc = docstring_text(sibling)
+                    if sibling_doc.strip():
+                        doc, doc_owner = sibling_doc, sibling
+                    else:
                         ancestor = inherited_docstring_owner(cls, sibling.name)
-                        if ancestor is not None:
-                            doc = docstring_text(ancestor)
-                            doc_owner = ancestor
+                        if ancestor is not None and docstring_text(ancestor).strip():
+                            doc, doc_owner = docstring_text(ancestor), ancestor
                 kind = kind_of(sibling)
 
         if META_PRIVATE in (own_doc or ""):
@@ -352,6 +449,12 @@ def describe(package, cls, name, member, extras, resolve=None, link=None) -> dic
     if target is None:
         if extras.get("synthetic"):
             out["synthetic"] = extras["synthetic"]
+            # The live page rendered `model_config: ClassVar[ConfigDict] = {}`. There is no
+            # object to read it off, so state it — otherwise the one synthetic member is the
+            # only untyped attribute on the page.
+            out["annotation"] = "ClassVar[ConfigDict]"
+            out["annotation_parts"] = [{"text": "ClassVar[ConfigDict]"}]
+            out["value"] = "{}"
         else:
             out["from_docstring"] = True
         return out
@@ -366,12 +469,12 @@ def describe(package, cls, name, member, extras, resolve=None, link=None) -> dic
             out["inherited_from_ref"] = resolve(defining)
 
     if kind in {"method"}:
-        out["signature"] = signature_of(target)
+        out["signature"] = signature_of(target, package)
         out["returns"] = _type_text(getattr(target, "returns", None))
         out["returns_parts"] = type_parts(getattr(target, "returns", None), resolve)
         overloads = getattr(target, "overloads", None) or []
         if overloads:
-            out["overloads"] = [signature_of(o) for o in overloads]
+            out["overloads"] = [signature_of(o, package) for o in overloads]
     else:
         out["annotation"] = _type_text(getattr(target, "annotation", None))
         out["annotation_parts"] = type_parts(getattr(target, "annotation", None), resolve)
@@ -404,6 +507,46 @@ SECTION_KINDS = {
 }
 
 
+_NUMPY_HEADER = (
+    "Parameters",
+    "Other Parameters",
+    "Returns",
+    "Yields",
+    "Raises",
+    "Warns",
+    "Attributes",
+    "Examples",
+    "Notes",
+    "See Also",
+)
+
+
+def _repair_underline(doc) -> None:
+    """Rewrite a NumPy section underline typed with `_` instead of `-`.
+
+    napoleon accepted `Parameters\n__________`; griffe does not, and silently returns prose.
+    One docstring in the SDK has it (`predictor/predictor.py:289`) and it cost
+    `PredictorAPI.ensemble` its whole parameter table. Recorded in `UPSTREAM.md` too — this
+    repairs the render, it does not excuse the typo.
+
+    Only an underline directly under a known header, of at least three characters, is touched.
+    """
+    text = getattr(doc, "value", None)
+    if not text or "_" * 3 not in text:
+        return
+    lines = text.split("\n")
+    changed = False
+    for index in range(1, len(lines)):
+        if not re.fullmatch(r"\s*_{3,}\s*", lines[index]):
+            continue
+        if lines[index - 1].strip() not in _NUMPY_HEADER:
+            continue
+        lines[index] = lines[index].replace("_", "-")
+        changed = True
+    if changed:
+        doc.value = "\n".join(lines)
+
+
 def parsed_sections(doc):
     """The richest parse of a docstring, not whatever `auto` guessed.
 
@@ -417,6 +560,7 @@ def parsed_sections(doc):
     """
     if doc is None:
         return []
+    _repair_underline(doc)
     try:
         best = doc.parse(griffe.Parser.auto)
     except Exception:
