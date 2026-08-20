@@ -155,7 +155,8 @@ def inherited_docstring_owner(cls, name: str):
 
 def inherited_docstring(cls, name: str) -> str:
     """autodoc_inherit_docstrings defaults True, so an override with no docstring of its own
-    is still 'documented' via its base. 18 members across the 61 classes rely on this.
+    is still 'documented' via its base. 25 members across 13 of the 61 classes rely on this:
+    neutralising this function drops the emitted member count from 439 to 414.
 
     `inherited_members` deliberately omits names the subclass overrides, so it cannot answer
     this — walk `mro()` instead, which griffe C3-linearises and which returns [] rather than

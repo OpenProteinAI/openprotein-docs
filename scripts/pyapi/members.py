@@ -407,12 +407,13 @@ SECTION_KINDS = {
 def parsed_sections(doc):
     """The richest parse of a docstring, not whatever `auto` guessed.
 
-    griffe's `Parser.auto` infers a style per docstring and gets it wrong for 34 of this
-    SDK's 504 docstrings: `infer_docstring_style` calls `PoET2Model.embed` google-style, so
-    its NumPy `Parameters\n----------` block comes back as one prose blob and the whole
-    parameter table renders as a paragraph. Falling back to the explicit parsers when `auto`
-    finds no structure recovers all 34 and changes nothing else — `auto` already produces the
-    maximum for the other 470.
+    griffe's `Parser.auto` infers a style per docstring and gets it wrong: 13 of this SDK's
+    495 docstrings parse to prose under `auto` alone. `infer_docstring_style` calls
+    `PoET2Model.embed` google-style, so its NumPy `Parameters\n----------` block comes back as
+    one prose blob and the whole parameter table renders as a paragraph. Falling back to the
+    explicit parsers when `auto` finds no structure recovers those 13 and changes nothing else.
+    The other 21 of the 34 come from parsing the docstring's owner rather than the override —
+    see `sdk.inherited_docstring_owner`.
     """
     if doc is None:
         return []

@@ -8,11 +8,10 @@ import { chromium } from 'playwright';
 
 const BASE = process.env.BASE ?? 'http://localhost:5001';
 const GOLDEN = 'scripts/pyapi/golden';
-const PAGES = process.argv.slice(2).length
-  ? process.argv.slice(2)
-  : readdirSync(GOLDEN)
-      .filter((f) => f.endsWith('.json'))
-      .map((f) => f.replace(/\.json$/, ''));
+const ALL_PAGES = readdirSync(GOLDEN)
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => f.replace(/\.json$/, ''));
+const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : ALL_PAGES;
 
 const browser = await chromium.launch({ channel: 'chrome' });
 const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
@@ -24,9 +23,11 @@ const fail = (msg) => {
 };
 
 // Every anchor the site publishes, so a cross-page type link can be checked without
-// loading the page it points at.
+// loading the page it points at. Built from ALL_PAGES, never from PAGES: a subset run
+// would otherwise report every cross-page link as pointing nowhere — `fold data` alone
+// reported 46 phantom failures.
 const universe = new Map();
-for (const name of PAGES) {
+for (const name of ALL_PAGES) {
   const g = JSON.parse(readFileSync(`${GOLDEN}/${name}.json`, 'utf8'));
   for (const c of g.classes) {
     universe.set(c.path, name);
