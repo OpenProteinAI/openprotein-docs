@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoaderCircle } from 'lucide-react';
+import { useReloadSession } from '@/components/auth/session-provider';
 import { Button } from '@/components/site/button';
 
 const FIELD =
@@ -20,6 +21,7 @@ function messageOf(body: unknown): string {
 
 export function LoginForm() {
   const router = useRouter();
+  const reloadSession = useReloadSession();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +49,9 @@ export function LoginForm() {
       }
 
       setPassword('');
-      router.refresh();
+      // Before navigating: the provider is in the root layout and never remounts, so
+      // nothing else would tell the header it is now signed in.
+      await reloadSession();
       router.push('/');
     } catch {
       setError('Could not reach the sign-in service. Please try again.');

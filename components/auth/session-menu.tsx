@@ -1,24 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ChevronDown, CreditCard, KeyRound, LayoutDashboard, LogOut } from 'lucide-react';
-import { useSession } from '@/components/auth/session-provider';
-
-const PLATFORM = 'https://app.openprotein.ai';
-
-const ROWS = [
-  { label: 'Workspace dashboard', href: PLATFORM, icon: LayoutDashboard },
-  { label: 'API keys', href: `${PLATFORM}/account/api-keys`, icon: KeyRound },
-  { label: 'Usage & billing', href: `${PLATFORM}/account/billing`, icon: CreditCard },
-];
+import { LogOut } from 'lucide-react';
+import { useReloadSession, useSession } from '@/components/auth/session-provider';
 
 const ROW =
   'flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm text-fd-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground';
 
 export function SessionMenu({ className }: { className?: string }) {
   const session = useSession();
-  const router = useRouter();
+  const reloadSession = useReloadSession();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -59,7 +50,8 @@ export function SessionMenu({ className }: { className?: string }) {
       // Best effort: the cookies are cleared server-side, so fall through to the refresh.
     }
     setPending(false);
-    router.refresh();
+    // Same reason as signing in: without this the avatar stays until a hard reload.
+    await reloadSession();
   }
 
   return (
@@ -71,16 +63,10 @@ export function SessionMenu({ className }: { className?: string }) {
         aria-expanded={open}
         aria-label={`Account: ${session.username}`}
         onClick={() => setOpen((value) => !value)}
-        className="flex h-[34px] items-center gap-1 rounded-[0.75em] pr-0.5 text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+        style={{ background: 'var(--color-fd-accent)' }}
+        className="flex size-[34px] shrink-0 items-center justify-center rounded-full text-sm font-semibold text-dark transition-[filter] hover:brightness-108 focus-visible:ring-2 focus-visible:ring-fd-ring focus-visible:ring-offset-2 focus-visible:ring-offset-fd-background focus-visible:outline-none"
       >
-        <span
-          aria-hidden
-          className="flex size-7 items-center justify-center rounded-full text-xs font-semibold text-white"
-          style={{ background: 'var(--brand-gradient)' }}
-        >
-          {initial}
-        </span>
-        <ChevronDown className="size-[15px]" />
+        <span aria-hidden>{initial}</span>
       </button>
 
       {open ? (
@@ -94,27 +80,12 @@ export function SessionMenu({ className }: { className?: string }) {
             <p className="truncate text-sm font-medium text-fd-foreground">{session.username}</p>
           </div>
 
-          {ROWS.map(({ label, href, icon: Icon }) => (
-            <a
-              key={label}
-              role="menuitem"
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className={ROW}
-            >
-              <Icon className="size-4 shrink-0 text-fd-muted-foreground" />
-              {label}
-            </a>
-          ))}
-
           <button
             type="button"
             role="menuitem"
             onClick={signOut}
             disabled={pending}
-            className={`${ROW} border-t border-fd-border disabled:opacity-60`}
+            className={`${ROW} disabled:opacity-60`}
           >
             <LogOut className="size-4 shrink-0 text-fd-muted-foreground" />
             {pending ? 'Signing out…' : 'Sign out'}

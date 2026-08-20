@@ -85,7 +85,7 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
           <SearchTrigger hideIfDisabled className="lg:hidden" />
           <ThemeToggle />
           <Button
-            variant="secondary"
+            variant={ session ? 'primary' : 'secondary' }
             href="https://www.openprotein.ai/contact"
             external
             className="max-lg:hidden"

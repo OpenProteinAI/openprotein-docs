@@ -14,7 +14,8 @@
     "check:contrast": "node ./scripts/check-contrast.mjs",
     "check:layout": "node ./scripts/geom.mjs",
     "shots": "node ./scripts/shots.mjs",
-    "check:restapi": "node ./scripts/check-restapi.mjs"
+    "check:restapi": "node ./scripts/check-restapi.mjs",
+    "check:auth": "node ./scripts/check-auth.mjs"
   },
   "dependencies": {
     "fumadocs-core": "16.14.3",

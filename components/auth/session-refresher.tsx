@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useReloadSession } from '@/components/auth/session-provider';
 
 const LOCK = 'op-refresh-token';
 
@@ -41,7 +41,7 @@ function nextExpiry(body: unknown): number {
 }
 
 export function SessionRefresher({ expiresAt }: { expiresAt: number }) {
-  const router = useRouter();
+  const reloadSession = useReloadSession();
   const deadline = useRef(expiresAt);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -96,7 +96,9 @@ export function SessionRefresher({ expiresAt }: { expiresAt: number }) {
       if (cancelled) return;
       if (result === null) {
         stopped = true;
-        router.refresh();
+        // The platform refused, so the cookie is gone: tell the header, which unmounts
+        // this poller in turn.
+        void reloadSession();
         return;
       }
 
@@ -119,7 +121,7 @@ export function SessionRefresher({ expiresAt }: { expiresAt: number }) {
       clear();
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [expiresAt, router]);
+  }, [expiresAt, reloadSession]);
 
   return null;
 }
