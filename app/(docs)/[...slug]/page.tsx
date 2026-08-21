@@ -16,6 +16,7 @@ import { readNotebook } from '@/lib/notebook';
 import { getApiPageProps, getSpecDocument, specIdForSlug } from '@/lib/openapi';
 import { endpointsToc } from '@/lib/openapi-toc';
 import { pyToc } from '@/lib/python-api';
+import { bodyRepeatsDescription } from '@/lib/page-lead';
 import { source } from '@/lib/source';
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
@@ -50,10 +51,12 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
       {notebook ? null : (
         <>
           <DocsTitle>{page.data.title}</DocsTitle>
-          {/* Python API reference pages open with their own intro paragraph, which carries
-              cross-links the description cannot. Rendering both would print the same sentence
-              twice; the description still feeds <meta>, the sidebar and search. */}
-          {page.data.pythonApi ? null : (
+          {/* A page whose body already opens with its description would print the same
+              sentence twice, one line apart — true of the Python API reference pages by
+              construction, and of 25 migrated prose pages because the converter derives the
+              description from their opening sentence. The description still feeds <meta>, the
+              prev/next cards and search either way. See lib/page-lead.ts. */}
+          {page.data.pythonApi || (await bodyRepeatsDescription(page)) ? null : (
             <DocsDescription>{page.data.description}</DocsDescription>
           )}
         </>

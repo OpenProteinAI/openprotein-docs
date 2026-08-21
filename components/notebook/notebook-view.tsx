@@ -1,4 +1,5 @@
 import { renderMarkdown } from '@/lib/markdown';
+import { rewriteRstRoles } from '@/lib/rst-roles';
 import { readNotebook } from '@/lib/notebook';
 import { CodeCell } from './code-cell';
 
@@ -15,9 +16,14 @@ export async function NotebookView({
   const notebook = await readNotebook(file);
   // One pass up front so the cells render in order without awaiting inside the map.
   const prose = await Promise.all(
-    notebook.cells.map((cell) =>
+    notebook.cells.map(async (cell) =>
       cell.kind === 'markdown'
-        ? renderMarkdown(cell.source.replace(STALE_BADGE, '').trimStart(), { headingShift })
+        ? renderMarkdown(
+            // Notebook markdown cells carry Sphinx cross-reference roles, which nbsphinx
+            // resolved because the whole site was one Sphinx project.
+            await rewriteRstRoles(cell.source.replace(STALE_BADGE, '').trimStart()),
+            { headingShift, nbsphinxAliases: true },
+          )
         : null,
     ),
   );

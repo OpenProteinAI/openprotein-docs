@@ -84,12 +84,12 @@ export function Figure({
           sizes="(max-width: 768px) 100vw, 800px"
           // The optimizer rejects svg and cannot re-encode an animated gif.
           unoptimized={RAW.test(src)}
-          className="h-auto w-full rounded-lg border border-fd-border bg-fd-card"
+          className="h-auto w-full rounded-lg"
         />
       </ImageZoom>
       {caption ? (
         <figcaption
-          className={`mt-2 text-sm leading-relaxed text-fd-muted-foreground [&_a]:text-fd-primary [&_a]:underline [&_a]:underline-offset-2 ${align === 'center' ? 'text-center' : ''}`}
+          className={`mt-2 leading-relaxed text-fd-muted-foreground [&_a]:text-fd-primary [&_a]:underline [&_a]:underline-offset-2 ${align === 'center' ? 'text-center' : ''}`}
         >
           {caption}
         </figcaption>

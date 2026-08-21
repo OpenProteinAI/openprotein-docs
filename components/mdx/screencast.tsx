@@ -31,11 +31,11 @@ export function Screencast({
           height={height}
           loading="lazy"
           decoding="async"
-          className="h-auto w-full max-w-full rounded-lg border border-fd-border"
+          className="h-auto w-full max-w-full rounded-lg"
         />
       </picture>
       {caption ? (
-        <figcaption className="mt-2 text-center text-sm text-fd-muted-foreground">
+        <figcaption className="mt-2 text-center text-fd-muted-foreground">
           {caption}
         </figcaption>
       ) : null}

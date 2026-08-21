@@ -26,6 +26,59 @@ DIVIDER = re.compile(r'^<div class="dot-line"\s*>\s*</div>$')
 SENTENCE = re.compile(r'^.*?[.!?](?=\s|$)')
 YAML_BARE = re.compile(r'^[A-Za-z0-9][^:#{}\[\]&*!|>\'"%@`]*$')
 
+# Links that were already broken on the live Sphinx site. Every one was read in context and
+# resolved to the page the prose plainly means; the plan's Phase 8 says to fix these by hand
+# rather than ship 404s. Keyed by `(docname, target-as-written)` so a genuine future break in a
+# different file still fails the run.
+LINK_FIXES = {
+    # "Get started with no code" / "with our API" — the two quickstarts point at each other
+    # under the names they had before the rename.
+    ('getting-started/quickstart-api', './get-started-with-no-code.md'):
+        'getting-started/quickstart-web',
+    ('getting-started/quickstart-web', './get-started-with-our-api.rst'):
+        'getting-started/quickstart-api',
+    # The page is `reference-sequence`, never `using-reference-sequence`.
+    ('resources/faq', '../web-app/opmodels/using-reference-sequence.rst'):
+        'web-app/opmodels/reference-sequence',
+    # "Property Regression" is the predictor API; there has never been a property-regression page.
+    ('rest-api/authentication-and-jobs', './property-regression.rst'): 'rest-api/predictor',
+    ('rest-api/index', './property-regression.rst'): 'rest-api/predictor',
+    # There is no PoET REST page and the migration does not add one (see the plan's decision).
+    # Its 12 endpoints live in the embeddings spec, which is where the reader should land.
+    ('rest-api/authentication-and-jobs', './poet.rst'): 'rest-api/embeddings',
+    # A production URL arrives here already normalised to a root-absolute docname, so these
+    # are keyed on that form. `cluster.html` was renamed `cluster-sequences`, and the
+    # annotation page is singular — neither redirect ever existed.
+    ('walkthroughs/antibody-hit-selection-ngs', '/web-app/opmodels/cluster'):
+        'web-app/opmodels/cluster-sequences',
+    ('walkthroughs/antibody-hit-selection-ngs', '/web-app/opmodels/antibody-annotations'):
+        'web-app/opmodels/antibody-annotation',
+    # Wrong-relative: prompts lives under poet/, not opmodels/.
+    ('web-app/opmodels/cluster-sequences', './prompts.rst'): 'web-app/poet/prompts',
+}
+
+# Heading-only stubs the plan drops: 2-3 lines each, no content, two marked `:orphan:`.
+# Excluded from conversion *and* from the nav, but still in the manifest so a link to one is
+# reported rather than silently resolving to a page that will not exist.
+DROPPED = {
+    # The landing page is `app/(home)/page.tsx` with Phase 1's components; `content/docs/index`
+    # would claim `/`, which the home route group already owns, so it could never be served.
+    'index',
+    # Both are `:orphan:` — in no toctree and linked from nowhere, so nothing 404s.
+    'web-app/poet/designing-new-enzymes',
+    'web-app/poet/substitutions-deletions',
+}
+# `web-app/opmodels/protein-language-models-embeddings` is the third heading-only stub, and the
+# plan grouped it with those two — but it is IN the opmodels toctree and linked from that
+# section's index, so dropping it would 404 a URL the live site serves and lose a nav row. It is
+# kept and given a signpost body instead; see SIGNPOST below.
+
+# MDX owned by another phase. The manifest still carries them so links resolve; the writer
+# never touches them. Overwriting `rest-api/*` would destroy the `openapi:` frontmatter Phase 6
+# built, and `python-api/api-reference/*` the `<PyGroup>`/`<PyClass>` trees from Phase 7.
+GENERATED = ('rest-api/', 'python-api/api-reference/')
+
+
 CALLOUT = {
     'note': 'info',
     'tip': 'idea',
@@ -327,6 +380,9 @@ class Manifest:
     def resolve_doc(self, target: str, from_doc: str) -> str | None:
         """Sphinx :doc: semantics: absolute from source root, or relative to this page."""
         target = target.strip()
+        fixed = LINK_FIXES.get((from_doc, target))
+        if fixed is not None:
+            return fixed if fixed in self.docs else None
         for ext in DOC_EXT:
             if target.endswith(ext):
                 target = target[: -len(ext)]
@@ -839,7 +895,7 @@ def meta_files(man: Manifest) -> dict[str, dict]:
         pages = [] if not folder else ['index']
         for _, target in entries:
             resolved = man.resolve_doc(target, docname)
-            if resolved is None or resolved == docname:
+            if resolved is None or resolved == docname or resolved in DROPPED:
                 continue
             rel = posixpath.relpath(resolved, folder) if folder else resolved
             rel = rel[: -len('/index')] if rel.endswith('/index') else rel
@@ -861,6 +917,8 @@ def main() -> int:
     ap.add_argument('--dry-run', action='store_true', help='print instead of writing (default)')
     ap.add_argument('--write', action='store_true', help='actually write files')
     ap.add_argument('--manifest', action='store_true', help='dump the route and label tables')
+    ap.add_argument('--force', action='store_true',
+                    help='overwrite an existing .mdx (hand edits are lost)')
     args = ap.parse_args()
 
     register()
@@ -878,9 +936,17 @@ def main() -> int:
     if not targets:
         ap.error('pass .rst paths or --all')
 
+    def owner(docname: str) -> str | None:
+        """Why this page must not be written, or None."""
+        if docname in DROPPED:
+            return 'dropped: heading-only stub'
+        if docname.startswith(GENERATED):
+            return 'owned by another phase'
+        return None
+
     write = args.write and not args.dry_run
     out_root = ROOT / args.out
-    errors, warns, failed = [], [], []
+    errors, warns, failed, skipped, kept = [], [], [], [], []
     written = 0
     for path in targets:
         under_src = path.as_posix().startswith(SRC.as_posix() + '/')
@@ -894,6 +960,13 @@ def main() -> int:
         errors += conv.errors
         warns += conv.warns
         dest = out_root / f'{docname}.mdx'
+        reason = owner(docname)
+        if reason:
+            skipped.append({'ref': docname, 'note': reason})
+            continue
+        if write and dest.exists() and not args.force:
+            kept.append({'ref': docname, 'note': 'already exists; pass --force to overwrite'})
+            continue
         if write:
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(text, encoding='utf8')
@@ -902,7 +975,15 @@ def main() -> int:
             print(f'--- {dest.relative_to(ROOT)} ---')
             print(text)
 
-    metas = meta_files(man)
+    metas = {
+        rel: meta
+        for rel, meta in meta_files(man).items()
+        # A GENERATED folder owns its own nav too. `python-api/api-reference/meta.json`
+        # deliberately omits `index` — fumadocs links a folder to its index page, so listing it
+        # as a child renders the section title twice in the sidebar and twice in the breadcrumb.
+        # Regenerating it from the toctree puts `index` back and reintroduces that bug.
+        if not rel.startswith(GENERATED)
+    }
     if write:
         for rel, meta in metas.items():
             dest = out_root / rel
@@ -918,6 +999,10 @@ def main() -> int:
     line('FAIL' if errors else 'ok', 'internal links', f'{len(errors)} unresolved')
     if warns:
         line('WARN', 'review', f'{len(warns)} notes')
+    if skipped:
+        line('ok', 'not written', f'{len(skipped)} owned elsewhere or dropped')
+    if kept:
+        line('WARN', 'kept', f'{len(kept)} existing file(s) left alone (--force to overwrite)')
     line('ok', 'meta.json', f'{len(metas)} directories'
          + ('' if write else ' (not written; pass --write)'))
     if write:
@@ -931,6 +1016,8 @@ def main() -> int:
     for entry in errors:
         print(f"\n  FAIL  unresolved: {entry['ref']}\n        {entry['note']}"
               f"\n        {where(entry)}")
+    for entry in kept:
+        print(f"\n  WARN  kept: {entry['ref']}\n        {entry['note']}")
     for entry in warns:
         print(f"\n  WARN  {entry['ref']}\n        {entry['note']}\n        {where(entry)}")
 

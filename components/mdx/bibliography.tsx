@@ -25,7 +25,7 @@ export async function Bibliography({ files }: { files: string[] }) {
   const entries = sortEntries((await readBib(files)).values());
 
   return (
-    <ol className="not-prose my-6 list-decimal space-y-3 ps-6 text-sm marker:text-fd-muted-foreground">
+    <ol className="not-prose my-6 list-decimal space-y-3 ps-6 marker:text-fd-muted-foreground">
       {entries.map((entry) => {
         const link = citationLink(entry);
         return (

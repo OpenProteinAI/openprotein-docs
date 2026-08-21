@@ -1,1 +1,21 @@
-{ "title": "Walkthroughs", "pages": ["protein-protein-binder-design-rfdiffusion", "quantitative-decision-making-library-design"] }
+{
+  "title": "Walkthroughs",
+  "pages": [
+    "index",
+    "antibody-engineering",
+    "antibody-hit-selection-ngs",
+    "enzyme-engineering",
+    "predicting-fitness",
+    "AMIE_substitution_deletion_analysis_poet",
+    "quantitative-decision-making-library-design",
+    "PoET_api_insertion_screen_nuclear_localization",
+    "PoET-2_inverse_folding",
+    "Embedding_and_visualizing_antibodies",
+    "Protein_protein_binder_design_with_RFdiffusion",
+    "protein_protein_binder_design_with_rfdiffusion_using_the_GUI",
+    "Nanobody_binder_design_with_BoltzGen",
+    "nanobody_binder_design_with_boltzgen_using_the_gui",
+    "aligning-variable",
+    "multichain"
+  ]
+}

@@ -16,7 +16,7 @@ export function TipRow({
       <Image src={icon} alt="" width={60} height={60} className="size-15 shrink-0 object-contain" />
       <div className="min-w-0 flex-1">
         <p className="text-base font-semibold text-fd-foreground">{question}</p>
-        <div className="mt-1 text-sm leading-relaxed text-fd-muted-foreground [&_a]:text-fd-primary [&_a]:underline [&_a]:underline-offset-2">
+        <div className="mt-1 leading-relaxed text-fd-muted-foreground [&_a]:text-fd-primary [&_a]:underline [&_a]:underline-offset-2">
           {children}
         </div>
       </div>

@@ -1,0 +1,24 @@
+---
+title: Property Regression Models
+description: Our Python API Property Regression Models allow you to harness our platform’s machine learning capabilities to design customized sequences optimized to your...
+---
+
+Our Python API Property Regression Models allow you to harness our platform’s machine learning capabilities to design customized sequences optimized to your specifications.
+
+There are three main modules:
+
+- Our [openprotein.data](/python-api/api-reference/data) module allows you to upload your dataset to OpenProtein.AI’s engineering platform. This dataset forms the basis for training and design tasks. Your data should be formatted as a 2 column CSV, including the full sequence of each variant and one or more columns for your measured properties.
+- Our [openprotein.predictor](/python-api/api-reference/predictor) module provides functions to create and use models on your measured properties. This step is essential for enabling predictions for new sequences. These workflows also perform cross-validation on your models to estimate uncertainty. The **Predictor** module also provides functions to make predictions on arbitrary sequences using your custom trained models, including predictions for single sequences as well as single mutant variants of the sequence. You can also experiment with various supported embedding models from our [openprotein.embeddings](/python-api/api-reference/embedding) module.
+- Our [openprotein.design](/python-api/api-reference/design) module provides the capability to design new sequences based on your objectives.
+
+## Get started using Property Regression Models
+
+**Tutorials:**
+
+- [Uploading data](/python-api/property-regression-models/uploading-data)
+- [Training models](/python-api/property-regression-models/training-models)
+- [Designing sequences](/python-api/property-regression-models/designing-sequences)
+- [Predicting sequences](/python-api/property-regression-models/predicting-sequences)
+- [Single site analysis](/python-api/property-regression-models/single-site-analysis)
+
+[API Reference](/python-api/api-reference)

@@ -1,0 +1,12 @@
+{
+  "title": "Structure Prediction",
+  "pages": [
+    "index",
+    "Examining_structure_prediction_models",
+    "Using_ESMFold2",
+    "Using_AlphaFold2",
+    "Using_Boltz_1_and_Boltz_2",
+    "Using_Protenix-v2",
+    "Using_RosettaFold3"
+  ]
+}

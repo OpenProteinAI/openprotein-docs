@@ -1,8 +1,10 @@
 {
   "pages": [
     "getting-started",
-    "walkthroughs",
+    "web-app",
     "python-api",
-    "rest-api"
+    "rest-api",
+    "walkthroughs",
+    "resources"
   ]
 }

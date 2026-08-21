@@ -10,6 +10,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 import { Screencast } from '@/components/mdx/screencast';
 import { SectionCards } from '@/components/mdx/section-cards';
 import { TipRow } from '@/components/mdx/tip-row';
+import { Publication, Publications } from '@/components/mdx/publication';
+import { TutorialLinks, TutorialTopic } from '@/components/mdx/tutorial-topic';
 import { PyClass } from '@/components/python-api/py-class';
 import { PyGroup } from '@/components/python-api/collapsible';
 import { PyFunction } from '@/components/python-api/py-function';
@@ -33,10 +35,14 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     PyClass,
     PyFunction,
     PyGroup,
+    Publication,
+    Publications,
     PySummary,
     Screencast,
     SectionCards,
     TipRow,
+    TutorialLinks,
+    TutorialTopic,
     ...components,
   };
 }

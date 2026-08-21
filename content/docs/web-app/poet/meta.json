@@ -1,0 +1,15 @@
+{
+  "title": "PoET",
+  "pages": [
+    "index",
+    "prompts",
+    "scoring-log-likelihood",
+    "ensembling",
+    "results-table",
+    "history",
+    "score-sequences",
+    "generate-sequences",
+    "substitution-analysis",
+    "indel-analysis"
+  ]
+}

@@ -1,6 +1,14 @@
 {
   "title": "Python API",
   "pages": [
+    "index",
+    "installation",
+    "quickstart",
+    "foundation-models",
+    "poet",
+    "property-regression-models",
+    "structure-prediction",
+    "structure-generation",
     "api-reference"
   ]
 }

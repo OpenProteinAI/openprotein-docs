@@ -150,7 +150,54 @@ function codeHandler(_state: unknown, node: AnyNode): HastElement {
   };
 }
 
-function build(headingShift: number) {
+/**
+ * Emit the anchor nbsphinx used, alongside the one rehype-slug produces.
+ *
+ * nbsphinx derived a notebook heading's id by collapsing whitespace runs to a single hyphen and
+ * keeping everything else — case, colons, dots. rehype-slug lowercases and strips punctuation.
+ * So `## Step 1.1: Specify the target` was `#Step-1.1:-Specify-the-target` and is now
+ * `#step-1-1-specify-the-target`. **Fragments are never sent to the server**, so no redirect can
+ * bridge that; the only fix is for the page to answer to both ids.
+ *
+ * The alias is an empty span as the heading's FIRST CHILD, not a preceding sibling, so the
+ * browser scrolls to the heading itself and picks up its `scroll-margin`.
+ *
+ * Only the first occurrence of a form gets an alias — a duplicate heading's nbsphinx id is not
+ * something anyone deep-links on purpose, and two elements sharing an id would send
+ * `getElementById` to the wrong one.
+ */
+function nbsphinxAliases(tree: unknown): void {
+  const seen = new Set<string>();
+  const visit = (node: any) => {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node.children)) {
+      for (const child of node.children) visit(child);
+    }
+    if (node.type !== 'element' || !/^h[1-6]$/.test(node.tagName)) return;
+    const slug = node.properties?.id;
+    if (typeof slug !== 'string' || !slug) return;
+    const text = textOf(node).trim();
+    const alias = text.replace(/\s+/g, '-');
+    if (!alias || alias === slug || seen.has(alias)) return;
+    seen.add(alias);
+    node.children.unshift({
+      type: 'element',
+      tagName: 'span',
+      properties: { id: alias, 'aria-hidden': 'true' },
+      children: [],
+    });
+  };
+  visit(tree);
+}
+
+function textOf(node: any): string {
+  if (!node || typeof node !== 'object') return '';
+  if (node.type === 'text') return typeof node.value === 'string' ? node.value : '';
+  if (!Array.isArray(node.children)) return '';
+  return node.children.map(textOf).join('');
+}
+
+function build(headingShift: number, nbAliases: boolean) {
   return unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -173,22 +220,34 @@ function build(headingShift: number) {
       };
     })
     .use(rehypeSlug)
+    .use(function () {
+      return (tree) => {
+        if (nbAliases) nbsphinxAliases(tree);
+      };
+    })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .freeze();
 }
 
 /** Assembling a pipeline is not free and notebook pages render one per request. */
-const processors = new Map<number, ReturnType<typeof build>>();
+const processors = new Map<string, ReturnType<typeof build>>();
 
 export async function renderMarkdown(
   source: string,
-  options?: { headingShift?: number },
+  options?: {
+    headingShift?: number;
+    /** Also emit the id nbsphinx used, so old notebook deep links still land. Notebook cells
+     *  only — a Python docstring never had an nbsphinx anchor. */
+    nbsphinxAliases?: boolean;
+  },
 ): Promise<string> {
   const headingShift = options?.headingShift ?? 0;
-  let processor = processors.get(headingShift);
+  const nbAliases = options?.nbsphinxAliases ?? false;
+  const key = `${headingShift}:${nbAliases}`;
+  let processor = processors.get(key);
   if (!processor) {
-    processor = build(headingShift);
-    processors.set(headingShift, processor);
+    processor = build(headingShift, nbAliases);
+    processors.set(key, processor);
   }
   return String(await processor.process(source));
 }

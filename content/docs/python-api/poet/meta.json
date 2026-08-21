@@ -1,0 +1,11 @@
+{
+  "title": "PoET",
+  "pages": [
+    "index",
+    "creating-MSA",
+    "creating-prompt",
+    "scoring-sequences",
+    "single-site-analysis",
+    "generating-sequences"
+  ]
+}

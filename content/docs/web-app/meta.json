@@ -1,0 +1,9 @@
+{
+  "title": "Web App",
+  "pages": [
+    "index",
+    "poet",
+    "opmodels",
+    "structure-prediction"
+  ]
+}

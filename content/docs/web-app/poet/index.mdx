@@ -1,0 +1,46 @@
+---
+title: Use PoET to predict high quality sequences without data
+description: Protein Evolutionary Transformer (PoET) allows you to design or score sequences and predict variant effects without any starting data or structural information.
+---
+
+Protein Evolutionary Transformer (PoET) allows you to design or score sequences and predict variant effects without any starting data or structural information. PoET is a generative protein language model and learns to predict and generate sets of related proteins using evolutionary patterns from natural sequence databases.
+
+<Figure src="/_static/tools/poet/poet-index.png" width="100%" />
+
+In the same way that large language models (LLMs) make high quality predictions for natural language processing based on a user prompt, protein LLMs can predict amino acid sequence information. Here, a prompt is a set of sequences capturing insights about the local fitness landscape and co-evolutionary patterns for your protein. PoET uses this information to predict the local fitness landscape and calculate the likelihood of observing a specific sequence based on the inferred evolutionary process. You can make your own prompts or PoET can do this for you using multiple sequence alignment.
+
+## Accessing PoET
+
+<Figure src="/_static/tools/poet/poet-nav.png" width="350px" align="center" />
+
+PoET tools can be found in the **PoET** dropdown menu in the header bar of the OpenProtein.AI web app.
+
+## Learn more and get started with our tutorials
+
+- [PoET prompts and prompt sampling methods](/web-app/poet/prompts)
+- [Scoring system and log probability](/web-app/poet/scoring-log-likelihood)
+- [Ensembling](/web-app/poet/ensembling)
+- [Interpreting PoET Results Table](/web-app/poet/results-table)
+- [PoET history](/web-app/poet/history)
+- [Using the Score Sequences tool](/web-app/poet/score-sequences)
+- [Using the Generate Sequences tool](/web-app/poet/generate-sequences)
+- [Using the PoET Substitution Analysis tool](/web-app/poet/substitution-analysis)
+
+Learn more about what makes PoET state of the art in machine learning for protein engineering in [our blog post](https://www.openprotein.ai/poet-a-high-performing-protein-language-model-for-zero-shot-prediction) and our [NeurIPS 2023 paper](https://proceedings.neurips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html):
+
+- PoET can be used as a retrieval-augmented protein language model by conditioning the model on sequences from any family of interest. This also allows PoET to be used with any sequence database and to incorporate new sequence information without retraining.
+- PoET is a fully autoregressive generative model, able to generate and score novel indels in addition to substitutions, and does not depend on MSAs of the input family, removing problems caused by long insertions, gappy regions, and alignment errors.
+- By learning across protein families, PoET is able to extrapolate from short context lengths allowing it to generalize well even for small protein families.
+- PoET can be sampled from and can be used to calculate the likelihood of any sequence efficiently.
+
+<Publications>
+  <Publication
+    href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/f4366126eba252699b280e8f93c0ab2f-Abstract-Conference.html"
+    logo="/_static/resources/neural.png"
+    journal="NeurIPS"
+    authors="Timothy F. Truong Jr, Tristan Bepler"
+    venue="NeurIPS 2023"
+  >
+    PoET: A generative model of protein families as sequences-of-sequences
+  </Publication>
+</Publications>

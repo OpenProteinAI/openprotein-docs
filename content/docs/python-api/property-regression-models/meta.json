@@ -1,0 +1,11 @@
+{
+  "title": "Property Regression Models",
+  "pages": [
+    "index",
+    "uploading-data",
+    "training-models",
+    "designing-sequences",
+    "predicting-sequences",
+    "single-site-analysis"
+  ]
+}

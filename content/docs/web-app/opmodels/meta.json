@@ -1,0 +1,20 @@
+{
+  "title": "Optimization and Prediction Models (OP models)",
+  "pages": [
+    "index",
+    "creating-project",
+    "uploading-your-data",
+    "dataset-assay-tools",
+    "scoring-log-likelihood",
+    "reference-sequence",
+    "navigating-your-projects",
+    "visualization",
+    "protein-language-models-embeddings",
+    "model-train-evaluate",
+    "sub-analysis",
+    "design",
+    "aligning-sequences",
+    "antibody-annotation",
+    "cluster-sequences"
+  ]
+}
