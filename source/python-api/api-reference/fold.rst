@@ -13,10 +13,13 @@ Interface
    :undoc-members:
 
 
-Models 
+Models
 ------
 
 .. autoclass:: openprotein.fold.ProtenixModel
+   :members:
+
+.. autoclass:: openprotein.fold.ProtenixV2Model
    :members:
 
 .. autoclass:: openprotein.fold.Boltz2Model
@@ -48,6 +51,9 @@ Models
 
 Results
 -------
+
+.. autoclass:: openprotein.fold.ProtenixConfidence
+   :members:
 
 .. autoclass:: openprotein.fold.ESMFold2Confidence
    :members:
