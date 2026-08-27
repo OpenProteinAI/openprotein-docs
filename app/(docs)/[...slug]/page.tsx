@@ -43,7 +43,9 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     <DocsPage
       toc={toc}
       full={page.data.full}
-      breadcrumb={{ enabled: true, includePage: true }}
+      // includeRoot: each section's meta.json is `root: true`, and without this the section
+      // name drops out of the breadcrumb along with the rest of the tree above it.
+      breadcrumb={{ enabled: true, includePage: true, includeRoot: true }}
       footer={{ enabled: true }}
       // single: collapsed endpoints are short enough that a dozen clear the intersection
       // threshold at once and the whole TOC lights up.

@@ -1,5 +1,6 @@
 {
   "title": "Resources",
+  "root": true,
   "pages": [
     "index",
     "demo-datasets",

@@ -14,6 +14,9 @@ export default function Layout({ children }: { children: ReactNode }) {
       tree={source.getPageTree()}
       nav={{ ...nav, mode: 'top' }}
       tabMode="navbar"
+      // Each section's meta.json is `root: true`, so the sidebar shows only the section you are
+      // in. That would also auto-derive layout tabs, which the header pills already are.
+      tabs={false}
       slots={{ header: DocsHeader }}
       // No desktop collapse trigger, so don't advertise collapsing. The mobile
       // hamburger in the header is a separate trigger and still works.

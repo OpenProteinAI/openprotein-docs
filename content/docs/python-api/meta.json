@@ -1,5 +1,6 @@
 {
   "title": "Python API",
+  "root": true,
   "pages": [
     "index",
     "installation",
