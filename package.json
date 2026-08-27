@@ -26,9 +26,11 @@
     "check:pyapi:render": "node ./scripts/check-pyapi.mjs",
     "check:mdx": "node ./scripts/check-mdx.mjs",
     "check:content": "node ./scripts/check-content.mjs",
+    "check:urls": "node ./scripts/check-urls.mjs",
     "check:auth": "node ./scripts/check-auth.mjs"
   },
   "dependencies": {
+    "@next/third-parties": "^16.3.3",
     "fumadocs-core": "16.14.3",
     "fumadocs-mdx": "15.2.3",
     "fumadocs-openapi": "11.2.3",

@@ -18,6 +18,7 @@ import { endpointsToc } from '@/lib/openapi-toc';
 import { pyToc } from '@/lib/python-api';
 import { bodyRepeatsDescription } from '@/lib/page-lead';
 import { source } from '@/lib/source';
+import { SITE } from '@/lib/site';
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await props.params;
@@ -82,5 +83,13 @@ export async function generateMetadata(props: {
   const page = source.getPage(slug);
   if (!page) notFound();
 
-  return { title: page.data.title, description: page.data.description };
+  const canonical = `${SITE.url}${page.url}`;
+  const image = `/og/${page.slugs.join('/')}/image.png`;
+  return {
+    title: page.data.title,
+    description: page.data.description,
+    alternates: { canonical },
+    openGraph: { url: canonical, images: image },
+    twitter: { card: 'summary_large_image', images: image },
+  };
 }

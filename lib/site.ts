@@ -1,4 +1,6 @@
 export const SITE = {
+  /** Absolute origin for canonical URLs, the sitemap, robots and OG images. */
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://docs.openprotein.ai').replace(/\/$/, ''),
   repo: 'https://github.com/OpenProteinAI/openprotein-docs',
   branch: 'develop',
   notebookRef: process.env.NEXT_PUBLIC_NOTEBOOK_REF ?? 'develop',

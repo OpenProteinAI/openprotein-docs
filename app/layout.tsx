@@ -1,14 +1,17 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Roboto, Roboto_Mono } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { SiteFooter } from '@/components/site/footer';
 import { Provider } from '@/components/site/provider';
+import { SITE } from '@/lib/site';
 import './global.css';
 
 const sans = Roboto({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const mono = Roboto_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: {
     default: 'OpenProtein.AI docs',
     template: '%s · OpenProtein.AI docs',
@@ -26,6 +29,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           {children}
           <SiteFooter />
         </Provider>
+        {SITE.gaId ? <GoogleAnalytics gaId={SITE.gaId} /> : null}
       </body>
     </html>
   );
