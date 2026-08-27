@@ -64,6 +64,8 @@ function imageGroup(label, refs) {
   groups.push({ label, count: refs.length, unit: 'referenced', bad: 'missing', missing, warns });
 }
 
+// The old source's own asset references, while that tree is still here. It goes away with
+// `__old/` in Phase 10; the migrated content is covered by the `mdx images` group below.
 const rstRefs = [];
 const rstFiles = await list('__old/source/**/*.rst');
 for (const file of rstFiles) {
@@ -72,7 +74,7 @@ for (const file of rstFiles) {
   refs.push(...srcMatches(HTML_SRC, text));
   for (const ref of refs) if (ref && !isExternal(ref.trim())) rstRefs.push({ ref, file });
 }
-imageGroup('rst images', rstRefs);
+if (rstFiles.length) imageGroup('rst images', rstRefs);
 
 const nbRefs = [];
 const nbFiles = await list('content/notebooks/**/*.ipynb');

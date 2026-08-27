@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-"""First pass RST -> MDX; run with __old/.pixi/envs/default/bin/python (needs docutils)."""
+"""First pass RST -> MDX. **Archival**: the source tree it reads was deleted in Phase 10.
+
+Restore it and an interpreter with docutils to run this again:
+    git show b66e546:__old/source/<path>.rst
+    pixi run python -m pip install docutils && pixi run python scripts/rst2mdx.py --all
+"""
 
 from __future__ import annotations
 

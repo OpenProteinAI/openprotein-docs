@@ -1,29 +1,17 @@
 /**
  * Every URL the old Sphinx site served must still lead somewhere.
  *
- * Derived from `__old/source` rather than hand-listed: Sphinx mirrored the tree with `.html`
- * suffixes at the domain root, so every `.rst` and `.ipynb` is one URL. Also checks the
- * non-page surfaces and a set of deep fragments, which no redirect can fix — the ids have to
- * be present in the markup.
+ * The list is frozen in `scripts/legacy-urls.json`, generated from `__old/source` before that
+ * tree was deleted — one `.html` URL per `.rst` and `.ipynb`. It is history, so it does not
+ * change. Also checks the non-page surfaces and a set of deep fragments, which no redirect can
+ * fix: the ids have to be in the markup.
  *
  *   pnpm check:urls                 # against BASE (default :5001)
  */
-import { readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { readFileSync } from 'node:fs';
 
 const BASE = process.env.BASE ?? 'http://localhost:5001';
-const SRC = '__old/source';
-
-const walk = (dir) =>
-  readdirSync(dir).flatMap((name) => {
-    const full = join(dir, name);
-    if (statSync(full).isDirectory()) return name === '_static' ? [] : walk(full);
-    return /\.(rst|ipynb)$/.test(full) ? [full] : [];
-  });
-
-const pages = walk(SRC)
-  .map((file) => '/' + relative(SRC, file).replace(/\.(rst|ipynb)$/, '') + '.html')
-  .sort();
+const pages = JSON.parse(readFileSync('scripts/legacy-urls.json', 'utf8')).urls;
 
 /** Non-page surfaces, with the status each must answer. */
 const SURFACES = [

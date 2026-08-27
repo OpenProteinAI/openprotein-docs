@@ -34,7 +34,10 @@ const RST_LEAKS = [
   { pattern: /\{=(?:rst|html|latex|tex)\}/, what: "a pandoc raw-inline annotation" },
 ];
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const page = await browser.newPage({ viewport: { width: 1400, height: 1000 } });
 
 let failures = 0;

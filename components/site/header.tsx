@@ -64,7 +64,10 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
           />
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center gap-0.5 lg:flex">
+        {/* The six pills need ~1420px beside the logo and the actions; showing them from `lg`
+            (1024px) overlapped the search box from 1280px down. Below this the sidebar lists
+            every section anyway. */}
+        <nav className="hidden min-w-0 flex-1 items-center gap-0.5 overflow-hidden min-[1440px]:flex">
           {SECTIONS.map((section) => (
             <Link
               key={section.url}
@@ -77,7 +80,7 @@ function Header({ className, withSidebarTrigger, ...props }: Props) {
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end gap-2.5 lg:flex-none">
+        <div className="flex flex-1 items-center justify-end gap-2.5 min-[1440px]:flex-none">
           <FullSearchTrigger
             hideIfDisabled
             className="hidden h-[34px] w-[210px] rounded-[0.75em] border border-fd-border bg-fd-background text-sm text-fd-muted-foreground lg:flex"

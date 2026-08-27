@@ -14,7 +14,10 @@ const ALL_PAGES = readdirSync(GOLDEN)
   .map((f) => f.replace(/\.json$/, ''));
 const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : ALL_PAGES;
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
 
 let failures = 0;

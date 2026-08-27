@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Lift the curation out of the old .rst pages into scripts/pyapi/pages.json.
 
+**Archival**: the .rst tree it reads was deleted in Phase 10; `git show b66e546:__old/source/…`
+restores it. `pages.json` is the committed output and is hand-maintained from here on.
+
 The 11 reference pages are hand-curated: which classes appear, in what order, under which
 section heading, and with which autodoc options. None of that is derivable from the SDK, and
 __old/ is deleted at the end of the migration — so it is extracted once, committed, and

@@ -16,7 +16,10 @@ if (!USER || !PASS) {
   process.exit(0);
 }
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const ctx = await browser.newContext({ viewport: { width: 1600, height: 900 } });
 const page = await ctx.newPage();
 const errors = [];

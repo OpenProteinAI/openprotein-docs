@@ -4,8 +4,12 @@ const BASE = process.env.BASE ?? 'http://localhost:5001';
 const paths = process.argv.slice(2);
 const targets = paths.length ? paths : ['/getting-started', '/', '/web-app'];
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
+let failures = 0;
 
 for (const path of targets) {
   await page.goto(BASE + path, { waitUntil: 'networkidle' });
@@ -105,7 +109,44 @@ for (const path of targets) {
       Math.abs(inner.right - rightEdge.right) <= 2,
     ]);
 
-  for (const [label, pass] of checks) console.log(`  ${pass ? "ok  " : "FAIL"} ${label}`);
+  for (const [label, pass] of checks) {
+    if (!pass) failures++;
+    console.log(`  ${pass ? "ok  " : "FAIL"} ${label}`);
+  }
+}
+
+// The six nav pills need ~1420px beside the logo and the actions. Showing them any earlier
+// overlapped the search box across a 1024-1280px band, which fixed-width checks never saw.
+console.log('\n  header pills vs actions, by width');
+for (const width of [1600, 1520, 1440, 1439, 1280, 1140, 1024, 900, 768]) {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto(`${BASE}/getting-started`, { waitUntil: 'networkidle' });
+  const bad = await page.evaluate(() => {
+    const shown = (el) => el.getBoundingClientRect().width > 4;
+    const pills = [...document.querySelectorAll('header a, #nd-subnav a')].filter(
+      (a) =>
+        /^(Getting Started|Web App|Python API|REST API|Walkthroughs|Resources)$/.test(
+          a.textContent.trim(),
+        ) && shown(a),
+    );
+    if (!pills.length) return null;
+    // The search trigger is the left-most action and the thing the pills ran into.
+    const search = [...document.querySelectorAll('header button, #nd-subnav button')].find(
+      (el) => shown(el) && /search|⌘/i.test(el.textContent + (el.getAttribute('aria-label') ?? '')),
+    );
+    if (!search) return null;
+    const left = search.getBoundingClientRect().left;
+    const right = Math.max(...pills.map((el) => el.getBoundingClientRect().right));
+    return Number.isFinite(left) && right > left ? { right: Math.round(right), left: Math.round(left) } : null;
+  });
+  if (bad) {
+    failures++;
+    console.log(`  FAIL ${width}px: pills reach ${bad.right}, actions start ${bad.left}`);
+  } else {
+    console.log(`  ok   ${width}px`);
+  }
 }
 
 await browser.close();
+console.log(failures ? `\n${failures} failure(s)` : '\nall layout checks passed');
+process.exit(failures ? 1 : 0);

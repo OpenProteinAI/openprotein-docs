@@ -16,4 +16,5 @@ __pycache__/
 *.pyc
 
 # Pinned env for the Python API generator (scripts/pyapi/requirements.txt)
+.pixi/
 .venv-pyapi/

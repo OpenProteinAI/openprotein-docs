@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+
+# No deploy step: deployment is out of scope for this repo.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm types:check
+
+      # The Sphinx site built with -W; hold the same bar.
+      - name: Build (must be warning-free)
+        run: |
+          set -o pipefail
+          pnpm build 2>&1 | tee build.log
+          if grep -iqE 'warn|error' build.log; then
+            echo "::error::build emitted warnings or errors"
+            grep -inE 'warn|error' build.log
+            exit 1
+          fi
+
+      - run: pnpm check:mdx
+
+      - run: pnpm check:links
+
+      - name: Committed artifacts are current
+        run: pnpm check:specs
+
+  rendered:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm exec playwright install --with-deps chromium
+
+      - run: pnpm build
+
+      - name: Serve and check the rendered pages
+        env:
+          BASE: http://localhost:5011
+          PLAYWRIGHT_CHANNEL: chromium
+        run: |
+          PORT=5011 pnpm start &
+          for i in $(seq 1 60); do curl -sf -o /dev/null http://localhost:5011/ && break; sleep 2; done
+          pnpm check:content
+          pnpm check:urls
+          pnpm check:restapi
+          pnpm check:pyapi:render
+          pnpm check:contrast

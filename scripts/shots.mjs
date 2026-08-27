@@ -5,7 +5,10 @@ const BASE = process.env.BASE ?? 'http://localhost:5001';
 const OUT = process.env.OUT ?? '/tmp/opshots';
 await mkdir(OUT, { recursive: true });
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 
 const shots = [
   { name: 'docs', path: '/getting-started', h: 900 },

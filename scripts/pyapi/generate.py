@@ -28,9 +28,8 @@ if sys.version_info < (3, 10):
     sys.exit(
         f"scripts/pyapi needs Python >= 3.10 (griffe's floor); this is "
         f"{sys.version_info.major}.{sys.version_info.minor}.\n"
-        "The machine default python3 may be older — point the venv at a newer one:\n"
-        "  <python3.11+> -m venv .venv-pyapi\n"
-        "  .venv-pyapi/bin/pip install -r scripts/pyapi/requirements.txt"
+        "The machine default python3 may be older. pixi.toml pins the right one:\n"
+        "  pixi install && pixi run venv"
     )
 
 HERE = Path(__file__).resolve().parent
@@ -80,8 +79,7 @@ def site_packages() -> Path:
             return Path(entry)
     sys.exit(
         "openprotein is not importable. Create the pinned venv:\n"
-        "  python3 -m venv .venv-pyapi\n"
-        "  .venv-pyapi/bin/pip install -r scripts/pyapi/requirements.txt"
+        "  pixi install && pixi run venv"
     )
 
 

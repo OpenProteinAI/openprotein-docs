@@ -1,0 +1,21 @@
+# Interpreter for scripts/pyapi/ only. The site build needs no Python — specs/ is committed —
+# but regenerating it needs 3.13 with griffe, and the old __old/.pixi env went away with Phase 10.
+#
+#   pixi install
+#   pixi run venv          # (re)create .venv-pyapi with the pinned deps
+#   pnpm sync:pyapi
+[workspace]
+name = "openprotein-docs-pyapi"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+
+[dependencies]
+python = "3.13.*"
+
+[tasks]
+venv = """
+python -m venv --clear .venv-pyapi &&
+.venv-pyapi/bin/pip install --quiet --upgrade pip &&
+.venv-pyapi/bin/pip install --quiet -r scripts/pyapi/requirements.txt &&
+.venv-pyapi/bin/python -V
+"""

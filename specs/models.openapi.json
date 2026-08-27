@@ -5,9 +5,801 @@
   "description": "\n\nOpenProtein API helps you engineer better proteins 🚀\n\n# Getting Started\n\nHere's a quick overview of our authentication and jobs system, as well as some\nof our APIs.\n\n## Navigating the Job System\n\nOur endpoints follow an asynchronous POST and GET framework. Once you initiate\na task via our POST endpoints, the system schedules the job. This means that\neven for tasks that may take a while to complete, your request will return\nimmediately.\n\nThe POST response will contain a job ID (`job_id`) in its response json. This\njob ID is a unique identifier that allows you to track your job. You can use\nthis same job ID with our GET endpoints to monitor the progress of your task.\nPlease note that only **you** can access your jobs, a different user cannot\naccess your jobs even with your specific job ID.\n\nWhilst your job is underway, the API will indicate the status as `PENDING`.\nOnce the job has concluded (`SUCCESS`), you can retrieve your results by\ninvoking the same endpoint using your job ID in the payload (see specific\nendpoint details for more guidance).\nThe `/api/v1/jobs/JOB_ID` endpoint is at your disposal to check the status of\na job before obtaining all the results.\n\nThis design ensures that long-running tasks don't keep you waiting, and ensures\nyou can always get the results of a job back at a later date.\n\nRemember, your job ID is both unique and crucial for fetching the results of\nyour task. So, ensure to keep a note of it when you initiate a task.\n\n# Endpoints\n\n## Login\n\nEndpoints to login from your IDE. Here's a brief user-guide:\n\n### Steps to Log in\n\n#### On this Page\n\nYou can log in directly on this page using the `Authorize` button. This action\nwill let you browse the API documentation and execute test queries directly in\nyour browser.\n\n\n## Jobs\n\nEndpoints to track job status for asynchronous jobs.\n\nUse these to verify the status (PENDING, RUNNING, SUCCESS) of your jobs and\nview basic metadata (e.g., job creation date).\n\n## Align\n\nEndpoints to perform multiple sequence alignment (MSA) workflows. See the [User Guide](https://docs.openprotein.ai/poet-defining-prompts-page.html).\n\nYou can create a multiple sequence alignment from a seed sequence, upload a\ncustom MSA, or even upload your own prompt for use with `PoET` and `Fold`\nendpoints!\n\n\n## Assaydata\n\nEndpoints to upload your dataset to OpenProtein's engineering platform for\n`train`, `predict` and `evaluate` tasks. See the\n[User Guide](https://docs.openprotein.ai/dataset-page.html).\n\nFormat your data as 2 column CSV:\n* The full sequence of each variant (mutation codes are also accepted)\n* 1+ columns with your measured properties (missing values are acceptable)\n\n## Libraries\n\nEndpoints to fetch of all your designed OpenProtein sequence variants. This\nenables you to reference previously created variants easily.\n",
   "version": "0.1.0"
  },
- "paths": {},
+ "paths": {
+  "/api/v1/models": {
+   "get": {
+    "tags": [
+     "models"
+    ],
+    "summary": "List models",
+    "description": "List available models, optionally filtered by what they can do.\n\nReturns model ids by default, or full `ModelMetadata` when `verbose=true`.",
+    "operationId": "list_models_api_v1_models_get",
+    "parameters": [
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "mine",
+        "system",
+        "all"
+       ],
+       "type": "string",
+       "description": "Restrict to your own models, system models, or both.",
+       "default": "all",
+       "title": "Scope"
+      },
+      "description": "Restrict to your own models, system models, or both."
+     },
+     {
+      "name": "input",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only models with a method of this input. Repeatable.",
+       "title": "Input"
+      },
+      "description": "Only models with a method of this input. Repeatable."
+     },
+     {
+      "name": "output",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only models with a method of this output. Repeatable.",
+       "title": "Output"
+      },
+      "description": "Only models with a method of this output. Repeatable."
+     },
+     {
+      "name": "output_type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only models with a method producing this output type. Repeatable.",
+       "title": "Output Type"
+      },
+      "description": "Only models with a method producing this output type. Repeatable."
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "sequence",
+          "structure",
+          "both"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only models whose conditioning contract matches this value. A model with query='both' also matches 'sequence' or 'structure'.",
+       "title": "Query"
+      },
+      "description": "Only models whose conditioning contract matches this value. A model with query='both' also matches 'sequence' or 'structure'."
+     },
+     {
+      "name": "verbose",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "description": "Return full ModelMetadata objects instead of just ids.",
+       "default": false,
+       "title": "Verbose"
+      },
+      "description": "Return full ModelMetadata objects instead of just ids."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "anyOf": [
+          {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/ModelMetadata"
+           }
+          }
+         ],
+         "title": "Response List Models Api V1 Models Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/{model_id}": {
+   "get": {
+    "tags": [
+     "models"
+    ],
+    "summary": "Get model metadata",
+    "description": "Get one model's metadata — the discovery surface a client renders from.",
+    "operationId": "get_model_api_v1_models__model_id__get",
+    "parameters": [
+     {
+      "name": "model_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Model Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ModelMetadata"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/{model_id}/{input}/{output}/params": {
+   "get": {
+    "tags": [
+     "models"
+    ],
+    "summary": "Get a method's params",
+    "description": "Get the request params for one method of model.\n\nServed separately from model metadata so metadata stays small — fetch a method's\nparams only when configuring it. 404 if the model or the method doesn't exist.",
+    "operationId": "get_method_params_api_v1_models__model_id___input___output__params_get",
+    "parameters": [
+     {
+      "name": "model_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Model Id"
+      }
+     },
+     {
+      "name": "input",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Input"
+      }
+     },
+     {
+      "name": "output",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Output"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true,
+         "title": "Response Get Method Params Api V1 Models  Model Id   Input   Output  Params Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/{model_id}/{input}/{output}": {
+   "post": {
+    "tags": [
+     "models"
+    ],
+    "summary": "Run a model method",
+    "description": "Submit a method on `{model_id}` for the `{input}/{output}` pair.\n\nAsynchronous: returns the platform `Job` handle, not the outputs. Params are\nvalidated by the service that runs the model, whose response is relayed as\nit stands; 503 if no service runs this model.",
+    "operationId": "run_inference_api_v1_models__model_id___input___output__post",
+    "parameters": [
+     {
+      "name": "model_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Model Id"
+      }
+     },
+     {
+      "name": "input",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Input"
+      }
+     },
+     {
+      "name": "output",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Output"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Method params, per the method's `params` JSON Schema in the model metadata.",
+        "title": "Params"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Job"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Missing user identity."
+     },
+     "404": {
+      "description": "Unknown model, or a method the model does not expose."
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     },
+     "502": {
+      "description": "The model's service is unreachable."
+     },
+     "503": {
+      "description": "No service is configured for this model."
+     }
+    }
+   }
+  }
+ },
  "components": {
-  "schemas": {},
+  "schemas": {
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "Job": {
+    "properties": {
+     "job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Id"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "project_uuid": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Project Uuid"
+     },
+     "tags": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Tags",
+      "default": {}
+     },
+     "prerequisite_job_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prerequisite Job Id"
+     },
+     "job_type": {
+      "type": "string",
+      "title": "Job Type"
+     },
+     "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created Date"
+     },
+     "start_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Start Date"
+     },
+     "end_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "End Date"
+     },
+     "status": {
+      "$ref": "#/components/schemas/JobStatus"
+     },
+     "progress_counter": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Counter"
+     },
+     "progress_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Progress Message"
+     },
+     "failure_message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Failure Message"
+     },
+     "args": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Args"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "job_type",
+     "created_date",
+     "status"
+    ],
+    "title": "Job",
+    "description": "Properties returned about job via API."
+   },
+   "JobStatus": {
+    "type": "string",
+    "enum": [
+     "PENDING",
+     "RETRYING",
+     "RUNNING",
+     "SUCCESS",
+     "FAILURE",
+     "CANCELED"
+    ],
+    "title": "JobStatus",
+    "description": "Status type for job.\n\nDescribes the current status of a job."
+   },
+   "MethodDescriptor": {
+    "properties": {
+     "input": {
+      "type": "string",
+      "title": "Input",
+      "description": "Input-behaviour / cardinality axis (open set), e.g. batch, single-site, indel, fold, generate.",
+      "examples": [
+       "single-site"
+      ]
+     },
+     "output": {
+      "type": "string",
+      "title": "Output",
+      "description": "Model-defined noun for the primary output (open set), e.g. embeddings, loglikelihood, predictions, structure, sequences.",
+      "examples": [
+       "loglikelihood"
+      ]
+     },
+     "outputs": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Outputs",
+      "description": "Named outputs this endpoint produces, mapped to their open output-type string. More than one entry means a multi-output method. The primary output (named by `output`) is one of these keys.",
+      "examples": [
+       {
+        "loglikelihood": "scalar"
+       }
+      ]
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     }
+    },
+    "type": "object",
+    "required": [
+     "input",
+     "output",
+     "outputs"
+    ],
+    "title": "MethodDescriptor",
+    "description": "One method a model supports: an ``(input, output)`` endpoint.\n\nLightweight — the request params are not here; fetch them per method from\n``GET /api/v1/models/{model_id}/{input}/{output}/params``."
+   },
+   "ModelDescription": {
+    "properties": {
+     "summary": {
+      "type": "string",
+      "title": "Summary"
+     },
+     "citation_title": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Citation Title"
+     },
+     "doi": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Doi"
+     }
+    },
+    "type": "object",
+    "required": [
+     "summary"
+    ],
+    "title": "ModelDescription",
+    "description": "Human-facing description of a model."
+   },
+   "ModelMetadata": {
+    "properties": {
+     "model_id": {
+      "type": "string",
+      "title": "Model Id"
+     },
+     "model_family": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model Family"
+     },
+     "name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name"
+     },
+     "version": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Version"
+     },
+     "is_system": {
+      "type": "boolean",
+      "title": "Is System",
+      "default": false
+     },
+     "tags": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tags"
+     },
+     "protein_types": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Protein Types"
+     },
+     "description": {
+      "$ref": "#/components/schemas/ModelDescription"
+     },
+     "dimension": {
+      "type": "integer",
+      "title": "Dimension"
+     },
+     "query": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Query",
+      "description": "Conditioning contract: sequence, structure, both, or null."
+     },
+     "multichain": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Multichain"
+     },
+     "methods": {
+      "items": {
+       "$ref": "#/components/schemas/MethodDescriptor"
+      },
+      "type": "array",
+      "title": "Methods"
+     },
+     "max_sequence_length": {
+      "type": "integer",
+      "title": "Max Sequence Length"
+     }
+    },
+    "type": "object",
+    "required": [
+     "model_id",
+     "description",
+     "dimension",
+     "methods",
+     "max_sequence_length"
+    ],
+    "title": "ModelMetadata",
+    "description": "A model and the methods it exposes.\n\nThis is the discovery surface: clients build model cards, request forms, and\nfiltered listings from ``methods``."
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   }
+  },
   "securitySchemes": {
    "OAuth2PasswordBearer": {
     "type": "oauth2",
@@ -24,7 +816,12 @@
    }
   }
  },
- "tags": [],
+ "tags": [
+  {
+   "name": "models",
+   "description": "Discover platform models and the inferences they support"
+  }
+ ],
  "servers": [
   {
    "url": "https://dev.api.openprotein.ai",

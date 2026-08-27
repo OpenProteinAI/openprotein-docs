@@ -1,5 +1,8 @@
 import { chromium } from 'playwright';
-const b = await chromium.launch({ channel: 'chrome' });
+const b = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const p = await b.newPage({ viewport: { width: 1600, height: 1000 } });
 await p.goto('http://localhost:5001/walkthroughs/quantitative-decision-making-library-design', { waitUntil: 'networkidle' });
 // force every lazy image to load

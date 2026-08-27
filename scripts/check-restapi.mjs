@@ -22,7 +22,10 @@ const SLUGS = process.argv.slice(2).length
 
 const LANGS = ['cURL', 'JavaScript', 'Go', 'Python', 'Java', 'C#', 'Rust'];
 
-const browser = await chromium.launch({ channel: 'chrome' });
+const browser = await chromium.launch(
+  // CI has no system Chrome; PLAYWRIGHT_CHANNEL=chromium uses Playwright's own build.
+  process.env.PLAYWRIGHT_CHANNEL === 'chromium' ? {} : { channel: 'chrome' },
+);
 const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
 
 let failures = 0;
@@ -95,16 +98,16 @@ for (const slug of SLUGS) {
     `/${slug}: ${seen.sections} tags (${seen.openSections} open), ${seen.rows} endpoints (${seen.collapsed} collapsed), ${seen.toc} toc, ${seen.panelsVisible} panels open`,
   );
 
-  // `models` is an empty spec by design - /api/v1/models exists on neither backend.
-  if (slug !== 'models') {
+  // Every page has endpoints now. `models` was an empty spec until upstream started publishing
+  // /api/v1/models; a spec that empties out again must still say so rather than render blank.
+  if (seen.rows > 0) {
     if (!seen.root) fail('no [data-rest-api] root');
-    if (seen.rows === 0) fail('no endpoint rows');
     if (seen.sections === 0) fail('no tag sections');
     if (seen.openSections !== seen.sections) fail(`${seen.sections - seen.openSections} tag sections collapsed`);
     if (seen.collapsed !== seen.rows) fail(`${seen.rows - seen.collapsed} endpoints not collapsed`);
     if (seen.panelsVisible !== 0) fail(`${seen.panelsVisible} endpoint bodies rendered before any click`);
   } else if (!seen.emptyNotice) {
-    fail('empty spec renders no notice');
+    fail('spec has no operations and renders no notice');
   }
   if (seen.langTabs.length) fail(`code sample tabs present: ${seen.langTabs.join(', ')}`);
   if (seen.authInputs) fail(`${seen.authInputs} authorization panels`);

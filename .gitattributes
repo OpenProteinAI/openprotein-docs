@@ -18,3 +18,13 @@
 *.svg text eol=lf
 
 pnpm-lock.yaml -diff linguist-generated=true
+
+# Notebook inputs and download targets.
+*.csv -text -diff
+*.clustal -text -diff
+
+# Generated and committed: keep them out of diffs and language stats.
+specs/*.json -diff linguist-generated=true
+scripts/pyapi/golden/*.json -diff linguist-generated=true
+scripts/pyapi/golden/html/*.html -diff linguist-generated=true
+scripts/legacy-urls.json -diff linguist-generated=true
