@@ -55,10 +55,8 @@ for (const route of routes) {
   page.on('console', (message) => {
     if (message.type() !== 'error') return;
     const text = message.text();
-    // Dev-only React warnings about markup we do not control (Next's inline RSC scripts,
-    // fumadocs-openapi's nested <a>). Absent from a production build.
+    // Next inlines the RSC payload in bare <script> tags; dev-only, absent from a build.
     if (text.startsWith('Encountered a script tag while rendering React component')) return;
-    if (text.includes('cannot be a descendant of')) return;
     consoleErrors.push(text);
   });
   page.on('response', (response) => {
