@@ -27,6 +27,7 @@
     "check:mdx": "node ./scripts/check-mdx.mjs",
     "check:content": "node ./scripts/check-content.mjs",
     "check:urls": "node ./scripts/check-urls.mjs",
+    "check:github": "node ./scripts/check-github.mjs",
     "check:auth": "node ./scripts/check-auth.mjs"
   },
   "dependencies": {

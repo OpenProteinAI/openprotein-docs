@@ -64,6 +64,7 @@ pnpm build                # must be warning-free
 pnpm check:mdx            # every page compiles as MDX
 pnpm check:content        # every page renders in Chrome, no console errors, no RST leakage
 pnpm check:urls           # all 112 old .html URLs 301 to a 200, + surfaces and deep fragments
+pnpm check:github         # every "Edit this page" / notebook badge link resolves (needs network)
 pnpm check:links          # asset references and internal links
 pnpm check:pyapi          # specs/ is current
 pnpm diff:pyapi           # members, order, signatures and types vs what Sphinx published

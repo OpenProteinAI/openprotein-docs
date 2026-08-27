@@ -1,11 +1,8 @@
 import { Download, ExternalLink, Play } from 'lucide-react';
-import { SITE, notebookUrl } from '@/lib/site';
+import { REPO_SLUG, SITE, notebookUrl } from '@/lib/site';
 
 const PILL =
   'inline-flex items-center gap-1.5 rounded-full border border-fd-border bg-fd-card px-2.5 py-1 text-xs text-fd-muted-foreground transition-colors hover:border-fd-primary hover:text-fd-primary';
-
-/** SITE.repo is the browse URL; Colab wants the bare owner/name. */
-const SLUG = SITE.repo.replace(/^https?:\/\/github\.com\//, '');
 
 /** Matches lib/notebook's own normalisation so a page can pass either form. */
 function normalize(file: string): string {
@@ -21,7 +18,7 @@ export function NotebookBadges({ file }: { file: string }) {
 
   const links = [
     {
-      href: `https://colab.research.google.com/github/${SLUG}/blob/${SITE.notebookRef}/${SITE.notebookRoot}/${rel}`,
+      href: `https://colab.research.google.com/github/${REPO_SLUG}/blob/${SITE.ref}/content/notebooks/${rel}`,
       label: 'Open in Colab',
       Icon: Play,
       external: true,
