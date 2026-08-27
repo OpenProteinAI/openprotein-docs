@@ -1,15 +1,8 @@
 /**
- * Load every migrated docs page in Chrome and assert it actually renders.
+ * Load every docs page in Chrome: 200, an h1, real body text, no broken image, no failing
+ * request, no console error, no RST or pandoc markup rendered as text. Needs a server on :5001.
  *
- * Phase 8's per-wave verification was "every page renders; zero broken internal links or missing
- * images". `check-links.mjs` reads the sources statically and `check-mdx.mjs` only compiles —
- * neither notices a component that throws at request time, an image that 404s, or RST that
- * survived into the rendered text. This drives the real pages.
- *
- *   pnpm check:content                  # every page
- *   node scripts/check-content.mjs /web-app /resources/faq
- *
- * Needs the dev server on :5001 (BASE overrides).
+ *   pnpm check:content   |   node scripts/check-content.mjs /web-app /resources/faq
  */
 import { readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -30,16 +23,15 @@ const routes = process.argv.slice(2).length
       .map((file) => '/' + relative(DOCS, file).replace(/\.mdx$/, '').replace(/\/index$/, ''))
       .sort();
 
-// RST that survived conversion. Each of these renders as literal text a reader would see.
+// Markup that survived conversion and reaches the reader as literal text.
 const RST_LEAKS = [
   { pattern: /\.\.\s+[a-z-]+::/, what: 'an RST directive' },
   { pattern: /:(?:py:)?(?:class|meth|func|attr|doc|ref|cite):`/, what: 'an RST role' },
   { pattern: /`[^`\n]+`_/, what: 'an RST link' },
-  // Malformed RST link markup — no trailing `_`, or a stray quote for the opening
-  // backtick — parses as nothing and reaches the reader as literal backticks and a URL.
-  // Three of these sat in one sentence of the NGS walkthrough, on the live site too.
+  // No trailing `_`: parses as nothing, so the backticks and URL reach the reader.
   { pattern: /[`'][^`'\n]{2,60}\s*<https?:\/\/[^>\n]+>[`']/, what: 'malformed RST link markup' },
   { pattern: /RAW HTML|- REVIEW/, what: 'a conversion marker' },
+  { pattern: /\{=(?:rst|html|latex|tex)\}/, what: "a pandoc raw-inline annotation" },
 ];
 
 const browser = await chromium.launch({ channel: 'chrome' });
@@ -60,10 +52,8 @@ for (const route of routes) {
   page.on('console', (message) => {
     if (message.type() !== 'error') return;
     const text = message.text();
-    // React emits these only in development, and both are about markup this app does not
-    // control: Next inlines the RSC payload in bare <script> tags, and fumadocs-openapi's
-    // rendered TOC nests an <a>. Neither appears in a production build — verified by running
-    // this script against `pnpm start`. Filtering them keeps the check usable during `pnpm dev`.
+    // Dev-only React warnings about markup we do not control (Next's inline RSC scripts,
+    // fumadocs-openapi's nested <a>). Absent from a production build.
     if (text.startsWith('Encountered a script tag while rendering React component')) return;
     if (text.includes('cannot be a descendant of')) return;
     consoleErrors.push(text);
@@ -85,8 +75,6 @@ for (const route of routes) {
       text: article.innerText,
       images: [...article.querySelectorAll('img')].map((img) => ({
         src: img.currentSrc || img.src,
-        // A broken <img> reports 0; a decorative SVG can legitimately be small, so only
-        // naturalWidth === 0 counts as broken.
         broken: img.complete && img.naturalWidth === 0,
       })),
     };
@@ -101,8 +89,6 @@ for (const route of routes) {
   const broken = seen.images.filter((img) => img.broken);
   if (broken.length) fail(route, `${broken.length} broken image(s): ${broken[0].src}`);
   totalImages += seen.images.length;
-  // A 404 on a page asset is a missing image or data file, which check-links cannot see
-  // because the reference may be built by a component rather than written in the source.
   const assets = badResponses.filter((line) => !line.includes('/api/'));
   if (assets.length) fail(route, `${assets.length} failing request(s): ${assets[0]}`);
   if (consoleErrors.length) fail(route, `console: ${consoleErrors[0].slice(0, 160)}`);

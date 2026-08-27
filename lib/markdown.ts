@@ -151,20 +151,9 @@ function codeHandler(_state: unknown, node: AnyNode): HastElement {
 }
 
 /**
- * Emit the anchor nbsphinx used, alongside the one rehype-slug produces.
- *
- * nbsphinx derived a notebook heading's id by collapsing whitespace runs to a single hyphen and
- * keeping everything else — case, colons, dots. rehype-slug lowercases and strips punctuation.
- * So `## Step 1.1: Specify the target` was `#Step-1.1:-Specify-the-target` and is now
- * `#step-1-1-specify-the-target`. **Fragments are never sent to the server**, so no redirect can
- * bridge that; the only fix is for the page to answer to both ids.
- *
- * The alias is an empty span as the heading's FIRST CHILD, not a preceding sibling, so the
- * browser scrolls to the heading itself and picks up its `scroll-margin`.
- *
- * Only the first occurrence of a form gets an alias — a duplicate heading's nbsphinx id is not
- * something anyone deep-links on purpose, and two elements sharing an id would send
- * `getElementById` to the wrong one.
+ * Also answer to nbsphinx's anchor (`#Step-1.1:-Specify-the-target`), since fragments never
+ * reach the server and no redirect can bridge it. An empty span as the heading's first child, so
+ * the browser scrolls to the heading; first occurrence only, or two elements share an id.
  */
 function nbsphinxAliases(tree: unknown): void {
   const seen = new Set<string>();

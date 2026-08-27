@@ -1,18 +1,9 @@
 /**
- * Write one wrapper .mdx per notebook, at the route the old Sphinx site served.
+ * One wrapper .mdx per notebook, named by the notebook's stem verbatim — nbsphinx served
+ * `Protein_protein_binder_design_with_RFdiffusion.html`, so do not tidy these to kebab-case.
+ * Title and description come from the first markdown heading and the prose under it.
  *
- *   node scripts/seed-notebooks.mjs            # write only what is missing
- *   node scripts/seed-notebooks.mjs --force    # overwrite; hand edits are lost
- *   node scripts/seed-notebooks.mjs --check    # fail if any notebook has no wrapper
- *
- * **The filename is the notebook's stem, verbatim.** nbsphinx served
- * `/walkthroughs/Protein_protein_binder_design_with_RFdiffusion.html`, so the wrapper must be
- * `Protein_protein_binder_design_with_RFdiffusion.mdx` or the Phase 9 `.html` -> extensionless
- * redirect lands on nothing. Do not "tidy" these to kebab-case.
- *
- * Title and description come from the notebook's first markdown heading and the prose under it.
- * The badge cell that opens some notebooks is skipped — it is Colab/GitHub links, not prose, and
- * the renderer draws its own badges from the notebook path.
+ *   node scripts/seed-notebooks.mjs [--force | --check]
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
@@ -33,10 +24,7 @@ const plain = (text) =>
   text
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    // Some notebooks were pandoc-converted at some point and carry Sphinx roles inside pandoc
-    // raw-inline spans: ``` `` :py:class:`~openprotein.x.Y` ``{=rst} ```. Reduce the role to its
-    // last dotted component and drop the annotation, or the subtitle prints the markup —
-    // `pnpm check:content` caught exactly that on Using_AbLang2.
+    // Sphinx roles in pandoc raw-inline spans, reduced to the last dotted component.
     .replace(
       /`*\s*:(?:py:)?(?:class|meth|func|attr|obj|mod|exc|data):`\s*(?:[^<`]+?\s*<([^>`]+)>|~?([^`]+?))\s*`\s*`*(?:\{=\w+\})?/g,
       (_whole, target, bare) => ((target ?? bare) || '').split('.').pop() ?? '',
@@ -54,7 +42,6 @@ const meta = (file) => {
   for (const cell of nb.cells ?? []) {
     if (cell.cell_type !== 'markdown') continue;
     const source = (cell.source ?? []).join('');
-    // The badge cell is images and links only; it has no heading and no prose.
     const heading = source.match(/^#{1,2}\s+(.+)$/m);
     if (!title && heading) title = plain(heading[1]);
     if (title && !description) {

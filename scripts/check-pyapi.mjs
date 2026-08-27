@@ -23,10 +23,7 @@ const fail = (msg) => {
   console.log(`  FAIL ${msg}`);
 };
 
-// Every anchor the site publishes, so a cross-page type link can be checked without
-// loading the page it points at. Built from ALL_PAGES, never from PAGES: a subset run
-// would otherwise report every cross-page link as pointing nowhere — `fold data` alone
-// reported 46 phantom failures.
+// ALL_PAGES, never PAGES: a subset run would report every cross-page link as broken.
 const universe = new Map();
 for (const name of ALL_PAGES) {
   const g = JSON.parse(readFileSync(`${GOLDEN}/${name}.json`, 'utf8'));
@@ -127,9 +124,7 @@ for (const name of PAGES) {
   if (expected.length && !seen.badges) fail(`${name}: no kind badges rendered`);
   if (summaryRows && seen.summaryRows < summaryRows)
     fail(`${name}: ${seen.summaryRows} summary rows, Sphinx rendered ${summaryRows}`);
-  // Every [source] link must resolve through the pinned COMMIT, not a movable tag: the ~500
-  // line ranges are only meaningful against one exact tree. The SHA is read from the committed
-  // pin so this cannot drift from the generator.
+  // Source links must use the pinned commit, not a movable tag. SHA read from the pin.
   const bad = seen.sourceLinks.filter(
     (h) => !h.startsWith(`https://github.com/OpenProteinAI/openprotein-python/blob/${SDK_COMMIT}/`),
   );

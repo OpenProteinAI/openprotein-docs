@@ -1,15 +1,8 @@
 /**
- * Compile one or more .mdx files and report syntax errors, without a full `next build`.
+ * Compile .mdx files and report syntax errors, in seconds rather than a whole `next build`.
+ * Catches raw HTML that MDX reads as JSX. Does not check components or props — the build does.
  *
- * `pnpm build` is the only authority on whether a page renders, but it is minutes long and
- * global — useless for iterating on one page, and impossible to run concurrently. This runs the
- * MDX compiler alone, which is what catches the class of failure the RST conversion produces:
- * raw HTML that MDX reads as JSX (`<div>` without a close, `<img>` unterminated, a stray `/`).
- *
- *   node scripts/check-mdx.mjs                       # every page under content/docs
- *   node scripts/check-mdx.mjs content/docs/a.mdx …  # just these
- *
- * It does NOT check that a component exists or that props typecheck — `pnpm build` does that.
+ *   node scripts/check-mdx.mjs [content/docs/a.mdx …]
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -26,7 +19,7 @@ const files = process.argv.slice(2).length ? process.argv.slice(2) : walk('conte
 let failed = 0;
 
 for (const file of files) {
-  // Frontmatter is not MDX; fumadocs strips it before compiling and so must we.
+  // Frontmatter is not MDX.
   const raw = readFileSync(file, 'utf8');
   const body = raw.startsWith('---') ? raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '') : raw;
   try {

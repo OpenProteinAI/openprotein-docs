@@ -1,15 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 
-/**
- * A paper on the Publications page: journal wordmark, title, authors, venue — the whole card a
- * single external link.
- *
- * Replaces `.. raw:: html` `<a class="card-publication">` blocks whose `<img height="36px">`
- * was unclosed, so MDX read the following `</div>` as closing the image. The logo heights in the
- * old markup varied per journal (36px, 71px, …) purely because the wordmarks have different
- * aspect ratios; a fixed box with `object-contain` does the same job without per-card numbers.
- */
+/** A paper card: journal wordmark, title, authors, venue, the whole thing one external link. */
 export function Publications({ children }: { children: ReactNode }) {
   return <div className="not-prose my-6 flex flex-col gap-3">{children}</div>;
 }

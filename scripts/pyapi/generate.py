@@ -245,8 +245,7 @@ def _source(target) -> dict | None:
         return None
 
 
-# `typing.List` and `list` are the same type; a docstring using the old spelling is not a
-# defect. Normalise before comparing, or 26 real drifts hide behind 2 cosmetic ones.
+# `typing.List` and `list` are the same type; normalise before comparing.
 _ALIASES = (("List[", "list["), ("Dict[", "dict["), ("Tuple[", "tuple["), ("Set[", "set["))
 
 
@@ -258,11 +257,7 @@ def _canon_type(text: str) -> str:
 
 
 class _GriffeWarnings(logging.Handler):
-    """Capture griffe's docstring warnings instead of only letting them scroll past.
-
-    They are the SDK's own defects — a documented parameter that is not in the signature, or
-    one with no type — and they were the only record of them anywhere.
-    """
+    """Capture griffe's docstring warnings instead of letting them scroll past."""
 
     def __init__(self) -> None:
         super().__init__(level=logging.WARNING)
@@ -297,12 +292,10 @@ def _stale_type_section(per_page: dict[str, list[dict]]) -> list[str]:
 
 
 def upstream_report(documents: dict[str, dict], warnings: list[str], per_page: dict[str, list[dict]] | None = None) -> str:
-    """Enumerate the SDK's own docstring defects, so they can be reported rather than guessed at.
+    """The SDK's own docstring defects, so they can be filed rather than guessed at.
 
-    Phase 7 said "Report those upstream rather than reproducing them" and put the count at nine.
-    It is not nine: 26 return types drift from their annotation and griffe raises 10 warnings at
-    8 more sites. They surface only as console noise on `sync:pyapi`, so nothing could be filed
-    from them. `--upstream` writes this; `UPSTREAM.md` is the committed snapshot.
+    26 return-type drifts plus 10 griffe warnings at 8 sites; console noise until now.
+    `UPSTREAM.md` is the committed snapshot.
     """
     drift: list[tuple[str, str, str]] = []
     undocumented_return: list[str] = []
@@ -383,15 +376,10 @@ PIN = HERE / "sdk-pin.json"
 
 
 def verify_pin(packages: Path, online: bool = False) -> int:
-    """Re-prove that the installed wheel is the tree the line numbers were computed against.
+    """Re-prove the installed wheel is the tree the line numbers came from.
 
-    The plan's Phase 7 called for source links "pinned to a commit, never a tag ... Then verify
-    the downloaded wheel IS that tree, or every line number is quietly wrong." This is that
-    verification, made reproducible: `sdk-pin.json` records the sha256 of all 51 SDK files the
-    specs line-link, captured from the wheel that was proven byte-identical to SDK_COMMIT.
-
-    Offline it compares hashes, which catches a silently swapped or patched wheel. `--online`
-    re-fetches each file from GitHub at SDK_COMMIT and re-proves the commit itself.
+    Offline: sha256 against `sdk-pin.json`. `--online` re-fetches each file from GitHub at
+    SDK_COMMIT and re-proves the commit itself.
     """
     if not PIN.exists():
         print(f"  FAIL {PIN.relative_to(ROOT)} is missing — regenerate it with write_pin()")
@@ -690,23 +678,17 @@ def golden_signature(kind: str, rendered: str | None, name: str, dotted: str) ->
     return text.strip()
 
 
-# Differences that are not defects, keyed by the reason. Asserted as *expected*, so a change
-# in either direction shows up.
-#
-# `typed-beyond-sphinx`: napoleon's `.. attribute::` directives and pydantic's fields carry no
-# type on the live page; we print the real annotation. Strictly more informative.
-# `overload-primary`: Sphinx rendered the first `@overload` — annotated, with a return arrow —
-# as the member's signature. We render the implementation signature, which is what you can
-# actually call, and list every overload beside it rather than only the first.
+# Not defects, asserted as expected so a change either way shows up. `typed-beyond-sphinx`: we
+# print an annotation the live page left blank. `overload-primary`: Sphinx showed the first
+# @overload, we show the implementation plus every overload.
 EXPECTED_SIGNATURE_DRIFT = {
     "typed-beyond-sphinx": lambda want, have: want is None and bool(have),
     "overload-primary": lambda want, have: bool(want) and "\u2192" in want,
 }
 
 
-# napoleon renders the NumPy `param : int, optional` / `bool, default=True` suffix into the
-# type string; griffe keeps the type and the default apart, and we emit the default in its own
-# field. Strip the suffix before comparing, or 335 of 341 "mismatches" are that one convention.
+# napoleon folds `, optional` / `, default=X` into the type string; griffe keeps them apart.
+# Strip before comparing, or 335 of 341 "mismatches" are that convention.
 _DOC_TYPE_SUFFIX = re.compile(
     r"\s*(?:,\s*optional|,?\s*default\s*[=:].*|=\s*[^,]+)\s*\.?$", re.I
 )
@@ -723,15 +705,8 @@ def _canon_doc_type(text: str | None) -> str:
     return _canon_type(text)
 
 
-# Documented-type differences that are not defects on our side. Asserted as *expected*, so a
-# change in either direction surfaces.
-#
-# `griffe-tuple-normalised`: griffe parses a NumPy choice set or comma list
-#   (`{'mlm', 'clm'} or None`, `int, str, optional`) into a tuple expression, losing the braces
-#   and the `or None`. A griffe limitation, not something to out-parse — 540 parameters go
-#   through the same path.
-# `docstring-stale`: the docstring's type disagrees with the annotation and we print the
-#   annotation. Every one is an upstream defect, enumerated in UPSTREAM.md.
+# Not defects on our side. `griffe-tuple-normalised`: griffe parses a NumPy choice set into a
+# tuple, losing the braces and `or None`. `docstring-stale`: upstream, see UPSTREAM.md.
 EXPECTED_TYPE_DRIFT = {
     "griffe-tuple-normalised": lambda want, have: bool(have)
     and have.startswith("(")
@@ -799,13 +774,10 @@ def stale_documented_types(per_page: dict[str, list[dict]]) -> list[tuple[str, s
 
 
 def score_types(per_page: dict[str, list[dict]]) -> list[str]:
-    """Compare every documented parameter and return **type** against the live page.
+    """Compare every documented parameter and return type against the live page.
 
-    The last clause of the plan's Phase 7 verify step, and the one that stayed unmet longest:
-    `autodoc_typehints = "description"` put these types in the `<dd>` field list, which the
-    oracle originally discarded at capture time, so they could not be compared at all.
-    `fetch_golden.py:field_list()` now records them — 540 parameters, 192 return types and 49
-    raises across 198 entries.
+    `autodoc_typehints = "description"` put these in the `<dd>` field list, which the oracle
+    discarded until `fetch_golden.py:field_list()` started recording it.
     """
     exact = 0
     missing = 0
@@ -888,11 +860,7 @@ def score_types(per_page: dict[str, list[dict]]) -> list[str]:
 def score_signatures(per_page: dict[str, list[dict]]) -> list[str]:
     """Compare every emitted signature and type against the one Sphinx rendered.
 
-    The plan's Phase 7 verify step asks for member list, order, signatures AND types; only the
-    first two were ever scored. Adding this found 44 real regressions — unresolved constant
-    defaults (`interval=config.POLLING_INTERVAL` for `interval=5`), 11 classes rendering `()`
-    because their `__init__` is inherited (`OpenProtein` among them), pydantic fields printed
-    without their defaults or wrapped in `Field(...)`, and `job_id` losing its `str`.
+    Unscored until it was added, and it found 44 regressions — see the skill's oracle.md.
     """
     exact = 0
     unexpected: list[str] = []

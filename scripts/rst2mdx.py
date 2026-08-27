@@ -26,56 +26,38 @@ DIVIDER = re.compile(r'^<div class="dot-line"\s*>\s*</div>$')
 SENTENCE = re.compile(r'^.*?[.!?](?=\s|$)')
 YAML_BARE = re.compile(r'^[A-Za-z0-9][^:#{}\[\]&*!|>\'"%@`]*$')
 
-# Links that were already broken on the live Sphinx site. Every one was read in context and
-# resolved to the page the prose plainly means; the plan's Phase 8 says to fix these by hand
-# rather than ship 404s. Keyed by `(docname, target-as-written)` so a genuine future break in a
-# different file still fails the run.
+# Links already broken on the live site, read in context and resolved by hand. Keyed by
+# (docname, target) so a genuine future break elsewhere still fails the run.
 LINK_FIXES = {
-    # "Get started with no code" / "with our API" — the two quickstarts point at each other
-    # under the names they had before the rename.
     ('getting-started/quickstart-api', './get-started-with-no-code.md'):
         'getting-started/quickstart-web',
     ('getting-started/quickstart-web', './get-started-with-our-api.rst'):
         'getting-started/quickstart-api',
-    # The page is `reference-sequence`, never `using-reference-sequence`.
     ('resources/faq', '../web-app/opmodels/using-reference-sequence.rst'):
         'web-app/opmodels/reference-sequence',
-    # "Property Regression" is the predictor API; there has never been a property-regression page.
     ('rest-api/authentication-and-jobs', './property-regression.rst'): 'rest-api/predictor',
     ('rest-api/index', './property-regression.rst'): 'rest-api/predictor',
-    # There is no PoET REST page and the migration does not add one (see the plan's decision).
-    # Its 12 endpoints live in the embeddings spec, which is where the reader should land.
+    # No PoET REST page; its endpoints live in the embeddings spec.
     ('rest-api/authentication-and-jobs', './poet.rst'): 'rest-api/embeddings',
-    # A production URL arrives here already normalised to a root-absolute docname, so these
-    # are keyed on that form. `cluster.html` was renamed `cluster-sequences`, and the
-    # annotation page is singular — neither redirect ever existed.
+    # A production URL arrives normalised to a root-absolute docname.
     ('walkthroughs/antibody-hit-selection-ngs', '/web-app/opmodels/cluster'):
         'web-app/opmodels/cluster-sequences',
     ('walkthroughs/antibody-hit-selection-ngs', '/web-app/opmodels/antibody-annotations'):
         'web-app/opmodels/antibody-annotation',
-    # Wrong-relative: prompts lives under poet/, not opmodels/.
     ('web-app/opmodels/cluster-sequences', './prompts.rst'): 'web-app/poet/prompts',
 }
 
-# Heading-only stubs the plan drops: 2-3 lines each, no content, two marked `:orphan:`.
-# Excluded from conversion *and* from the nav, but still in the manifest so a link to one is
-# reported rather than silently resolving to a page that will not exist.
+# Not written and not in the nav, but still in the manifest so a link to one is reported.
+# `index` would claim `/`, which app/(home) owns; the other two are `:orphan:`.
+# The third heading-only stub, protein-language-models-embeddings, is NOT here: it is in the
+# opmodels toctree and linked from its index, so dropping it would 404 a live URL.
 DROPPED = {
-    # The landing page is `app/(home)/page.tsx` with Phase 1's components; `content/docs/index`
-    # would claim `/`, which the home route group already owns, so it could never be served.
     'index',
-    # Both are `:orphan:` — in no toctree and linked from nowhere, so nothing 404s.
     'web-app/poet/designing-new-enzymes',
     'web-app/poet/substitutions-deletions',
 }
-# `web-app/opmodels/protein-language-models-embeddings` is the third heading-only stub, and the
-# plan grouped it with those two — but it is IN the opmodels toctree and linked from that
-# section's index, so dropping it would 404 a URL the live site serves and lose a nav row. It is
-# kept and given a signpost body instead; see SIGNPOST below.
 
-# MDX owned by another phase. The manifest still carries them so links resolve; the writer
-# never touches them. Overwriting `rest-api/*` would destroy the `openapi:` frontmatter Phase 6
-# built, and `python-api/api-reference/*` the `<PyGroup>`/`<PyClass>` trees from Phase 7.
+# Owned by Phases 6 and 7 — links resolve through the manifest, but never overwrite them.
 GENERATED = ('rest-api/', 'python-api/api-reference/')
 
 
@@ -975,14 +957,9 @@ def main() -> int:
             print(f'--- {dest.relative_to(ROOT)} ---')
             print(text)
 
+    # A GENERATED folder owns its nav too: api-reference/meta.json omits `index` on purpose.
     metas = {
-        rel: meta
-        for rel, meta in meta_files(man).items()
-        # A GENERATED folder owns its own nav too. `python-api/api-reference/meta.json`
-        # deliberately omits `index` — fumadocs links a folder to its index page, so listing it
-        # as a child renders the section title twice in the sidebar and twice in the breadcrumb.
-        # Regenerating it from the toctree puts `index` back and reintroduces that bug.
-        if not rel.startswith(GENERATED)
+        rel: meta for rel, meta in meta_files(man).items() if not rel.startswith(GENERATED)
     }
     if write:
         for rel, meta in metas.items():

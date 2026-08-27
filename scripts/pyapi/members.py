@@ -108,12 +108,9 @@ def signature_of(func, package=None) -> str:
     inserted before the first keyword-only parameter, which is what reproduces the live text
     (`fold(sequences, diffusion_samples=1, ..., **_)`).
 
-    Annotations are deliberately absent: `conf.py` sets `autodoc_typehints = "description"`,
-    so Sphinx moved them out of the signature and into the parameter table. The golden
-    signatures confirm it — `fold(sequences, diffusion_samples=1, ...)`, no types.
-
-    `package` enables constant folding. Pass it, or 25 signatures print
-    `interval=config.POLLING_INTERVAL` where the live page printed `interval=5`.
+    Annotations are deliberately absent — `autodoc_typehints = "description"` moved them into
+    the parameter table. `package` enables constant folding; without it 25 signatures print
+    `interval=config.POLLING_INTERVAL` instead of `interval=5`.
     """
     parts: list[str] = []
     star = False
@@ -142,12 +139,9 @@ def signature_of(func, package=None) -> str:
 
 
 def _field_default(target) -> str | None:
-    """The default a pydantic field declares, or None when it is required.
+    """The default a pydantic field declares, or None when required.
 
-    `id: str = Field(description="…")` is **required** — the `Field(...)` call is not a
-    default. `description: str | None = Field(None, description="…")` defaults to `None`,
-    positionally, and `Field(default=None)` says it by keyword. Printing the raw value gave
-    `id=Field(description='Prompt unique identifier.')` on the page.
+    A keyword-only `Field(...)` call is not a default; a positional first arg or `default=` is.
     """
     value = getattr(target, "value", None)
     if value is None:
@@ -184,11 +178,9 @@ def _field_default(target) -> str | None:
 
 
 def _pydantic_chain(cls) -> list:
-    """`cls` then its MRO, or [] when nothing in that chain derives from `BaseModel`.
+    """`cls` then its MRO, or [] if nothing in the chain derives from `BaseModel`.
 
-    Checking `cls.bases` alone misses a subclass of a model: `PromptJob(Job)` has no
-    `BaseModel` base of its own, so it fell through to the `__init__` lookup and rendered
-    `()` where the live page showed all twelve inherited fields.
+    `cls.bases` alone misses `PromptJob(Job)`, which rendered `()`.
     """
     try:
         chain = [cls, *cls.mro()]
@@ -322,17 +314,11 @@ def select(package, cls, options: dict) -> list[tuple[str, object, dict]]:
             sibling = alias_target(cls, member)
             if sibling is not None:
                 resolved = sibling
-                # The target's docstring outranks an MRO-inherited one, and only the alias's
-                # OWN docstring outranks the target. At runtime `predict` *is* `generate`, so
-                # autodoc read `generate.__doc__` — which is why the live page showed
-                # `predict` with the whole "Run a protein structure generate job using
-                # RFdiffusion" prose and all 16 parameters. Deferring to the MRO instead
-                # picked up `ProteinModel.predict`'s one-line "Alias for the design method"
-                # and lost the parameter table on both `predict` members.
-                #
-                # The sibling itself may be an undocumented override — `SVDModel.id` and
-                # `EmbeddingsResultFuture.id` both shadow the documented `Future.id` — so the
-                # MRO walk still has to run, just on the alias target.
+                # The target outranks an MRO-inherited docstring; only the alias's own
+                # outranks the target. At runtime `predict` IS `generate`, so autodoc read
+                # `generate.__doc__` — deferring to the MRO got `ProteinModel.predict`'s
+                # one-liner and lost the parameter table. The MRO walk still runs, on the
+                # alias target: `SVDModel.id` shadows the documented `Future.id`.
                 if not own_doc.strip():
                     sibling_doc = docstring_text(sibling)
                     if sibling_doc.strip():
@@ -524,12 +510,8 @@ _NUMPY_HEADER = (
 def _repair_underline(doc) -> None:
     """Rewrite a NumPy section underline typed with `_` instead of `-`.
 
-    napoleon accepted `Parameters\n__________`; griffe does not, and silently returns prose.
-    One docstring in the SDK has it (`predictor/predictor.py:289`) and it cost
-    `PredictorAPI.ensemble` its whole parameter table. Recorded in `UPSTREAM.md` too — this
-    repairs the render, it does not excuse the typo.
-
-    Only an underline directly under a known header, of at least three characters, is touched.
+    napoleon accepted it, griffe returns prose. One docstring (`predictor/predictor.py:289`);
+    also filed in `UPSTREAM.md`.
     """
     text = getattr(doc, "value", None)
     if not text or "_" * 3 not in text:
@@ -548,15 +530,10 @@ def _repair_underline(doc) -> None:
 
 
 def parsed_sections(doc):
-    """The richest parse of a docstring, not whatever `auto` guessed.
+    """The richest parse, not whatever `auto` guessed.
 
-    griffe's `Parser.auto` infers a style per docstring and gets it wrong: 13 of this SDK's
-    495 docstrings parse to prose under `auto` alone. `infer_docstring_style` calls
-    `PoET2Model.embed` google-style, so its NumPy `Parameters\n----------` block comes back as
-    one prose blob and the whole parameter table renders as a paragraph. Falling back to the
-    explicit parsers when `auto` finds no structure recovers those 13 and changes nothing else.
-    The other 21 of the 34 come from parsing the docstring's owner rather than the override —
-    see `sdk.inherited_docstring_owner`.
+    `Parser.auto` infers a style per docstring and gets it wrong for 13 of 495. The other 21 of
+    the 34 recovered come from `sdk.inherited_docstring_owner`.
     """
     if doc is None:
         return []

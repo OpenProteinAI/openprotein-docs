@@ -1,16 +1,8 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 
-/**
- * One topic row on the "Explore our platform capabilities" page: an illustration beside one to
- * three titled columns of links.
- *
- * The old page built these from a Bootstrap `container > row > col-3/col-9` grid inside
- * `.. raw:: html`, which MDX cannot parse as markup and which depended on the 296 KB Bootstrap
- * bundle the migration drops. The `<h4 class="tutorial-h4">` column headings were decorative —
- * they carried no ids and nothing linked to them — so they are plain text here rather than real
- * headings, which also keeps them out of the page TOC.
- */
+/** A topic row: illustration beside one to three titled columns of links. Column titles are
+ *  plain text, not headings — the originals had no ids and nothing linked to them. */
 export function TutorialTopic({
   image,
   alt = '',

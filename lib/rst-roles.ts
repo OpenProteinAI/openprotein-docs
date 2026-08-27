@@ -5,23 +5,11 @@ import path from 'node:path';
 
 const SPEC_DIR = path.join(process.cwd(), 'specs');
 
-/**
- * Sphinx cross-reference roles, in the three spellings this corpus uses:
- *   :py:class:`~openprotein.molecules.Complex`          — tilde: label is the last component
- *   :py:meth:`openprotein.jobs.Future.wait`             — bare: label is the last component
- *   :py:meth:`session.align.create_msa <openprotein.align.AlignAPI.create_msa>`  — explicit label
- */
+/** Sphinx roles: `~dotted.path`, `dotted.path`, or `label <dotted.path>`. */
 const ROLE =
   /:(?:py:)?(?:class|meth|func|attr|obj|mod|exc|data):`\s*(?:([^<`]+?)\s*<([^>`]+)>|~?([^`]+?))\s*`/g;
 
-/**
- * Every dotted path the Python API reference publishes, mapped to its page.
- *
- * Built from `specs/*.json` rather than duplicating the generator's resolver: the specs already
- * carry a `page` per entry, which is what makes a cross-page link resolvable. Both spellings of
- * a path are registered — the canonical one and the public one — because a docstring may use
- * either.
- */
+/** Dotted path -> page, from the `page` field the specs already carry. */
 const index = cache(async (): Promise<Map<string, string>> => {
   const map = new Map<string, string>();
   let files: string[];
@@ -45,25 +33,32 @@ const index = cache(async (): Promise<Map<string, string>> => {
   return map;
 });
 
-/**
- * Rewrite Sphinx roles in notebook markdown to real links.
- *
- * Notebook authors wrote `:py:class:`~openprotein.molecules.Complex`` in markdown cells, which
- * nbsphinx resolved because the whole site was one Sphinx project. Here the notebook body goes
- * through plain remark, so 35 roles across 3 notebooks were rendering as literal
- * `:py:class:`…`` text — caught by `pnpm check:content`.
- *
- * An unresolvable target becomes a code span, which is what Sphinx did with the ones it could
- * not resolve either. A *wrong* link is worse than none.
- */
+/** All 35 roles are pandoc raw-inline: `` `` :py:class:`X` ``{=rst} ``. Unwrap the span too,
+ *  or the code span and the `{=rst}` reach the reader. */
+const RAW_INLINE = /``[ ]?([\s\S]*?)[ ]?``\{=rst\}/g;
+
+/** Stateless copy: `.test()` on the global ROLE would advance its lastIndex. */
+const HAS_ROLE = new RegExp(ROLE.source);
+
+/** nbsphinx resolved these; plain remark does not. Unresolvable targets stay code spans. */
 export async function rewriteRstRoles(source: string): Promise<string> {
-  if (!source.includes(':`')) return source;
+  if (!source.includes(':`') && !source.includes('{=rst}')) return source;
   const pages = await index();
-  return source.replace(ROLE, (whole, label, target, bare) => {
-    const dotted = (target ?? bare ?? '').trim();
-    const text = (label ?? dotted.split('.').pop() ?? dotted).trim();
-    const page = pages.get(dotted);
-    if (!page) return `\`${text}\``;
-    return `[\`${text}\`](/python-api/api-reference/${page}#${dotted})`;
-  });
+
+  const resolve = (text: string) =>
+    text.replace(ROLE, (_whole, label, target, bare) => {
+      const dotted = (target ?? bare ?? '').trim();
+      const shown = (label ?? dotted.split('.').pop() ?? dotted).trim();
+      const page = pages.get(dotted);
+      if (!page) return `\`${shown}\``;
+      return `[\`${shown}\`](/python-api/api-reference/${page}#${dotted})`;
+    });
+
+  // Newlines collapse so a link never straddles a hard break.
+  return resolve(
+    source.replace(RAW_INLINE, (whole, inner: string) => {
+      const flat = inner.replace(/\s+/g, ' ').trim();
+      return HAS_ROLE.test(flat) ? resolve(flat) : `\`${flat}\``;
+    }),
+  );
 }
