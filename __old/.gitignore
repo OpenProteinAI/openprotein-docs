@@ -1,9 +1,0 @@
-/src/.quarto/
-/src/_site/
-.log
-/build/
-
-# pixi environments
-.pixi
-*.egg-info
-.DS_Store

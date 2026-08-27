@@ -1,4 +1,0 @@
-:orphan:
-
-Substitutions and Deletions
-===========================
