@@ -205,7 +205,7 @@ Solutions for your application
 
    <div class="landing-page-container">
       <div class="card-container">
-         <a href="./walkthroughs/index.html" class="card-landing-page clickable-card">
+         <a href="./walkthroughs/antibody-engineering.html" class="card-landing-page clickable-card">
             <img class="card-icon" src="./_static/overview-img/DocsHome_Antibodies.png" width="80">
             <span class="title">Antibodies</span>
             <div>
@@ -217,7 +217,7 @@ Solutions for your application
                </ul>
             </div>      
          </a>
-         <a href="./walkthroughs/index.html" class="card-landing-page clickable-card">
+         <a href="./walkthroughs/enzyme-engineering.html" class="card-landing-page clickable-card">
             <img class="card-icon" src="./_static/overview-img/DocsHome_Enzymes.png" width="80">
             <span class="title">Enzymes</span>
             <div>
@@ -229,7 +229,7 @@ Solutions for your application
                   </ul>
             </div>      
          </a>
-         <a href="./walkthroughs/index.html" class="card-landing-page clickable-card">
+         <a href="./walkthroughs/multichain.html" class="card-landing-page clickable-card">
             <img class="card-icon" src="./_static/overview-img/DocsHome_Structural Proteins.png" width="80">
             <span class="title">Structural proteins</span>
             <div>
