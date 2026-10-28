@@ -289,3 +289,18 @@ assaying a small fraction of candidate antibodies.
    generate a second-round library.
 -  Run a `structure prediction <https://docs.openprotein.ai/web-app/structure-prediction/using-structure-prediction.html>`__
    on the selected sequences to view their 3D structures.
+
+**References**
+--------------
+ 
+-  Baker, S., Krishna, A., Higham, S., Naydenova, P., O'Leary, S.,
+   Bartholdson Scott, J., … Reece, S. T. (2024). Exploiting human immune
+   repertoire transgenic mice for protective monoclonal antibodies
+   against antimicrobial resistant *Acinetobacter baumannii*. *Nature
+   Communications*, 15(1).
+   https://doi.org/10.1038/s41467-024-52357-8
+-  Zhou, Q., Chomicz, D., Melvin, D., Griffiths, M., Yahiya, S., Reece,
+   S. T., Le Pannerer, M.-M., & Krawczyk, K. (2026). KyDab – a
+   comprehensive database of antibody discovery selection campaigns.
+   *bioRxiv*. https://doi.org/10.64898/2026.03.25.713450
+
