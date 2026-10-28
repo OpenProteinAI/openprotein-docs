@@ -35,7 +35,7 @@ At the end of the tutorial, we will have:
 -------------------
 
 -  Download the preprocessed KV7019 NGS dataset located
-   `here <https://drive.google.com/file/d/1b3TAQwnG9JpTuaxHCmVRWK8URqqlS10N/view?usp=drive_link>`__.
+   `here <https://drive.google.com/file/d/1b3TAQwnG9JpTuaxHCmVRWK8URqqlS10N/view?usp=sharing>`__.
    It is a CSV file with 2,852 paired antibody sequences and three
    columns:
 
