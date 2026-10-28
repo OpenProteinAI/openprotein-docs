@@ -53,7 +53,7 @@ At the end of the tutorial, we will have:
 -  In the left navigation panel of the project, click **Upload** next to
    **Assay**.
 
-.. figure:: /_static/hit-selection/hit-selection-upload1
+.. figure:: /_static/hit-selection/hit-selection-upload1.png
    :alt: hit selection
 
 
@@ -68,7 +68,7 @@ VH                     VH
 VL                     VL
 ====================== ==========================================
 
-.. image:: /_static/opmodels/hit-selection/hit-selection-columntype
+.. image:: /_static/hit-selection/hit-selection-columntype.png
    :alt: hit selection
 
 -  When the upload finishes, the dataset opens under Dataset > Assay >
@@ -78,7 +78,7 @@ The dataset opens as a UMAP of the sequences. Use the **View** dropdown
 at the top left to switch between UMAP, Joint plot, and Table.
 
 
-.. image:: /_static/hit-selection/hit-selection-view
+.. image:: /_static/hit-selection/hit-selection-view.png
 
 **Step 2: Predict relative affinity with PoET-2 Antibody NGS Enrichment**
 -------------------------------------------------------------------------
@@ -92,12 +92,12 @@ To predict relative affinity, we will use OpenProtein.AI’s *PoET-2
 Antibody NGS Enrichment* model. In the toolbar, open the **Predictions**
 dropdown and click **New prediction**.
 
-.. image:: /_static/hit-selection/hit-selection-newprediction
+.. image:: /_static/hit-selection/hit-selection-newprediction.png
 
 -  In the **Create Prediction** dialog, stay on **Recommended for you**
    and select **PoET-2 Antibody NGS Enrichment**.
 
-.. image:: /_static/hit-selection/hit-selection-recommendedmodel
+.. image:: /_static/hit-selection/hit-selection-recommendedmodel.png
 
 -  Leave **Query** empty. Leave **Context** on **Auto**, which samples
    sequences from this dataset.
@@ -113,18 +113,18 @@ the prediction.
 
 -  Open the **View** dropdown and choose **Table**.
 
-.. image:: /_static/hit-selection/hit-selection-viewtable
+.. image:: /_static/hit-selection/hit-selection-viewtable.png
 
 -  Scroll right to the new column, **PoET-2 Antibody NGS Enrichment**.
 
-.. image:: /_static/hit-selection/hit-selection-viewpredtable
+.. image:: /_static/hit-selection/hit-selection-viewpredtable.png
 
 -  Each row now has a score. Higher values indicate higher predicted
    relative affinity. **Selection** uses this score in the next step.
 -  If the column is not shown, open the **Predictions** dropdown and
    select **PoET-2 Antibody NGS Enrichment** to display the scores.
 
-.. image:: /_static/hit-selection/hit-selection-viewprediction
+.. image:: /_static/hit-selection/hit-selection-viewprediction.png
 
 **Step 4: Select sequences using the Select tool**
 --------------------------------------------------
@@ -135,7 +135,7 @@ diverse sequences with high affinity.
 -  In the toolbar, open the **Selection** dropdown and click **New
    selection**.
 
-.. image:: /_static/hit-selection/hit-selection-newselect
+.. image:: /_static/hit-selection/hit-selection-newselect.png
 
 **Choose the sequences to select from**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,12 +154,12 @@ a click of a button.
    1,092 candidates have N-glycosylation or non-canonical cysteine
    sites. Once applied, the count reads “1,760 of 2,852 sequences”.
 
-.. image:: /_static/hit-selection/hit-selection-select-filter
+.. image:: /_static/hit-selection/hit-selection-select-filter.png
 
 -  Set **Number of sequences to select** to 500. This can be adjusted
    after the selection runs.
 
-.. image:: /_static/hit-selection/hit-selection-500seq
+.. image:: /_static/hit-selection/hit-selection-500seq.png
 
 **Set diversity settings**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,7 +179,7 @@ We will define “distance” using the PoET-2 Antibody model.
 -  Keep the recommended **Similarity radius** (0.337, which is the
    0.501th percentile in this dataset).
 
-.. image:: /_static/hit-selection/hit-selection-diversitysetting
+.. image:: /_static/hit-selection/hit-selection-diversitysetting.png
 
 **Weight sequences by the predicted relative affinity**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,7 +188,7 @@ We will define “distance” using the PoET-2 Antibody model.
    **PoET-2 Antibody NGS Enrichment · Likelihood score**. This is the
    column created in Step 2.
 
-.. image:: /_static/hit-selection/hit-selection-score1
+.. image:: /_static/hit-selection/hit-selection-score1.png
 
 -  Keep **Weight** at 1.
 -  Keep **Diversity weight** at 30. Higher values favor diversity over
@@ -196,7 +196,7 @@ We will define “distance” using the PoET-2 Antibody model.
 -  Check the line below the controls. It reads “Score = 1 × PoET-2
    Antibody NGS Enrichment · Likelihood score”.
 
-.. image:: /_static/hit-selection/hit-selection-score2
+.. image:: /_static/hit-selection/hit-selection-score2.png
 
 -  Click **Run**. The footer shows “Submitting selection job” and
    “Updating job metadata”, and a banner above the table shows
@@ -212,7 +212,7 @@ sequences. In this example, you will see “Showing 500/2852 rows”.
    **Selection Score**, and **Selection Variance Explained**. The table
    is sorted by **Selection Rank**, so rank 1 is first.
 
-.. image:: /_static/hit-selection/hit-selection-score3
+.. image:: /_static/hit-selection/hit-selection-score3.png
 
 Additional information about the selection can be viewed and adjusted as
 follows.
@@ -222,7 +222,7 @@ follows.
    embedding model, filters and how many sequences remain after
    filtering (1,760 of 2,852).
 
-.. image:: /_static/hit-selection/hit-selection-selectedit1
+.. image:: /_static/hit-selection/hit-selection-selectedit1.png
 
 **Adjust the number of sequences**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,7 +237,7 @@ follows.
    Remember to change the number of sequences back to ‘500’ after
    exploring.
 
-.. image:: /_static/hit-selection/hit-selection-selectedit2
+.. image:: /_static/hit-selection/hit-selection-selectedit2.png
 
 -  The curve shows three lines: this selection (diversity weight 30),
    score only (diversity weight 0), and diversity only (infinite
@@ -251,7 +251,7 @@ follows.
    linked. A radius of 0.35, for example, is the 0.577th percentile and
    sits within the 0.5th to 5th percentile band.
 
-.. image:: /_static/hit-selection/hit-selection-diversityedit
+.. image:: /_static/hit-selection/hit-selection-diversityedit.png
 
 -  The change reruns the selection, and the fields are greyed out until
    it finishes.
@@ -268,7 +268,7 @@ Export the selected sequences to use them outside the platform.
 -  The CSV holds the rows currently shown in the table, which are the
    500 selected sequences.
 
-.. image:: /_static/hit-selection/hit-selection-export
+.. image:: /_static/hit-selection/hit-selection-export.png
 
 **Summary**
 -----------
