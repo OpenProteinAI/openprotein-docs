@@ -68,7 +68,7 @@ VH                     VH
 VL                     VL
 ====================== ==========================================
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-columntype
+.. image:: /_static/opmodels/hit-selection/hit-selection-columntype
    :alt: hit selection
 
 -  When the upload finishes, the dataset opens under Dataset > Assay >
@@ -78,7 +78,7 @@ The dataset opens as a UMAP of the sequences. Use the **View** dropdown
 at the top left to switch between UMAP, Joint plot, and Table.
 
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-view
+.. image:: /_static/hit-selection/hit-selection-view
 
 **Step 2: Predict relative affinity with PoET-2 Antibody NGS Enrichment**
 -------------------------------------------------------------------------
@@ -92,12 +92,12 @@ To predict relative affinity, we will use OpenProtein.AI’s *PoET-2
 Antibody NGS Enrichment* model. In the toolbar, open the **Predictions**
 dropdown and click **New prediction**.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-newprediction
+.. image:: /_static/hit-selection/hit-selection-newprediction
 
 -  In the **Create Prediction** dialog, stay on **Recommended for you**
    and select **PoET-2 Antibody NGS Enrichment**.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-recommendedmodel
+.. image:: /_static/hit-selection/hit-selection-recommendedmodel
 
 -  Leave **Query** empty. Leave **Context** on **Auto**, which samples
    sequences from this dataset.
@@ -113,18 +113,18 @@ the prediction.
 
 -  Open the **View** dropdown and choose **Table**.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-viewtable
+.. figure:: /_static/hit-selection/hit-selection-viewtable
 
 -  Scroll right to the new column, **PoET-2 Antibody NGS Enrichment**.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-viewpredtable
+.. figure:: /_static/hit-selection/hit-selection-viewpredtable
 
 -  Each row now has a score. Higher values indicate higher predicted
    relative affinity. **Selection** uses this score in the next step.
 -  If the column is not shown, open the **Predictions** dropdown and
    select **PoET-2 Antibody NGS Enrichment** to display the scores.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-viewprediction
+.. figure:: /_static/hit-selection/hit-selection-viewprediction
 
 **Step 4: Select sequences using the Select tool**
 --------------------------------------------------
@@ -135,7 +135,7 @@ diverse sequences with high affinity.
 -  In the toolbar, open the **Selection** dropdown and click **New
    selection**.
 
-.. figure:: /_static/opmodels/hit-selection/hit-selection-newselect
+.. figure:: /_static/hit-selection/hit-selection-newselect
 
 **Choose the sequences to select from**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
