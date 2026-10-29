@@ -1,4 +1,4 @@
-**Tutorial: Select hits from an antibody NGS discovery campaign**
+Tutorial: Select hits from an antibody NGS discovery campaign
 =================================================================
 
 Immunization-based antibody discovery campaigns routinely yield
@@ -31,8 +31,8 @@ At the end of the tutorial, we will have:
 -  A CSV file containing the selection of 500 sequences, and their
    predicted relative affinities.
 
-**Before starting**
--------------------
+Before starting
+----------------
 
 -  Download the preprocessed KV7019 NGS dataset located
    `here <https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9K0KLI8LYmlrztAvAd9imQXjG9Ybkow5qOxUqpuUHI2Y0OaxabiZWTIA4a9ju8iIFkZ8qOYLu1K_Y/pub?output=csv>`__.
@@ -47,8 +47,8 @@ At the end of the tutorial, we will have:
    project
    `here <https://docs.openprotein.ai/web-app/opmodels/creating-project.html>`__.
 
-**Step 1: Upload the dataset**
-------------------------------
+Step 1: Upload the dataset
+---------------------------
 
 -  In the left navigation panel of the project, click **Upload** next to
    **Assay**.
@@ -80,8 +80,8 @@ at the top left to switch between UMAP, Joint plot, and Table.
 
 .. image:: /_static/hit-selection/hit-selection-view.png
 
-**Step 2: Predict relative affinity with PoET-2 Antibody NGS Enrichment**
--------------------------------------------------------------------------
+Step 2: Predict relative affinity with PoET-2 Antibody NGS Enrichment
+----------------------------------------------------------------------
 
 Before selecting sequences, we will first predict the relative
 affinities of the candidate antibodies by using a model to analyze their
@@ -105,8 +105,8 @@ dropdown and click **New prediction**.
    A banner above the table tracks the job, for example “PoET-2 Antibody
    NGS Enrichment – Pending”, and the **Jobs** count goes up by one.
 
-**Step 2b: Find the prediction column**
----------------------------------------
+Step 2b: Find the prediction column
+------------------------------------
 
 When the prediction finishes, the dataset gains a new column named after
 the prediction.
@@ -126,8 +126,8 @@ the prediction.
 
 .. image:: /_static/hit-selection/hit-selection-viewprediction.png
 
-**Step 4: Select sequences using the Select tool**
---------------------------------------------------
+Step 4: Select sequences using the Select tool
+----------------------------------------------
 
 Now use **Selection** to perform hit selection, i.e., select a subset of
 diverse sequences with high affinity.
@@ -137,8 +137,8 @@ diverse sequences with high affinity.
 
 .. image:: /_static/hit-selection/hit-selection-newselect.png
 
-**Choose the sequences to select from**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Choose the sequences to select from
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In antibody discovery campaigns, we often want to avoid selecting some
 sequences, such as sequences that are likely to have liabilities that
@@ -161,8 +161,8 @@ a click of a button.
 
 .. image:: /_static/hit-selection/hit-selection-500seq.png
 
-**Set diversity settings**
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Set diversity setting
+~~~~~~~~~~~~~~~~~~~~~~
 
 In order to select a diverse subset of sequences, we need to define how
 diversity is measured. This can be a fairly technical topic, but in
@@ -181,8 +181,8 @@ We will define “distance” using the PoET-2 Antibody model.
 
 .. image:: /_static/hit-selection/hit-selection-diversitysetting.png
 
-**Weight sequences by the predicted relative affinity**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Weight sequences by the predicted relative affinity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  Under **Sequence weights (optional)**, open **Score** and choose
    **PoET-2 Antibody NGS Enrichment · Likelihood score**. This is the
@@ -202,8 +202,8 @@ We will define “distance” using the PoET-2 Antibody model.
    “Updating job metadata”, and a banner above the table shows
    “Selection 1 – Pending”.
 
-**Step 5: View the selection**
-------------------------------
+Step 5: View the selection
+--------------------------
 
 When the job finishes, the table will update and show only the selected
 sequences. In this example, you will see “Showing 500/2852 rows”.
@@ -224,8 +224,8 @@ follows.
 
 .. image:: /_static/hit-selection/hit-selection-selectedit1.png
 
-**Adjust the number of sequences**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Adjust the number of sequences
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  In **Number of sequences**, change the number to ‘550’ or drag the
    marker on the curve. **Variance explained** moves with it, and the
@@ -243,8 +243,8 @@ follows.
    score only (diversity weight 0), and diversity only (infinite
    diversity weight).
 
-**Adjust the similarity radius**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Adjust the similarity radius
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  Type a ‘0.35’ in **Similarity radius** or drag the marker on the
    histogram. The **Similarity radius** and **Percentile** fields are
@@ -259,8 +259,8 @@ follows.
 Click **Deselect** at the top right of the panel to clear the selection
 from the table.
 
-**Step 6: Export the selection**
---------------------------------
+Step 6: Export the selection
+----------------------------
 
 Export the selected sequences to use them outside the platform.
 
@@ -270,8 +270,8 @@ Export the selected sequences to use them outside the platform.
 
 .. image:: /_static/hit-selection/hit-selection-export.png
 
-**Summary**
------------
+Summary
+--------
 
 In this tutorial, we have selected a diverse subset of 500 antibodies
 predicted to have high affinity against antimicrobial resistant *A.
@@ -281,8 +281,8 @@ to obtain a diverse set of high affinity antibodies for further
 development, thereby achieving our antibody discovery goals while only
 assaying a small fraction of candidate antibodies.
 
-**Next steps**
---------------
+Next steps
+----------
 
 -  Test the selected sequences in the lab, then run
    `Design <https://docs.openprotein.ai/web-app/opmodels/design.html>`__ to
@@ -290,8 +290,8 @@ assaying a small fraction of candidate antibodies.
 -  Run a `structure prediction <https://docs.openprotein.ai/web-app/structure-prediction/using-structure-prediction.html>`__
    on the selected sequences to view their 3D structures.
 
-**References**
---------------
+References
+----------
  
 -  Baker, S., Krishna, A., Higham, S., Naydenova, P., O'Leary, S.,
    Bartholdson Scott, J., … Reece, S. T. (2024). Exploiting human immune
