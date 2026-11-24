@@ -1,0 +1,177 @@
+{
+ "module": "openprotein.models.svd",
+ "entries": [
+  {
+   "name": "SVDEmbeddingSource",
+   "path": "openprotein.models.svd.SVDEmbeddingSource",
+   "kind": "class",
+   "signature": "(*, model_id=None, version=None, reduction=None, prompt_id=None)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "The embedding method reused for an SVD's projections.\n\nAttributes\n----------\nmodel_id : str or None\n    Model used to embed the fit's sequences.\nversion : str or None\n    Version of that embedding method.\nreduction : str or None\n    Reduction applied to each sequence's embeddings.\nprompt_id : str or None\n    Prompt used to condition the embedding method.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "The embedding method reused for an SVD's projections."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "model_id",
+       "type": "str or None",
+       "type_parts": [
+        {
+         "text": "str or None"
+        }
+       ],
+       "default": null,
+       "text": "Model used to embed the fit's sequences."
+      },
+      {
+       "name": "version",
+       "type": "str or None",
+       "type_parts": [
+        {
+         "text": "str or None"
+        }
+       ],
+       "default": null,
+       "text": "Version of that embedding method."
+      },
+      {
+       "name": "reduction",
+       "type": "str or None",
+       "type_parts": [
+        {
+         "text": "str or None"
+        }
+       ],
+       "default": null,
+       "text": "Reduction applied to each sequence's embeddings."
+      },
+      {
+       "name": "prompt_id",
+       "type": "str or None",
+       "type_parts": [
+        {
+         "text": "str or None"
+        }
+       ],
+       "default": null,
+       "text": "Prompt used to condition the embedding method."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.models.svd",
+   "source": {
+    "file": "openprotein/models/svd.py",
+    "line": 25,
+    "end": 43
+   },
+   "members": [
+    {
+     "name": "model_id",
+     "kind": "attribute",
+     "doc": "Model used to embed the fit's sequences.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/models/svd.py",
+      "line": 40,
+      "end": 40
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "version",
+     "kind": "attribute",
+     "doc": "Version of that embedding method.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/models/svd.py",
+      "line": 41,
+      "end": 41
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "reduction",
+     "kind": "attribute",
+     "doc": "Reduction applied to each sequence's embeddings.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/models/svd.py",
+      "line": 42,
+      "end": 42
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "prompt_id",
+     "kind": "attribute",
+     "doc": "Prompt used to condition the embedding method.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/models/svd.py",
+      "line": 43,
+      "end": 43
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    }
+   ],
+   "section": "Fitted models",
+   "page": "models"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

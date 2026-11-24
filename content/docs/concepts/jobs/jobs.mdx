@@ -1,0 +1,15 @@
+---
+title: "Jobs"
+description: ""
+---
+A job is a unit of computation submitted to the platform, such as an MSA search, a PoET-2 scoring run, a structure prediction, a UMAP fit or a property predictor training run. Each job has a unique job ID and runs on the platform's servers, not on the client.
+
+# Asynchronous execution
+Jobs run asynchronously. Submitting a job returns immediately with a reference to it, and the computation continues in the background. The client does not need to stay connected: a browser tab can be closed or a Python session ended, and the job keeps running. Results stay on the platform and can be retrieved later by job ID.
+
+# Job lifecycle
+Every job moves through a fixed set of statuses. A newly submitted job is `PENDING` until compute is available. It then becomes `RUNNING`, and ends as either `SUCCESS` or `FAILURE`.
+
+Alongside its status, each job records its type (for example `/poet/score` or `/workflow/train`), creation, start and end times, and a progress counter for long runs.
+
+Some jobs depend on others. Scoring with a prompt sampled from an MSA, for example, first needs the homology search to finish. In that case the dependent job records a prerequisite job ID and waits in `PENDING` until its prerequisite succeeds. If the prerequisite fails, the dependent job cannot run.

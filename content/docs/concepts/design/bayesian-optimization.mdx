@@ -1,0 +1,92 @@
+---
+title: Bayesian optimization 
+description: Bayesian optimization is used in the Design step to search sequence space across multiple objectives
+---
+
+Bayesian optimization is a model-based strategy for optimizing black-box functions. On 
+our platform, Bayesian optimization is used in the **Design** step of the DBTL loop to search 
+sequence space for variants that maximize the probability of achieving a set of quantitative objectives. 
+
+## What is Bayesian optimization? 
+
+Bayesian optimization uses probabilistic models to choose which candidates to evaluate next 
+by explicitly considering uncertainty in the prediction. This is particularly useful 
+for protein engineering, where the space of possible variants is astronomically large, 
+but each round of assay measurements is slow and expensive. 
+
+When training on measurement data, our platform uses Bayesian property predictors that
+output both a mean and an uncertainty for a given prediction. This allows the design algorithm 
+to calculate the probability that a candidate sequence meets a target, rather than just its predicted value. 
+
+Because predictions are distributions rather than point values, we can balance search between two behaviors: 
+- **Exploitation**: Sequences that are similar to high-performing variants in a dataset have confident predictions
+near the target, giving them a high probability of success
+- **Exploration**: Sequences in less-explored regions have uncertain predictions, and may still be 
+promising to explore. 
+
+## Design objectives and criteria 
+
+### Objectives and criteria 
+
+To perform Bayesian Optimization, we must first define one or more **objectives**, which can 
+thought of as design goals. Each objective is built from one or more **criteria**. 
+
+A **criterion** specifies a proeprty, a direction, and a target value: for example,
+binding affinity (property) > (direction) 1 (target value). This means that the solver
+will look for sequences that satisfy every criterion in that objective at once. One 
+useful example of this is combining several models of the same proeprty within one
+objective, which effectively ensembles them. 
+
+In contrast, **objectives** are traded off against each other. This means that the
+solver will search for solutions across the Pareto front defined by the set of 
+objectives. 
+
+In addition to custom objectives, users may also choose to include a special 
+**number of mutations criteria** that adds the number of mutations as its own 
+objective. The solver will then explore trade-offs between mutational load and
+the other targets. 
+
+### Pareto front 
+
+In multi-objective optimization, there may be no single best-performing sequence 
+because improving one sequence could come at the cost of another. The **Pareto front** 
+is defined as the set of **Pareto-optimal** solutions that optimally trade off
+between those objectives. A solution is **Pareto-optimal** if no other solution 
+dominates it, that is, no other solution is at least as good as that solution on 
+every objective and also strictly better on at least one. 
+
+When multiple objectives are specified, our design algorithms searching along the 
+Pareto front to return solutions that trade off between these objectives in 
+different proportions. 
+
+## Predicted library performance 
+
+The **Predicted Library Performance** summarizes the expected performance of sequences
+within a design panel, and is automaically calculated as part of **Optimize**. Note
+that these metrics will update as you apply filters or generate sequences. These metrics
+are intended to help users to make informed decisions about the composition and size 
+of the final library that they intend to build and test. 
+
+### Successes 
+
+The **Successes** tab illustrates the probability distribution over the number of
+successes, i.e. the number of sequences predicted to meet the specified design criteria. The
+plot reports the mean, standard deviation and 95% confidence interval (95% CI) over the expected
+number of successes. 
+
+Note that the number of expected successes should be considered in relation to library size. 
+
+ <Figure src="/_static/tutorials/design/optimize/bayesian-optimization/04_successes.png" />
+
+ ### Outcomes 
+
+ The **Outcomes** tab illustrates the expected distribution over the outcomes, i.e. 
+ the expected range of sequence properties that you would expect from your library. 
+
+ <Figure src="/_static/tutorials/design/optimize/bayesian-optimization/05_outcomes.png" />
+
+ ## Related pages 
+
+ - Concepts: [Property predictors](/concepts/models/property-predictors) 
+ - How-to: [Design a combinatorial library](/how-tos/design/design-a-combinatorial-library)
+ - Tutorial: [Bayesian optimization](/tutorials/design/active-learning/bayesian-optimization)

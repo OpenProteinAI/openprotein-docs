@@ -1,0 +1,107 @@
+---
+title: "openprotein.embeddings"
+description: "Deprecated compatibility interface for protein sequence embeddings."
+status: deprecated
+pythonApi: true
+---
+This compatibility interface is deprecated. Use [`session.models`](/references/python-api/models) for model access.
+
+Create embeddings for your protein sequences using open-source and proprietary models! Note that for PoET Models, you will also need to supply a [`Prompt`](/references/python-api/prompt#openprotein.prompt.Prompt).
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.embeddings.EmbeddingsAPI",
+  ]}
+>
+
+<PyClass path="openprotein.embeddings.EmbeddingsAPI" />
+
+</PyGroup>
+
+<PyGroup id="models" title="Models"
+  anchors={[
+    "openprotein.embeddings.PoET2Model",
+    "openprotein.embeddings.PoETModel",
+    "openprotein.embeddings.AbLang2Model",
+    "openprotein.embeddings.OpenProteinModel",
+    "openprotein.embeddings.ESMModel",
+    "openprotein.embeddings.EmbeddingModel",
+    "openprotein.embeddings.models.AttnModel",
+  ]}
+>
+
+These embedding models inherit from a base [`EmbeddingModel`](#openprotein.embeddings.EmbeddingModel), due to their shared functionality in providing the [`embed`](#openprotein.embeddings.EmbeddingModel.embed) method. These can also be used to fit the [`Transform Models`](#transform-models).
+
+<PyClass path="openprotein.embeddings.PoET2Model" />
+<PyClass path="openprotein.embeddings.PoETModel" />
+<PyClass path="openprotein.embeddings.AbLang2Model" />
+<PyClass path="openprotein.embeddings.OpenProteinModel" />
+<PyClass path="openprotein.embeddings.ESMModel" />
+<PyClass path="openprotein.embeddings.EmbeddingModel" />
+<PyClass path="openprotein.embeddings.models.AttnModel" />
+
+</PyGroup>
+
+<PyGroup id="transform-models" title="Transform Models"
+  anchors={[
+    "openprotein.svd.SVDModel",
+    "openprotein.umap.UMAPModel",
+    "openprotein.svd.SVDAPI",
+    "openprotein.umap.UMAPAPI",
+  ]}
+>
+
+These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. [`SVDModel`](#openprotein.svd.SVDModel) represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your [`AssayDataset`](/references/python-api/data#openprotein.data.AssayDataset). You can fit your own SVD from any model's [`fit_svd`](#openprotein.embeddings.EmbeddingModel.fit_svd). [`UMAPModel`](#openprotein.umap.UMAPModel) represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your [`AssayDataset`](/references/python-api/data#openprotein.data.AssayDataset). You can fit your own UMAP from any model's [`fit_umap`](#openprotein.embeddings.EmbeddingModel.fit_umap).
+
+The legacy [`session.svd`](#openprotein.svd.SVDAPI) and [`session.umap`](#openprotein.umap.UMAPAPI) interfaces are deprecated compatibility APIs. For new code, create and manage these estimators through [`session.models.SVD`](/references/python-api/models#openprotein.models.ModelsAPI.SVD) and [`session.models.UMAP`](/references/python-api/models#openprotein.models.ModelsAPI.UMAP).
+
+<PyClass path="openprotein.svd.SVDModel" />
+<PyClass path="openprotein.umap.UMAPModel" />
+<PyClass path="openprotein.svd.SVDAPI" />
+<PyClass path="openprotein.umap.UMAPAPI" />
+
+</PyGroup>
+
+<PyGroup id="reduction-methods" title="Reduction methods"
+  anchors={[
+    "openprotein.common.ReductionType",
+  ]}
+>
+
+Foundational embedding models also take an optional reduction to use simple pooling methods:
+
+<PyClass path="openprotein.common.ReductionType" />
+
+</PyGroup>
+
+<PyGroup id="model-metadata" title="Model metadata"
+  anchors={[
+    "openprotein.common.ModelMetadata",
+  ]}
+>
+
+<PyClass path="openprotein.common.ModelMetadata" />
+
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.embeddings.EmbeddingsResultFuture",
+    "openprotein.embeddings.EmbeddingsScoreFuture",
+    "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+    "openprotein.embeddings.EmbeddingsGenerateFuture",
+    "openprotein.embeddings.future.BaseScoreFuture",
+    "openprotein.svd.SVDEmbeddingsResultFuture",
+    "openprotein.umap.UMAPEmbeddingsResultFuture",
+  ]}
+>
+
+<PyClass path="openprotein.embeddings.EmbeddingsResultFuture" />
+<PyClass path="openprotein.embeddings.EmbeddingsScoreFuture" />
+<PyClass path="openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture" />
+<PyClass path="openprotein.embeddings.EmbeddingsGenerateFuture" />
+<PyClass path="openprotein.embeddings.future.BaseScoreFuture" />
+<PyClass path="openprotein.svd.SVDEmbeddingsResultFuture" />
+<PyClass path="openprotein.umap.UMAPEmbeddingsResultFuture" />
+
+</PyGroup>

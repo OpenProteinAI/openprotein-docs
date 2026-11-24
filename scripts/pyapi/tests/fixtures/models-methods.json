@@ -1,0 +1,188 @@
+{
+  "poet-2": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "batch/loglikelihood",
+    "single-site/scores",
+    "indel/scores",
+    "generate/sequences"
+  ],
+  "boltz-2": [
+    "batch/structures"
+  ],
+  "rfdiffusion": [
+    "generate/structures"
+  ],
+  "esm2_t33_650M_UR50D": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm2_t30_150M_UR50D": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm2_t12_35M_UR50D": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm2_t36_3B_UR50D": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm2_t6_8M_UR50D": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "proteinmpnn": [
+    "batch/loglikelihood",
+    "single-site/scores",
+    "batch/embeddings",
+    "generate/sequences"
+  ],
+  "solublempnn": [
+    "batch/loglikelihood",
+    "single-site/scores",
+    "batch/embeddings",
+    "generate/sequences"
+  ],
+  "opendde": [
+    "batch/structures"
+  ],
+  "opendde-abag": [
+    "batch/structures"
+  ],
+  "esm-if1": [
+    "batch/loglikelihood",
+    "single-site/scores",
+    "generate/sequences"
+  ],
+  "esmc-600m": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esmc-300m": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esmc-6b": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esmfold2": [
+    "batch/structures"
+  ],
+  "esmfold2-fast": [
+    "batch/structures"
+  ],
+  "protenix-v2": [
+    "batch/structures"
+  ],
+  "ablang2": [
+    "batch/embeddings",
+    "batch/logits",
+    "single-site/scores"
+  ],
+  "protenix": [
+    "batch/structures"
+  ],
+  "boltzgen": [
+    "generate/structures"
+  ],
+  "rosettafold-3": [
+    "batch/structures"
+  ],
+  "minifold": [
+    "batch/structures"
+  ],
+  "boltz-1": [
+    "batch/structures"
+  ],
+  "boltz-1x": [
+    "batch/structures"
+  ],
+  "esmfold": [
+    "batch/structures"
+  ],
+  "esm1b_t33_650M_UR50S": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm1v_t33_650M_UR90S_1": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm1v_t33_650M_UR90S_2": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm1v_t33_650M_UR90S_3": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm1v_t33_650M_UR90S_4": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "esm1v_t33_650M_UR90S_5": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/attn",
+    "single-site/scores"
+  ],
+  "prott5-xl": [
+    "batch/embeddings"
+  ],
+  "alphafold2": [
+    "batch/structures"
+  ],
+  "poet": [
+    "batch/embeddings",
+    "batch/logits",
+    "batch/loglikelihood",
+    "single-site/scores",
+    "indel/scores",
+    "generate/sequences"
+  ],
+  "prot-seq": [
+    "batch/embeddings",
+    "batch/attn",
+    "batch/logits"
+  ],
+  "rotaprot-large-uniref50w": [
+    "batch/embeddings",
+    "batch/attn",
+    "batch/logits"
+  ],
+  "rotaprot-large-uniref90-ft": [
+    "batch/embeddings",
+    "batch/attn",
+    "batch/logits"
+  ]
+}

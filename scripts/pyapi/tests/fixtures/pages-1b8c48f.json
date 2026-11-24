@@ -1,0 +1,2180 @@
+{
+  "source": "__old/source/python-api/api-reference",
+  "pages": [
+    {
+      "page": "index",
+      "title": "Python API reference",
+      "sections": [
+        {
+          "heading": "Session management",
+          "level": 2,
+          "prose": "The entrypoint to our platform which requires an authenticated session, along with clustering and the errors the client raises.",
+          "summarises": "openprotein",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Data primitives",
+          "level": 2,
+          "prose": "Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design.",
+          "summarises": "molecules",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Data",
+          "level": 2,
+          "prose": "Upload and store your datasets on our platform to use with your protein engineering tasks.",
+          "summarises": "data",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Models",
+          "level": 2,
+          "prose": "Unified access to the models available on our platform.",
+          "summarises": "models",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Jobs",
+          "level": 2,
+          "prose": "Retrieve and monitor your jobs.",
+          "summarises": "jobs",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Align",
+          "level": 2,
+          "prose": "Align your protein sequences or look up multiple sequence alignments.",
+          "summarises": "align",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Prompt",
+          "level": 2,
+          "prose": "Create prompts using sequences and structures to condition our proprietary high-performance PoET foundation models.",
+          "summarises": "prompt",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Foundation models",
+          "level": 2,
+          "prose": "Use foundation models to produce embeddings and logits with your protein sequences, then reduce the embeddings with SVD or UMAP for visualization and training workflows.",
+          "summarises": "embedding",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Predictor",
+          "level": 2,
+          "prose": "Train predictors from your assay datasets and use them to make predictions on novel sequences.",
+          "summarises": "predictor",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Design",
+          "level": 2,
+          "prose": "Design novel protein sequences based on your assay datasets and trained models, optimizing toward your design criteria.",
+          "summarises": "design",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Fold",
+          "level": 2,
+          "prose": "Make structure predictions on your protein sequences.",
+          "summarises": "fold",
+          "entries": [],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "openprotein",
+      "title": "openprotein",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Create an authorized session with `openprotein.connect`, then use `session.models` to discover and run models. The session also exposes compatibility interfaces and other platform services.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Session",
+          "level": 2,
+          "prose": "Create an authorized session to OpenProtein.AI backend.",
+          "entries": [
+            {
+              "directive": "autofunction",
+              "target": "openprotein.connect",
+              "options": {}
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.OpenProtein",
+              "options": {
+                "members": true,
+                "class-doc-from": "class",
+                "exclude-members": [
+                  "request"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.APISession",
+              "options": {
+                "members": true,
+                "class-doc-from": "class"
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Clustering",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.ClusteringAPI",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.clustering.HierarchicalClusteringFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.clustering.HierarchicalClusteringResult",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.clustering.ClusteringMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Errors",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.errors.APIError",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.errors.HTTPError",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.DeprecationError",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.errors.InvalidParameterError",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.errors.MissingParameterError",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Referenced types",
+          "level": 2,
+          "prose": "Types referenced by the interfaces above.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.errors.TimeoutException",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "molecules",
+      "title": "openprotein.molecules",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "These data primitives represent a unified interface to working with our platform, whether it be structure prediction, binder design or inverse folding.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Protein",
+          "level": 2,
+          "prose": "[`Protein`](#openprotein.molecules.Protein) is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a [`Query`](#openprotein.prompt.Query) to be used with models like [`ProteinMPNN`](#openprotein.models.ProteinMPNN) or [`ESMIF1`](#openprotein.models.ESMIF1) (e.g. for inverse-folding), as well as for ease of reuse.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.Protein",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Complex",
+          "level": 2,
+          "prose": "[`Complex`](#openprotein.molecules.Complex) describes a molecular complex representation. These can be uploaded to our platform as a [`Query`](#openprotein.prompt.Query) to be used with models like [`RFdiffusion`](#openprotein.models.RFdiffusion), (e.g. for multi-chain binder design) as well as for easy reuse.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.Complex",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Structure",
+          "level": 2,
+          "prose": "[`Structure`](#openprotein.molecules.Structure) describes a collection of [`Complex`](#Complex) instances. These are typically created when parsing structure files (e.g., CIF, PDB) that contain multiple models of the same molecular complex, such as NMR ensembles or computational predictions with multiple conformations.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.Structure",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Ligand",
+          "level": 2,
+          "prose": "[`Ligand`](#openprotein.molecules.Ligand) represents a ligand that can be described either by ``smiles`` or ``ccd``. These are intended to be used as part of a [`Complex`](#Complex).",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.Ligand",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "DNA",
+          "level": 2,
+          "prose": "[`DNA`](#openprotein.molecules.DNA) represents a DNA chain. These are intended to be used as part of a [`Complex`](#Complex).",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.DNA",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "RNA",
+          "level": 2,
+          "prose": "[`RNA`](#openprotein.molecules.RNA) represents a RNA chain. These are intended to be used as part of a [`Complex`](#Complex).",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.RNA",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Template",
+          "level": 2,
+          "prose": "[`Template`](#openprotein.molecules.Template) describes a template that can be used for constraining fold jobs.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.molecules.Template",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "data",
+      "title": "openprotein.data",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.DataAPI",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "load_assay"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Classes",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.AssayDataset",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.AssayMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Referenced types",
+          "level": 2,
+          "prose": "Types referenced by the interfaces above.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.MSADataAPI",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.PromptsAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Alignments and sampled prompts",
+          "level": 2,
+          "prose": "An MSA can be downloaded, updated, or deleted. A prompt sampling future returns `list[list[str]]`, with the sequences in each replicate. `session.data.prompts.get(...)` retrieves a stored [`Prompt`](#openprotein.data.prompts.Prompt) handle; reloaded sampling jobs retain the compatibility [`Prompt`](/references/python-api/prompt#openprotein.prompt.Prompt) reader.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.MSA",
+              "options": {
+                "members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.MSAMetadata",
+              "options": {
+                "members": true,
+                "undoc-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.prompts.Prompt",
+              "options": {
+                "members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.prompts.future.PromptFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "models",
+      "title": "openprotein.models",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Use `session.models` as the primary interface for discovering and running models. `session.models.list_models()` lists models and `session.models.get_model(...)` retrieves one. Named accessors provide common families; `model.metadata`, `model.methods` and `model.params_schema(...)` expose metadata, available methods, and parameter schemas where supported. Inspect method descriptors for named outputs and their `default_output`.\n\nEach specialized task future has a per-position result type T. `get()` and `wait()` return a list of T; `get_item()` and unit reads return T for a position; `stream()` returns an iterator of T.\n\n| Future | Primary output | T per position |\n| --- | --- | --- |\n| [`EmbeddingFuture`](#openprotein.models.EmbeddingFuture) | `embeddings` | `numpy.ndarray` |\n| [`LogitsFuture`](#openprotein.models.LogitsFuture) | `logits` | `numpy.ndarray` |\n| [`AttentionFuture`](#openprotein.models.AttentionFuture) | `attn` | `numpy.ndarray` |\n| [`LogLikelihoodFuture`](#openprotein.models.LogLikelihoodFuture) | `loglikelihood` | `float`, `list[float]`, or `numpy.ndarray` |\n| [`SingleSiteScoreFuture`](#openprotein.models.SingleSiteScoreFuture) | `score` | `float`, `list[float]`, or `numpy.ndarray` |\n| [`IndelScoreFuture`](#openprotein.models.IndelScoreFuture) | `score` | `float`, `list[float]`, or `numpy.ndarray` |\n| [`SequenceGenerationFuture`](#openprotein.models.SequenceGenerationFuture) | `sequences` | `str` |\n| [`PredictionFuture`](#openprotein.models.PredictionFuture) | `predictions` | `dict[str, Any]` |\n| [`SingleSitePredictionFuture`](#openprotein.models.SingleSitePredictionFuture) | `predictions` | `dict[str, Any]` |\n| [`StructureDesignFuture`](#openprotein.models.StructureDesignFuture) | `structures` | [`Complex`](#openprotein.molecules.Complex) |\n| [`StructurePredictionFuture`](#openprotein.models.StructurePredictionFuture) | `structures` | [`Structure`](#openprotein.molecules.Structure), retaining all conformations |\n\nA concrete task's bare reads select its primary output; requesting another named output preserves that output's decoded type. Ordinary `TaskFuture` uses the method default.\n\nSVD, UMAP and GP are class-valued factories on `session.models`: fit a model, then call the fit future's `get()` or `wait()` to retrieve the fitted model. Use `get(output=...)` or `wait(output=...)` to read a named fit output. Use the fitted model's supported transform, prediction, chaining and deletion methods. Existing compatibility namespaces and typed job reload readers remain available. When the job record cannot distinguish its original specialization, GP fit, cross-validation, and prompt reloads retain their documented `PredictorModel`, `CVResultFuture`, and `Prompt` compatibility owners respectively; they do not promise the original exact subclass.\n\nFitted GP models expose their [trained kernel](/references/python-api/predictor#openprotein.predictor.TrainedKernel), prior mean and observation noise variance. The mean uses the trained property units; noise uses those units squared. Hyperparameters are unavailable for GPs trained before they were recorded. The compatibility predictor also does not expose them for ensembles.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": "Discover models and inspect supported methods and parameter schemas.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ModelsAPI",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Models",
+          "level": 2,
+          "prose": "Use the family accessors or discover a model by identifier. These names describe the pinned SDK; availability depends on the service. Accessors are properties of `session.models`. The trainable entries are class-valued factories, not model IDs.\n\n**Language models**\n\n| Model ID | Accessors | Interface or family |\n| --- | --- | --- |\n| `poet-2` | [`poet2`](#openprotein.models.ModelsAPI.poet2), [`poet_2`](#openprotein.models.ModelsAPI.poet_2) (alias of `poet2`) | [`PoET`](#openprotein.models.PoET) |\n| `poet` | [`poet`](#openprotein.models.ModelsAPI.poet) | [`PoET`](#openprotein.models.PoET) |\n| `prot-seq` | [`prot_seq`](#openprotein.models.ModelsAPI.prot_seq) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `rotaprot-large-uniref50w` | [`rotaprot_large_uniref50w`](#openprotein.models.ModelsAPI.rotaprot_large_uniref50w) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `rotaprot-large-uniref90-ft` | [`rotaprot_large_uniref90_ft`](#openprotein.models.ModelsAPI.rotaprot_large_uniref90_ft) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `ablang2` | [`ablang2`](#openprotein.models.ModelsAPI.ablang2) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1b_t33_650M_UR50S` | [`esm1b_t33_650M_UR50S`](#openprotein.models.ModelsAPI.esm1b_t33_650M_UR50S), [`esm1b`](#openprotein.models.ModelsAPI.esm1b) (alias of `esm1b_t33_650M_UR50S`) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1v_t33_650M_UR90S_1` | [`esm1v_t33_650M_UR90S_1`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_1), [`esm1v`](#openprotein.models.ModelsAPI.esm1v) (alias of `esm1v_t33_650M_UR90S_1`) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1v_t33_650M_UR90S_2` | [`esm1v_t33_650M_UR90S_2`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_2) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1v_t33_650M_UR90S_3` | [`esm1v_t33_650M_UR90S_3`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_3) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1v_t33_650M_UR90S_4` | [`esm1v_t33_650M_UR90S_4`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_4) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm1v_t33_650M_UR90S_5` | [`esm1v_t33_650M_UR90S_5`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_5) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm2_t12_35M_UR50D` | [`esm2_t12_35M_UR50D`](#openprotein.models.ModelsAPI.esm2_t12_35M_UR50D) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm2_t30_150M_UR50D` | [`esm2_t30_150M_UR50D`](#openprotein.models.ModelsAPI.esm2_t30_150M_UR50D) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm2_t33_650M_UR50D` | [`esm2_t33_650M_UR50D`](#openprotein.models.ModelsAPI.esm2_t33_650M_UR50D), [`esm2`](#openprotein.models.ModelsAPI.esm2) (alias of `esm2_t33_650M_UR50D`) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm2_t36_3B_UR50D` | [`esm2_t36_3B_UR50D`](#openprotein.models.ModelsAPI.esm2_t36_3B_UR50D) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esm2_t6_8M_UR50D` | [`esm2_t6_8M_UR50D`](#openprotein.models.ModelsAPI.esm2_t6_8M_UR50D) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esmc-300m` | [`esmc_300m`](#openprotein.models.ModelsAPI.esmc_300m) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esmc-600m` | [`esmc_600m`](#openprotein.models.ModelsAPI.esmc_600m) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `esmc-6b` | [`esmc_6b`](#openprotein.models.ModelsAPI.esmc_6b) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n| `prott5-xl` | [`prott5_xl`](#openprotein.models.ModelsAPI.prott5_xl) | [`ProteinLanguageModel`](#openprotein.models.ProteinLanguageModel) |\n\n**Structure prediction**\n\n| Model ID | Accessors | Interface or family |\n| --- | --- | --- |\n| `alphafold2` | [`alphafold2`](#openprotein.models.ModelsAPI.alphafold2), [`af2`](#openprotein.models.ModelsAPI.af2) (alias of `alphafold2`) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `boltz-1` | [`boltz_1`](#openprotein.models.ModelsAPI.boltz_1), [`boltz1`](#openprotein.models.ModelsAPI.boltz1) (alias of `boltz_1`) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `boltz-1x` | [`boltz_1x`](#openprotein.models.ModelsAPI.boltz_1x), [`boltz1x`](#openprotein.models.ModelsAPI.boltz1x) (alias of `boltz_1x`) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `boltz-2` | [`boltz_2`](#openprotein.models.ModelsAPI.boltz_2), [`boltz2`](#openprotein.models.ModelsAPI.boltz2) (alias of `boltz_2`) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `esmfold` | [`esmfold`](#openprotein.models.ModelsAPI.esmfold) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `esmfold2` | [`esmfold2`](#openprotein.models.ModelsAPI.esmfold2) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `esmfold2-fast` | [`esmfold2_fast`](#openprotein.models.ModelsAPI.esmfold2_fast) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `minifold` | [`minifold`](#openprotein.models.ModelsAPI.minifold) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `protenix` | [`protenix`](#openprotein.models.ModelsAPI.protenix) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `protenix-v2` | [`protenix_v2`](#openprotein.models.ModelsAPI.protenix_v2) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n| `rosettafold-3` | [`rosettafold_3`](#openprotein.models.ModelsAPI.rosettafold_3), [`rf3`](#openprotein.models.ModelsAPI.rf3) (alias of `rosettafold_3`) | [`StructurePredictionModel`](#openprotein.models.StructurePredictionModel) |\n\n**Design and inverse folding**\n\n| Model ID | Accessors | Interface or family |\n| --- | --- | --- |\n| `rfdiffusion` | [`rfdiffusion`](#openprotein.models.ModelsAPI.rfdiffusion) | [`RFdiffusion`](#openprotein.models.RFdiffusion) |\n| `proteinmpnn` | [`proteinmpnn`](#openprotein.models.ModelsAPI.proteinmpnn) | [`ProteinMPNN`](#openprotein.models.ProteinMPNN) |\n| `solublempnn` | [`solublempnn`](#openprotein.models.ModelsAPI.solublempnn) | [`SolubleMPNN`](#openprotein.models.SolubleMPNN) |\n| `boltzgen` | [`boltzgen`](#openprotein.models.ModelsAPI.boltzgen) | [`BoltzGen`](#openprotein.models.BoltzGen) |\n| `esm-if1` | [`esmif1`](#openprotein.models.ModelsAPI.esmif1), [`esm_if1`](#openprotein.models.ModelsAPI.esm_if1) (alias of `esmif1`) | [`ESMIF1`](#openprotein.models.ESMIF1) |\n\n**Trainable models**\n\n| Model ID | Accessors | Interface or family |\n| --- | --- | --- |\n| — | [`SVD`](#openprotein.models.ModelsAPI.SVD) | [`SVD`](#openprotein.models.SVD) |\n| — | [`UMAP`](#openprotein.models.ModelsAPI.UMAP) | [`UMAP`](#openprotein.models.UMAP) |\n| — | [`GP`](#openprotein.models.ModelsAPI.GP) | [`GP`](#openprotein.models.GP) |",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "RFdiffusion",
+          "level": 3,
+          "prose": "RFdiffusion generates designed structures from supported design inputs.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.RFdiffusion",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 4,
+          "prose": "Structure design tasks return complexes; the compatibility future remains available when reloading legacy jobs.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructureDesignFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.RFdiffusionFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "BoltzGen",
+          "level": 3,
+          "prose": "BoltzGen generates designed structures using its supported inputs.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.BoltzGen",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 4,
+          "prose": "The typed design future is described above. The compatibility future continues to read legacy BoltzGen jobs.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.BoltzGenFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "ProteinMPNN",
+          "level": 3,
+          "prose": "ProteinMPNN performs inverse folding and sequence scoring.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ProteinMPNN",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate",
+                  "score",
+                  "indel",
+                  "single_site"
+                ],
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SolubleMPNN",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate",
+                  "score",
+                  "indel",
+                  "single_site"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "ESM-IF1",
+          "level": 3,
+          "prose": "ESM-IF1 scores and generates sequences from structures.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ESMIF1",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate",
+                  "score",
+                  "indel",
+                  "single_site"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Model interfaces",
+          "level": 2,
+          "prose": "The base model describes the generic task methods; model metadata and method descriptors identify the tasks a particular model supports.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.Model",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ProteinLanguageModel",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "embed",
+                  "logits",
+                  "attn",
+                  "score",
+                  "single_site",
+                  "indel",
+                  "generate",
+                  "fit_svd",
+                  "fit_umap",
+                  "fit_gp"
+                ],
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructurePredictionModel",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "fold"
+                ],
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructureGenerativeModel",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "generate"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "PoET",
+          "level": 2,
+          "prose": "PoET supports sequence tasks and fitting downstream models.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.PoET",
+              "options": {
+                "members": [
+                  "metadata",
+                  "methods",
+                  "params_schema",
+                  "embed",
+                  "logits",
+                  "attn",
+                  "score",
+                  "single_site",
+                  "indel",
+                  "generate",
+                  "fit_svd",
+                  "fit_umap",
+                  "fit_gp"
+                ],
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Task results",
+          "level": 2,
+          "prose": "These futures represent typed per-position outputs. Job, dataset, output, unit and status properties provide provenance.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.TaskFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.FutureUnit",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.AttentionFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.EmbeddingFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.IndelScoreFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.LogLikelihoodFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.LogitsFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.PredictionFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SequenceGenerationFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SingleSitePredictionFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SingleSiteScoreFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructurePredictionFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Fitted models",
+          "level": 2,
+          "prose": "Fit futures return fitted models from `get()` and `wait()`; fitted models provide their own supported operations.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SVD",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.UMAP",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.GP",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SVDModel",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.UMAPModel",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.GPModel",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.SVDFitFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.UMAPFitFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.GPFitFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.CrossvalidateFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "undoc-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.svd.SVDEmbeddingSource",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.svd.SVDRecord",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Shared types",
+          "level": 2,
+          "prose": "Descriptions, method descriptors and model metadata describe discovery and outputs. Jobs and units retain provenance.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ModelDescription",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.MethodDescriptor",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ModelMetadata",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.ModelsJob",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructureGenerationJob",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.StructureGenerationFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Referenced types",
+          "level": 2,
+          "prose": "Types referenced by the interfaces above.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.models.future.FitFuture",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "jobs",
+      "title": "openprotein.jobs",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Retrieve and monitor your jobs on our platform.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.JobsAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Classes",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.Job",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.Future",
+              "options": {
+                "members": [
+                  "wait",
+                  "wait_until_done",
+                  "get",
+                  "refresh",
+                  "done"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.JobStatus",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.StreamingFuture",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.MappedFuture",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.JobType",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.BatchJob",
+              "options": {
+                "members": true,
+                "undoc-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Task job schemas",
+          "level": 2,
+          "prose": "Batch jobs, outputs and units describe submitted tasks and their results.\n\n| Record | Field | Meaning |\n| --- | --- | --- |\n| BatchJob | `num_records` | Number of records in the batch, when known. |\n| Unit | `position` | Position of this unit in the job. |\n| Unit | `unit_id` | Unit identifier. |\n| Unit | `state` | Current unit execution state. |\n| Unit | `error` | Error details, when present. |",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.Unit",
+              "options": {
+                "members": true,
+                "undoc-members": true,
+                "exclude-members": [
+                  "model_config",
+                  "chunk_id",
+                  "waits_on",
+                  "waits_on_jobs",
+                  "cached",
+                  "retries",
+                  "attempt",
+                  "deadline"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.UnitState",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.jobs.JobOutput",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "align",
+      "title": "openprotein.align",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.AlignAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "AbNumber schemes",
+          "level": 3,
+          "prose": "AbNumber supports the following schemes:",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.AbNumberScheme",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.UnnumberedPolicy",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Classes",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.MSASamplingMethod",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.JobWarning",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.AlignType",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.MSAFuture",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.future.AlignFuture",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Referenced types",
+          "level": 2,
+          "prose": "Types referenced by the interfaces above.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.align.schemas.Pairing",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "prompt",
+      "title": "openprotein.prompt",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Create prompts to be used with [PoET](./embedding#openprotein.embeddings.PoETModel) models, along with queries which opens up use-cases like inverse folding with [PoET-2](./embedding#openprotein.embeddings.PoET2Model).",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.PromptAPI",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Classes",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.Prompt",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.Query",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.PromptMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.QueryMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.prompt.PromptJob",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "embedding",
+      "title": "openprotein.embeddings",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "This compatibility interface is deprecated. Use [`session.models`](/references/python-api/models) for model access.\n\nCreate embeddings for your protein sequences using open-source and proprietary models! Note that for PoET Models, you will also need to supply a [`Prompt`](#openprotein.prompt.Prompt).",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.EmbeddingsAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Models",
+          "level": 2,
+          "prose": "These embedding models inherit from a base [`EmbeddingModel`](#openprotein.embeddings.EmbeddingModel), due to their shared functionality in providing the [`embed`](#openprotein.embeddings.EmbeddingModel.embed) method. These can also be used to fit the [`Transform Models`](#transform-models).",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.PoET2Model",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "create",
+                  "get_model"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.PoETModel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "create",
+                  "get_model"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.AbLang2Model",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "create",
+                  "get_model"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.OpenProteinModel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "create",
+                  "get_model"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.ESMModel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "create",
+                  "get_model"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.EmbeddingModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.models.AttnModel",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Transform Models",
+          "level": 3,
+          "prose": "These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. [`SVDModel`](#openprotein.svd.SVDModel) represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your [`AssayDataset`](#openprotein.data.AssayDataset). You can fit your own SVD from any model's [`fit_svd`](#openprotein.embeddings.EmbeddingModel.fit_svd). [`UMAPModel`](#openprotein.umap.UMAPModel) represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your [`AssayDataset`](#openprotein.data.AssayDataset). You can fit your own UMAP from any model's [`fit_umap`](#openprotein.embeddings.EmbeddingModel.fit_umap).",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.svd.SVDModel",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.umap.UMAPModel",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.svd.SVDAPI",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.umap.UMAPAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Reduction methods",
+          "level": 3,
+          "prose": "Foundational embedding models also take an optional reduction to use simple pooling methods:",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.common.ReductionType",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Model metadata",
+          "level": 3,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.common.ModelMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.EmbeddingsResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.EmbeddingsScoreFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.EmbeddingsGenerateFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.embeddings.future.BaseScoreFuture",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.svd.SVDEmbeddingsResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.umap.UMAPEmbeddingsResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "predictor",
+      "title": "openprotein.predictor",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "This compatibility interface is deprecated. Use [`session.models`](/references/python-api/models) for model access.\n\nTrain property predictors from your datasets to enable predictions for new sequences! Use crossvalidation on the trained predictors to estimate uncertainty. Trained predictors can be used to design new sequences based on design goals for properties.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.PredictorAPI",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.PredictorModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.PredictionResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.validate.CVResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.KernelType",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.common.FeatureType",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Fitted kernels",
+          "level": 2,
+          "prose": "A fitted GP exposes a trained kernel in data space. The kernel class identifies its applicable hyperparameters. The kernel `type` is a `ClassVar` identifying its kind.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.TrainedKernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.LinearKernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.RBFKernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.Matern12Kernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.Matern32Kernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.Matern52Kernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.PeriodicKernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.predictor.RationalQuadraticKernel",
+              "options": {
+                "members": true,
+                "inherited-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "design",
+      "title": "openprotein.design",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "Design new sequences based on your stated objectives and our genetic algorithm!",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.DesignAPI",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Criteria",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.Criteria",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.Criterion",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.Subcriterion",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.DesignConstraint",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.schemas.DesignAlgorithm",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.ModelCriterion",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.schemas.NMutationCriterion",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.schemas.CriterionType",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.DesignFuture",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.design.schemas.DesignResult",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    },
+    {
+      "page": "fold",
+      "title": "openprotein.fold",
+      "sections": [
+        {
+          "heading": null,
+          "level": 0,
+          "prose": "This compatibility interface is deprecated. Use [`session.models`](/references/python-api/models) for model access.\n\nCreate PDBs of your protein sequences via our folding models! Note that for Boltz and AlphaFold2 Models, you will also need to utilize our [align](./align) workflow to create MSAs.",
+          "entries": [],
+          "autosummary": []
+        },
+        {
+          "heading": "Interface",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.FoldAPI",
+              "options": {
+                "members": true,
+                "undoc-members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Models",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ProtenixModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ProtenixV2Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.Boltz2Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.Boltz1xModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.Boltz1Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.RosettaFold3Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.AlphaFold2Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ESMFoldModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ESMFold2Model",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ESMFold2FastModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.MiniFoldModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.FoldModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.boltz.BoltzModel",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Results",
+          "level": 2,
+          "prose": null,
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ESMFold2Confidence",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.FoldResultFuture",
+              "options": {
+                "members": true,
+                "inherited-members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.BoltzConfidence",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.BoltzAffinity",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.ProtenixConfidence",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.FoldJob",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.FoldMetadata",
+              "options": {
+                "members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Referenced types",
+          "level": 2,
+          "prose": "Types referenced by the interfaces above.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.OpenDDEModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.OpenDDEAbagModel",
+              "options": {
+                "members": true
+              }
+            },
+            {
+              "directive": "autoclass",
+              "target": "openprotein.fold.OpenDDEConfidence",
+              "options": {
+                "members": true
+              }
+            }
+          ],
+          "autosummary": []
+        }
+      ]
+    }
+  ]
+}

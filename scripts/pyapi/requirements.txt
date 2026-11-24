@@ -1,0 +1,3 @@
+# Source branch release/v0.18.0 at immutable commit c410c2fe442a7949c0545614c070026031f4cb59, unpublished: pip installs it from OP_SDK_GIT_URL.
+griffe==2.2.0
+openprotein-python @ git+${OP_SDK_GIT_URL}@c410c2fe442a7949c0545614c070026031f4cb59

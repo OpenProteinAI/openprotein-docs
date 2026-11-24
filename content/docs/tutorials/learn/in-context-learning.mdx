@@ -1,0 +1,171 @@
+---
+title: "Building a prompt context"
+sidebarTitle: In-context learning
+description: "Build an EstA prompt context for PoET-2 by searching for homologs, sampling three context replicates, and inspecting the selected examples."
+---
+
+A prompt is an input that directs a protein foundation model to produce the desired protein sequences. It is made up of two components, either of which can be included or omitted depending on your use case.
+
+- **Context**: Examples of sequences and/or structures from a protein family that guide the model toward that protein family through in-context learning.
+
+- **Query**: Specific constraints, such as sequence length, motifs, or active site residues, allowing precise control over the generated sequence.
+
+In this tutorial, we will build a prompt context for PoET-2 by searching and sampling from homologs of a seed sequence. The seed sequence used is the 181-residue Lipase A (EstA) sequence from Bacillus subtilis.
+
+## Before starting, you need
+
+A seed sequence to build the prompt context with. We will use:
+
+```text
+>EstA
+AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+```
+
+We will build a sequence-only prompt. No structure file is needed.
+
+## Search for homologs of the seed sequence to build the context pool
+
+We will run the homology search based on the seed sequence and build an MSA with the homologs. In the next step, we will sample sequences from the MSA to create context.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        Create a new project and name it `Prompt Building Tutorial`.
+      </Step>
+      <Step>
+        In the left sidebar, select the **+** (Upload an MSA) next to **Multiple Sequence Alignments**. 
+      </Step>
+      <Step>
+        In the “Upload MSA” screen that opens, select the “**Single Sequence**” option. Name the MSA “MSA_EstA_seed”.
+      </Step>
+      <Step>
+        Copy the EstA seed sequence above and paste it into the "Enter sequences" box.
+      </Step>
+      <Step>
+        Click “Search for Homologs to Build MSA” at the bottom. This will navigate us to the prompt results page, where a table of homologs returned from the search will be displayed after the job has run. Stay on this page until the job is complete.
+
+        ![EstA seed sequence entered for a homology search](/_static/tutorials/learn/in-context-learning/esta-homology-search-input.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management), then load the seed sequence and submit an MSA creation job.
+
+    ```python lineNumbers
+    import openprotein
+
+    session = openprotein.connect()
+
+    seed_sequence = (
+        "AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVL"
+        "DETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSI"
+        "YSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN"
+    )
+    ```
+
+    Submit the seed sequence and wait for the MSA:
+
+    ```python lineNumbers
+    msa = session.align.create_msa(seed_sequence.encode())
+    msa.wait_until_done(verbose=True)
+    ```
+
+    Retrieve the results. Inspect the returned entries to confirm that the search produced a usable pool of related sequences. The exact sequences and number of hits may change as the search databases are updated.
+
+    ```python lineNumbers
+    msa_rows = list(msa.get())
+
+    print("MSA entries:", len(msa_rows))
+    for name, sequence in msa_rows[:3]:
+        print(name, sequence, sep='\n')
+    ```
+
+    Expected output:
+
+    ```text lineNumbers
+    MSA entries: 7574
+    101 AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+    UniRef100_UPI00022B80C71990.9331.954E-5401801810180181 AEHNPVVMVHGIGGSSSNFEGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKYLDGGNKVANVVTLGGANRLTTDKAPPGTDPNQKILYTSIYSSDDEIVPNYLSRLDGARNVQIHGVGHMGLLYSPQVYSLIKEGLNGGGQNTN
+    UniRef100_A5HLW91911.001.067E-51018018131211212 AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+    ```
+  </Tab>
+</Tabs>
+
+## Sample the context and inspect the results
+
+We will use the default prompt sampling settings and create a single ensemble prompt that consists of **three independently sampled prompt replicates**.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    After the homolog search is complete, the resulting table of sequences will be displayed. Click on “**Create Prompt**” to define the parameters for sampling from the MSA to create the prompt context.
+
+    The prompt sampling settings panel will appear at the bottom of the screen. We will ensemble the context from **three replicates** while keeping the rest of the default settings. Set:
+
+    - **Job Name:** Prompt_EstA_seed_3rep
+
+    - **Number of prompts to ensemble:** 3
+
+    - **Sampling method:** Neighbors (default)
+
+    - **Homology level:** 0.8 (default)
+
+    - **Minimum similarity to seed:** 0.0 (default)
+
+    - **Maximum similarity to seed:** 1.0 (default)
+
+    - **Maximum total number of residues:** 12288 (default)
+
+    ![Prompt sampling settings for a three-replicate EstA context](/_static/tutorials/learn/in-context-learning/esta-prompt-sampling-settings.png)
+
+    Click “**Create**” to proceed to building the prompt. Do not navigate away from the screen.
+
+    When complete, the results will be displayed in a table. Toggle between the different prompt numbers to examine the sequences sampled for each replicate in the ensemble. Click “**Export**” to save each table of sequences to a CSV file to inspect locally.
+
+    ![Sampled EstA prompt context with three ensemble replicates](/_static/tutorials/learn/in-context-learning/esta-prompt-ensemble-results.png)
+  </Tab>
+  <Tab value="Python">
+    Sample the context from the MSA:
+
+    ```python lineNumbers
+    from openprotein.align.schemas import MSASamplingMethod
+
+    context = msa.sample_prompt(
+        method=MSASamplingMethod.NEIGHBORS,
+        num_ensemble_prompts=3,
+        homology_level=0.8,
+        min_similarity=0.0,
+        max_similarity=1.0,
+        always_include_seed_sequence=False,
+        num_residues=12288,
+        random_seed=42,
+    )
+
+    context.wait_until_done(verbose=True)
+    ```
+
+    The Python seed makes sampling repeatable for the same source MSA and settings.
+
+    Inspect the selected examples:
+
+    ```python lineNumbers
+    context_examples = context.get_as_proteins()[0]
+
+    print("Context examples:", len(context_examples))
+
+    for protein in context_examples[:3]:
+        print(protein.name, protein.sequence.decode())
+    ```
+
+    Expected output:
+
+    ```text lineNumbers
+    Context examples: 91
+    UniRef100_A0A848L837 AHPRPVVLFHGSGGGRQTNWGTLVPVLHNAGYCVFAPTYGALSTPWPASALGGLGSKLESAWEIKHFVDAVLARTGARQIDVVGHSLGTQLPTYWIKYLGGAGKVRRYVSLAPYWRQGPDDDDARSDLAEAIGRRLGAKLPPRSCAGCSTPAADFDFNEAVRLPTPYVRGIAYTNISTRDDEVVTPYRAGQLPGPAGTDVTNIVVQQGCSLDHSDHASITSNRRSAALVLNALD
+    UniRef100_UPI001CEF5597 HPLPIILLNGTTGTQGANWTVGAPVLANAGYKVYTFNYGNVTNDPNFPIQATDDIRQSAKELDAEIDRVLAETGAPKVILIGHSQGGGILPAYYINNMGGAAKVSQLIGLAPSNHGTDVMGLVGLQALPIFGPLMMGLANALGPALEQQALGNEFQEEVYGNGDTRPGVLYTTITSTHDEVVTPYSQQALDGPNVTNIVIQDLYPGVLAGHEGIVLSPQVWSVVLDALASNPA
+    UniRef100_A0A0L6Z831 PYPVLFVHGAGSDGDFAVDPERNGTTPGLAQSLAADGYAVFAITFAHPHGDNYIQREVLAAAIQRIKDITGKTKVDLIAHSKGNMSSRMYVSDVKKSWGTAFRNDVRRYIQLGAPNGG
+    ```
+  </Tab>
+</Tabs>
+
+Congratulations! You have completed the tutorial for building a prompt context. The prompt you created is now available for downstream analysis tasks such as Substitution Analysis, Training Custom Models, and Sequence Generation.

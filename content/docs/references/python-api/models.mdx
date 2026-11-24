@@ -1,0 +1,1090 @@
+---
+title: "openprotein.models"
+description: "Unified access to models on the OpenProtein AI platform."
+pythonApi: true
+---
+Use `session.models` to run a model. If you know which model you want, use a named accessor such as `session.models.esm2`. To browse available models, call `session.models.list_models()`. To look up a model by ID, call `session.models.get_model(model_id)`.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.models.ModelsAPI",
+  ]}
+>
+
+With an [authenticated session](/references/python-api/openprotein#session), submit an embedding job and wait for its result:
+
+```python
+model = session.models.esm2
+job = model.embed(["ACDEFGHIK"], reduction="MEAN")
+embedding = job.wait(timeout=600)[0]
+print(embedding.shape)  # (D,): one pooled NumPy vector
+```
+
+See [Task results](#task-results) for result types and [Jobs](/references/python-api/jobs) for reloading jobs and reading named outputs.
+
+<PyClass path="openprotein.models.ModelsAPI" />
+
+</PyGroup>
+
+## Models
+
+Each section lists the model's checkpoint IDs and Python accessors, with examples for its default checkpoint.
+
+**Trainable models**
+
+| Accessors | Interface |
+| --- | --- |
+| [`GP`](#openprotein.models.ModelsAPI.GP) | [`GP`](#openprotein.models.GP) |
+| [`SVD`](#openprotein.models.ModelsAPI.SVD) | [`SVD`](#openprotein.models.SVD) |
+| [`UMAP`](#openprotein.models.ModelsAPI.UMAP) | [`UMAP`](#openprotein.models.UMAP) |
+
+<PyGroup id="poet-2" title="PoET-2" level={3}
+  anchors={[
+    "openprotein.models.PoET2",
+  ]}
+>
+
+OpenProtein-developed conditional and multi-modal protein language model that embeds, scores, and generates sequences conditioned on an input protein family.
+
+*[Understanding protein function with a multimodal retrieval-augmented foundation model](https://www.doi.org/10.52202/085713-1772)* · [GitHub](https://github.com/OpenProteinAI/PoET-2)
+
+The `PoET2` class below is the interface for `poet-2`. It supports sequence tasks and fitting downstream models.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `poet-2` | [`poet2`](#openprotein.models.ModelsAPI.poet2), [`poet_2`](#openprotein.models.ModelsAPI.poet_2) (alias of `poet2`) | [`PoET2`](#openprotein.models.PoET2) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.poet2
+msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+prompt = msa.sample_prompt(num_sequences=10)
+backbone = Protein.from_filepath("backbone.cif", chain_id="A")
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN", prompt=prompt)
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"], prompt=prompt)
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"], prompt=prompt)
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.score(["MKTAYIAKQRQISFVKSHFSRQ"], prompt=prompt)
+log_likelihoods = job.wait()
+print(log_likelihoods[0])
+
+job = model.single_site("MKTAYIAKQRQISFVKSHFSRQ", prompt=prompt)
+substitution_scores = job.wait()
+print(substitution_scores[0])
+
+job = model.indel("MKTAYIAKQRQISFVKSHFSRQ", insert="A", prompt=prompt)
+indel_scores = job.wait()
+print(indel_scores[0])
+
+job = model.generate(prompt=prompt, query=backbone)
+sequences = job.wait()
+print(sequences[0])
+```
+
+<PyClass path="openprotein.models.PoET2" />
+
+</PyGroup>
+
+<PyGroup id="boltz-2" title="Boltz-2" level={3}
+  anchors={[
+    "openprotein.models.Boltz2",
+  ]}
+>
+
+Boltz-2 all-atom structure prediction model that jointly predicts complex structure and ligand binding affinity. Predicts protein, DNA, RNA and ligand complexes, with optional constraints, templates and experimental-method conditioning.
+
+*[Boltz-2: Towards Accurate and Efficient Binding Affinity Prediction](https://www.doi.org/10.1101/2025.06.14.659707)* · [GitHub](https://github.com/jwohlwend/boltz)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `boltz-2` | [`boltz2`](#openprotein.models.ModelsAPI.boltz2) (alias of `boltz_2`), [`boltz_2`](#openprotein.models.ModelsAPI.boltz_2) | [`Boltz2`](#openprotein.models.Boltz2) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.boltz2
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.Boltz2" />
+
+</PyGroup>
+
+<PyGroup id="rfdiffusion" title="RFdiffusion" level={3}
+  anchors={[
+    "openprotein.models.RFdiffusion",
+  ]}
+>
+
+De novo protein backbone generation by diffusion.
+
+*[De novo design of protein structure and function with RFdiffusion](https://www.doi.org/10.1038/s41586-023-06415-8)* · [GitHub](https://github.com/RosettaCommons/RFdiffusion)
+
+The `RFdiffusion` class below accepts the supported design inputs. For legacy reloads, see [RFdiffusionFuture](#openprotein.models.RFdiffusionFuture).
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `rfdiffusion` | [`rfdiffusion`](#openprotein.models.ModelsAPI.rfdiffusion) | [`RFdiffusion`](#openprotein.models.RFdiffusion) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.rfdiffusion
+query = Protein.from_expr(80)
+
+job = model.generate(query=query)
+design = job.wait()[0]
+for chain_id, chain in design.items():
+    if isinstance(chain, Protein):
+        print(chain_id, chain.sequence.decode(), chain.coordinates.shape)
+```
+
+<PyClass path="openprotein.models.RFdiffusion" />
+
+</PyGroup>
+
+<PyGroup id="esm2" title="ESM2" level={3}
+  anchors={[
+    "openprotein.models.ESM2",
+  ]}
+>
+
+ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.
+
+650M parameters over 33 layers.
+
+*[Evolutionary-scale prediction of atomic level protein structure with a language model](https://www.doi.org/10.1101/2022.07.20.500902)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM2 (150M).** 150M parameters over 30 layers.
+
+**ESM2 (35M).** 35M parameters over 12 layers.
+
+**ESM2 (3B).** 3B parameters over 36 layers.
+
+**ESM2 (8M).** 8M parameters over 6 layers.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esm2_t33_650M_UR50D` | [`esm2`](#openprotein.models.ModelsAPI.esm2) (alias of `esm2_t33_650M_UR50D`), [`esm2_t33_650M_UR50D`](#openprotein.models.ModelsAPI.esm2_t33_650M_UR50D) | [`ESM2`](#openprotein.models.ESM2) |
+| `esm2_t30_150M_UR50D` | [`esm2_t30_150M_UR50D`](#openprotein.models.ModelsAPI.esm2_t30_150M_UR50D) | [`ESM2`](#openprotein.models.ESM2) |
+| `esm2_t12_35M_UR50D` | [`esm2_t12_35M_UR50D`](#openprotein.models.ModelsAPI.esm2_t12_35M_UR50D) | [`ESM2`](#openprotein.models.ESM2) |
+| `esm2_t36_3B_UR50D` | [`esm2_t36_3B_UR50D`](#openprotein.models.ModelsAPI.esm2_t36_3B_UR50D) | [`ESM2`](#openprotein.models.ESM2) |
+| `esm2_t6_8M_UR50D` | [`esm2_t6_8M_UR50D`](#openprotein.models.ModelsAPI.esm2_t6_8M_UR50D) | [`ESM2`](#openprotein.models.ESM2) |
+
+```python
+model = session.models.esm2
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction=None)
+embedding = job.wait()[0]
+print(embedding.shape)  # (T, D): tokens (including special tokens), features
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"])
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"])
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.single_site("MKTAYIAKQRQISFVKSHFSRQ")
+substitution_scores = job.wait()
+print(substitution_scores[0])
+```
+
+<PyClass path="openprotein.models.ESM2" />
+
+</PyGroup>
+
+<PyGroup id="proteinmpnn" title="ProteinMPNN" level={3}
+  anchors={[
+    "openprotein.models.ProteinMPNN",
+  ]}
+>
+
+Message-passing inverse-folding model that designs sequences for a fixed protein backbone.
+
+The original weights, trained on protein structures from the PDB.
+
+*[Robust deep learning-based protein sequence design using ProteinMPNN](https://www.doi.org/10.1126/science.add2187)* · [GitHub](https://github.com/dauparas/ProteinMPNN)
+
+**SolubleMPNN.** Weights trained on soluble proteins only, for designing soluble sequences.
+
+The `ProteinMPNN` class below is the interface for `proteinmpnn` and `solublempnn`, a checkpoint trained on soluble proteins. It generates and scores sequences.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `proteinmpnn` | [`proteinmpnn`](#openprotein.models.ModelsAPI.proteinmpnn) | [`ProteinMPNN`](#openprotein.models.ProteinMPNN) |
+| `solublempnn` | [`solublempnn`](#openprotein.models.ModelsAPI.solublempnn) | [`ProteinMPNN`](#openprotein.models.ProteinMPNN) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.proteinmpnn
+query = Protein.from_filepath("backbone.cif", chain_id="A")
+
+job = model.score([query.sequence], query=query)
+log_likelihoods = job.wait()
+print(log_likelihoods[0])
+
+job = model.single_site(query.sequence, query=query)
+substitution_scores = job.wait()
+print(substitution_scores[0])
+
+job = model.embed([query.sequence], query=query)
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.generate(query=query)
+sequences = job.wait()
+print(sequences[0])
+```
+
+<PyClass path="openprotein.models.ProteinMPNN" />
+
+</PyGroup>
+
+<PyGroup id="opendde" title="OpenDDE" level={3}
+  anchors={[
+    "openprotein.models.OpenDDE",
+  ]}
+>
+
+OpenDDE all-atom co-folding model (opendde_v1, 656M parameters). Folds protein/DNA/RNA/ligand/ion complexes in one structure, optionally conditioned on an MSA.
+
+The general-purpose checkpoint.
+
+*[Folding, Reasoning, and Scaling with Open-source Drug Discovery Engine](https://www.doi.org/10.48550/arXiv.2607.03787)*
+
+**OpenDDE-abag.** OpenDDE antibody-antigen model: the opendde_v1 architecture with a checkpoint tuned on antibody-antigen complexes. Same inputs and outputs as opendde.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `opendde` | [`opendde`](#openprotein.models.ModelsAPI.opendde) | [`OpenDDE`](#openprotein.models.OpenDDE) |
+| `opendde-abag` | [`opendde_abag`](#openprotein.models.ModelsAPI.opendde_abag) | [`OpenDDE`](#openprotein.models.OpenDDE) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.opendde
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.OpenDDE" />
+
+</PyGroup>
+
+<PyGroup id="esm-if1" title="ESM-IF1" level={3}
+  anchors={[
+    "openprotein.models.ESMIF1",
+  ]}
+>
+
+Inverse-folding model: scores and designs sequences for a fixed backbone.
+
+*[Learning inverse folding from millions of predicted structures](https://www.doi.org/10.1101/2022.04.10.487779)* · [GitHub](https://github.com/facebookresearch/esm)
+
+The `ESMIF1` class below is the interface for `esm-if1`.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esm-if1` | [`esm_if1`](#openprotein.models.ModelsAPI.esm_if1) (alias of `esmif1`), [`esmif1`](#openprotein.models.ModelsAPI.esmif1) | [`ESMIF1`](#openprotein.models.ESMIF1) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.esmif1
+query = Protein.from_filepath("backbone.cif", chain_id="A")
+
+job = model.score([query.sequence], query=query)
+log_likelihoods = job.wait()
+print(log_likelihoods[0])
+
+job = model.single_site(query.sequence, query=query)
+substitution_scores = job.wait()
+print(substitution_scores[0])
+
+job = model.generate(query=query)
+sequences = job.wait()
+print(sequences[0])
+```
+
+<PyClass path="openprotein.models.ESMIF1" />
+
+</PyGroup>
+
+<PyGroup id="esmc" title="ESMC" level={3}
+  anchors={[
+    "openprotein.models.ESMC",
+  ]}
+>
+
+ESM Cambrian (ESMC) protein language model, trained on protein sequences from UniRef, MGnify, and JGI.
+
+600M parameters.
+
+*[Language Modeling Materializes a World Model of Protein Biology](https://www.doi.org/10.64898/2026.06.03.729735)* · [GitHub](https://github.com/Biohub/esm)
+
+**ESMC (300M).** 300M parameters.
+
+**ESMC (6B).** 6B parameters.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esmc-600m` | [`esmc_600m`](#openprotein.models.ModelsAPI.esmc_600m) | [`ESMC`](#openprotein.models.ESMC) |
+| `esmc-300m` | [`esmc_300m`](#openprotein.models.ModelsAPI.esmc_300m) | [`ESMC`](#openprotein.models.ESMC) |
+| `esmc-6b` | [`esmc_6b`](#openprotein.models.ModelsAPI.esmc_6b) | [`ESMC`](#openprotein.models.ESMC) |
+
+```python
+model = session.models.esmc_600m
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"])
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"])
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.single_site("MKTAYIAKQRQISFVKSHFSRQ")
+substitution_scores = job.wait()
+print(substitution_scores[0])
+```
+
+<PyClass path="openprotein.models.ESMC" />
+
+</PyGroup>
+
+<PyGroup id="esmfold2" title="ESMFold2" level={3}
+  anchors={[
+    "openprotein.models.ESMFold2",
+  ]}
+>
+
+ESMFold2 all-atom structure prediction model. Folds protein, DNA, RNA and ligand complexes.
+
+Full-depth folding trunk (48 layers), optionally conditioned on an MSA.
+
+*[Language Modeling Materializes a World Model of Protein Biology](https://www.doi.org/10.64898/2026.06.03.729735)* · [GitHub](https://github.com/Biohub/esm)
+
+**ESMFold2-Fast.** Inference-optimized single-sequence variant (no MSA) whose folding trunk has half the depth (24 layers).
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esmfold2` | [`esmfold2`](#openprotein.models.ModelsAPI.esmfold2) | [`ESMFold2`](#openprotein.models.ESMFold2) |
+| `esmfold2-fast` | [`esmfold2_fast`](#openprotein.models.ModelsAPI.esmfold2_fast) | [`ESMFold2`](#openprotein.models.ESMFold2) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.esmfold2
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.ESMFold2" />
+
+</PyGroup>
+
+<PyGroup id="protenix-v2" title="Protenix-v2" level={3}
+  anchors={[
+    "openprotein.models.ProtenixV2",
+  ]}
+>
+
+Protenix-v2 model — enhanced-capacity 464M-parameter variant with improved antibody-antigen structure prediction and ligand plausibility.
+
+*[Protenix-v2: Broadening the Reach of Structure Prediction and Biomolecular Design](https://www.doi.org/10.64898/2026.04.10.717613)* · [GitHub](https://github.com/bytedance/Protenix)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `protenix-v2` | [`protenix_v2`](#openprotein.models.ModelsAPI.protenix_v2) | [`ProtenixV2`](#openprotein.models.ProtenixV2) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.protenix_v2
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.ProtenixV2" />
+
+</PyGroup>
+
+<PyGroup id="ablang2" title="AbLang2" level={3}
+  anchors={[
+    "openprotein.models.AbLang2",
+  ]}
+>
+
+Antibody-specific language model for paired heavy/light chains.
+
+*[Addressing the antibody germline bias and its effect on language models for improved antibody design](https://www.doi.org/10.1101/2024.02.02.578678)* · [GitHub](https://github.com/oxpig/AbLang2)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `ablang2` | [`ablang2`](#openprotein.models.ModelsAPI.ablang2) | [`AbLang2`](#openprotein.models.AbLang2) |
+
+```python
+model = session.models.ablang2
+paired = "EVQLVESGGGLVQPGGSLRLSCAAS:DIQMTQSPSSLSASVGDRVTITC"
+
+job = model.embed([paired], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.logits([paired])
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.single_site(paired)
+substitution_scores = job.wait()
+print(substitution_scores[0])
+```
+
+<PyClass path="openprotein.models.AbLang2" />
+
+</PyGroup>
+
+<PyGroup id="protenix" title="Protenix" level={3}
+  anchors={[
+    "openprotein.models.Protenix",
+  ]}
+>
+
+Protenix all-atom structure prediction model from ByteDance, an open-source reproduction of AlphaFold3. Predicts protein, DNA, RNA and ligand complexes, with optional templates.
+
+*[Protenix: Advancing Structure Prediction Through a Comprehensive Folding Model](https://www.doi.org/10.1101/2025.01.08.631967)* · [GitHub](https://github.com/bytedance/Protenix)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `protenix` | [`protenix`](#openprotein.models.ModelsAPI.protenix) | [`Protenix`](#openprotein.models.Protenix) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.protenix
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.Protenix" />
+
+</PyGroup>
+
+<PyGroup id="boltzgen" title="BoltzGen" level={3}
+  anchors={[
+    "openprotein.models.BoltzGen",
+  ]}
+>
+
+All-atom generative diffusion model that designs protein binders against proteins, nucleic acids or small molecules.
+
+*BoltzGen: Toward Universal Binder Design*
+
+The `BoltzGen` class below is the interface for `boltzgen`. For legacy reloads, see [BoltzGenFuture](#openprotein.models.BoltzGenFuture).
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `boltzgen` | [`boltzgen`](#openprotein.models.ModelsAPI.boltzgen) | [`BoltzGen`](#openprotein.models.BoltzGen) |
+
+```python
+from openprotein.molecules import Complex, Protein
+
+model = session.models.boltzgen
+target = Protein.from_filepath("target.cif", chain_id="A")
+binder = Protein.from_expr(80)
+query = Complex({"A": target, "B": binder})
+
+job = model.generate(query=query)
+design = job.wait()[0]
+for chain_id, chain in design.items():
+    if isinstance(chain, Protein):
+        print(chain_id, chain.sequence.decode(), chain.coordinates.shape)
+```
+
+<PyClass path="openprotein.models.BoltzGen" />
+
+</PyGroup>
+
+<PyGroup id="rosettafold-3" title="RosettaFold-3" level={3}
+  anchors={[
+    "openprotein.models.RosettaFold3",
+  ]}
+>
+
+RosettaFold-3 (RF3) all-atom structure prediction model, competitive with leading open-source models. Trained with implicit chirality and atom-level geometric conditioning, which helps on chiral ligands. Predicts protein and ligand complexes from an MSA.
+
+*[Accelerating Biomolecular Modeling with AtomWorks and RF3](https://www.doi.org/10.1101/2025.08.14.670328)* · [GitHub](https://github.com/RosettaCommons/modelforge)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `rosettafold-3` | [`rf3`](#openprotein.models.ModelsAPI.rf3) (alias of `rosettafold_3`), [`rosettafold_3`](#openprotein.models.ModelsAPI.rosettafold_3) | [`RosettaFold3`](#openprotein.models.RosettaFold3) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.rf3
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.RosettaFold3" />
+
+</PyGroup>
+
+<PyGroup id="minifold" title="MiniFold" level={3}
+  anchors={[
+    "openprotein.models.MiniFold",
+  ]}
+>
+
+MiniFold single-sequence structure prediction: a 48-block folding trunk over esm2_t36_3B_UR50D embeddings.
+
+*[MiniFold: Simple, Fast, and Accurate Protein Structure Prediction](https://openreview.net/forum?id=1p9hQTbjgo)* · [GitHub](https://github.com/jwohlwend/minifold)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `minifold` | [`minifold`](#openprotein.models.ModelsAPI.minifold) | [`MiniFold`](#openprotein.models.MiniFold) |
+
+```python
+model = session.models.minifold
+
+job = model.fold("MKTAYIAKQRQISFVKSHFSRQ")
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.MiniFold" />
+
+</PyGroup>
+
+<PyGroup id="boltz-1" title="Boltz-1" level={3}
+  anchors={[
+    "openprotein.models.Boltz1",
+  ]}
+>
+
+Boltz-1 open-source all-atom structure prediction model, approaching AlphaFold3 accuracy. Predicts protein, DNA, RNA and ligand complexes, with optional constraints.
+
+The base model, with inference-time potentials optional.
+
+*[Boltz-1: Democratizing Biomolecular Interaction Modeling](https://www.doi.org/10.1101/2024.11.19.624167)* · [GitHub](https://github.com/jwohlwend/boltz)
+
+**Boltz-1x.** Boltz-1's weights with Boltz-steering: inference-time potentials that fix steric clashes, bond geometry and chirality for more physically plausible poses.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `boltz-1` | [`boltz1`](#openprotein.models.ModelsAPI.boltz1) (alias of `boltz_1`), [`boltz_1`](#openprotein.models.ModelsAPI.boltz_1) | [`Boltz1`](#openprotein.models.Boltz1) |
+| `boltz-1x` | [`boltz1x`](#openprotein.models.ModelsAPI.boltz1x) (alias of `boltz_1x`), [`boltz_1x`](#openprotein.models.ModelsAPI.boltz_1x) | [`Boltz1`](#openprotein.models.Boltz1) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.boltz1
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.Boltz1" />
+
+</PyGroup>
+
+<PyGroup id="esmfold" title="ESMFold" level={3}
+  anchors={[
+    "openprotein.models.ESMFold",
+  ]}
+>
+
+esmfold_v1 model with 690M parameters, running on top of esm2_t36_3B_UR50D with 3B parameters.
+
+*[Evolutionary-scale prediction of atomic level protein structure with a language model](https://www.doi.org/10.1126/science.ade2574)* · [GitHub](https://github.com/facebookresearch/esm)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esmfold` | [`esmfold`](#openprotein.models.ModelsAPI.esmfold) | [`ESMFold`](#openprotein.models.ESMFold) |
+
+```python
+model = session.models.esmfold
+
+job = model.fold("MKTAYIAKQRQISFVKSHFSRQ")
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.ESMFold" />
+
+</PyGroup>
+
+<PyGroup id="esm1" title="ESM1" level={3}
+  anchors={[
+    "openprotein.models.ESM1",
+  ]}
+>
+
+ESM-1 masked protein language model with 650M parameters over 33 layers.
+
+ESM-1b, trained on UniRef50.
+
+*[Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences](https://www.doi.org/10.1073/pnas.2016239118)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM1v-1.** ESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 1 of 5. *[Language models enable zero-shot prediction of the effects of mutations on protein function](https://www.doi.org/10.1101/2021.07.09.450648)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM1v-2.** ESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 2 of 5. *[Language models enable zero-shot prediction of the effects of mutations on protein function](https://www.doi.org/10.1101/2021.07.09.450648)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM1v-3.** ESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 3 of 5. *[Language models enable zero-shot prediction of the effects of mutations on protein function](https://www.doi.org/10.1101/2021.07.09.450648)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM1v-4.** ESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 4 of 5. *[Language models enable zero-shot prediction of the effects of mutations on protein function](https://www.doi.org/10.1101/2021.07.09.450648)* · [GitHub](https://github.com/facebookresearch/esm)
+
+**ESM1v-5.** ESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 5 of 5. *[Language models enable zero-shot prediction of the effects of mutations on protein function](https://www.doi.org/10.1101/2021.07.09.450648)* · [GitHub](https://github.com/facebookresearch/esm)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `esm1b_t33_650M_UR50S` | [`esm1b`](#openprotein.models.ModelsAPI.esm1b) (alias of `esm1b_t33_650M_UR50S`), [`esm1b_t33_650M_UR50S`](#openprotein.models.ModelsAPI.esm1b_t33_650M_UR50S) | [`ESM1`](#openprotein.models.ESM1) |
+| `esm1v_t33_650M_UR90S_1` | [`esm1v`](#openprotein.models.ModelsAPI.esm1v) (alias of `esm1v_t33_650M_UR90S_1`), [`esm1v_t33_650M_UR90S_1`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_1) | [`ESM1`](#openprotein.models.ESM1) |
+| `esm1v_t33_650M_UR90S_2` | [`esm1v_t33_650M_UR90S_2`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_2) | [`ESM1`](#openprotein.models.ESM1) |
+| `esm1v_t33_650M_UR90S_3` | [`esm1v_t33_650M_UR90S_3`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_3) | [`ESM1`](#openprotein.models.ESM1) |
+| `esm1v_t33_650M_UR90S_4` | [`esm1v_t33_650M_UR90S_4`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_4) | [`ESM1`](#openprotein.models.ESM1) |
+| `esm1v_t33_650M_UR90S_5` | [`esm1v_t33_650M_UR90S_5`](#openprotein.models.ModelsAPI.esm1v_t33_650M_UR90S_5) | [`ESM1`](#openprotein.models.ESM1) |
+
+```python
+model = session.models.esm1b
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"])
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"])
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.single_site("MKTAYIAKQRQISFVKSHFSRQ")
+substitution_scores = job.wait()
+print(substitution_scores[0])
+```
+
+<PyClass path="openprotein.models.ESM1" />
+
+</PyGroup>
+
+<PyGroup id="prott5-xl" title="ProtT5-XL" level={3}
+  anchors={[
+    "openprotein.models.ProtT5",
+  ]}
+>
+
+ProtT5-XL encoder embeddings (UniRef50).
+
+*[ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning](https://www.doi.org/10.1109/TPAMI.2021.3095381)* · [GitHub](https://github.com/agemagician/ProtTrans)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `prott5-xl` | [`prott5_xl`](#openprotein.models.ModelsAPI.prott5_xl) | [`ProtT5`](#openprotein.models.ProtT5) |
+
+```python
+model = session.models.prott5_xl
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+```
+
+<PyClass path="openprotein.models.ProtT5" />
+
+</PyGroup>
+
+<PyGroup id="alphafold2" title="AlphaFold2" level={3}
+  anchors={[
+    "openprotein.models.AlphaFold2",
+  ]}
+>
+
+AlphaFold2 protein structure prediction from DeepMind, run through ColabFold. Predicts single chains and protein complexes from an MSA, with optional Amber relaxation.
+
+*[Highly accurate protein structure prediction with AlphaFold.](https://www.doi.org/10.1038/s41586-021-03819-2)* · [GitHub](https://github.com/sokrypton/ColabFold)
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `alphafold2` | [`af2`](#openprotein.models.ModelsAPI.af2) (alias of `alphafold2`), [`alphafold2`](#openprotein.models.ModelsAPI.alphafold2) | [`AlphaFold2`](#openprotein.models.AlphaFold2) |
+
+```python
+from openprotein.molecules import Protein
+
+model = session.models.af2
+protein = Protein("MKTAYIAKQRQISFVKSHFSRQ")
+protein.msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+
+job = model.fold(protein)
+structure = job.wait()[0]
+conformation = structure[0]
+chain = next(iter(conformation.values()))
+print(chain.sequence.decode())
+print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz
+```
+
+<PyClass path="openprotein.models.AlphaFold2" />
+
+</PyGroup>
+
+<PyGroup id="poet" title="PoET" level={3}
+  anchors={[
+    "openprotein.models.PoET",
+  ]}
+>
+
+OpenProtein-developed conditional protein language model that embeds, scores, and generates sequences conditioned on an input protein family.
+
+*[PoET: A generative model of protein families as sequences-of-sequences](https://www.doi.org/10.52202/075280-3384)* · [GitHub](https://github.com/OpenProteinAI/PoET)
+
+The `PoET` class below is the interface for `poet`. [`PoET2`](#openprotein.models.PoET2), documented under PoET-2, extends it.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `poet` | [`poet`](#openprotein.models.ModelsAPI.poet) | [`PoET`](#openprotein.models.PoET) |
+
+```python
+model = session.models.poet
+msa = session.align.create_msa("MKTAYIAKQRQISFVKSHFSRQ")
+prompt = msa.sample_prompt(num_sequences=10)
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN", prompt=prompt)
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"], prompt=prompt)
+logits = job.wait()
+print(logits[0].shape)
+
+job = model.score(["MKTAYIAKQRQISFVKSHFSRQ"], prompt=prompt)
+log_likelihoods = job.wait()
+print(log_likelihoods[0])
+
+job = model.single_site("MKTAYIAKQRQISFVKSHFSRQ", prompt=prompt)
+substitution_scores = job.wait()
+print(substitution_scores[0])
+
+job = model.indel("MKTAYIAKQRQISFVKSHFSRQ", insert="A", prompt=prompt)
+indel_scores = job.wait()
+print(indel_scores[0])
+
+job = model.generate(prompt=prompt)
+sequences = job.wait()
+print(sequences[0])
+```
+
+<PyClass path="openprotein.models.PoET" />
+
+</PyGroup>
+
+<PyGroup id="protseq" title="ProtSeq" level={3}
+  anchors={[
+    "openprotein.models.ProtSeq",
+  ]}
+>
+
+Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Random Fourier position embeddings and FlashAttention for fast inference.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `prot-seq` | [`prot_seq`](#openprotein.models.ModelsAPI.prot_seq) | [`ProtSeq`](#openprotein.models.ProtSeq) |
+
+```python
+model = session.models.prot_seq
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"])
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"])
+logits = job.wait()
+print(logits[0].shape)
+```
+
+<PyClass path="openprotein.models.ProtSeq" />
+
+</PyGroup>
+
+<PyGroup id="rotaprot" title="RotaProt" level={3}
+  anchors={[
+    "openprotein.models.RotaProt",
+  ]}
+>
+
+Masked protein language model (~900M parameters) trained on UniRef100. Rotary position embeddings and FlashAttention for fast inference.
+
+Sequences weighted inversely to their UniRef50 homolog count.
+
+**RotaProt (UniRef90-FT).** RotaProt (UniRef50w) fine-tuned with sequences weighted inversely to their UniRef90 cluster size.
+
+| Model ID | Accessors | Interface |
+| --- | --- | --- |
+| `rotaprot-large-uniref50w` | [`rotaprot_large_uniref50w`](#openprotein.models.ModelsAPI.rotaprot_large_uniref50w) | [`RotaProt`](#openprotein.models.RotaProt) |
+| `rotaprot-large-uniref90-ft` | [`rotaprot_large_uniref90_ft`](#openprotein.models.ModelsAPI.rotaprot_large_uniref90_ft) | [`RotaProt`](#openprotein.models.RotaProt) |
+
+```python
+model = session.models.rotaprot_large_uniref50w
+
+job = model.embed(["MKTAYIAKQRQISFVKSHFSRQ"], reduction="MEAN")
+embeddings = job.wait()
+print(embeddings[0].shape)
+
+job = model.attn(["MKTAYIAKQRQISFVKSHFSRQ"])
+attention = job.wait()
+print(attention[0].shape)
+
+job = model.logits(["MKTAYIAKQRQISFVKSHFSRQ"])
+logits = job.wait()
+print(logits[0].shape)
+```
+
+<PyClass path="openprotein.models.RotaProt" />
+
+</PyGroup>
+
+<PyGroup id="model-interfaces" title="Model interfaces"
+  anchors={[
+    "openprotein.models.Model",
+    "openprotein.models.ProteinLanguageModel",
+    "openprotein.models.StructurePredictionModel",
+    "openprotein.models.StructureGenerativeModel",
+  ]}
+>
+
+Use `model.methods` to check which tasks a model supports. A method inherited from a shared class may not be available on every model.
+
+For model-specific options, see the [model documentation](/models) and the [Models REST reference](/references/rest-api/models). Python keyword arguments can differ from REST request fields.
+
+<PyClass path="openprotein.models.Model" />
+<PyClass path="openprotein.models.ProteinLanguageModel" />
+<PyClass path="openprotein.models.StructurePredictionModel" />
+<PyClass path="openprotein.models.StructureGenerativeModel" />
+
+</PyGroup>
+
+## Task results
+
+Model methods return futures for their submitted tasks. See [how to read task results](/references/python-api/jobs#task-results) or [read a fitted model](/references/python-api/jobs#fitted-model-results).
+
+For a specialized task future with per-position result type `T`, `get()` and `wait()` return `list[T]`. `get_item()` and unit reads return one `T`; `stream()` yields results in order. Bare reads select the task's primary output. Use `get(output=...)` or `wait(output=...)` to select a named output, which has its own result type.
+
+| Future | Primary output | Type per position |
+| --- | --- | --- |
+| [`EmbeddingFuture`](/references/python-api/jobs#openprotein.jobs.EmbeddingFuture) | `embeddings` | `numpy.ndarray` |
+| [`LogitsFuture`](/references/python-api/jobs#openprotein.jobs.LogitsFuture) | `logits` | `numpy.ndarray` |
+| [`AttentionFuture`](/references/python-api/jobs#openprotein.jobs.AttentionFuture) | `attn` | `numpy.ndarray` |
+| [`LogLikelihoodFuture`](/references/python-api/jobs#openprotein.jobs.LogLikelihoodFuture) | `loglikelihood` | `float`, `list[float]`, or `numpy.ndarray` |
+| [`SingleSiteScoreFuture`](/references/python-api/jobs#openprotein.jobs.SingleSiteScoreFuture) | `score` | `float`, `list[float]`, or `numpy.ndarray` |
+| [`IndelScoreFuture`](/references/python-api/jobs#openprotein.jobs.IndelScoreFuture) | `score` | `float`, `list[float]`, or `numpy.ndarray` |
+| [`SequenceGenerationFuture`](/references/python-api/jobs#openprotein.jobs.SequenceGenerationFuture) | `sequences` | `str` |
+| [`PredictionFuture`](/references/python-api/jobs#openprotein.jobs.PredictionFuture) | `predictions` | `dict[str, Any]` |
+| [`SingleSitePredictionFuture`](/references/python-api/jobs#openprotein.jobs.SingleSitePredictionFuture) | `predictions` | `dict[str, Any]` |
+| [`StructureDesignFuture`](/references/python-api/jobs#openprotein.jobs.StructureDesignFuture) | `structures` | [`Complex`](/references/python-api/molecules#openprotein.molecules.Complex) |
+| [`StructurePredictionFuture`](/references/python-api/jobs#openprotein.jobs.StructurePredictionFuture) | `structures` | [`Structure`](/references/python-api/molecules#openprotein.molecules.Structure), retaining all conformations |
+
+<PyGroup id="fitted-models" title="Fitted models"
+  anchors={[
+    "openprotein.models.SVD",
+    "openprotein.models.UMAP",
+    "openprotein.models.GP",
+    "openprotein.models.SVDModel",
+    "openprotein.models.UMAPModel",
+    "openprotein.models.GPModel",
+    "openprotein.models.svd.SVDEmbeddingSource",
+  ]}
+>
+
+Use `session.models.SVD`, `session.models.UMAP` and `session.models.GP` to create estimators. Their fitting methods return fit futures. Call `get()` or `wait()` on the fit future to retrieve the fitted model, or select `output=...` to read a named fit output. See [fitted-model results](/references/python-api/jobs#fitted-model-results) for fit and cross-validation futures. Inspect the fitted model card for its advertised methods.
+
+Replace `your-assay-id` with the ID of an existing [assay dataset](/references/python-api/data). All three estimators fit on the same embeddings job for the assay's sequences. Set `new_sequences` to the sequences you want to transform or predict on after fitting. For the UMAP example, use an assay with more than five distinct sequences.
+
+```python
+assay = session.data.get(assay_id="your-assay-id")
+embedding_job = session.models.esm2.embed(assay, reduction="MEAN")
+new_sequences = ["ACDEFGHIK", "ACDEYGHIK"]
+```
+
+**SVD: project onto two components**
+
+```python
+svd_fit = session.models.SVD(n_components=2).fit(embedding_job)
+svd = svd_fit.wait()
+projections = svd.transform(new_sequences).wait()
+print(projections[0].shape)
+```
+
+**UMAP: map sequences into two dimensions**
+
+```python
+umap_fit = session.models.UMAP(n_components=2, n_neighbors=5).fit(embedding_job)
+umap = umap_fit.wait()
+coordinates = umap.transform(new_sequences).wait()
+print(coordinates[0].shape)  # (2,)
+```
+
+**GP: predict a measured property**
+
+Replace `activity` with the name of a measurement column in the training assay that contains observed values.
+
+```python
+measurement = "activity"
+gp_fit = session.models.GP(kernel="rbf").fit(embedding_job, property=measurement)
+gp = gp_fit.wait()
+predictions = gp.predict(new_sequences).wait()
+first_prediction = predictions[0][measurement]
+print(first_prediction["mean"], first_prediction["variance"])
+```
+
+Fitted GP models expose their [trained kernel](/references/python-api/models#openprotein.models.TrainedKernel), prior mean and observation noise variance. The mean uses the trained property units; noise uses those units squared. Hyperparameters are unavailable for GPs trained before they were recorded. The compatibility predictor also does not expose them for ensembles.
+
+<PyClass path="openprotein.models.SVD" />
+<PyClass path="openprotein.models.UMAP" />
+<PyClass path="openprotein.models.GP" />
+<PyClass path="openprotein.models.SVDModel" />
+<PyClass path="openprotein.models.UMAPModel" />
+<PyClass path="openprotein.models.GPModel" />
+<PyClass path="openprotein.models.svd.SVDEmbeddingSource" />
+
+</PyGroup>
+
+<PyGroup id="shared-types" title="Shared types"
+  anchors={[
+    "openprotein.models.ModelDescription",
+    "openprotein.models.MethodDescriptor",
+    "openprotein.models.ModelMetadata",
+    "openprotein.models.StructureGenerationJob",
+    "openprotein.models.StructureGenerationFuture",
+  ]}
+>
+
+Descriptions, method descriptors and model metadata describe discovery and outputs. Model-task records use [Job](/references/python-api/jobs#openprotein.jobs.Job); compatibility readers retain their documented result contracts.
+
+<PyClass path="openprotein.models.ModelDescription" />
+<PyClass path="openprotein.models.MethodDescriptor" />
+<PyClass path="openprotein.models.ModelMetadata" />
+<PyClass path="openprotein.models.StructureGenerationJob" />
+<PyClass path="openprotein.models.StructureGenerationFuture" />
+
+</PyGroup>
+
+## Referenced types
+
+Types referenced by the interfaces above.
+
+<PyGroup id="fitted-kernels" title="Fitted kernels"
+  anchors={[
+    "openprotein.models.TrainedKernel",
+    "openprotein.models.LinearKernel",
+    "openprotein.models.RBFKernel",
+    "openprotein.models.Matern12Kernel",
+    "openprotein.models.Matern32Kernel",
+    "openprotein.models.Matern52Kernel",
+    "openprotein.models.PeriodicKernel",
+    "openprotein.models.RationalQuadraticKernel",
+  ]}
+>
+
+A fitted GP exposes a trained kernel in data space. The kernel class identifies its applicable hyperparameters. The kernel `type` is a `ClassVar` identifying its kind.
+
+<PyClass path="openprotein.models.TrainedKernel" />
+<PyClass path="openprotein.models.LinearKernel" />
+<PyClass path="openprotein.models.RBFKernel" />
+<PyClass path="openprotein.models.Matern12Kernel" />
+<PyClass path="openprotein.models.Matern32Kernel" />
+<PyClass path="openprotein.models.Matern52Kernel" />
+<PyClass path="openprotein.models.PeriodicKernel" />
+<PyClass path="openprotein.models.RationalQuadraticKernel" />
+
+</PyGroup>
+
+<PyGroup id="results" title="Deprecated results"
+  anchors={[
+    "openprotein.models.RFdiffusionFuture",
+    "openprotein.models.BoltzGenFuture",
+  ]}
+>
+
+Deprecated compatibility readers retained for legacy job reloads. Current structure design calls return [StructureDesignFuture](/references/python-api/jobs#openprotein.jobs.StructureDesignFuture).
+
+<PyClass path="openprotein.models.RFdiffusionFuture" />
+<PyClass path="openprotein.models.BoltzGenFuture" />
+
+</PyGroup>

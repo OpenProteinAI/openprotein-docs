@@ -1,0 +1,274 @@
+---
+title: "Use a trained custom model to predict a property for multiple sequences with Batch Analysis"
+sidebarTitle: Batch analysis
+description: "Use a trained property predictor to estimate antigen binding and prediction uncertainty for five paired Fab antibody sequences."
+---
+
+In this tutorial, we will use a trained custom model to predict antigen binding for a batch of antibody sequences. We will prepare paired heavy- and light-chain inputs, select the predictor, compare predicted values and uncertainties, and export the results.
+
+We will continue from [Train a specialized property predictor using your data](/tutorials/learn/training-property-predictors), using the “ANT Binding Predictor - PoET-2” model trained on the Makowski 2022 Fab dataset. This model predicts normalized binding to HGFR, the target antigen of emibetuzumab.
+
+Unlike zero-shot scoring, these predictions use a model trained on experimental measurements uploaded by the user. The predictor maps foundation model embeddings to the property measured in the training assay.
+
+## Before starting
+
+- Complete **Train a specialized property predictor using your data** and have the trained **ANT Binding Predictor - PoET-2** model available.
+
+- Have the [Makowski Fab dataset CSV](/_static/data/makowski2022_fab.csv) used in that tutorial. We will submit the first five sequences from this dataset for property prediction by the trained predictor.
+
+## Prepare the antibody sequences
+
+The training dataset contains separate **heavy** and **light** columns representing VH and VL in the Fab antibody. We will preserve the pairing between them and keep the heavy chain first, matching the model’s training configuration. Represent each pair as:
+
+```text
+VH_SEQUENCE:VL_SEQUENCE
+```
+
+The colon separates the chains. Do not submit the heavy and light chains as independent examples. Note that if the predictor was trained on single-domain sequences and we want to perform batch analysis on similar single-domain sequences, then each sequence can be represented as a simple string of amino acids, without requiring the colon chain separator.
+
+Copy the following into a file named makowski_fab_batch.fasta. These are the first five sequences from the Makowsky 2022 Fab dataset:
+
+```text lineNumbers
+>Fab_0
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAEATTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDAWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+>Fab_1
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAKGTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDAWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+>Fab_2
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAGSTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNSLDDWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+>Fab_3
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNRGDTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDDWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+>Fab_4
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYSMHWVRQAPGQGLEWMGKVNPNKGGTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARANWLDVWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+```
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        Open the project containing **Makowski 2022, Fab** and its trained model.
+      </Step>
+      <Step>
+        In the Tools section on the project landing page, select **Tools** > **Batch** (under the Predict column).
+      </Step>
+      <Step>
+        At the top of the page, click the pencil in the name bar to name your job `Fab_variant_scoring`, so that you can find it easily later.
+      </Step>
+      <Step>
+        From the dropdown above the input box, select **PoET-2** as the scoring model.
+      </Step>
+      <Step>
+        Click “**Upload a file**” and select makowski_fab_batch.fasta under **Step 1: Input Sequences**.
+      </Step>
+      <Step>
+        Confirm that all five sequences are present. Click Next.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management), then load the FASTA containing the five sequences for batch analysis:
+
+    ```python lineNumbers
+    import openprotein
+    from openprotein import fasta
+
+    session = openprotein.connect()
+
+    with open("makowski_fab_batch.fasta") as handle:
+      names, sequences = fasta.parse(handle.readlines())
+
+    print("Sequences:", len(sequences))
+    print("Lengths:", sorted({len(sequence) for sequence in sequences}))
+    ```
+  </Tab>
+</Tabs>
+
+## Select the trained predictor
+
+We will use **ANT Binding Predictor - PoET-2**, the model trained to predict antigen binding in the preceding tutorial.
+
+The trained predictor retains its embedding configuration, including the associated prompt and dimensionality reduction.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        From the project landing page, go to the “Models” section at the bottom and click on **“ANT Binding Predictor - PoET-2”**
+
+        ![ANT Binding Predictor trained on the Makowski Fab dataset](/_static/tutorials/predict/user-models/batch/fab-ant-binding-predictor-selection.png)
+      </Step>
+      <Step>
+        This will take us to the Model page displaying the cross-validation results. Click the “Batch” button at the bottom right to use this model to predict the ANT binding affinity of our sequences.
+
+        ![Trained ANT predictor validation results and Batch action](/_static/tutorials/predict/user-models/batch/fab-predictor-validation-and-batch-action.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Retrieve the predictor created during training:
+
+    ```python lineNumbers
+    predictor = session.predictor.get_predictor(
+      "YOUR_ANT_BINDING_PREDICTOR_ID"
+    )
+    print("Predictor ID:", predictor.id)
+    print("Trained properties:", predictor.training_properties)
+    ```
+
+    The training tutorial creates a predictor for one property. Retrieve that property’s stored name rather than assuming its display label:
+
+    ```python lineNumbers
+    assert len(predictor.training_properties) == 1
+
+    property_index = 0
+    property_name = predictor.training_properties[property_index]
+    print("Property to predict:", property_name)
+    ```
+
+    Confirm that this is the antigen-binding property before proceeding.
+  </Tab>
+</Tabs>
+
+## Run Batch Analysis
+
+We will submit all five antibody pairs together. The predictor will return a property estimate and uncertainty for each pair.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        On the Batch Analysis setup page, under **Step 1: Input Sequences**, click select a file to upload  makowski_fab_batch.fasta.
+      </Step>
+      <Step>
+        At the top of the page, click the pencil in the name bar to name your job `ANT Binding Prediction - PoET-2`, so that you can find it easily later.
+      </Step>
+      <Step>
+        Click **Run**.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Submit the sequences:
+
+    ```python lineNumbers
+    predict_job = predictor.predict(sequences=sequences)
+    print("Prediction job ID:", predict_job.job_id)
+    means, variances = predict_job.wait(verbose=True)
+    ```
+
+    The API returns predicted means and **variances**. We will convert the variances to standard deviations when building the results table.
+  </Tab>
+</Tabs>
+
+## Inspect the predictions
+
+We will examine:
+
+- **Predicted mean:** The model’s estimate of normalized antigen binding.
+
+- **Predicted standard deviation:** The uncertainty associated with that estimate.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        When the prediction job is complete, the completed results table will be displayed with predicted columns for **Mean** and **Standard Deviation**.
+      </Step>
+      <Step>
+        Sort the **Mean** column from highest to lowest. Do this either by clicking the down arrow button in the “Mean” column header, or from the right panel by clicking the “**+**” button in the “Filters” section, and selecting to sort by log-likelihood score.
+      </Step>
+      <Step>
+        Refer to [interpreting the results table](/references/app/datasets/table-settings) for the full options for table operations and display controls.
+
+        ![Predicted antigen-binding means and standard deviations for five Fab pairs](/_static/tutorials/predict/user-models/batch/fab-batch-binding-predictions.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Build a results table while retaining the mapping to the original heavy–light pairs:
+
+    ```python lineNumbers
+    import numpy as np
+
+    predicted_sequences = [
+      sequence.decode() if isinstance(sequence, bytes) else sequence
+      for sequence in predict_job.sequences
+    ]
+    predicted_means = np.asarray(means)[:, property_index]
+    predicted_variances = np.asarray(variances)[:, property_index]
+
+    results = pd.DataFrame({
+      "sequence": predicted_sequences,
+      "predicted_mean": predicted_means,
+      "predicted_std": np.sqrt(predicted_variances),
+    })
+    predictions = results.merge(
+      batch[["name", "heavy", "light", "sequence"]],
+      on="sequence",
+      how="left",
+      validate="one_to_one",
+    )
+    assert len(predictions) == 5
+    assert predictions["name"].notna().all()
+
+    print(
+      predictions[["name", "predicted_mean", "predicted_std"]]
+      .to_string(index=False)
+    )
+    ```
+
+    Expect five rows, one for each antibody pair. The numerical values will come from the completed job.
+
+    Sort the results:
+
+    ```python lineNumbers
+    predictions = predictions.sort_values(
+      "predicted_mean",
+      ascending=False,
+    )
+    print(
+      predictions[["name", "predicted_mean", "predicted_std"]]
+      .to_string(index=False)
+    )
+    ```
+
+    The Makowski dataset also contains ova, a measure of binding to ovalbumin used as a surrogate for nonspecific binding. Our ANT predictor does **not** predict this property. A high predicted ANT value alone therefore does not establish improved specificity. To evaluate both objectives, we would train a separate OVA predictor and consider high antigen binding alongside low nonspecific binding.
+  </Tab>
+</Tabs>
+
+## Export the results
+
+We will retain the paired sequences, predicted values, and uncertainties together.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Select **Export as CSV** to download the results table.
+  </Tab>
+  <Tab value="Python">
+    Save the predictions:
+
+    ```python lineNumbers
+    predictions.to_csv(
+      "makowski_fab_ant_predictions.csv",
+      index=False,
+    )
+    ```
+
+    Record the model, property, and prediction job:
+
+    ```python lineNumbers
+    import json
+    run_details = {
+      "predictor_id": str(predictor.id),
+      "property": property_name,
+      "prediction_job_id": str(predict_job.job_id),
+    }
+    Path("makowski_fab_batch_run.json").write_text(
+      json.dumps(run_details, indent=2)
+    )
+    ```
+  </Tab>
+</Tabs>
+
+We now have antigen-binding predictions and uncertainties for five paired antibody sequences. The same workflow can be applied to newly designed Fab variants using the trained predictor.
+
+To evaluate single substitutions, continue to **Substitution Analysis**. To propose a new library using the predictor, continue to **Design a library with Bayesian Optimization**.

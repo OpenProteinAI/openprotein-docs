@@ -1,0 +1,94 @@
+---
+title: Tutorials
+description: Our tutorials guide you through the platform step by step, so you can learn by doing. Toggle between App or Python Client to see the instructions that match how you work.
+---
+
+**Tutorials** focus on individual tools and operations, often through a practical example. They are grouped into three broad functions: *Prepare & Generate*, *Model & Predict*, and *Analyze*. These are not fixed stages—start wherever makes sense for your project.
+
+For deeper background on the ideas behind the tools, see our **[Concepts](/concepts)** docs.
+
+## Prepare & Generate
+*Prepare sequence, structure, and assay data, or generate new proteins and optimized variants.*
+
+<TutorialGroup>
+  <TutorialLinks title="Datasets">
+    - [MSA](/tutorials/datasets/msa/)
+    - [Assay](/tutorials/datasets/assay/)
+  </TutorialLinks>
+  
+  <TutorialLinks title="Design">
+    <TutorialColumn>
+      <TutorialLinks title="Generate">
+        - [Protein binders with RFdiffusion](/tutorials/design/generate/rfdiffusion)
+        - [Nanobody binders with BoltzGen](/tutorials/design/generate/boltzgen)
+        - [Inverse folding](/tutorials/design/generate/inverse-folding/)
+        - [Novel luciferases by inverse folding](/tutorials/design/generate/PoET-2_inverse_folding/)
+      </TutorialLinks>
+    </TutorialColumn>
+
+    <TutorialColumn>
+      <TutorialLinks title="Optimize">
+      - [Bayesian optimization](/tutorials/design/active-learning/bayesian-optimization)
+      - [Optimize monoclonal antibody affinity with assay data](/tutorials/design/active-learning/antibody-engineering)
+      - [Compare variant libraries by performance and cost](/tutorials/design/active-learning/quantitative-decision-making-library-design)
+      - [Design variant libraries for multimeric proteins](/tutorials/design/active-learning/multichain)
+      </TutorialLinks>
+    </TutorialColumn>
+  </TutorialLinks>
+</TutorialGroup>
+
+
+## Model & Predict
+*Create representations, learn from examples or assay data, and use models to score sequences and predict structures.*
+
+<TutorialGroup>
+  <TutorialColumn>
+    <TutorialLinks title="Learn">
+      - [In-context learning](/tutorials/learn/in-context-learning/)
+      - [Training property predictors](/tutorials/learn/training-property-predictors/)
+    </TutorialLinks>
+  </TutorialColumn>
+
+  <TutorialLinks title="Predict">
+    <TutorialColumn>
+      <TutorialLinks title="Protein Language Models">
+        - [Score sequences](/tutorials/predict/plm/scores/)
+        - [Substitution analysis](/tutorials/predict/plm/substitutions/)
+        - [Indel analysis](/tutorials/predict/plm/indels/)
+        - [Predict chorismate mutase fitness zero-shot (without assay data)](/tutorials/predict/plm/zero-shot-fitness)
+        - [Compare protein language models for amidase substitution and deletion effects](/tutorials/predict/plm/substitution-indels-compare)
+        - [Screen insertion sites for a nuclear localization signal with PoET](/tutorials/predict/plm/indels-python)
+        - [Identify mutational hotspots and design a one-shot variant library](/tutorials/predict/plm/one-shot-variant-library/)
+      </TutorialLinks>
+    </TutorialColumn>
+
+    <TutorialColumn>
+      <TutorialLinks title="Custom User Models">
+        - [Batch analysis](/tutorials/predict/user-models/batch/)
+        - [Score with property predictor](/tutorials/predict/user-models/substitutions-user/)
+      </TutorialLinks>
+    </TutorialColumn>
+
+    <TutorialColumn>
+      <TutorialLinks title="Structure Predictors">
+        - [Predict 3D structure](/tutorials/predict/structure/structure-predictors/)
+      </TutorialLinks>
+    </TutorialColumn>
+  </TutorialLinks>
+</TutorialGroup>
+
+
+## Analyze
+*Explore patterns in your results.*
+
+<TutorialGroup>
+  <TutorialLinks title="Analyze">
+    - [UMAP](/tutorials/analyze/umap/)
+    - [Antibody embeddings](/tutorials/analyze/Embedding_and_visualizing_antibodies)
+    </TutorialLinks>
+<TutorialColumn>
+      <TutorialLinks title="Select">
+        - [Select hits from an antibody NGS discovery campaign](/tutorials/select/select-hits-ab-ngs/)
+      </TutorialLinks>
+    </TutorialColumn>
+</TutorialGroup>

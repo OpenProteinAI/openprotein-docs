@@ -1,0 +1,35 @@
+---
+title: "Joint plot"
+description: ""
+---
+A joint plot shows how two or more properties of the same sequences relate to each other. On the platform, it is a grid:
+- Diagonal panels are histograms. Each shows the distribution of one property on its own.
+- Off-diagonal panels are scatter plots. Each point is one sequence, placed by its value for one property on the x-axis and another on the y-axis.
+- Each scatter plot reports **Pearson's rho** and **Spearman's rho**, two measures of how closely the properties correlate.
+
+Open it from a dataset's **Joint plot** tab, then tick the properties to compare under **Select properties to view**. These properties can be assay columns from the dataset or prediction scores added by a custom trained property predictor.
+
+
+# Pearson and Spearman correlation
+Both coefficients run from -1 to 1. A value near 1 means the two properties are positively correlated, a value near 0 means no relationship, and a value near -1 means negative correlation - an increase in one corresponds to a decrease in the other.
+
+Pearson's correlation coefficient (r, shown in the app as Pearson's rho) measures how well the points fit a straight line. It is computed on the raw values, so it assumes a linear relationship and is sensitive to outliers and skewed distributions. A few extreme points can inflate or deflate it.
+
+Spearman's rank correlation coefficient (ρ) is the Pearson correlation computed on the ranks of the values instead of the values themselves. It measures whether the relationship is monotonic: whether higher values of one property consistently go with higher values of the other, whatever the shape of the curve. It is robust to outliers and to non-linear but monotonic trends.
+
+In protein engineering, Spearman is usually the more relevant measure. Hit selection and model evaluation depend on ranking sequences correctly, not on matching absolute values, and assay data is often skewed. A large gap between the two, such as a high Spearman with a low Pearson, usually points to a non-linear relationship or a few outliers.
+
+This concept is also applicable to [cross validation curves](/concepts/models/evaluating-models).
+
+
+# Joint plots for replicates
+A replicate is a repeat measurement of the same sequence. If the assay data has replicate columns, such as `binding_rep1` and `binding_rep2`, plot them against each other. This is the quickest way to see how noisy the assay is.
+
+# When to use a joint plot
+A joint plot is most useful before and after model training. Before training, plotting replicate against replicate shows whether the assay is reproducible enough to learn from, and the histograms reveal skewed distributions, outliers and detection limits. After training, plotting measured values against a property predictor's predictions on held-out data shows how well the model generalises.
+
+During design and hit selection, a joint plot of two properties, such as binding and stability, shows whether improving one comes at the cost of the other. The same view can compare a PoET-2 score with a property predictor's score, or two prediction scores with each other.
+
+# Related pages
+- Concepts: [UMAP](/concepts/visualizations/umap): See the diversity and structure of a dataset.
+- Concepts: [Proteins](/concepts/proteins/proteins): Sequences, structures and fitness.

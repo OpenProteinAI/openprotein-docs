@@ -1,0 +1,212 @@
+---
+title: "How to align sequences"
+description: "Align a set of protein or antibody sequences with Align Sequences, choose an alignment model, and export the result."
+---
+
+Use this guide to align a set of protein or antibody sequences with Align Sequences, choose an alignment model, and export the result.
+
+# Before starting
+
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- To align a dataset in your project, upload an assay dataset under **Assay**.
+- To align sequences from a file or a list, prepare them as a `.csv`, `.fasta`, or `.txt` file, or have them ready to paste.
+
+</Tab>
+<Tab value="Python">
+Install the OpenProtein.AI  Python client.
+Have your sequences ready as a Python list, a `.fasta` file, or a `.csv` file.
+
+```
+pip install openprotein-python
+import openprotein
+
+session = openprotein.connect(username="your_username", password="your_password")
+```
+</Tab>
+</Tabs>
+
+# Align sequences from a dataset
+There are two ways to provide your sequences. Pick the one that matches your input, then follow the shared steps below.
+Align a dataset
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- Open your assay dataset in the project.
+- Click **Align Sequences** in the bar at the bottom of the page. The Align Sequences dialog opens with the dataset already set as the input.
+<Figure src="/_static/how_to/align/align-dataset.png" />
+</Tab>
+<Tab value="Python">
+- Load the assay dataset by its ID and pull out its sequences.
+- Use the row index as each sequence's name, so you can join the aligned sequences back to your measurements later.
+```
+assay = session.data.get("your_assay_id")
+df = assay.get_slice(0, len(assay))
+
+sequences = df["sequence"].tolist()
+names = [str(i) for i in df.index]
+```
+</Tab>
+</Tabs>
+
+# Align sequences from a file or list
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- Open the global navigation at the top right and select Align Sequences. The History page lists your past alignment jobs.
+- Provide your sequences. Upload a .csv, .fasta, or .txt file, or paste a list of sequences into the input field.
+<Figure src="/_static/how_to/align/align-global.png" />
+</Tab>
+<Tab value="Python">
+- Provide your sequences as a list. Names are optional.
+```
+sequences = [
+    "MKTAYIAKQRQISFVKSHFSRQ",
+    "MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQ",
+    "MKTAYLAKQRQISFVKSHFSRQ",
+]
+names = ["seq_1", "seq_2", "seq_3"]
+```
+Or pass a file. A `.fasta` file, a headerless `.csv` (sequence or name,sequence columns), or a `.txt` file with one sequence per line can go straight to the *_file methods.
+```
+with open("sequences.fasta", "rb") as f:
+    future = session.align.mafft_file(f)
+```
+If your `.csv` has a header row, read it with pandas first.
+```
+import pandas as pd
+
+df = pd.read_csv("sequences.csv")
+sequences = df["sequence"].tolist()
+names = df["name"].tolist()
+```
+</Tab>
+<Tab value="Local script">
+• Use a .csv file with a header row and a column of sequences.
+• The script doesn't take .fasta or .txt files or a pasted list. To align those, use the App or the Python client.
+</Tab>
+</Tabs>
+Configure and run the alignment
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- Choose a Method: **AbNumber**, **Clustal Omega**, or **MAFFT**.
+- Optional: edit the Output dataset name. 
+- Optional: open Advanced Options and set the Alignment strategy (Auto or Custom for MAFFT). For a first attempt, keep the defaults.
+- Click **Run Alignment**. Click **Cancel** to close the dialog without running.
+</Tab>
+<Tab value="Python">
+- Call the method for your model. Each call returns a job you can wait on. This runs MAFFT with the default Auto strategy.
+```
+future = session.align.mafft(sequences, names=names)
+print(future.id)  # job ID, also shown on the History page
+```
+For the Custom strategy, turn off auto and set the offset (ep) and gap opening penalty (op).
+```
+future = session.align.mafft(
+    sequences,
+    names=names,
+    auto=False,
+    ep=0.1,   # offset, similar to a group-to-group gap extension penalty
+    op=1.53,  # gap opening penalty
+)
+```
+- Python jobs don't create an output dataset. To save the result as a dataset in your project, join the aligned sequences back to your measurements and upload the table.
+```
+import pandas as pd
+
+aligned = pd.DataFrame(future.wait(verbose=True), columns=["name", "sequence"])
+
+aligned_df = df.drop(columns="sequence").copy()
+aligned_df["sequence"] = aligned.set_index("name").loc[names, "sequence"].values
+aligned_df = aligned_df[["sequence"] + [c for c in aligned_df.columns if c != "sequence"]]
+
+aligned_assay = session.data.create(aligned_df, name=f"aligned - {assay.name}")
+print(aligned_assay.id)
+```
+</Tab>
+</Tabs>
+
+# Choose a model
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+
+| Model | Use it when | Settings |
+| --- | --- | --- |
+| MAFFT (default) | You want a fast, accurate general-purpose aligner | Strategy: Auto or Custom. Custom exposes an offset (similar to a group-to-group gap extension penalty) and a gap opening penalty |
+| Clustal Omega | You have a large dataset and no large internal indels | Cluster size (default 100) and fine-tuning iterations (default 0) |
+| AbNumber | Your sequences are antibodies | Numbering scheme: IMGT (default), Kabat, Chothia, or Aho |
+</Tab>
+<Tab value="Python">
+- Each model has its own method. The Clustal Omega call below passes the web app defaults.
+```
+from openprotein.align.schemas import AbNumberScheme
+
+# MAFFT
+future = session.align.mafft(sequences, names=names)
+
+# Clustal Omega
+future = session.align.clustalo(sequences, names=names, clustersize=100, iterations=0)
+
+# AbNumber. Set the scheme explicitly: the Python client defaults to Chothia,
+# while the web app defaults to IMGT.
+future = session.align.abnumber(sequences, names=names, scheme=AbNumberScheme.IMGT)
+```
+- AbNumberScheme also has KABAT, CHOTHIA, and AHO.
+- If your antibody sequences include residues outside the variable domain, such as a constant region or a tag, set unnumbered_policy.
+
+```
+from openprotein.align.schemas import AbNumberScheme, UnnumberedPolicy
+
+future = session.align.abnumber(
+    sequences,
+    names=names,
+    scheme=AbNumberScheme.IMGT,
+    unnumbered_policy=UnnumberedPolicy.DROP,  # ERROR (default), DROP, or RETAIN
+)
+```
+</Tab>
+</Tabs>
+# Review and export the result
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- Review the alignment in the results table.
+- Open the Input tab to see the original sequences and the model you used.
+- Export the table.
+- Click New Sequence Alignment to start another job.
+</Tab>
+<Tab value="Python">
+- Wait for the job and load the alignment into a table.
+```
+import pandas as pd
+
+aligned = pd.DataFrame(future.wait(verbose=True), columns=["name", "sequence"])
+print(aligned.head())
+```
+- To find a past job's ID, list your past alignment jobs, as on the History page.
+from openprotein.jobs import JobType
+```
+for job_type in (JobType.mafft, JobType.clustalo, JobType.abnumber):
+    for job in session.jobs.list(job_type=job_type):
+        print(job.job_id, job.job_type, job.status, job.created_date)
+```
+- To reopen a past job, get it by its job ID.
+```
+future = session.jobs.get("your_job_id")
+aligned = pd.DataFrame(future.get(), columns=["name", "sequence"])
+```
+- To see the original sequences and the settings you used, as on the Input tab:
+from openprotein.align.schemas import AlignType
+```
+original = pd.DataFrame(future.get_input(AlignType.INPUT), columns=["name", "sequence"])
+print(future.job_type)  # e.g. /align/mafft
+print(future.args)      # method settings, such as the numbering scheme
+```
+- Export the table as `.csv` or `.fasta`.
+```
+aligned.to_csv("aligned.csv", index=False)
+
+with open("aligned.fasta", "w") as f:
+    for name, sequence in aligned.itertuples(index=False):
+        f.write(f">{name}\n{sequence}\n")
+```
+- To start another job, call the alignment method again with new sequences or settings.
+</Tab>
+</Tabs>

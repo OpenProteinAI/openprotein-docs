@@ -1,0 +1,782 @@
+{
+ "module": "openprotein.predictor.validate",
+ "entries": [
+  {
+   "name": "CVResultFuture",
+   "path": "openprotein.predictor.validate.CVResultFuture",
+   "kind": "class",
+   "signature": "(session, job)",
+   "bases": [
+    "Future"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Future",
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     }
+    ]
+   ],
+   "doc": "Future Job for manipulating results",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future Job for manipulating results"
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "job",
+       "annotation_fallback": true,
+       "type": "Job",
+       "type_parts": [
+        {
+         "text": "Job",
+         "path": "openprotein.jobs.Job",
+         "page": "jobs"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.predictor.validate",
+   "source": {
+    "file": "openprotein/predictor/validate.py",
+    "line": 13,
+    "end": 38
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/predictor/validate.py",
+      "line": 19,
+      "end": 20
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 276,
+      "end": 278
+     },
+     "annotation": "dict[str, Any]",
+     "annotation_parts": [
+      {
+       "text": "dict[str, Any]"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 291,
+      "end": 300
+     },
+     "signature": "()",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "description",
+     "kind": "property",
+     "doc": "The job's description, or an empty string if the job has none.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 238,
+      "end": 240
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job's description, or an empty string if the job has none."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 280,
+      "end": 289
+     },
+     "signature": "()",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 258,
+      "end": 260
+     },
+     "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Get the cross-validation results for this job.\n\nParameters\n----------\nverbose : bool, optional\n    Flag to enable verbose output, by default False.\n\nReturns\n-------\ntuple of np.ndarray\n    The observed ``y`` and the cross-validated ``y_mu`` and ``y_var`` of\n    each evaluated row.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 382,
+      "end": 392
+     },
+     "signature": "(verbose=False, **kwargs)",
+     "returns": "tuple[np.ndarray, np.ndarray, np.ndarray]",
+     "returns_parts": [
+      {
+       "text": "tuple[np.ndarray, np.ndarray, np.ndarray]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get the cross-validation results for this job."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Flag to enable verbose output, by default False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "tuple of np.ndarray",
+         "type_parts": [
+          {
+           "text": "tuple of np.ndarray"
+          }
+         ],
+         "text": "The observed ``y`` and the cross-validated ``y_mu`` and ``y_var`` of\neach evaluated row."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 221,
+      "end": 223
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 228,
+      "end": 230
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "name",
+     "kind": "property",
+     "doc": "The job's name, or its job id if the job has no name.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 233,
+      "end": 235
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job's name, or its job id if the job has no name."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 263,
+      "end": 265
+     },
+     "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 344,
+      "end": 346
+     },
+     "signature": "()",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "rename",
+     "kind": "method",
+     "doc": "Set this job's name and description.\n\nOnly the arguments given are sent, so renaming leaves the description\nalone. Extra fields carried on the job are preserved, as on refresh.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 348,
+      "end": 366
+     },
+     "signature": "(name=None, description=None)",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Set this job's name and description.\n\nOnly the arguments given are sent, so renaming leaves the description\nalone. Extra fields carried on the job are preserved, as on refresh."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "name",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "description",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 253,
+      "end": 255
+     },
+     "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 243,
+      "end": 245
+     },
+     "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus",
+       "path": "openprotein.jobs.JobStatus",
+       "page": "jobs"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 486,
+      "end": 515
+     },
+     "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
+     "returns": "V",
+     "returns_parts": [
+      {
+       "text": "V"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "type_parts": null,
+         "default": "{}",
+         "text": "Keyword arguments passed to `get`."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 455,
+      "end": 484
+     },
+     "signature": "(interval=5, timeout=None, verbose=False)",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": null,
+   "page": "predictor"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

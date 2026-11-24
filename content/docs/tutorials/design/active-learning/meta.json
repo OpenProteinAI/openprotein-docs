@@ -1,0 +1,9 @@
+{
+  "title": "Optimize",
+  "pages": [
+    "bayesian-optimization",
+    "antibody-engineering",
+    "quantitative-decision-making-library-design",
+    "multichain"
+  ]
+}

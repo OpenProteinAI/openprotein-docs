@@ -1,0 +1,91 @@
+---
+title: "openprotein.data"
+description: "Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks."
+pythonApi: true
+---
+Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks. `session.data.create` takes a pandas DataFrame with a `sequence` column. Measurement columns hold properties for training; identify free-text columns separately as metadata.
+
+This example uses an [authenticated session](/references/python-api/openprotein#session).
+
+```python
+import pandas as pd
+
+table = pd.DataFrame({
+    "sequence": ["ACDE", "ACDF"],
+    "activity": [1.2, 0.8],
+    "notes": ["first", "second"],
+})
+assay = session.data.create(table, name="Example", metadata_columns=["notes"])
+```
+
+See the [assay upload guide](/how-tos/dataset/upload-assay) for more detail.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.data.DataAPI",
+  ]}
+>
+
+<PyClass path="openprotein.data.DataAPI" />
+
+</PyGroup>
+
+<PyGroup id="classes" title="Classes"
+  anchors={[
+    "openprotein.data.AssayDataset",
+    "openprotein.data.AssayMetadata",
+  ]}
+>
+
+<PyClass path="openprotein.data.AssayDataset" />
+<PyClass path="openprotein.data.AssayMetadata" />
+
+</PyGroup>
+
+<PyGroup id="referenced-types" title="Referenced types"
+  anchors={[
+    "openprotein.data.MSADataAPI",
+    "openprotein.data.PromptsAPI",
+  ]}
+>
+
+Types referenced by the interfaces above.
+
+`MSADataAPI` and `PromptsAPI` are available as `session.data.msa` and `session.data.prompts`.
+
+<PyClass path="openprotein.data.MSADataAPI" />
+<PyClass path="openprotein.data.PromptsAPI" />
+
+</PyGroup>
+
+<PyGroup id="alignments-and-sampled-prompts" title="Alignments and sampled prompts"
+  anchors={[
+    "openprotein.data.MSA",
+    "openprotein.data.MSAMetadata",
+    "openprotein.data.prompts.Prompt",
+    "openprotein.data.prompts.PromptFuture",
+  ]}
+>
+
+An MSA can be downloaded, updated or deleted. To sample a prompt from an alignment you already stored, replace `your-msa-id` with its ID:
+
+```python
+msa = session.data.msa.get("your-msa-id")
+prompt_job = session.data.prompts.sample_msa(
+    msa, replicates=2, max_msa_sequences=10,
+)
+groups = prompt_job.wait(timeout=600)
+for group in groups:
+    print(len(group), group[:3])
+```
+
+This samples up to 10 sequences per replicate. The [PromptFuture](#openprotein.data.prompts.PromptFuture) returns `list[list[str]]`, with one sequence group per replicate. Pass `prompt_job` as `prompt=` when [embedding with PoET](/references/python-api/models#poet).
+
+`session.data.prompts.get(...)` retrieves a stored [Prompt](#openprotein.data.prompts.Prompt) handle. Reloaded sampling jobs use the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader.
+
+<PyClass path="openprotein.data.MSA" />
+<PyClass path="openprotein.data.MSAMetadata" />
+<PyClass path="openprotein.data.prompts.Prompt" />
+<PyClass path="openprotein.data.prompts.PromptFuture" />
+
+</PyGroup>

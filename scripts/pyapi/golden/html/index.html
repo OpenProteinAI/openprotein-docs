@@ -1,0 +1,885 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API reference &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/index';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein" href="openprotein.html" />
+    <link rel="prev" title="Using BoltzGen" href="../structure-generation/Using_BoltzGen.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">API reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h1>
+<section id="session-management">
+<h2>Session Management<a class="headerlink" href="#session-management" title="Link to this heading">#</a></h2>
+<p>The entrypoint to our platform which requires an authenticated session.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="openprotein.html#openprotein.OpenProtein" title="openprotein.OpenProtein"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.OpenProtein</span></code></a>(username, password, ...)</p></td>
+<td><p>The base class for accessing OpenProtein API functionality.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="openprotein.html#openprotein.connect" title="openprotein.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.connect</span></code></a>([username, password, ...])</p></td>
+<td><p>Connect and create a <code class="xref py py-class docutils literal notranslate"><span class="pre">OpenProtein</span></code> session.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="data-primitives">
+<h2>Data Primitives<a class="headerlink" href="#data-primitives" title="Link to this heading">#</a></h2>
+<p>Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design.</p>
+</section>
+<section id="property-regression-models">
+<h2>Property Regression Models<a class="headerlink" href="#property-regression-models" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.Protein</span></code></a>(sequence[, name])</p></td>
+<td><p>Represents a protein with an optional name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.Complex</span></code></a>([chains, name])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.Structure" title="openprotein.molecules.Structure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.Structure</span></code></a>(complexes[, ...])</p></td>
+<td><p>Represents a collection of <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code> instances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.Ligand" title="openprotein.molecules.Ligand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.Ligand</span></code></a>([ccd, smiles, ...])</p></td>
+<td><p>Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.DNA" title="openprotein.molecules.DNA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.DNA</span></code></a>(sequence[, ...])</p></td>
+<td><p>Represents a DNA sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="molecules.html#openprotein.molecules.RNA" title="openprotein.molecules.RNA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.molecules.RNA</span></code></a>(sequence[, ...])</p></td>
+<td><p>Represents an RNA sequence.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<p>Upload and store your datasets on our platform to use with your protein engineering tasks.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="data.html#openprotein.data.DataAPI" title="openprotein.data.DataAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.data.DataAPI</span></code></a>(session)</p></td>
+<td><p>API interface for calling AssayData endpoints</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data.html#openprotein.data.AssayDataset" title="openprotein.data.AssayDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.data.AssayDataset</span></code></a>(session, metadata)</p></td>
+<td><p>Assay dataset which contains your sequences and measurements which can be used for training predictors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="jobs">
+<h3>Jobs<a class="headerlink" href="#jobs" title="Link to this heading">#</a></h3>
+<p>Retrieve and monitor your jobs.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="jobs.html#openprotein.jobs.JobsAPI" title="openprotein.jobs.JobsAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.jobs.JobsAPI</span></code></a>(session)</p></td>
+<td><p>API interface to get jobs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.jobs.Job</span></code></a>(*, job_id, job_type, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="align">
+<h2>Align<a class="headerlink" href="#align" title="Link to this heading">#</a></h2>
+<p>Align your protein sequences or look up multiple sequence alignments.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="align.html#openprotein.align.AlignAPI" title="openprotein.align.AlignAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.align.AlignAPI</span></code></a>(session)</p></td>
+<td><p>Align API interface for creating alignments and MSAs (multiple sequence alignments) which can be used for other protein tasks.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.align.MSAFuture</span></code></a>(session, job[, ...])</p></td>
+<td><p>Represents a future for MSA (Multiple Sequence Alignment) results.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="prompt">
+<h2>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">#</a></h2>
+<p>Create prompts using sequences and structures to condition our proprietary high-performance PoET foundation models.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="prompt.html#openprotein.prompt.PromptAPI" title="openprotein.prompt.PromptAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.prompt.PromptAPI</span></code></a>(session)</p></td>
+<td><p>Prompt API providing the interface to create prompts for use with PoET models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="prompt.html#openprotein.prompt.Prompt" title="openprotein.prompt.Prompt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.prompt.Prompt</span></code></a>(session[, job, ...])</p></td>
+<td><p>Prompt which contains a set of sequences and/or structures used to condition the PoET models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.prompt.Query</span></code></a>(session, metadata)</p></td>
+<td><p>Query containing a sequence/structure used to query the design models which opens up new workflows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="foundation-models">
+<h2>Foundation models<a class="headerlink" href="#foundation-models" title="Link to this heading">#</a></h2>
+<p>Use foundation models to produce embeddings and logits with your protein sequences.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsAPI" title="openprotein.embeddings.EmbeddingsAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.EmbeddingsAPI</span></code></a>(session)</p></td>
+<td><p>Embeddings API providing the interface for creating embeddings using protein language models.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="models">
+<h3>Models<a class="headerlink" href="#models" title="Link to this heading">#</a></h3>
+<p>The foundation models on our platform are classed appropriately to identify the models and group their functionality.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.PoET2Model" title="openprotein.embeddings.PoET2Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.PoET2Model</span></code></a>(session, ...)</p></td>
+<td><p>Class for OpenProtein's foundation model PoET 2.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.PoETModel" title="openprotein.embeddings.PoETModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.PoETModel</span></code></a>(session, ...)</p></td>
+<td><p>Class for OpenProtein's foundation model PoET.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.OpenProteinModel" title="openprotein.embeddings.OpenProteinModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.OpenProteinModel</span></code></a>(...)</p></td>
+<td><p>Proprietary protein embedding models served by OpenProtein.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.ESMModel" title="openprotein.embeddings.ESMModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.ESMModel</span></code></a>(session, ...)</p></td>
+<td><p>Class providing inference endpoints for Facebook's ESM protein language models.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
+<p>The models produce asynchronous results which are modeled as futures which can be awaited.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsResultFuture" title="openprotein.embeddings.EmbeddingsResultFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.EmbeddingsResultFuture</span></code></a>(...)</p></td>
+<td><p>Future for manipulating results for embeddings-related requests.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsScoreFuture" title="openprotein.embeddings.EmbeddingsScoreFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.EmbeddingsScoreFuture</span></code></a>(...)</p></td>
+<td><p>Future for manipulating results for embeddings score-related requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingsGenerateFuture" title="openprotein.embeddings.EmbeddingsGenerateFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.embeddings.EmbeddingsGenerateFuture</span></code></a>(...)</p></td>
+<td><p>Future for manipulating results for embeddings generate-related requests.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="transform">
+<h2>Transform<a class="headerlink" href="#transform" title="Link to this heading">#</a></h2>
+<p>Transform and reduce your embeddings for use with visualization and training workflows.</p>
+<section id="svd">
+<h3>SVD<a class="headerlink" href="#svd" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.svd.SVDAPI</span></code>(session)</p></td>
+<td><p>SVD API providing the interface for creating and using SVD models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="embedding.html#openprotein.svd.SVDModel" title="openprotein.svd.SVDModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.svd.SVDModel</span></code></a>(session[, job, ...])</p></td>
+<td><p>SVD model that can be used to create reduced embeddings.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="umap">
+<h3>UMAP<a class="headerlink" href="#umap" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.umap.UMAPAPI</span></code>(session)</p></td>
+<td><p>UMAP API providing the interface to fit and run UMAP visualizations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="embedding.html#openprotein.umap.UMAPModel" title="openprotein.umap.UMAPModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.umap.UMAPModel</span></code></a>(session[, job, ...])</p></td>
+<td><p>UMAP model that can be used to create projected embeddings.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="predictor">
+<h2>Predictor<a class="headerlink" href="#predictor" title="Link to this heading">#</a></h2>
+<p>Train predictors from your assay datasets and use them to make predictions on novel sequences.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="predictor.html#openprotein.predictor.PredictorAPI" title="openprotein.predictor.PredictorAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.predictor.PredictorAPI</span></code></a>(session)</p></td>
+<td><p>Predictor API providing the interface to train and predict predictors.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="predictor.html#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.predictor.PredictorModel</span></code></a>(session)</p></td>
+<td><p>Class providing predict endpoint for fitted predictor models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.predictor.PredictionResultFuture</span></code>(...)</p></td>
+<td><p>Prediction results represented as a future.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="design">
+<h2>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h2>
+<p>Design novel protein sequences based on your assay datasets and trained models, optimizing toward your design criteria.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="design.html#openprotein.design.DesignAPI" title="openprotein.design.DesignAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.design.DesignAPI</span></code></a>(session)</p></td>
+<td><p>Design API providing the interface to design novel proteins based on your design criteria.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="design.html#openprotein.design.DesignFuture" title="openprotein.design.DesignFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.design.DesignFuture</span></code></a>(session[, ...])</p></td>
+<td><p>A future object that will hold the results of the design job.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="fold">
+<h2>Fold<a class="headerlink" href="#fold" title="Link to this heading">#</a></h2>
+<p>Make structure predictions on your protein sequences.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="fold.html#openprotein.fold.FoldAPI" title="openprotein.fold.FoldAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.FoldAPI</span></code></a>(session)</p></td>
+<td><p>Fold API provides a high level interface for making protein structure predictions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="fold.html#openprotein.fold.RosettaFold3Model" title="openprotein.fold.RosettaFold3Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.RosettaFold3Model</span></code></a>(session, ...)</p></td>
+<td><p>Class providing inference endpoints for RosettaFold-3 structure prediction model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="fold.html#openprotein.fold.Boltz2Model" title="openprotein.fold.Boltz2Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.Boltz2Model</span></code></a>(session, model_id)</p></td>
+<td><p>Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="fold.html#openprotein.fold.Boltz1xModel" title="openprotein.fold.Boltz1xModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.Boltz1xModel</span></code></a>(session, model_id)</p></td>
+<td><p>Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="fold.html#openprotein.fold.Boltz1Model" title="openprotein.fold.Boltz1Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.Boltz1Model</span></code></a>(session, model_id)</p></td>
+<td><p>Class providing inference endpoints for Boltz-1 open-source structure prediction model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="fold.html#openprotein.fold.AlphaFold2Model" title="openprotein.fold.AlphaFold2Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.AlphaFold2Model</span></code></a>(session, ...)</p></td>
+<td><p>Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="fold.html#openprotein.fold.ESMFoldModel" title="openprotein.fold.ESMFoldModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.ESMFoldModel</span></code></a>(session, model_id)</p></td>
+<td><p>Class providing inference endpoints for Facebook's ESMFold structure prediction models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="fold.html#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.fold.FoldResultFuture</span></code></a>(session[, ...])</p></td>
+<td><p>Fold results represented as a future.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id1">
+<h2>Models<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Unified access to the models available on our platform.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="models.html#openprotein.models.ModelsAPI" title="openprotein.models.ModelsAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.models.ModelsAPI</span></code></a>(session)</p></td>
+<td><p>API-like accessor that groups all available protein models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="models.html#openprotein.models.RFdiffusionModel" title="openprotein.models.RFdiffusionModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.models.RFdiffusionModel</span></code></a>(session)</p></td>
+<td><p>RFdiffusion model for generating de novo protein structures.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="models.html#openprotein.models.ProteinMPNNModel" title="openprotein.models.ProteinMPNNModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.models.ProteinMPNNModel</span></code></a>(session)</p></td>
+<td><p>Class for ProteinMPNN model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="models.html#openprotein.models.ESMIF1Model" title="openprotein.models.ESMIF1Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.models.ESMIF1Model</span></code></a>(session)</p></td>
+<td><p>Class for ESM Inverse Folding (ESM-IF1) model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="models.html#openprotein.models.BoltzGenModel" title="openprotein.models.BoltzGenModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openprotein.models.BoltzGenModel</span></code></a>(session[, ...])</p></td>
+<td><p>BoltzGen model for generating de novo protein structures.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-management">Session Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-primitives">Data Primitives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#property-regression-models">Property Regression Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs">Jobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#align">Align</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt">Prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundation-models">Foundation models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models">Models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform">Transform</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svd">SVD</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#umap">UMAP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictor">Predictor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design">Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fold">Fold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Models</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

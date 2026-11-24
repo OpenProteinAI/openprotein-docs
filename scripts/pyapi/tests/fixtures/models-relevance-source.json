@@ -1,0 +1,197 @@
+[
+  {
+    "model_id": "poet-2",
+    "model": "PoET-2",
+    "name": "PoET-2"
+  },
+  {
+    "model_id": "boltz-2",
+    "model": "Boltz-2",
+    "name": "Boltz-2"
+  },
+  {
+    "model_id": "rfdiffusion",
+    "model": "RFdiffusion",
+    "name": "RFdiffusion"
+  },
+  {
+    "model_id": "esm2_t33_650M_UR50D",
+    "model": "ESM2",
+    "name": "ESM2 (650M)"
+  },
+  {
+    "model_id": "esm2_t30_150M_UR50D",
+    "model": "ESM2",
+    "name": "ESM2 (150M)"
+  },
+  {
+    "model_id": "esm2_t12_35M_UR50D",
+    "model": "ESM2",
+    "name": "ESM2 (35M)"
+  },
+  {
+    "model_id": "esm2_t36_3B_UR50D",
+    "model": "ESM2",
+    "name": "ESM2 (3B)"
+  },
+  {
+    "model_id": "esm2_t6_8M_UR50D",
+    "model": "ESM2",
+    "name": "ESM2 (8M)"
+  },
+  {
+    "model_id": "proteinmpnn",
+    "model": "ProteinMPNN",
+    "name": "ProteinMPNN"
+  },
+  {
+    "model_id": "solublempnn",
+    "model": "ProteinMPNN",
+    "name": "SolubleMPNN"
+  },
+  {
+    "model_id": "opendde",
+    "model": "OpenDDE",
+    "name": "OpenDDE"
+  },
+  {
+    "model_id": "opendde-abag",
+    "model": "OpenDDE",
+    "name": "OpenDDE-abag"
+  },
+  {
+    "model_id": "esm-if1",
+    "model": "ESM-IF1",
+    "name": "ESM-IF1"
+  },
+  {
+    "model_id": "esmc-600m",
+    "model": "ESMC",
+    "name": "ESMC (600M)"
+  },
+  {
+    "model_id": "esmc-300m",
+    "model": "ESMC",
+    "name": "ESMC (300M)"
+  },
+  {
+    "model_id": "esmc-6b",
+    "model": "ESMC",
+    "name": "ESMC (6B)"
+  },
+  {
+    "model_id": "esmfold2",
+    "model": "ESMFold2",
+    "name": "ESMFold2"
+  },
+  {
+    "model_id": "esmfold2-fast",
+    "model": "ESMFold2",
+    "name": "ESMFold2-Fast"
+  },
+  {
+    "model_id": "protenix-v2",
+    "model": "Protenix-v2",
+    "name": "Protenix-v2"
+  },
+  {
+    "model_id": "ablang2",
+    "model": "AbLang2",
+    "name": "AbLang2"
+  },
+  {
+    "model_id": "protenix",
+    "model": "Protenix",
+    "name": "Protenix"
+  },
+  {
+    "model_id": "boltzgen",
+    "model": "BoltzGen",
+    "name": "BoltzGen"
+  },
+  {
+    "model_id": "rosettafold-3",
+    "model": "RosettaFold-3",
+    "name": "RosettaFold-3"
+  },
+  {
+    "model_id": "minifold",
+    "model": "MiniFold",
+    "name": "MiniFold"
+  },
+  {
+    "model_id": "boltz-1",
+    "model": "Boltz-1",
+    "name": "Boltz-1"
+  },
+  {
+    "model_id": "boltz-1x",
+    "model": "Boltz-1",
+    "name": "Boltz-1x"
+  },
+  {
+    "model_id": "esmfold",
+    "model": "ESMFold",
+    "name": "ESMFold"
+  },
+  {
+    "model_id": "esm1b_t33_650M_UR50S",
+    "model": "ESM1",
+    "name": "ESM1b"
+  },
+  {
+    "model_id": "esm1v_t33_650M_UR90S_1",
+    "model": "ESM1",
+    "name": "ESM1v-1"
+  },
+  {
+    "model_id": "esm1v_t33_650M_UR90S_2",
+    "model": "ESM1",
+    "name": "ESM1v-2"
+  },
+  {
+    "model_id": "esm1v_t33_650M_UR90S_3",
+    "model": "ESM1",
+    "name": "ESM1v-3"
+  },
+  {
+    "model_id": "esm1v_t33_650M_UR90S_4",
+    "model": "ESM1",
+    "name": "ESM1v-4"
+  },
+  {
+    "model_id": "esm1v_t33_650M_UR90S_5",
+    "model": "ESM1",
+    "name": "ESM1v-5"
+  },
+  {
+    "model_id": "prott5-xl",
+    "model": "ProtT5-XL",
+    "name": "ProtT5-XL"
+  },
+  {
+    "model_id": "alphafold2",
+    "model": "AlphaFold2",
+    "name": "AlphaFold2"
+  },
+  {
+    "model_id": "poet",
+    "model": "PoET",
+    "name": "PoET"
+  },
+  {
+    "model_id": "prot-seq",
+    "model": "ProtSeq",
+    "name": "ProtSeq"
+  },
+  {
+    "model_id": "rotaprot-large-uniref50w",
+    "model": "RotaProt",
+    "name": "RotaProt (UniRef50w)"
+  },
+  {
+    "model_id": "rotaprot-large-uniref90-ft",
+    "model": "RotaProt",
+    "name": "RotaProt (UniRef90-FT)"
+  }
+]

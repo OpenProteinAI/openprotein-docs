@@ -1,0 +1,166 @@
+{
+ "module": "openprotein.align.future",
+ "entries": [
+  {
+   "name": "AlignFuture",
+   "path": "openprotein.align.future.AlignFuture",
+   "kind": "class",
+   "signature": "()",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "A future object representing an alignment job, providing methods to retrieve job inputs and seed sequences.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A future object representing an alignment job, providing methods to retrieve job inputs and seed sequences."
+    }
+   ],
+   "module": "openprotein.align.future",
+   "source": {
+    "file": "openprotein/align/future.py",
+    "line": 12,
+    "end": 57
+   },
+   "members": [
+    {
+     "name": "get_input",
+     "kind": "method",
+     "doc": "Retrieve input data for this alignment job.\n\nParameters\n----------\ninput_type : AlignType\n    The type of input data to retrieve.\n\nReturns\n-------\nIterator[list[str]]\n    An iterator over the input data rows.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/future.py",
+      "line": 18,
+      "end": 34
+     },
+     "signature": "(input_type)",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve input data for this alignment job."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "input_type",
+         "type": "AlignType",
+         "type_parts": [
+          {
+           "text": "AlignType",
+           "path": "openprotein.align.schemas.AlignType",
+           "page": "align"
+          }
+         ],
+         "default": null,
+         "text": "The type of input data to retrieve."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Iterator[list[str]]",
+         "type_parts": [
+          {
+           "text": "Iterator[list[str]]"
+          }
+         ],
+         "text": "An iterator over the input data rows."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_seed",
+     "kind": "method",
+     "doc": "Retrieve the seed sequence for this alignment job.\n\nReturns\n-------\nstr\n    The seed sequence.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/future.py",
+      "line": 36,
+      "end": 45
+     },
+     "signature": "()",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve the seed sequence for this alignment job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "text": "The seed sequence."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The job ID for this alignment job.\n\nReturns\n-------\nstr\n    The job ID.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/future.py",
+      "line": 48,
+      "end": 57
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job ID for this alignment job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "text": "The job ID."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Results",
+   "page": "align"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

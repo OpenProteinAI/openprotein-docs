@@ -1,0 +1,165 @@
+{
+ "module": "openprotein.embeddings.models",
+ "entries": [
+  {
+   "name": "AttnModel",
+   "path": "openprotein.embeddings.models.AttnModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "EmbeddingModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "EmbeddingModel",
+      "path": "openprotein.embeddings.EmbeddingModel",
+      "page": "embedding"
+     }
+    ]
+   ],
+   "doc": "Embeddings model that provides attention computation.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Embeddings model that provides attention computation."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "model_id",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "ModelMetadata | None",
+       "type_parts": [
+        {
+         "text": "ModelMetadata",
+         "path": "openprotein.common.ModelMetadata",
+         "page": "embedding"
+        },
+        {
+         "text": " | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.embeddings.models",
+   "source": {
+    "file": "openprotein/embeddings/models.py",
+    "line": 414,
+    "end": 446
+   },
+   "members": [
+    {
+     "name": "attn",
+     "kind": "method",
+     "doc": "Compute attention embeddings for sequences using this model.\n\nParameters\n----------\nsequences : list of bytes or list of str\n    Sequences to compute attention embeddings for.\nkwargs :\n    Additional keyword arguments to be used from foundational models.\n\nReturns\n-------\nEmbeddingsResultFuture\n    Future object representing the attention result.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/embeddings/models.py",
+      "line": 417,
+      "end": 446
+     },
+     "signature": "(sequences, **kwargs)",
+     "returns": "EmbeddingsResultFuture",
+     "returns_parts": [
+      {
+       "text": "EmbeddingsResultFuture",
+       "path": "openprotein.embeddings.EmbeddingsResultFuture",
+       "page": "embedding"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Compute attention embeddings for sequences using this model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "list of bytes or list of str",
+         "type_parts": [
+          {
+           "text": "list of bytes or list of str"
+          }
+         ],
+         "default": null,
+         "text": "Sequences to compute attention embeddings for."
+        },
+        {
+         "name": "kwargs",
+         "type": null,
+         "type_parts": null,
+         "default": "{}",
+         "text": "Additional keyword arguments to be used from foundational models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "EmbeddingsResultFuture",
+         "type_parts": [
+          {
+           "text": "EmbeddingsResultFuture",
+           "path": "openprotein.embeddings.EmbeddingsResultFuture",
+           "page": "embedding"
+          }
+         ],
+         "text": "Future object representing the attention result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models",
+   "page": "embedding"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

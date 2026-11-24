@@ -1,0 +1,10 @@
+{
+  "title": "Resources",
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "demo-datasets",
+    "faq",
+    "publications"
+  ]
+}
