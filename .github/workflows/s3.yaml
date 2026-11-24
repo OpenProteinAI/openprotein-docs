@@ -1,0 +1,106 @@
+name: Sync to bucket
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Pick bucket, distribution and platform
+        id: target
+        shell: bash
+        run: |
+          branch=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
+          if [ "$branch" == 'develop' ]; then
+            echo "bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-dev" >> "$GITHUB_OUTPUT"
+            echo "distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "app_url=${{ vars.OP_APP_URL_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "api_url=${{ vars.OP_API_URL_DEV }}" >> "$GITHUB_OUTPUT"
+          elif [ "$branch" == 'main' ]; then
+            echo "bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-prod" >> "$GITHUB_OUTPUT"
+            echo "distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_PROD }}" >> "$GITHUB_OUTPUT"
+            echo "app_url=${{ vars.OP_APP_URL }}" >> "$GITHUB_OUTPUT"
+            echo "api_url=${{ vars.OP_API_URL }}" >> "$GITHUB_OUTPUT"
+            echo "ga_id=${{ vars.OP_GA_ID }}" >> "$GITHUB_OUTPUT"
+          else
+            exit 1
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Build static export
+        env:
+          BUILD_TARGET: static
+          NEXT_PUBLIC_BUILD_TARGET: static
+          NEXT_PUBLIC_OP_REPO_BRANCH: ${{ steps.target.outputs.branch }}
+          NEXT_PUBLIC_OP_APP_URL: ${{ steps.target.outputs.app_url }}
+          NEXT_PUBLIC_OP_API_URL: ${{ steps.target.outputs.api_url }}
+          NEXT_PUBLIC_OP_GA_ID: ${{ steps.target.outputs.ga_id }}
+        shell: bash
+        run: |
+          if [ -z "$NEXT_PUBLIC_OP_API_URL" ]; then
+            echo "::error::the platform API URL variable for $NEXT_PUBLIC_OP_REPO_BRANCH is not set"
+            exit 1
+          fi
+          set -o pipefail
+          pnpm build 2>&1 | tee build.log
+          if grep -iqE 'warn|error' build.log; then
+            echo "::error::build emitted warnings or errors"
+            grep -inE 'warn|error' build.log
+            exit 1
+          fi
+
+      - name: Resolve old Sphinx URLs
+        run: node scripts/s3-redirects.mjs out > redirects.tsv
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Sync to S3
+        env:
+          AWS_S3_BUCKET: ${{ steps.target.outputs.bucket }}
+        shell: bash
+        run: |
+          aws s3 sync out "s3://${AWS_S3_BUCKET}" --delete
+
+      - name: Redirect old Sphinx URLs
+        env:
+          AWS_S3_BUCKET: ${{ steps.target.outputs.bucket }}
+        shell: bash
+        run: |
+          while IFS=$'\t' read -r key to; do
+            aws s3api put-object --bucket "$AWS_S3_BUCKET" --key "$key" \
+              --website-redirect-location "$to" --content-type text/html > /dev/null
+          done < redirects.tsv
+          echo "$(wc -l < redirects.tsv) redirects written"
+
+      - name: Invalidate CloudFront
+        env:
+          AWS_S3_CLOUDFRONT_DISTRIBUTION: ${{ steps.target.outputs.distribution }}
+        shell: bash
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${AWS_S3_CLOUDFRONT_DISTRIBUTION}" --paths "/*"
