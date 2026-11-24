@@ -29,7 +29,7 @@ const MACHINERY: Record<string, string> = {
   '/search': '/',
 };
 
-/** The October 2026 restructure. EXACT wins, then MOVED keeps the rest of the path, then
+/** The October 2026 restructure. EXACT wins, then MOVED keeps the rest of the path and checks EXACT again, then
  *  everything under a DELETED section lands on its nearest new home. */
 const EXACT: Record<string, string> = {
   '/walkthroughs': '/tutorials',
@@ -54,6 +54,25 @@ const EXACT: Record<string, string> = {
   '/tutorials/select/antibody-hit-selection-ngs': '/how-tos/select/antibody-hit-selection-ngs',
   '/how-tos/substitution-analysis': '/how-tos/predict/substitutions',
   '/how-tos/design-a-combinatorial-library': '/how-tos/design/design-a-combinatorial-library',
+  // Walkthroughs, moved again after the restructure.
+  '/tutorials/walkthroughs/AMIE_substitution_deletion_analysis_poet': '/tutorials/predict/plm/substitution-indels-compare',
+  '/tutorials/walkthroughs/Embedding_and_visualizing_antibodies': '/tutorials/analyze/Embedding_and_visualizing_antibodies',
+  '/tutorials/walkthroughs/Nanobody_binder_design_with_BoltzGen': '/tutorials/design/generate/boltzgen',
+  '/tutorials/walkthroughs/nanobody_binder_design_with_boltzgen_using_the_gui': '/tutorials/design/generate/boltzgen',
+  '/tutorials/walkthroughs/PoET-2_inverse_folding': '/tutorials/design/generate/PoET-2_inverse_folding',
+  '/tutorials/walkthroughs/PoET_api_insertion_screen_nuclear_localization': '/tutorials/predict/plm/indels-python',
+  '/tutorials/walkthroughs/Protein_protein_binder_design_with_RFdiffusion': '/tutorials/design/generate/rfdiffusion',
+  '/tutorials/walkthroughs/protein_protein_binder_design_with_rfdiffusion_using_the_GUI': '/tutorials/design/generate/rfdiffusion',
+  '/tutorials/walkthroughs/aligning-variable': '/how-tos/dataset/align-sequences',
+  '/tutorials/walkthroughs/antibody-engineering': '/tutorials/design/active-learning/antibody-engineering',
+  '/tutorials/walkthroughs/antibody-hit-selection-ngs': '/how-tos/select/antibody-hit-selection-ngs',
+  '/tutorials/walkthroughs/enzyme-engineering': '/tutorials/predict/plm/one-shot-variant-library',
+  '/tutorials/walkthroughs/multichain': '/tutorials/design/active-learning/multichain',
+  '/tutorials/walkthroughs/predicting-fitness': '/tutorials/predict/plm/zero-shot-fitness',
+  '/tutorials/walkthroughs/quantitative-decision-making-library-design':
+    '/tutorials/design/active-learning/quantitative-decision-making-library-design',
+  // Deleted.
+  '/references/resources/publications': '/references',
 };
 
 const MOVED: [from: string, to: string][] = [
@@ -80,7 +99,10 @@ function relocate(route: string): string {
   if (EXACT[route]) return EXACT[route];
   const under = (prefix: string) => route === prefix || route.startsWith(`${prefix}/`);
   const moved = MOVED.find(([from]) => under(from));
-  if (moved) return moved[1] + route.slice(moved[0].length);
+  if (moved) {
+    const to = moved[1] + route.slice(moved[0].length);
+    return EXACT[to] ?? to;
+  }
   return DELETED.find(([from]) => under(from))?.[1] ?? route;
 }
 
