@@ -1,0 +1,296 @@
+---
+title: "Predict a protein-DNA complex with Protenix-v2"
+sidebarTitle: Predict 3D structure
+description: "In this tutorial, we use the Structure Prediction tool to predict the structure of a transcription factor bound to its DNA operator, then check the prediction against the experimental crystal structure. "
+---
+
+We work with a real complex from the Protein Data Bank (PDB), the bacteriophage lambda repressor bound to operator DNA (PDB 1LMB), and run it through Protenix-v2.
+
+By the end, we will have:
+
+- Entered a multi-chain complex that mixes protein and DNA chains
+- Run a Protenix-v2 prediction and read its pLDDT confidence coloring
+- Overlaid the prediction on the experimental structure in the Mol\* viewer
+- Downloaded the predicted structure
+  The prediction usually finishes within a few minutes. Building the multiple sequence alignment (MSA) for the protein chains adds some time.
+
+# Before starting
+
+This tutorial requires an OpenProtein.AI account. All sequences are provided below, so no files need to be prepared in advance.
+
+# About 1LMB
+
+The lambda repressor controls the switch between the lytic and lysogenic life cycles of bacteriophage lambda. Its N-terminal domain binds DNA as a dimer: each monomer inserts a helix-turn-helix motif into the major groove of one operator half-site, and the two monomers contact each other across the dyad axis. The 1LMB crystal structure ([Beamer and Pabo, 1992](https://doi.org/10.1016/0022-2836\(92\)90690-L)) resolves this domain bound to a 20 bp operator at 1.8 Å resolution.
+The complex has four chains:
+
+| Column | Column | Column | Column |
+| --- | --- | --- | --- |
+| A | Protein | Lambda repressor N-terminal domain, copy 1 | 92 aa |
+| B | Protein | Lambda repressor N-terminal domain, copy 2 | 92 aa |
+| C | DNA | Operator strand 1 | 20 nt |
+| D | DNA | Operator strand 1 | 20 nt |
+
+Protein sequence (chains A and B):
+`STKKKPLTQEQLEDARRLKAIYEKKKNELGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILKVSVEEFSPSIAREIYEMYEAVS`
+DNA strand 1 (chain C), 5' to 3':
+`AATACCACTGGCGGTGATAT`
+DNA strand 2 (chain D), 5' to 3':
+`TATATCACCGCCAGTGGTAT`
+
+# Step 1: Open the Structure Prediction tool
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    In the top navigation bar, open the **Structure** menu and select **Structure Prediction**. The **New Structure Prediction** page opens.
+    Rename the prediction to `1LMB` in the top left of the screen.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/new-predict.png" />
+    <Callout type="tip" title="Shortcut">
+      The tool also opens from a data table: right-click a sequence and select **Fold sequence**, and the selected sequence is added to the input automatically. Here, we start from the navigation bar because we enter several chains by hand.
+    </Callout>
+  </Tab>
+  <Tab value="Python">
+    The structure prediction models sit under session.fold. List the models available to the account:
+
+    ```py lineNumbers
+    session.fold.list_models()
+    ```
+  </Tab>
+</Tabs>
+
+# Select Protenix-v2
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    The default model is **ESMFold**, which predicts protein chains only. Open the **Model type** dropdown and select **Protenix-v2**.
+    The Input Sequence section now shows a chain card with a molecule type selector, a **Chain IDs** field, and a sequence box.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/new-predict.png" />
+  </Tab>
+  <Tab value="Python">
+    Protenix-v2 is available as `session.fold.protenix_v2`.
+
+    ```py lineNumbers
+    model = session.fold.protenix_v2
+    ```
+  </Tab>
+</Tabs>
+
+# Step 3: Add the two protein chains
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    - In the first chain card, confirm the molecule type is Protein and the Chain IDs field is `A`.
+    - Paste the protein sequence into the sequence box.
+
+    ```
+    STKKKPLTQEQLEDARRLKAIYEKKKNELGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILKVSVEEFSPSIAREIYEMYEAVS
+    ```
+
+    - Leave **Single sequence** mode cleared. Protenix-v2 is an AlphaFold3-style model and is most accurate when each protein chain has an MSA, which the platform builds automatically when this option is off.
+    - Select **Add More** to create a second card. Set the molecule type to Protein, set Chain IDs to B, and paste the same protein sequence.
+
+    Entering the sequence twice defines a complex with two copies of the repressor. Protenix-v2 then predicts how the copies pack against each other as well as how each one binds DNA.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/2proteins.png" />
+  </Tab>
+  <Tab value="Python">
+    Define the repressor as a `Protein` and attach an MSA built with the platform's homology search. Joining the two chain sequences with : follows the ColabFold convention, so the MSA service searches the homodimer jointly. A protein chain with no MSA raises an error, so either attach one or opt out explicitly with `Protein.single_sequence_mode`, the equivalent of Single sequence mode in the web app.
+
+    ```py lineNumbers
+    repressor = Protein(sequence="STKKKPLTQEQLEDARRLKAIYEKKKNELGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILKVSVEEFSPSIAREIYEMYEAVS")
+
+    msa = session.align.create_msa(seed=b":".join([repressor.sequence, repressor.sequence]))
+    repressor.msa = msa
+
+    # To skip the MSA instead:
+    # repressor.msa = Protein.single_sequence_mode
+
+    ```
+  </Tab>
+</Tabs>
+
+# Step 4: Add the two DNA strands
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    - Select Add More. In the new card, change the molecule type from **Protein** to **DNA**, set Chain IDs to `C`, and paste DNA strand 1.
+
+    ```
+    AATACCACTGGCGGTGATAT
+    ```
+
+    - Select **Add More** again. Set the molecule type to **DNA**, set **Chain IDs** to `D`, and paste DNA strand 2.
+
+    ```
+    TATATCACCGCCAGTGGTAT
+    ```
+
+    Check that the input now has four cards: two protein chains (A, B) and two DNA chains (C, D). To remove a card added by mistake, select its trash icon.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/all-chains.png" />
+    <Callout type="info" title="Info">
+      Instead of typing each chain, select Upload and choose a `.fasta` file. The FASTA file that RCSB provides for an entry (Download Files > FASTA Sequence on the entry page) works as a starting point. After uploading, review the molecule type and chain ID of every card.
+    </Callout>
+  </Tab>
+  <Tab value="Python">
+    Define each strand as a `DNA` object, then assemble the four chains into a `Complex` keyed by chain ID. Using the same `repressor` object for chains A and B gives two copies of the protein.
+
+    ```py lineNumbers
+    strand_1 = DNA(sequence="AATACCACTGGCGGTGATAT")
+    strand_2 = DNA(sequence="TATATCACCGCCAGTGGTAT")
+
+    lmb_complex = Complex({
+        "A": repressor,
+        "B": repressor,
+        "C": strand_1,
+        "D": strand_2,
+    })
+
+    ```
+  </Tab>
+</Tabs>
+
+# Step 5: Review the advanced options
+
+- The **Advanced Options** section controls how the model samples structures. The defaults work well for this complex, so we leave them unchanged.
+- **Number of recycles** sets how many times the model feeds its predicted structure back into itself for refinement. Leave the field empty to let the system choose, or enter an integer from 1 to 48. More recycles can improve accuracy at the cost of longer runtime.
+- **Diffusion samples** sets how many independent structure candidates are generated for the input. The default is 1. More samples raise the chance of finding the best conformation, and runtime grows in proportion.
+- **Sampling steps** sets the number of denoising steps the diffusion process takes to build each structure. The default is 200. More steps give more precise, physically valid outputs but take longer.
+
+# Step 6: Run the prediction
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Select **Predict**. The platform submits the job and shows its progress. The page can be closed while the job runs and reopened later from the history.
+  </Tab>
+  <Tab value="Python">
+    Call `fold()` with the complex. The call returns a future immediately; `wait_until_done()` blocks until the job finishes. Keep the job ID to reload the results later.
+
+    ```py lineNumbers
+    fold_job = session.fold.protenix_v2.fold(
+        sequences=[lmb_complex],  # a list, so several complexes can be batched
+        diffusion_samples=1,
+        num_recycles=10,
+        num_steps=200,
+    )
+    print(fold_job.id)
+
+    fold_job.wait_until_done(verbose=True)
+
+    ```
+  </Tab>
+</Tabs>
+
+# Step 7: Explore the predicted structure
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    When the job finishes, the Results tab opens the predicted complex in the Mol\* viewer. Drag to rotate the structure, scroll to zoom, and right-drag to pan.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/results.png" />
+
+    The viewer colors the structure by predicted local distance difference test (pLDDT) score, a per-atom confidence estimate from 0 to 100. The color legend to the right of the structure maps colors to scores. Higher scores indicate greater model confidence in the local geometry.
+
+    A correct lambda repressor-operator prediction shows these features:
+
+    - Two DNA strands paired into a continuous B-form double helix.
+    - In each repressor monomer, the recognition helix (helix 3 of the helix-turn-helix motif) seated in the DNA major groove, one monomer on each half-site.
+    - The two monomers touching near the center of the operator, where their C-terminal helices (helix 5) form the dimer interface.
+    - The flexible N-terminal arm of each monomer reaching around the DNA. This region and the terminal base pairs often score lower pLDDT, because they are less constrained than the helical core.
+
+    Select **Input** to review the submitted chains.
+  </Tab>
+  <Tab value="Python">
+    `get()` returns one `Structure` per submitted complex, and each `Structure` holds one predicted `Complex` per diffusion sample. `get_confidence()` follows the same nesting and adds AlphaFold3-style scores beyond pLDDT: pTM for the whole complex, ipTM for the interfaces, and per-chain and chain-pair versions of each. For a protein-DNA complex, the chain-pair ipTM between a repressor chain and a DNA strand is a direct read on the binding interface.
+
+    ```py lineNumbers
+    structure = fold_job.get()[0]       # first submitted complex
+    predicted = structure[0]            # first diffusion sample
+
+    confidence = fold_job.get_confidence()[0][0]
+    print("pLDDT (0-100):", confidence.plddt)
+    print("pTM:", confidence.ptm, "ipTM:", confidence.iptm)
+    print("Ranking score:", confidence.ranking_score)
+    print("Per-chain pLDDT (0-1), A-D:", confidence.chain_plddt)
+    print("Chain-pair ipTM:", confidence.chain_pair_iptm)
+
+    ```
+
+    The chain-pair matrices are ordered A, B, C, D, so `confidence.chain_pair_iptm[0][2]` is the interface between repressor chain A and DNA strand C.
+  </Tab>
+</Tabs>
+
+# Step 8: Compare with the experimental structure
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Because 1LMB has a known crystal structure, we can check the prediction directly against it.
+
+    - Open the 1LMB entry on RCSB, select Download Files, then select CIF Format.
+    - In the Mol\* viewer, select the Upload icon in the Compare Structures panel on the left, then choose the downloaded file. Alternatively, drag the file directly onto the viewer.
+
+    The experimental structure appears as a separate entry in the left panel. Use the eye icon next to each entry to show or hide it, either to focus on one structure at a time or to view both overlaid. To remove a structure from the viewer, select its trash icon.
+
+    <Figure src="/_static/tutorials/predict/plm/structure-prediction/compare-structures.png" />
+
+    Check that the recognition helices sit in the same grooves in both structures and that the DNA follows a similar overall path. Differences most likely appear in the N-terminal arms and the DNA ends, the same regions that tend to score lower pLDDT.
+  </Tab>
+  <Tab value="Python">
+    `Structure.from_pdb_id()` downloads the crystal structure from RCSB. Compare a predicted repressor chain with its crystal counterpart using `rmsd()`, which counts only atoms present in both structures.
+
+    ```py lineNumbers
+    crystal = Structure.from_pdb_id("1LMB")[0]
+    print(crystal.get_chain_ids())  # chain IDs as labeled in the PDB entry
+
+    predicted_a = predicted.get_chain("A")
+    crystal_a = crystal.get_chain("3")  # first repressor copy in 1LMB
+    print("Backbone RMSD (Å):", predicted_a.rmsd(crystal_a, backbone_only=True))
+
+    ```
+  </Tab>
+</Tabs>
+
+# Step 9: Download the predicted structure
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Select **Download .mmCIF** file to save the predicted complex. The file opens in other molecular viewers such as PyMOL or ChimeraX and works as input for downstream analysis.
+  </Tab>
+  <Tab value="Python">
+    Serialize the predicted structure to mmCIF and write it to disk.
+
+    ```py lineNumbers
+    with open("1lmb_protenix_v2.cif", "w") as f:
+        f.write(structure.to_string(format="cif"))
+    ```
+  </Tab>
+</Tabs>
+
+# Retrieving predictions
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Select **View History** in the Structure Prediction tool to list past predictions. Each entry shows the job ID, model type, and date created. Select an entry to reopen its results.
+  </Tab>
+  <Tab value="Python">
+    Reload a past job by its ID with `session.jobs.get()`, which returns the job as a future with the same `get()` and `get_confidence()` methods.
+
+    ```py lineNumbers
+    fold_job = session.jobs.get("<job ID>")
+    structure = fold_job.get()[0]
+    ```
+  </Tab>
+</Tabs>
+
+# What we've done
+
+We predicted the structure of a protein-DNA complex with Protenix-v2 by entering a protein homodimer and both strands of a DNA duplex as separate chains, read its pLDDT confidence coloring, and compared it with the experimental structure in the Mol\* viewer.
+
+# Next steps
+
+- Learn more about the [models available](/models)
+
+# References
+
+Beamer, L. J., and Pabo, C. O. (1992). Refined 1.8 Å crystal structure of the lambda repressor-operator complex. Journal of Molecular Biology, 227(1), 177-196. [https://doi.org/10.1016/0022-2836(92)90690-L](https://doi.org/10.1016/0022-2836\(92\)90690-L)

@@ -1,0 +1,306 @@
+---
+title: "Upload and explore an assay dataset"
+sidebarTitle: Assay
+description: "In this tutorial, we upload a deep mutational scanning dataset for AmiE, an aliphatic amidase from Pseudomonas aeruginosa, and explore it in the platform."
+---
+
+Along the way, we set each column type and check the data with the dataset plots. The result is a clean assay dataset, ready for training a property predictor.
+
+## Before beginning
+- Create a project. Learn more in our [Quickstart guide](/quickstart).
+- Download the tutorial file [AMIE_PSEAE_Whitehead.wide.csv](/_static/data/AMIE_PSEAE_Whitehead.csv).
+
+If you're using Python, follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management).
+
+## About the dataset
+Wrenbeck et al. (2017) measured the fitness of single-substitution variants of AmiE grown on three amide substrates: acetamide, propionamide, and isobutyramide. Fitness is normalized so that the wild type scores 0. Negative values mark variants less fit than the wild type, and positive values mark fitter variants.
+
+The csv file holds 6,819 rows. 6,478 rows are single substitutions at positions 1 to 341 of the 346-residue protein. The remaining 341 rows carry the wild-type sequence, each with a fitness of 0 on all three substrates.
+
+
+**Wild-type sequence**
+
+Every variant differs from the 346-residue wild-type AmiE sequence at one position:
+`MRHGDISSSNDTVGVAVVNYKMPRLHTAAEVLDNARKIAEMIVGMKQGLPGMDLVVFPEYSLQGIMYDPAEMMETAVAIPGEETEIFSRACRKANVWGVFSLTGERHEEHPRKAPYNTLVLIDNNGEIVQKYRKIIPWCPIEGWYPGGQTYVSEGPKGMKISLIICDDGNYPEIWRDCAMKGAELIVRCQGYMYPAKDQQVMMAKAMAWANNCYVAVANAAGFDGVYSYFGHSAIIGFDGRTLGECGEEEMGIQYAQLSLSQIRDARANDQSQNHLFKILHRGYSGLQASGDGDRGLAECPFEFYRTWVTDAEKARENVERLTRSTTGVAQCPVGRLPYEGLEKEA`
+
+Mutation codes name each change against this sequence: wild-type residue, position, new residue. For example, `M1W` replaces the methionine at position 1 with tryptophan, and `H3V` replaces the histidine at position 3 with valine.
+The wild type is the baseline for the fitness scores, which is why its score is 0. In Step 6, we set it as the reference sequence so the table shows each variant's mutation code.
+
+### Columns
+
+| CSV column | Content |
+| --- | --- |
+| sequence | Full variant sequence |
+| acetamide_normalized_fitness | Fitness on acetamide |
+| isobutyramide_normalized_fitness | Fitness on isobutyramide |
+| propionamide_normalized_fitness | Fitness on propionamide |
+
+## Step 1: Open the file
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+1. Select Upload, then Assay.
+2. In the Upload Dataset dialog, select Choose File and pick `AMIE_PSEAE_Whitehead.wide.csv`. Dragging the file onto the dialog also works.
+
+The dialog opens on the Dataset input tab. The Dataset statistics box reports 6,819 total rows (6,479 unique sequences), each 346 residues long.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/upload-assay-dataset-input.png" />
+  
+  </Tab>
+  <Tab value="Python">
+
+```py lineNumbers
+dataset = pd.read_csv("AMIE_PSEAE_Whitehead.wide.csv")
+dataset.shape
+```
+
+The output is `(6819, 4)`, matching the 6,819 total rows in Dataset statistics.
+  </Tab>
+</Tabs>
+
+## Step 2: Name the dataset
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+1. Keep the default dataset name, `AMIE_PSEAE_Whitehead.wide`, taken from the file name.
+2. Enter `AmiE single-substitution fitness on three substrates, Wrenbeck et al. 2017` as the Dataset description.
+3. Leave Parent sequence empty. The file already holds full sequences, so no mutation codes need a parent.
+
+
+<Figure src="/_static/tutorials/dataset/upload-assay/upload-assay-name.png" />
+  
+  </Tab>
+  <Tab value="Python">
+
+The name and description are arguments of `session.data.create()` in Step 5. No parent sequence is needed, since the file holds full sequences.
+
+  </Tab>
+</Tabs>
+
+## Step 3: Review the duplicates
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    
+    The **Dataset statistics** box flags 341 duplicated rows where sequences and measurements are the same. These are the 341 wild-type rows, each with a fitness of 0.
+Leave **Delete the duplicates** unchecked, so the row counts in this tutorial match the file.
+
+<Callout type="tip" title="Title">
+  Selecting **Delete the duplicates** keeps one copy of each duplicated row.
+</Callout>
+
+  </Tab>
+  <Tab value="Python"> 
+
+```py lineNumbers
+dataset.duplicated(keep=False).sum()
+```
+
+In this tutorial, we keep all rows.
+
+To delete duplicates, run `dataset = dataset.drop_duplicates()`instead.
+  </Tab>
+</Tabs>
+
+## Step 4: Check the column options
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+The Column options table lists each CSV column with its **Column type**, **Property name**, and **Invalid / Valid values**. The app sets the column type from the column name.
+- Compare the table in the dialog with the one below. Correct any mismatch with the Column type dropdown.
+- Keep the checkbox next to each column selected, so all four columns upload.
+Invalid values are empty cells, where a variant was not measured on that substrate. Missing values are acceptable, so the file uploads as it is.
+The file has no Identifier column, and it needs no Mutant column because the full sequences are already present. For files that list mutation codes instead of sequences, see How to upload an assay dataset.
+
+ </Tab>
+  <Tab value='Python'>
+
+```py lineNumbers
+dataset.isna().sum()
+```
+
+The output gives the invalid count for each column: 0 for `sequence`, 190 for acetamide, 251 for isobutyramide, and 188 for propionamide. `dataset.notna().sum()` gives the valid counts.
+`session.data.create(` takes no column types. The dataset holds the `sequence` column and one column per property, as on the Uploading data page. To leave a column out, drop it with `dataset.drop(columns=[...])`.
+
+  </Tab>
+</Tabs>
+
+## Step 5: Preview and upload
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+Select the **Preview** tab.
+
+The table shows the first 1,000 of 6,819 sequences, with an empty cell wherever a measurement is missing.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/upload-assay-preview.png"  />
+
+  </Tab>
+  <Tab value='Python'>
+
+```py lineNumbers
+dataset.head()
+assay = session.data.create(
+    dataset,
+    "AMIE_PSEAE_Whitehead.wide",
+    "AmiE single-substitution fitness on three substrates, Wrenbeck et al. 2017",
+)
+```
+
+`dataset.head()` shows the first five rows, as the Preview tab does. `session.data.create()` uploads the dataset and returns it as `assay`.
+
+  </Tab>
+</Tabs>
+
+## Step 6: Explore the dataset
+
+The first check below runs in both the app and Python. The reference sequence, joint plot, and UMAP views use the app.
+
+### Check valid and invalid values
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+Open Dataset Info.
+
+The panel repeats the dataset statistics and lists each property with its invalid and valid values. `isobutyramide_normalized_fitness` has 251 invalid values and 6,568 valid values, the same counts as in the upload dialog.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/dataset-info.png" />
+
+
+  </Tab>
+  <Tab value='Python'>
+
+```py lineNumbers
+print(assay)
+assay.get_slice(0, 5)
+```
+
+`assay` lists the dataset metadata, including the row count, sequence length of 346, and the three measurement names. `assay.get_slice(0, 5)` returns the first five rows as a DataFrame. For every method on the assay object, see the [openprotein.data reference](https://docs.openprotein.ai/python-api/api-reference/data.html).
+
+  </Tab>
+</Tabs>
+
+### Set the wild type as the reference sequence
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+In the table, right-click row 4, a wild-type row. Its sequence starts with `MRHGDISS` and its fitness is 0 on all three substrates.
+
+Select Set as **reference sequence**.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/dataset-set-reference-sequence.png" />
+
+
+The wild-type sequence pins to the top of the table, and two columns appear. Mutant shows each variant's mutation code, such as `M1W`, and No. of Mutations shows 1 for every substitution.
+Open Table Settings. Under Sequence View Options, select Mutations only to show only the residues that differ from the wild type, or Full sequence to show every residue.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/dataset-set-reference-sequence.png" />
+
+To enter the reference by hand instead, open **Table Settings**, select **Set Reference Sequence**, and paste the wild-type sequence.
+  </Tab>
+  <Tab value='Python'>
+    The reference sequence is a table view setting in the app. In Python, we build the same Mutant and No. of Mutations columns from the wild-type sequence with pandas.
+
+```py lineNumbers
+wild_type = dataset["sequence"].iloc[3] 
+
+def mutation_code(sequence):
+    changes = [
+        f"{wt}{position}{new}"
+        for position, (wt, new) in enumerate(zip(wild_type, sequence), start=1)
+        if wt != new
+    ]
+    return "; ".join(changes) or "(same)"
+
+dataset["mutant"] = dataset["sequence"].map(mutation_code)
+dataset["n_mutations"] = dataset["sequence"].map(
+    lambda sequence: sum(wt != new for wt, new in zip(wild_type, sequence))
+)
+dataset[["mutant", "n_mutations"]].head()
+```
+Across the file, 6,478 rows have 1 mutation and the 341 wild-type rows have 0.
+    
+  </Tab>
+</Tabs>
+
+**Compare properties**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+- Open the **Joint plot**.
+- Select `acetamide_normalized_fitness` and `propionamide_normalized_fitness`.
+The points trend along a diagonal: variants that grow well on acetamide tend to grow well on propionamide.
+- Select `isobutyramide_normalized_fitness`.
+The points spread out more. Fitness on isobutyramide follows a different pattern from the other two substrates.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/dataset-joint-plot.png" />
+
+  </Tab>
+  <Tab value='Python'>
+
+```py lineNumbers
+import matplotlib.pyplot as plt
+
+fitness = [
+    "acetamide_normalized_fitness",
+    "isobutyramide_normalized_fitness",
+    "propionamide_normalized_fitness",
+]
+print(dataset[fitness].corr().round(2))
+
+dataset.plot.scatter(
+    x="acetamide_normalized_fitness",
+    y="propionamide_normalized_fitness",
+    s=3,
+)
+plt.show()
+```
+The correlation table puts numbers on the joint plot. Acetamide and propionamide fitness correlate at 0.66. Isobutyramide correlates at 0.40 with acetamide and 0.54 with propionamide.
+
+  </Tab>
+</Tabs>
+
+### View sequence space using UMAP 
+
+<Tabs items={['App', 'Python']}>
+  <Tab value='App'>
+In the **View** menu, select **UMAP**.
+
+Each point is one sequence variant in the dataset. The UMAP job starts during upload, so the view shows a waiting message until the job finishes. Switch between properties to change colors in the UMAP.
+
+<Figure src="/_static/tutorials/dataset/upload-assay/dataset-umap.png" />
+
+  </Tab>
+  <Tab value='Python'>
+    `fit_umap` embeds the dataset's sequences with a protein language model, then reduces them to two dimensions.
+
+```py lineNumbers
+import numpy as np
+
+model = session.embedding.get_model("prot-seq")
+umap_model = session.umap.fit_umap(model=model, reduction="MEAN", assay=assay)
+umap_model.wait_until_done(verbose=True)
+
+coords = {seq.decode(): xy for seq, xy in umap_model.embeddings}
+xy = np.vstack(dataset["sequence"].map(coords))
+
+plt.scatter(xy[:, 0], xy[:, 1], c=dataset["acetamide_normalized_fitness"], s=3)
+plt.colorbar(label="acetamide_normalized_fitness")
+plt.show()
+```
+
+`umap_model.embeddings` returns each fitted sequence with its 2D coordinates. Mapping them back by sequence puts the points in the same order as dataset, so each point can be colored by a property.
+    
+  </Tab>
+</Tabs>
+
+## What we did
+We uploaded a 6,819-variant assay dataset with three fitness properties, reviewed its duplicates and column options, and set the wild type as the reference sequence. Dataset Info, the mutation codes, and the plots confirmed that the data uploaded as expected.
+
+## Next steps
+- Train a [property predictor](/tutorials/learn/training-property-predictors)
+- Reference: [Table Settings](/references/app/datasets/table-settings)
+
+## Reference
+Wrenbeck, E. E., Azouz, L. R., and Whitehead, T. A. (2017). Single-mutation fitness landscapes for an enzyme on multiple substrates reveal specificity is globally encoded. Nature Communications, 8, 15695.
+

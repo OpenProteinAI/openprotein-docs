@@ -1,0 +1,9 @@
+{
+  "title": "Design",
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "generate",
+    "active-learning"
+  ]
+}

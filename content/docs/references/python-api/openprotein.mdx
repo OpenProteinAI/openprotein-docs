@@ -1,0 +1,62 @@
+---
+title: "openprotein"
+description: "This document describes the base dataclasses and primitives for working with the platform."
+pythonApi: true
+---
+Create an authorized session with `openprotein.connect`, then use `session.models` to discover and run models. The session also exposes compatibility interfaces and other platform services, including <a id="clustering" href="/references/python-api/clustering">clustering</a>.
+
+<PyGroup id="session" title="Session"
+  anchors={[
+    "openprotein.connect",
+    "openprotein.OpenProtein",
+    "openprotein.APISession",
+  ]}
+>
+
+See [Set up a Python SDK session](/references/python-api#session-management) for credential precedence and how to use `~/.openprotein/config.toml`.
+
+<PyFunction path="openprotein.connect" />
+<PyClass path="openprotein.OpenProtein" />
+<PyClass path="openprotein.APISession" />
+
+</PyGroup>
+
+<PyGroup id="errors" title="Errors"
+  anchors={[
+    "openprotein.errors.APIError",
+    "openprotein.errors.HTTPError",
+    "openprotein.DeprecationError",
+    "openprotein.errors.InvalidParameterError",
+    "openprotein.errors.MissingParameterError",
+    "openprotein.errors.AuthError",
+    "openprotein.errors.JobFailedException",
+    "openprotein.errors.JobOutputsNotReady",
+    "openprotein.errors.InvalidJob",
+    "openprotein.errors.NotPrepared",
+  ]}
+>
+
+<PyClass path="openprotein.errors.APIError" />
+<PyClass path="openprotein.errors.HTTPError" />
+<PyClass path="openprotein.DeprecationError" />
+<PyClass path="openprotein.errors.InvalidParameterError" />
+<PyClass path="openprotein.errors.MissingParameterError" />
+<PyClass path="openprotein.errors.AuthError" />
+<PyClass path="openprotein.errors.JobFailedException" />
+<PyClass path="openprotein.errors.JobOutputsNotReady" />
+<PyClass path="openprotein.errors.InvalidJob" />
+<PyClass path="openprotein.errors.NotPrepared" />
+
+</PyGroup>
+
+<PyGroup id="referenced-types" title="Referenced types"
+  anchors={[
+    "openprotein.errors.TimeoutException",
+  ]}
+>
+
+Types referenced by the interfaces above.
+
+<PyClass path="openprotein.errors.TimeoutException" />
+
+</PyGroup>

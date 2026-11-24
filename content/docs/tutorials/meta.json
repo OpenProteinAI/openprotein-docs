@@ -1,0 +1,15 @@
+{
+  "title": "Tutorials",
+  "root": true,
+  "pages": [
+    "index",
+    "---Prepare & Generate---",
+    "datasets",
+    "design",
+    "---Model & Predict---",
+    "learn",
+    "predict",
+    "---Analyze---",
+    "...analyze"
+  ]
+}

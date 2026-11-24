@@ -1,0 +1,23 @@
+---
+title: "UMAP"
+description: ""
+---
+UMAP (Uniform Manifold Approximation and Projection) is a method for drawing high-dimensional data on a flat 2D plot.
+
+Protein language models learn representations of each sequence as an embedding: a vector of hundreds to thousands of dimensions, usually mean-pooled from per-residue vectors. Similar embeddings, located nearby in this high-dimensional space, tend to reflect shared structure, function or evolutionary origin.
+
+UMAP projects these vectors into two dimensions. It builds a k-nearest-neighbour graph of the embeddings in the original space, converts it into a weighted graph of neighbour relationships, and then optimises a 2D layout whose neighbour graph matches the original as closely as possible. Local neighbourhoods are preserved well. Large-scale distances between groups are not.
+
+In the resulting plot, each point is one sequence. Points that sit close together have similar embeddings, so the model represents those sequences as similar.
+
+# Why it is useful
+A UMAP gives a quick read on the diversity of a library. Many well-separated groups indicate a diverse set of sequences, while a single dense group indicates variants of one sequence. Distinct groups often correspond to sequence families, scaffolds or lineages.
+
+Colouring the points by an assay value or a prediction score shows whether high performers occupy one region of sequence space or are spread across it. After filtering, the view confirms whether the selected sequences cover several regions of the map or come from only one.
+
+On the platform, a UMAP job runs automatically when a dataset finishes uploading, and appears in the dataset's **UMAP** tab. Selecting points on the plot selects the matching rows in the table.
+
+
+# Related concepts
+- [Joint plot](/concepts/visualizations/joint-plots): See the diversity and structure of a dataset.
+- [Protein](/concepts/proteins/proteins): Sequences, structures and fitness.

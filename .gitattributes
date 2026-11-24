@@ -1,2 +1,31 @@
-# SCM syntax highlighting & preventing 3-way merges
-pixi.lock merge=binary linguist-language=YAML linguist-generated=true
+* text=auto eol=lf
+
+# Binary payload copied from the Sphinx site — never EOL-normalise or diff these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.otf binary
+*.ttf binary
+
+# Notebooks are JSON with embedded base64 outputs; keep them out of textual diffs.
+*.ipynb -text -diff
+
+# SVGs are text but must not be line-ending mangled.
+*.svg text eol=lf
+
+pnpm-lock.yaml -diff linguist-generated=true
+
+# Notebook inputs and download targets.
+*.csv -text -diff
+*.clustal -text -diff
+
+# Generated and committed: keep them out of diffs and language stats.
+specs/*.json -diff linguist-generated=true
+scripts/pyapi/golden/*.json -diff linguist-generated=true
+scripts/pyapi/golden/html/*.html -diff linguist-generated=true

@@ -1,0 +1,26 @@
+---
+title: "Multiple sequence alignment (MSA)"
+description: ""
+---
+A multiple sequence alignment is a set of related protein sequences that have been aligned so that identical or chemically similar residues are aligned in successive columns. Gaps (`-`) are inserted where one sequence has an insertion or deletion relative to the others.
+
+|  |  |
+| --- | --- |
+| Seed | MKTAYIAKQRQISFVKSHFSRQ |
+| homolog1 | MKTAYIAKQRQLSFVKSHFSRQ |
+| homolog2 | MKSAYIAKQRQISFVRSH--RQ |
+| homolog3 | MRTAFIAKERQISFVKAHFSKQ |
+
+# Why MSAs are useful
+An MSA can be used to infer evolutionary relationships, highlight homology, and identify hotspots for mutation. In particular, evolution has selected for mutations that tend to improve protein fitness, which include properties such as expressability, solubility, thermostability, and more. Sequence positions that are critical for the protein’s fold, function, or evolutionary fitness tend to not be mutated, whereas other positions may be more tolerant to mutation. An MSA makes it easy to see these patterns, as it can show which sequence positions mutate heavily and which ones have stayed the same across proteins under potentially millions of years of natural selection. 
+
+An MSA also reveals positions that change together across the family. These pairs are often in contact in 3D, and structure prediction models use this co-evolution signal to infer the fold.
+
+PoET models are also trained to learn the latent rules of evolution and selection through these MSAs. When processing a protein sequence, PoET models can optionally take an MSA as context, which gives PoET additional information about the evolutionary landscape surrounding the protein of interest, so that it can better infer fitness. In practice, an MSA can be built with an arbitrary number of sequences, while PoET has a large but finite context window. As a result, we construct prompts for PoET by randomly subsampling sequences from these MSAs. Which sequences get randomly sampled into the prompt is dependent on the sequences that the homology search that generated the MSA recovers, and the choice of seed - these two inputs define the context that PoET will use when running inference on a protein sequence.
+
+# What is a seed sequence?
+The seed sequence is the initial protein sequence you begin your experiment from. This is often a wild-type, naturally occurring sequence from a sequence database, or a lead candidate previously engineered  The platform uses it as the query for a homology search: a search of large sequence databases for natural proteins that have high sequence similarity, and are thus presumed to be evolutionarily related, to the seed. The hits are then aligned to the seed to form the MSA. Learn more about how to build a prompt, visit our [How-to page](/how-tos/dataset/build-a-context). 
+
+# Related pages
+- Concepts: [Protein](/concepts/proteins/proteins)
+- Concepts: [Prompt](/concepts/prompts/context)

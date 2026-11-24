@@ -1,0 +1,9 @@
+{
+  "title": "Analyze",
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "umap",
+    "Embedding_and_visualizing_antibodies"
+  ]
+}

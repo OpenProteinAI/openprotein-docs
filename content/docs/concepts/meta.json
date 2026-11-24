@@ -1,0 +1,13 @@
+{
+  "title": "Concepts",
+  "root": true,
+  "pages": [
+    "index",
+    "proteins",
+    "models",
+    "design",
+    "prompts",
+    "visualizations",
+    "jobs"
+  ]
+}

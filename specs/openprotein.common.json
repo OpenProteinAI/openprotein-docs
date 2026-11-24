@@ -1,0 +1,203 @@
+{
+ "module": "openprotein.common",
+ "entries": [
+  {
+   "name": "ReductionType",
+   "path": "openprotein.common.ReductionType",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "ReductionType is an enumeration of the possible reduction types available.\n\nAttributes:\n    MEAN : Mean reduction takes the mean of the embeddings across the sequence length dimension.\n    SUM : Sum reduction takes the sum of the embeddings across the sequence length dimension.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "ReductionType is an enumeration of the possible reduction types available."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "MEAN",
+       "type": null,
+       "type_parts": null,
+       "default": null,
+       "text": "Mean reduction takes the mean of the embeddings across the sequence length dimension."
+      },
+      {
+       "name": "SUM",
+       "type": null,
+       "type_parts": null,
+       "default": null,
+       "text": "Sum reduction takes the sum of the embeddings across the sequence length dimension."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.common.reduction",
+   "source": {
+    "file": "openprotein/common/reduction.py",
+    "line": 9,
+    "end": 19
+   },
+   "members": [
+    {
+     "name": "MEAN",
+     "kind": "attribute",
+     "doc": "Mean reduction takes the mean of the embeddings across the sequence length dimension.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/common/reduction.py",
+      "line": 18,
+      "end": 18
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'MEAN'",
+     "parsed": []
+    },
+    {
+     "name": "SUM",
+     "kind": "attribute",
+     "doc": "Sum reduction takes the sum of the embeddings across the sequence length dimension.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/common/reduction.py",
+      "line": 19,
+      "end": 19
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'SUM'",
+     "parsed": []
+    }
+   ],
+   "section": "Reduction methods",
+   "page": "embedding"
+  },
+  {
+   "name": "ModelMetadata",
+   "path": "openprotein.common.ModelMetadata",
+   "kind": "class",
+   "signature": "(*, id=..., description, max_sequence_length=None, dimension=None, output_types=None, input_tokens=None, output_tokens=None, token_descriptions=None)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "Metadata about available protein embedding models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Metadata about available protein embedding models."
+    }
+   ],
+   "module": "openprotein.common.model_metadata",
+   "source": {
+    "file": "openprotein/common/model_metadata.py",
+    "line": 25,
+    "end": 35
+   },
+   "members": [],
+   "section": "Model metadata",
+   "page": "embedding"
+  },
+  {
+   "name": "FeatureType",
+   "path": "openprotein.common.FeatureType",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": null,
+   "parsed": [],
+   "module": "openprotein.common.features",
+   "source": {
+    "file": "openprotein/common/features.py",
+    "line": 9,
+    "end": 11
+   },
+   "members": [
+    {
+     "name": "PLM",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/common/features.py",
+      "line": 10,
+      "end": 10
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'PLM'",
+     "parsed": []
+    },
+    {
+     "name": "SVD",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/common/features.py",
+      "line": 11,
+      "end": 11
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'SVD'",
+     "parsed": []
+    }
+   ],
+   "section": null,
+   "page": "predictor"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

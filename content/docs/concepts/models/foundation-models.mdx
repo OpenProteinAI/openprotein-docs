@@ -1,0 +1,52 @@
+---
+title: Protein foundation models
+description: Protein foundation models are machine learning models trained on a large, diverse collection of protein data.
+---
+
+A **protein foundation model** is a machine learning model trained on a large, diverse collection of protein data. Proteins share a common biological grammar: the identity and order of their amino acids encode evolutionary history and shape structure and function. By training on millions of sequences, protein foundation models learn this grammar, and the patterns they capture can then be applied to tasks such as sequence analysis, property prediction, structure prediction, and protein design.
+
+## Learning protein space
+
+**Protein space** encompasses the vast space of possible protein sequences and structures. This includes the corpus of natural proteins whose sequences and structures have been made available in databases like UniProt and PDB. These proteins have been shaped by evolution toward properties like stability and function, giving rise to patterns across their sequence and structure data that can be learned by protein foundation models. For example, conserved positions and motifs in sequences can reveal functional constraints, while experimental structures can reveal the relationships between sequence and molecular geometry.
+
+During training, models repeatedly adjust their internal parameters to reduce errors on prediction tasks. In doing so, they learn underlying patterns that govern proteins and improve the accuracy of their predictions. Broad initial training of foundation models is called **pre-training**. This is often done through **self-supervised learning**, where the model learns by recovering information deliberately hidden from its input. For example, a residue is masked and the model predicts its identity, using the original sequence as the answer rather than requiring an experimental property measurement. The resulting pre-trained model can be used directly, adapted through further training, or used to provide features for a property predictor.
+
+## Types of protein models
+
+Protein models differ in their inputs and outputs, with overlapping capabilities. The term *foundation model* emphasizes broad pretraining and reuse, in contrast to specialized models that are trained for specific tasks.
+
+### Protein language models
+
+A **protein language model (PLM)** learns amino acid patterns, analogous to relationships between words in language. Many PLMs use **transformers**, whose attention mechanism combines information across sequence positions to capture relationships between distant residues. Common training approaches include:
+
+- **Masked language modeling:** Predict hidden residues from the surrounding sequence, as in ESM-2 and PoET-2.
+- **Autoregressive modeling:** Predict successive residues to build a sequence, as in ProGen and PoET-2.
+
+### Inverse folding models
+
+**Inverse folding models** learn from paired sequence–structure examples to generate sequences compatible with a backbone.
+
+ProteinMPNN represents the backbone as a graph connecting spatially neighboring residues. It uses this structural information to redesign protein sequences or selected regions to fit a given backbone, while retaining required residue identities.
+
+### Structure prediction models
+
+**Structure prediction models** predict the three-dimensional arrangement of supplied sequences or molecules.
+
+Modern structure prediction models such as **AlphaFold3, Boltz-2, and ESMFold2** combine evolutionary information with learned relationships between sequence and structure. Evolutionary information can come from explicit sequence alignments (MSAs) or be encoded in protein language model representations learned during pretraining. These models use **diffusion** to produce atomic coordinates through repeated denoising, predicting molecular arrangements without simulating the physical folding pathway. [AlphaFold3 study](https://pmc.ncbi.nlm.nih.gov/articles/PMC11168924/)
+
+### Structure and sequence generation models
+
+**Structure and sequence generation models** propose new protein designs satisfying specifications such as a functional motif, binding target, or ligand interaction. RFdiffusion2 generates scaffolds around specified active-site geometries, followed by sequence design using an inverse folding model. **Joint sequence–structure models**, such as RFD4-Proteina, generate amino acid identities and all-atom structures together, allowing sequence and geometry to be designed in concert. Diffusion- and flow-based approaches progressively transform noise into candidate designs. [RFdiffusion2 study](https://pmc.ncbi.nlm.nih.gov/articles/PMC12791007/)
+
+## What can protein foundation models be used for?
+
+Protein foundation models support several complementary tasks:
+
+- **Prioritize variants:** Score how compatible sequences are with learned protein patterns or a supplied family context to help select candidates for testing.
+- **Explore protein space:** Compare sequences, identify groups, and assess diversity using **embeddings**—foundation model features learned through representation learning. These act as molecular fingerprints describing residues or whole proteins.
+- **Build property predictors:** Combine embeddings with experimental measurements to train a model for an assay-specific outcome, such as enzyme activity or binding.
+- **Predict structures:** Predict protein folds and molecular arrangements to investigate interactions or evaluate designs.
+- **De novo design:** Generate sequences or structures under specified constraints, such as a backbone structure, ligand, motif, or family examples.
+
+**Zero-shot analysis** applies pretrained models without task-specific assay training. **Supervised property prediction** learns from measured sequence–property pairs.
+

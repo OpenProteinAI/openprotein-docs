@@ -1,0 +1,403 @@
+/* Platform overview diagram: a 1450 × 725 board whose font size is its unit, so sizes inside are em. */
+
+@layer components {
+  .pd {
+    --pd-min: 42.5rem;
+    --pd-panel: #f3f7ff;
+    --pd-card: #ffffff;
+    --pd-label: var(--brand-1-ink);
+    --pd-ink: #2e3197;
+    --pd-tree-opacity: 1;
+    /* The reference's warm ramp: the variant score bars, navy to pink to peach. */
+    --pd-warm-1: #2e3197;
+    --pd-warm-2: #bf2d71;
+    --pd-warm-3: #faa070;
+    --pd-arrow: #0b0b2b;
+    --pd-title: #1a1a42;
+    --pd-text: #74718b;
+    --pd-card-title: #26234e;
+    --pd-card-text: #000000;
+    --pd-card-border: transparent;
+    --pd-bare-card: var(--pd-panel);
+    --pd-page: var(--color-fd-background);
+    --pd-foundation: linear-gradient(
+      90deg,
+      #353090 0%,
+      #962d7a 45%,
+      #e5536a 75%,
+      #ee8383 100%
+    );
+
+    container: pd / inline-size;
+    margin-block: 2rem;
+  }
+
+  /* The dark reference's palette, sampled from its Figma export. */
+  .dark .pd {
+    --pd-panel: #2b2e34;
+    --pd-card: #3d4149;
+    --pd-card-border: #666b77;
+    --pd-bare-card: var(--pd-card);
+    --pd-label: #f4a26f;
+    --pd-ink: #f1f0fa;
+    --pd-title: #d5d7dc;
+    --pd-text: #b6b9c0;
+    --pd-card-title: #f1f0fa;
+    --pd-card-text: #ffffff;
+    --pd-page: #222529;
+    --pd-arrow: #f2f2fb;
+    --pd-warm-1: #9269c8;
+    --pd-warm-2: #e4546e;
+    --pd-warm-3: #f39878;
+  }
+
+  /* Full-screen view (platform-diagram-zoom.tsx) */
+  .pd-zoom {
+    position: relative;
+  }
+
+  .pd-zoom .pd-expand {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .pd-zoomable {
+    cursor: zoom-in;
+  }
+
+  .pd-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 3.5rem 2rem 2rem;
+    border: 0;
+    background: var(--pd-page);
+    color: var(--pd-title);
+    cursor: zoom-out;
+  }
+
+  .pd-modal[open] {
+    animation: pd-fade 160ms ease-out;
+  }
+
+  .pd-modal::backdrop {
+    background: transparent;
+  }
+
+  /* The board fits the window: as wide as it can be without outgrowing the height (2:1). */
+  .pd.pd-zoomed {
+    container-type: size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .pd-zoomed .pd-canvas {
+    --pd-fit: min(100cqw, calc(100cqh * var(--pd-arn)));
+    width: var(--pd-fit);
+    font-size: calc(var(--pd-fit) / var(--pd-wu));
+  }
+
+  .pd-modal .pd-close {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  @keyframes pd-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pd-modal[open] {
+      animation: none;
+    }
+  }
+
+  .pd-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .pd-scroll:focus-visible {
+    outline: 2px solid var(--color-fd-ring);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  /* A window onto the board: --pd-ar its shape, --pd-wu its width in ems, set per view. */
+  .pd-canvas {
+    position: relative;
+    overflow: hidden;
+    width: max(100cqw, var(--pd-min));
+    aspect-ratio: var(--pd-ar);
+    font-size: calc(max(100cqw, var(--pd-min)) / var(--pd-wu));
+  }
+
+  .pd-board {
+    position: absolute;
+  }
+
+  .pd-frame,
+  .pd-at {
+    position: absolute;
+    left: var(--l);
+    top: var(--t);
+    width: var(--w);
+    height: var(--h);
+    margin: 0;
+  }
+
+  .pd-img {
+    display: block;
+    max-width: none;
+    height: auto;
+  }
+
+  /* Each illustration ships in both themes; only the active one displays, so only it loads. */
+  .pd .pd-dark,
+  .dark .pd .pd-light {
+    display: none;
+  }
+
+  .dark .pd .pd-dark {
+    display: block;
+  }
+
+  .pd-art {
+    display: block;
+  }
+
+  .pd-art .pd-light {
+    width: 100%;
+  }
+
+  .pd-art .pd-dark {
+    position: absolute;
+  }
+
+  .pd-data-label {
+    display: none;
+    font-size: 0.5625em;
+    font-weight: 500;
+    color: var(--pd-ink);
+  }
+
+  .dark .pd .pd-data-label {
+    display: block;
+  }
+
+  .pd-label {
+    font-size: 0.8125em;
+    line-height: 1.25;
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--pd-label);
+  }
+
+  /* The reference sets this one as a title-case caption, not a section label. */
+  .pd-note-generate {
+    font-size: 0.75em;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--pd-ink);
+  }
+
+  .pd-note-train {
+    text-align: right;
+  }
+
+  /* Inputs */
+  .pd-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+
+  .pd-input-name {
+    font-size: 0.8125em;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--pd-ink);
+  }
+
+  .pd-input .pd-img {
+    width: 66%;
+  }
+
+  /* Design panel */
+  /* Stages view: the cards sit on the page, so they take the panel's tint to stay visible. */
+  .pd-bare .pd-card {
+    background: var(--pd-bare-card);
+  }
+
+  .pd-design {
+    overflow: hidden;
+    border-radius: 1em;
+    background: var(--pd-panel);
+  }
+
+  .pd-tree {
+    opacity: var(--pd-tree-opacity);
+    pointer-events: none;
+  }
+
+  .pd-stages {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Padding and text are in em, so this shrinks the whole card. */
+  .pd-compact .pd-card {
+    font-size: 0.85em;
+  }
+
+  .pd-card {
+    border: 1px solid var(--pd-card-border);
+    border-radius: 0.75em;
+    background: var(--pd-card);
+    padding: 0.625em;
+  }
+
+  .pd-card-title,
+  .pd-foundation-title {
+    font-size: 1em;
+    line-height: 1.375;
+    font-weight: 500;
+    color: var(--pd-card-title);
+  }
+
+  .pd-head-title {
+    font-size: 1.125em;
+    line-height: 1.33;
+    font-weight: 500;
+    color: var(--pd-title);
+  }
+
+  .pd-card-text,
+  .pd-head-text,
+  .pd-foundation-text {
+    margin-top: 0.125em;
+    font-size: 0.75em;
+    line-height: 1.4;
+    color: var(--pd-text);
+  }
+
+  .pd-card-text {
+    color: var(--pd-card-text);
+  }
+
+  .pd-foundation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding-left: 2em;
+    background: var(--pd-foundation);
+  }
+
+  .pd-foundation-title {
+    position: relative;
+    color: #ffffff;
+  }
+
+  .pd-foundation-text {
+    position: relative;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .pd-roots {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 41%;
+    pointer-events: none;
+  }
+
+  /* Build – Test and Output */
+  .pd-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125em;
+  }
+
+  .pd-properties {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 0 0.5em;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pd-properties li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+    font-size: 0.75em;
+    line-height: 1.33;
+    font-weight: 500;
+    color: var(--pd-ink);
+  }
+
+  .pd-properties .pd-img {
+    width: auto;
+    height: 5em;
+  }
+
+  /* Twice as wide as the others at the shared height; same box, so labels stay level. */
+  .pd-properties .pd-icon-expression {
+    width: 5.75em;
+    object-fit: contain;
+  }
+
+  /* Arrows, in em so they scale with the board. */
+  .pd-arrows {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    color: var(--pd-arrow);
+  }
+
+  .pd-edge {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.1em;
+    stroke-linecap: round;
+  }
+
+  .pd-edge-dashed {
+    stroke-width: 0.11em;
+    stroke-linecap: butt;
+    stroke-dasharray: 0.24em 0.17em;
+  }
+
+  .pd-edge-bold,
+  .pd-edge-gradient {
+    stroke-width: 0.32em;
+    stroke-linecap: butt;
+  }
+
+  .pd-tip {
+    fill: currentColor;
+  }
+
+  .pd-tip-warm {
+    fill: var(--pd-warm-3);
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "title": "REST API",
+  "pages": [
+    "authentication-and-jobs",
+    "assay-datasets",
+    "models",
+    "align",
+    "prompt",
+    "embeddings",
+    "fold",
+    "predictor",
+    "design"
+  ]
+}

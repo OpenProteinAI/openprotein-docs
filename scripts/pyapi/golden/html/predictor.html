@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.predictor &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/predictor';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein.design" href="design.html" />
+    <link rel="prev" title="openprotein.embeddings" href="embedding.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.predictor</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-predictor">
+<h1>openprotein.predictor<a class="headerlink" href="#openprotein-predictor" title="Link to this heading">#</a></h1>
+<p>Train property predictors from your datasets to enable predictions for new sequences!</p>
+<p>Use crossvalidation on the trained predictors to estimate uncertainty.</p>
+<p>Trained predictors can be used to design new sequences based on design goals for properties.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.predictor.</span></span><span class="sig-name descname"><span class="pre">PredictorAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI" title="Link to this definition">#</a></dt>
+<dd><p>Predictor API providing the interface to train and predict predictors.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI.get_predictor">
+<span class="sig-name descname"><span class="pre">get_predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_calibration_curves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI.get_predictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI.get_predictor" title="Link to this definition">#</a></dt>
+<dd><p>Get predictor by model_id.</p>
+<p>PredictorModel allows all the usual prediction job manipulation:
+e.g. making POST and GET requests for this predictor specifically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor_id</strong> (<em>str</em>) – The model identifier.</p></li>
+<li><p><strong>include_stats</strong> (<em>bool</em>) – Whether to include stats of the predictor from the latest evaluation
+(pearson, spearman, ece). Default is False.</p></li>
+<li><p><strong>include_calibration_curves</strong> (<em>bool</em>) – Whether to include calibration curves of the predictor from the latest
+evaluation. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The predictor model to inspect and make predictions with.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel">PredictorModel</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPError</strong> – If the GET request does not succeed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI.list_predictors">
+<span class="sig-name descname"><span class="pre">list_predictors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_calibration_curves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI.list_predictors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI.list_predictors" title="Link to this definition">#</a></dt>
+<dd><p>List predictors available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em>) – Limit of the number of predictors to return in list. Default is 100.</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) – Offset to the predictors to query for paged queries. Default is 0.</p></li>
+<li><p><strong>include_stats</strong> (<em>bool</em>) – Whether to include stats of each predictor from the latest evaluation
+(pearson, spearman, ece). Default is False.</p></li>
+<li><p><strong>include_calibration_curves</strong> (<em>bool</em>) – Whether to include calibration curves of each predictor from the latest
+evaluation. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of predictor models to inspect and make predictions with.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel">PredictorModel</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPError</strong> – If the GET request does not succeed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI.fit_gp">
+<span class="sig-name descname"><span class="pre">fit_gp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rbf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI.fit_gp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI.fit_gp" title="Link to this definition">#</a></dt>
+<dd><p>Fit a GP on an assay with the specified feature model and hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assay</strong> (<a class="reference internal" href="data.html#openprotein.data.AssayMetadata" title="openprotein.data.AssayMetadata"><em>AssayMetadata</em></a><em> or </em><a class="reference internal" href="data.html#openprotein.data.AssayDataset" title="openprotein.data.AssayDataset"><em>AssayDataset</em></a><em> or </em><em>str</em>) – Assay to fit GP on.</p></li>
+<li><p><strong>properties</strong> (<em>list</em><em> of </em><em>str</em>) – Properties in the assay to fit the gp on.</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingModel" title="openprotein.embeddings.EmbeddingModel"><em>EmbeddingModel</em></a><em> or </em><a class="reference internal" href="embedding.html#openprotein.svd.SVDModel" title="openprotein.svd.SVDModel"><em>SVDModel</em></a><em> or </em><em>str</em>) – Instance of either EmbeddingModel or SVDModel to use depending
+on feature type. Can also be a str specifying the model id,
+but then feature_type would have to be specified.</p></li>
+<li><p><strong>feature_type</strong> (<em>Feature</em><em> or </em><em>FeatureType</em><em> or </em><em>None</em>) – Type of features to use for encoding sequences. “SVD” or “PLM”.
+None would require model to be EmbeddingModel or SVDModel.</p></li>
+<li><p><strong>reduction</strong> (<em>Reduction</em><em> or </em><a class="reference internal" href="embedding.html#openprotein.common.ReductionType" title="openprotein.common.ReductionType"><em>ReductionType</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Type of embedding reduction to use for computing features.
+E.g. “MEAN” or “SUM”. Used only if using EmbeddingModel, and
+must be non-nil if using an EmbeddingModel. Defaults to None.</p></li>
+<li><p><strong>kernel</strong> (<em>KernelType</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Kernel for the GP. One of “linear”, “rbf”, “matern12”, “matern32”,
+“matern52”, “periodic”, “rational_quadratic”. Defaults to “rbf”.</p></li>
+<li><p><strong>period</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Period length, only valid for the “periodic” kernel (must be &gt; 0).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Scale-mixture parameter, only valid for the “rational_quadratic”
+kernel (must be &gt; 0).</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to foundational models, e.g. prompt_id for PoET models.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The GP model being fit.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel">PredictorModel</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI.delete_predictor">
+<span class="sig-name descname"><span class="pre">delete_predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI.delete_predictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI.delete_predictor" title="Link to this definition">#</a></dt>
+<dd><p>Delete predictor model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>predictor_id</strong> (<em>str</em>) – The ID of the predictor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True: successful deletion</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorAPI.ensemble">
+<span class="sig-name descname"><span class="pre">ensemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/predictor.html#PredictorAPI.ensemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorAPI.ensemble" title="Link to this definition">#</a></dt>
+<dd><p>Ensemble predictor models together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>predictors</strong> (<em>list</em><em>[</em><a class="reference internal" href="#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel"><em>PredictorModel</em></a><em>]</em>) – List of predictors to ensemble together.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ensembled predictor model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.predictor.PredictorModel" title="openprotein.predictor.PredictorModel">PredictorModel</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.predictor.</span></span><span class="sig-name descname"><span class="pre">PredictorModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing predict endpoint for fitted predictor models.</p>
+<p>Also implements a Future that waits for train job.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#openprotein.predictor.PredictorModel.id" title="Link to this definition">#</a></dt>
+<dd><p>ID of predictor.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.reduction">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction</span></span><a class="headerlink" href="#openprotein.predictor.PredictorModel.reduction" title="Link to this definition">#</a></dt>
+<dd><p>The reduction of th embeddings used to train the predictor, if any.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.sequence_length">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_length</span></span><a class="headerlink" href="#openprotein.predictor.PredictorModel.sequence_length" title="Link to this definition">#</a></dt>
+<dd><p>The sequence length constraint on the predictor, if any.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.training_assay">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training_assay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="data.html#openprotein.data.AssayDataset" title="openprotein.data.assaydataset.AssayDataset"><span class="pre">AssayDataset</span></a></em><a class="headerlink" href="#openprotein.predictor.PredictorModel.training_assay" title="Link to this definition">#</a></dt>
+<dd><p>The assay the predictor was trained on.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.training_properties">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training_properties</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.predictor.PredictorModel.training_properties" title="Link to this definition">#</a></dt>
+<dd><p>The list of properties the predictor was trained on.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><a class="headerlink" href="#openprotein.predictor.PredictorModel.metadata" title="Link to this definition">#</a></dt>
+<dd><p>The predictor metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.get_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.get_model" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the embeddings or SVD model used to create embeddings to train on.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.model">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="embedding.html#openprotein.embeddings.EmbeddingModel" title="openprotein.embeddings.models.EmbeddingModel"><span class="pre">EmbeddingModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="embedding.html#openprotein.svd.SVDModel" title="openprotein.svd.models.SVDModel"><span class="pre">SVDModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.predictor.PredictorModel.model" title="Link to this definition">#</a></dt>
+<dd><p>The embeddings or SVD model used to create embeddings to train on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.delete" title="Link to this definition">#</a></dt>
+<dd><p>Delete this predictor model.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.get_assay">
+<span class="sig-name descname"><span class="pre">get_assay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.get_assay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.get_assay" title="Link to this definition">#</a></dt>
+<dd><p>Get assay used for train job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AssayDataset</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assay dataset used for train job.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.crossvalidate">
+<span class="sig-name descname"><span class="pre">crossvalidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.crossvalidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.crossvalidate" title="Link to this definition">#</a></dt>
+<dd><p>Run a crossvalidation on the trained predictor.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.predict" title="Link to this definition">#</a></dt>
+<dd><p>Make predictions about the trained properties for a list of sequences.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.predictor.PredictorModel.single_site">
+<span class="sig-name descname"><span class="pre">single_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/predictor/models.html#PredictorModel.single_site"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.predictor.PredictorModel.single_site" title="Link to this definition">#</a></dt>
+<dd><p>Compute the single-site mutated predictions of a base sequence.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI"><code class="docutils literal notranslate"><span class="pre">PredictorAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI.get_predictor"><code class="docutils literal notranslate"><span class="pre">PredictorAPI.get_predictor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI.list_predictors"><code class="docutils literal notranslate"><span class="pre">PredictorAPI.list_predictors()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI.fit_gp"><code class="docutils literal notranslate"><span class="pre">PredictorAPI.fit_gp()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI.delete_predictor"><code class="docutils literal notranslate"><span class="pre">PredictorAPI.delete_predictor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorAPI.ensemble"><code class="docutils literal notranslate"><span class="pre">PredictorAPI.ensemble()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel"><code class="docutils literal notranslate"><span class="pre">PredictorModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.id"><code class="docutils literal notranslate"><span class="pre">PredictorModel.id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.reduction"><code class="docutils literal notranslate"><span class="pre">PredictorModel.reduction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.sequence_length"><code class="docutils literal notranslate"><span class="pre">PredictorModel.sequence_length</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.training_assay"><code class="docutils literal notranslate"><span class="pre">PredictorModel.training_assay</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.training_properties"><code class="docutils literal notranslate"><span class="pre">PredictorModel.training_properties</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.metadata"><code class="docutils literal notranslate"><span class="pre">PredictorModel.metadata</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.get_model"><code class="docutils literal notranslate"><span class="pre">PredictorModel.get_model()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.model"><code class="docutils literal notranslate"><span class="pre">PredictorModel.model</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.delete"><code class="docutils literal notranslate"><span class="pre">PredictorModel.delete()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.get_assay"><code class="docutils literal notranslate"><span class="pre">PredictorModel.get_assay()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.crossvalidate"><code class="docutils literal notranslate"><span class="pre">PredictorModel.crossvalidate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.predict"><code class="docutils literal notranslate"><span class="pre">PredictorModel.predict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.predictor.PredictorModel.single_site"><code class="docutils literal notranslate"><span class="pre">PredictorModel.single_site()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

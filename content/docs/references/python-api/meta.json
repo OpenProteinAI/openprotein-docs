@@ -1,0 +1,17 @@
+{
+  "title": "Python API",
+  "pages": [
+    "openprotein",
+    "molecules",
+    "data",
+    "models",
+    "design",
+    "jobs",
+    "clustering",
+    "align",
+    "prompt",
+    "embedding",
+    "predictor",
+    "fold"
+  ]
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "model": "PoET-2",
+    "models": [
+      "poet-2"
+    ]
+  },
+  {
+    "model": "Boltz-2",
+    "models": [
+      "boltz-2"
+    ]
+  },
+  {
+    "model": "RFdiffusion",
+    "models": [
+      "rfdiffusion"
+    ]
+  },
+  {
+    "model": "ESM2",
+    "models": [
+      "esm2_t33_650M_UR50D",
+      "esm2_t30_150M_UR50D",
+      "esm2_t12_35M_UR50D",
+      "esm2_t36_3B_UR50D",
+      "esm2_t6_8M_UR50D"
+    ]
+  },
+  {
+    "model": "ProteinMPNN",
+    "models": [
+      "proteinmpnn",
+      "solublempnn"
+    ]
+  },
+  {
+    "model": "OpenDDE",
+    "models": [
+      "opendde",
+      "opendde-abag"
+    ]
+  },
+  {
+    "model": "ESM-IF1",
+    "models": [
+      "esm-if1"
+    ]
+  },
+  {
+    "model": "ESMC",
+    "models": [
+      "esmc-600m",
+      "esmc-300m",
+      "esmc-6b"
+    ]
+  },
+  {
+    "model": "ESMFold2",
+    "models": [
+      "esmfold2",
+      "esmfold2-fast"
+    ]
+  },
+  {
+    "model": "Protenix-v2",
+    "models": [
+      "protenix-v2"
+    ]
+  },
+  {
+    "model": "AbLang2",
+    "models": [
+      "ablang2"
+    ]
+  },
+  {
+    "model": "Protenix",
+    "models": [
+      "protenix"
+    ]
+  },
+  {
+    "model": "BoltzGen",
+    "models": [
+      "boltzgen"
+    ]
+  },
+  {
+    "model": "RosettaFold-3",
+    "models": [
+      "rosettafold-3"
+    ]
+  },
+  {
+    "model": "MiniFold",
+    "models": [
+      "minifold"
+    ]
+  },
+  {
+    "model": "Boltz-1",
+    "models": [
+      "boltz-1",
+      "boltz-1x"
+    ]
+  },
+  {
+    "model": "ESMFold",
+    "models": [
+      "esmfold"
+    ]
+  },
+  {
+    "model": "ESM1",
+    "models": [
+      "esm1b_t33_650M_UR50S",
+      "esm1v_t33_650M_UR90S_1",
+      "esm1v_t33_650M_UR90S_2",
+      "esm1v_t33_650M_UR90S_3",
+      "esm1v_t33_650M_UR90S_4",
+      "esm1v_t33_650M_UR90S_5"
+    ]
+  },
+  {
+    "model": "ProtT5-XL",
+    "models": [
+      "prott5-xl"
+    ]
+  },
+  {
+    "model": "AlphaFold2",
+    "models": [
+      "alphafold2"
+    ]
+  },
+  {
+    "model": "PoET",
+    "models": [
+      "poet"
+    ]
+  },
+  {
+    "model": "ProtSeq",
+    "models": [
+      "prot-seq"
+    ]
+  },
+  {
+    "model": "RotaProt",
+    "models": [
+      "rotaprot-large-uniref50w",
+      "rotaprot-large-uniref90-ft"
+    ]
+  }
+]

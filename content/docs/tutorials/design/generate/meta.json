@@ -1,0 +1,9 @@
+{
+  "title": "Generate",
+  "pages": [
+    "rfdiffusion",
+    "boltzgen",
+    "inverse-folding",
+    "PoET-2_inverse_folding"
+  ]
+}

@@ -1,0 +1,1142 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.molecules &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/molecules';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein.data" href="data.html" />
+    <link rel="prev" title="openprotein" href="openprotein.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.molecules</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-molecules">
+<h1>openprotein.molecules<a class="headerlink" href="#openprotein-molecules" title="Link to this heading">#</a></h1>
+<p>These data primitives represent a unified interface to working with our platform, whether it be structure prediction, binder design or inverse folding.</p>
+<section id="protein">
+<h2>Protein<a class="headerlink" href="#protein" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code></a> is a fundamental primitive for working with proteins on the platform. These can be uploaded to our platform as a <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> to be used with models like <a class="reference internal" href="models.html#openprotein.models.ProteinMPNNModel" title="openprotein.models.ProteinMPNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProteinMPNNModel</span></code></a> or <a class="reference internal" href="models.html#openprotein.models.ESMIF1Model" title="openprotein.models.ESMIF1Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">ESMIF1Model</span></code></a> (e.g. for inverse-folding), as well as for ease of reuse.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein" title="Link to this definition">#</a></dt>
+<dd><p>Represents a protein with an optional name.</p>
+<p>This class supports partial or complete information: users may create a Protein
+with only a sequence, only a structure, or both. The class ensures that all
+provided fields have consistent residue-level lengths and provides convenient
+methods for indexing, masking, and structural comparisons.</p>
+<dl class="simple">
+<dt>Conventions:</dt><dd><ul class="simple">
+<li><p>Missing or unknown residues in the sequence are denoted by b”X”.</p></li>
+<li><p>Missing structural data (coordinates or pLDDT) are represented by NaN.</p></li>
+<li><p>Residue indices are 1-indexed for user-facing methods suffixed with <cite>at</cite> E.g.
+<cite>.at</cite>, <cite>mask_sequence_at</cite></p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>Create a Protein from sequence only:</dt><dd><p>Protein(sequence=”ACDEFGHIK”)</p>
+</dd>
+<dt>Create a Protein from sequence and name:</dt><dd><p>Protein(sequence=”ACDEFGHIK”, name=”my_protein”)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.msa">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><span class="pre">MSAFuture</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">NullMSA</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.molecules.Protein.msa" title="Link to this definition">#</a></dt>
+<dd><p>A reference identifier to the MSA associated to this protein.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.templates">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">templates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><span class="pre">Protein</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><span class="pre">Complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.molecules.Template" title="openprotein.molecules.Template"><span class="pre">Template</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.molecules.Protein.templates" title="Link to this definition">#</a></dt>
+<dd><p>A list of templates for guiding the structure prediction of this protein.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.at">
+<span class="sig-name descname"><span class="pre">at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.at" title="Link to this definition">#</a></dt>
+<dd><p>Return a new Protein object containing residues at given 1-indexed positions.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_sequence">
+<span class="sig-name descname"><span class="pre">mask_sequence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_sequence" title="Link to this definition">#</a></dt>
+<dd><p>Mask entire sequence.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_sequence_at">
+<span class="sig-name descname"><span class="pre">mask_sequence_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_sequence_at" title="Link to this definition">#</a></dt>
+<dd><p>Mask sequence at given 1-indexed positions.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_sequence_except_at">
+<span class="sig-name descname"><span class="pre">mask_sequence_except_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_sequence_except_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_sequence_except_at" title="Link to this definition">#</a></dt>
+<dd><p>Mask sequence at all positions except the given 1-indexed positions.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_structure">
+<span class="sig-name descname"><span class="pre">mask_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side_chain_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_structure" title="Link to this definition">#</a></dt>
+<dd><p>Mask entire structure.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_structure_at">
+<span class="sig-name descname"><span class="pre">mask_structure_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">side_chain_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_structure_at" title="Link to this definition">#</a></dt>
+<dd><p>Mask structure at given 1-indexed positions.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.mask_structure_except_at">
+<span class="sig-name descname"><span class="pre">mask_structure_except_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">side_chain_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.mask_structure_except_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.mask_structure_except_at" title="Link to this definition">#</a></dt>
+<dd><p>Mask structure at all positions except the given 1-indexed positions.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.get_structure_mask">
+<span class="sig-name descname"><span class="pre">get_structure_mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.get_structure_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.get_structure_mask" title="Link to this definition">#</a></dt>
+<dd><p>Computes the structure mask of the protein. The structure mask is a boolean
+array indicating, at each position, whether the structure is undefined at that
+position.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.has_structure">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_structure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#openprotein.molecules.Protein.has_structure" title="Link to this definition">#</a></dt>
+<dd><p>Whether or not the structure is known at any position in the protein.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.rmsd">
+<span class="sig-name descname"><span class="pre">rmsd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tgt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.protein.Protein"><span class="pre">Protein</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">backbone_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.rmsd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.rmsd" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">rmsd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tgt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.protein.Protein"><span class="pre">Protein</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">backbone_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">floating</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">floating</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Compute the root-mean-square deviation (RMSD) between this Protein and a target
+Protein.</p>
+<p>Only atoms that are present (i.e., not NaN) in both structures are included in
+the calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tgt</strong> – The target Protein to compare against.</p></li>
+<li><p><strong>backbone_only</strong> – <p>Specifies which atoms to include in the RMSD calculation.</p>
+<ul>
+<li><p>If False (default), all atom types are included.</p></li>
+<li><p>If True, only backbone atoms (“N”, “CA”, “C”) are included.</p></li>
+<li><p>If a string, it must be a single atom type (e.g., “CA”).</p></li>
+<li><p>If a sequence of strings, it must be a non-empty list of atom types
+(e.g., [“CA”, “CB”, “O”]). All specified atom types must be valid.</p></li>
+</ul>
+</p></li>
+<li><p><strong>return_transform</strong> – If True, returns both the rmsd and the transformation that
+should be applied to <cite>tgt</cite> to superimpose it onto this Protein. If False
+(default), returns only the rmsd value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>The RMSD value (float) if <cite>return_transform</cite> is False (default).</p>
+<p>If <cite>return_transform</cite> is True, a tuple
+<cite>(float, np.ndarray, np.ndarray)</cite> containing the RMSD value, the
+rotation matrix, and the translation vector.</p>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method assumes that sequences of <cite>self</cite> and <cite>tgt</cite> are already aligned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cif'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.to_string" title="Link to this definition">#</a></dt>
+<dd><p>Serialize this Protein to a string. Note that format=”pdb” may not serialize all
+aspects of this object, so format=”cif”, the default, is preferred.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.from_expr">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.from_expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.from_expr" title="Link to this definition">#</a></dt>
+<dd><p>Create a Protein from a sequence expression.</p>
+<p>A sequence expression allows you to define protein sequences using a concise
+notation that mixes fixed sequences, design regions, and length ranges.</p>
+<p>Useful for creating a design <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>str</em><em> | </em><em>int</em>) – Sequence expression string or integer
+- Fixed sequences: “ACGT” (literal amino acids)
+- Design regions: “6” or 6 (any 6 amino acids)
+- Length ranges: “3..5” (between 3-5 amino acids)
+- Combined: “AAAA6C3..5” (AAAA + 6 design + C + 3-5 design)</p></li>
+<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>) – Optional name for the protein</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Protein object with the parsed sequence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.protein.Protein"><em>Protein</em></a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fixed sequence with 6 flexible positions and fixed end</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Protein</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="s2">&quot;MKLL6VVAA&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="sa">b</span><span class="s1">&#39;MKLLXXXXXXVVAA&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Design region of any 15 amino acids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Protein</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="sa">b</span><span class="s1">&#39;XXXXXXXXXXXXXXX&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Variable length region between 10-20 residues</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Protein</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="s2">&quot;10..20&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="sa">b</span><span class="s1">&#39;XXXXXXXXXX??????????&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.from_filepath">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bfactor_as_plddt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.from_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.from_filepath" title="Link to this definition">#</a></dt>
+<dd><p>Create a Protein from a structure file.</p>
+<p>If the structure file has multiple conformers, the first conformer is always
+used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>Path</em><em> | </em><em>str</em>) – path to structure file (e.g. pdb or cif file)</p></li>
+<li><p><strong>chain_id</strong> (<em>str</em>) – id of the chain in the structure file to use</p></li>
+<li><p><strong>use_bfactor_as_plddt</strong> (<em>bool</em><em> | </em><em>None</em>) – whether or not to use bfactors as pLDDTs. If None,
+this parameter will be determined based on heuristics. These heuristics
+may change over time.</p></li>
+<li><p><strong>model_idx</strong> (<em>int</em>) – index of the model in the structure file to use</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – whether or not to print debugging information such as oddities in
+the structure e.g. missing atoms</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Protein.formatted">
+<span class="sig-name descname"><span class="pre">formatted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('sequence',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_maps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/protein.html#Protein.formatted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Protein.formatted" title="Link to this definition">#</a></dt>
+<dd><p>Format the sequence and/or additional feature tracks aligned and wrapped to a
+specific width.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="complex">
+<h2>Complex<a class="headerlink" href="#complex" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code></a> describes a molecular complex representation. These can be uploaded to our platform as a <a class="reference internal" href="prompt.html#openprotein.prompt.Query" title="openprotein.prompt.Query"><code class="xref py py-class docutils literal notranslate"><span class="pre">Query</span></code></a> to be used with models like <a class="reference internal" href="models.html#openprotein.models.RFdiffusionModel" title="openprotein.models.RFdiffusionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFdiffusionModel</span></code></a>, (e.g. for multi-chain binder design) as well as for easy reuse.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.Complex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">Complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/complex.html#Complex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Complex" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.molecules.Complex.templates">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">templates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><span class="pre">Protein</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><span class="pre">Complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.molecules.Template" title="openprotein.molecules.Template"><span class="pre">Template</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.molecules.Complex.templates" title="Link to this definition">#</a></dt>
+<dd><p>A list of templates for guiding the structure prediction of this molecular complex.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Complex.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cif'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/complex.html#Complex.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Complex.to_string" title="Link to this definition">#</a></dt>
+<dd><p>Serialize this Complex to a string. Note that format=”pdb” may not serialize all
+aspects of this object, so format=”cif”, the default, is preferred.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.Structure" title="openprotein.molecules.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></a> describes a collection of <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code> instances. These are typically created when parsing structure files (e.g., CIF, PDB) that contain multiple models of the same molecular complex, such as NMR ensembles or computational predictions with multiple conformations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.Structure">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/structure.html#Structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Structure" title="Link to this definition">#</a></dt>
+<dd><p>Represents a collection of <a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code></a> instances.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Structure.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cif'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/structure.html#Structure.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Structure.to_string" title="Link to this definition">#</a></dt>
+<dd><p>Serialize this Structure to a string. Note that format=”pdb” may not serialize
+all aspects of this object, so format=”cif”, the default, is preferred.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Structure.from_pdb_id">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pdb_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/structure.html#Structure.from_pdb_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Structure.from_pdb_id" title="Link to this definition">#</a></dt>
+<dd><p>Creates a Structure instance by downloading data from the RCSB PDB.</p>
+<p>This method performs an HTTP GET request to the RCSB web server to fetch
+the structure file (in CIF format) associated with the given PDB ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdb_id</strong> (<em>str</em>) – The 4-character PDB identifier (e.g. “1XYZ”).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print warnings to stdout. Defaults to
+True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new instance containing the parsed structure data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.molecules.Structure" title="openprotein.molecules.Structure">Structure</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>requests.HTTPError</strong> – If the PDB ID is invalid, the server is unreachable,
+    or the request returns a 404/500 status code.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ligand">
+<h2>Ligand<a class="headerlink" href="#ligand" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.Ligand" title="openprotein.molecules.Ligand"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ligand</span></code></a> represents a ligand that can be described either by <code class="docutils literal notranslate"><span class="pre">smiles</span></code> or <code class="docutils literal notranslate"><span class="pre">ccd</span></code>. These are intended to be used as part of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.Ligand">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">Ligand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ccd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_structure_block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/chains.html#Ligand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Ligand" title="Link to this definition">#</a></dt>
+<dd><p>Represents a ligand with optional Chemical Component Dictionary (CCD) identifier and SMILES string.</p>
+<p>Requires either a CCD identifier or SMILES string.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Ligand.ccd">
+<span class="sig-name descname"><span class="pre">ccd</span></span><a class="headerlink" href="#openprotein.molecules.Ligand.ccd" title="Link to this definition">#</a></dt>
+<dd><p>The CCD identifier for the ligand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Ligand.smiles">
+<span class="sig-name descname"><span class="pre">smiles</span></span><a class="headerlink" href="#openprotein.molecules.Ligand.smiles" title="Link to this definition">#</a></dt>
+<dd><p>The SMILES representation of the ligand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="dna">
+<h2>DNA<a class="headerlink" href="#dna" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.DNA" title="openprotein.molecules.DNA"><code class="xref py py-class docutils literal notranslate"><span class="pre">DNA</span></code></a> represents a DNA chain. These are intended to be used as part of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.DNA">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">DNA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_structure_block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/chains.html#DNA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.DNA" title="Link to this definition">#</a></dt>
+<dd><p>Represents a DNA sequence.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.DNA.sequence">
+<span class="sig-name descname"><span class="pre">sequence</span></span><a class="headerlink" href="#openprotein.molecules.DNA.sequence" title="Link to this definition">#</a></dt>
+<dd><p>The nucleotide sequence of the DNA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="rna">
+<h2>RNA<a class="headerlink" href="#rna" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.RNA" title="openprotein.molecules.RNA"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNA</span></code></a> represents a RNA chain. These are intended to be used as part of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.RNA">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">RNA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_structure_block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/chains.html#RNA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.RNA" title="Link to this definition">#</a></dt>
+<dd><p>Represents an RNA sequence.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.RNA.sequence">
+<span class="sig-name descname"><span class="pre">sequence</span></span><a class="headerlink" href="#openprotein.molecules.RNA.sequence" title="Link to this definition">#</a></dt>
+<dd><p>The nucleotide sequence of the RNA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="template">
+<h2>Template<a class="headerlink" href="#template" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#openprotein.molecules.Template" title="openprotein.molecules.Template"><code class="xref py py-class docutils literal notranslate"><span class="pre">Template</span></code></a> describes a template that can be used for constraining fold jobs.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.molecules.Template">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.molecules.</span></span><span class="sig-name descname"><span class="pre">Template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_intervals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/template.html#Template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Template" title="Link to this definition">#</a></dt>
+<dd><p>A structural template used to guide the folding of a target chain or complex.</p>
+<p>This class wraps a structural source (Protein or Complex) and defines how it
+should map to the target(s).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Template.template">
+<span class="sig-name descname"><span class="pre">template</span></span><a class="headerlink" href="#openprotein.molecules.Template.template" title="Link to this definition">#</a></dt>
+<dd><p>The structural object to be used as a template.
+Must contain structural data (coordinates).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.Protein">Protein</a> | <a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.Complex">Complex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Template.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><a class="headerlink" href="#openprotein.molecules.Template.mapping" title="Link to this definition">#</a></dt>
+<dd><p>The rule for assigning this template
+to the target.</p>
+<ul class="simple">
+<li><p>Mapping[str, str]: Explicitly maps {template_chain_id: target_chain_id}.</p></li>
+<li><p>str: Apply this template to a specific target_chain_id. (If template is
+a Complex, a selection algorithm is used to pick the best source chain).</p></li>
+<li><p>None: Automatic assignment. The folding algorithm will determine which
+chain(s) this template applies to.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping[str, str] | str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Template.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#openprotein.molecules.Template.index" title="Link to this definition">#</a></dt>
+<dd><p>Restrict this template to specific sequence
+positions in the batched fold job. The default (<code class="docutils literal notranslate"><span class="pre">None</span></code>) applies the
+template to every sequence — matching the passthrough behavior callers
+see today. Populate to scope a template to a subset, e.g. in a
+binder-design refold where structure <code class="docutils literal notranslate"><span class="pre">M[k]</span></code> templates only sequences
+<code class="docutils literal notranslate"><span class="pre">[k*N,</span> <span class="pre">k*N+N)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[int] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.molecules.Template.index_intervals">
+<span class="sig-name descname"><span class="pre">index_intervals</span></span><a class="headerlink" href="#openprotein.molecules.Template.index_intervals" title="Link to this definition">#</a></dt>
+<dd><p>Range-form alternative
+to <code class="docutils literal notranslate"><span class="pre">index</span></code> for scoping the template to contiguous spans of sequence
+positions. Each tuple is a half-open <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">end)</span></code> range. Useful
+when the subset is large and contiguous (e.g. <code class="docutils literal notranslate"><span class="pre">[(0,</span> <span class="pre">1000)]</span></code> instead
+of <code class="docutils literal notranslate"><span class="pre">list(range(1000))</span></code>). May be combined with <code class="docutils literal notranslate"><span class="pre">index</span></code>; the server
+unions the two.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[tuple[int, int]] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.molecules.Template.validate_for_target">
+<span class="sig-name descname"><span class="pre">validate_for_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/molecules/template.html#Template.validate_for_target"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.molecules.Template.validate_for_target" title="Link to this definition">#</a></dt>
+<dd><p>Ensures this Template is compatible with a specific target Molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target</strong> (<a class="reference internal" href="#openprotein.molecules.Protein" title="openprotein.molecules.protein.Protein"><em>Protein</em></a><em> | </em><a class="reference internal" href="#openprotein.molecules.Complex" title="openprotein.molecules.complex.Complex"><em>Complex</em></a>) – The Protein or Complex that is being folded.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If this Template is invalid, or if chain IDs referenced in
+    mapping do not exist in the target.</p></li>
+<li><p><strong>TypeError</strong> – If the template/target combination is structurally incompatible.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protein">Protein</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein"><code class="docutils literal notranslate"><span class="pre">Protein</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.msa"><code class="docutils literal notranslate"><span class="pre">Protein.msa</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.templates"><code class="docutils literal notranslate"><span class="pre">Protein.templates</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.at"><code class="docutils literal notranslate"><span class="pre">Protein.at()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_sequence"><code class="docutils literal notranslate"><span class="pre">Protein.mask_sequence()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_sequence_at"><code class="docutils literal notranslate"><span class="pre">Protein.mask_sequence_at()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_sequence_except_at"><code class="docutils literal notranslate"><span class="pre">Protein.mask_sequence_except_at()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_structure"><code class="docutils literal notranslate"><span class="pre">Protein.mask_structure()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_structure_at"><code class="docutils literal notranslate"><span class="pre">Protein.mask_structure_at()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.mask_structure_except_at"><code class="docutils literal notranslate"><span class="pre">Protein.mask_structure_except_at()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.get_structure_mask"><code class="docutils literal notranslate"><span class="pre">Protein.get_structure_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.has_structure"><code class="docutils literal notranslate"><span class="pre">Protein.has_structure</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.rmsd"><code class="docutils literal notranslate"><span class="pre">Protein.rmsd()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.to_string"><code class="docutils literal notranslate"><span class="pre">Protein.to_string()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.from_expr"><code class="docutils literal notranslate"><span class="pre">Protein.from_expr()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.from_filepath"><code class="docutils literal notranslate"><span class="pre">Protein.from_filepath()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Protein.formatted"><code class="docutils literal notranslate"><span class="pre">Protein.formatted()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex">Complex</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Complex"><code class="docutils literal notranslate"><span class="pre">Complex</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Complex.templates"><code class="docutils literal notranslate"><span class="pre">Complex.templates</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Complex.to_string"><code class="docutils literal notranslate"><span class="pre">Complex.to_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Structure"><code class="docutils literal notranslate"><span class="pre">Structure</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Structure.to_string"><code class="docutils literal notranslate"><span class="pre">Structure.to_string()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Structure.from_pdb_id"><code class="docutils literal notranslate"><span class="pre">Structure.from_pdb_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ligand">Ligand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Ligand"><code class="docutils literal notranslate"><span class="pre">Ligand</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Ligand.ccd"><code class="docutils literal notranslate"><span class="pre">Ligand.ccd</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Ligand.smiles"><code class="docutils literal notranslate"><span class="pre">Ligand.smiles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dna">DNA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.DNA"><code class="docutils literal notranslate"><span class="pre">DNA</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.DNA.sequence"><code class="docutils literal notranslate"><span class="pre">DNA.sequence</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rna">RNA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.RNA"><code class="docutils literal notranslate"><span class="pre">RNA</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.RNA.sequence"><code class="docutils literal notranslate"><span class="pre">RNA.sequence</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template">Template</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template"><code class="docutils literal notranslate"><span class="pre">Template</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template.template"><code class="docutils literal notranslate"><span class="pre">Template.template</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template.mapping"><code class="docutils literal notranslate"><span class="pre">Template.mapping</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template.index"><code class="docutils literal notranslate"><span class="pre">Template.index</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template.index_intervals"><code class="docutils literal notranslate"><span class="pre">Template.index_intervals</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.molecules.Template.validate_for_target"><code class="docutils literal notranslate"><span class="pre">Template.validate_for_target()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

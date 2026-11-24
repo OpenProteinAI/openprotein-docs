@@ -1,0 +1,262 @@
+{
+  "intro": "Each section lists the model's checkpoint IDs and Python accessors, with examples for its default checkpoint.",
+  "excludedIds": [
+    "alphaflow*",
+    "bioemu*",
+    "esmflow*",
+    "gibbs*"
+  ],
+  "models": {
+    "PoET-2": {
+      "usage": "The `PoET2` class below is the interface for `poet-2`. It supports sequence tasks and fitting downstream models."
+    },
+    "RFdiffusion": {
+      "usage": "The `RFdiffusion` class below accepts the supported design inputs. For legacy reloads, see [RFdiffusionFuture](#openprotein.models.RFdiffusionFuture)."
+    },
+    "ProteinMPNN": {
+      "usage": "The `ProteinMPNN` class below is the interface for `proteinmpnn` and `solublempnn`, a checkpoint trained on soluble proteins. It generates and scores sequences."
+    },
+    "ESM-IF1": {
+      "usage": "The `ESMIF1` class below is the interface for `esm-if1`."
+    },
+    "BoltzGen": {
+      "usage": "The `BoltzGen` class below is the interface for `boltzgen`. For legacy reloads, see [BoltzGenFuture](#openprotein.models.BoltzGenFuture)."
+    },
+    "PoET": {
+      "usage": "The `PoET` class below is the interface for `poet`. [`PoET2`](#openprotein.models.PoET2), documented under PoET-2, extends it."
+    }
+  },
+  "examples": {
+    "verbs": {
+      "embed": [
+        "job = model.embed([\"MKTAYIAKQRQISFVKSHFSRQ\"])",
+        "embeddings = job.wait()",
+        "print(embeddings[0].shape)"
+      ],
+      "logits": [
+        "job = model.logits([\"MKTAYIAKQRQISFVKSHFSRQ\"])",
+        "logits = job.wait()",
+        "print(logits[0].shape)"
+      ],
+      "attn": [
+        "job = model.attn([\"MKTAYIAKQRQISFVKSHFSRQ\"])",
+        "attention = job.wait()",
+        "print(attention[0].shape)"
+      ],
+      "score": [
+        "job = model.score([\"MKTAYIAKQRQISFVKSHFSRQ\"])",
+        "log_likelihoods = job.wait()",
+        "print(log_likelihoods[0])"
+      ],
+      "single_site": [
+        "job = model.single_site(\"MKTAYIAKQRQISFVKSHFSRQ\")",
+        "substitution_scores = job.wait()",
+        "print(substitution_scores[0])"
+      ],
+      "indel": [
+        "job = model.indel(\"MKTAYIAKQRQISFVKSHFSRQ\", insert=\"A\")",
+        "indel_scores = job.wait()",
+        "print(indel_scores[0])"
+      ],
+      "generate": [
+        "job = model.generate()",
+        "sequences = job.wait()",
+        "print(sequences[0])"
+      ],
+      "fold": [
+        "job = model.fold(\"MKTAYIAKQRQISFVKSHFSRQ\")",
+        "structure = job.wait()[0]",
+        "conformation = structure[0]",
+        "chain = next(iter(conformation.values()))",
+        "print(chain.sequence.decode())",
+        "print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz"
+      ]
+    },
+    "classes": {
+      "ProteinLanguageModel": {
+        "verbs": {
+          "embed": [
+            "job = model.embed([\"MKTAYIAKQRQISFVKSHFSRQ\"], reduction=\"MEAN\")",
+            "embeddings = job.wait()",
+            "print(embeddings[0].shape)"
+          ]
+        }
+      },
+      "ESM2": {
+        "verbs": {
+          "embed": [
+            "job = model.embed([\"MKTAYIAKQRQISFVKSHFSRQ\"], reduction=None)",
+            "embedding = job.wait()[0]",
+            "print(embedding.shape)  # (T, D): tokens (including special tokens), features"
+          ]
+        }
+      },
+      "AbLang2": {
+        "setup": [
+          "paired = \"EVQLVESGGGLVQPGGSLRLSCAAS:DIQMTQSPSSLSASVGDRVTITC\""
+        ],
+        "verbs": {
+          "embed": [
+            "job = model.embed([paired], reduction=\"MEAN\")",
+            "embeddings = job.wait()",
+            "print(embeddings[0].shape)"
+          ],
+          "logits": [
+            "job = model.logits([paired])",
+            "logits = job.wait()",
+            "print(logits[0].shape)"
+          ],
+          "single_site": [
+            "job = model.single_site(paired)",
+            "substitution_scores = job.wait()",
+            "print(substitution_scores[0])"
+          ]
+        }
+      },
+      "PoET": {
+        "setup": [
+          "msa = session.align.create_msa(\"MKTAYIAKQRQISFVKSHFSRQ\")",
+          "prompt = msa.sample_prompt(num_sequences=10)"
+        ],
+        "verbs": {
+          "embed": [
+            "job = model.embed([\"MKTAYIAKQRQISFVKSHFSRQ\"], reduction=\"MEAN\", prompt=prompt)",
+            "embeddings = job.wait()",
+            "print(embeddings[0].shape)"
+          ],
+          "logits": [
+            "job = model.logits([\"MKTAYIAKQRQISFVKSHFSRQ\"], prompt=prompt)",
+            "logits = job.wait()",
+            "print(logits[0].shape)"
+          ],
+          "score": [
+            "job = model.score([\"MKTAYIAKQRQISFVKSHFSRQ\"], prompt=prompt)",
+            "log_likelihoods = job.wait()",
+            "print(log_likelihoods[0])"
+          ],
+          "single_site": [
+            "job = model.single_site(\"MKTAYIAKQRQISFVKSHFSRQ\", prompt=prompt)",
+            "substitution_scores = job.wait()",
+            "print(substitution_scores[0])"
+          ],
+          "indel": [
+            "job = model.indel(\"MKTAYIAKQRQISFVKSHFSRQ\", insert=\"A\", prompt=prompt)",
+            "indel_scores = job.wait()",
+            "print(indel_scores[0])"
+          ],
+          "generate": [
+            "job = model.generate(prompt=prompt)",
+            "sequences = job.wait()",
+            "print(sequences[0])"
+          ]
+        }
+      },
+      "PoET2": {
+        "setup": [
+          "from openprotein.molecules import Protein",
+          "msa = session.align.create_msa(\"MKTAYIAKQRQISFVKSHFSRQ\")",
+          "prompt = msa.sample_prompt(num_sequences=10)",
+          "backbone = Protein.from_filepath(\"backbone.cif\", chain_id=\"A\")"
+        ],
+        "verbs": {
+          "attn": [
+            "job = model.attn([\"MKTAYIAKQRQISFVKSHFSRQ\"], prompt=prompt)",
+            "attention = job.wait()",
+            "print(attention[0].shape)"
+          ],
+          "generate": [
+            "job = model.generate(prompt=prompt, query=backbone)",
+            "sequences = job.wait()",
+            "print(sequences[0])"
+          ]
+        }
+      },
+      "_InverseFoldingModel": {
+        "setup": [
+          "from openprotein.molecules import Protein",
+          "query = Protein.from_filepath(\"backbone.cif\", chain_id=\"A\")"
+        ],
+        "verbs": {
+          "score": [
+            "job = model.score([query.sequence], query=query)",
+            "log_likelihoods = job.wait()",
+            "print(log_likelihoods[0])"
+          ],
+          "single_site": [
+            "job = model.single_site(query.sequence, query=query)",
+            "substitution_scores = job.wait()",
+            "print(substitution_scores[0])"
+          ],
+          "generate": [
+            "job = model.generate(query=query)",
+            "sequences = job.wait()",
+            "print(sequences[0])"
+          ]
+        }
+      },
+      "ProteinMPNN": {
+        "verbs": {
+          "embed": [
+            "job = model.embed([query.sequence], query=query)",
+            "embeddings = job.wait()",
+            "print(embeddings[0].shape)"
+          ]
+        }
+      },
+      "StructureGenerativeModel": {
+        "verbs": {
+          "generate": [
+            "job = model.generate(query=query)",
+            "design = job.wait()[0]",
+            "for chain_id, chain in design.items():",
+            "    if isinstance(chain, Protein):",
+            "        print(chain_id, chain.sequence.decode(), chain.coordinates.shape)"
+          ]
+        }
+      },
+      "RFdiffusion": {
+        "setup": [
+          "from openprotein.molecules import Protein",
+          "query = Protein.from_expr(80)"
+        ]
+      },
+      "BoltzGen": {
+        "setup": [
+          "from openprotein.molecules import Complex, Protein",
+          "target = Protein.from_filepath(\"target.cif\", chain_id=\"A\")",
+          "binder = Protein.from_expr(80)",
+          "query = Complex({\"A\": target, \"B\": binder})"
+        ]
+      }
+    },
+    "groups": [
+      {
+        "classes": [
+          "AlphaFold2",
+          "Boltz1",
+          "Boltz2",
+          "ESMFold2",
+          "OpenDDE",
+          "Protenix",
+          "ProtenixV2",
+          "RosettaFold3"
+        ],
+        "setup": [
+          "from openprotein.molecules import Protein",
+          "protein = Protein(\"MKTAYIAKQRQISFVKSHFSRQ\")",
+          "protein.msa = session.align.create_msa(\"MKTAYIAKQRQISFVKSHFSRQ\")"
+        ],
+        "verbs": {
+          "fold": [
+            "job = model.fold(protein)",
+            "structure = job.wait()[0]",
+            "conformation = structure[0]",
+            "chain = next(iter(conformation.values()))",
+            "print(chain.sequence.decode())",
+            "print(chain.coordinates.shape)  # (L, 37, 3): residues, atom slots, xyz"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+---
+title: How to select diverse hits with Selection
+description: Use this guide to pick a small, diverse subset of hits from a table of sequences, optionally favoring sequences that score well on a property. You will set up a selection, run it, and then adjust and export the result.
+---
+
+## Before you begin
+
+- Upload a dataset under 'Assay'.
+- For an antibody library from NGS, [How to select antibody hits from NGS data](/how-tos/select/antibody-hit-selection-ngs) covers clustering, filtering and scoring before you select.
+- To use a property as a weight in the score, make sure the property exists as a column in the table.
+
+## Set up a selection
+
+In the table toolbar, open the **Selection** dropdown and click **New selection**. A dialog opens with numbered steps. Click the pencil icon beside the name to rename the selection.
+
+### Choose the sequences to select from
+
+- Under **Sequences to select from**, check the candidate count. Click **+** to add a filter or **X** to remove one. The resulting number of sequences is the starting pool. To learn more about advanced filtering, click [here]\(link to dataset tool page)
+- We recommend filtering out sequences with liabilities at this step. Click **Exclude sequences with liabilities** to hide sequences with N-glycosylation sites or non-canonical cysteines.
+- Enter the **Number of sequences to select**. This is the final number of sequences displayed in your library. You can change it after the run.
+
+### Measure diversity
+
+- Under **Measuring diversity**, choose an **Embedding**, for example PoET-2 · MEAN. You do not need to wait for the embeddings to finish. You can click **Run** right away.
+- Keep the recommended **Lengthscale**, or click **Use recommended** to reset it at any time. The lengthscale is how far apart two sequences can be in the embedding space and still count as similar. A larger value treats more distant sequences as similar, so the picks are more spread out.
+
+### Weight sequences by a property (optional)
+
+Skip this section to select on diversity alone. Weights set how much each property of interest carries, so sequences are scored by their importance to your project. The score is calculated as:
+
+```
+Score = weight_1*property_1 + weight_2*property_2 + ...
+```
+
+- Under **Sequence weights (optional)**, open **Score** and choose a property.
+- Set its **Weight**. The weight cannot be zero. Click **+** to add more properties, or **X** to remove one.
+- Set the **Mixing temperature**. It balances diversity against the weighted score and is only enabled once a property is weighted. The higher the mixing temperature, the more diverse the selected sequences.
+
+## Run the selection
+
+- Click **Run**.
+- When the message "Selection 'Selection 1' finished" appears, the table shows only the selected rows (for example, 10/729).
+
+## Adjust a selection after a run
+
+Open the **Selection** dropdown and click your selection to see its settings. Changes to any setting below rerun the selection, and the fields are greyed out until it finishes.
+
+### Change the number of sequences
+
+- In **Number of sequences**, type a number in the field or drag the marker on the curve. The table updates as you go. This sets how many ranked sequences the table displays.
+- Read **Variance explained** to see how much of the diversity in the candidate pool the selected set captures. It ranges from 0 to 1. A value of 1 means the selected set fully represents the embedding space of the candidates, and higher values mean it covers more of the sequence space. Use it to choose the smallest number of sequences that still captures most of the information about your sequence space.
+
+### Change the lengthscale or weights
+
+- Type a value in **Lengthscale** or **Percentile**, or drag the blue marker on the histogram. Percentile is the share of sampled sequence pairs that sit closer together than the lengthscale. Type a percentile to set the lengthscale to that distance.
+- To change weights, edit **Score**, **Weight**, or **Mixing temperature** in the same panel.
+
+## Clear or replace a selection
+
+- Click **Deselect** at the top right of the selection panel to remove the selection from the table.
+- Click **New selection** to start another one.
+
+## Export the selected sequences
+
+- With the selection applied, click **Export** at the top right of the table.
+- Under **Table**, click **Only filtered rows to CSV** to export just the selected sequences, or **All rows to CSV** for the full dataset.

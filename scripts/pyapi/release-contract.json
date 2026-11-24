@@ -1,0 +1,1881 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "commit": "ddfc479738953dd1b2adbc7433117f7f618902fe",
+  "branch": "release/v0.18.0",
+  "version": "0.17.1.dev272+gddfc47973",
+  "criterion27": {
+    "releaseCommit": "ddfc479738953dd1b2adbc7433117f7f618902fe",
+    "reportSha256": "ed077d21344105ea42f1792a1f045887016cb2f8cf7a522d729903fb81bb86a2"
+  },
+  "symbols": [
+    {
+      "public": "openprotein.APISession",
+      "canonical": "openprotein.base.APISession",
+      "file": "openprotein/base.py",
+      "qualname": "APISession"
+    },
+    {
+      "public": "openprotein.ClusteringAPI",
+      "canonical": "openprotein.clustering.clustering.ClusteringAPI",
+      "file": "openprotein/clustering/clustering.py",
+      "qualname": "ClusteringAPI"
+    },
+    {
+      "public": "openprotein.DeprecationError",
+      "canonical": "openprotein.errors.DeprecationError",
+      "file": "openprotein/errors.py",
+      "qualname": "DeprecationError"
+    },
+    {
+      "public": "openprotein.OpenProtein",
+      "canonical": "openprotein.OpenProtein",
+      "file": "openprotein/__init__.py",
+      "qualname": "OpenProtein"
+    },
+    {
+      "public": "openprotein.align.AlignAPI",
+      "canonical": "openprotein.align.align.AlignAPI",
+      "file": "openprotein/align/align.py",
+      "qualname": "AlignAPI"
+    },
+    {
+      "public": "openprotein.align.MSAFuture",
+      "canonical": "openprotein.align.msa.MSAFuture",
+      "file": "openprotein/align/msa.py",
+      "qualname": "MSAFuture"
+    },
+    {
+      "public": "openprotein.align.future.AlignFuture",
+      "canonical": "openprotein.align.future.AlignFuture",
+      "file": "openprotein/align/future.py",
+      "qualname": "AlignFuture"
+    },
+    {
+      "public": "openprotein.align.schemas.AbNumberScheme",
+      "canonical": "openprotein.align.schemas.AbNumberScheme",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "AbNumberScheme"
+    },
+    {
+      "public": "openprotein.align.schemas.AlignType",
+      "canonical": "openprotein.align.schemas.AlignType",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "AlignType"
+    },
+    {
+      "public": "openprotein.align.schemas.JobWarning",
+      "canonical": "openprotein.align.schemas.JobWarning",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "JobWarning"
+    },
+    {
+      "public": "openprotein.align.schemas.MSASamplingMethod",
+      "canonical": "openprotein.align.schemas.MSASamplingMethod",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "MSASamplingMethod"
+    },
+    {
+      "public": "openprotein.align.schemas.Pairing",
+      "canonical": "openprotein.align.schemas.Pairing",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "Pairing"
+    },
+    {
+      "public": "openprotein.align.schemas.UnnumberedPolicy",
+      "canonical": "openprotein.align.schemas.UnnumberedPolicy",
+      "file": "openprotein/align/schemas.py",
+      "qualname": "UnnumberedPolicy"
+    },
+    {
+      "public": "openprotein.clustering.ClusteringMetadata",
+      "canonical": "openprotein.clustering.schemas.ClusteringMetadata",
+      "file": "openprotein/clustering/schemas.py",
+      "qualname": "ClusteringMetadata"
+    },
+    {
+      "public": "openprotein.clustering.HierarchicalClusteringFuture",
+      "canonical": "openprotein.clustering.models.HierarchicalClusteringFuture",
+      "file": "openprotein/clustering/models.py",
+      "qualname": "HierarchicalClusteringFuture"
+    },
+    {
+      "public": "openprotein.clustering.HierarchicalClusteringResult",
+      "canonical": "openprotein.clustering.schemas.HierarchicalClusteringResult",
+      "file": "openprotein/clustering/schemas.py",
+      "qualname": "HierarchicalClusteringResult"
+    },
+    {
+      "public": "openprotein.common.FeatureType",
+      "canonical": "openprotein.common.features.FeatureType",
+      "file": "openprotein/common/features.py",
+      "qualname": "FeatureType"
+    },
+    {
+      "public": "openprotein.common.ModelMetadata",
+      "canonical": "openprotein.common.model_metadata.ModelMetadata",
+      "file": "openprotein/common/model_metadata.py",
+      "qualname": "ModelMetadata"
+    },
+    {
+      "public": "openprotein.common.ReductionType",
+      "canonical": "openprotein.common.reduction.ReductionType",
+      "file": "openprotein/common/reduction.py",
+      "qualname": "ReductionType"
+    },
+    {
+      "public": "openprotein.connect",
+      "canonical": "openprotein.connect",
+      "file": "openprotein/__init__.py",
+      "qualname": "connect"
+    },
+    {
+      "public": "openprotein.data.AssayDataPage",
+      "canonical": "openprotein.data.schemas.AssayDataPage",
+      "file": "openprotein/data/schemas.py",
+      "qualname": "AssayDataPage"
+    },
+    {
+      "public": "openprotein.data.AssayDataRow",
+      "canonical": "openprotein.data.schemas.AssayDataRow",
+      "file": "openprotein/data/schemas.py",
+      "qualname": "AssayDataRow"
+    },
+    {
+      "public": "openprotein.data.AssayDataset",
+      "canonical": "openprotein.data.assaydataset.AssayDataset",
+      "file": "openprotein/data/assaydataset.py",
+      "qualname": "AssayDataset"
+    },
+    {
+      "public": "openprotein.data.AssayMetadata",
+      "canonical": "openprotein.data.schemas.AssayMetadata",
+      "file": "openprotein/data/schemas.py",
+      "qualname": "AssayMetadata"
+    },
+    {
+      "public": "openprotein.data.DataAPI",
+      "canonical": "openprotein.data.data.DataAPI",
+      "file": "openprotein/data/data.py",
+      "qualname": "DataAPI"
+    },
+    {
+      "public": "openprotein.data.MSA",
+      "canonical": "openprotein.data.msa.msa.MSA",
+      "file": "openprotein/data/msa/msa.py",
+      "qualname": "MSA"
+    },
+    {
+      "public": "openprotein.data.MSADataAPI",
+      "canonical": "openprotein.data.msa.msa.MSADataAPI",
+      "file": "openprotein/data/msa/msa.py",
+      "qualname": "MSADataAPI"
+    },
+    {
+      "public": "openprotein.data.MSAMetadata",
+      "canonical": "openprotein.data.msa.schemas.MSAMetadata",
+      "file": "openprotein/data/msa/schemas.py",
+      "qualname": "MSAMetadata"
+    },
+    {
+      "public": "openprotein.data.PromptsAPI",
+      "canonical": "openprotein.data.prompts.prompts.PromptsAPI",
+      "file": "openprotein/data/prompts/prompts.py",
+      "qualname": "PromptsAPI"
+    },
+    {
+      "public": "openprotein.data.msa.MSA",
+      "canonical": "openprotein.data.msa.msa.MSA",
+      "file": "openprotein/data/msa/msa.py",
+      "qualname": "MSA"
+    },
+    {
+      "public": "openprotein.data.msa.MSADataAPI",
+      "canonical": "openprotein.data.msa.msa.MSADataAPI",
+      "file": "openprotein/data/msa/msa.py",
+      "qualname": "MSADataAPI"
+    },
+    {
+      "public": "openprotein.data.msa.MSAMetadata",
+      "canonical": "openprotein.data.msa.schemas.MSAMetadata",
+      "file": "openprotein/data/msa/schemas.py",
+      "qualname": "MSAMetadata"
+    },
+    {
+      "public": "openprotein.data.prompts.Prompt",
+      "canonical": "openprotein.data.prompts.prompts.Prompt",
+      "file": "openprotein/data/prompts/prompts.py",
+      "qualname": "Prompt"
+    },
+    {
+      "public": "openprotein.data.prompts.PromptFuture",
+      "canonical": "openprotein.data.prompts.future.PromptFuture",
+      "file": "openprotein/data/prompts/future.py",
+      "qualname": "PromptFuture"
+    },
+    {
+      "public": "openprotein.data.prompts.PromptRecord",
+      "canonical": "openprotein.data.prompts.schemas.PromptRecord",
+      "file": "openprotein/data/prompts/schemas.py",
+      "qualname": "PromptRecord"
+    },
+    {
+      "public": "openprotein.data.prompts.PromptSummary",
+      "canonical": "openprotein.data.prompts.schemas.PromptSummary",
+      "file": "openprotein/data/prompts/schemas.py",
+      "qualname": "PromptSummary"
+    },
+    {
+      "public": "openprotein.data.prompts.PromptsAPI",
+      "canonical": "openprotein.data.prompts.prompts.PromptsAPI",
+      "file": "openprotein/data/prompts/prompts.py",
+      "qualname": "PromptsAPI"
+    },
+    {
+      "public": "openprotein.design.Criteria",
+      "canonical": "openprotein.design.schemas.Criteria",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "Criteria"
+    },
+    {
+      "public": "openprotein.design.Criterion",
+      "canonical": "openprotein.design.schemas.Criterion",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "Criterion"
+    },
+    {
+      "public": "openprotein.design.DesignAPI",
+      "canonical": "openprotein.design.design.DesignAPI",
+      "file": "openprotein/design/design.py",
+      "qualname": "DesignAPI"
+    },
+    {
+      "public": "openprotein.design.DesignConstraint",
+      "canonical": "openprotein.design.schemas.DesignConstraint",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "DesignConstraint"
+    },
+    {
+      "public": "openprotein.design.DesignFuture",
+      "canonical": "openprotein.design.future.DesignFuture",
+      "file": "openprotein/design/future.py",
+      "qualname": "DesignFuture"
+    },
+    {
+      "public": "openprotein.design.ModelCriterion",
+      "canonical": "openprotein.design.schemas.ModelCriterion",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "ModelCriterion"
+    },
+    {
+      "public": "openprotein.design.Subcriterion",
+      "canonical": "openprotein.design.schemas.Subcriterion",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "Subcriterion"
+    },
+    {
+      "public": "openprotein.design.schemas.CriterionType",
+      "canonical": "openprotein.design.schemas.CriterionType",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "CriterionType"
+    },
+    {
+      "public": "openprotein.design.schemas.DesignAlgorithm",
+      "canonical": "openprotein.design.schemas.DesignAlgorithm",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "DesignAlgorithm"
+    },
+    {
+      "public": "openprotein.design.schemas.DesignResult",
+      "canonical": "openprotein.design.schemas.DesignResult",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "DesignResult"
+    },
+    {
+      "public": "openprotein.design.schemas.NMutationCriterion",
+      "canonical": "openprotein.design.schemas.NMutationCriterion",
+      "file": "openprotein/design/schemas.py",
+      "qualname": "NMutationCriterion"
+    },
+    {
+      "public": "openprotein.embeddings.AbLang2Model",
+      "canonical": "openprotein.embeddings.ablang.AbLang2Model",
+      "file": "openprotein/embeddings/ablang.py",
+      "qualname": "AbLang2Model"
+    },
+    {
+      "public": "openprotein.embeddings.AttnJob",
+      "canonical": "openprotein.embeddings.schemas.AttnJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "AttnJob"
+    },
+    {
+      "public": "openprotein.embeddings.ESMModel",
+      "canonical": "openprotein.embeddings.esm.ESMModel",
+      "file": "openprotein/embeddings/esm.py",
+      "qualname": "ESMModel"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddedSequence",
+      "canonical": "openprotein.embeddings.schemas.EmbeddedSequence",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "EmbeddedSequence"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingModel",
+      "canonical": "openprotein.embeddings.models.EmbeddingModel",
+      "file": "openprotein/embeddings/models.py",
+      "qualname": "EmbeddingModel"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsAPI",
+      "canonical": "openprotein.embeddings.embeddings.EmbeddingsAPI",
+      "file": "openprotein/embeddings/embeddings.py",
+      "qualname": "EmbeddingsAPI"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsGenerateFuture",
+      "canonical": "openprotein.embeddings.future.EmbeddingsGenerateFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "EmbeddingsGenerateFuture"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsJob",
+      "canonical": "openprotein.embeddings.schemas.EmbeddingsJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "EmbeddingsJob"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsResultFuture",
+      "canonical": "openprotein.embeddings.future.EmbeddingsResultFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "EmbeddingsResultFuture"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsScoreFuture",
+      "canonical": "openprotein.embeddings.future.EmbeddingsScoreFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "EmbeddingsScoreFuture"
+    },
+    {
+      "public": "openprotein.embeddings.EmbeddingsScoreSingleSiteFuture",
+      "canonical": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "EmbeddingsScoreSingleSiteFuture"
+    },
+    {
+      "public": "openprotein.embeddings.GenerateJob",
+      "canonical": "openprotein.embeddings.schemas.GenerateJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "GenerateJob"
+    },
+    {
+      "public": "openprotein.embeddings.LogitsJob",
+      "canonical": "openprotein.embeddings.schemas.LogitsJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "LogitsJob"
+    },
+    {
+      "public": "openprotein.embeddings.OpenProteinModel",
+      "canonical": "openprotein.embeddings.openprotein.OpenProteinModel",
+      "file": "openprotein/embeddings/openprotein.py",
+      "qualname": "OpenProteinModel"
+    },
+    {
+      "public": "openprotein.embeddings.PoET2Model",
+      "canonical": "openprotein.embeddings.poet2.PoET2Model",
+      "file": "openprotein/embeddings/poet2.py",
+      "qualname": "PoET2Model"
+    },
+    {
+      "public": "openprotein.embeddings.PoETModel",
+      "canonical": "openprotein.embeddings.poet.PoETModel",
+      "file": "openprotein/embeddings/poet.py",
+      "qualname": "PoETModel"
+    },
+    {
+      "public": "openprotein.embeddings.ScoreIndelJob",
+      "canonical": "openprotein.embeddings.schemas.ScoreIndelJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "ScoreIndelJob"
+    },
+    {
+      "public": "openprotein.embeddings.ScoreJob",
+      "canonical": "openprotein.embeddings.schemas.ScoreJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "ScoreJob"
+    },
+    {
+      "public": "openprotein.embeddings.ScoreSingleSiteJob",
+      "canonical": "openprotein.embeddings.schemas.ScoreSingleSiteJob",
+      "file": "openprotein/embeddings/schemas.py",
+      "qualname": "ScoreSingleSiteJob"
+    },
+    {
+      "public": "openprotein.embeddings.future.BaseScoreFuture",
+      "canonical": "openprotein.embeddings.future.BaseScoreFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "BaseScoreFuture"
+    },
+    {
+      "public": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+      "canonical": "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+      "file": "openprotein/embeddings/future.py",
+      "qualname": "EmbeddingsScoreSingleSiteFuture"
+    },
+    {
+      "public": "openprotein.embeddings.models.AttnModel",
+      "canonical": "openprotein.embeddings.models.AttnModel",
+      "file": "openprotein/embeddings/models.py",
+      "qualname": "AttnModel"
+    },
+    {
+      "public": "openprotein.errors.APIError",
+      "canonical": "openprotein.errors.APIError",
+      "file": "openprotein/errors.py",
+      "qualname": "APIError"
+    },
+    {
+      "public": "openprotein.errors.HTTPError",
+      "canonical": "openprotein.errors.HTTPError",
+      "file": "openprotein/errors.py",
+      "qualname": "HTTPError"
+    },
+    {
+      "public": "openprotein.errors.InvalidParameterError",
+      "canonical": "openprotein.errors.InvalidParameterError",
+      "file": "openprotein/errors.py",
+      "qualname": "InvalidParameterError"
+    },
+    {
+      "public": "openprotein.errors.MissingParameterError",
+      "canonical": "openprotein.errors.MissingParameterError",
+      "file": "openprotein/errors.py",
+      "qualname": "MissingParameterError"
+    },
+    {
+      "public": "openprotein.errors.TimeoutException",
+      "canonical": "openprotein.errors.TimeoutException",
+      "file": "openprotein/errors.py",
+      "qualname": "TimeoutException"
+    },
+    {
+      "public": "openprotein.fold.AlphaFold2Model",
+      "canonical": "openprotein.fold.alphafold2.AlphaFold2Model",
+      "file": "openprotein/fold/alphafold2.py",
+      "qualname": "AlphaFold2Model"
+    },
+    {
+      "public": "openprotein.fold.Boltz1Model",
+      "canonical": "openprotein.fold.boltz.Boltz1Model",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "Boltz1Model"
+    },
+    {
+      "public": "openprotein.fold.Boltz1xModel",
+      "canonical": "openprotein.fold.boltz.Boltz1xModel",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "Boltz1xModel"
+    },
+    {
+      "public": "openprotein.fold.Boltz2Model",
+      "canonical": "openprotein.fold.boltz.Boltz2Model",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "Boltz2Model"
+    },
+    {
+      "public": "openprotein.fold.BoltzAffinity",
+      "canonical": "openprotein.fold.boltz.BoltzAffinity",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "BoltzAffinity"
+    },
+    {
+      "public": "openprotein.fold.BoltzConfidence",
+      "canonical": "openprotein.fold.boltz.BoltzConfidence",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "BoltzConfidence"
+    },
+    {
+      "public": "openprotein.fold.BoltzConstraint",
+      "canonical": "openprotein.fold.boltz.BoltzConstraint",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "BoltzConstraint"
+    },
+    {
+      "public": "openprotein.fold.BoltzProperty",
+      "canonical": "openprotein.fold.boltz.BoltzProperty",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "BoltzProperty"
+    },
+    {
+      "public": "openprotein.fold.ESMFold2Confidence",
+      "canonical": "openprotein.fold.esmfold2.ESMFold2Confidence",
+      "file": "openprotein/fold/esmfold2.py",
+      "qualname": "ESMFold2Confidence"
+    },
+    {
+      "public": "openprotein.fold.ESMFold2FastModel",
+      "canonical": "openprotein.fold.esmfold2.ESMFold2FastModel",
+      "file": "openprotein/fold/esmfold2.py",
+      "qualname": "ESMFold2FastModel"
+    },
+    {
+      "public": "openprotein.fold.ESMFold2Model",
+      "canonical": "openprotein.fold.esmfold2.ESMFold2Model",
+      "file": "openprotein/fold/esmfold2.py",
+      "qualname": "ESMFold2Model"
+    },
+    {
+      "public": "openprotein.fold.ESMFoldModel",
+      "canonical": "openprotein.fold.esmfold.ESMFoldModel",
+      "file": "openprotein/fold/esmfold.py",
+      "qualname": "ESMFoldModel"
+    },
+    {
+      "public": "openprotein.fold.FoldAPI",
+      "canonical": "openprotein.fold.fold.FoldAPI",
+      "file": "openprotein/fold/fold.py",
+      "qualname": "FoldAPI"
+    },
+    {
+      "public": "openprotein.fold.FoldConfidence",
+      "canonical": "openprotein.fold.schemas.FoldConfidence",
+      "file": "openprotein/fold/schemas.py",
+      "qualname": "FoldConfidence"
+    },
+    {
+      "public": "openprotein.fold.FoldJob",
+      "canonical": "openprotein.fold.schemas.FoldJob",
+      "file": "openprotein/fold/schemas.py",
+      "qualname": "FoldJob"
+    },
+    {
+      "public": "openprotein.fold.FoldMetadata",
+      "canonical": "openprotein.fold.schemas.FoldMetadata",
+      "file": "openprotein/fold/schemas.py",
+      "qualname": "FoldMetadata"
+    },
+    {
+      "public": "openprotein.fold.FoldModel",
+      "canonical": "openprotein.fold.models.FoldModel",
+      "file": "openprotein/fold/models.py",
+      "qualname": "FoldModel"
+    },
+    {
+      "public": "openprotein.fold.FoldResultFuture",
+      "canonical": "openprotein.fold.future.FoldResultFuture",
+      "file": "openprotein/fold/future.py",
+      "qualname": "FoldResultFuture"
+    },
+    {
+      "public": "openprotein.fold.MiniFoldModel",
+      "canonical": "openprotein.fold.minifold.MiniFoldModel",
+      "file": "openprotein/fold/minifold.py",
+      "qualname": "MiniFoldModel"
+    },
+    {
+      "public": "openprotein.fold.OpenDDEAbagModel",
+      "canonical": "openprotein.fold.opendde.OpenDDEAbagModel",
+      "file": "openprotein/fold/opendde.py",
+      "qualname": "OpenDDEAbagModel"
+    },
+    {
+      "public": "openprotein.fold.OpenDDEConfidence",
+      "canonical": "openprotein.fold.opendde.OpenDDEConfidence",
+      "file": "openprotein/fold/opendde.py",
+      "qualname": "OpenDDEConfidence"
+    },
+    {
+      "public": "openprotein.fold.OpenDDEModel",
+      "canonical": "openprotein.fold.opendde.OpenDDEModel",
+      "file": "openprotein/fold/opendde.py",
+      "qualname": "OpenDDEModel"
+    },
+    {
+      "public": "openprotein.fold.ProtenixConfidence",
+      "canonical": "openprotein.fold.protenix.ProtenixConfidence",
+      "file": "openprotein/fold/protenix.py",
+      "qualname": "ProtenixConfidence"
+    },
+    {
+      "public": "openprotein.fold.ProtenixModel",
+      "canonical": "openprotein.fold.protenix.ProtenixModel",
+      "file": "openprotein/fold/protenix.py",
+      "qualname": "ProtenixModel"
+    },
+    {
+      "public": "openprotein.fold.ProtenixV2Model",
+      "canonical": "openprotein.fold.protenix.ProtenixV2Model",
+      "file": "openprotein/fold/protenix.py",
+      "qualname": "ProtenixV2Model"
+    },
+    {
+      "public": "openprotein.fold.RosettaFold3Model",
+      "canonical": "openprotein.fold.rosettafold3.RosettaFold3Model",
+      "file": "openprotein/fold/rosettafold3.py",
+      "qualname": "RosettaFold3Model"
+    },
+    {
+      "public": "openprotein.fold.boltz.BoltzModel",
+      "canonical": "openprotein.fold.boltz.BoltzModel",
+      "file": "openprotein/fold/boltz.py",
+      "qualname": "BoltzModel"
+    },
+    {
+      "public": "openprotein.jobs.AttentionFuture",
+      "canonical": "openprotein.jobs.futures.AttentionFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "AttentionFuture"
+    },
+    {
+      "public": "openprotein.jobs.BatchJob",
+      "canonical": "openprotein.jobs.schemas.BatchJob",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "BatchJob"
+    },
+    {
+      "public": "openprotein.jobs.CrossvalidateFuture",
+      "canonical": "openprotein.jobs.futures.CrossvalidateFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "CrossvalidateFuture"
+    },
+    {
+      "public": "openprotein.jobs.EmbeddingFuture",
+      "canonical": "openprotein.jobs.futures.EmbeddingFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "EmbeddingFuture"
+    },
+    {
+      "public": "openprotein.jobs.FitFuture",
+      "canonical": "openprotein.jobs.futures.FitFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "FitFuture"
+    },
+    {
+      "public": "openprotein.jobs.Future",
+      "canonical": "openprotein.jobs.futures.Future",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "Future"
+    },
+    {
+      "public": "openprotein.jobs.FutureUnit",
+      "canonical": "openprotein.jobs.futures.FutureUnit",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "FutureUnit"
+    },
+    {
+      "public": "openprotein.jobs.GPFitFuture",
+      "canonical": "openprotein.jobs.futures.GPFitFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "GPFitFuture"
+    },
+    {
+      "public": "openprotein.jobs.IndelScoreFuture",
+      "canonical": "openprotein.jobs.futures.IndelScoreFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "IndelScoreFuture"
+    },
+    {
+      "public": "openprotein.jobs.Job",
+      "canonical": "openprotein.jobs.schemas.Job",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "Job"
+    },
+    {
+      "public": "openprotein.jobs.JobOutput",
+      "canonical": "openprotein.jobs.outputs.JobOutput",
+      "file": "openprotein/jobs/outputs.py",
+      "qualname": "JobOutput"
+    },
+    {
+      "public": "openprotein.jobs.JobStatus",
+      "canonical": "openprotein.jobs.schemas.JobStatus",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "JobStatus"
+    },
+    {
+      "public": "openprotein.jobs.JobType",
+      "canonical": "openprotein.jobs.schemas.JobType",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "JobType"
+    },
+    {
+      "public": "openprotein.jobs.JobsAPI",
+      "canonical": "openprotein.jobs.jobs.JobsAPI",
+      "file": "openprotein/jobs/jobs.py",
+      "qualname": "JobsAPI"
+    },
+    {
+      "public": "openprotein.jobs.LogLikelihoodFuture",
+      "canonical": "openprotein.jobs.futures.LogLikelihoodFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "LogLikelihoodFuture"
+    },
+    {
+      "public": "openprotein.jobs.LogitsFuture",
+      "canonical": "openprotein.jobs.futures.LogitsFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "LogitsFuture"
+    },
+    {
+      "public": "openprotein.jobs.MappedFuture",
+      "canonical": "openprotein.jobs.futures.MappedFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "MappedFuture"
+    },
+    {
+      "public": "openprotein.jobs.PagedFuture",
+      "canonical": "openprotein.jobs.futures.PagedFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "PagedFuture"
+    },
+    {
+      "public": "openprotein.jobs.PredictionFuture",
+      "canonical": "openprotein.jobs.futures.PredictionFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "PredictionFuture"
+    },
+    {
+      "public": "openprotein.jobs.SVDFitFuture",
+      "canonical": "openprotein.jobs.futures.SVDFitFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "SVDFitFuture"
+    },
+    {
+      "public": "openprotein.jobs.SequenceGenerationFuture",
+      "canonical": "openprotein.jobs.futures.SequenceGenerationFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "SequenceGenerationFuture"
+    },
+    {
+      "public": "openprotein.jobs.SingleSitePredictionFuture",
+      "canonical": "openprotein.jobs.futures.SingleSitePredictionFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "SingleSitePredictionFuture"
+    },
+    {
+      "public": "openprotein.jobs.SingleSiteScoreFuture",
+      "canonical": "openprotein.jobs.futures.SingleSiteScoreFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "SingleSiteScoreFuture"
+    },
+    {
+      "public": "openprotein.jobs.StreamingFuture",
+      "canonical": "openprotein.jobs.futures.StreamingFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "StreamingFuture"
+    },
+    {
+      "public": "openprotein.jobs.StructureDesignFuture",
+      "canonical": "openprotein.jobs.futures.StructureDesignFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "StructureDesignFuture"
+    },
+    {
+      "public": "openprotein.jobs.StructurePredictionFuture",
+      "canonical": "openprotein.jobs.futures.StructurePredictionFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "StructurePredictionFuture"
+    },
+    {
+      "public": "openprotein.jobs.TaskFuture",
+      "canonical": "openprotein.jobs.futures.TaskFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "TaskFuture"
+    },
+    {
+      "public": "openprotein.jobs.UMAPFitFuture",
+      "canonical": "openprotein.jobs.futures.UMAPFitFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "UMAPFitFuture"
+    },
+    {
+      "public": "openprotein.jobs.Unit",
+      "canonical": "openprotein.jobs.schemas.Unit",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "Unit"
+    },
+    {
+      "public": "openprotein.jobs.UnitState",
+      "canonical": "openprotein.jobs.schemas.UnitState",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "UnitState"
+    },
+    {
+      "public": "openprotein.jobs.UnknownJobFuture",
+      "canonical": "openprotein.jobs.futures.UnknownJobFuture",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "UnknownJobFuture"
+    },
+    {
+      "public": "openprotein.models.BoltzGen",
+      "canonical": "openprotein.models.design.BoltzGen",
+      "file": "openprotein/models/design.py",
+      "qualname": "BoltzGen"
+    },
+    {
+      "public": "openprotein.models.BoltzGenFuture",
+      "canonical": "openprotein.models.structure_generation.BoltzGenFuture",
+      "file": "openprotein/models/structure_generation.py",
+      "qualname": "BoltzGenFuture"
+    },
+    {
+      "public": "openprotein.models.ESMIF1",
+      "canonical": "openprotein.models.inverse_folding.ESMIF1",
+      "file": "openprotein/models/inverse_folding.py",
+      "qualname": "ESMIF1"
+    },
+    {
+      "public": "openprotein.models.GP",
+      "canonical": "openprotein.models.estimators.GP",
+      "file": "openprotein/models/estimators.py",
+      "qualname": "GP"
+    },
+    {
+      "public": "openprotein.models.GPModel",
+      "canonical": "openprotein.models.gp.GPModel",
+      "file": "openprotein/models/gp.py",
+      "qualname": "GPModel"
+    },
+    {
+      "public": "openprotein.models.LinearKernel",
+      "canonical": "openprotein.models.kernels.LinearKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "LinearKernel"
+    },
+    {
+      "public": "openprotein.models.Matern12Kernel",
+      "canonical": "openprotein.models.kernels.Matern12Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern12Kernel"
+    },
+    {
+      "public": "openprotein.models.Matern32Kernel",
+      "canonical": "openprotein.models.kernels.Matern32Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern32Kernel"
+    },
+    {
+      "public": "openprotein.models.Matern52Kernel",
+      "canonical": "openprotein.models.kernels.Matern52Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern52Kernel"
+    },
+    {
+      "public": "openprotein.models.MethodDescriptor",
+      "canonical": "openprotein.models.schemas.MethodDescriptor",
+      "file": "openprotein/models/schemas.py",
+      "qualname": "MethodDescriptor"
+    },
+    {
+      "public": "openprotein.models.Model",
+      "canonical": "openprotein.models.model.Model",
+      "file": "openprotein/models/model.py",
+      "qualname": "Model"
+    },
+    {
+      "public": "openprotein.models.ModelDescription",
+      "canonical": "openprotein.models.schemas.ModelDescription",
+      "file": "openprotein/models/schemas.py",
+      "qualname": "ModelDescription"
+    },
+    {
+      "public": "openprotein.models.ModelMetadata",
+      "canonical": "openprotein.models.schemas.ModelMetadata",
+      "file": "openprotein/models/schemas.py",
+      "qualname": "ModelMetadata"
+    },
+    {
+      "public": "openprotein.models.ModelsAPI",
+      "canonical": "openprotein.models.models.ModelsAPI",
+      "file": "openprotein/models/models.py",
+      "qualname": "ModelsAPI"
+    },
+    {
+      "public": "openprotein.models.PeriodicKernel",
+      "canonical": "openprotein.models.kernels.PeriodicKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "PeriodicKernel"
+    },
+    {
+      "public": "openprotein.models.PoET",
+      "canonical": "openprotein.models.poet.PoET",
+      "file": "openprotein/models/poet.py",
+      "qualname": "PoET"
+    },
+    {
+      "public": "openprotein.models.ProteinLanguageModel",
+      "canonical": "openprotein.models.model.ProteinLanguageModel",
+      "file": "openprotein/models/model.py",
+      "qualname": "ProteinLanguageModel"
+    },
+    {
+      "public": "openprotein.models.ProteinMPNN",
+      "canonical": "openprotein.models.inverse_folding.ProteinMPNN",
+      "file": "openprotein/models/inverse_folding.py",
+      "qualname": "ProteinMPNN"
+    },
+    {
+      "public": "openprotein.models.RBFKernel",
+      "canonical": "openprotein.models.kernels.RBFKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "RBFKernel"
+    },
+    {
+      "public": "openprotein.models.RFdiffusion",
+      "canonical": "openprotein.models.design.RFdiffusion",
+      "file": "openprotein/models/design.py",
+      "qualname": "RFdiffusion"
+    },
+    {
+      "public": "openprotein.models.RFdiffusionFuture",
+      "canonical": "openprotein.models.structure_generation.RFdiffusionFuture",
+      "file": "openprotein/models/structure_generation.py",
+      "qualname": "RFdiffusionFuture"
+    },
+    {
+      "public": "openprotein.models.RationalQuadraticKernel",
+      "canonical": "openprotein.models.kernels.RationalQuadraticKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "RationalQuadraticKernel"
+    },
+    {
+      "public": "openprotein.models.SVD",
+      "canonical": "openprotein.models.estimators.SVD",
+      "file": "openprotein/models/estimators.py",
+      "qualname": "SVD"
+    },
+    {
+      "public": "openprotein.models.SVDModel",
+      "canonical": "openprotein.models.svd.SVDModel",
+      "file": "openprotein/models/svd.py",
+      "qualname": "SVDModel"
+    },
+    {
+      "public": "openprotein.models.SolubleMPNN",
+      "canonical": "openprotein.models.inverse_folding.SolubleMPNN",
+      "file": "openprotein/models/inverse_folding.py",
+      "qualname": "SolubleMPNN"
+    },
+    {
+      "public": "openprotein.models.StructureGenerationFuture",
+      "canonical": "openprotein.models.structure_generation.StructureGenerationFuture",
+      "file": "openprotein/models/structure_generation.py",
+      "qualname": "StructureGenerationFuture"
+    },
+    {
+      "public": "openprotein.models.StructureGenerationJob",
+      "canonical": "openprotein.models.structure_generation.StructureGenerationJob",
+      "file": "openprotein/models/structure_generation.py",
+      "qualname": "StructureGenerationJob"
+    },
+    {
+      "public": "openprotein.models.StructureGenerativeModel",
+      "canonical": "openprotein.models.structure_generative_model.StructureGenerativeModel",
+      "file": "openprotein/models/structure_generative_model.py",
+      "qualname": "StructureGenerativeModel"
+    },
+    {
+      "public": "openprotein.models.StructurePredictionModel",
+      "canonical": "openprotein.models.structure_prediction_model.StructurePredictionModel",
+      "file": "openprotein/models/structure_prediction_model.py",
+      "qualname": "StructurePredictionModel"
+    },
+    {
+      "public": "openprotein.models.TrainedKernel",
+      "canonical": "openprotein.models.kernels.TrainedKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "TrainedKernel"
+    },
+    {
+      "public": "openprotein.models.UMAP",
+      "canonical": "openprotein.models.estimators.UMAP",
+      "file": "openprotein/models/estimators.py",
+      "qualname": "UMAP"
+    },
+    {
+      "public": "openprotein.models.UMAPModel",
+      "canonical": "openprotein.models.umap.UMAPModel",
+      "file": "openprotein/models/umap.py",
+      "qualname": "UMAPModel"
+    },
+    {
+      "public": "openprotein.models.svd.SVDEmbeddingSource",
+      "canonical": "openprotein.models.svd.SVDEmbeddingSource",
+      "file": "openprotein/models/svd.py",
+      "qualname": "SVDEmbeddingSource"
+    },
+    {
+      "public": "openprotein.models.svd.SVDRecord",
+      "canonical": "openprotein.models.svd.SVDRecord",
+      "file": "openprotein/models/svd.py",
+      "qualname": "SVDRecord"
+    },
+    {
+      "public": "openprotein.molecules.Complex",
+      "canonical": "openprotein.molecules.complex.Complex",
+      "file": "openprotein/molecules/complex.py",
+      "qualname": "Complex"
+    },
+    {
+      "public": "openprotein.molecules.DNA",
+      "canonical": "openprotein.molecules.chains.DNA",
+      "file": "openprotein/molecules/chains.py",
+      "qualname": "DNA"
+    },
+    {
+      "public": "openprotein.molecules.Ligand",
+      "canonical": "openprotein.molecules.chains.Ligand",
+      "file": "openprotein/molecules/chains.py",
+      "qualname": "Ligand"
+    },
+    {
+      "public": "openprotein.molecules.Protein",
+      "canonical": "openprotein.molecules.protein.Protein",
+      "file": "openprotein/molecules/protein.py",
+      "qualname": "Protein"
+    },
+    {
+      "public": "openprotein.molecules.RNA",
+      "canonical": "openprotein.molecules.chains.RNA",
+      "file": "openprotein/molecules/chains.py",
+      "qualname": "RNA"
+    },
+    {
+      "public": "openprotein.molecules.Structure",
+      "canonical": "openprotein.molecules.structure.Structure",
+      "file": "openprotein/molecules/structure.py",
+      "qualname": "Structure"
+    },
+    {
+      "public": "openprotein.molecules.Template",
+      "canonical": "openprotein.molecules.template.Template",
+      "file": "openprotein/molecules/template.py",
+      "qualname": "Template"
+    },
+    {
+      "public": "openprotein.predictor.Constraints",
+      "canonical": "openprotein.predictor.schemas.Constraints",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "Constraints"
+    },
+    {
+      "public": "openprotein.predictor.Dataset",
+      "canonical": "openprotein.predictor.schemas.Dataset",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "Dataset"
+    },
+    {
+      "public": "openprotein.predictor.Features",
+      "canonical": "openprotein.predictor.schemas.Features",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "Features"
+    },
+    {
+      "public": "openprotein.predictor.Kernel",
+      "canonical": "openprotein.predictor.schemas.Kernel",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "Kernel"
+    },
+    {
+      "public": "openprotein.predictor.KernelType",
+      "canonical": "openprotein.predictor.schemas.KernelType",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "KernelType"
+    },
+    {
+      "public": "openprotein.predictor.LinearKernel",
+      "canonical": "openprotein.models.kernels.LinearKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "LinearKernel"
+    },
+    {
+      "public": "openprotein.predictor.Matern12Kernel",
+      "canonical": "openprotein.models.kernels.Matern12Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern12Kernel"
+    },
+    {
+      "public": "openprotein.predictor.Matern32Kernel",
+      "canonical": "openprotein.models.kernels.Matern32Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern32Kernel"
+    },
+    {
+      "public": "openprotein.predictor.Matern52Kernel",
+      "canonical": "openprotein.models.kernels.Matern52Kernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "Matern52Kernel"
+    },
+    {
+      "public": "openprotein.predictor.PeriodicKernel",
+      "canonical": "openprotein.models.kernels.PeriodicKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "PeriodicKernel"
+    },
+    {
+      "public": "openprotein.predictor.PredictJob",
+      "canonical": "openprotein.predictor.schemas.PredictJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictMultiJob",
+      "canonical": "openprotein.predictor.schemas.PredictMultiJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictMultiJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictMultiSingleSiteJob",
+      "canonical": "openprotein.predictor.schemas.PredictMultiSingleSiteJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictMultiSingleSiteJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictSingleSiteJob",
+      "canonical": "openprotein.predictor.schemas.PredictSingleSiteJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictSingleSiteJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictionResultFuture",
+      "canonical": "openprotein.predictor.prediction.PredictionResultFuture",
+      "file": "openprotein/predictor/prediction.py",
+      "qualname": "PredictionResultFuture"
+    },
+    {
+      "public": "openprotein.predictor.PredictorAPI",
+      "canonical": "openprotein.predictor.predictor.PredictorAPI",
+      "file": "openprotein/predictor/predictor.py",
+      "qualname": "PredictorAPI"
+    },
+    {
+      "public": "openprotein.predictor.PredictorArgs",
+      "canonical": "openprotein.predictor.schemas.PredictorArgs",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorArgs"
+    },
+    {
+      "public": "openprotein.predictor.PredictorCVJob",
+      "canonical": "openprotein.predictor.schemas.PredictorCVJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorCVJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictorEnsembleJob",
+      "canonical": "openprotein.predictor.schemas.PredictorEnsembleJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorEnsembleJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictorMetadata",
+      "canonical": "openprotein.predictor.schemas.PredictorMetadata",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorMetadata"
+    },
+    {
+      "public": "openprotein.predictor.PredictorModel",
+      "canonical": "openprotein.predictor.models.PredictorModel",
+      "file": "openprotein/predictor/models.py",
+      "qualname": "PredictorModel"
+    },
+    {
+      "public": "openprotein.predictor.PredictorTrainJob",
+      "canonical": "openprotein.predictor.schemas.PredictorTrainJob",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorTrainJob"
+    },
+    {
+      "public": "openprotein.predictor.PredictorType",
+      "canonical": "openprotein.predictor.schemas.PredictorType",
+      "file": "openprotein/predictor/schemas.py",
+      "qualname": "PredictorType"
+    },
+    {
+      "public": "openprotein.predictor.RBFKernel",
+      "canonical": "openprotein.models.kernels.RBFKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "RBFKernel"
+    },
+    {
+      "public": "openprotein.predictor.RationalQuadraticKernel",
+      "canonical": "openprotein.models.kernels.RationalQuadraticKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "RationalQuadraticKernel"
+    },
+    {
+      "public": "openprotein.predictor.TrainedKernel",
+      "canonical": "openprotein.models.kernels.TrainedKernel",
+      "file": "openprotein/models/kernels.py",
+      "qualname": "TrainedKernel"
+    },
+    {
+      "public": "openprotein.predictor.validate.CVResultFuture",
+      "canonical": "openprotein.predictor.validate.CVResultFuture",
+      "file": "openprotein/predictor/validate.py",
+      "qualname": "CVResultFuture"
+    },
+    {
+      "public": "openprotein.prompt.Prompt",
+      "canonical": "openprotein.prompt.models.Prompt",
+      "file": "openprotein/prompt/models.py",
+      "qualname": "Prompt"
+    },
+    {
+      "public": "openprotein.prompt.PromptAPI",
+      "canonical": "openprotein.prompt.prompt.PromptAPI",
+      "file": "openprotein/prompt/prompt.py",
+      "qualname": "PromptAPI"
+    },
+    {
+      "public": "openprotein.prompt.PromptJob",
+      "canonical": "openprotein.prompt.schemas.PromptJob",
+      "file": "openprotein/prompt/schemas.py",
+      "qualname": "PromptJob"
+    },
+    {
+      "public": "openprotein.prompt.PromptMetadata",
+      "canonical": "openprotein.prompt.schemas.PromptMetadata",
+      "file": "openprotein/prompt/schemas.py",
+      "qualname": "PromptMetadata"
+    },
+    {
+      "public": "openprotein.prompt.Query",
+      "canonical": "openprotein.prompt.models.Query",
+      "file": "openprotein/prompt/models.py",
+      "qualname": "Query"
+    },
+    {
+      "public": "openprotein.prompt.QueryMetadata",
+      "canonical": "openprotein.prompt.schemas.QueryMetadata",
+      "file": "openprotein/prompt/schemas.py",
+      "qualname": "QueryMetadata"
+    },
+    {
+      "public": "openprotein.svd.SVDAPI",
+      "canonical": "openprotein.svd.svd.SVDAPI",
+      "file": "openprotein/svd/svd.py",
+      "qualname": "SVDAPI"
+    },
+    {
+      "public": "openprotein.svd.SVDEmbeddingsJob",
+      "canonical": "openprotein.svd.schemas.SVDEmbeddingsJob",
+      "file": "openprotein/svd/schemas.py",
+      "qualname": "SVDEmbeddingsJob"
+    },
+    {
+      "public": "openprotein.svd.SVDEmbeddingsResultFuture",
+      "canonical": "openprotein.svd.models.SVDEmbeddingsResultFuture",
+      "file": "openprotein/svd/models.py",
+      "qualname": "SVDEmbeddingsResultFuture"
+    },
+    {
+      "public": "openprotein.svd.SVDFitJob",
+      "canonical": "openprotein.svd.schemas.SVDFitJob",
+      "file": "openprotein/svd/schemas.py",
+      "qualname": "SVDFitJob"
+    },
+    {
+      "public": "openprotein.svd.SVDMetadata",
+      "canonical": "openprotein.svd.schemas.SVDMetadata",
+      "file": "openprotein/svd/schemas.py",
+      "qualname": "SVDMetadata"
+    },
+    {
+      "public": "openprotein.svd.SVDModel",
+      "canonical": "openprotein.svd.models.SVDModel",
+      "file": "openprotein/svd/models.py",
+      "qualname": "SVDModel"
+    },
+    {
+      "public": "openprotein.umap.UMAPAPI",
+      "canonical": "openprotein.umap.umap.UMAPAPI",
+      "file": "openprotein/umap/umap.py",
+      "qualname": "UMAPAPI"
+    },
+    {
+      "public": "openprotein.umap.UMAPEmbeddingsJob",
+      "canonical": "openprotein.umap.schemas.UMAPEmbeddingsJob",
+      "file": "openprotein/umap/schemas.py",
+      "qualname": "UMAPEmbeddingsJob"
+    },
+    {
+      "public": "openprotein.umap.UMAPEmbeddingsResultFuture",
+      "canonical": "openprotein.umap.models.UMAPEmbeddingsResultFuture",
+      "file": "openprotein/umap/models.py",
+      "qualname": "UMAPEmbeddingsResultFuture"
+    },
+    {
+      "public": "openprotein.umap.UMAPFitJob",
+      "canonical": "openprotein.umap.schemas.UMAPFitJob",
+      "file": "openprotein/umap/schemas.py",
+      "qualname": "UMAPFitJob"
+    },
+    {
+      "public": "openprotein.umap.UMAPMetadata",
+      "canonical": "openprotein.umap.schemas.UMAPMetadata",
+      "file": "openprotein/umap/schemas.py",
+      "qualname": "UMAPMetadata"
+    },
+    {
+      "public": "openprotein.umap.UMAPModel",
+      "canonical": "openprotein.umap.models.UMAPModel",
+      "file": "openprotein/umap/models.py",
+      "qualname": "UMAPModel"
+    }
+  ],
+  "removed": [
+    "openprotein.models.ModelsJob",
+    "openprotein.models.MODELS_JOB_TYPE"
+  ],
+  "private": [
+    "openprotein.models.kernels._GPHyperparameters",
+    "openprotein.models.kernels._sole_hyperparameters",
+    "openprotein.models.kernels._trained_kernel",
+    "openprotein.predictor.api._predictor_get_hyperparameters",
+    "openprotein.models.estimators._F",
+    "openprotein.models.estimators._H",
+    "openprotein.jobs._dispatch",
+    "openprotein.jobs.futures._Submission",
+    "openprotein.fold._request"
+  ],
+  "excluded": [
+    "openprotein.search.MSASearchFuture",
+    "openprotein.search.SearchJob",
+    "openprotein.models.CVResults",
+    "openprotein.models.schemas.CVResults",
+    "openprotein.models.SVDModel.components",
+    "openprotein.models.SVDModel.update",
+    "openprotein.models.svd.SVDRecord.components_value"
+  ],
+  "accessors": [
+    {
+      "name": "GP",
+      "modelId": null,
+      "interface": "openprotein.models.GP",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "SVD",
+      "modelId": null,
+      "interface": "openprotein.models.SVD",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "UMAP",
+      "modelId": null,
+      "interface": "openprotein.models.UMAP",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "ablang2",
+      "modelId": "ablang2",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "af2",
+      "modelId": "alphafold2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": "alphafold2",
+      "opendde": false
+    },
+    {
+      "name": "alphafold2",
+      "modelId": "alphafold2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "boltz1",
+      "modelId": "boltz-1",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": "boltz_1",
+      "opendde": false
+    },
+    {
+      "name": "boltz1x",
+      "modelId": "boltz-1x",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": "boltz_1x",
+      "opendde": false
+    },
+    {
+      "name": "boltz2",
+      "modelId": "boltz-2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": "boltz_2",
+      "opendde": false
+    },
+    {
+      "name": "boltz_1",
+      "modelId": "boltz-1",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "boltz_1x",
+      "modelId": "boltz-1x",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "boltz_2",
+      "modelId": "boltz-2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "boltzgen",
+      "modelId": "boltzgen",
+      "interface": "openprotein.models.BoltzGen",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1b",
+      "modelId": "esm1b_t33_650M_UR50S",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": "esm1b_t33_650M_UR50S",
+      "opendde": false
+    },
+    {
+      "name": "esm1b_t33_650M_UR50S",
+      "modelId": "esm1b_t33_650M_UR50S",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1v",
+      "modelId": "esm1v_t33_650M_UR90S_1",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": "esm1v_t33_650M_UR90S_1",
+      "opendde": false
+    },
+    {
+      "name": "esm1v_t33_650M_UR90S_1",
+      "modelId": "esm1v_t33_650M_UR90S_1",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1v_t33_650M_UR90S_2",
+      "modelId": "esm1v_t33_650M_UR90S_2",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1v_t33_650M_UR90S_3",
+      "modelId": "esm1v_t33_650M_UR90S_3",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1v_t33_650M_UR90S_4",
+      "modelId": "esm1v_t33_650M_UR90S_4",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm1v_t33_650M_UR90S_5",
+      "modelId": "esm1v_t33_650M_UR90S_5",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm2",
+      "modelId": "esm2_t33_650M_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": "esm2_t33_650M_UR50D",
+      "opendde": false
+    },
+    {
+      "name": "esm2_t12_35M_UR50D",
+      "modelId": "esm2_t12_35M_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm2_t30_150M_UR50D",
+      "modelId": "esm2_t30_150M_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm2_t33_650M_UR50D",
+      "modelId": "esm2_t33_650M_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm2_t36_3B_UR50D",
+      "modelId": "esm2_t36_3B_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm2_t6_8M_UR50D",
+      "modelId": "esm2_t6_8M_UR50D",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esm_if1",
+      "modelId": "esm-if1",
+      "interface": "openprotein.models.ESMIF1",
+      "aliasOf": "esmif1",
+      "opendde": false
+    },
+    {
+      "name": "esmc_300m",
+      "modelId": "esmc-300m",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmc_600m",
+      "modelId": "esmc-600m",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmc_6b",
+      "modelId": "esmc-6b",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmfold",
+      "modelId": "esmfold",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmfold2",
+      "modelId": "esmfold2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmfold2_fast",
+      "modelId": "esmfold2-fast",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "esmif1",
+      "modelId": "esm-if1",
+      "interface": "openprotein.models.ESMIF1",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "minifold",
+      "modelId": "minifold",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "opendde",
+      "modelId": "opendde",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": true
+    },
+    {
+      "name": "opendde_abag",
+      "modelId": "opendde-abag",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": true
+    },
+    {
+      "name": "poet",
+      "modelId": "poet",
+      "interface": "openprotein.models.PoET",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "poet2",
+      "modelId": "poet-2",
+      "interface": "openprotein.models.PoET",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "poet_2",
+      "modelId": "poet-2",
+      "interface": "openprotein.models.PoET",
+      "aliasOf": "poet2",
+      "opendde": false
+    },
+    {
+      "name": "prot_seq",
+      "modelId": "prot-seq",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "proteinmpnn",
+      "modelId": "proteinmpnn",
+      "interface": "openprotein.models.ProteinMPNN",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "protenix",
+      "modelId": "protenix",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "protenix_v2",
+      "modelId": "protenix-v2",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "prott5_xl",
+      "modelId": "prott5-xl",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "rf3",
+      "modelId": "rosettafold-3",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": "rosettafold_3",
+      "opendde": false
+    },
+    {
+      "name": "rfdiffusion",
+      "modelId": "rfdiffusion",
+      "interface": "openprotein.models.RFdiffusion",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "rosettafold_3",
+      "modelId": "rosettafold-3",
+      "interface": "openprotein.models.StructurePredictionModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "rotaprot_large_uniref50w",
+      "modelId": "rotaprot-large-uniref50w",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "rotaprot_large_uniref90_ft",
+      "modelId": "rotaprot-large-uniref90-ft",
+      "interface": "openprotein.models.ProteinLanguageModel",
+      "aliasOf": null,
+      "opendde": false
+    },
+    {
+      "name": "solublempnn",
+      "modelId": "solublempnn",
+      "interface": "openprotein.models.SolubleMPNN",
+      "aliasOf": null,
+      "opendde": false
+    }
+  ],
+  "kernels": [
+    "openprotein.models.TrainedKernel",
+    "openprotein.models.LinearKernel",
+    "openprotein.models.RBFKernel",
+    "openprotein.models.Matern12Kernel",
+    "openprotein.models.Matern32Kernel",
+    "openprotein.models.Matern52Kernel",
+    "openprotein.models.PeriodicKernel",
+    "openprotein.models.RationalQuadraticKernel"
+  ],
+  "jobSchemas": [
+    "openprotein.jobs.Job",
+    "openprotein.jobs.JobStatus",
+    "openprotein.jobs.JobType",
+    "openprotein.jobs.BatchJob",
+    "openprotein.jobs.Unit",
+    "openprotein.jobs.UnitState",
+    "openprotein.jobs.JobOutput"
+  ],
+  "foldHelper": {
+    "file": "openprotein/fold/_request.py",
+    "qualname": "complex_chain_ids"
+  },
+  "behaviors": [
+    {
+      "id": "task-primary",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "TaskFuture._output_name",
+      "contains": [
+        "if output is not None:",
+        "return output",
+        "_api.job_default_output(self.session, self.id)"
+      ]
+    },
+    {
+      "id": "fit-named-output",
+      "file": "openprotein/jobs/futures.py",
+      "qualname": "FitFuture._get",
+      "contains": [
+        "kwargs.get('output') is not None",
+        "return self._fitted()"
+      ]
+    },
+    {
+      "id": "prompt-sampling",
+      "file": "openprotein/data/prompts/future.py",
+      "qualname": "PromptFuture.get",
+      "contains": [
+        "list[list[str]]"
+      ]
+    },
+    {
+      "id": "reload-gp",
+      "file": "openprotein/predictor/models.py",
+      "qualname": "PredictorModel",
+      "contains": [
+        "PredictorTrainJob"
+      ]
+    },
+    {
+      "id": "reload-cv",
+      "file": "openprotein/predictor/validate.py",
+      "qualname": "CVResultFuture",
+      "contains": [
+        "PredictorCVJob"
+      ]
+    },
+    {
+      "id": "reload-prompt",
+      "file": "openprotein/prompt/models.py",
+      "qualname": "Prompt",
+      "contains": [
+        "PromptJob"
+      ]
+    },
+    {
+      "id": "plain-job",
+      "file": "openprotein/jobs/schemas.py",
+      "qualname": "Job.create",
+      "contains": [
+        "Job.model_validate(payload)"
+      ]
+    },
+    {
+      "id": "fold-order",
+      "file": "openprotein/fold/_request.py",
+      "qualname": "complex_chain_ids",
+      "contains": [
+        "request order with copies expanded",
+        "fold outputs"
+      ]
+    },
+    {
+      "id": "legacy-deprecation",
+      "file": "openprotein/models/structure_generation.py",
+      "qualname": "BoltzGenFuture",
+      "contains": [
+        "0.18.0",
+        "0.19.0",
+        "jobs.StructureDesignFuture"
+      ]
+    },
+    {
+      "id": "opendde",
+      "file": "openprotein/models/models.py",
+      "qualname": "ModelsAPI.opendde",
+      "contains": [
+        "self._handle('opendde', StructurePredictionModel)"
+      ]
+    },
+    {
+      "id": "opendde-abag",
+      "file": "openprotein/models/models.py",
+      "qualname": "ModelsAPI.opendde_abag",
+      "contains": [
+        "self._handle('opendde-abag', StructurePredictionModel)"
+      ]
+    },
+    {
+      "id": "release-search-task-output",
+      "file": "openprotein/jobs/_dispatch.py",
+      "qualname": "is_models_job",
+      "contains": [
+        "job.job_type == '/search/mmseqs2'"
+      ]
+    },
+    {
+      "id": "release-search-generic-fallback",
+      "file": "openprotein/jobs/_dispatch.py",
+      "qualname": "create",
+      "contains": [
+        "selected = future_type or TaskFuture"
+      ]
+    },
+    {
+      "id": "prompt-content-reader",
+      "file": "openprotein/data/prompts/future.py",
+      "qualname": "PromptFuture._get",
+      "contains": [
+        "self.job.provider_id is not None",
+        "_api.prompts_download(self.session, self.id)",
+        "_prompt_api.get_prompt(self.session, self.id)"
+      ]
+    },
+    {
+      "id": "gp-no-custom-folds",
+      "file": "openprotein/models/gp.py",
+      "qualname": "GPModel.crossvalidate",
+      "contains": [
+        "_futures.CrossvalidateFuture",
+        "n_splits"
+      ]
+    },
+    {
+      "id": "svd-holdbacks",
+      "file": "openprotein/models/svd.py",
+      "qualname": "SVDModel",
+      "contains": [
+        "class SVDModel(Model)",
+        "def transform",
+        "def delete"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+---
+title: "openprotein.design"
+description: "Design new sequences based on your stated objectives and our genetic algorithm!."
+pythonApi: true
+---
+Design new sequences based on your stated objectives and our genetic algorithm!
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.design.DesignAPI",
+  ]}
+>
+
+<PyClass path="openprotein.design.DesignAPI" />
+
+</PyGroup>
+
+<PyGroup id="criteria" title="Criteria"
+  anchors={[
+    "openprotein.design.Criteria",
+    "openprotein.design.Criterion",
+    "openprotein.design.Subcriterion",
+    "openprotein.design.DesignConstraint",
+    "openprotein.design.schemas.DesignAlgorithm",
+    "openprotein.design.ModelCriterion",
+    "openprotein.design.schemas.NMutationCriterion",
+    "openprotein.design.schemas.CriterionType",
+  ]}
+>
+
+Build criteria from a trained model ID and a measurement name. A fitted `GPModel` from `session.models.GP` does not implement the comparison operators: construct `ModelCriterion` explicitly. The legacy `PredictorModel` supports comparisons for a single training property.
+
+Use the authenticated `session` and the `assay` from the [Data upload example](/references/python-api/data). The GP trains on the assay's measured `activity` values. `fit.wait()` returns the fitted GP whose ID you pass to `ModelCriterion`:
+
+```python
+from openprotein.design import DesignConstraint, ModelCriterion, n_mutations
+
+fit = session.models.GP().fit(assay=assay, property="activity")
+gp = fit.wait(timeout=600)
+low = (ModelCriterion(model_id=gp.id, measurement_name="activity") > 0.5) * 2.0
+high = ModelCriterion(model_id=gp.id, measurement_name="activity") < 2.0
+criteria = (low & high) | n_mutations(sequences=["ACDE"])
+
+constraints = DesignConstraint("ACDE")
+constraints.allow(amino_acids="GY", positions=[2])
+design = session.design.create_genetic_algorithm_design(
+    assay=assay, criteria=criteria, allowed_tokens=constraints
+)
+for result in design.wait(timeout=600):
+    print(result.step, result.sample_index, result.sequence)
+    print(result.scores, result.subscores, result.means, result.vars)
+```
+
+`*` sets a model criterion's weight, and comparisons set its target and direction; these operations modify the criterion. `&` joins subcriteria of the same type into a group, while `|` combines groups. Model and mutation-count subcriteria cannot be joined in the same `&` group. Constraints start with the original residues allowed; positions are 1-indexed and chain-break positions cannot be constrained.
+
+<PyClass path="openprotein.design.Criteria" />
+<PyClass path="openprotein.design.Criterion" />
+<PyClass path="openprotein.design.Subcriterion" />
+<PyClass path="openprotein.design.DesignConstraint" />
+<PyClass path="openprotein.design.schemas.DesignAlgorithm" />
+<PyClass path="openprotein.design.ModelCriterion" />
+<PyClass path="openprotein.design.schemas.NMutationCriterion" />
+<PyClass path="openprotein.design.schemas.CriterionType" />
+
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.design.DesignFuture",
+    "openprotein.design.schemas.DesignResult",
+  ]}
+>
+
+`get()` reads the results and `wait()` waits then reads; `stream(step=...)` can select a step. Each `DesignResult` carries `step`, `sample_index`, `sequence`, `scores`, `subscores`, `means` and `vars`. The SDK declares the last four as arrays but does not establish their scientific axes here; interpret them using the design and model context. Design result steps are 1-based. In `stream(step=...)`, use a 1-based step or `-1` for the last step.
+
+<PyClass path="openprotein.design.DesignFuture" />
+<PyClass path="openprotein.design.schemas.DesignResult" />
+
+</PyGroup>

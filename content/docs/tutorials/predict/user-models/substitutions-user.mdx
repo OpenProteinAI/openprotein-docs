@@ -1,0 +1,186 @@
+---
+title: "Score single substitutions on a sequence with a property predictor"
+sidebarTitle: Score with property predictor
+description: "In this tutorial, we will take one protein sequence and score all of its single substitution variants with a custom trained property predictor."
+---
+
+We’ll look at the results in three ways:
+Prediction scores for each variant
+A table with the predicted mean and standard deviation for the properties you select
+A heatmap showing the effect of each substitution at each position
+Finally, we’ll apply a filter to narrow the list down to the variants you want to keep.
+
+**Before starting** 
+
+A trained property predictor that was fine-tuned on an [experimental dataset](https://docs.google.com/spreadsheets/d/1e9VfxiYPFIq2JpSCEBAS03_SgFaqd69yL5TA48VY8d8/edit?usp=sharing). For this tutorial, we will use an antibody dataset from [Makowski et al. 2022](https://doi.org/10.1038/s41467-022-31457-3). If a model has not been trained yet, follow the model training documentation [link to model training](/tutorials/learn/training-property-predictors).
+One starting protein sequence to enumerate single substitutions and score.
+
+**Step 1: Open the Substitution Analysis tool**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Open the substitution analysis tool by clicking on “Substitution Analysis” in the action bar at the bottom, on the Dataset or Model page. 
+
+    <Figure src="/_static/tutorials/predict/user-models/user-substitutions/substitution-tool.png" />
+  </Tab>
+  <Tab value="Python">
+    Define the same sequence as a string, or pull one from the training assay:
+
+    ```python lineNumbers
+    sequence = "QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAEATTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDAWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK"
+
+    # or take the first sequence from the assay used for training:
+    sequence = assay.get_first().sequence[0]
+    ```
+  </Tab>
+</Tabs>
+
+An input box for a sequence should appear, with the analysis type set to Single Analysis. This is the default.
+
+**Step 2: Enter the sequence**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Paste your sequence into the input box.
+
+    ```
+    QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAEATTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDAWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+    ```
+
+    The sequence should appear in the box.
+
+    <Figure src="/_static/tutorials/predict/user-models/user-substitutions/substitution-input-seq.png" />
+  </Tab>
+  <Tab value="Python">
+    Define the same sequence as a string, or pull one from the training assay:
+
+    ```py lineNumbers
+    sequence = "QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNAEATTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARSNGLDAWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK"
+
+    # or take the first sequence from the assay used for training:
+    sequence = assay.get_first().sequence[0]
+    ```
+  </Tab>
+</Tabs>
+
+**Step 3. Select a model**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Select the model, `GP-ant` and `GP-ova`.
+    The chosen model should be marked as selected. The Predict button needs at least one model to work. If no model appears here, follow the model training tutorial [here](/tutorials/learn/training-property-predictors)
+
+    <Figure src="/_static/tutorials/predict/user-models/user-substitutions/substitution-select-model.png" />
+  </Tab>
+  <Tab value="Python">
+    Each model you select in the app is a separate predictor handle in Python. Hold the two trained models and run the analysis once per predictor:
+
+    ```py lineNumbers
+    predictors = [gp_ant, gp_ova]   # one handle per trained model
+    ```
+  </Tab>
+</Tabs>
+
+\*\* Step 4. Run the prediction \*\*
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Click **Predict**.
+    When the run finishes, the results should appear in these forms: prediction scores, mean and standard deviation in a table, and a heatmap.
+  </Tab>
+  <Tab value="Python">
+    Submit a single site job for the sequence, then wait. single_site enumerates all single mutants of the sequence for you:
+
+    ```py lineNumbers
+    sspredict = predictor.single_site(sequence)
+    ```
+
+    Wait for results. This can take several minutes:
+
+    ```py lineNumbers
+    ssp_results = sspredict.wait(verbose=True)
+    ```
+
+    To run both models, loop over the predictors:
+
+    ```py lineNumbers
+    results = {p: p.single_site(sequence).wait() for p in predictors}
+    ```
+  </Tab>
+</Tabs>
+
+**Step 5: Read the results**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    In the table, each substitution is reported with a predicted mean and standard deviation for the selected property. The standard deviation quantifies the uncertainty of the prediction: a higher value indicates greater uncertainty in the predicted mean.
+
+    In the heatmap, hover over a point to view the log-likelihood score for that substitution variant. The higher, or less negative, the log-likelihood score, the fitter the variant.
+
+    Each color in the heatmap shows how a mutation to the corresponding residue at that site would affect fitness compared to the input sequence:
+
+    Blue: improved fitness.
+
+    Red: reduced fitness.
+
+    A site that is all white: a mutation at that site would not affect fitness.
+    In the panel on the right, find the heatmap view settings and the property targets. 
+  </Tab>
+  <Tab value="Python">
+    Results come back as arrays aligned with sspredict.sequences. Index [0] holds the mean and [1] holds the variance; .T[0] selects the first property column. Pair them per variant:
+
+    ```py lineNumbers
+    from collections import namedtuple
+
+    Score = namedtuple("Score", ["sequence", "mean", "var"])
+    [Score(s, mu.item(), var.item())
+     for s, mu, var in zip(sspredict.sequences[:5], ssp_results[0].T[0][:5], ssp_results[1].T[0][:5])]
+    ```
+
+    The mean and variance values above are illustrative, taken from the reference example. Standard deviation is the square root of the variance. Sequences are returned as bytes, so .decode() them for readable labels.
+  </Tab>
+</Tabs>
+
+**Step 7: Narrow the list with a filter**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    The filters cut the results down to the substitutions you care about.
+
+    Set Max Variants to 50. 
+
+    This should filter the number of sequences in the table down to 50. The corresponding sequences will be highlighted in the heatmap.
+  </Tab>
+  <Tab value="Python">
+    Build a table and take the top 50 by predicted mean:
+
+    ```py lineNumbers
+    import numpy as np
+    import pandas as pd
+
+    mean = ssp_results[0].T[0]
+    var = ssp_results[1].T[0]
+
+    df = pd.DataFrame({
+      "sequence": [s.decode() for s in sspredict.sequences],
+      "mean": mean,
+      "stdev": np.sqrt(var),
+    })
+
+    top50 = df.sort_values("mean", ascending=False).head(50)
+    top50.to_csv("top50_variants.csv", index=False)
+    ```
+  </Tab>
+</Tabs>
+
+\`
+
+**What we’ve done**
+
+We scored single substitutions on one sequence with a custom trained model, read the predictions as a table and a heatmap, and narrowed the results with filters.
+
+**Next steps**
+
+To score higher order mutants, read [our tutorial](/tutorials/predict/user-models/batch) on scoring sequences with a property predictor.
+
+To view the 3D structure of sequences, use the [Structure Prediction tool](/tutorials/predict/structure/structure-predictors).

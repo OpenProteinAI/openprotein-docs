@@ -1,0 +1,12 @@
+{
+  "title": "Protein Language Models",
+  "pages": [
+    "scores",
+    "substitutions",
+    "indels",
+    "zero-shot-fitness",
+    "substitution-indels-compare",
+    "indels-python",
+    "one-shot-variant-library"
+  ]
+}

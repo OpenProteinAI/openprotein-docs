@@ -1,0 +1,61 @@
+---
+title: "openprotein.clustering"
+description: "Use session.clustering to access clustering."
+pythonApi: true
+---
+Use `session.clustering` to access clustering.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.clustering.ClusteringAPI",
+  ]}
+>
+
+Choose either `sequences` or `assay`, not both. An assay can be an `AssayDataset`, `AssayMetadata` or assay ID. For an explicit sequence list the client checks a minimum of 2 and maximum of 10,000 sequences; this client-side list check does not inspect assay size.
+
+Use a compatibility `EmbeddingModel` with a reduction for PLM features, or a compatibility `SVDModel` with `reduction=None` for SVD features. Those handles determine `feature_type`. When passing a model ID string instead, provide `feature_type="PLM"` or `"SVD"` explicitly; IDs are looked up through the corresponding compatibility API. PLM needs a reduction, SVD rejects one. `ward`, `centroid` and `median` linkage require `metric="euclidean"`.
+
+Cluster the `assay` from the [Data upload example](/references/python-api/data):
+
+```python
+embedding_model = session.embedding.get_model("esm2_t33_650M_UR50D")
+cluster_job = session.clustering.hierarchical(
+    model=embedding_model, assay=assay, reduction="MEAN",
+    linkage_method="ward", metric="euclidean",
+)
+result = cluster_job.wait(timeout=600)
+print(result.n_leaves, result.leaf_order)
+```
+
+If you have sequences and no assay, pass the list directly:
+
+```python
+embedding_model = session.embedding.get_model("esm2_t33_650M_UR50D")
+sequences = ["ACDEFGHIK", "ACDEYGHIK", "ACDEFGHLK"]
+cluster_job = session.clustering.hierarchical(
+    model=embedding_model, sequences=sequences, reduction="MEAN",
+    linkage_method="ward", metric="euclidean",
+)
+result = cluster_job.wait(timeout=600)
+print(result.linkage.shape, result.leaf_order)
+```
+
+Clustering accepts the compatibility handles above, not a `session.models` handle. Service availability and accepted combinations still depend on the selected model.
+
+<PyClass path="openprotein.clustering.ClusteringAPI" />
+
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.clustering.HierarchicalClusteringFuture",
+    "openprotein.clustering.HierarchicalClusteringResult",
+    "openprotein.clustering.ClusteringMetadata",
+  ]}
+>
+
+<PyClass path="openprotein.clustering.HierarchicalClusteringFuture" />
+<PyClass path="openprotein.clustering.HierarchicalClusteringResult" />
+<PyClass path="openprotein.clustering.ClusteringMetadata" />
+
+</PyGroup>

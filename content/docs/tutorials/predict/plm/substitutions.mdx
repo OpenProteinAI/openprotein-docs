@@ -1,0 +1,168 @@
+---
+title: 'Score single substitutions with PoET-2'
+sidebarTitle: Substitution analysis
+description: 'In this tutorial you will score the single-substitution variants of one protein sequence with PoET-2, then read the results as a table and a heatmap and narrow them with a filter. Unlike in workflows where you apply a custom trained property predictor model, in this tutorial we will be using PoET-2’s capability to score variants zero-shot from sequence context, so no trained model or experimental dataset is needed. In the zero-shot case, PoET-2 scores sequences for evolutionary likelihood, where higher likelihood corresponds with biologically relevant properties that would have been selected for in the course of evolution, including thermostability, solubility, expressability and more.'
+---
+
+## **Before starting**
+
+- An OpenProtein.AI project.  
+- The input sequence to analyze. This tutorial uses the TEM-1 wild-type sequence:
+
+```
+MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPAAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW
+```
+
+- A prompt for PoET-2 to score against. PoET-2 scores each variant relative to a prompt built from related sequences. 
+
+## Step 1: Open the Substitution Analysis tool
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    1. Open your project.  
+    2. Open the **Tools** dropdown menu and select **Substitutions**.
+
+    The tool opens with an input field for your sequence and PoET-2 selected as the default model. 
+  </Tab>
+  <Tab value="Python">
+    This step is not applicable for the python client. Please proceed to the next step. 
+  </Tab>
+</Tabs>
+
+## **Step 2: Enter the sequence**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Paste the TEM-1 sequence into the first field:
+
+    ```
+    MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPAAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW
+    ```
+
+    The sequence appears in the field. This is the protein whose single substitutions PoET-2 will score.
+
+    <Figure src="/_static/tutorials/predict/plm/poet-substitutions/sub-analysis-input.png" />
+  </Tab>
+  <Tab value="Python">
+    Define the same sequence as a string:
+
+    ```python lineNumbers
+    sequence = "MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPAAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW"
+    ```
+  </Tab>
+</Tabs>
+
+## **Step 3: Select PoET-2 and set the prompt**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    1. Choose **PoET-2** as the model. It is recommended for most substitution analyses.  
+    2. Disable the **Prompt Query**.  
+    3. Set the context in **Prompt Context**. Input the TEM-1wild type sequence. Set the number of prompts to ensemble to 5.  
+    4. Leave the sampling method fields at their defaults.
+
+    <Figure src="/_static/tutorials/predict/plm/poet-substitutions/homology-search.png" />
+
+    PoET-2 scores each variant in the context of this prompt, with the prompt providing information to PoET-2 about the evolutionary landscape around this protein. For more info, see
+    prompts
+    (/concepts/prompts/).
+  </Tab>
+  <Tab value="Python">
+    Build the prompt from the sequence: create an MSA via homology search on the seed, then sample a prompt with 5 ensemble replicates. This matches setting Prompt Context to the wild type with ensemble 5 in the app:
+
+    ```python lineNumbers
+    msa = session.align.create_msa(sequence.encode())
+    msa.wait()
+
+    prompt = msa.sample_prompt(num_ensemble_prompts=5, random_seed=42)
+    prompt.wait()
+
+    poet = session.embedding.get_model("poet")
+    ```
+  </Tab>
+</Tabs>
+
+## **Step 4: Run the prediction**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Click **Run**. The job can take a few minutes.
+
+    When it finishes, the results open with a heatmap of scores and, below it, tables of the highest-scoring variants and sites.
+  </Tab>
+  <Tab value="Python">
+    Submit the single site job with the prompt and the sequence, then wait. `single_site` enumerates all single-substitution variants:
+
+    ```python lineNumbers
+    sspjob = poet.single_site(prompt=prompt, sequence=sequence.encode())
+    ssp_results = sspjob.wait()
+    ```
+  </Tab>
+</Tabs>
+
+## **Step 5: Read the results**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Open the **Results** tab. Each position in the heatmap represents a possible single-point mutation from the wild type to the amino acid corresponding to the row of the heatmap, and is associated with a  relative log-likelihood score. Hover over a site to see the score. The higher, or less negative, the score, the fitter that variant is compared with the input sequence.
+
+    In the heatmap, blue marks improved fitness (a positive score), red marks reduced fitness (a negative score), and a white site indicates a neutral substitution that does not strongly impact fitness.
+
+    The tables below the heatmap list the top variants and sites. Click **Export** to download them. The **Input** tab shows the parameters used for the run.
+
+    <Figure src="/_static/tutorials/predict/plm/poet-substitutions/results.png" />
+  </Tab>
+  <Tab value="Python">
+    `sspjob.wait()` returns a dict keyed by substitution label, as wild-type residue, 1-based position, mutant residue (for example `b/'M1A/'`), with `b/'WT/'` for the unmodified sequence. Each value is a NumPy array with one score per ensemble prompt, so 5 scores here because `num_ensemble_prompts` was 5.
+  </Tab>
+</Tabs>
+
+## **Step 6: Narrow the list with a filter**
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Substitution analysis will yield 19 \* (sequence length) possible protein sequences. We can narrow down this large list with filters to make it more tractable.
+
+    Set **Max Variants** to 50. The table drops to 50 variants based on the highest log likelihood scores which indicates fitness to your protein family, and the matching sites stay highlighted in the heatmap.
+
+    Other filters let you cap variants per site, cap the number of sites, or limit the analysis to specific site numbers (for example `1; 3; 5; 7`, or a range like `21 - 65`).
+  </Tab>
+  <Tab value="Python">
+    Average each variant's ensemble scores, rank, and take the top 50:
+
+    ```python lineNumbers
+    import numpy as np
+    import pandas as pd
+
+    wt = ssp_results[b'WT'].mean()
+    rows = []
+
+    for label, scores in ssp_results.items():
+      if label == b'WT':
+        continue
+
+      mean_ll = float(np.mean(scores))
+
+      rows.append({
+        "variant": label.decode(),
+        "mean_log_likelihood": mean_ll,
+        "delta_vs_wt": mean_ll - wt,
+      })
+
+    df = pd.DataFrame(rows)
+
+    top50 = df.sort_values("mean_log_likelihood", ascending=False).head(50)
+    top50.to_csv("top50_variants.csv", index=False)
+
+    ```
+  </Tab>
+</Tabs>
+
+## **What we've done**
+
+In this tutorial, we scored every single-substitution variant of TEM-1 with PoET-2, read the scores as a heatmap and tables, and narrowed them with a filter. That is the full single-sequence workflow, with no model training required.
+
+## **Next steps**
+
+- Score higher order mutants with the [Batch Analysis](/tutorials/predict/user-models/batch).  
+- To view the 3D structure of a variant, use the [Structure Prediction](/tutorials/predict/structure/structure-predictors) tool.

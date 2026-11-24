@@ -1,0 +1,48 @@
+---
+title: "Sequence annotations"
+description: "This guide explains what sequence annotation is, what the platform annotates automatically in antibody datasets, and how to view the annotations."
+---
+
+## **What are sequence annotations?**
+
+Sequence annotation labels positions or regions of a sequence with a biological meaning, such as domains or, in antibodies, framework regions and complementarity-determining regions (CDRs). Numbering schemes such as Kabat and IMGT assign standard position numbers, so equivalent positions can be compared across sequences.
+
+## **What the platform annotates**
+
+Annotation runs automatically when a dataset of antibody sequences is uploaded. No separate annotation step is needed. The platform:
+
+* Detects VH and VL chains independently.  
+* Maps the CDR regions.  
+* Assesses developability risk by flagging liabilities.  
+* Calls germline genes.
+
+Kabat numbering is the default scheme for defining CDR boundaries. The scheme can be changed from the dropdown in the toolbar.
+
+## **Use annotations on the platform**
+
+1. Upload a dataset. It can contain sequences only or sequences with measurement. Headers, chain labels, numbering, and metadata columns are not required.  
+2. Check the toolbar. If the sequences are recognized as antibodies, an **Antibody** control appears alongside **Dataset Info**, **Kabat**, **Consensus**, **Settings**, **Collapse**, **Filters**, and **Export**.  
+3. Click **Antibody** to open the annotation panel.  
+4. Adjust the display with the panel controls:  
+   * **Highlight CDRs**: toggle CDR1, CDR2, and CDR3. Each CDR is color-coded inline in the sequences.  
+   * **Sequence view**: select **Aligned** to pad sequences to a common length, or **Trim non-standard positions**.  
+   * **Liabilities**: select **Highlight** to mark liabilities in the sequence text, **Filter** to narrow the table rows, or **Show column** to add a dedicated Liability column.  
+   * **Show antibody columns**: display germline and mutation metrics, in a Gene group (Germline pair, Heavy and Light V-Gene, with an allele toggle) and a Metrics group (Germline pair frequency, Total Mutations, CDR3 length, Germline distance).  
+5. Sort or filter the annotation columns in the grid.
+
+> **Note:** Non-antibody datasets do not show the **Antibody** control. Sequences must resemble recognizable antibody variable domains. Extra columns in the uploaded file can prevent recognition, so use a plain sequence-only CSV or FASTA file.
+
+## **Annotation columns**
+
+| Column | What it shows |
+| :---- | :---- |
+| VH and VL sequences | The chain sequences, with CDRs color-coded inline |
+| Germline Pair | The germline gene pair, for example IGHV1-69\*01\_IGLV1-44\*01 |
+| Germline Pair Frequency | How frequent the germline pair is |
+| Heavy V-Gene, Light V-Gene | The V-gene of each chain, at gene or allele level |
+| Total Mutations | Amino acid differences from germline |
+| CDR3 length | The length of CDR3 |
+| Germline distance | The distance from germline |
+| Liability | Residues or motifs that affect developability, flagged inline or in a dedicated column |
+
+

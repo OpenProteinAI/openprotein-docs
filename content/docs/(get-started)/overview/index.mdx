@@ -1,0 +1,54 @@
+---
+title: Platform Overview
+description: What OpenProtein.AI is, how to access it, and how the platform works to help you perform lab-in-the-loop protein design.
+---
+
+## What is OpenProtein.AI?
+
+OpenProtein.AI is a platform for flexible, end-to-end computational protein engineering, from structure prediction to de novo design to optimization. The platform hosts a curated set of AI models for various protein tasks, including our flagship foundation model – PoET-2 – and other state-of-the-art open-source models. The models can be used as one-off tools for single tasks, such as structure prediction or substitution analysis, or combined into powerful workflows for iterative protein optimization and design. Our workflows are built to optimize data efficiency and enable direct function-based protein engineering, from high- or low-throughput assays. To see worked-through examples of common workflows, see our [tutorials page](/tutorials).
+
+## Using the platform
+
+The platform can be accessed via web app, python client and REST API. The web app provides a complete, easy-to-use, no-code App for executing computational engineering tasks, includes built-in tools for analysis and visualization of results, and enables management of datasets, projects and jobs. All the workflows on our [examples page](/tutorials#walkthroughs) can be performed entirely on the web app. For power users who want greater customization, or developers who want to build their own apps on top of our tools, we also surface a python client and REST API for programmatic access.
+
+Because many protein design workflows involve large batch processing and long running sequence generation and filtering pipelines, our platform is built around asynchronous jobs that run in the background and can be revisited later. Most typical analyses take only a few minutes, but some can take up to a few hours to run. Grab a coffee or lunch and pick back up later.
+
+## Generate, Predict, and Select
+
+<PlatformDiagram view="stages" />
+
+OpenProtein.AI's AI-driven protein engineering tools help you design protein variant libraries for testing. The core workflow for library design can be summarized as three in-silico steps: **Generate**, **Predict**, and **Select**. In **Generate**, new candidate protein sequences are generated, either by leveraging our in-house protein foundation language model, PoET-2, to suggest mutations to a starting sequence, or by using structure-based de-novo design methods like RFdiffusion and ProteinMPNN. At the **Predict** step, these candidate sequences are evaluated for structure, function, and fitness. We offer a range of prediction tools, including zero-shot fitness scoring with PoET, data-efficient custom property predictors that you can train on your assay data (more on that below), confidence metrics from co-folding models and more. Finally, at the **Select** step, the metrics from the Predict step, and additional analysis, visualization, and active learning tools on the platform, help you narrow down your sequences into a more tractable library for testing.
+
+
+<Accordions>
+  <Accordion title="How and why do protein language models work?">
+    Modern protein sequence databases contain several billion protein sequences explored by nature to perform an enormous range of structural and functional tasks needed to support life. As organisms evolve, natural selection weeds out deleterious mutations that hurt protein properties like activity, stability or expression, while propagating beneficial mutations that increase chances of survival. In other words, these large protein sequence databases are a deep repository of latent information on protein fitness, encoded in the diversity of mutations in related proteins across species and function.
+
+    PoET-2, OpenProtein.AI’s flagship foundation model, learns this information by training on autoregressive and masked language modeling tasks: predicting the next sequence of amino acids in any given query protein, and predicting the identity of masked sequences positions within the protein. In the PoET-2 architecture, it is aided in this task by retrieval-augmented in-context learning, in which homologous proteins are supplied together with each query. This context enables PoET-2 to efficiently learn the rules underlying both general and family-specific protein evolution, predicting which mutations are likely to enhance fitness, and which are deleterious and likely to be selected against.
+  </Accordion>
+</Accordions>
+
+## Design with your lab-in-the-loop: Train custom models on your data
+
+<PlatformDiagram view="design" />
+
+Key to the OpenProtein.AI approach to protein engineering is the integration of our foundation models with your wet-lab data generation processes. We know there is no substitute for real-world experimental data, and our platform helps you get the most out of every datapoint by enabling you to train custom models on your data. Given a small dataset of protein sequences and one or many associated experimental datapoints, our platform first embeds your sequences with our foundation models to produce _embeddings_ - dense, feature-rich, machine-learned vector representations of your sequence. Then, the platform lets you train **custom models** on these representations to learn the relationship between your sequences and your experimental endpoints. Our platform uses a class of models called _gaussian processes_, which are robust, powerful models that are also Bayesian, meaning they output not only predictions but also confidence intervals.
+
+This approach works well for many reasons. First, by training on top of protein foundation model embeddings, you take advantage of the deep understanding of protein sequence and evolutionary fitness that these foundation models have learned while training across millions of protein sequences. These representations are feature-rich and general. This saves the gaussian process model from needing to learn to represent the protein sequences, and instead it can be more lightweight, with fewer trainable parameters, which helps to prevent overfitting on small datasets. 
+
+Additionally, the confidence intervals help keep your predictions calibrated and realistic - as you explore further from the sequences that you have data on, the model's uncertainty will increase accordingly. Furthermore, confidence intervals enable _active learning_, where sequences can be selected not only to optimize for chance of success, but also to optimize the amount of new information the model would gain from knowing the experimental endpoint value for the sequence, thus improving the model's ability to predict on subsequent rounds. Our Select step offers tools for performing this active learning for library design.
+
+## A complete platform for design and optimization
+
+<PlatformDiagram />
+
+OpenProtein.AI offers a complete solution for computational protein design and optimization. You can get started with an assay dataset, a single sequence, or simply a structural design constraint or drug target. If you are starting with an assay dataset, you can train a custom model, and apply it to design a library for your next round of testing. If you have just a single sequence, you can use PoET-2's substitution analysis tool to predict the evolutionary fitness of mutations, and design an initial variant library for testing. And if you have only a drug target or some structural design constraint, you can use our de novo design tools to design de novo minibinders or antibodies.
+
+## Next steps
+
+<Cards>
+  <Card title="Quickstart" href="/quickstart" description="Request access, log in and start using the platform." />
+  <Card title="Concepts" href="/concepts" description="Learn more about key concepts in the platform." />
+  <Card title="Tutorials" href="/tutorials" description="Check out our tutorials on how to use our tools." />
+  <Card title="Models" href="/#see-where-our-models-fit-in-your-workflow" description="See where our models fit in your protein engineering workflow." />
+</Cards>

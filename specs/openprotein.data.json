@@ -1,0 +1,2551 @@
+{
+ "module": "openprotein.data",
+ "entries": [
+  {
+   "name": "DataAPI",
+   "path": "openprotein.data.DataAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "API interface for calling AssayData endpoints",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "API interface for calling AssayData endpoints"
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.data.data",
+   "source": {
+    "file": "openprotein/data/data.py",
+    "line": 17,
+    "end": 135
+   },
+   "members": [
+    {
+     "name": "msa",
+     "kind": "property",
+     "doc": "Access stored MSAs: upload, fetch and manage them.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/data.py",
+      "line": 27,
+      "end": 31
+     },
+     "annotation": "MSADataAPI",
+     "annotation_parts": [
+      {
+       "text": "MSADataAPI",
+       "path": "openprotein.data.MSADataAPI",
+       "page": "data"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Access stored MSAs: upload, fetch and manage them."
+      }
+     ]
+    },
+    {
+     "name": "prompts",
+     "kind": "property",
+     "doc": "Access stored prompts: sampled replicates and uploads.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/data.py",
+      "line": 34,
+      "end": 38
+     },
+     "annotation": "PromptsAPI",
+     "annotation_parts": [
+      {
+       "text": "PromptsAPI",
+       "path": "openprotein.data.PromptsAPI",
+       "page": "data"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Access stored prompts: sampled replicates and uploads."
+      }
+     ]
+    },
+    {
+     "name": "list",
+     "kind": "method",
+     "doc": "List all assay datasets.\n\nlimit : int, optional\n    Limit the number of assays to return.\noffset : int, optional\n    Offset of assays to retrieve. Useful with limit.\n\nReturns\n-------\nList[AssayDataset]\n    List of all assay datasets.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/data.py",
+      "line": 40,
+      "end": 57
+     },
+     "signature": "(limit=None, offset=None)",
+     "returns": "builtins.list[AssayDataset]",
+     "returns_parts": [
+      {
+       "text": "builtins.list["
+      },
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List all assay datasets.\n\nlimit : int, optional\n    Limit the number of assays to return.\noffset : int, optional\n    Offset of assays to retrieve. Useful with limit."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "List[AssayDataset]",
+         "type_parts": [
+          {
+           "text": "List["
+          },
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          },
+          {
+           "text": "]"
+          }
+         ],
+         "text": "List of all assay datasets."
+        }
+       ]
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "limit",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "offset",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "create",
+     "kind": "method",
+     "doc": "Create a new assay dataset.\n\nParameters\n----------\ntable : pd.DataFrame\n    DataFrame containing the assay data.\nname : str\n    Name of the assay dataset.\ndescription : str, optional\n    Description of the assay dataset, by default None.\nmetadata_columns : Sequence[str], optional\n    Columns of free text, such as notes, kept per row as metadata.\n    They are not measurements and cannot be used to train models.\n\nReturns\n-------\nAssayDataset\n    Created assay dataset.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/data.py",
+      "line": 59,
+      "end": 98
+     },
+     "signature": "(table, name, description=None, metadata_columns=None)",
+     "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Create a new assay dataset."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "table",
+         "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
+         "default": null,
+         "text": "DataFrame containing the assay data."
+        },
+        {
+         "name": "name",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": "Name of the assay dataset."
+        },
+        {
+         "name": "description",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Description of the assay dataset, by default None."
+        },
+        {
+         "name": "metadata_columns",
+         "type": "Sequence[str]",
+         "type_parts": [
+          {
+           "text": "Sequence[str]"
+          }
+         ],
+         "default": "None",
+         "text": "Columns of free text, such as notes, kept per row as metadata.\nThey are not measurements and cannot be used to train models."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
+         "text": "Created assay dataset."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Get an assay dataset by its ID.\n\nParameters\n----------\nassay_id : str\n    ID of the assay dataset.\n\nReturns\n-------\nAssayDataset\n    Assay dataset with the specified ID.\n\nRaises\n------\nKeyError\n    If no assay dataset with the given ID is found.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/data.py",
+      "line": 100,
+      "end": 122
+     },
+     "signature": "(assay_id, verbose=False)",
+     "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get an assay dataset by its ID."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay_id",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": "ID of the assay dataset."
+        },
+        {
+         "name": "verbose",
+         "annotation_fallback": true,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": null
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
+         "text": "Assay dataset with the specified ID."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "KeyError",
+         "type_parts": [
+          {
+           "text": "KeyError"
+          }
+         ],
+         "default": null,
+         "text": "If no assay dataset with the given ID is found."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface",
+   "page": "data"
+  },
+  {
+   "name": "AssayDataset",
+   "path": "openprotein.data.AssayDataset",
+   "kind": "class",
+   "signature": "(session, metadata)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Assay dataset which contains your sequences and measurements which can be used for training predictors.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Assay dataset which contains your sequences and measurements which can be used for training predictors."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "AssayMetadata",
+       "type_parts": [
+        {
+         "text": "AssayMetadata",
+         "path": "openprotein.data.AssayMetadata",
+         "page": "data"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.data.assaydataset",
+   "source": {
+    "file": "openprotein/data/assaydataset.py",
+    "line": 14,
+    "end": 215
+   },
+   "members": [
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "``SUCCESS`` once the dataset is ready, else the status of the job producing it.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 52,
+      "end": 54
+     },
+     "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus",
+       "path": "openprotein.jobs.JobStatus",
+       "page": "jobs"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "``SUCCESS`` once the dataset is ready, else the status of the job producing it."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The job that produces the dataset, such as an alignment; ``None`` for an upload.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 57,
+      "end": 59
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job that produces the dataset, such as an alignment; ``None`` for an upload."
+      }
+     ]
+    },
+    {
+     "name": "list_models",
+     "kind": "method",
+     "doc": "List models assoicated with assay.\n\nReturns\n-------\nList\n    List of models",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 80,
+      "end": 89
+     },
+     "signature": "()",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List models assoicated with assay."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "List",
+         "type_parts": [
+          {
+           "text": "List"
+          }
+         ],
+         "text": "List of models"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "update",
+     "kind": "method",
+     "doc": "Update the assay metadata.\n\nParameters\n----------\nassay_name : str, optional\n    New name of the assay, by default None.\nassay_description : str, optional\n    New description of the assay, by default None.\n\nReturns\n-------\nNone",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 91,
+      "end": 114
+     },
+     "signature": "(assay_name=None, assay_description=None)",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Update the assay metadata."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay_name",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "New name of the assay, by default None."
+        },
+        {
+         "name": "assay_description",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "New description of the assay, by default None."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "None",
+         "type_parts": [
+          {
+           "text": "None"
+          }
+         ],
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_first",
+     "kind": "method",
+     "doc": "Get head slice of assay data.\n\nReturns\n-------\npd.DataFrame\n    Dataframe containing the slice of assay data.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 143,
+      "end": 160
+     },
+     "signature": "()",
+     "returns": "pd.DataFrame",
+     "returns_parts": [
+      {
+       "text": "pd.DataFrame"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get head slice of assay data."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
+         "text": "Dataframe containing the slice of assay data."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_slice",
+     "kind": "method",
+     "doc": "Get a slice of assay data.\n\nParameters\n----------\nstart : int\n    Start index of the slice.\nend : int\n    End index of the slice.\ninclude_metadata : bool, optional\n    Append the metadata columns after the measurements, by default False.\n\nReturns\n-------\npd.DataFrame\n    Dataframe containing the slice of assay data.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/assaydataset.py",
+      "line": 162,
+      "end": 215
+     },
+     "signature": "(start, end, include_metadata=False)",
+     "returns": "pd.DataFrame",
+     "returns_parts": [
+      {
+       "text": "pd.DataFrame"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get a slice of assay data."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "start",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": null,
+         "text": "Start index of the slice."
+        },
+        {
+         "name": "end",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": null,
+         "text": "End index of the slice."
+        },
+        {
+         "name": "include_metadata",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Append the metadata columns after the measurements, by default False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "pd.DataFrame",
+         "type_parts": [
+          {
+           "text": "pd.DataFrame"
+          }
+         ],
+         "text": "Dataframe containing the slice of assay data."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Classes",
+   "page": "data"
+  },
+  {
+   "name": "AssayMetadata",
+   "path": "openprotein.data.AssayMetadata",
+   "kind": "class",
+   "signature": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False, metadata_names=None, status=JobStatus.SUCCESS, align_job_id=None)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": null,
+   "parsed": [],
+   "module": "openprotein.data.schemas",
+   "source": {
+    "file": "openprotein/data/schemas.py",
+    "line": 10,
+    "end": 28
+   },
+   "members": [],
+   "section": "Classes",
+   "page": "data"
+  },
+  {
+   "name": "MSADataAPI",
+   "path": "openprotein.data.MSADataAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Access the MSA data - upload, list, fetch and manage stored MSAs.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Access the MSA data - upload, list, fetch and manage stored MSAs."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.data.msa.msa",
+   "source": {
+    "file": "openprotein/data/msa/msa.py",
+    "line": 129,
+    "end": 217
+   },
+   "members": [
+    {
+     "name": "create",
+     "kind": "method",
+     "doc": "Upload an MSA, declaring its ``format`` (e.g. ``\"a3m\"``, ``\"fasta\"``).\n\nParameters\n----------\nfile : bytes | str\n    The MSA contents; a ``str`` is encoded as UTF-8 (read a file first,\n    e.g. ``open(path, \"rb\").read()``).\nformat : str\n    The upload's format, naming the codec used to parse it.\nname, description : str, optional\n    Human-readable metadata to store alongside the MSA.\nfilename : str, optional\n    Original filename to record; defaults to a name derived from ``format``.\n\nReturns\n-------\nMSA\n    The stored MSA.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 135,
+      "end": 171
+     },
+     "signature": "(file, format, name=None, description=None, filename=None)",
+     "returns": "MSA",
+     "returns_parts": [
+      {
+       "text": "MSA",
+       "path": "openprotein.data.MSA",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Upload an MSA, declaring its ``format`` (e.g. ``\"a3m\"``, ``\"fasta\"``)."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "file",
+         "type": "bytes | str",
+         "type_parts": [
+          {
+           "text": "bytes | str"
+          }
+         ],
+         "default": null,
+         "text": "The MSA contents; a ``str`` is encoded as UTF-8 (read a file first,\ne.g. ``open(path, \"rb\").read()``)."
+        },
+        {
+         "name": "format",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": "The upload's format, naming the codec used to parse it."
+        },
+        {
+         "name": "name",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Human-readable metadata to store alongside the MSA."
+        },
+        {
+         "name": "description",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Human-readable metadata to store alongside the MSA."
+        },
+        {
+         "name": "filename",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Original filename to record; defaults to a name derived from ``format``."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "MSA",
+         "type_parts": [
+          {
+           "text": "MSA",
+           "path": "openprotein.data.MSA",
+           "page": "data"
+          }
+         ],
+         "text": "The stored MSA."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Fetch one MSA (metadata only) by its ``msa_id``.\n\nAn MSA whose job hasn't finished comes back with that job's ``status``.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 173,
+      "end": 178
+     },
+     "signature": "(msa_id)",
+     "returns": "MSA",
+     "returns_parts": [
+      {
+       "text": "MSA",
+       "path": "openprotein.data.MSA",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fetch one MSA (metadata only) by its ``msa_id``.\n\nAn MSA whose job hasn't finished comes back with that job's ``status``."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "list",
+     "kind": "method",
+     "doc": "The caller's stored MSAs (metadata only), at most ``limit``.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 185,
+      "end": 194
+     },
+     "signature": "(limit=None)",
+     "returns": "builtins.list[MSA]",
+     "returns_parts": [
+      {
+       "text": "builtins.list["
+      },
+      {
+       "text": "MSA",
+       "path": "openprotein.data.MSA",
+       "page": "data"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The caller's stored MSAs (metadata only), at most ``limit``."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "limit",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "download",
+     "kind": "method",
+     "doc": "Download a live MSA by id as ``format`` (default: the stored format).",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 196,
+      "end": 198
+     },
+     "signature": "(msa_id, format=None)",
+     "returns": "bytes",
+     "returns_parts": [
+      {
+       "text": "bytes"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Download a live MSA by id as ``format`` (default: the stored format)."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        },
+        {
+         "name": "format",
+         "annotation_fallback": true,
+         "type": "MSADownloadFormat | None",
+         "type_parts": [
+          {
+           "text": "MSADownloadFormat | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "update",
+     "kind": "method",
+     "doc": "Update mutable metadata of an MSA.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 200,
+      "end": 213
+     },
+     "signature": "(msa_id, name=None, description=None, tags=None)",
+     "returns": "MSA",
+     "returns_parts": [
+      {
+       "text": "MSA",
+       "path": "openprotein.data.MSA",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Update mutable metadata of an MSA."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        },
+        {
+         "name": "name",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "description",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "tags",
+         "annotation_fallback": true,
+         "type": "builtins.list[str] | None",
+         "type_parts": [
+          {
+           "text": "builtins.list[str] | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete an MSA by id.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 215,
+      "end": 217
+     },
+     "signature": "(msa_id)",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete an MSA by id."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Referenced types",
+   "page": "data"
+  },
+  {
+   "name": "PromptsAPI",
+   "path": "openprotein.data.PromptsAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Access stored prompts: sample, list, fetch, upload, rename and delete.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Access stored prompts: sample, list, fetch, upload, rename and delete."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.data.prompts.prompts",
+   "source": {
+    "file": "openprotein/data/prompts/prompts.py",
+    "line": 99,
+    "end": 268
+   },
+   "members": [
+    {
+     "name": "list",
+     "kind": "method",
+     "doc": "The caller's live prompts, newest first, at most ``limit``.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 105,
+      "end": 116
+     },
+     "signature": "(limit=None)",
+     "returns": "list[Prompt]",
+     "returns_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "Prompt",
+       "path": "openprotein.data.prompts.Prompt",
+       "page": "data"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The caller's live prompts, newest first, at most ``limit``."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "limit",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "sample_msa",
+     "kind": "method",
+     "doc": "Sample an alignment into prompt replicates.\n\nEvery option but ``msa`` and ``replicates`` is omitted when unset so\nthe sampling task's own default applies. Sampling stops at whichever of\n``max_msa_sequences`` and ``max_msa_tokens`` is set; leave both unset\nto take the default budget.\n\nParameters\n----------\nmsa : str or MSA\n    Stored alignment (``session.data.msa`` handle or its id) to sample,\n    passed by id without downloading the alignment.\nreplicates : int, optional\n    Number of prompts to sample, one per unit. Defaults to 1.\nseed : int, optional\n    Seed for the sampling. Each replicate draws its own from it. A\n    missing seed is drawn client-side.\nmethod : MSASamplingMethod, optional\n    Sampling method.\nhomology_level : float, optional\n    Level of homology for sequences in the MSA, between 0 and 1\n    (neighbors methods only).\nmax_similarity : float, optional\n    Maximum similarity between sequences in the MSA and the seed,\n    between 0 and 1.\nmin_similarity : float, optional\n    Minimum similarity between sequences in the MSA and the seed,\n    between 0 and 1.\nmax_msa_sequences : int, optional\n    Cap on the number of sequences sampled. Named\n    ``num_sequences`` in ``MSAFuture.sample_prompt``.\nmax_msa_tokens : int, optional\n    Cap on the number of residues sampled. Named\n    ``num_residues`` in ``MSAFuture.sample_prompt``.\nforce_include_first : bool, optional\n    Whether to always include the seed sequence.\n\nReturns\n-------\nPromptFuture\n    Handle on the submitted sampling job, whose id is the prompt id.\n    ``future.get()`` returns every replicate's complex sequences once\n    ready.\n\nRaises\n------\nMissingParameterError\n    If both ``max_msa_sequences`` and ``max_msa_tokens`` are given.\nAPIError\n    If there is an issue with the API request.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 118,
+      "end": 210
+     },
+     "signature": "(msa, replicates=1, seed=None, method=None, homology_level=None, max_similarity=None, min_similarity=None, max_msa_sequences=None, max_msa_tokens=None, force_include_first=None)",
+     "returns": "PromptFuture",
+     "returns_parts": [
+      {
+       "text": "PromptFuture",
+       "path": "openprotein.data.prompts.PromptFuture",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Sample an alignment into prompt replicates.\n\nEvery option but ``msa`` and ``replicates`` is omitted when unset so\nthe sampling task's own default applies. Sampling stops at whichever of\n``max_msa_sequences`` and ``max_msa_tokens`` is set; leave both unset\nto take the default budget."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "msa",
+         "type": "str or MSA",
+         "type_parts": [
+          {
+           "text": "str or "
+          },
+          {
+           "text": "MSA",
+           "path": "openprotein.data.MSA",
+           "page": "data"
+          }
+         ],
+         "default": null,
+         "text": "Stored alignment (``session.data.msa`` handle or its id) to sample,\npassed by id without downloading the alignment."
+        },
+        {
+         "name": "replicates",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "1",
+         "text": "Number of prompts to sample, one per unit. Defaults to 1."
+        },
+        {
+         "name": "seed",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "Seed for the sampling. Each replicate draws its own from it. A\nmissing seed is drawn client-side."
+        },
+        {
+         "name": "method",
+         "type": "MSASamplingMethod",
+         "type_parts": [
+          {
+           "text": "MSASamplingMethod",
+           "path": "openprotein.align.schemas.MSASamplingMethod",
+           "page": "align"
+          }
+         ],
+         "default": "None",
+         "text": "Sampling method."
+        },
+        {
+         "name": "homology_level",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Level of homology for sequences in the MSA, between 0 and 1\n(neighbors methods only)."
+        },
+        {
+         "name": "max_similarity",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum similarity between sequences in the MSA and the seed,\nbetween 0 and 1."
+        },
+        {
+         "name": "min_similarity",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "None",
+         "text": "Minimum similarity between sequences in the MSA and the seed,\nbetween 0 and 1."
+        },
+        {
+         "name": "max_msa_sequences",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "Cap on the number of sequences sampled. Named\n``num_sequences`` in ``MSAFuture.sample_prompt``."
+        },
+        {
+         "name": "max_msa_tokens",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "Cap on the number of residues sampled. Named\n``num_residues`` in ``MSAFuture.sample_prompt``."
+        },
+        {
+         "name": "force_include_first",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "None",
+         "text": "Whether to always include the seed sequence."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "PromptFuture",
+         "type_parts": [
+          {
+           "text": "PromptFuture",
+           "path": "openprotein.data.prompts.PromptFuture",
+           "page": "data"
+          }
+         ],
+         "text": "Handle on the submitted sampling job, whose id is the prompt id.\n``future.get()`` returns every replicate's complex sequences once\nready."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "MissingParameterError",
+         "type_parts": [
+          {
+           "text": "MissingParameterError"
+          }
+         ],
+         "default": null,
+         "text": "If both ``max_msa_sequences`` and ``max_msa_tokens`` are given."
+        },
+        {
+         "name": null,
+         "type": "APIError",
+         "type_parts": [
+          {
+           "text": "APIError"
+          }
+         ],
+         "default": null,
+         "text": "If there is an issue with the API request."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Fetch one row by id.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 212,
+      "end": 214
+     },
+     "signature": "(prompt_id)",
+     "returns": "Prompt",
+     "returns_parts": [
+      {
+       "text": "Prompt",
+       "path": "openprotein.data.prompts.Prompt",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fetch one row by id."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "upload",
+     "kind": "method",
+     "doc": "Upload a prompt, one FASTA file per replicate, in position order.\n\nParameters\n----------\nreplicates : list of bytes or str\n    One FASTA file per replicate; a ``str`` is encoded as UTF-8.\nname, description : str, optional\n    Human-readable metadata to store alongside the row.\n\nReturns\n-------\nPrompt\n    The stored row.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 223,
+      "end": 250
+     },
+     "signature": "(replicates, name=None, description=None)",
+     "returns": "Prompt",
+     "returns_parts": [
+      {
+       "text": "Prompt",
+       "path": "openprotein.data.prompts.Prompt",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Upload a prompt, one FASTA file per replicate, in position order."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "replicates",
+         "type": "list of bytes or str",
+         "type_parts": [
+          {
+           "text": "list of bytes or str"
+          }
+         ],
+         "default": null,
+         "text": "One FASTA file per replicate; a ``str`` is encoded as UTF-8."
+        },
+        {
+         "name": "name",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Human-readable metadata to store alongside the row."
+        },
+        {
+         "name": "description",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": "None",
+         "text": "Human-readable metadata to store alongside the row."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Prompt",
+         "type_parts": [
+          {
+           "text": "Prompt",
+           "path": "openprotein.data.prompts.Prompt",
+           "page": "data"
+          }
+         ],
+         "text": "The stored row."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "update",
+     "kind": "method",
+     "doc": "Update the mutable metadata (name / description) of a row.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 252,
+      "end": 264
+     },
+     "signature": "(prompt_id, name=None, description=None)",
+     "returns": "Prompt",
+     "returns_parts": [
+      {
+       "text": "Prompt",
+       "path": "openprotein.data.prompts.Prompt",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Update the mutable metadata (name / description) of a row."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        },
+        {
+         "name": "name",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "description",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete a prompt by id.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/prompts/prompts.py",
+      "line": 266,
+      "end": 268
+     },
+     "signature": "(prompt_id)",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete a prompt by id."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "prompt_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Referenced types",
+   "page": "data"
+  },
+  {
+   "name": "MSA",
+   "path": "openprotein.data.MSA",
+   "kind": "class",
+   "signature": "(session, metadata)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "A live MSA and the operations on it (download, update, delete).",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A live MSA and the operations on it (download, update, delete)."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "MSAMetadata",
+       "type_parts": [
+        {
+         "text": "MSAMetadata",
+         "path": "openprotein.data.MSAMetadata",
+         "page": "data"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.data.msa.msa",
+   "source": {
+    "file": "openprotein/data/msa/msa.py",
+    "line": 28,
+    "end": 126
+   },
+   "members": [
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 42,
+      "end": 43
+     },
+     "annotation": "MSAMetadata",
+     "annotation_parts": [
+      {
+       "text": "MSAMetadata",
+       "path": "openprotein.data.MSAMetadata",
+       "page": "data"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The MSA's id.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 46,
+      "end": 48
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The MSA's id."
+      }
+     ]
+    },
+    {
+     "name": "digest",
+     "kind": "property",
+     "doc": "The row's content digest.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 51,
+      "end": 53
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The row's content digest."
+      }
+     ]
+    },
+    {
+     "name": "name",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 56,
+      "end": 57
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "description",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 60,
+      "end": 61
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "``SUCCESS`` once the MSA is ready, else the status of the job producing it.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 64,
+      "end": 66
+     },
+     "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus",
+       "path": "openprotein.jobs.JobStatus",
+       "page": "jobs"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "``SUCCESS`` once the MSA is ready, else the status of the job producing it."
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The job that produces the MSA; ``None`` for an upload.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 69,
+      "end": 71
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job that produces the MSA; ``None`` for an upload."
+      }
+     ]
+    },
+    {
+     "name": "source_format",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 74,
+      "end": 75
+     },
+     "annotation": "MSAFormat | None",
+     "annotation_parts": [
+      {
+       "text": "MSAFormat | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "num_sequences",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 78,
+      "end": 79
+     },
+     "annotation": "int | None",
+     "annotation_parts": [
+      {
+       "text": "int | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "num_match_columns",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 82,
+      "end": 83
+     },
+     "annotation": "int | None",
+     "annotation_parts": [
+      {
+       "text": "int | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "has_insertions",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 86,
+      "end": 87
+     },
+     "annotation": "bool | None",
+     "annotation_parts": [
+      {
+       "text": "bool | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "tags",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 90,
+      "end": 91
+     },
+     "annotation": "list[str]",
+     "annotation_parts": [
+      {
+       "text": "list[str]"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "original_filename",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 94,
+      "end": 95
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "created_at",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 98,
+      "end": 99
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "updated_at",
+     "kind": "property",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 102,
+      "end": 103
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "download",
+     "kind": "method",
+     "doc": "Download the alignment as ``format`` (default: the stored format).\n\n``\"parquet\"`` returns the stored ``msa-parquet-v1`` bytes.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 105,
+      "end": 110
+     },
+     "signature": "(format=None)",
+     "returns": "bytes",
+     "returns_parts": [
+      {
+       "text": "bytes"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Download the alignment as ``format`` (default: the stored format).\n\n``\"parquet\"`` returns the stored ``msa-parquet-v1`` bytes."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "format",
+         "annotation_fallback": true,
+         "type": "MSADownloadFormat | None",
+         "type_parts": [
+          {
+           "text": "MSADownloadFormat | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "update",
+     "kind": "method",
+     "doc": "Update mutable metadata; refreshes in place.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 112,
+      "end": 122
+     },
+     "signature": "(name=None, description=None, tags=None)",
+     "returns": "MSA",
+     "returns_parts": [
+      {
+       "text": "MSA",
+       "path": "openprotein.data.MSA",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Update mutable metadata; refreshes in place."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "name",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "description",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "tags",
+         "annotation_fallback": true,
+         "type": "list[str] | None",
+         "type_parts": [
+          {
+           "text": "list[str] | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete this MSA.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/msa.py",
+      "line": 124,
+      "end": 126
+     },
+     "signature": "()",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete this MSA."
+      }
+     ]
+    }
+   ],
+   "section": "Alignments and sampled prompts",
+   "page": "data"
+  },
+  {
+   "name": "MSAMetadata",
+   "path": "openprotein.data.MSAMetadata",
+   "kind": "class",
+   "signature": "(*, msa_id, status=JobStatus.SUCCESS, job_id=None, msa_hash=None, name=None, description=None, tags, project_uuid=None, source_format=None, num_sequences=None, num_match_columns=None, has_insertions=None, original_filename=None, digest=None, created_at, updated_at)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "Metadata for one stored MSA (never carries the sequence body).\n\nA search row has no uploaded original, so its ``msa_hash`` and\n``original_filename`` are ``None``. Until its job produces it, a row has a\n``status`` other than ``SUCCESS`` and no stats.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Metadata for one stored MSA (never carries the sequence body).\n\nA search row has no uploaded original, so its ``msa_hash`` and\n``original_filename`` are ``None``. Until its job produces it, a row has a\n``status`` other than ``SUCCESS`` and no stats."
+    }
+   ],
+   "module": "openprotein.data.msa.schemas",
+   "source": {
+    "file": "openprotein/data/msa/schemas.py",
+    "line": 15,
+    "end": 38
+   },
+   "members": [
+    {
+     "name": "msa_id",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 23,
+      "end": 23
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "status",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 24,
+      "end": 24
+     },
+     "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus",
+       "path": "openprotein.jobs.JobStatus",
+       "page": "jobs"
+      }
+     ],
+     "value": "JobStatus.SUCCESS",
+     "parsed": []
+    },
+    {
+     "name": "job_id",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 25,
+      "end": 25
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "msa_hash",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 26,
+      "end": 26
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "name",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 27,
+      "end": 27
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "description",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 28,
+      "end": 28
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "tags",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 29,
+      "end": 29
+     },
+     "annotation": "list[str]",
+     "annotation_parts": [
+      {
+       "text": "list[str]"
+      }
+     ],
+     "value": "Field(default_factory=list)",
+     "display_value": null,
+     "parsed": []
+    },
+    {
+     "name": "project_uuid",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 30,
+      "end": 30
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "source_format",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 31,
+      "end": 31
+     },
+     "annotation": "MSAFormat | None",
+     "annotation_parts": [
+      {
+       "text": "MSAFormat | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "num_sequences",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 32,
+      "end": 32
+     },
+     "annotation": "int | None",
+     "annotation_parts": [
+      {
+       "text": "int | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "num_match_columns",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 33,
+      "end": 33
+     },
+     "annotation": "int | None",
+     "annotation_parts": [
+      {
+       "text": "int | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "has_insertions",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 34,
+      "end": 34
+     },
+     "annotation": "bool | None",
+     "annotation_parts": [
+      {
+       "text": "bool | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "original_filename",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 35,
+      "end": 35
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "digest",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 36,
+      "end": 36
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    },
+    {
+     "name": "created_at",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 37,
+      "end": 37
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "updated_at",
+     "kind": "attribute",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/data/msa/schemas.py",
+      "line": 38,
+      "end": 38
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    }
+   ],
+   "section": "Alignments and sampled prompts",
+   "page": "data"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

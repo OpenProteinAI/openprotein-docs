@@ -1,0 +1,355 @@
+---
+title: "How to build a prompt query"
+description: "Build a prompt query that specifies fixed residues, designable positions, sequence length, and structural constraints for protein generation."
+---
+
+
+A prompt is an input that directs the model to produce the desired protein sequences. It is made up of two components, a context and a query. This guide will show you how to create a query to define the explicit sequence and structure constraints for generative models like PoET-2, ProteinMPNN, or RFdiffusion2. Specify which amino acids must remain fixed, which positions can change, and whether a backbone should guide generation.
+
+For background, see the concepts page on [Prompt–Context](/concepts/prompts/context) and [Prompt — Query](/concepts/prompts/query). To guide generation toward a protein family, refer to [How to build a prompt context](/how-tos/dataset/build-a-context).
+
+## Before starting
+
+- Decide on a design goal, such as redesigning selected positions, preserving a functional motif, or generating sequences for a backbone.
+
+- Have a reference sequence, a structure file, or a desired sequence length.
+
+- Identify any residues whose identities must remain fixed.
+
+## Setup
+
+Choose the information to include in the query:
+
+- **Sequence constraints:** Preserve specified amino acids and generate the masked positions.
+
+- **Structure constraints:** Supply backbone coordinates to guide sequence generation.
+
+- **Combined constraints:** Preserve specified amino acids while designing the remaining sequence for a supplied backbone.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Open any of the tools that allow specifying a prompt query. For example, using **Generate Sequences** with **PoET-2** optionally takes an input query for specifying which parts of a sequence to generate. Use the query editor to enter the sequence or upload a structure.
+
+<Figure src="/_static/how_to/dataset/prompt-query/prompt-query1.png" />
+
+
+</Tab>
+
+<Tab value="Python">
+
+Start from an authenticated session and import the molecular objects:
+
+
+```python
+import openprotein
+from openprotein.molecules import Protein, Structure
+
+session = openprotein.connect()
+```
+
+</Tab>
+
+</Tabs>
+
+## Load the reference
+
+Choose a reference that matches the intended design region. Remove expression tags or unrelated domains when they fall outside the goal.
+
+For structure-conditioned design, check that the relevant regions have backbone coordinates. Obtain or model missing coordinates before using those regions as structural constraints.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Paste a sequence into the query editor, upload a FASTA file, or upload a .pdb or .cif structure file. Check the sequence length and retain the intended chains. Delete specific residues in the sequence or structure by selecting them in the query editor and pressing the “delete” key; deleted residues will be replaced with “-”.
+
+<Figure src="/_static/how_to/dataset/prompt-query/prompt-query2.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+For a sequence-only query, specify the reference sequence string directly or load it from a FASTA file:
+
+
+```python
+from openprotein import fasta
+
+with open("myReference.fasta") as handle:
+    myNames, mySequences = fasta.parse(handle.readlines())
+
+assert len(mySequences) == 1, "Provide one reference sequence."
+
+myReference = Protein(mySequences[0], name=myNames[0])
+```
+
+For a structure-conditioned query, load a chain from a structure file:
+
+```python
+myReference = Protein.from_filepath(
+    "myStructure.cif",
+    chain_id="A",
+)
+```
+
+Alternatively, retrieve a structure from the PDB:
+
+```python
+myStructure = Structure.from_pdb_id("1UBQ")
+myReference = myStructure[0].get_protein(chain_id="A")
+```
+
+Keep the reference unchanged and edit a copy when defining the query. Refer to the [molecular object reference](https://docs.openprotein.ai/python-api/api-reference/molecules.html).
+
+</Tab>
+
+</Tabs>
+
+## Define which sequence positions can change
+
+Choose the scope of redesign by masking positions allowed to vary:
+
+- **Selected positions:** Mask individual sites or a region while retaining the surrounding sequence. For example, we might choose to redesign just the complementary determining regions (CDRs) of an antibody sequence.
+
+- **All positions except a fixed set:** Preserve catalytic residues, motifs, or other required identities while redesigning the remainder.
+
+- **The entire sequence:** Mask every position when no amino acid identities need to remain fixed.
+
+NOTE: When using the API, residues are numbered starting from `1`, which follows the canonical mmcif residue id system (`label_seq_id`), and not the author id system (`auth_seq_id`).
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Replace designable positions with X to mask them. Leave required amino acids unchanged. Use **Mask Selected Residues**, **Mask Unselected Residues**, or **Mask Query Sequence**, as appropriate.
+
+<Figure src="/_static/how_to/dataset/prompt-query/prompt-query3.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+To redesign selected positions:
+
+
+```python
+designPositions = [33, 84, 107, 108, 138]  # replace as needed
+
+myQueryProtein = myReference.copy()
+myQueryProtein.mask_sequence_at(designPositions)
+```
+
+To preserve selected identities and redesign everything else:
+
+```python
+fixedPositions = [77, 133, 156]  # replace as needed
+
+myQueryProtein = myReference.copy()
+myQueryProtein.mask_sequence_except_at(fixedPositions)
+```
+
+To redesign the entire sequence:
+
+```python
+myQueryProtein = myReference.copy()
+myQueryProtein.mask_sequence()
+```
+
+Positions in the `*_at()` methods are **1-indexed positions in the loaded protein sequence**. They may differ from the original structure’s residue numbering, particularly after trimming.
+
+</Tab>
+
+</Tabs>
+
+## Choose whether to retain structural constraints
+
+Retain the backbone when the goal is to generate sequences for a specified fold, essentially an inverse folding problem. Use a sequence-only query when the goal is sequence infilling without requiring a particular backbone.
+
+For combined constraints, retain the backbone and leave required amino acid identities unmasked.
+
+Masking sequence and masking structure are separate operations. An X in the sequence marks an amino acid to generate; removing its structural coordinates removes information that would otherwise guide that generation.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Set the structure track to `X` at residues where we do not want the sequence generated to be constrained by the backbone structure; otherwise, keep it as `S`.
+
+<Figure src="/_static/how_to/dataset/prompt-query/prompt-query4.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+For a backbone-conditioned query, remove side-chain coordinates at redesigned positions while retaining the backbone:
+
+
+```python
+myQueryProtein.mask_structure_at(
+    designPositions,
+    side_chain_only=True,
+)
+```
+
+If redesigning everything except a fixed set:
+
+```python
+myQueryProtein.mask_structure_except_at(
+    fixedPositions,
+    side_chain_only=True,
+)
+```
+
+If redesigning the entire sequence:
+
+```python
+myQueryProtein.mask_structure(side_chain_only=True)
+```
+
+Apply the operation corresponding to the sequence mask chosen above. These structural masking steps are unnecessary for a reference loaded from sequence alone.
+
+Refer to the [inverse folding walkthrough](https://docs.openprotein.ai/walkthroughs/PoET-2_inverse_folding.html) for an example combining a backbone with fixed active-site residues.
+
+</Tab>
+
+</Tabs>
+
+## Define a length-only query when no reference is needed
+
+Use a length-only query when the desired sequence length is known but no specific residue identities or backbone coordinates need to be specified.
+
+Use a context to guide the protein family or characteristics represented in generation.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+In the query input box, to specify a masked sequence of desired length for de novo generation, type slash `/` followed by the command `X*<desiredLength>`.
+
+<Figure src="/_static/how_to/dataset/prompt-query/prompt-query5.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Create a protein containing only masked positions:
+
+
+```python
+desiredLength = 100
+
+myQueryProtein = Protein.from_expr(desiredLength)
+
+assert len(myQueryProtein) == desiredLength
+assert myQueryProtein.sequence == b"X" * desiredLength
+```
+
+</Tab>
+
+</Tabs>
+
+## Verify the constraints
+
+Check the query before submission:
+
+- Confirm the sequence length and intended chain composition.
+
+- Confirm that every designable position is masked.
+
+- Confirm that required residue identities remain unchanged.
+
+- For structure-conditioned design, confirm that the intended backbone coordinates remain available.
+
+- Recheck positions after trimming or editing the reference.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Compare the query sequence with the reference. For structural inputs, inspect the structure track and viewer to check that sequence masking has not removed the backbone.
+
+</Tab>
+
+<Tab value="Python">
+
+Inspect the query:
+
+
+```python
+print(myQueryProtein.formatted(
+    include=("sequence", "structure_mask")
+))
+```
+
+For a query with selected designable positions, check the masks and fixed sequence:
+
+```python
+fixedPositions = [
+    position
+    for position in range(1, len(myReference) + 1)
+    if position not in designPositions
+]
+
+assert len(myQueryProtein) == len(myReference)
+assert myQueryProtein.at(designPositions).sequence == (
+    b"X" * len(designPositions)
+)
+assert myQueryProtein.at(fixedPositions).sequence == (
+    myReference.at(fixedPositions).sequence
+)
+```
+
+These checks confirm that the query encodes the intended constraints. They do not establish that the resulting designs will retain function.
+
+</Tab>
+
+</Tabs>
+
+## Create and reuse the query
+
+Retain the query alongside its reference and design specification. Reuse it when comparing contexts or sampling settings so that the explicit constraints remain consistent.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Keep the verified query loaded in the generation task. Select a context separately if needed, then proceed to sampling settings.
+
+</Tab>
+
+<Tab value="Python">
+
+Create the query object:
+
+
+```python
+myQuery = session.prompt.create_query(query=myQueryProtein)
+
+print("Query ID:", myQuery.id)
+```
+
+Retrieve the same query later:
+
+```python
+myQuery = session.prompt.get_query("YOUR_QUERY_ID")
+```
+
+To use it with an existing context (PoET-2 example shown):
+
+```python
+myContext = session.prompt.get_prompt("YOUR_CONTEXT_ID")
+
+generation_job = session.embedding.poet2.generate(
+    prompt=myContext,
+    query=myQuery,
+    num_samples=10,
+    temperature=0.3,
+    seed=42,
+)
+```
+
+</Tab>
+
+</Tabs>

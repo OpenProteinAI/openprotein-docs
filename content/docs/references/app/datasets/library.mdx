@@ -1,0 +1,38 @@
+---
+title: "Save as library"
+description: "Save as Library saves the sequences currently shown in a table as a library in your project. Set filters first, and only the rows that pass them are saved. This page lists the controls, fields, and outputs involved."
+---
+
+## Save as Library dialog
+
+Click **Save as Library** in the table toolbar, next to **Export**, to open the dialog.
+
+| Element | Description |
+| --- | --- |
+| Name | Required. The name of the library. |
+| Library Size | Read-only. The number of sequences that will be saved, which matches the rows currently shown in the table. |
+| Objectives | Read-only. One row per objective, with its **Probability of Success** and **Expected Number of Successes**. |
+| Description | Optional. Not part of the dialog. Add it in the **Library description** field at the top of the library page. |
+| Save | Saves the library and opens it. |
+| Cancel | Closes the dialog without saving. |
+
+## Filters and what is saved
+
+The library contains only the rows visible in the table when you click **Save as Library**.
+
+| Control | Behavior |
+| --- | --- |
+| Column filter icon | Appears in each column header. Opens a filter for that column. |
+| Operator | Dropdown in the filter, for example "Greater than". |
+| Value | The value to compare the column against. |
+| OK | Applies the filter. |
+| Clear filter | Removes the filter from that column. |
+| Cancel | Closes the filter without applying it. |
+| Row count | The line above the table updates to show how many rows pass, for example "Showing 1 of 100 sequences". The **Library Size** in the dialog uses this count. |
+
+## Accessing and exporting your sequences
+
+| Output | Where to find it | Contents |
+| --- | --- | --- |
+| Saved library | **Libraries** in the left navigation panel | Library name, creation date and time, and the design it came from. Click the name to open the library table. |
+| CSV file | **Export** in the table toolbar | Choose which rows to include: **All rows to CSV** or **Only filtered rows to CSV**. |

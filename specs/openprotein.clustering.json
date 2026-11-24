@@ -1,0 +1,1573 @@
+{
+ "module": "openprotein.clustering",
+ "entries": [
+  {
+   "name": "ClusteringAPI",
+   "path": "openprotein.clustering.ClusteringAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Top-level clustering API. Use `session.clustering.hierarchical(...)` to\nfit a hierarchical clustering job on a sequence set.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Top-level clustering API. Use `session.clustering.hierarchical(...)` to\nfit a hierarchical clustering job on a sequence set."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.clustering.clustering",
+   "source": {
+    "file": "openprotein/clustering/clustering.py",
+    "line": 19,
+    "end": 183
+   },
+   "members": [
+    {
+     "name": "hierarchical",
+     "kind": "method",
+     "doc": "Fit a hierarchical clustering on sequences, returning a future\nthat resolves to a HierarchicalClusteringResult (scipy linkage + leaf order).",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/clustering.py",
+      "line": 52,
+      "end": 161
+     },
+     "signature": "(model, reduction=None, feature_type=None, linkage_method=LinkageMethod.WARD, metric=Metric.EUCLIDEAN, sequences=None, assay=None, **kwargs)",
+     "returns": "HierarchicalClusteringFuture",
+     "returns_parts": [
+      {
+       "text": "HierarchicalClusteringFuture",
+       "path": "openprotein.clustering.HierarchicalClusteringFuture",
+       "page": "clustering"
+      }
+     ],
+     "overloads": [
+      "(model, reduction, feature_type=FeatureType.PLM, linkage_method=LinkageMethod.WARD, metric=Metric.EUCLIDEAN, sequences=None, assay=None, **kwargs)",
+      "(model, reduction=None, feature_type=FeatureType.SVD, linkage_method=LinkageMethod.WARD, metric=Metric.EUCLIDEAN, sequences=None, assay=None, **kwargs)"
+     ],
+     "overload_contracts": [
+      {
+       "signature": "(model: EmbeddingModel, reduction: Reduction | ReductionType, feature_type: FeatureType=FeatureType.PLM, linkage_method: LinkageMethod | str=LinkageMethod.WARD, metric: Metric | str=Metric.EUCLIDEAN, sequences: list[bytes] | list[str] | None=None, assay: AssayDataset | AssayMetadata | str | None=None, **kwargs)",
+       "signature_parts": [
+        {
+         "text": "("
+        },
+        {
+         "text": "model"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "EmbeddingModel",
+         "path": "openprotein.embeddings.EmbeddingModel",
+         "page": "embedding"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "reduction"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "Reduction | "
+        },
+        {
+         "text": "ReductionType",
+         "path": "openprotein.common.ReductionType",
+         "page": "embedding"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "feature_type"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "FeatureType",
+         "path": "openprotein.common.FeatureType",
+         "page": "predictor"
+        },
+        {
+         "text": "=FeatureType.PLM"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "linkage_method"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "LinkageMethod | str"
+        },
+        {
+         "text": "=LinkageMethod.WARD"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "metric"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "Metric | str"
+        },
+        {
+         "text": "=Metric.EUCLIDEAN"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "sequences"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "list[bytes] | list[str] | None"
+        },
+        {
+         "text": "=None"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "assay"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "AssayDataset",
+         "path": "openprotein.data.AssayDataset",
+         "page": "data"
+        },
+        {
+         "text": " | "
+        },
+        {
+         "text": "AssayMetadata",
+         "path": "openprotein.data.AssayMetadata",
+         "page": "data"
+        },
+        {
+         "text": " | str | None"
+        },
+        {
+         "text": "=None"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "**kwargs"
+        },
+        {
+         "text": ")"
+        }
+       ],
+       "returns": "HierarchicalClusteringFuture",
+       "returns_parts": [
+        {
+         "text": "HierarchicalClusteringFuture",
+         "path": "openprotein.clustering.HierarchicalClusteringFuture",
+         "page": "clustering"
+        }
+       ]
+      },
+      {
+       "signature": "(model: SVDModel, reduction: None=None, feature_type: FeatureType=FeatureType.SVD, linkage_method: LinkageMethod | str=LinkageMethod.WARD, metric: Metric | str=Metric.EUCLIDEAN, sequences: list[bytes] | list[str] | None=None, assay: AssayDataset | AssayMetadata | str | None=None, **kwargs)",
+       "signature_parts": [
+        {
+         "text": "("
+        },
+        {
+         "text": "model"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "SVDModel",
+         "path": "openprotein.svd.SVDModel",
+         "page": "embedding"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "reduction"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "None"
+        },
+        {
+         "text": "=None"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "feature_type"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "FeatureType",
+         "path": "openprotein.common.FeatureType",
+         "page": "predictor"
+        },
+        {
+         "text": "=FeatureType.SVD"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "linkage_method"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "LinkageMethod | str"
+        },
+        {
+         "text": "=LinkageMethod.WARD"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "metric"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "Metric | str"
+        },
+        {
+         "text": "=Metric.EUCLIDEAN"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "sequences"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "list[bytes] | list[str] | None"
+        },
+        {
+         "text": "=None"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "assay"
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "AssayDataset",
+         "path": "openprotein.data.AssayDataset",
+         "page": "data"
+        },
+        {
+         "text": " | "
+        },
+        {
+         "text": "AssayMetadata",
+         "path": "openprotein.data.AssayMetadata",
+         "page": "data"
+        },
+        {
+         "text": " | str | None"
+        },
+        {
+         "text": "=None"
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "**kwargs"
+        },
+        {
+         "text": ")"
+        }
+       ],
+       "returns": "HierarchicalClusteringFuture",
+       "returns_parts": [
+        {
+         "text": "HierarchicalClusteringFuture",
+         "path": "openprotein.clustering.HierarchicalClusteringFuture",
+         "page": "clustering"
+        }
+       ]
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fit a hierarchical clustering on sequences, returning a future\nthat resolves to a HierarchicalClusteringResult (scipy linkage + leaf order)."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "model",
+         "annotation_fallback": true,
+         "type": "EmbeddingModel | SVDModel | str",
+         "type_parts": [
+          {
+           "text": "EmbeddingModel",
+           "path": "openprotein.embeddings.EmbeddingModel",
+           "page": "embedding"
+          },
+          {
+           "text": " | "
+          },
+          {
+           "text": "SVDModel",
+           "path": "openprotein.svd.SVDModel",
+           "page": "embedding"
+          },
+          {
+           "text": " | str"
+          }
+         ],
+         "default": null,
+         "text": null
+        },
+        {
+         "name": "reduction",
+         "annotation_fallback": true,
+         "type": "Reduction | ReductionType | None",
+         "type_parts": [
+          {
+           "text": "Reduction | "
+          },
+          {
+           "text": "ReductionType",
+           "path": "openprotein.common.ReductionType",
+           "page": "embedding"
+          },
+          {
+           "text": " | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "feature_type",
+         "annotation_fallback": true,
+         "type": "Feature | FeatureType | None",
+         "type_parts": [
+          {
+           "text": "Feature | "
+          },
+          {
+           "text": "FeatureType",
+           "path": "openprotein.common.FeatureType",
+           "page": "predictor"
+          },
+          {
+           "text": " | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "linkage_method",
+         "annotation_fallback": true,
+         "type": "LinkageMethod | str",
+         "type_parts": [
+          {
+           "text": "LinkageMethod | str"
+          }
+         ],
+         "default": "LinkageMethod.WARD",
+         "text": null
+        },
+        {
+         "name": "metric",
+         "annotation_fallback": true,
+         "type": "Metric | str",
+         "type_parts": [
+          {
+           "text": "Metric | str"
+          }
+         ],
+         "default": "Metric.EUCLIDEAN",
+         "text": null
+        },
+        {
+         "name": "sequences",
+         "annotation_fallback": true,
+         "type": "list[bytes] | list[str] | None",
+         "type_parts": [
+          {
+           "text": "list[bytes] | list[str] | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "assay",
+         "annotation_fallback": true,
+         "type": "AssayDataset | AssayMetadata | str | None",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          },
+          {
+           "text": " | "
+          },
+          {
+           "text": "AssayMetadata",
+           "path": "openprotein.data.AssayMetadata",
+           "page": "data"
+          },
+          {
+           "text": " | str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Fetch a clustering job by ID.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/clustering.py",
+      "line": 163,
+      "end": 166
+     },
+     "signature": "(clustering_id)",
+     "returns": "HierarchicalClusteringFuture",
+     "returns_parts": [
+      {
+       "text": "HierarchicalClusteringFuture",
+       "path": "openprotein.clustering.HierarchicalClusteringFuture",
+       "page": "clustering"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fetch a clustering job by ID."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "clustering_id",
+         "annotation_fallback": true,
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "list",
+     "kind": "method",
+     "doc": "List clustering jobs, optionally filtering by method.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/clustering.py",
+      "line": 168,
+      "end": 183
+     },
+     "signature": "(method=None, limit=None, offset=None)",
+     "returns": "list[HierarchicalClusteringFuture]",
+     "returns_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "HierarchicalClusteringFuture",
+       "path": "openprotein.clustering.HierarchicalClusteringFuture",
+       "page": "clustering"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List clustering jobs, optionally filtering by method."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "method",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "limit",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "offset",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface",
+   "page": "clustering"
+  },
+  {
+   "name": "HierarchicalClusteringFuture",
+   "path": "openprotein.clustering.HierarchicalClusteringFuture",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None)",
+   "bases": [
+    "Future['HierarchicalClusteringResult']"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Future",
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     {
+      "text": "["
+     },
+     {
+      "text": "'HierarchicalClusteringResult'",
+      "path": "openprotein.clustering.HierarchicalClusteringResult",
+      "page": "clustering"
+     },
+     {
+      "text": "]"
+     }
+    ]
+   ],
+   "doc": "Future for a hierarchical clustering job. Waits for the fit job to complete, then\nreturns a HierarchicalClusteringResult (linkage + leaf_order + sequences).",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Future for a hierarchical clustering job. Waits for the fit job to complete, then\nreturns a HierarchicalClusteringResult (linkage + leaf_order + sequences)."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "job",
+       "annotation_fallback": true,
+       "type": "HierarchicalFitJob | None",
+       "type_parts": [
+        {
+         "text": "HierarchicalFitJob | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "ClusteringMetadata | None",
+       "type_parts": [
+        {
+         "text": "ClusteringMetadata",
+         "path": "openprotein.clustering.ClusteringMetadata",
+         "page": "clustering"
+        },
+        {
+         "text": " | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.clustering.models",
+   "source": {
+    "file": "openprotein/clustering/models.py",
+    "line": 16,
+    "end": 79
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/models.py",
+      "line": 47,
+      "end": 48
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "Metadata \u2014 lazily refreshes until the job reaches a terminal state.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/models.py",
+      "line": 51,
+      "end": 55
+     },
+     "annotation": "ClusteringMetadata",
+     "annotation_parts": [
+      {
+       "text": "ClusteringMetadata",
+       "path": "openprotein.clustering.ClusteringMetadata",
+       "page": "clustering"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Metadata \u2014 lazily refreshes until the job reaches a terminal state."
+      }
+     ]
+    },
+    {
+     "name": "sequences",
+     "kind": "property",
+     "doc": "Input sequences used to fit the clustering job.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/models.py",
+      "line": 58,
+      "end": 64
+     },
+     "annotation": "list[bytes]",
+     "annotation_parts": [
+      {
+       "text": "list[bytes]"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Input sequences used to fit the clustering job."
+      }
+     ]
+    },
+    {
+     "name": "delete",
+     "kind": "method",
+     "doc": "Delete this clustering job.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/models.py",
+      "line": 72,
+      "end": 74
+     },
+     "signature": "()",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Delete this clustering job."
+      }
+     ]
+    },
+    {
+     "name": "redispatch",
+     "kind": "method",
+     "doc": "Resubmit this clustering job.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/clustering/models.py",
+      "line": 76,
+      "end": 79
+     },
+     "signature": "()",
+     "returns": "HierarchicalClusteringFuture",
+     "returns_parts": [
+      {
+       "text": "HierarchicalClusteringFuture",
+       "path": "openprotein.clustering.HierarchicalClusteringFuture",
+       "page": "clustering"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Resubmit this clustering job."
+      }
+     ]
+    },
+    {
+     "name": "args",
+     "kind": "property",
+     "doc": "The registered job arguments.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 276,
+      "end": 278
+     },
+     "annotation": "dict[str, Any]",
+     "annotation_parts": [
+      {
+       "text": "dict[str, Any]"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The registered job arguments."
+      }
+     ]
+    },
+    {
+     "name": "cancelled",
+     "kind": "method",
+     "doc": "Check if the job has been cancelled.\n\nReturns\n-------\nbool\n    True if the job is cancelled, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 291,
+      "end": 300
+     },
+     "signature": "()",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has been cancelled."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job is cancelled, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "created_date",
+     "kind": "property",
+     "doc": "The creation timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 248,
+      "end": 250
+     },
+     "annotation": "datetime",
+     "annotation_parts": [
+      {
+       "text": "datetime"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The creation timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "description",
+     "kind": "property",
+     "doc": "The job's description, or an empty string if the job has none.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 238,
+      "end": 240
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job's description, or an empty string if the job has none."
+      }
+     ]
+    },
+    {
+     "name": "done",
+     "kind": "method",
+     "doc": "Check if the job has completed.\n\nReturns\n-------\nbool\n    True if the job is done, False otherwise.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 280,
+      "end": 289
+     },
+     "signature": "()",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Check if the job has completed."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job is done, False otherwise."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "end_date",
+     "kind": "property",
+     "doc": "The end timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 258,
+      "end": 260
+     },
+     "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The end timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": "Fetch the clustering result.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 382,
+      "end": 392
+     },
+     "signature": "(verbose=False, **kwargs)",
+     "returns": "HierarchicalClusteringResult",
+     "returns_parts": [
+      {
+       "text": "HierarchicalClusteringResult",
+       "path": "openprotein.clustering.HierarchicalClusteringResult",
+       "page": "clustering"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Fetch the clustering result."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "verbose",
+         "annotation_fallback": true,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "job_id",
+     "kind": "property",
+     "doc": "The unique identifier of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 221,
+      "end": 223
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The unique identifier of the job."
+      }
+     ]
+    },
+    {
+     "name": "job_type",
+     "kind": "property",
+     "doc": "The type of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 228,
+      "end": 230
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The type of the job."
+      }
+     ]
+    },
+    {
+     "name": "name",
+     "kind": "property",
+     "doc": "The job's name, or its job id if the job has no name.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 233,
+      "end": 235
+     },
+     "annotation": "str | None",
+     "annotation_parts": [
+      {
+       "text": "str | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The job's name, or its job id if the job has no name."
+      }
+     ]
+    },
+    {
+     "name": "progress_counter",
+     "kind": "property",
+     "doc": "The progress counter of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 263,
+      "end": 265
+     },
+     "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The progress counter of the job."
+      }
+     ]
+    },
+    {
+     "name": "refresh",
+     "kind": "method",
+     "doc": "Refresh the job status and internal job object.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 344,
+      "end": 346
+     },
+     "signature": "()",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Refresh the job status and internal job object."
+      }
+     ]
+    },
+    {
+     "name": "rename",
+     "kind": "method",
+     "doc": "Set this job's name and description.\n\nOnly the arguments given are sent, so renaming leaves the description\nalone. Extra fields carried on the job are preserved, as on refresh.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 348,
+      "end": 366
+     },
+     "signature": "(name=None, description=None)",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Set this job's name and description.\n\nOnly the arguments given are sent, so renaming leaves the description\nalone. Extra fields carried on the job are preserved, as on refresh."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "name",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        },
+        {
+         "name": "description",
+         "annotation_fallback": true,
+         "type": "str | None",
+         "type_parts": [
+          {
+           "text": "str | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "start_date",
+     "kind": "property",
+     "doc": "The start timestamp of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 253,
+      "end": 255
+     },
+     "annotation": "datetime | None",
+     "annotation_parts": [
+      {
+       "text": "datetime | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The start timestamp of the job."
+      }
+     ]
+    },
+    {
+     "name": "status",
+     "kind": "property",
+     "doc": "The current status of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 243,
+      "end": 245
+     },
+     "annotation": "JobStatus",
+     "annotation_parts": [
+      {
+       "text": "JobStatus",
+       "path": "openprotein.jobs.JobStatus",
+       "page": "jobs"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "The current status of the job."
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 486,
+      "end": 515
+     },
+     "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
+     "returns": "V",
+     "returns_parts": [
+      {
+       "text": "V"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "type_parts": null,
+         "default": "{}",
+         "text": "Keyword arguments passed to `get`."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "wait_until_done",
+     "kind": "method",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "inherited_from": "openprotein.jobs.futures.Future",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 455,
+      "end": 484
+     },
+     "signature": "(interval=5, timeout=None, verbose=False)",
+     "returns": "bool",
+     "returns_parts": [
+      {
+       "text": "bool"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "text": "True if the job completed successfully."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "This method does not fetch the job results, unlike `wait()`."
+      }
+     ]
+    }
+   ],
+   "section": "Results",
+   "page": "clustering"
+  },
+  {
+   "name": "HierarchicalClusteringResult",
+   "path": "openprotein.clustering.HierarchicalClusteringResult",
+   "kind": "class",
+   "signature": "(*, n_leaves, linkage, leaf_order, sequences)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "Result of a hierarchical clustering job.\n\n`linkage` is the scipy linkage matrix with shape (N-1, 4); pass it\ndirectly to `scipy.cluster.hierarchy.dendrogram` or `fcluster`.\n\n`linkage` is a numpy array, so `model_dump_json()` will not serialize this\nmodel; convert it with `linkage.tolist()` first.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Result of a hierarchical clustering job.\n\n`linkage` is the scipy linkage matrix with shape (N-1, 4); pass it\ndirectly to `scipy.cluster.hierarchy.dendrogram` or `fcluster`.\n\n`linkage` is a numpy array, so `model_dump_json()` will not serialize this\nmodel; convert it with `linkage.tolist()` first."
+    }
+   ],
+   "module": "openprotein.clustering.schemas",
+   "source": {
+    "file": "openprotein/clustering/schemas.py",
+    "line": 70,
+    "end": 92
+   },
+   "members": [],
+   "section": "Results",
+   "page": "clustering"
+  },
+  {
+   "name": "ClusteringMetadata",
+   "path": "openprotein.clustering.ClusteringMetadata",
+   "kind": "class",
+   "signature": "(*, id, status, created_date=None, method, linkage_method=None, metric=None, model_id, feature_type, reduction=None, svd_id=None)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": null,
+   "parsed": [],
+   "module": "openprotein.clustering.schemas",
+   "source": {
+    "file": "openprotein/clustering/schemas.py",
+    "line": 48,
+    "end": 63
+   },
+   "members": [],
+   "section": "Results",
+   "page": "clustering"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

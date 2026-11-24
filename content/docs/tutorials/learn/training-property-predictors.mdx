@@ -1,0 +1,118 @@
+---
+title: Train a specialized property predictor  
+sidebarTitle: Training property predictors
+description: Train specialized property predictors to predict both antigen and non-specific binding
+---
+
+In this tutorial, we will train some property predictors on a small antibody dataset.
+
+Before we start, we will need some data to train our predictors on. For this tutorial, we will use an antibody dataset from 
+Makowski et al. (<Cite id="Makowski2022-ou" />). Makowski et al. were interested to optimize 
+[Emibetuzumab](https://opig.stats.ox.ac.uk/webapps/plabdab/modelviewer/Emibetuzumab/APN73844_APN73825/), a clinical-stage antibody 
+that targets c-Met, also called hepatocyte growth factor receptor, or HGFR. Emibetuzumab reached phase II clinical trials for the 
+treatment of non-small cell lung cancer, but also exhibited high levels of non-specific binding. As part of this study, the authors 
+measured antigen binding for 125 single chain antibody (Fab) mutants against HGFR, as well as against ovalbumin, as a surrogate for
+non-specific binding. The data can be downloaded as a csv file [here](/_static/data/makowski2022_fab.csv).
+
+## Upload the data
+
+First, create a new project and navigate to an existing one. To start the data upload, we can either
+drop the csv file that we have just downloaded into the **Dataset** box, or click on **Upload** to 
+navigate to it on our file system. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/00_upload_dataset.png" />
+
+This will then pop up a screen for previewing our data upload. Name our dataset 'Makowski 2022, Fab'. Before clicking on **Upload**, 
+we can use the preview to verify that the file has been parsed correctly. At the top, we can see that there are 126 unique 
+sequences (125 mutants, and the wild-type sequence), as expected. Under column options, check that 
+the **heavy** and **light** columns have correctly been detected as VH and VL. We can also notice 
+that there are 2 property columns in the file, **ant** and **ova**, which are the normalized 
+binding values for the c-Met antigen and for ovalbumin respectively. There should be no invalid (0/126)
+values for each column. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/01_dataset_input.png" />
+
+Going to the preview tab allows us to preview the first 100 sequences. The CDR regions of the antibody
+sequences have automatically been annotated using Kabat numbering. The platform has also added a few
+useful columns, including the closest germline pair, the germline distance (%), as well as liabilities. 
+Toggling the **Consensus** option lets us see which positions have been mutated in this dataset. When 
+we turn this option on, we can see that mutations are present only at specific positions 
+within the CDR regions of the VH sequence. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/02_dataset_preview.png" />
+
+## Inspect the dataset
+
+Uploading the dataset automatically creates a UMAP visualization of our sequences using the default
+embedding model. In this case, because the system has already identified that this is an 
+antibody dataset, it will run the embedding using PoET-2 and the [system VH/VL antibody prompt](/concepts/prompts/system-prompts), 
+and using an SVD reduction. Inspecting the UMAP, we can see that even
+without model training, the PoET-2 embeddings already reflect antigen binding affinity. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/03_umap.png" />
+
+Now, switch to the **Joint plot** and select **ant**, **ova** and **Germline Distance (%)**. Here, 
+we find that Germline Distance (%) is already quite well correlated with the binding scores, with 
+a Spearman rho of -0.72. Can we do better than this by training a model? 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/04_joint_plot.png" />
+
+## Train models
+
+To train a model, click on **Train Model** on the action bar under **Quick Actions**. 
+We will be training models using the PoET-2 embedding, so let's name the model **PoET-2**. 
+Naming models helps us to keep track of them and easily find them later. 
+
+Select both **ant** and **ova**. This will train one model for each property. By default, 
+the tool recommends using PoET-2 as the embedding model, with the  [system VH/VL antibody prompt](/concepts/prompts/system-prompts). it
+will also use the **None** reduction type, which defaults to using an SVD for dimensionality reduction, 
+since the sequences are the same length. Click on the run button to start model training. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/05_train_model.png" />
+
+## Inspect model outputs 
+
+We can check on the status of our job by clicking on the **Jobs** button. Here, we can see that a 
+job was spawned for each property that we want to predict. If we click on a job, this takes
+us to the output page. Here, we can see that the job is still running, and that each job 
+actually has three steps: an SVD step, a model training step, and a cross-validation step. We'll 
+have to wait a couple of minutes for all steps to complete. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/06_job.png" />
+
+Let's inspect our predictor for **ant**. Access the job via the **Jobs** button, or 
+by looking for your models under **Models** in the left sidebar. Select your model. Once model training is complete, 
+a plot showing the training loss curve will appear in the Training tab. Inspecting the 
+plot, we can see that the loss steadily decreased before plateauing. This suggests that 
+the model was fit successfully. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/07_training_curve.png" />
+
+Switching to the cross validation tab allows us to further inspect model fit. The correlation 
+plot tells us about how predictive the model is, while the calibration plot tells us about 
+whether the model's confidences are well-calibrated. 
+
+<Figure src="/_static/tutorials/learn/training-property-predictors/08_cross_validation.png" />
+
+Here, we can see that the model achieved a Spearman rho of 0.878, suggesting that it is a good 
+predictor. It also achieved an expected calibration error (ECE) of 0.07, suggesting that it is 
+neither over-confident, nor under-confident. Since our design algorithms make use of both a 
+model's predicted mean as well as its uncertainty, it is important that both of these are 
+accurately predicted. 
+
+To understand more about how these metrics are calculated and how they are used for downstream design, 
+take a look at [Concepts > Models > Evaluating models](/concepts/models/evaluating-models). 
+
+## Next steps 
+
+Congratulations! You've now learned how to train a specialized property predictor. 
+
+You may wish to train additional property predictors using [other foundation models for the embedding](/models), 
+or play around with modeling parameters such as the [GP kernel](/concepts/models/property-predictors).
+
+In the next tutorial, we will learn how to use our specialized property predictors to design a new library. Head 
+over to [Design > Optimize > Bayesian Optimization](/tutorials/design/active-learning/bayesian-optimization) to learn more. 
+
+## References 
+
+<Bibliography files={["references-bayesian-optimization.bib"]} />

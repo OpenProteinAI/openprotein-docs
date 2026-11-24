@@ -1,0 +1,236 @@
+{
+  "poet-2": {
+    "summary": "OpenProtein-developed conditional and multi-modal protein language model that embeds, scores, and generates sequences conditioned on an input protein family.",
+    "citation_title": "Understanding protein function with a multimodal retrieval-augmented foundation model",
+    "doi": "https://www.doi.org/10.52202/085713-1772",
+    "github": "https://github.com/OpenProteinAI/PoET-2"
+  },
+  "boltz-2": {
+    "summary": "Boltz-2 all-atom structure prediction model that jointly predicts complex structure and ligand binding affinity. Predicts protein, DNA, RNA and ligand complexes, with optional constraints, templates and experimental-method conditioning.",
+    "citation_title": "Boltz-2: Towards Accurate and Efficient Binding Affinity Prediction",
+    "doi": "https://www.doi.org/10.1101/2025.06.14.659707",
+    "github": "https://github.com/jwohlwend/boltz"
+  },
+  "rfdiffusion": {
+    "summary": "De novo protein backbone generation by diffusion.",
+    "citation_title": "De novo design of protein structure and function with RFdiffusion",
+    "doi": "https://www.doi.org/10.1038/s41586-023-06415-8",
+    "github": "https://github.com/RosettaCommons/RFdiffusion"
+  },
+  "esm2_t33_650M_UR50D": {
+    "summary": "ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.\n\n650M parameters over 33 layers.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1101/2022.07.20.500902",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm2_t30_150M_UR50D": {
+    "summary": "ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.\n\n150M parameters over 30 layers.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1101/2022.07.20.500902",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm2_t12_35M_UR50D": {
+    "summary": "ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.\n\n35M parameters over 12 layers.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1101/2022.07.20.500902",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm2_t36_3B_UR50D": {
+    "summary": "ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.\n\n3B parameters over 36 layers.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1101/2022.07.20.500902",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm2_t6_8M_UR50D": {
+    "summary": "ESM2 masked protein language model trained on UniRef50. Its checkpoints share training data and objective, and differ in size.\n\n8M parameters over 6 layers.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1101/2022.07.20.500902",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "proteinmpnn": {
+    "summary": "Message-passing inverse-folding model that designs sequences for a fixed protein backbone.\n\nThe original weights, trained on protein structures from the PDB.",
+    "citation_title": "Robust deep learning-based protein sequence design using ProteinMPNN",
+    "doi": "https://www.doi.org/10.1126/science.add2187",
+    "github": "https://github.com/dauparas/ProteinMPNN"
+  },
+  "solublempnn": {
+    "summary": "Message-passing inverse-folding model that designs sequences for a fixed protein backbone.\n\nWeights trained on soluble proteins only, for designing soluble sequences.",
+    "citation_title": "Robust deep learning-based protein sequence design using ProteinMPNN",
+    "doi": "https://www.doi.org/10.1126/science.add2187",
+    "github": "https://github.com/dauparas/ProteinMPNN"
+  },
+  "opendde": {
+    "summary": "OpenDDE all-atom co-folding model (opendde_v1, 656M parameters). Folds protein/DNA/RNA/ligand/ion complexes in one structure, optionally conditioned on an MSA.\n\nThe general-purpose checkpoint.",
+    "citation_title": "Folding, Reasoning, and Scaling with Open-source Drug Discovery Engine",
+    "doi": "https://www.doi.org/10.48550/arXiv.2607.03787",
+    "github": null
+  },
+  "opendde-abag": {
+    "summary": "OpenDDE all-atom co-folding model (opendde_v1, 656M parameters). Folds protein/DNA/RNA/ligand/ion complexes in one structure, optionally conditioned on an MSA.\n\nOpenDDE antibody-antigen model: the opendde_v1 architecture with a checkpoint tuned on antibody-antigen complexes. Same inputs and outputs as opendde.",
+    "citation_title": "Folding, Reasoning, and Scaling with Open-source Drug Discovery Engine",
+    "doi": "https://www.doi.org/10.48550/arXiv.2607.03787",
+    "github": null
+  },
+  "esm-if1": {
+    "summary": "Inverse-folding model: scores and designs sequences for a fixed backbone.",
+    "citation_title": "Learning inverse folding from millions of predicted structures",
+    "doi": "https://www.doi.org/10.1101/2022.04.10.487779",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esmc-600m": {
+    "summary": "ESM Cambrian (ESMC) protein language model, trained on protein sequences from UniRef, MGnify, and JGI.\n\n600M parameters.",
+    "citation_title": "Language Modeling Materializes a World Model of Protein Biology",
+    "doi": "https://www.doi.org/10.64898/2026.06.03.729735",
+    "github": "https://github.com/Biohub/esm"
+  },
+  "esmc-300m": {
+    "summary": "ESM Cambrian (ESMC) protein language model, trained on protein sequences from UniRef, MGnify, and JGI.\n\n300M parameters.",
+    "citation_title": "Language Modeling Materializes a World Model of Protein Biology",
+    "doi": "https://www.doi.org/10.64898/2026.06.03.729735",
+    "github": "https://github.com/Biohub/esm"
+  },
+  "esmc-6b": {
+    "summary": "ESM Cambrian (ESMC) protein language model, trained on protein sequences from UniRef, MGnify, and JGI.\n\n6B parameters.",
+    "citation_title": "Language Modeling Materializes a World Model of Protein Biology",
+    "doi": "https://www.doi.org/10.64898/2026.06.03.729735",
+    "github": "https://github.com/Biohub/esm"
+  },
+  "esmfold2": {
+    "summary": "ESMFold2 all-atom structure prediction model. Folds protein, DNA, RNA and ligand complexes.\n\nFull-depth folding trunk (48 layers), optionally conditioned on an MSA.",
+    "citation_title": "Language Modeling Materializes a World Model of Protein Biology",
+    "doi": "https://www.doi.org/10.64898/2026.06.03.729735",
+    "github": "https://github.com/Biohub/esm"
+  },
+  "esmfold2-fast": {
+    "summary": "ESMFold2 all-atom structure prediction model. Folds protein, DNA, RNA and ligand complexes.\n\nInference-optimized single-sequence variant (no MSA) whose folding trunk has half the depth (24 layers).",
+    "citation_title": "Language Modeling Materializes a World Model of Protein Biology",
+    "doi": "https://www.doi.org/10.64898/2026.06.03.729735",
+    "github": "https://github.com/Biohub/esm"
+  },
+  "protenix-v2": {
+    "summary": "Protenix-v2 model — enhanced-capacity 464M-parameter variant with improved antibody-antigen structure prediction and ligand plausibility.",
+    "citation_title": "Protenix-v2: Broadening the Reach of Structure Prediction and Biomolecular Design",
+    "doi": "https://www.doi.org/10.64898/2026.04.10.717613",
+    "github": "https://github.com/bytedance/Protenix"
+  },
+  "ablang2": {
+    "summary": "Antibody-specific language model for paired heavy/light chains.",
+    "citation_title": "Addressing the antibody germline bias and its effect on language models for improved antibody design",
+    "doi": "https://www.doi.org/10.1101/2024.02.02.578678",
+    "github": "https://github.com/oxpig/AbLang2"
+  },
+  "protenix": {
+    "summary": "Protenix all-atom structure prediction model from ByteDance, an open-source reproduction of AlphaFold3. Predicts protein, DNA, RNA and ligand complexes, with optional templates.",
+    "citation_title": "Protenix: Advancing Structure Prediction Through a Comprehensive Folding Model",
+    "doi": "https://www.doi.org/10.1101/2025.01.08.631967",
+    "github": "https://github.com/bytedance/Protenix"
+  },
+  "boltzgen": {
+    "summary": "All-atom generative diffusion model that designs protein binders against proteins, nucleic acids or small molecules.",
+    "citation_title": "BoltzGen: Toward Universal Binder Design",
+    "doi": null,
+    "github": null
+  },
+  "rosettafold-3": {
+    "summary": "RosettaFold-3 (RF3) all-atom structure prediction model, competitive with leading open-source models. Trained with implicit chirality and atom-level geometric conditioning, which helps on chiral ligands. Predicts protein and ligand complexes from an MSA.",
+    "citation_title": "Accelerating Biomolecular Modeling with AtomWorks and RF3",
+    "doi": "https://www.doi.org/10.1101/2025.08.14.670328",
+    "github": "https://github.com/RosettaCommons/modelforge"
+  },
+  "minifold": {
+    "summary": "MiniFold single-sequence structure prediction: a 48-block folding trunk over esm2_t36_3B_UR50D embeddings.",
+    "citation_title": "MiniFold: Simple, Fast, and Accurate Protein Structure Prediction",
+    "doi": "https://openreview.net/forum?id=1p9hQTbjgo",
+    "github": "https://github.com/jwohlwend/minifold"
+  },
+  "boltz-1": {
+    "summary": "Boltz-1 open-source all-atom structure prediction model, approaching AlphaFold3 accuracy. Predicts protein, DNA, RNA and ligand complexes, with optional constraints.\n\nThe base model, with inference-time potentials optional.",
+    "citation_title": "Boltz-1: Democratizing Biomolecular Interaction Modeling",
+    "doi": "https://www.doi.org/10.1101/2024.11.19.624167",
+    "github": "https://github.com/jwohlwend/boltz"
+  },
+  "boltz-1x": {
+    "summary": "Boltz-1 open-source all-atom structure prediction model, approaching AlphaFold3 accuracy. Predicts protein, DNA, RNA and ligand complexes, with optional constraints.\n\nBoltz-1's weights with Boltz-steering: inference-time potentials that fix steric clashes, bond geometry and chirality for more physically plausible poses.",
+    "citation_title": "Boltz-1: Democratizing Biomolecular Interaction Modeling",
+    "doi": "https://www.doi.org/10.1101/2024.11.19.624167",
+    "github": "https://github.com/jwohlwend/boltz"
+  },
+  "esmfold": {
+    "summary": "esmfold_v1 model with 690M parameters, running on top of esm2_t36_3B_UR50D with 3B parameters.",
+    "citation_title": "Evolutionary-scale prediction of atomic level protein structure with a language model",
+    "doi": "https://www.doi.org/10.1126/science.ade2574",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1b_t33_650M_UR50S": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1b, trained on UniRef50.",
+    "citation_title": "Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences",
+    "doi": "https://www.doi.org/10.1073/pnas.2016239118",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1v_t33_650M_UR90S_1": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 1 of 5.",
+    "citation_title": "Language models enable zero-shot prediction of the effects of mutations on protein function",
+    "doi": "https://www.doi.org/10.1101/2021.07.09.450648",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1v_t33_650M_UR90S_2": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 2 of 5.",
+    "citation_title": "Language models enable zero-shot prediction of the effects of mutations on protein function",
+    "doi": "https://www.doi.org/10.1101/2021.07.09.450648",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1v_t33_650M_UR90S_3": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 3 of 5.",
+    "citation_title": "Language models enable zero-shot prediction of the effects of mutations on protein function",
+    "doi": "https://www.doi.org/10.1101/2021.07.09.450648",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1v_t33_650M_UR90S_4": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 4 of 5.",
+    "citation_title": "Language models enable zero-shot prediction of the effects of mutations on protein function",
+    "doi": "https://www.doi.org/10.1101/2021.07.09.450648",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "esm1v_t33_650M_UR90S_5": {
+    "summary": "ESM-1 masked protein language model with 650M parameters over 33 layers.\n\nESM-1v, trained on UniRef90 for zero-shot prediction of mutation effects. Ensemble member 5 of 5.",
+    "citation_title": "Language models enable zero-shot prediction of the effects of mutations on protein function",
+    "doi": "https://www.doi.org/10.1101/2021.07.09.450648",
+    "github": "https://github.com/facebookresearch/esm"
+  },
+  "prott5-xl": {
+    "summary": "ProtT5-XL encoder embeddings (UniRef50).",
+    "citation_title": "ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning",
+    "doi": "https://www.doi.org/10.1109/TPAMI.2021.3095381",
+    "github": "https://github.com/agemagician/ProtTrans"
+  },
+  "alphafold2": {
+    "summary": "AlphaFold2 protein structure prediction from DeepMind, run through ColabFold. Predicts single chains and protein complexes from an MSA, with optional Amber relaxation.",
+    "citation_title": "Highly accurate protein structure prediction with AlphaFold.",
+    "doi": "https://www.doi.org/10.1038/s41586-021-03819-2",
+    "github": "https://github.com/sokrypton/ColabFold"
+  },
+  "poet": {
+    "summary": "OpenProtein-developed conditional protein language model that embeds, scores, and generates sequences conditioned on an input protein family.",
+    "citation_title": "PoET: A generative model of protein families as sequences-of-sequences",
+    "doi": "https://www.doi.org/10.52202/075280-3384",
+    "github": "https://github.com/OpenProteinAI/PoET"
+  },
+  "prot-seq": {
+    "summary": "Masked protein language model (~300M parameters) trained on UniRef50 with contact and secondary structure prediction as secondary objectives. Random Fourier position embeddings and FlashAttention for fast inference.",
+    "citation_title": null,
+    "doi": null,
+    "github": null
+  },
+  "rotaprot-large-uniref50w": {
+    "summary": "Masked protein language model (~900M parameters) trained on UniRef100. Rotary position embeddings and FlashAttention for fast inference.\n\nSequences weighted inversely to their UniRef50 homolog count.",
+    "citation_title": null,
+    "doi": null,
+    "github": null
+  },
+  "rotaprot-large-uniref90-ft": {
+    "summary": "Masked protein language model (~900M parameters) trained on UniRef100. Rotary position embeddings and FlashAttention for fast inference.\n\nRotaProt (UniRef50w) fine-tuned with sequences weighted inversely to their UniRef90 cluster size.",
+    "citation_title": null,
+    "doi": null,
+    "github": null
+  }
+}

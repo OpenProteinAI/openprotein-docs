@@ -1,0 +1,155 @@
+---
+title: "Quickstart"
+description: "This quickstart guide covers how to score single substitutions and generate a library on the platform using either the App or API."
+---
+
+By the end of this guide, we will have a library of the best 50 single mutants on an antibody heavy chain.
+
+# What this guide covers
+
+- Create a project
+- Score single mutations on an antibody heavy chain with PoET-2 Substitution Analysis
+- Export a library of the 50 top-ranked single mutants
+
+# Before starting
+
+- **Platform access.** Sign up for an account [here](https://openprotein.ai/sign-up).
+- If using the Python client, ensure the [OpenProtein.AI SDK installed](#installation)
+
+# Installation
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    No installation required. Simply log in at [app.openprotein.ai](https://app.openprotein.ai) with your account.
+  </Tab>
+  <Tab value="Python">
+    Follow the steps stated in `session management` of the [API references](/references/python-api/#session-management). 
+  </Tab>
+</Tabs>
+
+# Create a new project
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Projects hold all artifacts, including dataset, jobs, results, and history.
+
+    - On the home page, select **New Project**.
+    - Name it `14H Antibody`.
+    - Select **Create**.
+      The new project now appears in the project list.
+  </Tab>
+  <Tab value="Python">
+    Connect with your OpenProtein.AI account email and password. Replace the placeholders below:
+
+    ```py lineNumbers
+    import openprotein
+
+    session = openprotein.connect(
+        username="you@example.com",
+        password="your_password",
+    )
+    ```
+
+    To keep credentials out of your code, [set up a configuration file](/references/python-api#session-management).
+  </Tab>
+</Tabs>
+
+# Screen single mutations with Substitution Analysis
+
+Substitution Analysis scores every single-point mutation across an input sequence. It gives higher scores to mutations predicted to raise fitness and lower scores to those predicted to lower it. The scores come from a protein language model, which learns the patterns of evolutionary fitness and rates each variant as more or less likely. Higher likelihood generally tracks with desirable properties such as solubility, expressibility, and stability. This quickstart uses PoET-2.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    - Click Tools in the top-right corner, then select Substitutions under the Predict column.
+    - For “Step 1: Input Sequence”, enter the following input sequence to be scored:
+
+    ```
+    EVQLVETGGGLVQPGGSLRLSCAASPFELNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSS
+    ```
+
+    - From the models dropdown in the right panel, select PoET-2 as the model to be used.
+    - In **Step 2: Prompt query**, disable the prompt Query using the toggle button.
+    - In **Step 3: Prompt Context**, select the built-in VH system prompt. It is curated for antibody heavy chains using datasets from public databases like Uniprot. Learn more about system prompts [here](/concepts/prompts/system-prompts)
+    - Select **Run**. Jobs run asynchronously on the platform and can take a few minutes to complete depending on your sequence length.
+
+    <Callout type="tip" title="Tip">
+      For more accurate fitness scores, build the prompt from a homology search instead. An ensembled homology prompt often scores antibody fitness better than the VH system prompt, though the run takes longer. Choose **Create new prompt**, paste the input sequence, and select **Homology search**.
+    </Callout>
+  </Tab>
+  <Tab value="Python">
+    Each call below submits a job and returns right away. `wait()` blocks until that job finishes. To avoid blocking, keep `job.id` and reattach later with `session.jobs.get(job_id)`.
+
+    ```py lineNumbers
+    seed = "EVQLVETGGGLVQPGGSLRLSCAASPFELNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSS"
+
+    # Build an MSA from the seed by homology search
+    msa = session.align.create_msa(seed.encode())
+    msa.wait()
+
+    # Sample a prompt from the MSA (ensemble of 3)
+    prompt = msa.sample_prompt(num_ensemble_prompts=3, random_seed=42)
+    prompt.wait()
+
+    # Score every single substitution with PoET-2
+    single_site_job = session.embedding.poet2.single_site(sequence=seed.encode(), prompt=prompt)
+    results = single_site_job.wait()
+    ```
+
+    `create_msa` and `single_site` take the sequence as bytes, so `.encode()` converts the string. The run usually finishes within about 10 minutes, depending on the queue.
+
+    `results` is a dict that maps each variant label to an array of scores, one per ensemble prompt:
+
+    ```py
+    >>> results
+    {b'WT':  array([-223.78, -225.38, -226.55]),
+     b'E1A': array([-231.04, -232.11, -233.06]),
+     b'V2A': array([-226.91, -227.80, -228.44]),
+     ...}
+    ```
+
+    Each label reads as wild-type residue, position, new residue (`b'E1A'` is E at position 1 to A). The key `b'WT'` holds the wild-type scores. The higher, or less negative, the score, the more favorable the substitution.
+  </Tab>
+</Tabs>
+
+# Export the top 50 single mutants
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    - In the result filters, set **Max Variants** to **50**.
+    - Set **Max Variants per Site** to **2**, to cap how many substitutions come from any one position, which keeps the library diverse.
+    - Select **Export** to download the table. This is your library of the 50 best single mutants.
+  </Tab>
+  <Tab value="Python">
+    `wait()` returns a plain dict, so rank the variants yourself and write a CSV. This scores each variant by its mean ensemble score minus the wild-type mean, caps substitutions per position, and keeps the top 50.
+
+    ```py lineNumbers
+    import re
+    import numpy as np
+    import pandas as pd
+
+    wt = float(np.mean(results[b"WT"]))
+    rows = []
+    for label, scores in results.items():
+        if label == b"WT":
+            continue
+        name = label.decode()
+        position = int(re.search(r"\d+", name).group())
+        rows.append({"mutation": name, "position": position, "score": float(np.mean(scores)) - wt})
+
+    df = pd.DataFrame(rows).sort_values("score", ascending=False)
+    df = df.groupby("position").head(2)          # at most 2 substitutions per position
+    top50 = df.sort_values("score", ascending=False).head(50)
+    top50.to_csv("top50_mutants.csv", index=False)
+    ```
+  </Tab>
+</Tabs>
+
+# What we’ve done
+
+We scored every single substitution of an antibody heavy chain with PoET-2, read the results as a heatmap or a scores dict, and exported a library of the 50 best single mutants. No model training or assay data was needed.
+
+# Next steps
+
+- **Visualize the top variants.** Run them through [Structure Prediction](/tutorials/predict/structure/structure-predictors).
+- **Train on custom data.** Once assay results are available, build models with [property predictors](/tutorials/learn/training-property-predictors) and a [demo dataset](/references/resources/demo-datasets).
+- **Work a real case end to end** in the [Tutorials](https://docs.openprotein.ai/tutorials/).
