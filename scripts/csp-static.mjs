@@ -1,14 +1,17 @@
 /**
  * Pins every inline script of the static export in a per-page CSP <meta>, so a page runs Next's
- * own inline scripts and same-origin files, and nothing injected later. No-op for the server build.
+ * own inline scripts, same-origin files and Google Analytics if set, and nothing injected later.
+ * No-op for the server build.
  */
 import { createHash } from 'node:crypto';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import './load-env.mjs';
 
 if (process.env.BUILD_TARGET !== 'static') process.exit(0);
 
 const INLINE = /<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;
+const GA = process.env.NEXT_PUBLIC_OP_GA_ID ? 'https://www.googletagmanager.com' : '';
 
 // Mol* viewers load their script from a CDN and run in a sandboxed iframe, which is their isolation.
 const VIEWERS = path.resolve('out', 'api', 'notebook-embed');
@@ -30,7 +33,7 @@ for await (const file of pages(path.resolve('out'))) {
   for (const [, body] of html.matchAll(INLINE)) {
     hashes.add(`'sha256-${createHash('sha256').update(body).digest('base64')}'`);
   }
-  const policy = [`script-src 'self' ${[...hashes].join(' ')}`.trim(), "object-src 'none'", "base-uri 'self'"].join('; ');
+  const policy = [`script-src 'self' ${[...hashes].join(' ')} ${GA}`.replace(/\s+/g, ' ').trim(), "object-src 'none'", "base-uri 'self'"].join('; ');
   await writeFile(file, html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="${policy}"/>`));
   pinned += 1;
 }

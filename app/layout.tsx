@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Roboto_Mono } from 'next/font/google';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@/components/site/analytics';
 import { SiteFooter } from '@/components/site/footer';
 import { Provider } from '@/components/site/provider';
 import { BASE_PATH } from '@/lib/base-path';
@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           {children}
           <SiteFooter />
         </Provider>
-        {SITE.gaId ? <GoogleAnalytics gaId={SITE.gaId} /> : null}
+        {SITE.gaId ? <Analytics gaId={SITE.gaId} /> : null}
       </body>
     </html>
   );
