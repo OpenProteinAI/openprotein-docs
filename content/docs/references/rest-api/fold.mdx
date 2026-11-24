@@ -1,0 +1,15 @@
+---
+title: Structure Prediction
+description: The Structure Prediction API provided by OpenProtein.AI allows you to generate protein structures from both proprietary and open source models.
+openapi: fold
+---
+
+You can list the available models with `/fold/models` and view a model summary (including usage, citations, limitations and more) with `/fold/model/{model_id}`.
+
+Currently, we support the following models:
+
+- **ESMFold**: Open-sourced ESMFold model. [GitHub link](https://github.com/facebookresearch/esm), [Reference](https://www.science.org/doi/10.1126/science.ade2574). Licensed under [MIT](https://choosealicense.com/licenses/mit/).
+- **AlphaFold2**: Open-sourced Alphafold 2 implementation using ColabFold. [GitHub link](https://github.com/sokrypton/ColabFold), [Reference](https://www.nature.com/articles/s41592-022-01488-1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).
+- **Boltz-2, Boltz-1x, Boltz-1**: Open-source Boltz models. [GitHub link](https://github.com/jwohlwend/boltz), [Boltz-1 reference](https://www.biorxiv.org/content/10.1101/2024.11.19.624167v1), [Boltz-2](https://www.biorxiv.org/content/10.1101/2025.06.14.659707v1). Licensed under [MIT](https://choosealicense.com/licenses/mit/).
+- **Protenix**: Open-source Protenix model. [GitHub link](https://github.com/bytedance/Protenix), [Reference](https://www.biorxiv.org/content/early/2026/02/22/2026.02.05.703733.1). Licensed under [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/).
+- **RosettaFold-3**: Open-source RosettaFold-3 model. [GitHub link](https://github.com/RosettaCommons/modelforge), [Reference](https://www.biorxiv.org/content/10.1101/2025.08.14.670328v2). Licensed under [BSD-3](https://choosealicense.com/licenses/bsd-3-clause/).

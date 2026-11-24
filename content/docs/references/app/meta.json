@@ -1,0 +1,8 @@
+{
+  "title": "App",
+  "pages": [
+    "datasets",
+    "jobs",
+    "predict"
+  ]
+}

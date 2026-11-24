@@ -1,0 +1,305 @@
+---
+title: How to design a de novo miniprotein binder
+description: Design a protein binder using structure generative and sequence generative de novo design tools, then refold the designs and filter them on structural metrics.
+---
+
+This guide will show you how to design a protein binder using structure generative and sequence generative de novo design tools. The OpenProtein.AI platform offers several open source state-of-the-art protein design models that can be chained together to build pipelines for de novo design. Here, we will use the RFdiffusion ([Watson et al., 2023](https://www.nature.com/articles/s41586-023-06415-8)) and ProteinMPNN ([Dauparas et al., 2022](https://doi.org/10.1126/science.add2187)) pipeline, pioneered by the Baker Lab, which has demonstrated robust performance on de novo minibinder design.
+
+## Before starting
+
+You will need:
+
+- A target protein, with a structure provided as a `.pdb` or `.cif` file or available on the PDB or AFDB
+- Possibly, an epitope: a set of residues on your target protein where you want your minibinder to bind
+- A length for your miniprotein
+- A project in the web app, or an authenticated session in the Python client. See [Quickstart](/quickstart)
+
+## Setup
+
+<Steps>
+<Step>
+Navigate to the **Generate** tool, either within a project or from the app landing page.
+</Step>
+<Step>
+In the structure generator dropdown, choose a structure generation model. You can select from BoltzGen and RFdiffusion. For this pipeline, we recommend RFdiffusion.
+</Step>
+<Step>
+In the sequence generator dropdown, choose a sequence design model. You can select from ProteinMPNN and PoET-2. For this pipeline, we recommend ProteinMPNN.
+</Step>
+<Step>
+Choose a number of structures to generate, and a number of sequences to generate per structure. We recommend starting with a small number of structures and sequences, for example 5 each, and then scaling up once you are satisfied with initial results.
+</Step>
+<Step>
+Optionally, click the pencil in the name bar to give your job a more informative name, so that you can find it easily later.
+</Step>
+</Steps>
+
+## Target specification
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+    <Step>
+    Input your target structure. This can be done by
+
+    - uploading your target structure file, by dragging and dropping it into the dialog box or selecting **Upload files**
+    - importing your target structure from the PDB or AFDB using the `/` command
+    </Step>
+    <Step>
+    Clean your input.
+
+    - Remove any unnecessary additional protein chains by clicking the x icon next to the corresponding chain.
+    - Remove any residues with undefined structure by clicking the scissors icon. You must do this if you want to select hotspot residues.
+    </Step>
+    <Step>
+    Specify the epitope (the region of the target structure you want your design to bind to) if you have one, by clicking **Pick hotspots** and selecting positions in your target sequence.
+    </Step>
+    <Step>
+    Optionally, use the structure viewer to check and ensure that you've uploaded the correct structure and specified the epitope correctly.
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Load the target, clean the input, and mark the epitope. Note that sequence positions are 1-indexed.
+
+    First load the target. This can be done by loading a PDB ID.
+
+    ```python
+    my_structure = Structure.from_pdb_id("1ABC")
+    ```
+
+    Or by loading a structure from a file.
+
+    ```python
+    my_structure = Structure.from_filepath("my_target.cif")
+    ```
+
+    You can then clean the input and mark the epitope.
+
+    ```python lineNumbers
+    from openprotein.molecules import Binding
+
+    my_target = my_structure[0].get_protein(chain_id="A")   # keep the target chain only
+
+    my_target = my_target[~my_target.get_structure_mask()]  # drop residues with undefined structure
+    my_target = my_target.set_binding_at(                   # mark the epitope
+       [31, 33, 57],                                        # 1-indexed positions
+       value = Binding.BINDING,
+    )
+    ```
+  </Tab>
+</Tabs>
+
+## Binder specification
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Add your binder chain.
+
+    - Click **Add chain**.
+    - Enter the formula `/x*` and then type the length of the binder you wish to design and press enter. A standard miniprotein has around 50 to 80 amino acids. This step will add a binder chain of masked residues with undefined structure with the specified length.
+  </Tab>
+  <Tab value="Python">
+    Add your binder chain.
+
+    ```python lineNumbers
+    my_binder = Protein.from_expr(80)                       # 80 masked residues, no structure
+    my_query = Complex({"A": my_target, "B": my_binder})
+    ```
+  </Tab>
+</Tabs>
+
+## Choose settings and run your job
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+    <Step>
+    Click on **Step 2: Sampling Settings**.
+    </Step>
+    <Step>
+    Although we recommend leaving these settings as defaults, it is possible to tune some sampling settings here.
+
+    - Increase backbone noise if you would like to sample more diverse sequences at the likely cost of refolding accuracy.
+    - Lower temperature if you would like to make the sampled sequence more deterministic; increase it if you would like to make sampling more varied at the cost of refolding accuracy.
+    </Step>
+    <Step>
+    Click on **Step 3: Refolding Settings**.
+    </Step>
+    <Step>
+    Choose a structure prediction model with which to refold your design with the target.
+
+    - You can choose between Protenix, Protenix-v2, ESMFold, ESMFold2 and Boltz-2.
+    - We recommend either Protenix-v2, which has achieved state of the art performance on the miniprotein task, or ESMFold2, which achieves good performance while being significantly faster to run than Protenix-v2.
+    - Select a template setting to decide whether or not to provide a structure template to your refolding model.
+    - We recommend against providing a template, as miniprotein refolding filtering is generally done without templates.
+    </Step>
+    <Step>
+    Click **Run** to run your job. The job will execute asynchronously on the platform, and may take some time: come back when it finishes.
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Generate backbones, then design sequences for them. Pass the structure job to the sequence generator as `design` to run the whole set in one job. Both jobs run asynchronously on the platform.
+
+    ```python lineNumbers
+    structure_job = session.models.rfdiffusion.generate(
+       query = my_query,
+       num_samples = N_STRUCTURES,
+    )
+    structure_job.wait_until_done(verbose = True)
+    my_backbones = structure_job.get()                      # one Complex per backbone
+
+    sequence_job = session.models.proteinmpnn.generate(
+       design = structure_job,                              # design for every generated backbone
+       num_samples = N_SEQUENCES,
+       temperature = 0.1,
+    )
+    sequence_job.wait_until_done(verbose = True)
+    my_designs = sequence_job.get()                         # N_STRUCTURES * N_SEQUENCES sequences
+    my_sequences = [d.split(":")[1] for d in my_designs]    # binder chain only
+    ```
+
+    Although we recommend the default ProteinMPNN sampling temperature of 0.1, it can be raised to make sequences more varied, or lowered to make them more deterministic:
+
+    ```python lineNumbers
+    sequence_job = session.models.proteinmpnn.generate(
+       design = structure_job,
+       num_samples = N_SEQUENCES,
+       temperature = 0.5,
+    )
+    ```
+
+    Refold each designed sequence with the target. Chains must be provided an MSA or be flagged for single sequence mode.
+
+    ```python lineNumbers
+    my_complexes = []
+    for my_sequence in my_sequences:
+       my_complex = Complex({"A": Protein(my_target.sequence), "B": Protein(my_sequence)})
+       my_complex.get_protein("A").msa = Protein.single_sequence_mode
+       my_complex.get_protein("B").msa = Protein.single_sequence_mode
+       my_complexes.append(my_complex)
+
+    fold_job = session.fold.protenix_v2.fold(my_complexes)
+    fold_job.wait_until_done(verbose = True)
+    my_predictions = [s[0] for s in fold_job.get()]         # one Complex per prediction
+    ```
+
+    We recommend folding without a template as above. However, if you would like to fold with a template, you can do so as follows:
+
+    ```python lineNumbers
+    from openprotein.molecules import Template
+
+    my_templates = [
+       Template(
+           template = my_backbone,
+           mapping = {"A": "A", "B": "B"},                  # template chain -> folded chain
+           index = range(k * N_SEQUENCES, (k + 1) * N_SEQUENCES),
+       )
+       for k, my_backbone in enumerate(my_backbones)
+    ]
+
+    fold_job = session.fold.protenix_v2.fold(my_complexes, templates = my_templates)
+    ```
+  </Tab>
+</Tabs>
+
+## Analyzing refolding results
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+    <Step>
+    Navigate to your generate job results once it finishes.
+
+    - If the job was done within a project, go to the project page and find the generate job under the **Analyses** tab.
+    - If the job was done outside of a project, go to the app landing page and click on **Generate**, then go to **View History**.
+    </Step>
+    <Step>
+    Examine your sequences and optionally select a subset to make into an initial design library.
+
+    - We recommend filtering by RMSD, using the **Filter** tab. RMSD below 3 is generally correlated with good binding.
+    - If not enough sequences have good metrics, generate more sequences by clicking the button on the bottom right. You may want to tweak your generation settings here in a subsequent generation round, or increase the number of structures and sequences you design.
+    - If you have sequences with good RMSD, we recommend visually checking them before finalizing your library, to make sure that the binder is binding at the desired epitope.
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Compute the metrics you want to filter on, then filter. Designs come back grouped by backbone, so design `i` was designed for `my_backbones[i // N_SEQUENCES]`.
+
+    You can generate several different metrics. A few basic ones include:
+
+    RMSD of the whole complex against the generated backbone:
+
+    ```python
+    my_rmsd = my_prediction.rmsd(my_backbone)
+    ```
+
+    RMSD of only the binder, superimposed on the binder chain:
+
+    ```python
+    my_binder_rmsd = my_prediction.get_protein("B").rmsd(my_backbone.get_protein("B"))
+    ```
+
+    Interface PAE, a confidence metric that comes from the model:
+
+    ```python
+    my_ipaes = fold_job.get_ipae()                          # one value per prediction, in input order
+    ```
+
+    pLDDT averaged over the binder chain:
+
+    ```python
+    my_binder_plddt = my_prediction.get_protein("B").plddt.mean()
+    ```
+
+    Collect them for every design and filter:
+
+    ```python lineNumbers
+    my_ipaes = fold_job.get_ipae()
+
+    my_metrics = []
+    for i, (my_sequence, my_prediction, my_ipae) in enumerate(zip(my_sequences, my_predictions, my_ipaes)):
+       my_backbone = my_backbones[i // N_SEQUENCES]
+       my_metrics.append({
+           "backbone": i // N_SEQUENCES,
+           "sequence": my_sequence,
+           "rmsd": my_prediction.rmsd(my_backbone),
+           "binder_rmsd": my_prediction.get_protein("B").rmsd(my_backbone.get_protein("B")),
+           "ipae": my_ipae.item(),
+           "binder_plddt": my_prediction.get_protein("B").plddt.mean(),
+       })
+
+    my_library = pd.DataFrame(my_metrics)
+    my_library = my_library[(my_library["rmsd"] < 2.5)
+                            & (my_library["binder_rmsd"] < 1)
+                            & (my_library["ipae"] < 10)
+                            & (my_library["binder_plddt"] > 80)]
+    ```
+
+    The above filters are those used in the RFdiffusion study ([Watson et al., 2023](https://www.nature.com/articles/s41586-023-06415-8)) for minibinder design, but other filtering settings can also be used.
+
+    You can also subsequently diversify your passing backbones by designing new sequences for them:
+
+    ```python lineNumbers
+    my_passing_backbones = []
+    for k in my_library["backbone"].unique():
+       my_backbone = my_backbones[k].copy()
+       my_backbone.get_protein("B").mask_sequence().mask_structure(side_chain_only = True)
+       my_passing_backbones.append(my_backbone)
+
+    sequence_job = session.models.proteinmpnn.generate(
+       query = my_passing_backbones,                        # one job across every passing backbone
+       num_samples = N_SEQUENCES,
+    )
+    ```
+
+    Or you can start over by generating more structures.
+  </Tab>
+</Tabs>
+
+## Next steps
+
+- Follow a guided example on a real target: [Protein binders with RFdiffusion](/tutorials/design/generate/rfdiffusion)
+- Tune the sequence design step: [Inverse folding](/how-tos/design/inverse-folding/)
+- Take your top design and build a variant library around it: [Identify mutational hotspots and design a one-shot variant library](/tutorials/predict/plm/one-shot-variant-library). This workflow scores substitutions zero-shot, so it needs no assay data from your binder yet.

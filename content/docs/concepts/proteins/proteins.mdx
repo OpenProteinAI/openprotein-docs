@@ -1,0 +1,45 @@
+---
+title: Proteins
+description: How a protein's sequence sets its structure and function, what fitness means, and how OpenProtein.AI represents proteins.
+---
+
+## What is a protein?
+A protein is a chain of amino acids that folds into a three-dimensional shape. That shape determines what the protein does: catalysing a reaction, binding a target, carrying a signal or giving a cell its structure.
+
+Every protein is built from the same 20 standard amino acids. The order of those amino acids is the protein's *sequence*, and the sequence is what the cell's machinery reads from DNA. Change the sequence and you can change the shape, and with it the protein's behaviour.
+
+## Sequence, structure and function
+Biologists describe a protein at four levels:
+
+| Level | What it describes |
+| :---- | :---- |
+| Primary structure | The amino acid sequence, read from the N-terminus to the C-terminus |
+| Secondary structure | Local folding patterns such as alpha helices and beta sheets |
+| Tertiary structure | The full 3D fold of one chain |
+| Quaternary structure | How several chains assemble into one complex, such as an antibody's heavy and light chains |
+
+The sequence encodes everything above it. This is why models that only read sequences can still learn a great deal about structure and function, and why structure prediction models can fold a protein from its sequence alone.
+
+## Protein fitness
+**Fitness** is a quantitative measure of how well a protein variant performs a selected function. Each sequence has a measurable phenotype, such as catalytic efficiency, binding affinity, thermodynamic stability, expression titre or a weighted combination of these. Mapped across every possible sequence, these values form the fitness landscape.
+
+The effect of a mutation is usually reported relative to a reference sequence, often the wild type, on a log scale so that effects are comparable across assays.
+
+Most random mutations lower fitness, because evolution has already tuned natural proteins to work. Protein engineering looks for the rare mutations that improve it. OpenProtein.AI helps in two ways:
+
+* Foundation models such as PoET-2 learn from millions of natural sequences which mutations evolution tends to accept, and score new sequences without any lab data.
+* Property predictors learn from your own assay data to predict the specific property you measured.
+
+## Proteins on OpenProtein.AI
+The platform works with protein sequences directly, and with structures where a model needs them.
+
+* **Single-chain proteins** are plain sequences, entered as text, FASTA or CSV.
+* **Multichain proteins**, such as an antibody heavy and light chain pair, are written as one string with a `:` between chains. In the Python API you can also build them as a [Complex](/references/python-api/molecules#openprotein.molecules.Complex).
+* **Structures** are read from PDB or mmCIF files, or predicted from sequence with the structure prediction tools.
+
+## Related pages
+- Concepts: [Multiple sequence alignment](/concepts/proteins/msa)
+- Concepts: [Prompt - context](/concepts/prompts/context/)
+- Concepts: [Prompt - query](/concepts/prompts/query/)
+- How-to: [Align sequences](/how-tos/dataset/align-sequences)
+- Tutorial: [Generating an MSA and prompt for PoET](/tutorials/predict/plm/zero-shot-fitness#generating-an-msa-and-prompt-for-poet)

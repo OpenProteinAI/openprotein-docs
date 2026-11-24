@@ -1,0 +1,41 @@
+---
+title: Sequence conservation, consensus, and entropy
+description: Explaining sequence conservation, consensus and entropy and visualizing them on the platform
+---
+**Sequence conservation** describes how consistently an amino acid appears at a particular position across aligned protein sequences. Positions that are more conserved may contain the same residue in nearly every sequence, while positions that are less conserved may vary considerably.
+
+OpenProtein.AI’s conservation plot summarizes these patterns using a **consensus sequence** and a bar plot showing the **entropy** at each position.
+
+## Consensus sequence
+
+The consensus sequence is constructed by selecting the most frequent amino acid at each position in the alignment. For example, if a position contains alanine in 70% of sequences and glycine in 30%, its consensus residue is alanine. Positions with a tie for the highest frequency are marked `X`.
+
+The consensus provides a compact summary of the collection. Because each position is considered independently, the resulting consensus may not correspond to an actual sequence in the dataset.
+
+## Entropy
+
+**Entropy** measures the diversity of residues at a position, accounting for both how many different residues occur and how evenly they are represented.
+
+- **Zero entropy:** Every sequence contains the same residue.
+- **Low entropy:** One residue dominates, with occasional alternatives.
+- **High entropy:** Several residues occur at more balanced frequencies.
+
+Entropy is measured in **bits**. A position split equally between two amino acids has an entropy of one bit. Considering only the 20 standard amino acids, the maximum is approximately 4.32 bits, reached when all occur equally often.
+
+Consensus and entropy convey complementary information: the consensus identifies the most common residue, while entropy describes the variation around it.
+
+## Reading the conservation plot
+
+Each bar corresponds to a position in the sequence alignment. The x-axis labels show the consensus amino acid, and the bar height represents entropy: short bars indicate conserved positions, while tall bars indicate variable positions.
+
+The bar height does not represent the frequency of the consensus residue. Hovering over a position reveals its entropy and individual residue frequencies, making it possible to distinguish a dominant residue with rare alternatives from a more evenly mixed position.
+
+Note that the consensus sequence is not the same as the reference sequence. A **reference sequence** provides a chosen benchmark—such as the parent protein—for identifying mutations. The consensus simply summarizes the most common amino acids at each position in the aligned collection.
+
+![Entropy and consensus plot](/_static/concepts/proteins/conservation-consensus-entropy/entropy-and-consensus-plot.png)
+
+## Interpreting conservation
+
+Conserved positions can suggest structural or functional constraints, while variable positions reveal diversity represented in the collection. However, these patterns depend on which sequences were included.
+
+For example, a position may be conserved because it is essential for function, because the sampled sequences are closely related, or because that position was kept fixed during library design. Likewise, high entropy shows that a position varies in the dataset, but it does not establish that every substitution is tolerated or improves function.

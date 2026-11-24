@@ -1,0 +1,177 @@
+---
+title: "openprotein.jobs"
+description: "Retrieve and monitor your jobs on our platform."
+pythonApi: true
+---
+Use `session.jobs.list(...)` and `session.jobs.get_job(...)` to inspect job records. Use `session.jobs.get(...)` to load a future and read its results. A job record describes the submission and its status; the future provides the result-reading methods.
+
+`wait_until_done()` waits for a terminal status and does not establish success: a failed or canceled job is also done. It does not fetch results. Check the job status before interpreting completion; result readers have their own failure and timeout behavior.
+
+Given a stored job ID, refresh and check the status before reading results:
+
+```python
+from openprotein.errors import AuthError, JobFailedException, TimeoutException
+from openprotein.jobs import JobStatus
+
+try:
+    future = session.jobs.get(job_id)
+    future.wait_until_done(timeout=600)
+    if future.status == JobStatus.SUCCESS:
+        results = future.get()
+    else:
+        print("Job ended:", future.status, future.job.failure_message)
+except TimeoutException as error:
+    print("Polling timed out:", error)
+except JobFailedException as error:
+    print("Job failed:", error)
+except AuthError as error:
+    print("Authentication failed:", error)
+```
+
+`refresh()` updates the stored job record; `wait_until_done()` polls and updates it without reading results. The base `Future.get()` raises `JobFailedException` for `FAILURE`; some specialized readers have their own checks. `TimeoutException` covers polling timeouts. Network requests can also raise `requests.exceptions.Timeout`, an API `HTTPError`, or `openprotein.base.TimeoutError` for a gateway timeout. A timeout does not imply that the job was canceled.
+
+An API request can raise `APIError`; reading a failed position can also surface `APIError`. `FutureUnit.wait()` raises `RuntimeError` for a failed or canceled unit; `FutureUnit.get()` delegates to `get_item()` without that state check. For an output collection or page read (`job_output_page`), HTTP 409 is translated to `JobOutputsNotReady`; a per-position read (`job_output_get`) does not perform that translation and leaves the `HTTPError`. `InvalidJob` indicates a missing or invalid job. `NotPrepared` is exported, but no public method raises it. These paths do not imply that every result reader raises `JobFailedException`.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.jobs.JobsAPI",
+  ]}
+>
+
+<PyClass path="openprotein.jobs.JobsAPI" />
+
+</PyGroup>
+
+<PyGroup id="classes" title="Classes"
+  anchors={[
+    "openprotein.jobs.Job",
+    "openprotein.jobs.Future",
+    "openprotein.jobs.JobStatus",
+    "openprotein.jobs.StreamingFuture",
+    "openprotein.jobs.MappedFuture",
+    "openprotein.jobs.JobType",
+    "openprotein.jobs.BatchJob",
+  ]}
+>
+
+`wait_until_done()` returns true for any terminal status, including failure or cancellation, not only successful completion as the pinned member docstring says. Check `status` for success.
+
+<PyClass path="openprotein.jobs.Job" />
+<PyClass path="openprotein.jobs.Future" />
+<PyClass path="openprotein.jobs.JobStatus" />
+<PyClass path="openprotein.jobs.StreamingFuture" />
+<PyClass path="openprotein.jobs.MappedFuture" />
+<PyClass path="openprotein.jobs.JobType" />
+<PyClass path="openprotein.jobs.BatchJob" />
+
+</PyGroup>
+
+<PyGroup id="task-job-schemas" title="Task job schemas"
+  anchors={[
+    "openprotein.jobs.Unit",
+    "openprotein.jobs.UnitState",
+    "openprotein.jobs.JobOutput",
+  ]}
+>
+
+Batch jobs, outputs and units describe submitted tasks and their results.
+
+| Record | Field | Meaning |
+| --- | --- | --- |
+| BatchJob | `num_records` | Number of records in the batch, when known. |
+| Unit | `position` | Position of this unit in the job. |
+| Unit | `unit_id` | Unit identifier. |
+| Unit | `state` | Current unit execution state. |
+| Unit | `error` | Error details, when present. |
+
+<PyClass path="openprotein.jobs.Unit" />
+<PyClass path="openprotein.jobs.UnitState" />
+<PyClass path="openprotein.jobs.JobOutput" />
+
+</PyGroup>
+
+<PyGroup id="task-results" title="Task results"
+  anchors={[
+    "openprotein.jobs.TaskFuture",
+    "openprotein.jobs.FutureUnit",
+    "openprotein.jobs.AttentionFuture",
+    "openprotein.jobs.EmbeddingFuture",
+    "openprotein.jobs.IndelScoreFuture",
+    "openprotein.jobs.LogLikelihoodFuture",
+    "openprotein.jobs.LogitsFuture",
+    "openprotein.jobs.PredictionFuture",
+    "openprotein.jobs.SequenceGenerationFuture",
+    "openprotein.jobs.SingleSitePredictionFuture",
+    "openprotein.jobs.SingleSiteScoreFuture",
+    "openprotein.jobs.StructureDesignFuture",
+    "openprotein.jobs.StructurePredictionFuture",
+  ]}
+>
+
+Use `job` from the [ESM2 embedding example](/references/python-api/models#interface) and choose a read based on what you need:
+
+**Every position.** `wait()` waits for the job and reads its primary output, with one value per submitted position. Use `get()` if the job has already succeeded.
+
+```python
+embeddings = job.wait(timeout=600)
+print(embeddings[0].shape)
+```
+
+**One position.** Use a zero-based position. `unit(0).wait()` waits for and reads just the first result. If that result is already available, use `get_item(0)`.
+
+```python
+embedding = job.unit(0).wait(timeout=600)
+print(embedding.shape)
+```
+
+**One named output.** Check `job.outputs` for the names this job provides. Pass `output=` to select one by name. Different outputs can have different types. For this ESM2 job, `embeddings` is the primary output.
+
+```python
+print(job.outputs)
+embeddings = job.wait(output="embeddings", timeout=600)
+print(embeddings[0].shape)
+```
+
+See the [primary outputs and result types](/references/python-api/models#task-results) for other model tasks.
+
+<PyClass path="openprotein.jobs.TaskFuture" />
+<PyClass path="openprotein.jobs.FutureUnit" />
+<PyClass path="openprotein.jobs.AttentionFuture" />
+<PyClass path="openprotein.jobs.EmbeddingFuture" />
+<PyClass path="openprotein.jobs.IndelScoreFuture" />
+<PyClass path="openprotein.jobs.LogLikelihoodFuture" />
+<PyClass path="openprotein.jobs.LogitsFuture" />
+<PyClass path="openprotein.jobs.PredictionFuture" />
+<PyClass path="openprotein.jobs.SequenceGenerationFuture" />
+<PyClass path="openprotein.jobs.SingleSitePredictionFuture" />
+<PyClass path="openprotein.jobs.SingleSiteScoreFuture" />
+<PyClass path="openprotein.jobs.StructureDesignFuture" />
+<PyClass path="openprotein.jobs.StructurePredictionFuture" />
+
+</PyGroup>
+
+<PyGroup id="fitted-model-results" title="Fitted-model results"
+  anchors={[
+    "openprotein.jobs.SVDFitFuture",
+    "openprotein.jobs.UMAPFitFuture",
+    "openprotein.jobs.GPFitFuture",
+    "openprotein.jobs.CrossvalidateFuture",
+    "openprotein.jobs.CrossvalidateResults",
+    "openprotein.jobs.FitFuture",
+  ]}
+>
+
+`SVDFitFuture`, `UMAPFitFuture` and `GPFitFuture` return the fitted model from bare `get()` and `wait()` calls. With `output=...`, these methods return values for the selected fit output. `CrossvalidateFuture` returns [`CrossvalidateResults`](#openprotein.jobs.CrossvalidateResults), parallel arrays with one row per sequence and measurement.
+
+<PyClass path="openprotein.jobs.SVDFitFuture" />
+<PyClass path="openprotein.jobs.UMAPFitFuture" />
+<PyClass path="openprotein.jobs.GPFitFuture" />
+<PyClass path="openprotein.jobs.CrossvalidateFuture" />
+<PyClass path="openprotein.jobs.CrossvalidateResults" />
+<PyClass path="openprotein.jobs.FitFuture" />
+
+</PyGroup>
+
+## Job records and reloading
+
+Model-task records use [Job](#openprotein.jobs.Job). Supported task records reload through `session.jobs.get(...)` as the corresponding task future. A reloaded job does not always retain the exact future class returned at submission: GP training uses [PredictorModel](/references/python-api/predictor#openprotein.predictor.PredictorModel), GP cross-validation uses [CVResultFuture](/references/python-api/predictor#openprotein.predictor.validate.CVResultFuture), and prompt sampling uses the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader. Refer to each reader's result contract.

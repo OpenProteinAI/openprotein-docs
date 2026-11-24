@@ -1,0 +1,285 @@
+---
+title: "Score sequences with a foundation model"
+sidebarTitle: Score sequences
+description: "Use PoET-2 to score EstA variants without assay-specific training, rank their log-likelihood scores, and compare them with the wild type."
+---
+
+In this tutorial, we will use PoET-2 to score the relative fitness of a small set of protein variants without training a model on experimental measurements. This is **zero-shot scoring**: the foundation model evaluates sequences using patterns learned during pretraining and the examples supplied in its context.
+
+We will score Lipase A (EstA) from Bacillus subtilis, comparing the wild-type sequence with two single-substitution variants and their combination. We will use the same context for all four sequences, rank the results, and compare each variant with the wild type.
+
+## Before starting
+
+- Have an EstA context prepared using [Tutorial: Building a prompt context](/tutorials/learn/in-context-learning). For other ways to prepare a context, refer to [How to create a prompt context](/how-tos/dataset/build-a-context).
+
+- **Python client:** Have an authenticated OpenProtein.AI session, with numpy and pandas installed.
+
+We will use the following variants:
+
+1. EstA_WT: Wildtype EstA sequence
+
+2. EstA_R33A: Wildtype EstA sequence with arginine to alanine substitution at position 33
+
+3. EstA_L84R: Wildtype EstA sequence with leucine to arginine substitution at position 84
+
+4. EstA_R33A_L84R: Wildtype EstA sequence with both substitutions in (2) and (3)
+
+## Prepare the sequences
+
+We will include the wild type in the same scoring job as the variants. This gives us a baseline evaluated under identical conditions.
+
+Copy the following into a file named EstA_variants.fasta:
+
+```text lineNumbers
+>EstA_WT
+AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+>EstA_R33A
+AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSADKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTLYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+>EstA_L84R
+AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSRDKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTRYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+>EstA_R33A_L84R
+AEHNPVVMVHGIGGASFNFAGIKSYLVSQGWSADKLYAVDFWDKTGTNYNNGPVLSRFVQKVLDETGAKKVDIVAHSMGGANTRYYIKNLDGGNKVANVVTLGGANRLTTGKALPGTDPNQKILYTSIYSSADMIVMNYLSRLDGARNVQIHGVGHIGLLYSSQVNSLIKEGLNGGGQNTN
+```
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        In the top navigation bar, select **Tools** > **Batch** (under the Predict column).
+      </Step>
+      <Step>
+        At the top of the page, click the pencil in the name bar to name your job `EstA_variant_scoring`, so that you can find it easily later.
+      </Step>
+      <Step>
+        From the Model dropdown in the settings panel on the right, select **PoET-2** as the scoring model.
+      </Step>
+      <Step>
+        Click “**Upload a file**” and select EstA_variants.fasta under **Step 1: Input Sequences**.
+      </Step>
+      <Step>
+        Confirm that all four sequences are present. Click Next.
+
+        ![Four EstA sequences uploaded for PoET-2 scoring](/_static/tutorials/predict/plm/scores/esta-scoring-sequence-input.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management), then load the file:
+
+    ```python lineNumbers
+    import openprotein
+    from openprotein import fasta
+
+    session = openprotein.connect()
+
+    with open("EstA_variants.fasta") as handle:
+        names, sequences = fasta.parse(handle.readlines())
+
+    print("Sequences:", len(sequences))
+    print("Lengths:", sorted({len(sequence) for sequence in sequences}))
+    ```
+
+    Expected output:
+
+    ```text
+    Sequences: 4
+    Lengths: [181]
+    ```
+  </Tab>
+</Tabs>
+
+## Select the prompt context
+
+We will reuse the EstA homolog context prepared in the prompt-building tutorial. This conditions PoET-2 on examples from the relevant protein family.
+
+We will leave the **query disabled** for this example and score the complete input sequences using the context alone.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        Under **Step 2: Prompt – Query**, disable the query. Click Next.
+      </Step>
+      <Step>
+        Under **Step 3: Prompt – Context**, select **Use Existing Prompt**.
+      </Step>
+      <Step>
+        Choose the saved EstA context (in the tutorial, we named it “Prompt_EstA_seed_3rep”). Confirm that the selected context represents EstA homologs. Click Next.
+      </Step>
+      <Step>
+        For **Step 4: Refolding Settings**, keep the Default setting under “Structure Prediction Models” of None. If a model is selected, it will be used to predict the structure of all the sequences submitted for scoring.
+
+        Refer to the [How to build a prompt context](/how-tos/dataset/build-a-context) for the available options in building a prompt.
+
+        ![Saved EstA prompt context selected with the query disabled](/_static/tutorials/predict/plm/scores/esta-scoring-context-selection.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Retrieve the saved context using the ID we previous recorded when we built the prompt in the [prompt context tutorial](/tutorials/learn/in-context-learning):
+
+    ```python lineNumbers
+    context = session.prompt.get_prompt("YOUR_ESTA_CONTEXT_ID")
+
+    print("Context ID:", context.id)
+    print("Context replicates:", context.num_replicates)
+    ```
+  </Tab>
+</Tabs>
+
+## Run the scoring job
+
+We will submit all four sequences together. Scoring evaluates the supplied sequences; it does not generate new variants.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Click **Run** and wait for the scoring job to complete. Runtime typically takes several minutes and depends on sequence length, context size, ensemble count, and service load.
+  </Tab>
+  <Tab value="Python">
+    Submit the sequences to PoET-2:
+
+    ```python lineNumbers
+    score_job = session.embedding.poet2.score(
+        sequences=[sequence.encode() for sequence in sequences],
+        prompt=context,
+    )
+
+    print("Job ID:", score_job.job_id)
+
+    score_job.wait_until_done(verbose=True)
+    results = list(score_job.get())
+
+    print("Returned sequences and scores:", len(results))
+    ```
+
+    Expected output after successful completion:
+
+    ```text
+    Returned sequences and scores: 4
+    ```
+
+    Refer to the [PoET-2 scoring API reference](https://docs.openprotein.ai/python-api/api-reference/embedding.html#openprotein.embeddings.PoET2Model.score) for the scoring arguments.
+  </Tab>
+</Tabs>
+
+## Rank the sequences
+
+We will compare the log-likelihood scores. A **higher, or less negative, score** indicates that the model considers a sequence to have higher fitness and compatibility with the supplied context. These scores help prioritize variants based on evolutionary fitness, which are generally correlated with properties of interest such as enzyme activity, stability, or expression.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        When the score job is complete, the results will be displayed in a table showing the Sequence and corresponding predicted **Log-likelihood score**. Table display controls can be accessed from the buttons above the table, and operations like Filtering and Selection can be set from the right panel.
+
+        ![EstA log-likelihood scores and table display controls](/_static/tutorials/predict/plm/scores/esta-scoring-results-table.png)
+      </Step>
+      <Step>
+        To sort the **Log-likelihood** column from highest to lowest, we can either click the down arrow in the “Log-likelihood score” column header, or click “**+**” in the “Filters” section in the right panel to add a filter condition, selecting the option to sort by log-likelihood score.
+      </Step>
+      <Step>
+        Refer to [interpreting the results table](/references/app/datasets/table-settings) for the full options for table operations like and display controls.
+
+        ![EstA variants sorted by descending log-likelihood score](/_static/tutorials/predict/plm/scores/esta-scoring-ranked-results.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Build a table of sequence scores, and sort them in descending order of score magnitude. If the context contains multiple replicates, we will use the mean of the returned replicate scores:
+
+    ```python lineNumbers
+    import numpy as np
+    import pandas as pd
+
+    name_by_sequence = dict(zip(sequences, names))
+    records = []
+
+    for result in results:
+        sequence = result.sequence
+        if isinstance(sequence, bytes):
+            sequence = sequence.decode()
+
+        records.append({
+            "name": name_by_sequence[sequence],
+            "sequence": sequence,
+            "score": float(np.asarray(result.score).mean()),
+        })
+
+    scores = pd.DataFrame(records)
+    scores = scores.sort_values("score", ascending=False)
+
+    print(scores[["name", "score"]].to_string(index=False))
+    ```
+  </Tab>
+</Tabs>
+
+## Compare each variant with the wild type
+
+We will calculate a relative score by subtracting the wild-type score:
+
+**Relative score = variant score − wild-type score**
+
+- **Positive:** The variant scores higher than the wild type.
+
+- **Negative:** The variant scores lower than the wild type.
+
+- **Zero:** The scores are equal.
+
+Keep comparisons within the same model, context, and scoring configuration. Scores from different prompts should not be treated as directly interchangeable.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Compare each variant’s score with **EstA_WT** – in this example, this was submitted as the first sequence to be scored. Export the table to add a column to calculate the differences in a spreadsheet. The wild type sequence should have a relative score of **0**.
+  </Tab>
+  <Tab value="Python">
+    Add a column containing the relative scores:
+
+    ```python lineNumbers
+    wt_score = scores.loc[
+        scores["name"] == "EstA_WT",
+        "score",
+    ].iloc[0]
+
+    scores["relative_score"] = scores["score"] - wt_score
+
+    print(
+        scores[["name", "score", "relative_score"]]
+        .to_string(index=False)
+    )
+    ```
+  </Tab>
+</Tabs>
+
+## Save the results
+
+We will retain the complete scored set, including the wild-type baseline, before selecting variants for further analysis.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Use **Export** to download the results table. Record the model and context used for the run.
+  </Tab>
+  <Tab value="Python">
+    Save the ranked table and identifiers:
+
+    ```python lineNumbers
+    import json
+    from pathlib import Path
+
+    scores.to_csv("EstA_zero_shot_scores.csv", index=False)
+
+    run_details = {
+        "model": "poet-2",
+        "context_id": str(context.id),
+        "score_job_id": str(score_job.job_id),
+    }
+
+    Path("EstA_scoring_run.json").write_text(
+        json.dumps(run_details, indent=2)
+    )
+    ```
+  </Tab>
+</Tabs>
+
+Congratulations! You have completed the tutorial for scoring and ranking a set of EstA variants relative to the wildtype. These results provide a starting point for selecting promising candidates for experimental testing.
+
+To explore every single substitution of a reference sequence, continue to **Substitution Analysis**. To predict a measured property using a model trained on experimental data, follow the **Batch Analysis tutorial**.

@@ -1,0 +1,1719 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.fold &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/fold';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein.models" href="models.html" />
+    <link rel="prev" title="openprotein.design" href="design.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompt.html">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.fold</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-fold">
+<h1>openprotein.fold<a class="headerlink" href="#openprotein-fold" title="Link to this heading">#</a></h1>
+<p>Create PDBs of your protein sequences via our folding models!</p>
+<p>Note that for Boltz and AlphaFold2 Models, you will also need to utilize our <a class="reference internal" href="align.html"><span class="doc">align</span></a> workflow to create MSAs.</p>
+<section id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">FoldAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/fold.html#FoldAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldAPI" title="Link to this definition">#</a></dt>
+<dd><p>Fold API provides a high level interface for making protein structure predictions.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz2">
+<span class="sig-name descname"><span class="pre">boltz2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz2Model" title="openprotein.fold.boltz.Boltz2Model"><span class="pre">Boltz2Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz2" title="Link to this definition">#</a></dt>
+<dd><p>Boltz-2 model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz_2">
+<span class="sig-name descname"><span class="pre">boltz_2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz2Model" title="openprotein.fold.boltz.Boltz2Model"><span class="pre">Boltz2Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz_2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz1x">
+<span class="sig-name descname"><span class="pre">boltz1x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz1xModel" title="openprotein.fold.boltz.Boltz1xModel"><span class="pre">Boltz1xModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz1x" title="Link to this definition">#</a></dt>
+<dd><p>Boltz-1x model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz_1x">
+<span class="sig-name descname"><span class="pre">boltz_1x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz1xModel" title="openprotein.fold.boltz.Boltz1xModel"><span class="pre">Boltz1xModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz_1x" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz1">
+<span class="sig-name descname"><span class="pre">boltz1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz1Model" title="openprotein.fold.boltz.Boltz1Model"><span class="pre">Boltz1Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz1" title="Link to this definition">#</a></dt>
+<dd><p>Boltz-1 model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.boltz_1">
+<span class="sig-name descname"><span class="pre">boltz_1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.Boltz1Model" title="openprotein.fold.boltz.Boltz1Model"><span class="pre">Boltz1Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.boltz_1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.af2">
+<span class="sig-name descname"><span class="pre">af2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.AlphaFold2Model" title="openprotein.fold.alphafold2.AlphaFold2Model"><span class="pre">AlphaFold2Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.af2" title="Link to this definition">#</a></dt>
+<dd><p>AlphaFold-2 model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.alphafold2">
+<span class="sig-name descname"><span class="pre">alphafold2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.AlphaFold2Model" title="openprotein.fold.alphafold2.AlphaFold2Model"><span class="pre">AlphaFold2Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.alphafold2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.rf3">
+<span class="sig-name descname"><span class="pre">rf3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.RosettaFold3Model" title="openprotein.fold.rosettafold3.RosettaFold3Model"><span class="pre">RosettaFold3Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.rf3" title="Link to this definition">#</a></dt>
+<dd><p>RosettaFold-3 model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.rosettafold_3">
+<span class="sig-name descname"><span class="pre">rosettafold_3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.RosettaFold3Model" title="openprotein.fold.rosettafold3.RosettaFold3Model"><span class="pre">RosettaFold3Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.rosettafold_3" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.esmfold">
+<span class="sig-name descname"><span class="pre">esmfold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.ESMFoldModel" title="openprotein.fold.esmfold.ESMFoldModel"><span class="pre">ESMFoldModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.esmfold" title="Link to this definition">#</a></dt>
+<dd><p>ESMFold model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.esmfold2">
+<span class="sig-name descname"><span class="pre">esmfold2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.ESMFold2Model" title="openprotein.fold.esmfold2.ESMFold2Model"><span class="pre">ESMFold2Model</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.esmfold2" title="Link to this definition">#</a></dt>
+<dd><p>ESMFold2 model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.esmfold2_fast">
+<span class="sig-name descname"><span class="pre">esmfold2_fast</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.ESMFold2FastModel" title="openprotein.fold.esmfold2.ESMFold2FastModel"><span class="pre">ESMFold2FastModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.esmfold2_fast" title="Link to this definition">#</a></dt>
+<dd><p>ESMFold2-Fast model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.minifold">
+<span class="sig-name descname"><span class="pre">minifold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.MiniFoldModel" title="openprotein.fold.minifold.MiniFoldModel"><span class="pre">MiniFoldModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.minifold" title="Link to this definition">#</a></dt>
+<dd><p>MiniFold model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.protenix">
+<span class="sig-name descname"><span class="pre">protenix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openprotein.fold.ProtenixModel" title="openprotein.fold.protenix.ProtenixModel"><span class="pre">ProtenixModel</span></a></em><a class="headerlink" href="#openprotein.fold.FoldAPI.protenix" title="Link to this definition">#</a></dt>
+<dd><p>Protenix model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.protenix_v2">
+<span class="sig-name descname"><span class="pre">protenix_v2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ProtenixV2Model</span></em><a class="headerlink" href="#openprotein.fold.FoldAPI.protenix_v2" title="Link to this definition">#</a></dt>
+<dd><p>Protenix-v2 model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.list_models">
+<span class="sig-name descname"><span class="pre">list_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/fold.html#FoldAPI.list_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldAPI.list_models" title="Link to this definition">#</a></dt>
+<dd><p>list models available for creating folds of your sequences</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/fold.html#FoldAPI.get_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldAPI.get_model" title="Link to this definition">#</a></dt>
+<dd><p>Get model by model_id.</p>
+<p>FoldModel allows all the usual job manipulation:             e.g. making POST and GET requests for this model specifically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_id</strong> (<em>str</em>) – the model identifier</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FoldModel</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPError</strong> – If the GET request does not succeed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldAPI.get_results">
+<span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/fold.html#FoldAPI.get_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldAPI.get_results" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves the results of a fold job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job"><em>Job</em></a>) – The fold job whose results are to be retrieved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of FoldResultFuture</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.ProtenixModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">ProtenixModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/protenix.html#ProtenixModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ProtenixModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for Protenix structure prediction.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.ProtenixModel.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/protenix.html#ProtenixModel.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ProtenixModel.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with Protenix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of protein complexes to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use</p></li>
+<li><p><strong>templates</strong> (<em>list</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Template" title="openprotein.molecules.Template"><em>Template</em></a><em>] </em><em>| </em><em>None = None</em>) – List of templates to use for structure prediction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz2Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">Boltz2Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz2Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz2Model" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for Boltz-2 structure prediction model which jointly models complex structures and binding affinities.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz2Model.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.638</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_potentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz2Model.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz2Model.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with Boltz-2 model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of protein sequences to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use</p></li>
+<li><p><strong>step_scale</strong> (<em>float</em>) – Scaling factor for diffusion steps.</p></li>
+<li><p><strong>use_potentials</strong> (<em>bool = False.</em>) – Whether or not to use potentials.</p></li>
+<li><p><strong>constraints</strong> (<em>list</em><em>[</em><em>dict</em><em>] </em><em>| </em><em>None = None</em>) – List of constraints.</p></li>
+<li><p><strong>templates</strong> (<em>list</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Template" title="openprotein.molecules.Template"><em>Template</em></a><em>] </em><em>| </em><em>None = None</em>) – List of templates to use for structure prediction.</p></li>
+<li><p><strong>properties</strong> (<em>list</em><em>[</em><em>dict</em><em>] </em><em>| </em><em>None = None</em>) – List of additional properties to predict. Should match the <cite>BoltzProperties</cite></p></li>
+<li><p><strong>method</strong> (<em>str</em><em> | </em><em>None</em>) – The experimental method or supervision source used for the prediction. Defults to None.
+Supported values (case-insensitive) include:
+‘MD’, ‘X-RAY DIFFRACTION’, ‘ELECTRON MICROSCOPY’, ‘SOLUTION NMR’,
+‘SOLID-STATE NMR’, ‘NEUTRON DIFFRACTION’, ‘ELECTRON CRYSTALLOGRAPHY’,
+‘FIBER DIFFRACTION’, ‘POWDER DIFFRACTION’, ‘INFRARED SPECTROSCOPY’,
+‘FLUORESCENCE TRANSFER’, ‘EPR’, ‘THEORETICAL MODEL’,
+‘SOLUTION SCATTERING’, ‘OTHER’, ‘AFDB’, ‘BOLTZ-1’.
+View the documentation on Boltz for upstream details.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz1xModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">Boltz1xModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz1xModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz1xModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for Boltz-1x open-source structure prediction model, which adds the use of inference potentials to improve performance.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz1xModel.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.638</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_potentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz1xModel.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz1xModel.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with Boltz-1x model. Uses potentials with Boltz-1 model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of protein sequences to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use</p></li>
+<li><p><strong>step_scale</strong> (<em>float</em>) – Scaling factor for diffusion steps.</p></li>
+<li><p><strong>constraints</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>dict</em><em>]</em><em>]</em>) – List of constraints.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding complex result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz1Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">Boltz1Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz1Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz1Model" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for Boltz-1 open-source structure prediction model.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.Boltz1Model.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.638</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_potentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/boltz.html#Boltz1Model.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.Boltz1Model.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with Boltz-1 model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of protein sequences to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use</p></li>
+<li><p><strong>step_scale</strong> (<em>float</em>) – Scaling factor for diffusion steps.</p></li>
+<li><p><strong>use_potentials</strong> (<em>bool = False.</em>) – Whether or not to use potentials.</p></li>
+<li><p><strong>constraints</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>dict</em><em>]</em><em>]</em>) – List of constraints.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding complex result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.RosettaFold3Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">RosettaFold3Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/rosettafold3.html#RosettaFold3Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.RosettaFold3Model" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for RosettaFold-3 structure prediction model.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.RosettaFold3Model.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/rosettafold3.html#RosettaFold3Model.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.RosettaFold3Model.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with RosettaFold-3 model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>list</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a><em>,</em>) – List of protein sequences to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.AlphaFold2Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">AlphaFold2Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/alphafold2.html#AlphaFold2Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.AlphaFold2Model" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for AlphaFold2 structure prediction models, based on the implementation by ColabFold.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.AlphaFold2Model.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_relax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/alphafold2.html#AlphaFold2Model.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.AlphaFold2Model.fold" title="Link to this definition">#</a></dt>
+<dd><p>Post sequences to alphafold model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of protein sequences to include in folded output. <cite>Protein</cite> objects must be tagged with an <cite>msa</cite>, which can be a <cite>Protein.single_sequence_mode</cite> for single sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all query sequences as a multimer.</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – number of times to recycle models</p></li>
+<li><p><strong>num_models</strong> (<em>int</em>) – number of models to train - best model will be used</p></li>
+<li><p><strong>num_relax</strong> (<em>int</em>) – maximum number of iterations for relax</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>job</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="jobs.html#openprotein.jobs.Job" title="openprotein.jobs.Job">Job</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFoldModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">ESMFoldModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold.html#ESMFoldModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFoldModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for Facebook’s ESMFold structure prediction models.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFoldModel.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold.html#ESMFoldModel.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFoldModel.fold" title="Link to this definition">#</a></dt>
+<dd><p>Fold sequences using this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>]</em>) – sequences to fold</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em><em> | </em><em>None</em>) – number of times to recycle models</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">ESMFold2Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold2.html#ESMFold2Model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFold2Model" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for ESMFold2 structure prediction.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Model.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold2.html#ESMFold2Model.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFold2Model.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with ESMFold2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>] </em><em>| </em><a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><em>MSAFuture</em></a>) – List of complexes to fold. <cite>Protein</cite> objects must be tagged with
+an <cite>msa</cite>, which can be <cite>Protein.single_sequence_mode</cite> for single
+sequence mode. Alternatively, supply an <cite>MSAFuture</cite> to use all
+query sequences as a multimer.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use.</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use.</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> | </em><em>None</em>) – Seed for the diffusion sampler.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2FastModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">ESMFold2FastModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold2.html#ESMFold2FastModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFold2FastModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for ESMFold2-Fast structure prediction.</p>
+<p>Single-sequence variant of ESMFold2 (no MSA).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2FastModel.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold2.html#ESMFold2FastModel.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFold2FastModel.fold" title="Link to this definition">#</a></dt>
+<dd><p>Request structure prediction with ESMFold2-Fast.</p>
+<p>Single-sequence variant: protein chains must use <cite>Protein.single_sequence_mode</cite>
+rather than an MSA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a><em> | </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> | </em><em>str</em><em> | </em><em>bytes</em><em>]</em>) – List of complexes to fold. <cite>Protein</cite> objects must be tagged with
+<cite>Protein.single_sequence_mode</cite>.</p></li>
+<li><p><strong>diffusion_samples</strong> (<em>int</em>) – Number of diffusion samples to use.</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em>) – Number of recycling steps to use.</p></li>
+<li><p><strong>num_steps</strong> (<em>int</em>) – Number of sampling steps to use.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> | </em><em>None</em>) – Seed for the diffusion sampler.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Future for the folding result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.MiniFoldModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">MiniFoldModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/minifold.html#MiniFoldModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.MiniFoldModel" title="Link to this definition">#</a></dt>
+<dd><p>Class providing inference endpoints for MiniFold.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.MiniFoldModel.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_recycles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/minifold.html#MiniFoldModel.fold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.MiniFoldModel.fold" title="Link to this definition">#</a></dt>
+<dd><p>Fold sequences using this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> (<em>Sequence</em><em>[</em><em>bytes</em><em> | </em><em>str</em><em>]</em>) – sequences to fold</p></li>
+<li><p><strong>num_recycles</strong> (<em>int</em><em> | </em><em>None</em>) – number of times to recycle models</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#openprotein.fold.FoldResultFuture" title="openprotein.fold.FoldResultFuture">FoldResultFuture</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">ESMFold2Confidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ptm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iptm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_plddt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chains_ptm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pair_chains_iptm</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/esmfold2.html#ESMFold2Confidence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence" title="Link to this definition">#</a></dt>
+<dd><p>Per-sample confidence scores from an ESMFold2 structure prediction.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.ptm">
+<span class="sig-name descname"><span class="pre">ptm</span></span><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.ptm" title="Link to this definition">#</a></dt>
+<dd><p>Predicted TM-score for the full complex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.iptm">
+<span class="sig-name descname"><span class="pre">iptm</span></span><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.iptm" title="Link to this definition">#</a></dt>
+<dd><p>Interface pTM aggregated over inter-chain residue pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.complex_plddt">
+<span class="sig-name descname"><span class="pre">complex_plddt</span></span><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.complex_plddt" title="Link to this definition">#</a></dt>
+<dd><p>Mean per-atom pLDDT for the complex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.chains_ptm">
+<span class="sig-name descname"><span class="pre">chains_ptm</span></span><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.chains_ptm" title="Link to this definition">#</a></dt>
+<dd><p>Per-chain pTM scores, keyed by chain index as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.pair_chains_iptm">
+<span class="sig-name descname"><span class="pre">pair_chains_iptm</span></span><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.pair_chains_iptm" title="Link to this definition">#</a></dt>
+<dd><p>Predicted ipTM between each pair of chains, keyed by chain indices
+as strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, dict[str, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.ESMFold2Confidence.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#openprotein.fold.ESMFold2Confidence.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.fold.</span></span><span class="sig-name descname"><span class="pre">FoldResultFuture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complexes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture" title="Link to this definition">#</a></dt>
+<dd><p>Fold results represented as a future.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.job">
+<span class="sig-name descname"><span class="pre">job</span></span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.job" title="Link to this definition">#</a></dt>
+<dd><p>The fold job associated with this future.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FoldJob</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.sequences">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequences</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.sequences" title="Link to this definition">#</a></dt>
+<dd><p>Get the sequences submitted for the fold request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of sequences.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[bytes]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.complexes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.complex.Complex"><span class="pre">Complex</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.complexes" title="Link to this definition">#</a></dt>
+<dd><p>Get the molecular complexes submitted for the fold request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of complexes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex">Complex</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.id" title="Link to this definition">#</a></dt>
+<dd><p>Get the ID of the fold request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Fold job ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">FoldMetadata</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.metadata" title="Link to this definition">#</a></dt>
+<dd><p>The fold metadata.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.model_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.model_id" title="Link to this definition">#</a></dt>
+<dd><p>The fold model used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="molecules.html#openprotein.molecules.Structure" title="openprotein.molecules.structure.Structure"><span class="pre">Structure</span></a></span></span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_item" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'pae'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'pde'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'plddt'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ptm'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ipae'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'affinity'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BoltzAffinity</span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'confidence'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">BoltzConfidence</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ProtenixConfidence</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openprotein.fold.ESMFold2Confidence" title="openprotein.fold.ESMFold2Confidence"><span class="pre">ESMFold2Confidence</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'score'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'metrics'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Get fold results for a specified sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sequence</strong> (<em>bytes</em>) – Sequence to fetch results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Complex containing the folded structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex">Complex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="molecules.html#openprotein.molecules.Structure" title="openprotein.molecules.structure.Structure"><span class="pre">Structure</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.stream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.stream" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'pae'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'pde'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'plddt'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ptm'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ipae'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'affinity'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">BoltzAffinity</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'confidence'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">BoltzConfidence</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ProtenixConfidence</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openprotein.fold.ESMFold2Confidence" title="openprotein.fold.ESMFold2Confidence"><span class="pre">ESMFold2Confidence</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'score'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'metrics'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Retrieve results for this job as a stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator that yields (key, value) tuples.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_pae">
+<span class="sig-name descname"><span class="pre">get_pae</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_pae" title="Link to this definition">#</a></dt>
+<dd><p>Get the Predicted Aligned Error (PAE) matrix for all outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PAE matrix.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If PAE is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.args">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.args" title="Link to this definition">#</a></dt>
+<dd><p>The registered job arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.cancelled">
+<span class="sig-name descname"><span class="pre">cancelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.cancelled" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has been cancelled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is cancelled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.created_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.created_date" title="Link to this definition">#</a></dt>
+<dd><p>The creation timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.done" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is done, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.end_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.end_date" title="Link to this definition">#</a></dt>
+<dd><p>The end timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_pde">
+<span class="sig-name descname"><span class="pre">get_pde</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_pde" title="Link to this definition">#</a></dt>
+<dd><p>Get the Predicted Distance Error (PDE) matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PDE matrix.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If PDE is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.job_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.job_id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.job_type">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.job_type" title="Link to this definition">#</a></dt>
+<dd><p>The type of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.progress_counter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress_counter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.progress_counter" title="Link to this definition">#</a></dt>
+<dd><p>The progress counter of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.refresh" title="Link to this definition">#</a></dt>
+<dd><p>Refresh the job status and internal job object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.start_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.start_date" title="Link to this definition">#</a></dt>
+<dd><p>The start timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.status">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">JobStatus</span></em><a class="headerlink" href="#openprotein.fold.FoldResultFuture.status" title="Link to this definition">#</a></dt>
+<dd><p>The current status of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.wait" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete, then fetch results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The results of the job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.wait_until_done">
+<span class="sig-name descname"><span class="pre">wait_until_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.fold.FoldResultFuture.wait_until_done" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the job completed successfully.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method does not fetch the job results, unlike <cite>wait()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_plddt">
+<span class="sig-name descname"><span class="pre">get_plddt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_plddt" title="Link to this definition">#</a></dt>
+<dd><p>Get the Predicted Local Distance Difference Test (pLDDT) scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pLDDT scores.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If pLDDT is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_ptm">
+<span class="sig-name descname"><span class="pre">get_ptm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_ptm" title="Link to this definition">#</a></dt>
+<dd><p>Get the Predicted TM (pTM) scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pTM scores.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If pTM is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_ipae">
+<span class="sig-name descname"><span class="pre">get_ipae</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_ipae" title="Link to this definition">#</a></dt>
+<dd><p>Get the interface PAE (iPAE) — a synthetic scalar per unit derived
+from <code class="docutils literal notranslate"><span class="pre">pae</span></code> and the per-unit protein-chain layout. Returns one
+shape-<code class="docutils literal notranslate"><span class="pre">(1,)</span></code> array per fold output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iPAE scalars (one <code class="docutils literal notranslate"><span class="pre">(1,)</span></code> array per unit).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If iPAE is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_score">
+<span class="sig-name descname"><span class="pre">get_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_score" title="Link to this definition">#</a></dt>
+<dd><p>Get the predicted scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Structure prediction scores.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[pd.DataFrame]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If score is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_metrics">
+<span class="sig-name descname"><span class="pre">get_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_metrics" title="Link to this definition">#</a></dt>
+<dd><p>Get the predicted metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Structure prediction metrics.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[pd.DataFrame]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If metrics is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_confidence">
+<span class="sig-name descname"><span class="pre">get_confidence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_confidence" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the confidences of the structure prediction.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is currently supported for Boltz, Protenix, and ESMFold2 models.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of list of confidence objects (model-specific schema).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[list[BoltzConfidence]] | list[list[ProtenixConfidence]] | list[list[<a class="reference internal" href="#openprotein.fold.ESMFold2Confidence" title="openprotein.fold.ESMFold2Confidence">ESMFold2Confidence</a>]]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If confidence is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_affinity">
+<span class="sig-name descname"><span class="pre">get_affinity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_affinity" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the predicted binding affinities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is only currently supported for Boltz models.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BoltzAffinity object containing the predicted affinities.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[list[BoltzAffinity]]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – If affinity is not supported for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_pae_batch">
+<span class="sig-name descname"><span class="pre">get_pae_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pae_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_pae_batch" title="Link to this definition">#</a></dt>
+<dd><p>Get the Predicted Aligned Error (PAE) for every unit as a single
+stacked <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> of shape <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">...]</span></code>. Per-unit arrays that
+differ in size are NaN-padded to the per-axis max shape.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_pde_batch">
+<span class="sig-name descname"><span class="pre">get_pde_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_pde_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_pde_batch" title="Link to this definition">#</a></dt>
+<dd><p>Like <code class="docutils literal notranslate"><span class="pre">get_pae_batch</span></code> but for PDE. Shape <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">...]</span></code>, NaN-padded.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_plddt_batch">
+<span class="sig-name descname"><span class="pre">get_plddt_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_plddt_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_plddt_batch" title="Link to this definition">#</a></dt>
+<dd><p>Like <code class="docutils literal notranslate"><span class="pre">get_pae_batch</span></code> but for pLDDT. Shape <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">...]</span></code>, NaN-padded.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_ptm_batch">
+<span class="sig-name descname"><span class="pre">get_ptm_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ptm_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_ptm_batch" title="Link to this definition">#</a></dt>
+<dd><p>Like <code class="docutils literal notranslate"><span class="pre">get_pae_batch</span></code> but for pTM. Shape <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">...]</span></code>, NaN-padded.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_ipae_batch">
+<span class="sig-name descname"><span class="pre">get_ipae_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_ipae_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_ipae_batch" title="Link to this definition">#</a></dt>
+<dd><p>Get iPAE for every unit as a single <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> of shape <code class="docutils literal notranslate"><span class="pre">[N]</span></code>.
+Units whose per-unit iPAE could not be computed appear as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_confidence_batch">
+<span class="sig-name descname"><span class="pre">get_confidence_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_confidence_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_confidence_batch" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve per-unit confidence objects in a single HTTP call.</p>
+<p>Returns a length-<code class="docutils literal notranslate"><span class="pre">N</span></code> list; each entry is that unit’s parsed
+confidence list, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the server could not fetch the
+result for that unit.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.fold.FoldResultFuture.get_affinity_batch">
+<span class="sig-name descname"><span class="pre">get_affinity_batch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/fold/future.html#FoldResultFuture.get_affinity_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.fold.FoldResultFuture.get_affinity_batch" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve per-unit affinity objects in a single HTTP call.</p>
+<p>Returns a length-<code class="docutils literal notranslate"><span class="pre">N</span></code> list; each entry is a <code class="docutils literal notranslate"><span class="pre">BoltzAffinity</span></code> or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the server could not fetch that unit’s result.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI"><code class="docutils literal notranslate"><span class="pre">FoldAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz_2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz_2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz1x"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz1x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz_1x"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz_1x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz1"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.boltz_1"><code class="docutils literal notranslate"><span class="pre">FoldAPI.boltz_1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.af2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.af2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.alphafold2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.alphafold2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.rf3"><code class="docutils literal notranslate"><span class="pre">FoldAPI.rf3</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.rosettafold_3"><code class="docutils literal notranslate"><span class="pre">FoldAPI.rosettafold_3</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.esmfold"><code class="docutils literal notranslate"><span class="pre">FoldAPI.esmfold</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.esmfold2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.esmfold2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.esmfold2_fast"><code class="docutils literal notranslate"><span class="pre">FoldAPI.esmfold2_fast</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.minifold"><code class="docutils literal notranslate"><span class="pre">FoldAPI.minifold</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.protenix"><code class="docutils literal notranslate"><span class="pre">FoldAPI.protenix</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.protenix_v2"><code class="docutils literal notranslate"><span class="pre">FoldAPI.protenix_v2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.list_models"><code class="docutils literal notranslate"><span class="pre">FoldAPI.list_models()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.get_model"><code class="docutils literal notranslate"><span class="pre">FoldAPI.get_model()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldAPI.get_results"><code class="docutils literal notranslate"><span class="pre">FoldAPI.get_results()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models">Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ProtenixModel"><code class="docutils literal notranslate"><span class="pre">ProtenixModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ProtenixModel.fold"><code class="docutils literal notranslate"><span class="pre">ProtenixModel.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz2Model"><code class="docutils literal notranslate"><span class="pre">Boltz2Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz2Model.fold"><code class="docutils literal notranslate"><span class="pre">Boltz2Model.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz1xModel"><code class="docutils literal notranslate"><span class="pre">Boltz1xModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz1xModel.fold"><code class="docutils literal notranslate"><span class="pre">Boltz1xModel.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz1Model"><code class="docutils literal notranslate"><span class="pre">Boltz1Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.Boltz1Model.fold"><code class="docutils literal notranslate"><span class="pre">Boltz1Model.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.RosettaFold3Model"><code class="docutils literal notranslate"><span class="pre">RosettaFold3Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.RosettaFold3Model.fold"><code class="docutils literal notranslate"><span class="pre">RosettaFold3Model.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.AlphaFold2Model"><code class="docutils literal notranslate"><span class="pre">AlphaFold2Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.AlphaFold2Model.fold"><code class="docutils literal notranslate"><span class="pre">AlphaFold2Model.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFoldModel"><code class="docutils literal notranslate"><span class="pre">ESMFoldModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFoldModel.fold"><code class="docutils literal notranslate"><span class="pre">ESMFoldModel.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Model"><code class="docutils literal notranslate"><span class="pre">ESMFold2Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Model.fold"><code class="docutils literal notranslate"><span class="pre">ESMFold2Model.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2FastModel"><code class="docutils literal notranslate"><span class="pre">ESMFold2FastModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2FastModel.fold"><code class="docutils literal notranslate"><span class="pre">ESMFold2FastModel.fold()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.MiniFoldModel"><code class="docutils literal notranslate"><span class="pre">MiniFoldModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.MiniFoldModel.fold"><code class="docutils literal notranslate"><span class="pre">MiniFoldModel.fold()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.ptm"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.ptm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.iptm"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.iptm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.complex_plddt"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.complex_plddt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.chains_ptm"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.chains_ptm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.pair_chains_iptm"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.pair_chains_iptm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.ESMFold2Confidence.model_config"><code class="docutils literal notranslate"><span class="pre">ESMFold2Confidence.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.job"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.job</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.sequences"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.sequences</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.complexes"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.complexes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.id"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.metadata"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.metadata</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.model_id"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.model_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_item"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_item()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.stream"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.stream()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_pae"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_pae()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.args"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.args</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.cancelled"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.cancelled()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.created_date"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.created_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.done"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.done()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.end_date"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.end_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_pde"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_pde()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.job_id"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.job_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.job_type"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.job_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.progress_counter"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.progress_counter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.refresh"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.refresh()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.start_date"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.start_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.status"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.status</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.wait"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.wait()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.wait_until_done"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.wait_until_done()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_plddt"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_plddt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_ptm"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_ptm()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_ipae"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_ipae()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_score"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_score()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_metrics"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_metrics()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_confidence"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_confidence()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_affinity"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_affinity()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_pae_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_pae_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_pde_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_pde_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_plddt_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_plddt_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_ptm_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_ptm_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_ipae_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_ipae_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_confidence_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_confidence_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.fold.FoldResultFuture.get_affinity_batch"><code class="docutils literal notranslate"><span class="pre">FoldResultFuture.get_affinity_batch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

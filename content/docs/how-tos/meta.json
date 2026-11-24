@@ -1,0 +1,11 @@
+{
+  "title": "How-to guides",
+  "root": true,
+  "pages": [
+    "index",
+    "dataset",
+    "design",
+    "predict",
+    "select"
+  ]
+}

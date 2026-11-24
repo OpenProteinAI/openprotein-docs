@@ -1,0 +1,197 @@
+---
+title: Design a combinatorial variant library using Bayesian optimization 
+sidebarTitle: Bayesian optimization
+description: Design a combinatorial variant library to improve antibody binding and specificity
+---
+
+In this tutorial, we will design a combinatorial variant library with the goal of improving c-MET binding 
+while also improving specificity. This tutorial follows directly from the [Learn > Train Property Predictors tutorial](/tutorials/learn/training-property-predictors), 
+in which we trained models to predict on-target c-MET binding, as well as off-target ovalbumin binding, for Emibetuzumab variants. 
+
+Recall the problem from Makowski et al. (<Cite id="Makowski2022-ou" />). Emibetuzumab binds 
+its target c-MET (also known as HGFR), but also binds ovalbumin, a surrogate here for non-specific binding. Our 
+goal in this tutorial is to build a library that maximizes on-target binding, while minimizing off-target 
+binding. We will do so using multi-objective Bayesian optimization, a method that allows us to design 
+new sequence variants that maximize the probability that these variants achieve a set of quantitative objectives. Multi-
+objective Bayesian optimization provides the ability to defined for single combined objectives, or to perform Pareto-optimal 
+design to explore the tradeoff between objectives. 
+
+This is the **Design** step of the lab-in-the-loop DBTL cycle. To learn about Bayesian optimization for library 
+design, see [Concepts > Design > Bayesian optimization](/concepts/design/bayesian-optimization). For a condensed 
+reference version of these steps, see [How to > Design a combinatorial variant library](/how-tos/design/design-a-combinatorial-library). 
+
+## Specify the design objectives
+
+To design a combinatorial variant library, we will need to specify a set of [design objectives](/concepts/design/bayesian-optimization), as well as a set of design 
+constraints. We can think of the design objectives as the goals that we want the library to achieve, and the 
+constraints as sequence constraints that we may want to place on the library (such as only allowing mutations in the CDR regions of an antibody). 
+
+We will need models that can make predictions about those objectives, which is what we will be using to design and scores
+new variants. For this tutorial, we are trying to optimize for both on-target and off-target binding. Hence, we will need predictors 
+for c-MET/HGFR antigen binding, as well as for off-target ovalbumin binding. If you do not already have these predictors, first 
+run our [Learn > Train Property Predictors tutorial](/tutorials/learn/training-property-predictors) tutorial. 
+
+From inside your project, look for the models that you've already trained by clicking on **Models** in the left navigation panel. 
+When you hover over the model, you will see the option to run **Optimize**. You can also go to **Tools > Optimize** on the top toolbar. 
+At the top of the page, name the design **Emibetuzumab affinity + specificity**. We can also edit the project description 
+to add some notes for this design. 
+
+We will first need to define our objectives, and to turn these into criteria. These criteria should be aspirational, but 
+also achievable. A good way to set reasonable criteria is to first inspect the range of values in the dataset. Scroll to **Input dataset** at
+the end of the page, open the **Joint plot** tab and tick both **ant** and **ova** under **Select properties to view**. In this case, binding 
+has been normalized with respect to the wild-type value is 1. We can see in the joint plot that there are a small number 
+of mutatns with higher antigen binding ($>1$) but low ovalbumin binding ($<0.5$). 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/01b_inspect_joint.png" />
+
+Now let's set the design targets based on these values. We will also turn on the **Number of mutations** criterion. Adding 
+this as its own objective tells the algorithm to also trade off with different numbers of mutations. 
+
+| Objective | Criterion | Step |
+| --- | --- | --- |
+| Keep or improve c-Met binding | `ANT binding > 1` | Under **Objective 1**, select the antigen binding predictor as your model and set the target to greater than 1. |
+| Reduce non-specific binding | `OVA binding < 0.5` | Add a new objective. Under **Objective 2**, select the ovalbumin binding predictor as your model and set the target to less than 0.5. |
+| Search for solutions with different numbers of mutations | `n_mutations` | Select **Use number of mutations criteria**. |
+
+Our design objectives should now look like this: 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/01a_specify_objectives.png" />
+
+## Specify the design constraints 
+
+By default, all substitutions are allowed at all positions. For optimizing antibodies, constraining mutations to 
+the complementarity-determining regions (CDRs) may be desirable since we expect these regions to
+be the primary determinants of affinity and specificity. 
+
+First turn on **Enable custom design constraints**. This will allow us to access the chain editor. 
+
+Then, reset the sequence to the parental wild-type sequence. To do so, click on **+ Reference sequence**, and then **Dataset sequence** 
+and select the last sequence in the dataset (which happens to be the wild-type sequence). You can also copy and paste the 
+parent sequences into the respective boxes. 
+
+```text title="Chain A (VH)"
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNRRGTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARANWLDYWGQGTTVTVSS
+```
+
+```text title="Chain B (VL)"
+DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+```
+
+Click on **OK**. With the reference sequence selected, notice that the CDR regions are now helpfully annotated using
+Kabat numbering. For each chain, click on **Fix Sequence to Reference**. Then, highlight each of the CDR regions 
+and click on **Free Selected Residues**. This will replace them with 'X's in the second track. 
+
+Finally, review the **Mutation sites** table to verify that the rules are as expected. 
+
+- **Free positions**: A31-35, A50-66, A99-104, B24-35, B51-57, B90-98
+- **Fixed positions**: A1-30, A36-49, A67-98, A105-115, B1-23, B36-50, B58-89, B99-108
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/02_specify_constraints.png" />
+
+## Run the design algorithm 
+
+For this tutorial, we will leave the recommended default settings of 25 for the number of design steps, and 
+1024 for the number of sequences per design step. Click on **Create Design** to start the design algorithm. As 
+sequences are generated by the desgin algorithm, the table will begin to populate. 
+
+## Inspect the design table 
+
+For each generated sequence, the table reports the score, mean and standard deviation for each objective, 
+as calculated using the corresponding predictors. The **score** is the probability that a sequence variant 
+meets the design criteria, expressed as a log-likelihood score. The closer this score is to 0, the 
+higher the probability that the variant will meet the criteria. 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/03_run_design.png" />
+
+To compare the set of designed sequences to the wild-type sequence, click on **Table** and set the reference sequence 
+to the wild-type VH/VL sequence, separated by the chain break symbol ':' 
+
+```text title="VH/VL"
+QVQLVQSGAEVKKPGASVKVSCKASGYTFTDYYMHWVRQAPGQGLEWMGRVNPNRRGTTYNQKFEGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARANWLDYWGQGTTVTVSS:DIQMTQSPSSLSASVGDRVTITCSVSSSVSSIYLHWYQQKPGKAPKLLIYSTSNLASGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQVYSGYPLTFGGGTKVEIK
+```
+
+This will add mutant information, as well as a column for number of mutations to the table. 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/03b_set_reference.png" />
+
+We can see that the design algorithm has proposed several mutations for each sequence! Interestingly, we can 
+see that there are several positions which the algorithm prefers to mutate, which were also identified 
+as hotspots in Figure 2 of Makowski et al. 
+
+## Inspect predicted library performance 
+
+Above the table, we can inspect the **Predicted Library Performance**. This has two tabs, the **Successes** tab, 
+and the **Outcomes** tab. We will need to inspect these to make informed decisions about the final library 
+that we will build for testing. 
+
+<Callout type = "info" title="Note">
+These analyses reflect the sequences currently selected in the results table. They will be updated as more 
+sequences are generated, or as filters are applied. Since design is stochastic, your results may not look 
+the same as the results here. 
+</Callout>
+
+Inspecting the **Successes** tab, we can see out of the 1024 designs from the latest design step, ~355 (~34.7%) 
+are expected to achieve objective 1 (improve antigen binding affinity), and ~693 (~67.7%) are expected to 
+achieve objective 2 (reduce ovalbumin binding, i.e. increase specificity). 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/04_successes.png" />
+
+Inspecting the **Outcomes** tab, we can see the distribution over the means of our current designs vs. the 
+input dataset. The blue histogram reflects the distribution over the input sequences, while the yellow 
+histogram reflects the predicted distribution over the designed sequences. The green line indicates the 
+mean over the designed sequences. Here, we can see that in the current library, the predicted mean for 
+objective 1 (antigen binding) is 0.661, while the predicted mean for objective 2 (ovalbumin binding) is 0.439. 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/05_outcomes.png" />
+
+We probably don't want to test all 1024 designs. The algorithm will automatically trade off between our 2 
+objectives. However, we may still want to apply some cut-offs to our library to ensure some minimum specificity 
+or antigen binding affinity. 
+
+First, switch the view to the **Joint Plot** and inspect the predicted antigen vs. ovalbumin binding predictions. Here, 
+we can see that predicted antigen and ovalbumin binding are actually quite correlated, as also reported 
+in the paper. We can also notice that both antigen and ovalbumin binding predictions are bimodal. 
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/06_joint_plot.png" />
+
+Go to the **Filters** tool on the right. Add two filters, one for predicted ovalbumin binding to be $< 0.4$, 
+and one for predicted antigen binding to be $> 0.25$, based on visual inspection of the bimodal cutoff. 
+
+Next, we may have a design budget to consider. Let's say that we plan to only test 96 sequences. Prioritize the 
+remaining sequences by adding a third filter that sorts by predicted antigen binding score, and then selects 
+the top 96 sequences. 
+
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-3 [&_figure]:m-0 [&_img]:h-150 [&_img]:object-contain">
+  <Figure src="/_static/tutorials/design/optimize/bayesian-optimization/06_filter_1.png" alt="Filter for specificity" caption="Filter for specificity" />
+  <Figure src="/_static/tutorials/design/optimize/bayesian-optimization/06_filter_2.png" alt="Filter for binding" caption="Filter for binding" />
+  <Figure src="/_static/tutorials/design/optimize/bayesian-optimization/06_filter_3.png" alt="Sort by binding" caption="Sort by binding score" />
+</div>
+
+Finally, inspect the **Successes** tab again. Here, we can see that of these 96 sequences, ~6 sequences are 
+expected to achieve objective 1 (improve antigen binding over wild-type), and ~92 sequences are expected to achieve 
+objective 2 (reduce specificity).
+
+<Figure src="/_static/tutorials/design/optimize/bayesian-optimization/07_successes.png" />
+
+<Callout type="idea" title="Tips & Tricks">
+If the success profile of your final library does not reflect your design goals, try changing the design 
+objectives or the filter settings. 
+</Callout>
+
+## Next steps 
+
+Congratulations! You have designed a set of sequences that you can now take to the lab to test. Export 
+your library by clicking on **Export > Only filtered rows to CSV** to obtain a CSV of your library with 
+the current filters applied. Alternatively, use **Save as Library** to save your filtered sequences to 
+the platform to run other analyses. You can access them under **Libraries** on the left dataset navigation 
+pane. 
+
+You can also analyze single sequences from the table. Right click them to see some quick actions, such as 
+**Fold this sequence**, to fold the sequence with our structure prediction tool, or **Run Substitutions on 
+this sequence**, to evaluate all single substitution variants of the given sequence. We also encourage you 
+to explore our [Models](/models) page to see what other pre-trained predictors or models are available on 
+the platform. 
+
+## References
+
+<Bibliography files={["references-bayesian-optimization.bib"]} />

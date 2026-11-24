@@ -1,0 +1,329 @@
+---
+title: How to design a combinatorial variant library
+description: Design a combinatorial variant library, starting from measurements you have already collected. 
+---
+
+This guide shows you how to design a combinatorial variant protein library using multi-property optimization. Use this workflow to execute the **Design** phase of a lab-in-the-loop DBTL cycle.
+
+You will train Bayesian property predictors on your existing experimental measurements, then search the protein sequence space to select high-performing variants that satisfy your specific design objectives and constraints. For background on Bayesian optimization for library design, see [Concepts > Design > Bayesian optimization](/concepts/design/bayesian-optimization).
+
+## Before starting 
+
+You will need: 
+- An assay dataset as a csv file
+- A project in the web app, or an authenticated session in a Python client. See [Quickstart](/quickstart). 
+
+## Prepare and upload your dataset
+
+Upload your dataset. 
+
+Before uploading, ensure the following: 
+
+- If your measurements span several orders of magnitude, transform or normalize them first. For example, use log Kd instead of raw Kd for binding affinity. 
+- If you have replicates, each replicate column in your csv should be named `<property name>_<replicate number>`. For more information, see [How-to > Prepare and upload your dataset](/how-tos/dataset/upload-assay). 
+- If your sequences differ in length, align them first. See [How-to > Align sequences](/how-tos/dataset/align-sequences). 
+
+## Train specialized property predictors
+
+### Train GP predictors
+
+Train a Gaussian Process (GP) predictor for each property that you want to optimize. To train a GP predictor, you will need to specify the following: 
+
+- **Properties**: Select all properties that you wish to optimize. You may select more than one property. A single model will be trained per property that you select. 
+- **Embedding Model**: We support a wide range of [open source models](/models). We recommend using PoET-2 as your embedding model. If you choose PoET-2, you should provide a **Prompt** that is tailored to your dataset. 
+For human antibody datasets, use the system human VH/VL prompt. Otherwise, build one using homology search. For a detailed guide, please see [How-to > Build a custom prompt](/how-tos/dataset/build-a-context). To learn more about PoET-2's powerful prompting system, please see [Concepts > Prompts](/concepts/prompts/context). 
+- **Reduction Type**: For fixed-length sequences, we recommend that you use SVD. For variable-length sequences, select between the mean or sum. 
+- **Kernel Type**: You can also specify the Kernel Type and other GP parameters. For more details, see [Concepts > Models > Property Predictors](/concepts/models/property-predictors). 
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+    <Step>
+    On the **Dataset** page, go to **Train Model**.
+    </Step>
+    <Step>
+    (Optional) Name your predictor and give it a description. 
+    </Step>
+    <Step>
+    Select the **Properties** that you wish to train your model on.
+    </Step>
+    <Step>
+    Select the **Kernel Type**. By default, this is set to RBF, or the Radial Basis Function. 
+    </Step>
+    <Step>
+    Select an **Embedding Model**. If you choose PoET-2 as your model, you may optionally provide a **Prompt**, which is comprised of a **Query** and **Context**. If your dataset is a human antibody dataset, the system will recommend PoET-2 with the system human VH/VL prompt by default. 
+    </Step>
+    <Step>
+    Configure the **Embeddings Settings**. 
+    </Step>
+    <Step>
+    Click on **Run** to start training your model
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+ 
+  Call `fit_gp` using an [`EmbeddingModel`](/references/python-api/embedding) of your choice.
+
+  ```python
+    predictor = session.embeddings.prot_seq.fit_gp( # for e.g. using prot_seq
+        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        properties = ['property1', 'property2'],    # properties, list of str      
+        name = "my_predictor",                      # name 
+        reduction = "MEAN"                          # choose "MEAN" or "SUM" if using with `EmbeddingModel` 
+                                                    # or first run an SVD (see next)
+    )
+    predictor.wait()
+  ```
+
+  For PoET-2, you may optionally provide a **Prompt**. For human antibody datasets, use the default human VH/VL prompt. To use an SVD reduction, first fit an SVD on your assay dataset, and then fit the GP.   
+
+  ```python
+    human_ab_prompt = session.prompt.human_antibody_vh_vl 
+
+    svd = session.embeddings.poet2.fit_svd(
+        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        prompt = human_ab_prompt,                   # human VH/VL prompt 
+    )
+    svd.wait()                                      # wait for svd job to run
+
+    predictor = svd.fit_gp(
+        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        properties = ['property1', 'property2'],    # properties, list of str    
+        name = 'ab_predictor',                      # predictor name
+    )                                               # reduction defaults to None
+    predictor.wait()
+  ```
+  </Tab>
+</Tabs>
+
+<Callout type="idea" title="Tips & Tricks">
+Different configurations can lead to different model performance. To select the best model for design, we recommend training additional models with different configurations to see how performance varies with different embedding models or GP hyperparameters. 
+</Callout>
+
+### Inspect the trained predictor 
+  
+To understand how to interpret these training metrics, see [Concepts > Models > Evaluating models](/concepts/models/evaluating-models). 
+
+<Tabs items = {['App', 'Python']}>
+  <Tab value="App">
+
+    <Steps>
+    <Step>
+    Inspect the training losses on the **Training** tab. Check that the model has converged. 
+    </Step>
+    <Step>
+    Inspect model performance and calibration on the **Cross Validation** tab. 
+    </Step>
+    </Steps>
+
+    You can also quickly compare results across different models by navigating to the **Models** page in your project and clicking on **Filter** to filter by dataset.  
+
+  </Tab>
+
+  <Tab value="Python">
+  
+  Once the predictor is fit, you can access the training losses in the predictor metadata.  
+    ```python
+    # access training losses
+    predictor = session.predictor.get_predictor(predictor.id)     # fetch predictor after fit_gp is complete
+    losses = predictor.metadata.traingraphs[0].losses              
+    ```
+
+  Run cross-validation. Once this is run, you can access model performance and calibration metrics in the predictor metadata. 
+
+  ```python
+    # run cross-validation and access model performance and calibration metrics 
+    cv_job = predictor.cross_validate()                           # run 5-fold cross-validation 
+    cv_job.wait()
+
+    predictor = session.predictor.get_predictor(predictor.id,     # fetch predictor after cross-validation job is complete
+        include_stats = True)                                     # fetch stats
+    stats = predictor.metadata.stats  
+  ```
+  </Tab>
+</Tabs>
+
+
+## Design a combinatorial variant library 
+
+To design a combinatorial variant library using your property predictors, you will first need to specify a set of design objectives, 
+and a set of design constraints. 
+
+### Specify design objectives
+
+A design can have one or more objectives, which you can think of as your design goals. Each objective is defined by one or more criteria. Within an objective, the solver will search for 
+sequences that meet every criterion for that objective. Across objectives, the solver will return solutions across the Pareto front that trade 
+off between them. For background, see [Concepts > Design > Bayesian optimization](/concepts/design/bayesian-optimization). 
+
+The number of mutations is a special criterion. Add it as a separate objective to see how other properties trade off against the number of mutations. 
+
+<Callout type = "idea" title="Tips & Tricks">
+To explore the trade-off between safer and riskier designs, add criteria of different stringency on the same predictor as separate objectives. 
+</Callout>
+
+<Tabs items = {['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+    <Step>
+    On the **Dataset** page, click on **Create Design**
+    </Step> 
+    <Step>
+    (Optional) Name your design and give it a description. 
+    </Step>
+    <Step>
+    For each **Design objective**, add one or more **Criterion**. Each criterion is defined by a predictor, and a target value.  
+    </Step>
+    <Step>
+    (Optional) Check **Use number of mutations criteria** to search for solutions that trade-off with the number of mutations
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+  
+    ```python
+    from openprotein.design import n_mutations
+
+    objectives = (
+        ((property1_model1 > 1)  & (property1_model2 > 1)) |    # objective1: ensemble over two models for property1
+        (predictor2 < 0.5) |                                    # objective2: single predictor for property2
+        n_mutations()                                           # objective3: number of mutations
+    )
+    ```
+
+  </Tab>
+</Tabs>
+
+### Specify design constraints 
+
+By default, all substitutions are allowed at all positions. To set design constraints, specify the set of amino acids allowed at each site. 
+
+<Tabs items = {['App', 'Python']}>
+  <Tab value = "App">
+   
+    <Steps>
+    <Step>
+    To enable custom design constraints, first check **Enable custom design constraints**. 
+    </Step>
+    <Step> 
+    Specify the set of amino acids allowed at each site
+    - To allow only a particular amino acid at a given site, highlight the site and type the amino acid symbol
+    - For more advanced options, click on **Add Rule**. To add a rule, specify the rule type (**Allow**, **Do not allow** or **Allow only**) and the 
+    amino acid code(s). For convenience, you may also choose between different categories of amino acids, such as positively or negatively charged 
+    amino acids, and polar or non-polar amino acids. 
+    </Step>
+    </Steps>
+  
+  </Tab>
+
+  <Tab value = "Python">
+
+  Constraints are described as a dictionary mapping sites to amino acids allowed at those positions. Note that sites are 1-indexed. Use the 
+  convenience class `DesignConstraint` for specifying constraints.
+
+    ```python
+    from openprotein.design import DesignConstraint, n_mutations
+   
+    # initialize, allowing only the parent sequence at all positions
+    constraints = DesignConstraint(parent_seq)                  
+    
+    # allow all amino acids at specific sites, for e.g. cdrs 
+    constraints.allow(
+        amino_acids = 'GPAVLIMCFYWHKRQNEDST', 
+        positions = allow_sites
+    )
+    
+    # allow positive amino acids at specific sites
+    constraints.allow(
+        amino_acids = 'KRH', 
+        positions = allow_positive_sites
+    )
+    ```
+
+  </Tab>
+</Tabs>
+
+### Design sequences
+
+Design new sequences based on your objectives and constraints using a genetic algorithm. 
+
+<Tabs items = {['App', 'Python']}> 
+  <Tab value = "App">
+    <Steps>
+    <Step>
+    (Optional) Set the number of design steps or the number of sequences per design step. These are set to 25 and 1024 respectively by default. 
+    </Step>
+    <Step>
+    Click on **Create Design**. 
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value = "Python">
+    ```python
+    design_job = session.design.create_genetic_algorithm(
+        assay = assay, 
+        criteria = objectives, 
+        allowed_tokens = constraints, 
+        num_steps = 25, 
+        pop_size = 1024
+    )
+    design_job.wait()
+    
+    ```
+  </Tab>
+</Tabs> 
+
+### Inspect designs
+
+Inspect your designs before filtering them to obtain a final library. Looking at metrics such as the expected number of successes and the predicted outcome distribution for each objective will help you to make informed decisions about how to select your final library. 
+For more information, see [Concepts > Design > Bayesian optimization](/concepts/design/bayesian-optimization). 
+
+<Tabs items = {['App', 'Python']}> 
+  <Tab value = "App">
+    <Steps>
+    <Step>
+    Inspect your designs using the **Predicted Library Performance** panel at the top. 
+    </Step>
+    <Step>
+    (Optional) Add a reference sequence under **Table Settings > Reference Sequence** to add columns for the mutations and number of mutations with respect to a reference sequence. 
+    </Step>
+    <Step>
+    (Optional) Click on **Filters** on the right panel to apply various filters. The **Predicted Library Performance** will update automatically to reflect changes in the performance metrics after filtering. 
+    </Step>
+    </Steps>
+  </Tab>
+  <Tab value = "Python">
+
+  Results are returned as a list of objects containing the generated sequence. Each result contains the log probability that the designed sequence achieves each objective, as well as the prediction values for each predictor. Examine these to understand the expected performance of your library. 
+    ```python
+    design_results = design_job.get()
+    len(design_results) 			# num_steps * pop_size 
+
+    for r in design_results: 
+        scores = r.scores   # log probability that sequences achieves each objective 
+        y_mus = r.means     # mean given by predictors for each objective
+        y_vars = r.vars     # variance given by predictors for each objective	    
+    ```
+  </Tab>
+
+</Tabs> 
+
+<Callout type="warn" title="Warning: Low probability of success">
+In the app, you may receive a notification that ‘The probability of success is less than 2% for at least one design criterion’. If you receive this notification, 
+check if your design criteria was mis-specified. If it is correct, select **Generate more sequences** to continue running the design algorithm. If no improved sequences are discovered, 
+consider relaxing the design objectives or design constraints. 
+</Callout>
+
+<Callout type="warn" title="Warning: High probability of success">
+In the app, you may receive a notification that ‘The probability of success exceeds 98% for at least one design criteria’. If you receive this notification, 
+check if your design criteria was mis-specified. 
+If it is correct, consider increasing the stringency of the design objectives or design constraints. 
+</Callout>
+
+## Next steps
+
+- Learn more about Bayesian optimization for library design: [Concepts > Design > Bayesian Optimization](/concepts/design/bayesian-optimization)
+- Follow a guided example: 
+  - Train a property predictor: [Tutorial > Learn > Training property predictors](/tutorials/learn/training-property-predictors)
+  - Design sequences using Bayesian optimization: [Tutorial > Design > Optimize > Bayesian optimization](/tutorials/design/active-learning/bayesian-optimization)
+- Run structure prediction: [Tutorial > Structure predictors > Predict 3D Structure](/tutorials/predict/structure/structure-predictors). This could be useful if you would like to filter your designs for structural metrics like pLDDT or RMSD. 

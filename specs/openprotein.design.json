@@ -1,0 +1,1830 @@
+{
+ "module": "openprotein.design",
+ "entries": [
+  {
+   "name": "DesignAPI",
+   "path": "openprotein.design.DesignAPI",
+   "kind": "class",
+   "signature": "(session)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Design API providing the interface to design novel proteins based on your design criteria.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Design API providing the interface to design novel proteins based on your design criteria."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.design",
+   "source": {
+    "file": "openprotein/design/design.py",
+    "line": 13,
+    "end": 126
+   },
+   "members": [
+    {
+     "name": "list_designs",
+     "kind": "method",
+     "doc": "List all designs.\n\nReturns\n-------\nlist of DesignFuture\n    A list of DesignFuture objects representing all designs.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/design.py",
+      "line": 22,
+      "end": 37
+     },
+     "signature": "()",
+     "returns": "list[DesignFuture]",
+     "returns_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "List all designs."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list of DesignFuture",
+         "type_parts": [
+          {
+           "text": "list of DesignFuture"
+          }
+         ],
+         "text": "A list of DesignFuture objects representing all designs."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_design",
+     "kind": "method",
+     "doc": "Retrieve a specific design by its ID.\n\nParameters\n----------\ndesign_id : str\n    ID of the design to retrieve.\n\nReturns\n-------\nDesignFuture\n    A future object representing the design job and its results.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/design.py",
+      "line": 39,
+      "end": 56
+     },
+     "signature": "(design_id)",
+     "returns": "DesignFuture",
+     "returns_parts": [
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Retrieve a specific design by its ID."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "design_id",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": "ID of the design to retrieve."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "DesignFuture",
+         "type_parts": [
+          {
+           "text": "DesignFuture",
+           "path": "openprotein.design.DesignFuture",
+           "page": "design"
+          }
+         ],
+         "text": "A future object representing the design job and its results."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "create_genetic_algorithm_design",
+     "kind": "method",
+     "doc": "Start a protein design job using a genetic algorithm based on assay data, a trained ML model, and specified criteria.\n\nParameters\n----------\nassay : AssayDataset\n    The AssayDataset to design from.\ncriteria : Criteria or Subcriterion or Criterion\n    Criteria for evaluating the design.\nnum_steps : int, optional\n    The number of steps in the genetic algorithm. Default is 25.\npop_size : int, optional\n    The population size for the genetic algorithm. Default is 1024.\nn_offsprings : int, optional\n    The number of offspring for the genetic algorithm. Default is 5120.\ncrossover_prob : float, optional\n    The crossover probability for the genetic algorithm. Default is 1.0.\ncrossover_prob_pointwise : float, optional\n    The pointwise crossover probability for the genetic algorithm. Default is 0.2.\nmutation_average_mutations_per_seq : int, optional\n    The average number of mutations per sequence. Default is 1.\nallowed_tokens : DesignConstraint or dict of int to list of str, optional\n    A dict of positions and allowed tokens (e.g. {1: ['G', 'L']}) designating how mutations may occur. Defaults to empty dict.\n\nReturns\n-------\nDesignFuture\n    A future object representing the design job and its results.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/design.py",
+      "line": 58,
+      "end": 113
+     },
+     "signature": "(assay, criteria, num_steps=25, pop_size=1024, n_offsprings=5120, crossover_prob=1.0, crossover_prob_pointwise=0.2, mutation_average_mutations_per_seq=1, allowed_tokens={})",
+     "returns": "DesignFuture",
+     "returns_parts": [
+      {
+       "text": "DesignFuture",
+       "path": "openprotein.design.DesignFuture",
+       "page": "design"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Start a protein design job using a genetic algorithm based on assay data, a trained ML model, and specified criteria."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "assay",
+         "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
+         "default": null,
+         "text": "The AssayDataset to design from."
+        },
+        {
+         "name": "criteria",
+         "type": "Criteria or Subcriterion or Criterion",
+         "type_parts": [
+          {
+           "text": "Criteria",
+           "path": "openprotein.design.Criteria",
+           "page": "design"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Subcriterion",
+           "path": "openprotein.design.Subcriterion",
+           "page": "design"
+          },
+          {
+           "text": " or "
+          },
+          {
+           "text": "Criterion",
+           "path": "openprotein.design.Criterion",
+           "page": "design"
+          }
+         ],
+         "default": null,
+         "text": "Criteria for evaluating the design."
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "25",
+         "text": "The number of steps in the genetic algorithm. Default is 25."
+        },
+        {
+         "name": "pop_size",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "1024",
+         "text": "The population size for the genetic algorithm. Default is 1024."
+        },
+        {
+         "name": "n_offsprings",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "5120",
+         "text": "The number of offspring for the genetic algorithm. Default is 5120."
+        },
+        {
+         "name": "crossover_prob",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "1.0",
+         "text": "The crossover probability for the genetic algorithm. Default is 1.0."
+        },
+        {
+         "name": "crossover_prob_pointwise",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "0.2",
+         "text": "The pointwise crossover probability for the genetic algorithm. Default is 0.2."
+        },
+        {
+         "name": "mutation_average_mutations_per_seq",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "1",
+         "text": "The average number of mutations per sequence. Default is 1."
+        },
+        {
+         "name": "allowed_tokens",
+         "type": "DesignConstraint or dict of int to list of str",
+         "type_parts": [
+          {
+           "text": "DesignConstraint or dict of int to list of str"
+          }
+         ],
+         "default": "{}",
+         "text": "A dict of positions and allowed tokens (e.g. {1: ['G', 'L']}) designating how mutations may occur. Defaults to empty dict."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "DesignFuture",
+         "type_parts": [
+          {
+           "text": "DesignFuture",
+           "path": "openprotein.design.DesignFuture",
+           "page": "design"
+          }
+         ],
+         "text": "A future object representing the design job and its results."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Interface",
+   "page": "design"
+  },
+  {
+   "name": "Criteria",
+   "path": "openprotein.design.Criteria",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "RootModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "RootModel"
+     }
+    ]
+   ],
+   "doc": "Class representing a logical OR of criteria.\n\nAttributes\n----------\nroot : list of Criterion\n    The list of criteria.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class representing a logical OR of criteria."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "root",
+       "type": "list of Criterion",
+       "type_parts": [
+        {
+         "text": "list of Criterion"
+        }
+       ],
+       "default": null,
+       "text": "The list of criteria."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.schemas",
+   "source": {
+    "file": "openprotein/design/schemas.py",
+    "line": 388,
+    "end": 421
+   },
+   "members": [
+    {
+     "name": "root",
+     "kind": "attribute",
+     "doc": "The list of criteria.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 398,
+      "end": 398
+     },
+     "annotation": "list[Criterion]",
+     "annotation_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "Criterion",
+       "path": "openprotein.design.Criterion",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    }
+   ],
+   "section": "Criteria",
+   "page": "design"
+  },
+  {
+   "name": "Criterion",
+   "path": "openprotein.design.Criterion",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "RootModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "RootModel"
+     }
+    ]
+   ],
+   "doc": "Class representing a logical AND of subcriteria.\n\nAttributes\n----------\nroot : list of Subcriterion\n    The list of subcriteria.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class representing a logical AND of subcriteria."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "root",
+       "type": "list of Subcriterion",
+       "type_parts": [
+        {
+         "text": "list of Subcriterion"
+        }
+       ],
+       "default": null,
+       "text": "The list of subcriteria."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.schemas",
+   "source": {
+    "file": "openprotein/design/schemas.py",
+    "line": 324,
+    "end": 385
+   },
+   "members": [
+    {
+     "name": "root",
+     "kind": "attribute",
+     "doc": "The list of subcriteria.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 334,
+      "end": 334
+     },
+     "annotation": "list[ModelCriterion | NMutationCriterion | Subcriterion]",
+     "annotation_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "ModelCriterion",
+       "path": "openprotein.design.ModelCriterion",
+       "page": "design"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "NMutationCriterion",
+       "path": "openprotein.design.schemas.NMutationCriterion",
+       "page": "design"
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "Subcriterion",
+       "path": "openprotein.design.Subcriterion",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    }
+   ],
+   "section": "Criteria",
+   "page": "design"
+  },
+  {
+   "name": "Subcriterion",
+   "path": "openprotein.design.Subcriterion",
+   "kind": "class",
+   "signature": "(*, criterion_type)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "Base class for subcriteria.\n\nAttributes\n----------\ncriterion_type : CriterionType\n    The type of the criterion.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Base class for subcriteria."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "criterion_type",
+       "type": "CriterionType",
+       "type_parts": [
+        {
+         "text": "CriterionType",
+         "path": "openprotein.design.schemas.CriterionType",
+         "page": "design"
+        }
+       ],
+       "default": null,
+       "text": "The type of the criterion."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.schemas",
+   "source": {
+    "file": "openprotein/design/schemas.py",
+    "line": 45,
+    "end": 121
+   },
+   "members": [
+    {
+     "name": "criterion_type",
+     "kind": "attribute",
+     "doc": "The type of the criterion.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 55,
+      "end": 55
+     },
+     "annotation": "CriterionType",
+     "annotation_parts": [
+      {
+       "text": "CriterionType",
+       "path": "openprotein.design.schemas.CriterionType",
+       "page": "design"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    }
+   ],
+   "section": "Criteria",
+   "page": "design"
+  },
+  {
+   "name": "DesignConstraint",
+   "path": "openprotein.design.DesignConstraint",
+   "kind": "class",
+   "signature": "(sequence)",
+   "bases": [],
+   "bases_parts": [],
+   "doc": "Class for managing design constraints on a sequence.\n\nPositions are 1-indexed over the full sequence, including any ``:`` chain\nbreaks. Chain-break positions are fixed and cannot be constrained.\n\nAttributes\n----------\nsequence : str\n    The sequence to constrain.\nmutations : dict of int to set of str\n    Allowed amino acids at each position.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class for managing design constraints on a sequence.\n\nPositions are 1-indexed over the full sequence, including any ``:`` chain\nbreaks. Chain-break positions are fixed and cannot be constrained."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "sequence",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "The sequence to constrain."
+      },
+      {
+       "name": "mutations",
+       "type": "dict of int to set of str",
+       "type_parts": [
+        {
+         "text": "dict of int to set of str"
+        }
+       ],
+       "default": null,
+       "text": "Allowed amino acids at each position."
+      }
+     ]
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "sequence",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.schemas",
+   "source": {
+    "file": "openprotein/design/schemas.py",
+    "line": 424,
+    "end": 549
+   },
+   "members": [
+    {
+     "name": "sequence",
+     "kind": "attribute",
+     "doc": "The sequence to constrain.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 448,
+      "end": 448
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "sequence",
+     "parsed": []
+    },
+    {
+     "name": "mutations",
+     "kind": "attribute",
+     "doc": "Allowed amino acids at each position.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 449,
+      "end": 449
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "self.initialize(sequence)",
+     "parsed": []
+    },
+    {
+     "name": "initialize",
+     "kind": "method",
+     "doc": "Initialize with no changes allowed to the sequence.\n\nParameters\n----------\nsequence : str\n    The sequence to constrain.\n\nReturns\n-------\ndict of int to set of str\n    Allowed amino acids at each position.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 451,
+      "end": 465
+     },
+     "signature": "(sequence)",
+     "returns": "dict[int, set[str]]",
+     "returns_parts": [
+      {
+       "text": "dict[int, set[str]]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Initialize with no changes allowed to the sequence."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequence",
+         "type": "str",
+         "type_parts": [
+          {
+           "text": "str"
+          }
+         ],
+         "default": null,
+         "text": "The sequence to constrain."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "dict of int to set of str",
+         "type_parts": [
+          {
+           "text": "dict of int to set of str"
+          }
+         ],
+         "text": "Allowed amino acids at each position."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "allow",
+     "kind": "method",
+     "doc": "Allow specific amino acids at given positions.\n\nParameters\n----------\namino_acids : list of str or str or None, optional\n    Amino acids to allow. If None, allows all amino acids in the sequence.\npositions : int or list of int or None, optional\n    Positions to allow amino acids at. If None, allows at all positions.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 493,
+      "end": 515
+     },
+     "signature": "(amino_acids=None, positions=None)",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Allow specific amino acids at given positions."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "amino_acids",
+         "type": "list of str or str or None",
+         "type_parts": [
+          {
+           "text": "list of str or str or None"
+          }
+         ],
+         "default": "None",
+         "text": "Amino acids to allow. If None, allows all amino acids in the sequence."
+        },
+        {
+         "name": "positions",
+         "type": "int or list of int or None",
+         "type_parts": [
+          {
+           "text": "int or list of int or None"
+          }
+         ],
+         "default": "None",
+         "text": "Positions to allow amino acids at. If None, allows at all positions."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "remove",
+     "kind": "method",
+     "doc": "Remove specific amino acids from being allowed at given positions.\n\nParameters\n----------\namino_acids : list of str or str or None, optional\n    Amino acids to remove. If None, removes all amino acids in the sequence.\npositions : int or list of int or None, optional\n    Positions to remove amino acids from. If None, removes from all positions.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 517,
+      "end": 538
+     },
+     "signature": "(amino_acids=None, positions=None)",
+     "returns": "None",
+     "returns_parts": [
+      {
+       "text": "None"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Remove specific amino acids from being allowed at given positions."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "amino_acids",
+         "type": "list of str or str or None",
+         "type_parts": [
+          {
+           "text": "list of str or str or None"
+          }
+         ],
+         "default": "None",
+         "text": "Amino acids to remove. If None, removes all amino acids in the sequence."
+        },
+        {
+         "name": "positions",
+         "type": "int or list of int or None",
+         "type_parts": [
+          {
+           "text": "int or list of int or None"
+          }
+         ],
+         "default": "None",
+         "text": "Positions to remove amino acids from. If None, removes from all positions."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "as_dict",
+     "kind": "method",
+     "doc": "Convert the internal mutations representation into a dictionary.\n\nReturns\n-------\ndict of int to list of str\n    Allowed amino acids at each position.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 540,
+      "end": 549
+     },
+     "signature": "()",
+     "returns": "dict[int, list[str]]",
+     "returns_parts": [
+      {
+       "text": "dict[int, list[str]]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Convert the internal mutations representation into a dictionary."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "dict of int to list of str",
+         "type_parts": [
+          {
+           "text": "dict of int to list of str"
+          }
+         ],
+         "text": "Allowed amino acids at each position."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Criteria",
+   "page": "design"
+  },
+  {
+   "name": "ModelCriterion",
+   "path": "openprotein.design.ModelCriterion",
+   "kind": "class",
+   "signature": "(*, criterion_type=CriterionType.model, model_id, measurement_name, criterion=Criterion())",
+   "bases": [
+    "Subcriterion"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Subcriterion",
+      "path": "openprotein.design.Subcriterion",
+      "page": "design"
+     }
+    ]
+   ],
+   "doc": "Subcriterion for model-based criteria.\n\nAttributes\n----------\ncriterion_type : CriterionType\n    The type of the criterion (always 'model').\nmodel_id : str\n    The identifier of the model.\nmeasurement_name : str\n    The name of the measurement.\ncriterion : ModelCriterion.Criterion\n    The criterion details.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Subcriterion for model-based criteria."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "criterion_type",
+       "type": "CriterionType",
+       "type_parts": [
+        {
+         "text": "CriterionType",
+         "path": "openprotein.design.schemas.CriterionType",
+         "page": "design"
+        }
+       ],
+       "default": null,
+       "text": "The type of the criterion (always 'model')."
+      },
+      {
+       "name": "model_id",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "The identifier of the model."
+      },
+      {
+       "name": "measurement_name",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "The name of the measurement."
+      },
+      {
+       "name": "criterion",
+       "type": "ModelCriterion.Criterion",
+       "type_parts": [
+        {
+         "text": "ModelCriterion",
+         "path": "openprotein.design.ModelCriterion",
+         "page": "design"
+        },
+        {
+         "text": "."
+        },
+        {
+         "text": "Criterion",
+         "path": "openprotein.design.ModelCriterion.Criterion",
+         "page": "design"
+        }
+       ],
+       "default": null,
+       "text": "The criterion details."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.schemas",
+   "source": {
+    "file": "openprotein/design/schemas.py",
+    "line": 124,
+    "end": 282
+   },
+   "members": [
+    {
+     "name": "Criterion",
+     "kind": "class",
+     "doc": "Inner class representing the details of a model criterion.\n\nAttributes\n----------\nweight : float\n    The weight of the criterion.\ndirection : DirectionEnum or None\n    The direction of the comparison.\ntarget : float or None\n    The target value for the criterion.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 140,
+      "end": 174
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Inner class representing the details of a model criterion."
+      },
+      {
+       "kind": "attributes",
+       "items": [
+        {
+         "name": "weight",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": null,
+         "text": "The weight of the criterion."
+        },
+        {
+         "name": "direction",
+         "type": "DirectionEnum or None",
+         "type_parts": [
+          {
+           "text": "DirectionEnum or None"
+          }
+         ],
+         "default": null,
+         "text": "The direction of the comparison."
+        },
+        {
+         "name": "target",
+         "type": "float or None",
+         "type_parts": [
+          {
+           "text": "float or None"
+          }
+         ],
+         "default": null,
+         "text": "The target value for the criterion."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "criterion_type",
+     "kind": "attribute",
+     "doc": "The type of the criterion (always 'model').",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 176,
+      "end": 176
+     },
+     "annotation": "CriterionType",
+     "annotation_parts": [
+      {
+       "text": "CriterionType",
+       "path": "openprotein.design.schemas.CriterionType",
+       "page": "design"
+      }
+     ],
+     "value": "CriterionType.model",
+     "parsed": []
+    },
+    {
+     "name": "model_id",
+     "kind": "attribute",
+     "doc": "The identifier of the model.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 177,
+      "end": 177
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "measurement_name",
+     "kind": "attribute",
+     "doc": "The name of the measurement.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 178,
+      "end": 178
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "criterion",
+     "kind": "attribute",
+     "doc": "The criterion details.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 179,
+      "end": 179
+     },
+     "annotation": "Criterion",
+     "annotation_parts": [
+      {
+       "text": "Criterion",
+       "path": "openprotein.design.ModelCriterion.Criterion",
+       "page": "design"
+      }
+     ],
+     "value": "Criterion()",
+     "parsed": []
+    },
+    {
+     "name": "validate_criterion_before_serialize",
+     "kind": "method",
+     "doc": "Validate the criterion before serialization.\n\nParameters\n----------\nhandler : callable\n    The serialization handler.\n\nReturns\n-------\nAny\n    The serialized object.\n\nRaises\n------\nValueError\n    If direction or target is not set.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/schemas.py",
+      "line": 256,
+      "end": 282
+     },
+     "signature": "(handler)",
+     "returns": null,
+     "returns_parts": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Validate the criterion before serialization."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "handler",
+         "type": "callable",
+         "type_parts": [
+          {
+           "text": "callable"
+          }
+         ],
+         "default": null,
+         "text": "The serialization handler."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The serialized object."
+        }
+       ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "ValueError",
+         "type_parts": [
+          {
+           "text": "ValueError"
+          }
+         ],
+         "default": null,
+         "text": "If direction or target is not set."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Criteria",
+   "page": "design"
+  },
+  {
+   "name": "DesignFuture",
+   "path": "openprotein.design.DesignFuture",
+   "kind": "class",
+   "signature": "(session, job=None, metadata=None)",
+   "bases": [
+    "StreamingFuture",
+    "Future"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "StreamingFuture",
+      "path": "openprotein.jobs.StreamingFuture",
+      "page": "jobs"
+     }
+    ],
+    [
+     {
+      "text": "Future",
+      "path": "openprotein.jobs.Future",
+      "page": "jobs"
+     }
+    ]
+   ],
+   "doc": "A future object that will hold the results of the design job.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A future object that will hold the results of the design job."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "job",
+       "annotation_fallback": true,
+       "type": "DesignJob | None",
+       "type_parts": [
+        {
+         "text": "DesignJob | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "Design | None",
+       "type_parts": [
+        {
+         "text": "Design | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.design.future",
+   "source": {
+    "file": "openprotein/design/future.py",
+    "line": 15,
+    "end": 143
+   },
+   "members": [
+    {
+     "name": "id",
+     "kind": "property",
+     "doc": "ID of the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 46,
+      "end": 48
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "ID of the design."
+      }
+     ]
+    },
+    {
+     "name": "assay",
+     "kind": "property",
+     "doc": "Assay used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 51,
+      "end": 55
+     },
+     "annotation": "AssayDataset",
+     "annotation_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Assay used in the design."
+      }
+     ]
+    },
+    {
+     "name": "algorithm",
+     "kind": "property",
+     "doc": "Algorithm used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 58,
+      "end": 60
+     },
+     "annotation": "DesignAlgorithm",
+     "annotation_parts": [
+      {
+       "text": "DesignAlgorithm",
+       "path": "openprotein.design.schemas.DesignAlgorithm",
+       "page": "design"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Algorithm used in the design."
+      }
+     ]
+    },
+    {
+     "name": "criteria",
+     "kind": "property",
+     "doc": "Criteria used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 63,
+      "end": 65
+     },
+     "annotation": "Criteria",
+     "annotation_parts": [
+      {
+       "text": "Criteria",
+       "path": "openprotein.design.Criteria",
+       "page": "design"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Criteria used in the design."
+      }
+     ]
+    },
+    {
+     "name": "num_steps",
+     "kind": "property",
+     "doc": "Number of steps used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 68,
+      "end": 70
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of steps used in the design."
+      }
+     ]
+    },
+    {
+     "name": "num_rows",
+     "kind": "property",
+     "doc": "Number of rows in the total design output (across all steps).",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 73,
+      "end": 75
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of rows in the total design output (across all steps)."
+      }
+     ]
+    },
+    {
+     "name": "allowed_tokens",
+     "kind": "property",
+     "doc": "Allowed tokens used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 78,
+      "end": 80
+     },
+     "annotation": "dict[str, list[str]] | None",
+     "annotation_parts": [
+      {
+       "text": "dict[str, list[str]] | None"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Allowed tokens used in the design."
+      }
+     ]
+    },
+    {
+     "name": "pop_size",
+     "kind": "property",
+     "doc": "Population size used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 83,
+      "end": 85
+     },
+     "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Population size used in the design."
+      }
+     ]
+    },
+    {
+     "name": "n_offsprings",
+     "kind": "property",
+     "doc": "Number of offsprings used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 88,
+      "end": 90
+     },
+     "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Number of offsprings used in the design."
+      }
+     ]
+    },
+    {
+     "name": "crossover_prob",
+     "kind": "property",
+     "doc": "Crossover probability used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 93,
+      "end": 95
+     },
+     "annotation": "float",
+     "annotation_parts": [
+      {
+       "text": "float"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Crossover probability used in the design."
+      }
+     ]
+    },
+    {
+     "name": "crossover_prob_pointwise",
+     "kind": "property",
+     "doc": "Crossover probability pointwise used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 98,
+      "end": 100
+     },
+     "annotation": "float",
+     "annotation_parts": [
+      {
+       "text": "float"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Crossover probability pointwise used in the design."
+      }
+     ]
+    },
+    {
+     "name": "mutation_average_mutations_per_seq",
+     "kind": "property",
+     "doc": "Average mutations per sequence used in the design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 103,
+      "end": 105
+     },
+     "annotation": "int",
+     "annotation_parts": [
+      {
+       "text": "int"
+      }
+     ],
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Average mutations per sequence used in the design."
+      }
+     ]
+    },
+    {
+     "name": "metadata",
+     "kind": "property",
+     "doc": "Design metadata.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 108,
+      "end": 111
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": null,
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Design metadata."
+      }
+     ]
+    },
+    {
+     "name": "stream",
+     "kind": "method",
+     "doc": "Return the results from this job as a generator.\n\nParameters\n----------\n**kwargs\n    Keyword arguments passed to the streaming implementation.\n\nReturns\n-------\nGenerator\n    A generator that yields job results.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 123,
+      "end": 127
+     },
+     "signature": "(step=None)",
+     "returns": "Iterator[DesignResult]",
+     "returns_parts": [
+      {
+       "text": "Iterator["
+      },
+      {
+       "text": "DesignResult",
+       "path": "openprotein.design.schemas.DesignResult",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Return the results from this job as a generator."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "step",
+         "annotation_fallback": true,
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": null
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Generator",
+         "type_parts": [
+          {
+           "text": "Generator"
+          }
+         ],
+         "text": "A generator that yields job results."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get",
+     "kind": "method",
+     "doc": null,
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 129,
+      "end": 130
+     },
+     "signature": "(verbose=False, **kwargs)",
+     "returns": "list[DesignResult]",
+     "returns_parts": [
+      {
+       "text": "list["
+      },
+      {
+       "text": "DesignResult",
+       "path": "openprotein.design.schemas.DesignResult",
+       "page": "design"
+      },
+      {
+       "text": "]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "verbose",
+         "annotation_fallback": true,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": null
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "get_assay",
+     "kind": "method",
+     "doc": "Get assay used for design job.\n\nReturns\n-------\nAssayDataset\n    Assay dataset used for design.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/design/future.py",
+      "line": 132,
+      "end": 143
+     },
+     "signature": "()",
+     "returns": "AssayDataset",
+     "returns_parts": [
+      {
+       "text": "AssayDataset",
+       "path": "openprotein.data.AssayDataset",
+       "page": "data"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Get assay used for design job."
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "AssayDataset",
+         "type_parts": [
+          {
+           "text": "AssayDataset",
+           "path": "openprotein.data.AssayDataset",
+           "page": "data"
+          }
+         ],
+         "text": "Assay dataset used for design."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "wait",
+     "kind": "method",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "inherited_from": "openprotein.jobs.futures.StreamingFuture",
+     "inherited_from_ref": {
+      "path": "openprotein.jobs.StreamingFuture",
+      "page": "jobs"
+     },
+     "source": {
+      "file": "openprotein/jobs/futures.py",
+      "line": 585,
+      "end": 592
+     },
+     "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
+     "returns": "list[V]",
+     "returns_parts": [
+      {
+       "text": "list[V]"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Wait for the job to complete, then fetch results."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "interval",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "config.POLLING_INTERVAL",
+         "text": "Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`."
+        },
+        {
+         "name": "timeout",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Maximum time in seconds to wait. Defaults to None."
+        },
+        {
+         "name": "verbose",
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": "Verbosity flag. Defaults to False."
+        },
+        {
+         "name": "**kwargs",
+         "type": null,
+         "type_parts": null,
+         "default": "{}",
+         "text": "Keyword arguments passed to `get`."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "Any",
+         "type_parts": [
+          {
+           "text": "Any"
+          }
+         ],
+         "text": "The results of the job."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Results",
+   "page": "design"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

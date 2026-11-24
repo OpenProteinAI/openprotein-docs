@@ -1,0 +1,432 @@
+{
+ "module": "openprotein.errors",
+ "entries": [
+  {
+   "name": "APIError",
+   "path": "openprotein.errors.APIError",
+   "kind": "class",
+   "signature": "(message)",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when the API returns an error.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when the API returns an error."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "message",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 44,
+    "end": 49
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "HTTPError",
+   "path": "openprotein.errors.HTTPError",
+   "kind": "class",
+   "signature": "(response)",
+   "bases": [
+    "APIError"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "APIError",
+      "path": "openprotein.errors.APIError",
+      "page": "openprotein"
+     }
+    ]
+   ],
+   "doc": null,
+   "parsed": [
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "response",
+       "annotation_fallback": true,
+       "type": "Response",
+       "type_parts": [
+        {
+         "text": "Response"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 52,
+    "end": 61
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "InvalidParameterError",
+   "path": "openprotein.errors.InvalidParameterError",
+   "kind": "class",
+   "signature": "(message='Invalid parameter')",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when a parameter has an invalid value.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when a parameter has an invalid value."
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 24,
+    "end": 29
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "MissingParameterError",
+   "path": "openprotein.errors.MissingParameterError",
+   "kind": "class",
+   "signature": "(message='Required parameter is missing')",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when a required parameter is not provided.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when a required parameter is not provided."
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 32,
+    "end": 37
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "AuthError",
+   "path": "openprotein.errors.AuthError",
+   "kind": "class",
+   "signature": "(message='Invalid authorization')",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when authentication fails.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when authentication fails."
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 72,
+    "end": 77
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "JobFailedException",
+   "path": "openprotein.errors.JobFailedException",
+   "kind": "class",
+   "signature": "(job_id, failure_message=None)",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when retrieving results from a job that has failed.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when retrieving results from a job that has failed."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "job_id",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "failure_message",
+       "annotation_fallback": true,
+       "type": "str | None",
+       "type_parts": [
+        {
+         "text": "str | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 104,
+    "end": 118
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "JobOutputsNotReady",
+   "path": "openprotein.errors.JobOutputsNotReady",
+   "kind": "class",
+   "signature": "(message)",
+   "bases": [
+    "APIError"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "APIError",
+      "path": "openprotein.errors.APIError",
+      "page": "openprotein"
+     }
+    ]
+   ],
+   "doc": "A job's named output is not complete yet.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A job's named output is not complete yet."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "message",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 64,
+    "end": 69
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "InvalidJob",
+   "path": "openprotein.errors.InvalidJob",
+   "kind": "class",
+   "signature": "(message='No such job')",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when a job cannot be found or is not valid for the request.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when a job cannot be found or is not valid for the request."
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 80,
+    "end": 85
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "NotPrepared",
+   "path": "openprotein.errors.NotPrepared",
+   "kind": "class",
+   "signature": "(job_id)",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "A job has no ``units_digest`` yet.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "A job has no ``units_digest`` yet."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "job_id",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 88,
+    "end": 93
+   },
+   "members": [],
+   "section": "Errors",
+   "page": "openprotein"
+  },
+  {
+   "name": "TimeoutException",
+   "path": "openprotein.errors.TimeoutException",
+   "kind": "class",
+   "signature": "(message='Request timed out!')",
+   "bases": [
+    "Exception"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "Exception"
+     }
+    ]
+   ],
+   "doc": "Raised when waiting on a job or request times out.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Raised when waiting on a job or request times out."
+    }
+   ],
+   "module": "openprotein.errors",
+   "source": {
+    "file": "openprotein/errors.py",
+    "line": 96,
+    "end": 101
+   },
+   "members": [],
+   "section": "Referenced types",
+   "page": "openprotein"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

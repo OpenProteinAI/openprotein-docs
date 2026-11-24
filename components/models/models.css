@@ -1,0 +1,1853 @@
+/* The platform UI's Models page, its sizes as rem at the docs' 16px root; dark values are
+ * departures. See the op-docs-styling skill, references/models.md. */
+
+@property --om-tools-reveal {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@layer components {
+  /* .om-floating: tooltips and dropdowns portal to <body>, outside the page's scope. */
+  .op-models,
+  .om-floating {
+    --om-ink-rgb: 33 37 41; /* --bs-dark-rgb */
+    --om-surface: var(--color-fd-background);
+    --om-border: var(--color-fd-border);
+    --om-primary: var(--color-fd-primary);
+    --om-primary-rgb: 34 94 219;
+    --om-radius: 0.65625rem; /* --bs-border-radius, 0.75em at 14px */
+    --om-shadow-sm: 0px 10px 25px -15px rgb(0 0 0 / 0.3), 0 0 5px -5px #000;
+    --om-shadow: 0px 15px 40px -15px rgb(0 0 0 / 0.3), 0 0 5px -5px #000;
+    --om-shadow-float: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 10px rgb(0 0 0 / 0.12);
+    /* A chip's ink is its hue pulled toward this; its fill and border toward the surface. */
+    --om-ink-mix: black;
+    --om-ink-mix-amount: 20%;
+    --om-secondary: #6c757d;
+    --om-control-bg: rgb(255 255 255 / 0.75);
+    --om-popover-bg: rgb(255 255 255 / 0.75);
+
+    --om-blue: #0d6efd;
+    --om-teal: #20c997;
+    --om-purple: #6f42c1;
+    --om-green: #198754;
+    --om-indigo: #6610f2;
+    --om-orange: #fd7e14;
+    --om-cyan: #17a2b8;
+    --om-success: #198754;
+    --om-info: #0aaaca;
+    --om-warning: #fd7e14;
+    --om-danger: #dc3545;
+
+    color: rgb(var(--om-ink-rgb));
+  }
+
+  /* Dark: the app has none. Ink and chip ink flip toward white; the blue lifts to the site's ink. */
+  .dark .op-models,
+  .dark .om-floating {
+    --om-ink-rgb: 222 226 230;
+    --om-primary-rgb: 101 163 255;
+    --om-shadow-sm: 0px 10px 25px -15px rgb(0 0 0 / 0.8), 0 0 5px -5px #000;
+    --om-shadow: 0px 15px 40px -15px rgb(0 0 0 / 0.8), 0 0 5px -5px #000;
+    --om-shadow-float: 0 1px 3px rgb(0 0 0 / 0.4), 0 4px 10px rgb(0 0 0 / 0.5);
+    --om-ink-mix: white;
+    /* 20% leaves indigo and purple near 2.6:1 on the dark surface. */
+    --om-ink-mix-amount: 40%;
+    --om-secondary: #adb5bd;
+    --om-control-bg: color-mix(in srgb, var(--color-fd-background) 75%, transparent);
+    --om-popover-bg: rgb(43 48 53 / 0.85);
+    --om-success: #4fbf8b;
+    --om-info: #3dd0ee;
+  }
+
+  .op-models {
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+
+  /* ---- header: title + count, lead, toolbar ---- */
+
+  .om-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4375rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .om-title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4375rem 0.875rem;
+  }
+
+  /* Not in the app: the box, then the buttons flush right; they wrap under it below a 10rem box. */
+  .om-toolbar {
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4375rem 0.875rem;
+    margin-top: 0.4375rem;
+  }
+
+  .om-toolbar .om-search {
+    flex: 1 1 10rem;
+  }
+
+  /* The basis decides, not the app's 15.75rem. */
+  .om-toolbar .om-search-input {
+    min-width: 0;
+  }
+
+  /* A card wide from three columns (3 × 21rem + 2 × 0.875rem). */
+  @container (width >= 64.75rem) {
+    .om-toolbar .om-search {
+      max-width: calc((100% - 1.75rem) / 3);
+    }
+  }
+
+  @container (width >= 86.625rem) {
+    .om-toolbar .om-search {
+      max-width: calc((100% - 2.625rem) / 4);
+    }
+  }
+
+  /* The app's Models page: the facet group, then Sort's, 0.65625rem apart. Sized by every pill,
+   * however many show, so collapsing them can't change where they wrap. */
+  .om-tools {
+    display: flex;
+    flex: 0 1 var(--om-tools-width, auto);
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65625rem;
+    min-width: 0;
+    margin-left: auto;
+  }
+
+  /* The app's FilterFacetBtns: a pill per facet, or one Filters pill. */
+  .om-facet-btns {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    justify-content: flex-end;
+    gap: 0.4375rem;
+    min-width: 0;
+  }
+
+  /* The pills at their width, out of sight. */
+  .om-facet-btns.is--measure {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: max-content;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* The app's white buttons, 0.65625rem sides; the search box's corners. */
+  .om-facet-btns > .op-btn.om-dropdown-btn,
+  .om-btn-group.is--pill > .op-btn {
+    flex-shrink: 0;
+    padding-inline: 0.65625rem;
+    background-color: var(--om-control-bg);
+  }
+
+  .om-facet-btns > .op-btn.om-dropdown-btn:not(:disabled):hover,
+  .om-btn-group.is--pill > .op-btn:not(:disabled):hover {
+    border-color: rgb(var(--om-ink-rgb) / 0.25);
+  }
+
+  .om-facet-btns > .op-btn.om-dropdown-btn {
+    border-radius: var(--om-radius);
+  }
+
+  /* The app's FormToggleSwitch, small variant, beside its label as on its Models page. */
+  .om-switch-row {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.40625rem;
+    margin: 0;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Its label would read as Family's. */
+  .om-facet-btns > .om-switch-row {
+    margin-inline-end: 0.4375rem;
+  }
+
+  .om-switch {
+    --om-switch-accent: var(--brand-1-fill);
+    --om-switch-knob: 0.8125rem;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 2.03125rem;
+    padding: 0.08125rem;
+    border: 1px solid #ced4da; /* --bs-border */
+    border-radius: 10rem;
+    background-color: #e9ecef; /* --bs-gray-200 */
+    background-image: linear-gradient(180deg, #f2f5f8, #dee2e6); /* --bs-light, --bs-gray-300 */
+    transition: all ease 300ms;
+  }
+
+  /* Departure: the app has no dark theme. */
+  .dark .om-switch {
+    border-color: rgb(255 255 255 / 0.15);
+    background-color: #343a40;
+    background-image: linear-gradient(180deg, #3b4147, #2b3035);
+  }
+
+  .om-switch input {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* the knob */
+  .om-switch::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: 0.08125rem;
+    width: var(--om-switch-knob);
+    height: var(--om-switch-knob);
+    margin: auto;
+    border-radius: 10rem;
+    background-color: white;
+    color: rgb(0 0 0 / 30%);
+    box-shadow: inset 0 -0.5px 0 0.5px;
+    animation: om-switch-off 300ms ease forwards;
+    transition: all ease 300ms;
+  }
+
+  .om-switch::after {
+    content: '';
+    min-height: var(--om-switch-knob);
+  }
+
+  .om-switch.is--checked {
+    border-color: var(--om-switch-accent);
+    background-color: var(--om-switch-accent);
+    background-image: none;
+  }
+
+  .om-switch.is--checked::before {
+    left: auto;
+    right: 0.08125rem;
+    color: var(--om-switch-accent);
+    animation-name: om-switch-on;
+  }
+
+  .om-switch-row:hover .om-switch {
+    border-color: rgb(34 94 219 / 0.75); /* --bs-border-hover */
+  }
+
+  .om-switch-row:hover .om-switch.is--checked {
+    filter: brightness(1.2);
+  }
+
+  .om-switch-row:active .om-switch {
+    filter: brightness(0.9);
+  }
+
+  .om-switch-row:active .om-switch::before {
+    transform: translateY(0.0625rem);
+    transition: transform ease 50ms;
+  }
+
+  /* Keyboard focus only; the app's small switch shows none. */
+  .om-switch:has(input:focus-visible) {
+    border-color: var(--color-fd-foreground);
+  }
+
+  @keyframes om-switch-off {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes om-switch-on {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .om-switch,
+    .om-switch::before {
+      animation: none;
+      transition: none;
+    }
+  }
+
+  /* The app's .op-btn-group: one border between neighbours, rounded at its ends only. */
+  .om-btn-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .om-btn-group > .op-btn {
+    flex-shrink: 0;
+    border-radius: 0;
+  }
+
+  .om-btn-group > .op-btn:first-child {
+    border-top-left-radius: var(--om-radius);
+    border-bottom-left-radius: var(--om-radius);
+  }
+
+  .om-btn-group > .op-btn:last-child {
+    border-top-right-radius: var(--om-radius);
+    border-bottom-right-radius: var(--om-radius);
+  }
+
+  .om-btn-group > * + * {
+    margin-left: -1px;
+  }
+
+  /* Over its neighbours' borders. */
+  .om-btn-group > .op-btn:hover,
+  .om-btn-group > .op-btn:focus-visible,
+  .om-btn-group > .op-btn[data-highlighted='true'] {
+    z-index: 1;
+  }
+
+  /* Sort's order: the icon button closing its group. */
+  .op-btn.om-order-btn {
+    min-width: 1.96875rem;
+    min-height: 2rem;
+    padding: 0 0.4375rem;
+  }
+
+  /* The docs' page title size, not the app's, so it lines up with every other page. */
+  .om-title {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4375rem;
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+    white-space: nowrap;
+  }
+
+  .om-count {
+    margin-bottom: 0.125rem;
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: rgb(var(--om-ink-rgb) / 0.45);
+  }
+
+  .om-lead {
+    margin: 0;
+    max-width: 60rem;
+    font-size: var(--text-base);
+    line-height: var(--leading-prose);
+    font-style: italic;
+    color: var(--color-fd-description);
+  }
+
+  .om-message {
+    padding: 0.875rem 0;
+    font-style: italic;
+    color: rgb(var(--om-ink-rgb) / 0.5);
+  }
+
+  /* ---- search box: the app's SearchBox on a controlNormal() field ---- */
+
+  .om-search {
+    position: relative;
+    display: block;
+  }
+
+  .om-search-input {
+    --control-border: var(--om-border);
+    --control-accent: var(--om-border);
+
+    width: 100%;
+    min-width: 15.75rem;
+    min-height: 2rem;
+    /* --sb-actions-width: room for the clear button, or for it and two more actions. */
+    padding: 0.35rem 1.925rem;
+    border: 1px solid var(--control-border);
+    border-bottom-color: var(--control-accent);
+    border-radius: var(--om-radius);
+    background-color: var(--om-control-bg);
+    font-size: var(--text-sm);
+    line-height: normal;
+    color: inherit;
+    outline: none;
+    transition: all ease 300ms;
+  }
+
+  /* The menu's --sb-actions-width: room for Sort and the clear button. */
+  .om-search.has--actions .om-search-input {
+    padding-right: 7rem;
+  }
+
+  .om-search-input::placeholder {
+    color: rgb(var(--om-ink-rgb) / 0.55);
+  }
+
+  .om-search-input:hover,
+  .om-search-input:focus {
+    --control-border: color-mix(in srgb, var(--om-border) 80%, black 20%);
+    --control-accent: color-mix(in srgb, var(--om-primary) 75%, transparent);
+  }
+
+  .om-search-input:active {
+    --control-border: color-mix(in srgb, var(--om-border) 80%, white 20%);
+    --control-accent: color-mix(in srgb, var(--om-primary) 60%, white 40%);
+
+    transition: all ease 150ms;
+  }
+
+  /* searchLight until the box takes focus, then searchDark. */
+  .om-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.625rem;
+    z-index: 1;
+    transform: translateY(-50%);
+    color: #b9bcbf;
+    pointer-events: none;
+  }
+
+  .om-search:focus-within .om-search-icon {
+    color: rgb(var(--om-ink-rgb));
+  }
+
+  .om-search-actions {
+    position: absolute;
+    top: 50%;
+    right: 0.21875rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.109375rem;
+    transform: translateY(-50%);
+  }
+
+  .op-btn.om-action-btn {
+    width: 1.53125rem;
+    height: 1.53125rem;
+    padding: 0;
+    border-radius: var(--om-radius);
+    font-weight: 400;
+  }
+
+  .om-search-actions .op-btn[data-highlighted='true']::after {
+    height: 0.21875rem;
+  }
+
+  /* Sort in the box: `px-2 py-1`, no minimum height. */
+  .om-search-actions .op-btn.om-dropdown-btn {
+    min-height: 0;
+    padding: 0.21875rem 0.4375rem;
+  }
+
+  /* `Sort: Relevance`, the label muted. */
+  .om-sort-label {
+    opacity: 0.65;
+  }
+
+  .om-sort-value {
+    font-weight: 500;
+  }
+
+  /* The app's DropdownBtn, secondary: icon, label, chevron; `px-2` on the docs' 2rem control. */
+  .op-btn.om-dropdown-btn {
+    min-height: 2rem;
+    padding: 0.25rem 0.4375rem;
+    font-size: var(--text-sm);
+  }
+
+  .om-dropdown-btn .op-btn__content {
+    gap: 0.4375rem;
+  }
+
+  .om-dropdown-chevron {
+    transition: transform 150ms ease;
+  }
+
+  .om-dropdown-btn[data-state='open'] .om-dropdown-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* The app's highlighted secondary button: a bar under its icon; one without an icon has none. */
+  .op-btn--secondary.om-dropdown-btn .op-btn__content {
+    position: relative;
+  }
+
+  .op-btn--secondary.om-dropdown-btn.has--icon[data-highlighted='true'] .op-btn__content::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3em;
+    left: 0;
+    width: 0.875rem;
+    height: 0.21875rem;
+    border-radius: var(--om-radius);
+    background-color: var(--om-primary);
+  }
+
+  /* The app's badge--primary, after a facet's label once it has picks; the site's primary pair. */
+  .om-count-badge {
+    display: inline-block;
+    padding: 0.075em 0.4em;
+    border: 1px solid var(--om-primary);
+    border-radius: 1em;
+    background-color: var(--om-primary);
+    font-size: var(--text-2xs);
+    line-height: normal;
+    color: var(--color-fd-primary-foreground);
+    white-space: nowrap;
+  }
+
+  /* ---- the grid: the app's modelCardGrid() ---- */
+
+  .om-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(21rem, 100%), 1fr));
+    gap: 0.65625rem 0.875rem;
+    padding-bottom: 1.75rem;
+  }
+
+  /* ---- the card: four rows shared with the cards beside it, so their sections line up ---- */
+
+  .om-card {
+    position: relative;
+    z-index: 0;
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    min-width: 0;
+    padding: 0.65625rem 0.875rem;
+    border: 1px solid var(--om-border);
+    border-radius: calc(var(--om-radius) * 1.5);
+    background-color: var(--om-surface);
+    scroll-margin-top: calc(var(--fd-nav-height, 3.75rem) + 1rem);
+    transition: all ease 200ms;
+  }
+
+  /* Or while a method tooltip is open. */
+  .om-card:is(:hover, :where(:has(.om-method-chip[data-state$='open']))) {
+    z-index: 2;
+    border-color: rgb(var(--om-primary-rgb) / 0.75);
+    box-shadow: var(--om-shadow-sm);
+  }
+
+  .om-card:active {
+    border-color: rgb(var(--om-primary-rgb));
+    box-shadow:
+      0 2px 5px 0 var(--om-border),
+      0 0 5px -5px #000;
+    transform: translateY(0.0625rem);
+    transition: all ease 70ms;
+  }
+
+  /* Not in the app: a card the sidebar or a link sent the reader to. */
+  .om-card.is--targeted {
+    border-color: rgb(var(--om-primary-rgb));
+    box-shadow: 0 0 0 3px rgb(var(--om-primary-rgb) / 0.2);
+  }
+
+  .om-card-head {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    min-width: 0;
+  }
+
+  .om-card-name {
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The app's card name links to the model's page; here, its family page on that version. */
+  .om-card.is--link {
+    cursor: pointer;
+  }
+
+  a.om-card-name:hover {
+    color: var(--om-primary);
+  }
+
+  a.om-card-name:focus-visible {
+    border-radius: 0.21875rem;
+    outline: 2px solid var(--om-primary);
+    outline-offset: 2px;
+  }
+
+  .om-badge {
+    flex: 0 0 auto;
+    padding: 0.0875rem 0.35rem;
+    border-radius: 0.21875rem;
+    background: color-mix(in srgb, var(--om-success) 18%, transparent);
+    font-size: var(--text-2xs);
+    font-weight: 500;
+    color: var(--om-success);
+  }
+
+  .om-badge--popular {
+    background: color-mix(in srgb, var(--om-info) 18%, transparent);
+    color: var(--om-info);
+  }
+
+  .om-badge--highlight {
+    background: color-mix(in srgb, var(--om-warning) 18%, transparent);
+    color: color-mix(in srgb, var(--om-ink-mix) var(--om-ink-mix-amount), var(--om-warning));
+  }
+
+  .om-badge--new {
+    background: color-mix(in srgb, var(--om-purple) 18%, transparent);
+    color: color-mix(in srgb, var(--om-ink-mix) var(--om-ink-mix-amount), var(--om-purple));
+  }
+
+  .om-model-links {
+    display: flex;
+    flex: 0 0 auto;
+    margin: -0.21875rem -0.4375rem 0 auto;
+  }
+
+  .op-btn.om-icon-btn {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border-radius: var(--om-radius);
+    color: rgb(var(--om-ink-rgb));
+  }
+
+  /* A family page's title row: the size of the catalogue's Markdown menu. */
+  .om-model-links.is--labelled {
+    gap: 0.4375rem;
+    margin: 0;
+  }
+
+  .op-btn.om-link-btn {
+    gap: 0.4375rem;
+    min-height: 1.875rem;
+    padding: 0.25rem 0.75rem;
+    font-size: var(--text-xs);
+  }
+
+  .om-card-description-section {
+    grid-row: 2;
+    margin-top: 0.4375rem;
+  }
+
+  .om-card-description {
+    display: -webkit-box;
+    max-height: calc(3 * 1lh);
+    overflow: hidden;
+    font-size: var(--text-sm);
+    color: rgb(var(--om-ink-rgb) / 0.75);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* methods | input type, wrapping under */
+  .om-card-io {
+    grid-row: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.4375rem 1.75rem;
+    margin-top: 0.65625rem;
+  }
+
+  .om-card-methods,
+  .om-card-input-types {
+    min-width: 0;
+  }
+
+  .om-card-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.21875rem;
+    margin-top: 0.21875rem;
+  }
+
+  .om-card-label {
+    font-size: var(--text-2xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: rgb(var(--om-ink-rgb) / 0.6);
+  }
+
+  .om-card-details {
+    grid-row: 4;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .om-card-divider {
+    margin-top: 0.875rem;
+    border-bottom: 1px solid var(--om-border);
+  }
+
+  /* ---- chips: the app's .prop-item and its filterChip() ---- */
+
+  .om-chip {
+    --chip-bg: var(--om-surface);
+    --chip-border: var(--om-border);
+    --chip-ink: rgb(var(--om-ink-rgb));
+
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0.109375rem 0.4375rem;
+    border: 1px solid var(--chip-border);
+    border-radius: 3.5rem;
+    background-color: var(--chip-bg);
+    font-size: var(--text-2xs);
+    /* Roboto's `normal` at this size, which makes the app's 1.21875rem chip. */
+    line-height: 0.875rem;
+    color: var(--chip-ink);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The app caps it at 8.75rem, which Object Sans, wider than Roboto, overruns on "Embeddings-reduced". */
+  .om-method-chip {
+    max-width: 10.5rem;
+  }
+
+  .om-chip.is--selectable {
+    user-select: none;
+    transition:
+      box-shadow 150ms ease,
+      border-color 150ms ease,
+      filter 150ms ease;
+  }
+
+  .om-chip.is--selectable:hover {
+    filter: brightness(0.9);
+  }
+
+  .om-chip.is--selectable:active {
+    filter: brightness(0.8);
+  }
+
+  /* Dark: dimming a dark chip hides the hover, so it brightens instead. */
+  .dark .om-chip.is--selectable:hover {
+    filter: brightness(1.25);
+  }
+
+  .om-chip.is--selected {
+    --chip-border: currentColor;
+
+    font-weight: 500;
+  }
+
+  .om-chip.is--blue { --om-hue: var(--om-blue); }
+  .om-chip.is--teal { --om-hue: var(--om-teal); }
+  .om-chip.is--purple { --om-hue: var(--om-purple); }
+  .om-chip.is--green { --om-hue: var(--om-green); }
+  .om-chip.is--indigo { --om-hue: var(--om-indigo); }
+  .om-chip.is--orange { --om-hue: var(--om-orange); }
+
+  .om-chip:is(.is--blue, .is--teal, .is--purple, .is--green, .is--indigo, .is--orange) {
+    --chip-bg: color-mix(in srgb, var(--om-surface) 90%, var(--om-hue) 10%);
+    --chip-border: color-mix(in srgb, var(--om-surface) 80%, var(--om-hue) 20%);
+    --chip-ink: color-mix(in srgb, var(--om-ink-mix) var(--om-ink-mix-amount), var(--om-hue));
+  }
+
+  /* The app mixes cyan a step stronger than the rest. */
+  .om-chip.is--cyan {
+    --chip-bg: color-mix(in srgb, var(--om-surface) 85%, var(--om-cyan) 15%);
+    --chip-border: color-mix(in srgb, var(--om-surface) 70%, var(--om-cyan) 30%);
+    --chip-ink: color-mix(in srgb, var(--om-ink-mix) 10%, var(--om-cyan) 90%);
+  }
+
+  .om-chip.is--selected:is(.is--blue, .is--teal, .is--purple, .is--green, .is--indigo, .is--orange, .is--cyan) {
+    --chip-border: currentColor;
+  }
+
+  /* ---- details: the app's ModelInfoRows ---- */
+
+  .om-info-rows {
+    display: grid;
+    flex: 1;
+    grid-template-columns: auto 1fr;
+    align-content: start;
+    gap: 0.21875rem 0.65625rem;
+    margin-top: 0.65625rem;
+    padding: 0.4375rem 0.65625rem;
+    border-radius: 0.609375rem;
+    background-color: rgb(var(--om-ink-rgb) / 0.03);
+    font-size: var(--text-sm);
+  }
+
+  .om-info-item {
+    display: contents;
+  }
+
+  .om-info-label {
+    color: rgb(var(--om-ink-rgb) / 0.6);
+  }
+
+  .om-info-value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* The app's ModelInfoRows `twoColumns`: a card's rows paired, labels and values on shared columns. */
+  .om-info-rows.is--two-columns {
+    grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .om-info-rows.is--two-columns .om-info-item {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: subgrid;
+  }
+
+  .om-info-rows.is--two-columns .om-info-item:not(.is--wide, .is--own-line) > .om-info-value {
+    overflow: hidden;
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+  }
+
+  .om-info-rows.is--two-columns .om-info-item:is(.is--wide, .is--own-line) {
+    grid-column: 1 / -1;
+  }
+
+  .om-info-rows.is--two-columns .om-info-item:is(.is--wide, .is--own-line) > :last-child {
+    grid-column: 2 / -1;
+  }
+
+  /* The app's ModelInfoRows `wrap`: pairs flow inline, a wide row keeps a line of its own. */
+  .om-info-rows.is--wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.21875rem 1.3125rem;
+  }
+
+  .om-info-rows.is--wrap .om-info-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65625rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .om-info-rows.is--wrap .om-info-item.is--wide {
+    flex-basis: 100%;
+  }
+
+  .om-info-rows.is--wrap .om-info-label {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* ---- Tools: grow out of the card's bottom edge on hover ---- */
+
+  .om-card-tools {
+    position: absolute;
+    top: calc(100% - 1px);
+    right: -1px;
+    left: -1px;
+    box-sizing: content-box;
+    max-height: var(--om-tools-reveal);
+    overflow: hidden;
+    visibility: hidden;
+    border: 1px solid rgb(var(--om-primary-rgb) / 0.75);
+    border-top: 0;
+    border-radius: 0 0 calc(var(--om-radius) * 1.5) calc(var(--om-radius) * 1.5);
+    background-color: var(--om-surface);
+    box-shadow: var(--om-shadow-sm);
+    clip-path: inset(0 -2rem -2rem);
+    transition: visibility 0s linear 200ms;
+  }
+
+  .om-tools-panel {
+    padding: 0 0.875rem 0.65625rem;
+    opacity: 0;
+    transform: translateY(-0.3125rem);
+    transition:
+      opacity 130ms ease-out,
+      transform 200ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .om-tools-panel > .om-card-label {
+    margin-bottom: 0.4375rem;
+  }
+
+  .om-card.has--hover-tools {
+    transition:
+      all ease 200ms,
+      transform 0s,
+      --om-tools-reveal 200ms cubic-bezier(0.2, 0, 0, 1),
+      border-bottom-left-radius 0s linear 200ms,
+      border-bottom-right-radius 0s linear 200ms;
+  }
+
+  /* The tools only fit above the card, so it rises as they grow, keeping its bottom edge put.
+   * Doubled to outrank the :active nudge, as the app's three-class selector does. */
+  .om-card.om-card.is--tools-up {
+    transform: translateY(calc(-1 * min(var(--om-tools-reveal), var(--om-tools-height, 0rem))));
+  }
+
+  .om-card.has--hover-tools:is(:hover, :where(:has(.om-method-chip[data-state$='open']))) {
+    --om-tools-reveal: var(--om-tools-height, 26.25rem);
+
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    transition:
+      all ease 200ms,
+      transform 0s,
+      --om-tools-reveal 300ms cubic-bezier(0.2, 0, 0, 1) 400ms,
+      border-bottom-left-radius 0s linear 400ms,
+      border-bottom-right-radius 0s linear 400ms;
+  }
+
+  .om-card.has--hover-tools:is(:hover, :where(:has(.om-method-chip[data-state$='open']))) .om-card-tools {
+    visibility: visible;
+    transition: visibility 0s linear 400ms;
+  }
+
+  /* The description unfolds as the tools grow and what follows it slides down over the panel's
+   * top. Its cell holds at three lines, so the shared row never changes height. */
+  .om-card.has--hover-tools {
+    --om-unfold: min(var(--om-tools-reveal), var(--om-description-extra, 0rem));
+  }
+
+  .om-card.has--hover-tools .om-card-description-section {
+    max-height: calc(3 * 1lh);
+    font-size: var(--text-sm);
+  }
+
+  .om-card.has--hover-tools .om-card-description {
+    max-height: calc(3 * 1lh + var(--om-unfold));
+  }
+
+  /* Set while the reveal runs, from its transition events: the clamp can't transition. */
+  .om-card.is--unfolded .om-card-description {
+    -webkit-line-clamp: unset;
+  }
+
+  .om-card.has--hover-tools :is(.om-card-io, .om-card-details > :not(.om-card-tools)) {
+    position: relative;
+    z-index: 1;
+    translate: 0 var(--om-unfold);
+  }
+
+  .om-card-tools::before {
+    content: '';
+    display: block;
+    height: var(--om-description-extra, 0rem);
+  }
+
+  .om-card:is(:hover, :where(:has(.om-method-chip[data-state$='open']))) .om-tools-panel {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 200ms ease-out 440ms,
+      transform 300ms cubic-bezier(0.2, 0, 0, 1) 400ms;
+  }
+
+  .om-tool-links {
+    display: grid;
+    column-gap: 0.21875rem;
+    width: fit-content;
+    min-width: min(10.5rem, 100%);
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .om-tool-links.is--two-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: min(2 * 10.5rem + 0.21875rem, 100%);
+  }
+
+  /* The app's menuItemStates(). */
+  .om-tool-link {
+    display: flex;
+    align-items: center;
+    gap: 0.328125rem;
+    padding: 0.21875rem 0.328125rem;
+    border-radius: 0.609375rem;
+    font-size: var(--text-sm);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition: all ease 300ms;
+  }
+
+  .om-tool-link:hover {
+    background-color: rgb(var(--om-ink-rgb) / 0.05);
+  }
+
+  .om-tool-link:active {
+    background-color: rgb(var(--om-ink-rgb) / 0.12);
+    transform: translateY(0.0625rem);
+    transition: all ease 150ms;
+  }
+
+  .om-tool-icon {
+    flex: 0 0 auto;
+  }
+
+  /* Not the app's ellipsis: a name too wide for one column wraps instead. */
+  .om-tool-title {
+    display: block;
+    min-width: 0;
+    font-weight: 500;
+    color: var(--om-primary);
+  }
+
+  .om-tool-arrow {
+    flex: 0 0 auto;
+    margin-left: auto;
+    opacity: 0;
+    color: rgb(var(--om-primary-rgb) / 0.8);
+    transform: translateX(-0.328125rem);
+    transition:
+      opacity ease 200ms,
+      transform ease 200ms;
+  }
+
+  .om-tool-link:hover .om-tool-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Not in the app: with no hover to reveal them, the tools sit in the card. */
+  @media (hover: none) {
+    .om-card-tools {
+      position: static;
+      max-height: none;
+      margin-top: 0.65625rem;
+      visibility: visible;
+      border: 0;
+      box-shadow: none;
+      clip-path: none;
+    }
+
+    .om-tools-panel {
+      padding: 0;
+      opacity: 1;
+      transform: none;
+    }
+
+    .om-card.has--hover-tools:is(:hover, :where(:has(.om-method-chip[data-state$='open']))) {
+      border-bottom-right-radius: calc(var(--om-radius) * 1.5);
+      border-bottom-left-radius: calc(var(--om-radius) * 1.5);
+    }
+  }
+
+  /* ---- search match: the app's searchHighlightMark() ---- */
+
+  .om-hl {
+    padding: 0 0.05em;
+    border-radius: 0.15em;
+    background: color-mix(in srgb, var(--om-warning) 45%, transparent);
+    color: inherit;
+  }
+
+  /* ---- tooltip content; the panel is app/global.css' .op-tooltip ---- */
+
+  .om-method-tip {
+    min-width: 10.5rem;
+    max-width: 19.25rem;
+    padding: 0.13125rem 0.0875rem;
+    text-align: start;
+  }
+
+  .om-method-tip-title {
+    font-size: var(--text-base);
+    font-weight: 500;
+  }
+
+  .om-method-tip-desc {
+    margin-top: 0.21875rem;
+    line-height: 1.35;
+    color: rgb(var(--om-ink-rgb) / 0.75);
+  }
+
+  /* Its Markdown: paragraphs and code spans. */
+  .om-method-tip-desc p {
+    margin: 0;
+  }
+
+  .om-method-tip-desc p + p {
+    margin-top: 0.328125rem;
+  }
+
+  /* A lone `:` or `-` reads as code. */
+  .om-method-tip-desc code {
+    padding: 0.1em 0.3em;
+    border-radius: 0.35em;
+    background-color: rgb(var(--om-ink-rgb) / 0.07);
+  }
+
+  .om-method-tip-io {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 0.2625rem 0.65625rem;
+    margin-top: 0.4375rem;
+    padding-top: 0.4375rem;
+    border-top: 1px solid rgb(var(--om-ink-rgb) / 0.1);
+  }
+
+  .om-method-tip-outputs {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.0875rem 0.65625rem;
+  }
+
+  .om-method-tip-default {
+    margin-top: 0.13125rem;
+    font-size: var(--text-2xs);
+    color: rgb(var(--om-ink-rgb) / 0.55);
+  }
+
+  .om-code,
+  .om-method-tip-desc code {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.875em;
+    font-weight: 500;
+  }
+
+  .om-link-tip {
+    max-width: 19.25rem;
+    text-align: start;
+  }
+
+  .om-link-tip-url {
+    white-space: nowrap;
+  }
+
+  .om-link-tip-citation {
+    margin-top: 0.35rem;
+    padding-top: 0.35rem;
+    border-top: 1px solid rgb(var(--om-ink-rgb) / 0.1);
+    color: rgb(var(--om-ink-rgb) / 0.75);
+  }
+
+  /* ---- dropdown menus: sort's radios, filter's checklist ---- */
+
+  .om-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.35rem 0.875rem;
+    line-height: 1.3125rem;
+  }
+
+  .om-menu-title {
+    font-weight: 500;
+  }
+
+  .om-menu-title.is--empty {
+    font-weight: 400;
+    color: var(--om-secondary);
+  }
+
+  .op-btn.om-clear-all {
+    margin-left: auto;
+    padding-block: 0;
+  }
+
+  .om-menu-list,
+  .om-menu-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The app's menuItemStates(), on the whole row. */
+  .om-menu-item {
+    padding: 0.35rem 0.875rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all ease 300ms;
+  }
+
+  .om-menu-item:hover {
+    background-color: rgb(var(--om-ink-rgb) / 0.05);
+  }
+
+  .om-menu-item:active {
+    background-color: rgb(var(--om-ink-rgb) / 0.12);
+    transform: translateY(0.0625rem);
+    transition: all ease 150ms;
+  }
+
+  .om-menu-item:last-child {
+    margin-bottom: 1px;
+  }
+
+  /* The app's checkbox row is 1.6625rem: a 1.3125rem line box around its 1rem label. */
+  .om-filter-dropdown .om-menu-item {
+    padding: 0.33125rem 0.875rem;
+  }
+
+  .om-menu-item.is--disabled {
+    pointer-events: none;
+  }
+
+  /* The app's FormRadio / FormCheckbox: the native input hidden, the box drawn on the label. */
+  .om-radio,
+  .om-checkbox {
+    position: relative;
+    display: flex;
+    gap: 0.4375rem;
+    padding-left: 1.53125rem;
+    /* Roboto's `normal`; Object Sans' sets tighter. */
+    line-height: 1rem;
+    cursor: pointer;
+  }
+
+  .om-radio input,
+  .om-checkbox input {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .om-radio::before,
+  .om-checkbox::before,
+  .om-checkbox::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    display: block;
+    width: 1.09375rem;
+    height: 1.09375rem;
+    transition: all ease 300ms;
+  }
+
+  .om-radio::before {
+    border: 1px solid var(--om-border);
+    border-radius: 100%;
+    background-color: var(--om-control-bg);
+  }
+
+  .om-radio.is--checked::before {
+    background-color: var(--om-primary);
+    box-shadow: inset 0 0 0 3.5px var(--om-surface);
+  }
+
+  .om-radio:hover::before {
+    border-color: var(--om-primary);
+    box-shadow: inset 0 0 0 2.8px var(--om-surface);
+    transition: all ease 80ms;
+  }
+
+  .om-radio:active::before {
+    box-shadow: inset 0 0 0 4.2px var(--om-surface);
+    transform: scale(0.95);
+    transition: all ease 80ms;
+  }
+
+  .om-checkbox::before {
+    border: 1px solid var(--om-border);
+    border-radius: calc(var(--om-radius) / 3 + 0.04375rem);
+    background-color: var(--om-control-bg);
+  }
+
+  /* the tick */
+  .om-checkbox::after {
+    top: 0.21875rem;
+    left: 0.21875rem;
+    width: 0.729375rem;
+    height: 0.364375rem;
+    border-bottom: 2.8px solid #fff;
+    border-left: 2.8px solid #fff;
+    opacity: 0;
+    transform: rotate(-45deg);
+  }
+
+  .om-checkbox.is--checked::before {
+    border-color: transparent;
+    background-color: var(--om-primary);
+  }
+
+  .om-checkbox.is--checked::after {
+    opacity: 1;
+  }
+
+  .om-checkbox:not(.is--disabled):hover::before {
+    border-color: var(--om-primary);
+  }
+
+  .om-checkbox.is--checked:not(.is--disabled):hover::before {
+    background-color: color-mix(in srgb, #fff 30%, var(--om-primary) 70%);
+  }
+
+  .om-checkbox:not(.is--disabled):active::before {
+    border-color: var(--om-primary);
+    transform: scale(0.95);
+    transition: all ease 80ms;
+  }
+
+  .om-checkbox:not(.is--disabled):active::after {
+    transform: scale(0.7) rotate(-45deg) translateX(-0.04375rem);
+    transition: all ease 80ms;
+  }
+
+  .om-checkbox.is--disabled {
+    cursor: default;
+    color: rgb(var(--om-ink-rgb) / 0.5);
+  }
+
+  .om-checkbox.is--disabled::before {
+    border-color: var(--om-border);
+    background-color: rgb(var(--om-ink-rgb) / 0.08);
+  }
+
+  .om-radio:has(input:focus-visible)::before,
+  .om-checkbox:has(input:focus-visible)::before {
+    outline: 2px solid var(--om-primary);
+    outline-offset: 1px;
+  }
+
+  .om-filter-columns {
+    display: flex;
+  }
+
+  /* Grows to the menu's 15rem minimum, so a row's hover spans the menu, as the app's do. */
+  .om-filter-column {
+    flex: 1 0 auto;
+    min-width: 10.5rem;
+    max-width: 15.75rem;
+    padding-bottom: 0.4375rem;
+  }
+
+  .om-filter-column + .om-filter-column {
+    border-left: 1px solid var(--om-border);
+  }
+
+  .om-filter-section + .om-filter-section {
+    margin-top: 0.4375rem;
+  }
+
+  .om-filter-extra-section.is--first {
+    padding-bottom: 0.4375rem;
+    border-bottom: 1px solid var(--om-border);
+  }
+
+  /* ---- the app's Other filters: a column per facet, then a footer ---- */
+
+  .om-filter-dropdown.is--sections .om-filter-columns {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    padding-block: 0.65625rem;
+  }
+
+  .om-filter-dropdown.is--sections .om-filter-column {
+    min-width: 0;
+    max-width: none;
+    padding-bottom: 0;
+  }
+
+  .om-filter-dropdown.is--sections .om-filter-columns.is--fitted {
+    grid-template-columns: repeat(auto-fit, minmax(8.75rem, 1fr));
+    grid-auto-flow: row;
+    row-gap: 0.875rem;
+    width: min(var(--om-column-count) * 13.125rem, 100vw - 3.5rem);
+    overflow: hidden;
+  }
+
+  /* Wrapped rows clip their first divider. */
+  .om-filter-columns.is--fitted .om-filter-column {
+    border-left: 0;
+    box-shadow: -1px 0 0 var(--om-border);
+  }
+
+  .om-filter-dropdown.is--sections .om-filter-section-header {
+    min-height: 1.53125rem;
+    padding-block: 0;
+  }
+
+  .om-filter-dropdown.is--sections .om-filter-section-header .om-menu-title {
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--om-secondary);
+  }
+
+  .op-btn.om-section-clear {
+    margin-left: auto;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .om-filter-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    padding: 0.546875rem 0.875rem;
+    border-top: 1px solid var(--om-border);
+    background-color: var(--om-popover-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .om-filter-footer-count {
+    margin-right: auto;
+    color: var(--om-secondary);
+  }
+
+  .op-btn.om-footer-btn {
+    padding: 0.328125rem 0.875rem;
+    font-size: var(--text-sm);
+  }
+
+  .op-btn--flat.om-footer-clear {
+    color: var(--om-primary);
+  }
+
+  .om-filter-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    width: 100%;
+    padding: 0.175rem 0.875rem;
+    border: 0;
+    background: none;
+    line-height: 1.3125rem;
+    color: inherit;
+    text-align: start;
+  }
+
+  .om-filter-chevron {
+    flex: 0 0 auto;
+    transition: transform 200ms ease;
+  }
+
+  .om-filter-chevron.is--closed {
+    transform: rotate(-90deg);
+  }
+
+  .om-section-count {
+    font-size: var(--text-2xs);
+    color: var(--om-secondary);
+  }
+}
+
+/* ---- model pages ---- */
+
+@layer components {
+  .om-model-page .om-section {
+    margin-top: 2.5rem;
+  }
+
+  /* The prose h2. */
+  .om-section-title {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 1.3;
+    scroll-margin-top: calc(var(--fd-nav-height, 3.75rem) + 1rem);
+  }
+
+  .om-section-lead {
+    margin: 0.25rem 0 0;
+    color: rgb(var(--om-ink-rgb) / 0.6);
+  }
+
+  /* ---- version cards: the app's ModelFinderDetail .version-card, a finderCard() ---- */
+
+  /* One width: the widest card's, measured, never under the app's 8.375rem. */
+  .om-version-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, min(max(var(--om-version-width, 8.375rem), 8.375rem), 100%));
+    grid-auto-rows: 1fr;
+    gap: 0.4375rem;
+    margin-top: 0.875rem;
+  }
+
+  .om-version-cards.is--measuring .om-version-card {
+    justify-self: start;
+    width: max-content;
+  }
+
+  .om-version-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    min-width: 0;
+    padding: 0.4375rem 0.65625rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid var(--om-border);
+    border-radius: var(--om-radius);
+    cursor: pointer;
+    transition:
+      border-color 0.1s ease,
+      background 0.1s ease;
+  }
+
+  .om-version-card svg {
+    flex-shrink: 0;
+  }
+
+  .om-version-card:hover {
+    border-color: rgb(var(--om-primary-rgb) / 0.75);
+  }
+
+  .om-version-card:active {
+    translate: 0 0.0625rem;
+    border-color: rgb(var(--om-primary-rgb));
+  }
+
+  .om-version-card:focus-visible {
+    outline: none;
+    border-color: var(--om-primary);
+    box-shadow: 0 0 0 2px rgb(var(--om-primary-rgb) / 0.15);
+  }
+
+  .om-version-card.is--selected {
+    border-color: var(--om-primary);
+    background-color: color-mix(in srgb, var(--om-primary) 10%, var(--om-surface));
+    box-shadow: inset 0 0 0 1px rgb(var(--om-primary-rgb));
+    color: var(--om-primary);
+  }
+
+  .om-version-name {
+    overflow: hidden;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ---- the picked version: the rest of ModelFinderDetail ---- */
+
+  .om-version-detail {
+    container: om-detail / inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .om-version-cards + .om-version-detail {
+    margin-top: 1.3125rem;
+  }
+
+  .om-detail-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4375rem;
+  }
+
+  /* main | methods | tools; main capped, so the rest sit beside it */
+  .om-detail-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 26.25rem) fit-content(11.25rem) minmax(0, 1fr);
+    grid-template-areas: 'main methods tools';
+    align-items: start;
+    gap: 1.09375rem 1.75rem;
+  }
+
+  .om-detail-main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    min-width: 0;
+  }
+
+  .om-detail-methods {
+    grid-area: methods;
+    min-width: 0;
+  }
+
+  .om-detail-tools {
+    grid-area: tools;
+    min-width: 0;
+  }
+
+  .om-detail-description {
+    white-space: pre-line;
+    color: rgb(var(--om-ink-rgb) / 0.8);
+  }
+
+  .om-detail-label {
+    margin-bottom: 0.35rem;
+  }
+
+  .om-version-detail :is(.om-info-rows, .om-card-chips) {
+    margin-top: 0;
+  }
+
+  /* tools under methods */
+  @container om-detail (width < 53.75rem) {
+    .om-detail-cols {
+      grid-template-columns: minmax(0, 26.25rem) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        'main methods'
+        'main tools';
+    }
+  }
+
+  @container om-detail (width < 40rem) {
+    .om-detail-cols {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      grid-template-areas:
+        'main'
+        'methods'
+        'tools';
+    }
+  }
+
+  .om-endpoints {
+    margin-top: 0.875rem;
+  }
+
+  .om-login-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65625rem 0.875rem;
+    margin-bottom: 0.875rem;
+    padding: 0.65625rem 0.875rem;
+    border: 1px solid var(--om-border);
+    border-radius: var(--om-radius);
+    background-color: rgb(var(--om-ink-rgb) / 0.03);
+  }
+
+  .om-subsection-title {
+    margin: 1.75rem 0 0.25rem;
+    font-size: var(--text-lg);
+    font-weight: 500;
+  }
+
+  .om-citation p {
+    margin: 0.875rem 0;
+  }
+
+  /* The code block is `my-0`; its wrapper keeps the gap, collapsing into a paragraph's above. */
+  .om-citation-code {
+    margin-top: 0.875rem;
+  }
+}
+
+/* ---- home: the app's HomeModels ---- */
+
+@layer components {
+  .om-home {
+    container: om-home / inline-size;
+  }
+
+  /* 21rem cards: 1×6, 2×4, 3×3. */
+  .om-home-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.65625rem 0.875rem;
+  }
+
+  @container om-home (width < 42.875rem) {
+    .om-home-grid > :nth-child(n + 7) {
+      display: none;
+    }
+  }
+
+  @container om-home (width >= 42.875rem) {
+    .om-home-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container om-home (width < 64.75rem) {
+    .om-home-grid > :nth-child(n + 9) {
+      display: none;
+    }
+  }
+
+  @container om-home (width >= 64.75rem) {
+    .om-home-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---- the app's ExpandableHoverCard `floatOnHover` ---- */
+
+  .om-float-slot {
+    position: relative;
+    min-width: 0;
+  }
+
+  .om-card.is--float {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    transition:
+      transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      background-color 180ms ease,
+      border-color 180ms ease,
+      z-index 0s linear 200ms;
+  }
+
+  .om-card.is--float.is--measured {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+
+  .om-card.is--float.is--measured.is--expand-up {
+    top: auto;
+    bottom: 0;
+  }
+
+  .om-card.is--float.is--hovered {
+    z-index: 20;
+    box-shadow: var(--om-shadow-float);
+    transition:
+      transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      background-color 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .om-card.is--float .om-card-description {
+    max-height: 1lh;
+    -webkit-line-clamp: 1;
+    transition:
+      max-height 200ms cubic-bezier(0.2, 0, 0, 1),
+      -webkit-line-clamp 0s linear 200ms;
+    transition-behavior: allow-discrete;
+  }
+
+  .om-card.is--float.is--hovered .om-card-description {
+    max-height: var(--om-description-height, 100lh);
+    -webkit-line-clamp: none;
+    transition:
+      max-height 300ms cubic-bezier(0.2, 0, 0, 1),
+      -webkit-line-clamp 0s;
+  }
+
+  .om-card.is--float .om-card-details {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.3125rem);
+    transition:
+      max-height 200ms cubic-bezier(0.2, 0, 0, 1),
+      opacity 130ms ease-out,
+      transform 200ms cubic-bezier(0.2, 0, 0, 1),
+      visibility 0s linear 200ms;
+  }
+
+  .om-card.is--float.is--hovered .om-card-details {
+    max-height: var(--om-details-height, none);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition:
+      max-height 300ms cubic-bezier(0.2, 0, 0, 1) 100ms,
+      opacity 200ms ease-out 140ms,
+      transform 300ms cubic-bezier(0.2, 0, 0, 1) 100ms;
+  }
+
+  .om-float-tools {
+    margin-top: 0.65625rem;
+  }
+
+  .om-float-tools > .om-card-label {
+    margin-bottom: 0.4375rem;
+  }
+}
+
+/* The app's .item-versions, in page trees only. Unlayered: beats `[&_svg]:size-4`. */
+.om-nav-versions {
+  display: none;
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile, [data-mobile-nav]) .om-nav-versions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.21875rem;
+  margin-left: auto;
+  padding: 0.0875rem 0.4375rem;
+  border-radius: 999rem;
+  background-color: color-mix(in srgb, var(--color-fd-foreground) 8%, transparent);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Overhangs the compact rail's 1rem line, so badged rows keep their height. */
+#nd-sidebar .om-nav-versions {
+  margin-block: -0.125rem;
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile, [data-mobile-nav]) [data-active='true'] .om-nav-versions {
+  background-color: color-mix(in srgb, var(--color-fd-primary) 12%, transparent);
+  color: var(--color-fd-primary);
+}
+
+.om-nav-versions svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Tooltips can't be hovered or clicked, unless interactive. */
+[data-radix-popper-content-wrapper]:has(> .om-tooltip:not(.is--interactive)) {
+  pointer-events: none;
+}
+
+/* The menus render in fumadocs' PopoverContent, whose utilities (padding, radius, fill, shadow,
+ * min-width) outrank @layer components. Unlayered, so the app's dropdown wins. */
+.om-floating.om-dropdown {
+  min-width: 9.375rem;
+  max-height: min(25rem, var(--radix-popover-content-available-height));
+  padding: 0;
+  border: 1px solid rgb(var(--om-ink-rgb) / 0.15);
+  border-radius: var(--om-radius);
+  background-color: var(--om-popover-bg);
+  box-shadow: var(--om-shadow);
+  backdrop-filter: saturate(180%) blur(20px);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: rgb(var(--om-ink-rgb));
+}
+
+.om-floating.om-filter-dropdown {
+  min-width: 15rem;
+  max-height: min(40rem, var(--radix-popover-content-available-height));
+}

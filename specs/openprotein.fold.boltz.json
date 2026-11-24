@@ -1,0 +1,241 @@
+{
+ "module": "openprotein.fold.boltz",
+ "entries": [
+  {
+   "name": "BoltzModel",
+   "path": "openprotein.fold.boltz.BoltzModel",
+   "kind": "class",
+   "signature": "(session, model_id, metadata=None)",
+   "bases": [
+    "FoldModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "FoldModel",
+      "path": "openprotein.fold.FoldModel",
+      "page": "fold"
+     }
+    ]
+   ],
+   "doc": "Class providing inference endpoints for Boltz structure prediction models.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Class providing inference endpoints for Boltz structure prediction models."
+    },
+    {
+     "kind": "parameters",
+     "items": [
+      {
+       "name": "session",
+       "annotation_fallback": true,
+       "type": "APISession",
+       "type_parts": [
+        {
+         "text": "APISession",
+         "path": "openprotein.APISession",
+         "page": "openprotein"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "model_id",
+       "annotation_fallback": true,
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": null
+      },
+      {
+       "name": "metadata",
+       "annotation_fallback": true,
+       "type": "ModelMetadata | None",
+       "type_parts": [
+        {
+         "text": "ModelMetadata",
+         "path": "openprotein.common.ModelMetadata",
+         "page": "embedding"
+        },
+        {
+         "text": " | None"
+        }
+       ],
+       "default": "None",
+       "text": null
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.fold.boltz",
+   "source": {
+    "file": "openprotein/fold/boltz.py",
+    "line": 43,
+    "end": 141
+   },
+   "members": [
+    {
+     "name": "fold",
+     "kind": "method",
+     "doc": "Request structure prediction with boltz model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/fold/boltz.py",
+      "line": 58,
+      "end": 141
+     },
+     "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, *, seed=None, **kwargs)",
+     "returns": "FoldResultFuture",
+     "returns_parts": [
+      {
+       "text": "FoldResultFuture",
+       "path": "openprotein.fold.FoldResultFuture",
+       "page": "fold"
+      }
+     ],
+     "parsed": [
+      {
+       "kind": "text",
+       "text": "Request structure prediction with boltz model."
+      },
+      {
+       "kind": "parameters",
+       "items": [
+        {
+         "name": "sequences",
+         "type": "FoldInput | MSAFuture",
+         "type_parts": [
+          {
+           "text": "FoldInput | "
+          },
+          {
+           "text": "MSAFuture",
+           "path": "openprotein.align.MSAFuture",
+           "page": "align"
+          }
+         ],
+         "default": null,
+         "text": "Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer."
+        },
+        {
+         "name": "diffusion_samples",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "1",
+         "text": "Number of diffusion samples to use"
+        },
+        {
+         "name": "num_recycles",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "3",
+         "text": "Number of recycling steps to use"
+        },
+        {
+         "name": "num_steps",
+         "type": "int",
+         "type_parts": [
+          {
+           "text": "int"
+          }
+         ],
+         "default": "200",
+         "text": "Number of sampling steps to use"
+        },
+        {
+         "name": "step_scale",
+         "type": "float",
+         "type_parts": [
+          {
+           "text": "float"
+          }
+         ],
+         "default": "1.638",
+         "text": "Scaling factor for diffusion steps."
+        },
+        {
+         "name": "constraints",
+         "type": "Optional[List[dict]]",
+         "type_parts": [
+          {
+           "text": "Optional[List[dict]]"
+          }
+         ],
+         "default": "None",
+         "text": "List of constraints."
+        },
+        {
+         "name": "seed",
+         "type": "int | None",
+         "type_parts": [
+          {
+           "text": "int | None"
+          }
+         ],
+         "default": "None",
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+        },
+        {
+         "name": "use_potentials",
+         "annotation_fallback": true,
+         "type": "bool",
+         "type_parts": [
+          {
+           "text": "bool"
+          }
+         ],
+         "default": "False",
+         "text": null
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "FoldResultFuture",
+         "type_parts": [
+          {
+           "text": "FoldResultFuture",
+           "path": "openprotein.fold.FoldResultFuture",
+           "page": "fold"
+          }
+         ],
+         "text": "Future for the folding complex result."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "section": "Models",
+   "page": "fold"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

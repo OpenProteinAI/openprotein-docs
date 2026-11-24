@@ -1,0 +1,90 @@
+{
+  "notebooks": {
+    "content/notebooks/tutorials/design/generate/Nanobody_binder_design_with_BoltzGen.ipynb": {
+      "count": 56,
+      "allowed": [
+        0,
+        28,
+        31,
+        32,
+        33
+      ],
+      "clear_from": 28,
+      "metadata": "f14eb61b9f7fb8f3a83e9a32eeb0b99970e585a0ab6de2fc4d0f61502f023406",
+      "cell_fields": "320026363c02275d3e541aa78f16ce4f702564483d2a0fbdc560bf7046f973e5",
+      "headings": "af6ae622feb2a4b7b7a1efffd2faf2547190d65d40eb358b314b5089ec63d390",
+      "source": "6ae59c6f06fdfd13e1726d775f8f291e775b44f6d006bf895950a6d418ec7f73",
+      "outputs": "d47c708ee999df47cc75a021cc6bdd675d7f31237b12444fd4466fd91b824326"
+    },
+    "content/notebooks/tutorials/design/generate/Protein_protein_binder_design_with_RFdiffusion.ipynb": {
+      "count": 79,
+      "allowed": [
+        0,
+        36,
+        37,
+        38,
+        50,
+        51,
+        52,
+        54,
+        56
+      ],
+      "clear_from": 37,
+      "metadata": "fe27f34c9a3c52fdae262956b9cb0342f2c7139c5ab811a62bb54700c99dea7f",
+      "cell_fields": "cb02a77cc0b7e468124518ebe0cae34481f33e3ea2452f673df439f1a61c2c00",
+      "headings": "fb312156adefa2aeee0e3d2fa81dac815d1de7e2a2b3c498dc5f4e05249b72f8",
+      "source": "9ccdcad613de53a8872ff19339625470c7dc2b6d2635bde876a41569a2c90ab6",
+      "outputs": "569732bdff3ac842a5776ab9d430955639a1fec58c09a61c81b9d73d89569ff3"
+    },
+    "content/notebooks/tutorials/design/generate/PoET-2_inverse_folding.ipynb": {
+      "count": 98,
+      "allowed": [
+        1,
+        2,
+        43,
+        48
+      ],
+      "clear_from": null,
+      "metadata": "ac5f05921444ac1a5a55a4a48be3182318fb6c21dbf51be970eebef794ac2c7e",
+      "cell_fields": "df5a3601a872cffe5682d2c84b3dc6046d0aefc3a69c5782ebe56ce48246b8e0",
+      "headings": "b9ca688c16bd72046ffe898a3c26841d717186ca0396193b816d84a2228a98e8",
+      "source": "c7425448c3f214c7db9fdfa72c0679303ccdc170effd63f48250ec6a55f90b15",
+      "outputs": "b4e77ce614bbe2f1db9f4936309f09a614f10bad2be98c07c4596f72d016fa56",
+      "clear_cells": [
+        2,
+        43,
+        45,
+        47,
+        48,
+        49,
+        51
+      ]
+    }
+  },
+  "mdx": {
+    "content/docs/how-tos/design/design-miniprotein-binder.mdx": {
+      "frontmatter": "ccd4e547aa3d6f9e7dbae750d7fca21e50ddd350959cf643016be6f4b2a1cf8e",
+      "headings": "10daad06ff7f0b5c746458fc4388ea6121a7ad212da56b291cbeb6b0827de8ed"
+    },
+    "content/docs/how-tos/design/inverse-folding.mdx": {
+      "frontmatter": "8f67180dd64a325a73df7b93065501bca468ec24f6bd1838a1deabd8d74010fd",
+      "headings": "b24e683a52ab46a29f030974f94c2a8af557bd0698e4f61cb5f86f4317fb5407"
+    },
+    "content/docs/tutorials/design/generate/inverse-folding.mdx": {
+      "frontmatter": "05580e88f5d7d823107a0dc8d64aacd6fbc61e8b3091c228a370fb42802a863e",
+      "headings": "1fbe16d261913a6f85d2f6986eb674945ad1c0edda86827b8bed75b44b0315fa"
+    },
+    "content/docs/tutorials/design/generate/boltzgen.mdx": {
+      "frontmatter": "b68366598376408f09de0b46ab09ae564eef320e6042a8471a3e4ec1a004ea26",
+      "headings": "110f0160b2b08dbd9fdf02fa50914a84496b5912e76b1abc170e216bb731aad3"
+    },
+    "content/docs/tutorials/design/generate/rfdiffusion.mdx": {
+      "frontmatter": "5f7a4f92cc06c77bd94691ec73b9707b07208de843635b43d34cc7374dc89a20",
+      "headings": "05c8ff64c59b679b486e459ad6531dce6bc31824f5c07a712c067e3e4c87930e"
+    },
+    "content/docs/tutorials/design/generate/PoET-2_inverse_folding.mdx": {
+      "frontmatter": "2f3ea9177ca0a19d74d2ced90a1442d33b04ea9e10323fdda84890adfbfc676a",
+      "headings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}

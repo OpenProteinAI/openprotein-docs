@@ -1,0 +1,93 @@
+---
+title: "Structure viewer"
+description: "The structure viewer displays predicted 3D structures from a Structure Prediction job and lets you compare them with other structures. It is built on the [Mol* Viewer](https://doi.org/10.1093/nar/gkab314)."
+---
+## Opening the structure viewer
+
+Open a completed Structure Prediction job and set **View** (top left) to **Results**. By default the viewer loads two structures: the predicted structure, coloured by pLDDT, and the template structure, in a single colour.
+
+| Area | Location | Contents |
+| --- | --- | --- |
+| Structure list | Left panel | Compare Structures and Confidence Scores tabs |
+| Sequence panel | Above the 3D view | Sequence of the selected structure and chain |
+| 3D view | Centre | The structures, pLDDT legend, View menu and viewer toolbar |
+| Structure Tools | Right panel | Structure, Measurements, Superposition, Quick Styles, Procedural Animation, Components |
+
+The page header also has **View History**, **Export** and **New Structure Prediction**. Setting **View** to **Input** shows the job's inputs instead of the viewer.
+
+## Settings
+
+### Compare Structures tab
+
+| Control | Default | Effect |
+| --- | --- | --- |
+| Drag and drop area | None | Drop an existing job, or a `.pdb` or `.cif` file from your computer, to add a reference structure to the list. |
+| Upload button | None | Opens a file picker for a `.pdb` or `.cif` file. |
+| Refresh button | None | Reloads the structure list. |
+| Structure Name list | All structures from the job | Lists structures you can load. Sortable and filterable. |
+| **+** (Actions) | Not loaded | Loads the structure into the 3D view in a single colour. The row is highlighted and the Actions cell changes to a delete icon and an eye icon. |
+| Eye icon (Actions) | Shown | Shows or hides a loaded structure. |
+| Delete icon (Actions) | None | Removes the structure from the 3D view. The Actions cell returns to **+**. |
+
+### Confidence Scores tab
+
+| Row | Columns | Description |
+| --- | --- | --- |
+| Structure name | pTM, pLDDT | Overall scores for the predicted structure. |
+| Interface | pTM, pLDDT | Scores for the interface between chains. |
+| Ligand | pTM | Score for ligands; 0.0000 when there are none. |
+| Protein | pTM | Score for protein chains. |
+| Chains | Expandable | Per-chain scores. |
+
+### Sequence panel
+
+| Control | Default | Effect |
+| --- | --- | --- |
+| Sequence of | model (the predicted structure) | Chooses which loaded structure's sequence is shown. |
+| Chain | First entity and chain (for example, 1 and A) | Chooses which entity and chain is shown. |
+| Residues | None selected | Click or drag across residues to select them. The selection is highlighted in the sequence and the 3D view. |
+
+Hovering a residue in the 3D view highlights it in the sequence and shows its location at the bottom right of the 3D view, for example `model | Model 1 | Instance 1_555 | A | ILE 49`.
+
+### View menu
+
+**View** sits at the top right of the 3D view. It lists every loaded structure.
+
+| Control | Default | Effect |
+| --- | --- | --- |
+| Structure checkbox | On | Shows or hides that structure. The header checkbox toggles all structures. |
+| Color by: pLDDT | Predicted structure | Colours the structure by per-residue confidence, from 0 (red) to 100 (blue). The pLDDT legend appears in the 3D view. |
+| Color by: Single color | Template structure and added structures | Colours the whole structure in one colour. Select the swatch to change it. |
+
+### Selection toolbar
+
+The selection toolbar appears at the top of the 3D view when residues are selected. It contains a granularity menu (default **Residue**), selection mode buttons, colour, component and delete actions, undo, help, and a close button. These are standard Mol\* selection controls.
+
+### Structure Tools panel
+
+| Group | Control | Effect |
+| --- | --- | --- |
+| Structure | Structure count | Shows how many structures are loaded, for example 3 structures. |
+| Structure | Focus | Shows Nothing Focused until you focus on part of a structure. |
+| Structure | Selection count | Shows the number of selected residues, for example 108 Residues Selected. The **X** clears the selection. Appears only when residues are selected. |
+| Measurements | Add | Adds a measurement between selected atoms or residues. |
+| Superposition | Chains | Superposes by chain. Add 2 or more selections from separate structures; each selection must be limited to a single polymer chain or residues in it. Selections are listed (for example, 66 Residues \| A \| model) with a **Superpose** button. |
+| Superposition | TM-align | Superposes the selections using TM-align. |
+| Superposition | Atoms | Superposes by selected atoms. |
+| Quick Styles | Apply Representation | Default, Cartoon, Spacefill or Surface. Structures load in cartoon. |
+| Quick Styles | Apply Style | Default or Illustrative. |
+| Procedural Animation | Apply Wiggle | Dynamics or Uncertainty animates the structure; Clear stops it. |
+| Components | Component list | Lists components of the loaded structures, such as Polymer, with their representation (for example, Cartoon), a visibility toggle, delete and more options. |
+| Components | Preset, Add | Applies a component preset or adds a new component. |
+
+## Dependencies between settings
+
+| Setting | Depends on | Notes |
+| --- | --- | --- |
+| View menu rows | Structures loaded in Compare Structures | Each structure added with **+** gets its own row, in Single color by default. Removing it removes the row. |
+| Structure count, Components count | Structures loaded | Both update as structures are added or removed. |
+| Selection count, selection toolbar | A residue selection | Appear when residues are selected; clearing the selection hides them. |
+| Superpose button | 2 or more selections from separate structures | Each selection must be limited to a single polymer chain or residues in it. |
+| pLDDT legend | At least one structure coloured by pLDDT | Shows the 0 to 100 colour scale. |
+| Sequence panel | Sequence of and Chain menus | Selecting residues in the sequence selects them in the chosen structure only. |
+
