@@ -67,7 +67,7 @@ For human antibody datasets, use the system human VH/VL prompt. Otherwise, build
 
   ```python
     predictor = session.embeddings.prot_seq.fit_gp( # for e.g. using prot_seq
-        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        assay = assay,                              # Assay or AssayMetadata or assay id (str)
         properties = ['property1', 'property2'],    # properties, list of str      
         name = "my_predictor",                      # name 
         reduction = "MEAN"                          # choose "MEAN" or "SUM" if using with `EmbeddingModel` 
@@ -82,13 +82,13 @@ For human antibody datasets, use the system human VH/VL prompt. Otherwise, build
     human_ab_prompt = session.prompt.human_antibody_vh_vl 
 
     svd = session.embeddings.poet2.fit_svd(
-        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        assay = assay,                              # Assay or AssayMetadata or assay id (str)
         prompt = human_ab_prompt,                   # human VH/VL prompt 
     )
     svd.wait()                                      # wait for svd job to run
 
     predictor = svd.fit_gp(
-        assay = assay,                              # AssayDataset or AssayMetadata or assay id (str)
+        assay = assay,                              # Assay or AssayMetadata or assay id (str)
         properties = ['property1', 'property2'],    # properties, list of str    
         name = 'ab_predictor',                      # predictor name
     )                                               # reduction defaults to None

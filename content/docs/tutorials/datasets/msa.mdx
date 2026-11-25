@@ -53,13 +53,13 @@ TEM-1 is a small, well-studied beta-lactamase and the reference member of a larg
     <Figure src="/_static/tutorials/dataset/msa/msa-table.png" />
   </Tab>
   <Tab value="Python">
-    Upload a `.fasta`, `.fa`, or `.csv` alignment file. `get_msa()` returns the aligned sequences so you can confirm the upload.
+    Upload a `.fasta`, `.fa`, or `.csv` alignment file. Pass the file contents and its `format`. `list(msa)` returns the aligned sequences so you can confirm the upload.
 
     ```py lineNumbers
     with open("tem1_msa.fasta", "rb") as f:
-        msa = session.align.upload_msa(f.read())
+        msa = session.data.MSA.create(f.read(), format="fasta")
 
-    list(msa.get_msa())
+    list(msa)
     ```
   </Tab>
 </Tabs>

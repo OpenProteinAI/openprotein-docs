@@ -72,7 +72,7 @@ The output is `(6819, 4)`, matching the 6,819 total rows in Dataset statistics.
   </Tab>
   <Tab value="Python">
 
-The name and description are arguments of `session.data.create()` in Step 5. No parent sequence is needed, since the file holds full sequences.
+The name and description are arguments of `session.data.Assay.create()` in Step 5. No parent sequence is needed, since the file holds full sequences.
 
   </Tab>
 </Tabs>
@@ -120,7 +120,7 @@ dataset.isna().sum()
 ```
 
 The output gives the invalid count for each column: 0 for `sequence`, 190 for acetamide, 251 for isobutyramide, and 188 for propionamide. `dataset.notna().sum()` gives the valid counts.
-`session.data.create(` takes no column types. The dataset holds the `sequence` column and one column per property, as on the Uploading data page. To leave a column out, drop it with `dataset.drop(columns=[...])`.
+`session.data.Assay.create(` takes no column types. The dataset holds the `sequence` column and one column per property, as on the Uploading data page. To leave a column out, drop it with `dataset.drop(columns=[...])`.
 
   </Tab>
 </Tabs>
@@ -140,14 +140,14 @@ The table shows the first 1,000 of 6,819 sequences, with an empty cell wherever 
 
 ```py lineNumbers
 dataset.head()
-assay = session.data.create(
+assay = session.data.Assay.create(
     dataset,
     "AMIE_PSEAE_Whitehead.wide",
     "AmiE single-substitution fitness on three substrates, Wrenbeck et al. 2017",
 )
 ```
 
-`dataset.head()` shows the first five rows, as the Preview tab does. `session.data.create()` uploads the dataset and returns it as `assay`.
+`dataset.head()` shows the first five rows, as the Preview tab does. `session.data.Assay.create()` uploads the dataset and returns it as `assay`.
 
   </Tab>
 </Tabs>

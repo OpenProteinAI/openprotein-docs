@@ -39,7 +39,7 @@ Align a dataset
 - Load the assay dataset by its ID and pull out its sequences.
 - Use the row index as each sequence's name, so you can join the aligned sequences back to your measurements later.
 ```
-assay = session.data.get("your_assay_id")
+assay = session.data.Assay(id="your_assay_id")
 df = assay.get_slice(0, len(assay))
 
 sequences = df["sequence"].tolist()
@@ -65,12 +65,14 @@ sequences = [
 ]
 names = ["seq_1", "seq_2", "seq_3"]
 ```
-Or pass a file. A `.fasta` file, a headerless `.csv` (sequence or name,sequence columns), or a `.txt` file with one sequence per line can go straight to the *_file methods.
+Or read them from a file. Parse a `.fasta` file into names and sequences.
 ```
-with open("sequences.fasta", "rb") as f:
-    future = session.align.mafft_file(f)
+from openprotein import fasta
+
+with open("sequences.fasta") as f:
+    names, sequences = fasta.parse(f.readlines())
 ```
-If your `.csv` has a header row, read it with pandas first.
+For a `.csv` file, read it with pandas first.
 ```
 import pandas as pd
 
@@ -118,7 +120,7 @@ aligned_df = df.drop(columns="sequence").copy()
 aligned_df["sequence"] = aligned.set_index("name").loc[names, "sequence"].values
 aligned_df = aligned_df[["sequence"] + [c for c in aligned_df.columns if c != "sequence"]]
 
-aligned_assay = session.data.create(aligned_df, name=f"aligned - {assay.name}")
+aligned_assay = session.data.Assay.create(aligned_df, name=f"aligned - {assay.name}")
 print(aligned_assay.id)
 ```
 </Tab>
@@ -192,10 +194,8 @@ for job_type in (JobType.mafft, JobType.clustalo, JobType.abnumber):
 future = session.jobs.get("your_job_id")
 aligned = pd.DataFrame(future.get(), columns=["name", "sequence"])
 ```
-- To see the original sequences and the settings you used, as on the Input tab:
-from openprotein.align.schemas import AlignType
+- To see the settings you used, as on the Input tab. A finished job doesn't return its input sequences, so keep your own `sequences` and `names`:
 ```
-original = pd.DataFrame(future.get_input(AlignType.INPUT), columns=["name", "sequence"])
 print(future.job_type)  # e.g. /align/mafft
 print(future.args)      # method settings, such as the numbering scheme
 ```
