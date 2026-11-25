@@ -152,17 +152,22 @@ class RefreshContentTests(unittest.TestCase):
     def prose(self, page):
         return "\n".join(s.get("prose") or "" for s in self.pages[page]["sections"])
 
-    def test_eighteen_futures_and_domain_prompt_have_single_real_homes(self):
+    def test_futures_and_domain_prompt_have_single_real_homes(self):
+        moves = MOVES | {
+            "openprotein.models.TaskFuture": "openprotein.jobs.Future",
+            "openprotein.data.prompts.future.PromptFuture": "openprotein.data.Prompt",
+        }
         self.assertEqual(
-            sum(p.startswith("openprotein.jobs.") for p in MOVES.values()), 18
+            sum(p.startswith("openprotein.jobs.") for p in moves.values()), 18
         )
+        self.assertNotIn("openprotein.jobs.TaskFuture", self.published)
         all_targets = [
             e["target"]
             for p in self.manifest["pages"]
             for s in p["sections"]
             for e in s["entries"]
         ]
-        for old, new in MOVES.items():
+        for old, new in moves.items():
             self.assertNotIn(old, self.entries)
             self.assertEqual(all_targets.count(new), 1)
             self.assertEqual(
@@ -173,9 +178,9 @@ class RefreshContentTests(unittest.TestCase):
         for name in self.h["removed"] + self.h["private"] + self.h["excluded"]:
             self.assertNotIn(name, self.entries)
             self.assertNotIn(name, self.published)
-        self.assertIn("openprotein.data.prompts.Prompt", self.entries)
+        self.assertIn("openprotein.data.Prompt", self.entries)
         self.assertIn("openprotein.prompt.Prompt", self.entries)
-        self.assertIn("list[list[str]]", self.prose("data"))
+        self.assertIn("one list of sequences per replicate", self.prose("data"))
         for name in (
             "StructureGenerationFuture",
             "BoltzGenFuture",
@@ -313,7 +318,36 @@ class RefreshContentTests(unittest.TestCase):
                             == "openprotein.clustering.HierarchicalClusteringFuture"
                         ):
                             expected["options"]["publish-members"] = ["get"]
+                            expected["options"]["exclude-members"] = [
+                                "dataset",
+                                "get_item",
+                                "outputs",
+                                "stream",
+                                "unit",
+                                "units",
+                            ]
                         self.assertEqual(self.entries[target], ("clustering", expected))
+                    elif name == "openprotein.jobs.Future":
+                        self.assertTrue(
+                            set(entry["options"]["members"])
+                            <= set(self.entries[name][1]["options"]["members"])
+                        )
+                    elif name in {
+                        "openprotein.models.TaskFuture",
+                        "openprotein.jobs.Unit",
+                        "openprotein.jobs.UnitState",
+                        "openprotein.jobs.JobOutput",
+                        "openprotein.data.MSADataAPI",
+                        "openprotein.data.PromptsAPI",
+                    }:
+                        self.assertNotIn(name, self.published)
+                    elif name == "openprotein.data.AssayDataset":
+                        self.assertEqual(
+                            self.entries["openprotein.data.Assay"][1]["options"],
+                            entry["options"],
+                        )
+                    elif name == "openprotein.data.prompts.future.PromptFuture":
+                        self.assertNotIn(name, self.published)
                     elif name in MOVES:
                         self.assertEqual(
                             self.entries[MOVES[name]][1]["options"], entry["options"]
@@ -371,19 +405,6 @@ class RefreshContentTests(unittest.TestCase):
                                 "means",
                                 "vars",
                             ],
-                            "openprotein.jobs.UnitState": [
-                                "PENDING",
-                                "READY",
-                                "RUNNING",
-                                "SUCCESS",
-                                "FAILED",
-                                "CANCELED",
-                            ],
-                            "openprotein.jobs.JobOutput": [
-                                "position",
-                                "unit_id",
-                                "value",
-                            ],
                             "openprotein.common.FeatureType": ["PLM", "SVD"],
                             "openprotein.predictor.KernelType": [
                                 "LINEAR",
@@ -413,8 +434,15 @@ class RefreshContentTests(unittest.TestCase):
                                 "rmsd",
                                 "from_filepath",
                             ],
-                            "openprotein.jobs.Future": ["get"],
                             "openprotein.align.MSAFuture": ["get"],
+                            "openprotein.data.MSA": ["metadata", "get", "wait"],
+                            "openprotein.data.prompts.Prompt": [
+                                "done",
+                                "get",
+                                "refresh",
+                                "wait",
+                                "wait_until_done",
+                            ],
                             "openprotein.prompt.Prompt": ["get"],
                         }
                         for legacy in (
@@ -440,13 +468,65 @@ class RefreshContentTests(unittest.TestCase):
                             expected["options"]["exclude-members"] = self.entries[name][
                                 1
                             ]["options"]["exclude-members"]
+                        if name == "openprotein.data.DataAPI":
+                            expected["options"]["exclude-members"].extend(
+                                ["msa", "prompts"]
+                            )
                         # The frozen baseline published params_schema, which the SDK now keeps private.
                         members = expected["options"].get("members")
                         if isinstance(members, list) and "params_schema" in members:
                             members.remove("params_schema")
-                        self.assertEqual(
-                            self.entries[name], (old_page["page"], expected)
+                        if name in {
+                            "openprotein.embeddings.EmbeddingsGenerateFuture",
+                            "openprotein.embeddings.EmbeddingsResultFuture",
+                            "openprotein.embeddings.EmbeddingsScoreFuture",
+                            "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+                            "openprotein.fold.FoldResultFuture",
+                            "openprotein.models.BoltzGenFuture",
+                            "openprotein.models.RFdiffusionFuture",
+                            "openprotein.models.StructureGenerationFuture",
+                            "openprotein.predictor.PredictionResultFuture",
+                            "openprotein.predictor.validate.CVResultFuture",
+                            "openprotein.prompt.Prompt",
+                            "openprotein.svd.SVDEmbeddingsResultFuture",
+                            "openprotein.svd.SVDModel",
+                            "openprotein.umap.UMAPEmbeddingsResultFuture",
+                            "openprotein.umap.UMAPModel",
+                        }:
+                            exclusions = expected["options"].setdefault(
+                                "exclude-members", []
+                            )
+                            actual_exclusions = self.entries[name][1]["options"][
+                                "exclude-members"
+                            ]
+                            self.assertEqual(
+                                actual_exclusions[: len(exclusions)], exclusions
+                            )
+                            self.assertLessEqual(
+                                set(actual_exclusions[len(exclusions) :]),
+                                {
+                                    "dataset",
+                                    "get_item",
+                                    "outputs",
+                                    "stream",
+                                    "unit",
+                                    "units",
+                                },
+                            )
+                            exclusions.extend(actual_exclusions[len(exclusions) :])
+                        current = (
+                            "openprotein.data.Prompt"
+                            if name == "openprotein.data.prompts.Prompt"
+                            else name
                         )
+                        page, actual = self.entries[current]
+                        if name in {
+                            "openprotein.data.MSA",
+                            "openprotein.data.prompts.Prompt",
+                        }:
+                            actual = {k: v for k, v in actual.items() if k != "examples"}
+                        expected["target"] = current
+                        self.assertEqual((page, actual), (old_page["page"], expected))
 
 
 class InstalledIdentityTests(unittest.TestCase):

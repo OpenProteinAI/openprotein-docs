@@ -140,15 +140,15 @@ docstring-only. `--diff` compares sets and kinds, and reports order separately.
 
 ### Source links
 
-`ref` is the immutable **commit**, never the movable branch or tag. The current source pin is
-private `release/v0.18.0` at `3f737afe89688d842d59a4d6dc258e4131840ae0`, with the observed
-installed distribution version `0.17.1.dev263+g3f737afe8`. It is not a published release or
-wheel proof. `--verify-pin` checks PEP 610 identity and line-linked file hashes offline;
-`--online` also checks those files against the authenticated GitHub commit tree. To move a
-source pin deliberately, update the requirement and `SDK_COMMIT`, install that exact source in
-the owned environment, then run `generate.py --write-pin` before the normal update pipeline.
-That explicit recapture checks the installed identity and repository/branch before recording
-hashes; the full update then recaptures the new specs' file set.
+`ref` is the immutable commit, never the movable branch or tag. The current pin is the
+published `openprotein-python==0.18.2` wheel. Install from `requirements.txt` in a fresh
+`.venv-pyapi` as shown in the [setup guide](../../README.md).
+
+Before regeneration or hash recapture, `--verify-pin` checks the distribution version, tag
+object, full package digest and line-linked file hashes. Release pins reject direct URL
+installs. Use `pnpm update:pyapi <version>` for a release transition: it checks the new wheel
+against the public tag's commit tree before recording the new package digest. `--online`
+also compares line-linked files with the commit on GitHub.
 
 Paths come from `relative_package_filepath` (never `relative_filepath`, which
 falls back to an absolute path when the file is outside cwd). Two caveats: a decorated

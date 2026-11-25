@@ -18,9 +18,9 @@ PACKAGE = "openprotein"
 
 # Source links use the immutable commit; branch records its provenance.
 REPO = "https://github.com/OpenProteinAI/openprotein-python"
-SDK_COMMIT = "c410c2fe442a7949c0545614c070026031f4cb59"
-SDK_BRANCH: str | None = "release/v0.18.0"
-SDK_TAG_OBJECT = None
+SDK_COMMIT = "8a1da23492b02037001b1636807185dc72951c8f"
+SDK_BRANCH: str | None = None
+SDK_TAG_OBJECT = "ac1d2159d2943b3195d62a95d509088a13bc0d81"
 
 
 def env(name: str) -> str | None:
@@ -40,7 +40,7 @@ def env(name: str) -> str | None:
 
 
 # A branch pin installs from OP_SDK_GIT_URL (.env), the repository holding that commit.
-INSTALL_REPO = (env("OP_SDK_GIT_URL") or REPO).removesuffix(".git")
+INSTALL_REPO = ((env("OP_SDK_GIT_URL") if SDK_BRANCH else None) or REPO).removesuffix(".git")
 
 
 def load_sdk(site_packages: Path) -> tuple[griffe.Module, Path, list[str]]:
@@ -281,7 +281,7 @@ def constant_value(package, expr):
     """The literal a module-level constant stands for, or None.
 
     griffe reports the default as written (`config.POLLING_INTERVAL`); Sphinx printed `5`.
-    25 signatures. Module-level plain literals only — enum members are left alone.
+    Module-level plain literals and the fitted-list default.
     """
     path = getattr(expr, "canonical_path", None)
     if not path or not isinstance(path, str):
@@ -306,4 +306,8 @@ def constant_value(package, expr):
     # A literal, not another name: digits, a quoted string, a bool or None.
     if re.fullmatch(r"-?\d+(\.\d+)?|True|False|None|'[^']*'|\"[^\"]*\"", text):
         return text
+    if path == "openprotein.models.estimators._DEFAULT_LIST_LIMIT":
+        match = re.fullmatch(r"_DefaultListLimit\((\d+)\)", text)
+        if match:
+            return match[1]
     return None

@@ -3,7 +3,7 @@ title: "openprotein.prompt"
 description: "Create prompts to be used with PoET models, along with queries which opens up use-cases like inverse folding with PoET-2."
 pythonApi: true
 ---
-Create prompts and queries for [PoET models](/references/python-api/models#openprotein.models.PoET). The Models interface accepts a prompt ID, a compatibility `Prompt`, a stored Data `Prompt`, or a Data `PromptFuture` as `prompt=` (or `None`). If you already have a stored alignment, see [sample a prompt from a stored MSA](/references/python-api/data#alignments-and-sampled-prompts).
+Create prompts and queries for [PoET models](/references/python-api/models#openprotein.models.PoET). The Models interface accepts a prompt ID, a compatibility `Prompt`, or a stored Data `Prompt` as `prompt=` (or `None`). Use [`create_prompt()`](#openprotein.prompt.PromptAPI.create_prompt) to build a prompt from Python sequences, `Protein` objects, or `Complex` objects. To upload FASTA replicates or sample an alignment you already have, see [Data](/references/python-api/data#alignments-and-sampled-prompts).
 
 ```python
 msa = session.align.create_msa("ACDEFGHIK")

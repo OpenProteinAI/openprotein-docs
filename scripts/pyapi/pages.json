@@ -400,7 +400,7 @@
         {
           "heading": null,
           "level": 0,
-          "prose": "Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks. `session.data.create` takes a pandas DataFrame with a `sequence` column. Measurement columns hold properties for training; identify free-text columns separately as metadata.\n\nThis example uses an [authenticated session](/references/python-api/openprotein#session).\n\n```python\nimport pandas as pd\n\ntable = pd.DataFrame({\n    \"sequence\": [\"ACDE\", \"ACDF\"],\n    \"activity\": [1.2, 0.8],\n    \"notes\": [\"first\", \"second\"],\n})\nassay = session.data.create(table, name=\"Example\", metadata_columns=[\"notes\"])\n```\n\nSee the [assay upload guide](/how-tos/dataset/upload-assay) for more detail.",
+          "prose": "Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks. `session.data.Assay.create()` takes a pandas DataFrame with a `sequence` column. Measurement columns hold properties for training; identify free-text columns separately as metadata.\n\nThis example uses an [authenticated session](/references/python-api/openprotein#session).\n\n```python\nimport pandas as pd\n\ntable = pd.DataFrame({\n    \"sequence\": [\"ACDE\", \"ACDF\"],\n    \"activity\": [1.2, 0.8],\n    \"notes\": [\"first\", \"second\"],\n})\nassay = session.data.Assay.create(table, name=\"Example\", metadata_columns=[\"notes\"])\n```\n\nSee the [assay upload guide](/how-tos/dataset/upload-assay) for more detail.",
           "entries": [],
           "autosummary": []
         },
@@ -415,7 +415,9 @@
               "options": {
                 "members": true,
                 "exclude-members": [
-                  "load_assay"
+                  "load_assay",
+                  "msa",
+                  "prompts"
                 ]
               }
             }
@@ -429,7 +431,7 @@
           "entries": [
             {
               "directive": "autoclass",
-              "target": "openprotein.data.AssayDataset",
+              "target": "openprotein.data.Assay",
               "options": {
                 "members": true
               }
@@ -450,38 +452,8 @@
         {
           "heading": "Referenced types",
           "level": 2,
-          "prose": "Types referenced by the interfaces above.\n\n`MSADataAPI` and `PromptsAPI` are available as `session.data.msa` and `session.data.prompts`.",
+          "prose": "Types referenced by the interfaces above.",
           "entries": [
-            {
-              "directive": "autoclass",
-              "target": "openprotein.data.MSADataAPI",
-              "options": {
-                "members": true
-              }
-            },
-            {
-              "directive": "autoclass",
-              "target": "openprotein.data.PromptsAPI",
-              "options": {
-                "members": true
-              }
-            }
-          ],
-          "autosummary": []
-        },
-        {
-          "heading": "Alignments and sampled prompts",
-          "level": 2,
-          "prose": "An MSA can be downloaded, updated or deleted. To sample a prompt from an alignment you already stored, replace `your-msa-id` with its ID:\n\n```python\nmsa = session.data.msa.get(\"your-msa-id\")\nprompt_job = session.data.prompts.sample_msa(\n    msa, replicates=2, max_msa_sequences=10,\n)\ngroups = prompt_job.wait(timeout=600)\nfor group in groups:\n    print(len(group), group[:3])\n```\n\nThis samples up to 10 sequences per replicate. The [PromptFuture](#openprotein.data.prompts.PromptFuture) returns `list[list[str]]`, with one sequence group per replicate. Pass `prompt_job` as `prompt=` when [embedding with PoET](/references/python-api/models#poet).\n\n`session.data.prompts.get(...)` retrieves a stored [Prompt](#openprotein.data.prompts.Prompt) handle. Reloaded sampling jobs use the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader.",
-          "entries": [
-            {
-              "directive": "autoclass",
-              "target": "openprotein.data.MSA",
-              "options": {
-                "members": true,
-                "undoc-members": true
-              }
-            },
             {
               "directive": "autoclass",
               "target": "openprotein.data.MSAMetadata",
@@ -495,19 +467,64 @@
             },
             {
               "directive": "autoclass",
-              "target": "openprotein.data.prompts.Prompt",
+              "target": "openprotein.data.PromptMetadata",
               "options": {
                 "members": true,
-                "undoc-members": true
+                "undoc-members": true,
+                "exclude-members": [
+                  "model_config"
+                ]
+              }
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Alignments and sampled prompts",
+          "level": 2,
+          "prose": "[`session.data.MSA`](#openprotein.data.DataAPI.MSA) and [`session.data.Prompt`](#openprotein.data.DataAPI.Prompt) are resource classes bound to your session. Use `create()` to upload a file, `list(limit=...)` to browse your resources, and the class with `id=...` to load an existing resource. Omitting `limit` reads every page.\n\nStart a homology search through [`session.align`](/references/python-api/align), load its stored MSA, and sample a prompt. You can submit sampling while the search is running. PoET accepts the prompt handle while sampling is still running.\n\n```python\nsequence = b\"MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLSGAEK\"\nsearch = session.align.create_msa(sequence)\nmsa = session.data.MSA(id=search.id)\nprompt = msa.sample_prompt(replicates=2, max_msa_sequences=10, seed=42)\njob = session.models.poet.embed([sequence], prompt=prompt)\nprint(job.id)\n```\n\n`wait()` returns the ready handle. Index or iterate it to load its content. An MSA yields `(name, sequence)` pairs; a prompt yields one list of sequences per replicate. A failed or canceled job raises `JobFailedException` when you call `wait()` or `get()`. Uploaded resources are ready immediately and have no job ID.\n\n```python\nmsa.wait(timeout=600)\nprint(msa[0])\nfor replicate in prompt.wait(timeout=600):\n    print(replicate[:3])\n```\n\n**See also**\n\n- Use [`session.align`](/references/python-api/align) to build an alignment. If you already have the file, [`session.data.MSA.create()`](#openprotein.data.MSA.create) replaces the deprecated [`session.align.upload_msa()`](/references/python-api/align#openprotein.align.AlignAPI.upload_msa).\n- [`session.data.Prompt.create()`](#openprotein.data.Prompt.create) uploads prompt data as one FASTA file per replicate. Use [`session.prompt.create_prompt()`](/references/python-api/prompt#openprotein.prompt.PromptAPI.create_prompt) to build a prompt from Python sequences, `Protein` objects, or `Complex` objects.",
+          "entries": [
+            {
+              "directive": "autoclass",
+              "target": "openprotein.data.MSA",
+              "options": {
+                "members": true,
+                "undoc-members": true,
+                "publish-members": [
+                  "metadata",
+                  "get",
+                  "wait"
+                ]
+              },
+              "examples": {
+                "class": "msa = session.data.MSA(id=\"your-msa-id\").wait(timeout=600)\nprint(msa.id, len(msa))\nfor name, sequence in msa[:3]:\n    print(name, sequence)",
+                "create": "from pathlib import Path\n\nalignment = Path(\"alignment.a3m\")\nmsa = session.data.MSA.create(\n    alignment.read_bytes(), format=\"a3m\", filename=alignment.name,\n)\nprint(msa.id)",
+                "list": "for msa in session.data.MSA.list(limit=5):\n    print(msa.id, msa.name)",
+                "to_string": "from pathlib import Path\n\nPath(\"exported-alignment.a3m\").write_text(msa.to_string(format=\"a3m\"))",
+                "sample_prompt": "prompt = msa.sample_prompt(replicates=2, max_msa_sequences=10, seed=42)\nprompt.wait(timeout=600)\nprint(prompt[0][:3])",
+                "update": "msa.update(name=\"Reference alignment\", tags=[\"reference\"])\nprint(msa.name, msa.tags)"
               }
             },
             {
               "directive": "autoclass",
-              "target": "openprotein.data.prompts.PromptFuture",
+              "target": "openprotein.data.Prompt",
               "options": {
                 "members": true,
-                "inherited-members": true,
-                "undoc-members": true
+                "undoc-members": true,
+                "publish-members": [
+                  "done",
+                  "get",
+                  "refresh",
+                  "wait",
+                  "wait_until_done"
+                ]
+              },
+              "examples": {
+                "class": "prompt = session.data.Prompt(id=\"your-prompt-id\").wait(timeout=600)\nprint(prompt.name, len(prompt))\nprint(prompt[0][:3])",
+                "create": "prompt = session.data.Prompt.create(\n    [\">first\\nACDE\\n\", b\">second\\nACDF\\n\"],\n    name=\"Two replicates\",\n)\nprint(prompt.id, prompt[0])",
+                "list": "for prompt in session.data.Prompt.list(limit=5):\n    print(prompt.id, prompt.name)",
+                "update": "prompt.update(name=\"Reference prompt\", description=\"Two FASTA replicates\")\nprint(prompt.name, prompt.description)",
+                "wait": "ready = prompt.wait(timeout=600)\nfor replicate in ready:\n    print(len(replicate), replicate[:3])"
               }
             }
           ],
@@ -522,7 +539,7 @@
         {
           "heading": null,
           "level": 0,
-          "prose": "Use `session.models` to run a model. If you know which model you want, use a named accessor such as `session.models.esm2`. To browse available models, call `session.models.list_models()`. To look up a model by ID, call `session.models.get_model(model_id)`.",
+          "prose": "Use `session.models` to run a model. If you know which model you want, use a named accessor such as `session.models.esm2`. To browse available system models, see [List models](#list-models). To look up a model by ID, call `session.models.get_model(model_id)`.",
           "entries": [],
           "autosummary": []
         },
@@ -545,12 +562,18 @@
                   "bioemu_v1_1",
                   "esmflow",
                   "esmflow_md_base_v1",
-                  "esmflow_md_distilled_v1",
-                  "gibbs"
+                  "esmflow_md_distilled_v1"
                 ]
               }
             }
           ],
+          "autosummary": []
+        },
+        {
+          "heading": "List models",
+          "level": 2,
+          "prose": "[`session.models.list_models()`](#openprotein.models.ModelsAPI.list_models) lists the system models available on the platform. By default it returns model IDs (`list[str]`). Set `verbose=True` for [model cards](#openprotein.models.ModelMetadata), which include display names and supported methods. Use `path` to filter by method; `path=[\"embeddings\"]` matches models with an embedding method.\n\n```python\nmodel_ids = session.models.list_models()\nprint(model_ids[:5])\n\ncards = session.models.list_models(verbose=True, path=[\"embeddings\"])\nfor card in cards[:5]:\n    print(card.model_id, card.name)\n```\n\nSystem model listings exclude your fitted models. Use [`session.models.GP.list()`](#openprotein.models.GP.list), [`session.models.SVD.list()`](#openprotein.models.SVD.list), or [`session.models.UMAP.list()`](#openprotein.models.UMAP.list) to list your fitted models by family. Since SDK 0.18.1, these methods return up to 100 fitted models by default and warn when a default call returns 100. Pass `limit=None` to read every page from `offset`, or set an explicit `limit` to cap the total. Set `offset` to skip results.\n\n```python\nfitted_gps = session.models.GP.list(limit=100)\nprint([gp.id for gp in fitted_gps])\nif len(fitted_gps) == 100:\n    next_gps = session.models.GP.list(limit=100, offset=100)\n```",
+          "entries": [],
           "autosummary": []
         },
         {
@@ -1172,7 +1195,7 @@
         {
           "heading": "Fitted models",
           "level": 2,
-          "prose": "Use `session.models.SVD`, `session.models.UMAP` and `session.models.GP` to create estimators. Their fitting methods return fit futures. Call `get()` or `wait()` on the fit future to retrieve the fitted model, or select `output=...` to read a named fit output. See [fitted-model results](/references/python-api/jobs#fitted-model-results) for fit and cross-validation futures. Inspect the fitted model card for its advertised methods.\n\nReplace `your-assay-id` with the ID of an existing [assay dataset](/references/python-api/data). All three estimators fit on the same embeddings job for the assay's sequences. Set `new_sequences` to the sequences you want to transform or predict on after fitting. For the UMAP example, use an assay with more than five distinct sequences.\n\n```python\nassay = session.data.get(assay_id=\"your-assay-id\")\nembedding_job = session.models.esm2.embed(assay, reduction=\"MEAN\")\nnew_sequences = [\"ACDEFGHIK\", \"ACDEYGHIK\"]\n```\n\n**SVD: project onto two components**\n\n```python\nsvd_fit = session.models.SVD(n_components=2).fit(embedding_job)\nsvd = svd_fit.wait()\nprojections = svd.transform(new_sequences).wait()\nprint(projections[0].shape)\n```\n\n**UMAP: map sequences into two dimensions**\n\n```python\numap_fit = session.models.UMAP(n_components=2, n_neighbors=5).fit(embedding_job)\numap = umap_fit.wait()\ncoordinates = umap.transform(new_sequences).wait()\nprint(coordinates[0].shape)  # (2,)\n```\n\n**GP: predict a measured property**\n\nReplace `activity` with the name of a measurement column in the training assay that contains observed values.\n\n```python\nmeasurement = \"activity\"\ngp_fit = session.models.GP(kernel=\"rbf\").fit(embedding_job, property=measurement)\ngp = gp_fit.wait()\npredictions = gp.predict(new_sequences).wait()\nfirst_prediction = predictions[0][measurement]\nprint(first_prediction[\"mean\"], first_prediction[\"variance\"])\n```\n\nFitted GP models expose their [trained kernel](/references/python-api/models#openprotein.models.TrainedKernel), prior mean and observation noise variance. The mean uses the trained property units; noise uses those units squared. Hyperparameters are unavailable for GPs trained before they were recorded. The compatibility predictor also does not expose them for ensembles.",
+          "prose": "Use `session.models.SVD`, `session.models.UMAP` and `session.models.GP` to create estimators. Their fitting methods return fit futures. Call `get()` or `wait()` on the fit future to retrieve the fitted model, or select `output=...` to read a named fit output. See [fitted-model results](/references/python-api/jobs#fitted-model-results) for fit and cross-validation futures. Inspect the fitted model card for its advertised methods.\n\nReplace `your-assay-id` with the ID of an existing [assay dataset](/references/python-api/data). All three estimators fit on the same embeddings job for the assay's sequences. Set `new_sequences` to the sequences you want to transform or predict on after fitting. For the UMAP example, use an assay with more than five distinct sequences.\n\n```python\nassay = session.data.Assay(id=\"your-assay-id\")\nembedding_job = session.models.esm2.embed(assay, reduction=\"MEAN\")\nnew_sequences = [\"ACDEFGHIK\", \"ACDEYGHIK\"]\n```\n\n**SVD: project onto two components**\n\n```python\nsvd_fit = session.models.SVD(n_components=2).fit(embedding_job)\nsvd = svd_fit.wait()\nprojections = svd.transform(new_sequences).wait()\nprint(projections[0].shape)\n```\n\n**UMAP: map sequences into two dimensions**\n\n```python\numap_fit = session.models.UMAP(n_components=2, n_neighbors=5).fit(embedding_job)\numap = umap_fit.wait()\ncoordinates = umap.transform(new_sequences).wait()\nprint(coordinates[0].shape)  # (2,)\n```\n\n**GP: predict a measured property**\n\nReplace `activity` with the name of a measurement column in the training assay that contains observed values.\n\n```python\nmeasurement = \"activity\"\ngp_fit = session.models.GP(kernel=\"rbf\").fit(embedding_job, property=measurement)\ngp = gp_fit.wait()\npredictions = gp.predict(new_sequences).wait()\nfirst_prediction = predictions[0][measurement]\nprint(first_prediction[\"mean\"], first_prediction[\"variance\"])\n```\n\nFitted GP models expose their [trained kernel](/references/python-api/models#openprotein.models.TrainedKernel), prior mean and observation noise variance. The mean uses the trained property units; noise uses those units squared. Hyperparameters are unavailable for GPs trained before they were recorded. The compatibility predictor also does not expose them for ensembles.",
           "entries": [
             {
               "directive": "autoclass",
@@ -1289,6 +1312,12 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             }
@@ -1409,7 +1438,13 @@
               "options": {
                 "members": true,
                 "inherited-members": true,
-                "undoc-members": true
+                "undoc-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
+                ]
               }
             },
             {
@@ -1418,7 +1453,13 @@
               "options": {
                 "members": true,
                 "inherited-members": true,
-                "undoc-members": true
+                "undoc-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
+                ]
               }
             }
           ],
@@ -1577,7 +1618,7 @@
         {
           "heading": null,
           "level": 0,
-          "prose": "Use `session.jobs.list(...)` and `session.jobs.get_job(...)` to inspect job records. Use `session.jobs.get(...)` to load a future and read its results. A job record describes the submission and its status; the future provides the result-reading methods.\n\n`wait_until_done()` waits for a terminal status and does not establish success: a failed or canceled job is also done. It does not fetch results. Check the job status before interpreting completion; result readers have their own failure and timeout behavior.\n\nGiven a stored job ID, refresh and check the status before reading results:\n\n```python\nfrom openprotein.errors import AuthError, JobFailedException, TimeoutException\nfrom openprotein.jobs import JobStatus\n\ntry:\n    future = session.jobs.get(job_id)\n    future.wait_until_done(timeout=600)\n    if future.status == JobStatus.SUCCESS:\n        results = future.get()\n    else:\n        print(\"Job ended:\", future.status, future.job.failure_message)\nexcept TimeoutException as error:\n    print(\"Polling timed out:\", error)\nexcept JobFailedException as error:\n    print(\"Job failed:\", error)\nexcept AuthError as error:\n    print(\"Authentication failed:\", error)\n```\n\n`refresh()` updates the stored job record; `wait_until_done()` polls and updates it without reading results. The base `Future.get()` raises `JobFailedException` for `FAILURE`; some specialized readers have their own checks. `TimeoutException` covers polling timeouts. Network requests can also raise `requests.exceptions.Timeout`, an API `HTTPError`, or `openprotein.base.TimeoutError` for a gateway timeout. A timeout does not imply that the job was canceled.\n\nAn API request can raise `APIError`; reading a failed position can also surface `APIError`. `FutureUnit.wait()` raises `RuntimeError` for a failed or canceled unit; `FutureUnit.get()` delegates to `get_item()` without that state check. For an output collection or page read (`job_output_page`), HTTP 409 is translated to `JobOutputsNotReady`; a per-position read (`job_output_get`) does not perform that translation and leaves the `HTTPError`. `InvalidJob` indicates a missing or invalid job. `NotPrepared` is exported, but no public method raises it. These paths do not imply that every result reader raises `JobFailedException`.",
+          "prose": "Use `session.jobs.list(...)` and `session.jobs.get_job(...)` to inspect job records. Use `session.jobs.get(...)` to load the result reader. A job record describes the submission and its status; the reader provides methods to wait for and read results.\n\n`wait_until_done()` waits for a terminal status and does not establish success: a failed or canceled job is also done. It does not fetch results. Check the job status before interpreting completion; result readers have their own failure and timeout behavior.\n\nGiven a stored job ID, refresh and check the status before reading results:\n\n```python\nfrom openprotein.errors import AuthError, JobFailedException, TimeoutException\nfrom openprotein.jobs import JobStatus\n\ntry:\n    future = session.jobs.get(job_id)\n    future.wait_until_done(timeout=600)\n    if future.status == JobStatus.SUCCESS:\n        results = future.get()\n    else:\n        print(\"Job ended:\", future.status, future.job.failure_message)\nexcept TimeoutException as error:\n    print(\"Polling timed out:\", error)\nexcept JobFailedException as error:\n    print(\"Job failed:\", error)\nexcept AuthError as error:\n    print(\"Authentication failed:\", error)\n```\n\n`refresh()` updates the stored job record; `wait_until_done()` polls and updates it without reading results. The base `Future.get()` raises `JobFailedException` for `FAILURE`; some specialized readers have their own checks. `TimeoutException` covers polling timeouts. Network requests can also raise `requests.exceptions.Timeout`, an API `HTTPError`, or `openprotein.base.TimeoutError` for a gateway timeout. A timeout does not imply that the job was canceled.\n\n`FutureUnit.get()` and `FutureUnit.wait()` raise `JobFailedException` when the unit is known to have failed or been canceled. A collection read can raise `JobOutputsNotReady` if the results are not ready; a direct position read can instead raise `HTTPError`. `InvalidJob` indicates a missing or invalid job.",
           "entries": [],
           "autosummary": []
         },
@@ -1599,7 +1640,7 @@
         {
           "heading": "Classes",
           "level": 2,
-          "prose": "`wait_until_done()` returns true for any terminal status, including failure or cancellation, not only successful completion as the pinned member docstring says. Check `status` for success.",
+          "prose": "[Future](#openprotein.jobs.Future) is the common job handle. `get()` and `wait()` read results according to the concrete future. For jobs that expose results by position, `Future` also provides named output selection and [per-position reads](#task-results).",
           "entries": [
             {
               "directive": "autoclass",
@@ -1617,14 +1658,37 @@
               "target": "openprotein.jobs.Future",
               "options": {
                 "members": [
-                  "wait",
-                  "wait_until_done",
-                  "get",
+                  "id",
+                  "job_id",
+                  "job_type",
+                  "job",
+                  "session",
+                  "name",
+                  "description",
+                  "status",
+                  "created_date",
+                  "start_date",
+                  "end_date",
+                  "progress_counter",
+                  "args",
+                  "dataset",
+                  "units",
+                  "outputs",
+                  "unit",
+                  "get_item",
+                  "stream",
+                  "done",
+                  "cancelled",
                   "refresh",
-                  "done"
+                  "rename",
+                  "get",
+                  "wait_until_done",
+                  "wait"
                 ],
                 "publish-members": [
-                  "get"
+                  "get",
+                  "job",
+                  "session"
                 ]
               }
             },
@@ -1664,7 +1728,15 @@
               "options": {
                 "members": true
               }
-            },
+            }
+          ],
+          "autosummary": []
+        },
+        {
+          "heading": "Task job schemas",
+          "level": 2,
+          "prose": "A [BatchJob](#openprotein.jobs.BatchJob) records the batch size in `num_records` when known. A [FutureUnit](#openprotein.jobs.FutureUnit) gives the position, status and error for one unit. Unit status uses the same [JobStatus](#openprotein.jobs.JobStatus) enum as job status.",
+          "entries": [
             {
               "directive": "autoclass",
               "target": "openprotein.jobs.BatchJob",
@@ -1680,80 +1752,10 @@
           "autosummary": []
         },
         {
-          "heading": "Task job schemas",
-          "level": 2,
-          "prose": "Batch jobs, outputs and units describe submitted tasks and their results.\n\n| Record | Field | Meaning |\n| --- | --- | --- |\n| BatchJob | `num_records` | Number of records in the batch, when known. |\n| Unit | `position` | Position of this unit in the job. |\n| Unit | `unit_id` | Unit identifier. |\n| Unit | `state` | Current unit execution state. |\n| Unit | `error` | Error details, when present. |",
-          "entries": [
-            {
-              "directive": "autoclass",
-              "target": "openprotein.jobs.Unit",
-              "options": {
-                "members": true,
-                "undoc-members": true,
-                "exclude-members": [
-                  "model_config",
-                  "chunk_id",
-                  "waits_on",
-                  "waits_on_jobs",
-                  "cached",
-                  "retries",
-                  "attempt",
-                  "deadline"
-                ]
-              }
-            },
-            {
-              "directive": "autoclass",
-              "target": "openprotein.jobs.UnitState",
-              "options": {
-                "publish-members": [
-                  "PENDING",
-                  "READY",
-                  "RUNNING",
-                  "SUCCESS",
-                  "FAILED",
-                  "CANCELED"
-                ],
-                "members": true,
-                "inherited-members": true,
-                "exclude-members": [
-                  "model_config"
-                ]
-              }
-            },
-            {
-              "directive": "autoclass",
-              "target": "openprotein.jobs.JobOutput",
-              "options": {
-                "publish-members": [
-                  "position",
-                  "unit_id",
-                  "value"
-                ],
-                "members": true,
-                "inherited-members": true,
-                "exclude-members": [
-                  "model_config"
-                ]
-              }
-            }
-          ],
-          "autosummary": []
-        },
-        {
           "heading": "Task results",
           "level": 2,
           "prose": "Use `job` from the [ESM2 embedding example](/references/python-api/models#interface) and choose a read based on what you need:\n\n**Every position.** `wait()` waits for the job and reads its primary output, with one value per submitted position. Use `get()` if the job has already succeeded.\n\n```python\nembeddings = job.wait(timeout=600)\nprint(embeddings[0].shape)\n```\n\n**One position.** Use a zero-based position. `unit(0).wait()` waits for and reads just the first result. If that result is already available, use `get_item(0)`.\n\n```python\nembedding = job.unit(0).wait(timeout=600)\nprint(embedding.shape)\n```\n\n**One named output.** Check `job.outputs` for the names this job provides. Pass `output=` to select one by name. Different outputs can have different types. For this ESM2 job, `embeddings` is the primary output.\n\n```python\nprint(job.outputs)\nembeddings = job.wait(output=\"embeddings\", timeout=600)\nprint(embeddings[0].shape)\n```\n\nSee the [primary outputs and result types](/references/python-api/models#task-results) for other model tasks.",
           "entries": [
-            {
-              "directive": "autoclass",
-              "target": "openprotein.jobs.TaskFuture",
-              "options": {
-                "members": true,
-                "inherited-members": true,
-                "undoc-members": true
-              }
-            },
             {
               "directive": "autoclass",
               "target": "openprotein.jobs.FutureUnit",
@@ -1926,7 +1928,7 @@
         {
           "heading": "Job records and reloading",
           "level": 2,
-          "prose": "Model-task records use [Job](#openprotein.jobs.Job). Supported task records reload through `session.jobs.get(...)` as the corresponding task future. A reloaded job does not always retain the exact future class returned at submission: GP training uses [PredictorModel](/references/python-api/predictor#openprotein.predictor.PredictorModel), GP cross-validation uses [CVResultFuture](/references/python-api/predictor#openprotein.predictor.validate.CVResultFuture), and prompt sampling uses the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader. Refer to each reader's result contract.",
+          "prose": "Model-task records use [Job](#openprotein.jobs.Job). Supported task records reload through `session.jobs.get(...)` as the corresponding task future. A reloaded job does not always retain the exact future class returned at submission: GP training uses [PredictorModel](/references/python-api/predictor#openprotein.predictor.PredictorModel), GP cross-validation uses [CVResultFuture](/references/python-api/predictor#openprotein.predictor.validate.CVResultFuture), and prompt sampling loads a stored [Prompt](/references/python-api/data#openprotein.data.Prompt). Refer to each reader's result contract.",
           "entries": [],
           "autosummary": []
         }
@@ -1971,6 +1973,14 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2006,7 +2016,7 @@
         {
           "heading": null,
           "level": 0,
-          "prose": "Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.\n\nCreate an alignment, inspect its first few rows, and attach it to a protein:\n\n```python\nfrom itertools import islice\n\nfrom openprotein.molecules import Protein\n\nsequence = \"ACDEFGHIK\"\nmsa = session.align.create_msa(sequence)\nfor name, aligned_sequence in islice(msa.wait(timeout=600), 3):\n    print(name, aligned_sequence)\n\nprotein = Protein(sequence)\nprotein.msa = msa\n```\n\n`wait()` returns an iterator of `(name, aligned_sequence)` pairs. Attach the future `msa` itself; reading the rows is optional. `Protein.msa` also accepts a stored MSA handle or an ID. For a single-sequence model, `protein.msa = Protein.single_sequence_mode` explicitly selects no MSA; do not use that sentinel in place of an alignment for an MSA-requiring model. Model support varies.\n\nFor prompt sampling, `MSAFuture.sample_prompt` uses `num_sequences` and `num_residues`; `session.data.prompts.sample_msa` calls the corresponding limits `max_msa_sequences` and `max_msa_tokens`. Their defaults and validation differ.",
+          "prose": "Use `session.align` to run alignments or build an MSA by homology search. If you already have an alignment file, use [`session.data.MSA.create()`](/references/python-api/data#openprotein.data.MSA.create) to upload it.\n\nCreate an alignment, inspect its first few rows, and attach it to a protein:\n\n```python\nfrom itertools import islice\n\nfrom openprotein.molecules import Protein\n\nsequence = \"ACDEFGHIK\"\nmsa = session.align.create_msa(sequence)\nfor name, aligned_sequence in islice(msa.wait(timeout=600), 3):\n    print(name, aligned_sequence)\n\nprotein = Protein(sequence)\nprotein.msa = msa\n```\n\n`wait()` returns an iterator of `(name, aligned_sequence)` pairs. Attach the future `msa` itself; reading the rows is optional. `Protein.msa` also accepts a stored MSA handle or an ID. For a single-sequence model, `protein.msa = Protein.single_sequence_mode` explicitly selects no MSA; do not use that sentinel in place of an alignment for an MSA-requiring model. Model support varies.\n\nFor prompt sampling, `MSAFuture.sample_prompt` uses `num_sequences` and `num_residues`; [`MSA.sample_prompt`](/references/python-api/data#openprotein.data.MSA.sample_prompt) calls the corresponding limits `max_msa_sequences` and `max_msa_tokens`. Their defaults and validation differ.",
           "entries": [],
           "autosummary": []
         },
@@ -2128,7 +2138,7 @@
         {
           "heading": null,
           "level": 0,
-          "prose": "Create prompts and queries for [PoET models](/references/python-api/models#openprotein.models.PoET). The Models interface accepts a prompt ID, a compatibility `Prompt`, a stored Data `Prompt`, or a Data `PromptFuture` as `prompt=` (or `None`). If you already have a stored alignment, see [sample a prompt from a stored MSA](/references/python-api/data#alignments-and-sampled-prompts).\n\n```python\nmsa = session.align.create_msa(\"ACDEFGHIK\")\nprompt = msa.sample_prompt(num_sequences=10)\njob = session.models.poet.embed([\"ACDEFGHIK\"], prompt=prompt)\n```\n\nSome pinned SDK docstrings still link to the deprecated embedding interface.",
+          "prose": "Create prompts and queries for [PoET models](/references/python-api/models#openprotein.models.PoET). The Models interface accepts a prompt ID, a compatibility `Prompt`, or a stored Data `Prompt` as `prompt=` (or `None`). Use [`create_prompt()`](#openprotein.prompt.PromptAPI.create_prompt) to build a prompt from Python sequences, `Protein` objects, or `Complex` objects. To upload FASTA replicates or sample an alignment you already have, see [Data](/references/python-api/data#alignments-and-sampled-prompts).\n\n```python\nmsa = session.align.create_msa(\"ACDEFGHIK\")\nprompt = msa.sample_prompt(num_sequences=10)\njob = session.models.poet.embed([\"ACDEFGHIK\"], prompt=prompt)\n```\n\nSome pinned SDK docstrings still link to the deprecated embedding interface.",
           "entries": [],
           "autosummary": []
         },
@@ -2161,6 +2171,14 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2318,14 +2336,22 @@
         {
           "heading": "Transform Models",
           "level": 3,
-          "prose": "These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. [`SVDModel`](#openprotein.svd.SVDModel) represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your [`AssayDataset`](#openprotein.data.AssayDataset). You can fit your own SVD from any model's [`fit_svd`](#openprotein.embeddings.EmbeddingModel.fit_svd). [`UMAPModel`](#openprotein.umap.UMAPModel) represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your [`AssayDataset`](#openprotein.data.AssayDataset). You can fit your own UMAP from any model's [`fit_umap`](#openprotein.embeddings.EmbeddingModel.fit_umap).\n\nThe legacy [`session.svd`](#openprotein.svd.SVDAPI) and [`session.umap`](#openprotein.umap.UMAPAPI) interfaces are deprecated compatibility APIs. For new code, create and manage these estimators through [`session.models.SVD`](/references/python-api/models#openprotein.models.ModelsAPI.SVD) and [`session.models.UMAP`](/references/python-api/models#openprotein.models.ModelsAPI.UMAP).",
+          "prose": "These models are overlaid on top of the base embeddings models to produce reduced/transformed embeddings. [`SVDModel`](#openprotein.svd.SVDModel) represents an SVD model which is suitable to reduce the high-dimensional embeddings returned by base embedding models, whilst maintaining semantic information, fitted on your [`Assay`](#openprotein.data.Assay). You can fit your own SVD from any model's [`fit_svd`](#openprotein.embeddings.EmbeddingModel.fit_svd). [`UMAPModel`](#openprotein.umap.UMAPModel) represents a UMAP model which is suitable to project the high-dimensional embeddings into a lower dimension (usually 2) for visualization, to understand the semantic grouping within your [`Assay`](#openprotein.data.Assay). You can fit your own UMAP from any model's [`fit_umap`](#openprotein.embeddings.EmbeddingModel.fit_umap).\n\nThe legacy [`session.svd`](#openprotein.svd.SVDAPI) and [`session.umap`](#openprotein.umap.UMAPAPI) interfaces are deprecated compatibility APIs. For new code, create and manage these estimators through [`session.models.SVD`](/references/python-api/models#openprotein.models.ModelsAPI.SVD) and [`session.models.UMAP`](/references/python-api/models#openprotein.models.ModelsAPI.UMAP).",
           "entries": [
             {
               "directive": "autoclass",
               "target": "openprotein.svd.SVDModel",
               "options": {
                 "members": true,
-                "inherited-members": true
+                "inherited-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
+                ]
               }
             },
             {
@@ -2333,7 +2359,15 @@
               "target": "openprotein.umap.UMAPModel",
               "options": {
                 "members": true,
-                "inherited-members": true
+                "inherited-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
+                ]
               }
             },
             {
@@ -2399,6 +2433,12 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2410,6 +2450,13 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2421,6 +2468,13 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2432,6 +2486,13 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2450,7 +2511,13 @@
               "target": "openprotein.svd.SVDEmbeddingsResultFuture",
               "options": {
                 "members": true,
-                "inherited-members": true
+                "inherited-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
+                ]
               }
             },
             {
@@ -2458,7 +2525,13 @@
               "target": "openprotein.umap.UMAPEmbeddingsResultFuture",
               "options": {
                 "members": true,
-                "inherited-members": true
+                "inherited-members": true,
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
+                ]
               }
             }
           ],
@@ -2497,6 +2570,13 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2508,6 +2588,14 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "get_item",
+                  "outputs",
+                  "stream",
+                  "unit",
+                  "units"
                 ]
               }
             },
@@ -2696,6 +2784,12 @@
                 "inherited-members": true,
                 "publish-members": [
                   "get"
+                ],
+                "exclude-members": [
+                  "dataset",
+                  "outputs",
+                  "unit",
+                  "units"
                 ]
               }
             },

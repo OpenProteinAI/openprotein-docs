@@ -3,7 +3,7 @@ title: "openprotein.align"
 description: "Create alignments and multiple sequence alignments for supported workflows."
 pythonApi: true
 ---
-Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.
+Use `session.align` to run alignments or build an MSA by homology search. If you already have an alignment file, use [`session.data.MSA.create()`](/references/python-api/data#openprotein.data.MSA.create) to upload it.
 
 Create an alignment, inspect its first few rows, and attach it to a protein:
 
@@ -23,7 +23,7 @@ protein.msa = msa
 
 `wait()` returns an iterator of `(name, aligned_sequence)` pairs. Attach the future `msa` itself; reading the rows is optional. `Protein.msa` also accepts a stored MSA handle or an ID. For a single-sequence model, `protein.msa = Protein.single_sequence_mode` explicitly selects no MSA; do not use that sentinel in place of an alignment for an MSA-requiring model. Model support varies.
 
-For prompt sampling, `MSAFuture.sample_prompt` uses `num_sequences` and `num_residues`; `session.data.prompts.sample_msa` calls the corresponding limits `max_msa_sequences` and `max_msa_tokens`. Their defaults and validation differ.
+For prompt sampling, `MSAFuture.sample_prompt` uses `num_sequences` and `num_residues`; [`MSA.sample_prompt`](/references/python-api/data#openprotein.data.MSA.sample_prompt) calls the corresponding limits `max_msa_sequences` and `max_msa_tokens`. Their defaults and validation differ.
 
 <PyGroup id="interface" title="Interface"
   anchors={[

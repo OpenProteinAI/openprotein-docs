@@ -74,14 +74,14 @@ test('Python search, Markdown and LLM text include every seeded class and member
   }
 });
 
-test('specialized task result cards link only exact inherited contracts to TaskFuture', async () => {
+test('specialized task result cards link only exact inherited contracts to Future', async () => {
   const { readPyEntry, sharedTaskMembers } = load('lib/python-api.ts');
   const { entry, document } = await readPyEntry('openprotein.jobs.EmbeddingFuture');
   const shared = sharedTaskMembers(entry, document);
-  assert.equal(shared.size, 23);
-  assert.equal(shared.get('status'), 'openprotein.jobs.TaskFuture.status');
-  assert.equal(shared.get('iter_outputs'), 'openprotein.jobs.TaskFuture.iter_outputs');
-  for (const name of ['get', 'get_item', 'iter_units', 'stream', 'unit', 'wait']) {
+  assert.equal(shared.size, 20);
+  assert.equal(shared.get('status'), 'openprotein.jobs.Future.status');
+  assert.equal(shared.get('outputs'), 'openprotein.jobs.Future.outputs');
+  for (const name of ['get', 'get_item', 'stream', 'unit', 'units', 'wait']) {
     assert.equal(shared.has(name), false);
   }
   const changed = { ...entry, members: entry.members.map((member) =>
@@ -96,11 +96,11 @@ test('Jobs Markdown preserves shared aliases and the specialized result types', 
   const markdown = await pageText({ path: 'references/python-api/jobs.mdx', data: { pythonApi: true } });
   const embedding = markdown.split('<a id="openprotein.jobs.EmbeddingFuture"></a>')[1]
     .split('<a id="openprotein.jobs.IndelScoreFuture"></a>')[0];
-  assert.ok(embedding.includes('<a id="openprotein.jobs.EmbeddingFuture.status"></a>[`status`](#openprotein.jobs.TaskFuture.status)'));
+  assert.ok(embedding.includes('<a id="openprotein.jobs.EmbeddingFuture.status"></a>[`status`](#openprotein.jobs.Future.status)'));
   assert.doesNotMatch(embedding, /^#+ openprotein\.jobs\.EmbeddingFuture\.status\b/m);
-  const wait = embedding.split('<a id="openprotein.jobs.EmbeddingFuture.wait"></a>')[1].split('**Shared TaskFuture members:**')[0];
+  const wait = embedding.split('<a id="openprotein.jobs.EmbeddingFuture.wait"></a>')[1].split('**Shared Future members:**')[0];
   assert.match(wait, /`list\[np\.ndarray\]`/);
-  assert.match(markdown, /^#+ openprotein\.jobs\.TaskFuture\.status\b/m);
+  assert.match(markdown, /^#+ openprotein\.jobs\.Future\.status\b/m);
 });
 
 test('published notebook roles never silently degrade after migration', async () => {
@@ -180,8 +180,8 @@ test('Markdown overloads render clean signatures and selected enum values', asyn
   walk(tree);
   const plain = (n) => n.value ?? (n.children ?? []).map(plain).join('');
   assert.ok(nodes.some((n) => n.type === 'listItem' && plain(n).includes('GP(*, id: str)')));
-  assert.ok(nodes.some((n) => n.type === 'link' && n.url === '/references/python-api/data#openprotein.data.AssayDataset'));
-  for (const [name, path, value] of [['jobs','JobStatus.CREATED',"'CREATED'"],['jobs','UnitState.READY',"'READY'"],['predictor','KernelType.RBF',"'rbf'"],['predictor','FeatureType.PLM',"'PLM'"]]) {
+  assert.ok(nodes.some((n) => n.type === 'link' && n.url === '/references/python-api/data#openprotein.data.Assay'));
+  for (const [name, path, value] of [['jobs','JobStatus.CREATED',"'CREATED'"],['predictor','KernelType.RBF',"'rbf'"],['predictor','FeatureType.PLM',"'PLM'"]]) {
     const md = await pageText(page(name));
     assert.match(md, new RegExp(path.replaceAll('.', '\\.') + '[\\s\\S]{0,100}' + value));
   }
@@ -250,7 +250,8 @@ test('processed module expands groups and cards in place without touching fenced
   assert.ok(headings.some(([depth, name]) => depth === 3 && name.startsWith('openprotein.data.DataAPI')));
   assert.equal(headings.filter(([, name]) => name.startsWith('openprotein.data.DataAPI(')).length, 1);
   assert.doesNotMatch(text, /<\/?Py(?:Group|Class|Function)\b/);
-  assert.ok(text.indexOf('Types referenced by the interfaces above.') < text.indexOf('<a id="openprotein.data.MSADataAPI">'));
+  assert.ok(text.indexOf('Types referenced by the interfaces above.') < text.indexOf('<a id="openprotein.data.MSAMetadata">'));
+  assert.doesNotMatch(text, /session\.data\.(?:msa|prompts)\b|<a id="openprotein\.data\.(?:MSADataAPI|PromptsAPI)">/);
   await assert.rejects(pageText({ ...page, data: { ...page.data, getText: async () => processed.replace('<PyClass />', '') } }), /count mismatch/);
 });
 

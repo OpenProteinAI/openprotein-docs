@@ -173,7 +173,7 @@
         },
         {
          "text": "AssayDataset",
-         "path": "openprotein.data.AssayDataset",
+         "path": "openprotein.data.Assay",
          "page": "data"
         },
         {
@@ -314,7 +314,7 @@
         },
         {
          "text": "AssayDataset",
-         "path": "openprotein.data.AssayDataset",
+         "path": "openprotein.data.Assay",
          "page": "data"
         },
         {
@@ -467,7 +467,7 @@
          "type_parts": [
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           },
           {
@@ -833,7 +833,7 @@
     {
      "name": "args",
      "kind": "property",
-     "doc": "The registered job arguments.",
+     "doc": "The job's validated request, loaded on first access.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -841,8 +841,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 276,
-      "end": 278
+      "line": 300,
+      "end": 309
      },
      "annotation": "dict[str, Any]",
      "annotation_parts": [
@@ -854,7 +854,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "The registered job arguments."
+       "text": "The job's validated request, loaded on first access."
       }
      ]
     },
@@ -869,8 +869,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 291,
-      "end": 300
+      "line": 492,
+      "end": 501
      },
      "signature": "()",
      "returns": "bool",
@@ -912,8 +912,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 248,
-      "end": 250
+      "line": 280,
+      "end": 282
      },
      "annotation": "datetime",
      "annotation_parts": [
@@ -940,8 +940,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 238,
-      "end": 240
+      "line": 270,
+      "end": 272
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -968,8 +968,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 280,
-      "end": 289
+      "line": 481,
+      "end": 490
      },
      "signature": "()",
      "returns": "bool",
@@ -1011,8 +1011,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 258,
-      "end": 260
+      "line": 290,
+      "end": 292
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -1039,8 +1039,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 382,
-      "end": 392
+      "line": 597,
+      "end": 607
      },
      "signature": "(verbose=False, **kwargs)",
      "returns": "HierarchicalClusteringResult",
@@ -1086,8 +1086,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -1114,8 +1114,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 228,
-      "end": 230
+      "line": 260,
+      "end": 262
      },
      "annotation": "str",
      "annotation_parts": [
@@ -1142,8 +1142,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 233,
-      "end": 235
+      "line": 265,
+      "end": 267
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -1170,8 +1170,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 263,
-      "end": 265
+      "line": 295,
+      "end": 297
      },
      "annotation": "int",
      "annotation_parts": [
@@ -1198,8 +1198,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 344,
-      "end": 346
+      "line": 551,
+      "end": 554
      },
      "signature": "()",
      "returns": null,
@@ -1222,8 +1222,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 348,
-      "end": 366
+      "line": 556,
+      "end": 574
      },
      "signature": "(name=None, description=None)",
      "returns": null,
@@ -1275,8 +1275,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 253,
-      "end": 255
+      "line": 285,
+      "end": 287
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -1303,8 +1303,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 243,
-      "end": 245
+      "line": 275,
+      "end": 277
      },
      "annotation": "JobStatus",
      "annotation_parts": [
@@ -1325,7 +1325,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -1333,8 +1333,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 486,
-      "end": 515
+      "line": 730,
+      "end": 780
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "V",
@@ -1371,7 +1371,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -1407,13 +1407,49 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
-     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job reached a terminal status (success, failure or cancellation).\n\nNotes\n-----\nThis method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -1421,8 +1457,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 455,
-      "end": 484
+      "line": 694,
+      "end": 728
      },
      "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
@@ -1459,7 +1495,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -1485,14 +1521,14 @@
            "text": "bool"
           }
          ],
-         "text": "True if the job completed successfully."
+         "text": "True if the job reached a terminal status (success, failure or cancellation)."
         }
        ]
       },
       {
        "kind": "admonition",
        "title": "Notes",
-       "text": "This method does not fetch the job results, unlike `wait()`."
+       "text": "This method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`."
       }
      ]
     }
@@ -1562,12 +1598,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

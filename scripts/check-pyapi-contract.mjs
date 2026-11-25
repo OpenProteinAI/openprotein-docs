@@ -161,7 +161,12 @@ test('same-version explicit release replaces a VCS pin, while released and defau
     .replace(/^import .*;\n/gm, '')
     .replace("const { createHash } = await import('node:crypto');", '')
     .replace("const { readdirSync, statSync } = await import('node:fs');", '');
-  const sourceRequirements = readFileSync(new URL('./pyapi/requirements.txt', import.meta.url), 'utf8');
+  const sourceRequirements = [
+    `# Source branch main at immutable commit ${'a'.repeat(40)}.`,
+    'griffe==2.2.0',
+    'openprotein-python @ git+${OP_SDK_GIT_URL}@' + 'a'.repeat(40),
+    '',
+  ].join('\n');
   const sdk = readFileSync(new URL('./pyapi/sdk.py', import.meta.url), 'utf8');
   const blob = Buffer.from('fixture SDK source');
   const blobSha = createHash('sha1').update(`blob ${blob.length}\0`).update(blob).digest('hex');

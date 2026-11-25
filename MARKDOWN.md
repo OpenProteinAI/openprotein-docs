@@ -69,7 +69,7 @@ Plain text with **bold**, *italic*, `inline code` and a [link](/tutorials).
 ---
 ```
 
-![Basic markdown](.github/readme/basics.png)
+![Basic markdown](docs-assets/markdown/basics.png)
 
 Write a column of numbers as `|---:|`. The values right-align, and every two-column table
 marked that way shares one narrow grid, so two of them on a page line up with each other.
@@ -84,7 +84,7 @@ one breaks. If you need a heading whose link never moves, pin it:
 ## A heading with a fixed anchor [#my-anchor]
 ```
 
-![Custom anchor](.github/readme/customid.png)
+![Custom anchor](docs-assets/markdown/customid.png)
 
 ## 4. Code blocks
 
@@ -96,7 +96,7 @@ session = openprotein.connect(username, password)
 ```
 ````
 
-![Code block](.github/readme/codeplain.png)
+![Code block](docs-assets/markdown/codeplain.png)
 
 **A filename above the code** – `title="..."`:
 
@@ -106,7 +106,7 @@ result = session.fold.esmfold.fold(sequence)
 ```
 ````
 
-![Code block with title](.github/readme/codetitle.png)
+![Code block with title](docs-assets/markdown/codetitle.png)
 
 **Point at one line** – put `[!code highlight]` in a comment on it:
 
@@ -118,7 +118,7 @@ pdb = job.wait()
 ```
 ````
 
-![Highlighted line](.github/readme/codehighlight.png)
+![Highlighted line](docs-assets/markdown/codehighlight.png)
 
 **Point at one word**, everywhere it appears – `[!code word:session]`:
 
@@ -129,7 +129,7 @@ results = session.jobs.get(job.id)
 ```
 ````
 
-![Highlighted word](.github/readme/codeword.png)
+![Highlighted word](docs-assets/markdown/codeword.png)
 
 **Show a before and after** – `[!code --]` and `[!code ++]`:
 
@@ -141,7 +141,7 @@ pdb = job.wait()
 ```
 ````
 
-![Diff](.github/readme/codediff.png)
+![Diff](docs-assets/markdown/codediff.png)
 
 **Numbered lines** – add `lineNumbers`:
 
@@ -154,7 +154,7 @@ job = session.fold.esmfold.fold("MELKQ")
 ```
 ````
 
-![Line numbers](.github/readme/codelines.png)
+![Line numbers](docs-assets/markdown/codelines.png)
 
 **The same thing in two languages** – give consecutive blocks a `tab="..."` name:
 
@@ -168,7 +168,7 @@ curl https://api.openprotein.ai/api/v1/fold/$JOB_ID
 ```
 ````
 
-![Code tabs](.github/readme/codetabs.png)
+![Code tabs](docs-assets/markdown/codetabs.png)
 
 ## 5. Components
 
@@ -184,7 +184,7 @@ Props: `src` (required), `alt`, `caption`, `width`, `align` (`left`, `center`, `
 <Figure src="/_static/opmodels/align/image1.png" alt="The align screen" caption="Uploading sequences to align" />
 ```
 
-![Figure](.github/readme/figure.png)
+![Figure](docs-assets/markdown/figure.png)
 
 ### 5.2 `<Callout>`
 
@@ -212,7 +212,7 @@ A coloured note box. `type` is `info`, `idea`, `warn`, `error` or `success`.
 </Callout>
 ```
 
-![Callout](.github/readme/callout.png)
+![Callout](docs-assets/markdown/callout.png)
 
 ### 5.3 `<Cards>` and `<Card>`
 
@@ -225,7 +225,7 @@ A row of link boxes, usually "where to go next" at the end of a page.
 </Cards>
 ```
 
-![Cards](.github/readme/cards.png)
+![Cards](docs-assets/markdown/cards.png)
 
 ### 5.4 `<Accordions>` and `<Accordion>`
 
@@ -242,7 +242,7 @@ Collapsed sections the reader opens. Good for FAQs and long side-instructions.
 </Accordions>
 ```
 
-![Accordions](.github/readme/accordions.png)
+![Accordions](docs-assets/markdown/accordions.png)
 
 ### 5.5 `<Steps>` and `<Step>`
 
@@ -263,7 +263,7 @@ A numbered walkthrough. The `###` inside each step is its title.
 </Steps>
 ```
 
-![Steps](.github/readme/steps.png)
+![Steps](docs-assets/markdown/steps.png)
 
 ### 5.6 `<Tabs>` and `<Tab>`
 
@@ -289,7 +289,7 @@ languages, the `tab="..."` code block above is simpler.
 </Tabs>
 ```
 
-![Tabs](.github/readme/tabs.png)
+![Tabs](docs-assets/markdown/tabs.png)
 
 ### 5.7 `<TypeTable>`
 
@@ -304,7 +304,7 @@ Parameters and their types. Each row expands to show the description.
 />
 ```
 
-![TypeTable](.github/readme/typetable.png)
+![TypeTable](docs-assets/markdown/typetable.png)
 
 ### 5.8 `<Screencast>`
 
@@ -315,7 +315,7 @@ has been generated.
 <Screencast src="/_static/opmodels/uploading-your-data/core-dataset-upload.gif" caption="Uploading a dataset" />
 ```
 
-![Screencast](.github/readme/screencast.png)
+![Screencast](docs-assets/markdown/screencast.png)
 
 ## 6. Components for particular pages
 
@@ -339,7 +339,7 @@ The papers list, with the journal's wordmark.
 </Publications>
 ```
 
-![Publications](.github/readme/publications.png)
+![Publications](docs-assets/markdown/publications.png)
 
 ### 6.2 `<Cite>` and `<Bibliography>`
 
@@ -353,7 +353,7 @@ containing activity measurements for enzyme variants.
 <Bibliography files={["references.bib"]} />
 ```
 
-![Citations](.github/readme/citation.png)
+![Citations](docs-assets/markdown/citation.png)
 
 ### 6.3 `<SectionCards>`
 
@@ -364,7 +364,7 @@ section landing pages.
 <SectionCards url="/references" />
 ```
 
-![SectionCards](.github/readme/sectioncards.png)
+![SectionCards](docs-assets/markdown/sectioncards.png)
 
 ## 7. Math
 

@@ -1,19 +1,16 @@
 {
  "oracle_version": "0.16.1",
- "sdk_version": "0.17.1.dev284+gc410c2fe4",
+ "sdk_version": "0.18.2",
  "note": "Reviewed SDK, curation, and extraction differences from the frozen Sphinx reference in golden/. Unlisted differences remain unexpected; update only after source and historical-link review.",
  "members_added": {
   "openprotein.align.MSAFuture": [
    "get_antibody_schema",
    "get_warnings"
   ],
-  "openprotein.data.AssayDataset": [
-   "job_id",
-   "status"
-  ],
   "openprotein.data.DataAPI": [
-   "msa",
-   "prompts"
+   "Assay",
+   "MSA",
+   "Prompt"
   ],
   "openprotein.embeddings.AbLang2Model": [
    "single_site"
@@ -50,6 +47,27 @@
    "name",
    "rename"
   ],
+  "openprotein.jobs.Future": [
+   "args",
+   "cancelled",
+   "created_date",
+   "dataset",
+   "description",
+   "end_date",
+   "get_item",
+   "id",
+   "job_id",
+   "job_type",
+   "name",
+   "outputs",
+   "progress_counter",
+   "rename",
+   "start_date",
+   "status",
+   "stream",
+   "unit",
+   "units"
+  ],
   "openprotein.jobs.Job": [
    "create",
    "created_date",
@@ -60,23 +78,14 @@
    "job_type",
    "metadata",
    "name",
-   "outputs",
-   "path",
    "prerequisite_job_id",
    "progress_counter",
    "progress_message",
-   "provider_id",
    "sequence_length",
    "start_date",
-   "status",
-   "unit_count",
-   "units_digest",
-   "version"
+   "status"
   ],
   "openprotein.jobs.JobsAPI": [
-   "get_job_output",
-   "iter_job_outputs",
-   "iter_job_units",
    "update"
   ],
   "openprotein.models.BoltzGenFuture": [
@@ -208,10 +217,6 @@
    "sphinx": "(seed)",
    "ours": "(seed, pairing=Pairing.BOTH)"
   },
-  "openprotein.data.AssayDataset.get_slice": {
-   "sphinx": "(start, end)",
-   "ours": "(start, end, include_metadata=False)"
-  },
   "openprotein.data.AssayMetadata": {
    "sphinx": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False)",
    "ours": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False, metadata_names=None, status=JobStatus.SUCCESS, align_job_id=None)"
@@ -266,7 +271,7 @@
   },
   "openprotein.jobs.Job": {
    "sphinx": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
-   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)"
+   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, metadata=None, **extra_data)"
   },
   "openprotein.jobs.JobsAPI.list": {
    "sphinx": "(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None)",
@@ -290,7 +295,7 @@
   },
   "openprotein.prompt.PromptJob": {
    "sphinx": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
-   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)"
+   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, metadata=None, **extra_data)"
   },
   "openprotein.umap.UMAPModel.wait": {
    "sphinx": "(interval=5, timeout=None, verbose=False)",

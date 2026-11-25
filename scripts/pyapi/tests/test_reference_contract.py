@@ -20,6 +20,7 @@ EXPORTED = [
     "ESMFold2",
     "ESMIF1",
     "EmbeddingFuture",
+    "Future",
     "FutureUnit",
     "GP",
     "GPFitFuture",
@@ -66,7 +67,6 @@ EXPORTED = [
     "StructureGenerativeModel",
     "StructurePredictionFuture",
     "StructurePredictionModel",
-    "TaskFuture",
     "TrainedKernel",
     "UMAP",
     "UMAPFitFuture",
@@ -169,7 +169,7 @@ def public_path(name):
     if name in KERNEL_PATHS:
         return KERNEL_PATHS[name]
     jobs = [
-        "TaskFuture",
+        "Future",
         "FutureUnit",
         "AttentionFuture",
         "EmbeddingFuture",
@@ -248,7 +248,7 @@ class ReferenceContractTests(unittest.TestCase):
         intro = self.pages["models"]["sections"][0]["prose"]
         for call in (
             "session.models.esm2",
-            "session.models.list_models()",
+            "[List models](#list-models)",
             "session.models.get_model(",
         ):
             self.assertIn(call, intro)
@@ -271,10 +271,8 @@ class ReferenceContractTests(unittest.TestCase):
             "get_item",
             "stream",
             "unit",
-            "iter_units",
             "args",
             "dataset",
-            "version",
             "units",
             "outputs",
             "job",
@@ -291,6 +289,21 @@ class ReferenceContractTests(unittest.TestCase):
         self.assertIn("own result type", self.prose)
         self.assertIn("#openprotein.molecules.Structure", self.prose)
         self.assertIn("#openprotein.molecules.Complex", self.prose)
+
+    def test_fitted_model_list_signatures_show_the_public_limit(self):
+        for family in ("GP", "SVD", "UMAP"):
+            with self.subTest(family=family):
+                member = self.members(f"openprotein.models.{family}")["list"]
+                self.assertEqual(member["signature"], "(limit=100, offset=None)")
+                self.assertIn("limit=None", member["doc"])
+                limit = next(
+                    item
+                    for section in member["parsed"]
+                    if section["kind"] == "parameters"
+                    for item in section["items"]
+                    if item["name"] == "limit"
+                )
+                self.assertEqual(limit["default"], "100")
 
     def test_fitted_models_expose_supported_operations(self):
         requirements = {
@@ -432,28 +445,79 @@ class ReferenceContractTests(unittest.TestCase):
             if e["target"] == "openprotein.models.ModelsAPI"
         )
         self.assertFalse(set(api) & set(models_api["options"]["exclude-members"]))
+        self.assertNotIn("openprotein.jobs.TaskFuture", self.entries)
 
     def test_unit_fields_and_distinct_prompt_results(self):
-        self.assertEqual(
-            set(self.members("openprotein.jobs.Unit")),
-            {"position", "unit_id", "state", "error"},
-        )
         future_unit = self.members("openprotein.jobs.FutureUnit")
-        self.assertTrue(
-            {"job_id", "position", "output", "unit_id", "status", "done", "get", "wait"}
-            <= future_unit.keys()
+        self.assertEqual(
+            set(future_unit),
+            {
+                "job_id",
+                "position",
+                "output",
+                "unit_id",
+                "status",
+                "error",
+                "refresh",
+                "done",
+                "get",
+                "wait",
+            },
         )
-        sampled = self.members("openprotein.data.prompts.PromptFuture")["get"]
-        self.assertEqual(sampled["returns"].replace(" ", ""), "list[list[str]]")
-        self.assertIn("openprotein.data.prompts.Prompt", self.entries)
+        self.assertEqual(future_unit["status"]["annotation"], "JobStatus")
+        msa = self.members("openprotein.data.MSA")
+        self.assertEqual(msa["sample_prompt"]["returns"], "Prompt")
+        prompt = self.members("openprotein.data.Prompt")
+        self.assertEqual(prompt["wait"]["returns"], "Self")
+        self.assertEqual(prompt["get"]["returns"], "Self")
         self.assertIn("openprotein.prompt.Prompt", self.entries)
+        self.assertNotIn("openprotein.data.prompts.PromptFuture", self.entries)
         data_prose = "\n".join(
             section.get("prose") or "" for section in self.pages["data"]["sections"]
         )
-        self.assertIn("#openprotein.data.prompts.Prompt", data_prose)
-        self.assertIn(
-            "/references/python-api/prompt#openprotein.prompt.Prompt", data_prose
+        self.assertIn("#openprotein.data.Prompt", data_prose)
+        self.assertIn("one list of sequences per replicate", data_prose)
+
+    def test_result_units_and_resource_metadata_resolve_generic_types(self):
+        units = self.members("openprotein.jobs.EmbeddingFuture")["units"]
+        self.assertEqual(units["annotation"], "list[FutureUnit[np.ndarray]]")
+        self.assertEqual(
+            "".join(part["text"] for part in units["annotation_parts"]),
+            units["annotation"],
         )
+        for name, metadata in (
+            ("openprotein.data.MSA", "MSAMetadata"),
+            ("openprotein.data.Prompt", "PromptMetadata"),
+        ):
+            with self.subTest(name=name):
+                param = next(
+                    item
+                    for section in self.entries[name]["parsed"]
+                    if section["kind"] == "parameters"
+                    for item in section["items"]
+                    if item["name"] == "metadata"
+                )
+                self.assertEqual(param["type"], f"{metadata} | None")
+                self.assertEqual(
+                    "".join(part["text"] for part in param["type_parts"]), param["type"]
+                )
+        self.assertEqual(
+            self.members("openprotein.data.MSA")["metadata"]["annotation"],
+            "MSAMetadata",
+        )
+
+    def test_prompt_readiness_has_current_anchor_targets(self):
+        prompt = "openprotein.data.Prompt"
+        historical = "openprotein.data.prompts.future.PromptFuture"
+        retirements = read_json("scripts/pyapi/anchor-retirements.json")
+        for method in ("done", "refresh", "wait_until_done"):
+            self.assertEqual(self.members(prompt)[method]["kind"], "method")
+            row = next(
+                row for row in retirements if row["anchor"] == f"{historical}.{method}"
+            )
+            self.assertEqual(
+                row["replacement"], {"page": "data", "anchor": f"{prompt}.{method}"}
+            )
 
     def test_page_structure_preserves_real_headings(self):
         self.assertEqual(len(self.pages), 13)

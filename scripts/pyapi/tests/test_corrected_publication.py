@@ -31,13 +31,11 @@ class CorrectedPublicationTests(unittest.TestCase):
             "SingleSiteScoreFuture",
             "StructureDesignFuture",
             "StructurePredictionFuture",
-            "TaskFuture",
+            "Future",
             "UMAPFitFuture",
         ]
-        paths = ["openprotein.jobs." + n for n in names] + [
-            "openprotein.data.prompts.PromptFuture"
-        ]
-        self.assertEqual(len(paths), 17)
+        paths = ["openprotein.jobs." + n for n in names]
+        self.assertEqual(len(paths), 16)
         for path in paths:
             with self.subTest(path=path):
                 member = next(
@@ -52,27 +50,12 @@ class CorrectedPublicationTests(unittest.TestCase):
                     member["source"]["file"], "openprotein/jobs/futures.py"
                 )
         fields = {m["name"]: m for m in self.entries["openprotein.jobs.Job"]["members"]}
-        for name in ("job_type", "path", "provider_id", "version"):
+        for name in ("job_type", "status", "metadata"):
             self.assertIn(name, fields)
             self.assertEqual(
                 fields[name]["source"]["file"], "openprotein/jobs/schemas.py"
             )
-        self.assertNotIn("args", fields)
-        futures = Path(sysconfig.get_paths()["purelib"]) / "openprotein/jobs/futures.py"
-        tree = ast.parse(futures.read_text())
-        task = next(
-            n
-            for n in tree.body
-            if isinstance(n, ast.ClassDef) and n.name == "TaskFuture"
-        )
-        self.assertFalse(
-            any(
-                isinstance(n, ast.AnnAssign)
-                and isinstance(n.target, ast.Name)
-                and n.target.id == "job"
-                for n in task.body
-            )
-        )
+        self.assertFalse({"args", "path", "provider_id", "version"} & fields.keys())
 
     def test_fitted_model_links(self):
         for name in ("SVD", "UMAP", "GP"):

@@ -26,7 +26,7 @@ class PracticalContentTests(unittest.TestCase):
         index = self.prose["index"]
         self.assertIn("session = openprotein.connect()", index)
         for target in (
-            "openprotein#session",
+            "openprotein#openprotein.connect",
             "models#interface",
             "models#esm2",
             "models#esmfold",
@@ -50,6 +50,25 @@ class PracticalContentTests(unittest.TestCase):
             self.assertIn(value, text)
         self.assertIn("session.jobs.get(", self.prose["jobs"])
         self.assertIn("model.fold(", self.models["ESMFold"])
+
+    def test_model_listing_distinguishes_system_and_fitted_models(self):
+        text = self.models["List models"]
+        for value in (
+            "lists the system models",
+            "model_ids = session.models.list_models()",
+            'list_models(verbose=True, path=["embeddings"])',
+            "card.model_id, card.name",
+            "session.models.GP.list(limit=100)",
+            "session.models.GP.list(limit=100, offset=100)",
+            "return up to 100 fitted models by default",
+            "warn when a default call returns 100",
+            "Pass `limit=None` to read every page from `offset`",
+            "[gp.id for gp in fitted_gps]",
+        ):
+            with self.subTest(value=value):
+                self.assertIn(value, text)
+        for family in ("GP", "SVD", "UMAP"):
+            self.assertIn(f"(#openprotein.models.{family}.list)", text)
 
     def test_the_future_table_is_under_task_results(self):
         self.assertIn("| Future | Primary output |", self.models["Task results"])
@@ -112,18 +131,35 @@ class PracticalContentTests(unittest.TestCase):
         ):
             self.assertIn(value, text)
 
-    def test_stored_alignment_sample_reads_prompt_replicates(self):
+    def test_data_workflow_samples_and_reads_stored_resources(self):
         for value in (
-            "session.data.msa.get(",
-            "session.data.prompts.sample_msa(",
-            "max_msa_sequences=10",
-            "groups = prompt_job.wait(timeout=600)",
-            "for group in groups:",
+            "session.align.create_msa(sequence)",
+            "session.data.MSA(id=search.id)",
+            "msa.sample_prompt(replicates=2, max_msa_sequences=10, seed=42)",
+            "session.models.poet.embed([sequence], prompt=prompt)",
+            "msa.wait(timeout=600)",
+            "for replicate in prompt.wait(timeout=600):",
         ):
             self.assertIn(value, self.prose["data"])
         self.assertIn(
             "(/references/python-api/data#alignments-and-sampled-prompts)",
             self.prose["prompt"],
+        )
+
+    def test_data_distinguishes_uploads_from_alignment_and_context_builders(self):
+        data = self.prose["data"]
+        for value in (
+            "**See also**",
+            "(/references/python-api/align#openprotein.align.AlignAPI.upload_msa)",
+            "(#openprotein.data.MSA.create)",
+            "one FASTA file per replicate",
+            "(#openprotein.data.Prompt.create)",
+            "(/references/python-api/prompt#openprotein.prompt.PromptAPI.create_prompt)",
+        ):
+            self.assertIn(value, data)
+        self.assertIn(
+            "(/references/python-api/data#openprotein.data.MSA.create)",
+            self.prose["align"],
         )
 
     def test_jobs_errors_and_navigation(self):

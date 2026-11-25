@@ -3,7 +3,7 @@ title: "openprotein.data"
 description: "Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks."
 pythonApi: true
 ---
-Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks. `session.data.create` takes a pandas DataFrame with a `sequence` column. Measurement columns hold properties for training; identify free-text columns separately as metadata.
+Upload your dataset to OpenProtein.AI's engineering platform for train, predict and design tasks. `session.data.Assay.create()` takes a pandas DataFrame with a `sequence` column. Measurement columns hold properties for training; identify free-text columns separately as metadata.
 
 This example uses an [authenticated session](/references/python-api/openprotein#session).
 
@@ -15,7 +15,7 @@ table = pd.DataFrame({
     "activity": [1.2, 0.8],
     "notes": ["first", "second"],
 })
-assay = session.data.create(table, name="Example", metadata_columns=["notes"])
+assay = session.data.Assay.create(table, name="Example", metadata_columns=["notes"])
 ```
 
 See the [assay upload guide](/how-tos/dataset/upload-assay) for more detail.
@@ -32,60 +32,65 @@ See the [assay upload guide](/how-tos/dataset/upload-assay) for more detail.
 
 <PyGroup id="classes" title="Classes"
   anchors={[
-    "openprotein.data.AssayDataset",
+    "openprotein.data.Assay",
     "openprotein.data.AssayMetadata",
   ]}
 >
 
-<PyClass path="openprotein.data.AssayDataset" />
+<PyClass path="openprotein.data.Assay" />
 <PyClass path="openprotein.data.AssayMetadata" />
 
 </PyGroup>
 
 <PyGroup id="referenced-types" title="Referenced types"
   anchors={[
-    "openprotein.data.MSADataAPI",
-    "openprotein.data.PromptsAPI",
+    "openprotein.data.MSAMetadata",
+    "openprotein.data.PromptMetadata",
   ]}
 >
 
 Types referenced by the interfaces above.
 
-`MSADataAPI` and `PromptsAPI` are available as `session.data.msa` and `session.data.prompts`.
-
-<PyClass path="openprotein.data.MSADataAPI" />
-<PyClass path="openprotein.data.PromptsAPI" />
+<PyClass path="openprotein.data.MSAMetadata" />
+<PyClass path="openprotein.data.PromptMetadata" />
 
 </PyGroup>
 
 <PyGroup id="alignments-and-sampled-prompts" title="Alignments and sampled prompts"
   anchors={[
     "openprotein.data.MSA",
-    "openprotein.data.MSAMetadata",
-    "openprotein.data.prompts.Prompt",
-    "openprotein.data.prompts.PromptFuture",
+    "openprotein.data.Prompt",
   ]}
 >
 
-An MSA can be downloaded, updated or deleted. To sample a prompt from an alignment you already stored, replace `your-msa-id` with its ID:
+[`session.data.MSA`](#openprotein.data.DataAPI.MSA) and [`session.data.Prompt`](#openprotein.data.DataAPI.Prompt) are resource classes bound to your session. Use `create()` to upload a file, `list(limit=...)` to browse your resources, and the class with `id=...` to load an existing resource. Omitting `limit` reads every page.
+
+Start a homology search through [`session.align`](/references/python-api/align), load its stored MSA, and sample a prompt. You can submit sampling while the search is running. PoET accepts the prompt handle while sampling is still running.
 
 ```python
-msa = session.data.msa.get("your-msa-id")
-prompt_job = session.data.prompts.sample_msa(
-    msa, replicates=2, max_msa_sequences=10,
-)
-groups = prompt_job.wait(timeout=600)
-for group in groups:
-    print(len(group), group[:3])
+sequence = b"MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLSGAEK"
+search = session.align.create_msa(sequence)
+msa = session.data.MSA(id=search.id)
+prompt = msa.sample_prompt(replicates=2, max_msa_sequences=10, seed=42)
+job = session.models.poet.embed([sequence], prompt=prompt)
+print(job.id)
 ```
 
-This samples up to 10 sequences per replicate. The [PromptFuture](#openprotein.data.prompts.PromptFuture) returns `list[list[str]]`, with one sequence group per replicate. Pass `prompt_job` as `prompt=` when [embedding with PoET](/references/python-api/models#poet).
+`wait()` returns the ready handle. Index or iterate it to load its content. An MSA yields `(name, sequence)` pairs; a prompt yields one list of sequences per replicate. A failed or canceled job raises `JobFailedException` when you call `wait()` or `get()`. Uploaded resources are ready immediately and have no job ID.
 
-`session.data.prompts.get(...)` retrieves a stored [Prompt](#openprotein.data.prompts.Prompt) handle. Reloaded sampling jobs use the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader.
+```python
+msa.wait(timeout=600)
+print(msa[0])
+for replicate in prompt.wait(timeout=600):
+    print(replicate[:3])
+```
+
+**See also**
+
+- Use [`session.align`](/references/python-api/align) to build an alignment. If you already have the file, [`session.data.MSA.create()`](#openprotein.data.MSA.create) replaces the deprecated [`session.align.upload_msa()`](/references/python-api/align#openprotein.align.AlignAPI.upload_msa).
+- [`session.data.Prompt.create()`](#openprotein.data.Prompt.create) uploads prompt data as one FASTA file per replicate. Use [`session.prompt.create_prompt()`](/references/python-api/prompt#openprotein.prompt.PromptAPI.create_prompt) to build a prompt from Python sequences, `Protein` objects, or `Complex` objects.
 
 <PyClass path="openprotein.data.MSA" />
-<PyClass path="openprotein.data.MSAMetadata" />
-<PyClass path="openprotein.data.prompts.Prompt" />
-<PyClass path="openprotein.data.prompts.PromptFuture" />
+<PyClass path="openprotein.data.Prompt" />
 
 </PyGroup>

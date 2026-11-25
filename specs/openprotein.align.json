@@ -37,8 +37,8 @@
    "module": "openprotein.align.align",
    "source": {
     "file": "openprotein/align/align.py",
-    "line": 84,
-    "end": 515
+    "line": 29,
+    "end": 460
    },
    "members": [
     {
@@ -49,8 +49,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 90,
-      "end": 130
+      "line": 35,
+      "end": 75
      },
      "signature": "(sequences, names=None, auto=True, ep=None, op=None)",
      "returns": "MSAFuture",
@@ -153,8 +153,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 132,
-      "end": 178
+      "line": 77,
+      "end": 123
      },
      "signature": "(file, auto=True, ep=None, op=None)",
      "returns": "MSAFuture",
@@ -244,9 +244,7 @@
          "type": "InvalidParameterError",
          "type_parts": [
           {
-           "text": "InvalidParameterError",
-           "path": "openprotein.errors.InvalidParameterError",
-           "page": "openprotein"
+           "text": "InvalidParameterError"
           }
          ],
          "default": null,
@@ -264,8 +262,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 180,
-      "end": 214
+      "line": 125,
+      "end": 159
      },
      "signature": "(sequences, names=None, clustersize=None, iterations=None)",
      "returns": "MSAFuture",
@@ -357,8 +355,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 216,
-      "end": 259
+      "line": 161,
+      "end": 204
      },
      "signature": "(file, clustersize=None, iterations=None)",
      "returns": "MSAFuture",
@@ -437,9 +435,7 @@
          "type": "InvalidParameterError",
          "type_parts": [
           {
-           "text": "InvalidParameterError",
-           "path": "openprotein.errors.InvalidParameterError",
-           "page": "openprotein"
+           "text": "InvalidParameterError"
           }
          ],
          "default": null,
@@ -457,8 +453,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 261,
-      "end": 306
+      "line": 206,
+      "end": 251
      },
      "signature": "(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False, unnumbered_policy=UnnumberedPolicy.ERROR)",
      "returns": "MSAFuture",
@@ -565,8 +561,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 308,
-      "end": 363
+      "line": 253,
+      "end": 308
      },
      "signature": "(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False, unnumbered_policy=UnnumberedPolicy.ERROR)",
      "returns": "MSAFuture",
@@ -660,9 +656,7 @@
          "type": "InvalidParameterError",
          "type_parts": [
           {
-           "text": "InvalidParameterError",
-           "path": "openprotein.errors.InvalidParameterError",
-           "page": "openprotein"
+           "text": "InvalidParameterError"
           }
          ],
          "default": null,
@@ -675,13 +669,13 @@
     {
      "name": "upload_msa",
      "kind": "method",
-     "doc": "Upload a ready-made MSA.\n\n.. deprecated:: 0.18.0\n    Use `session.data.msa.create` and `session.data.prompts.sample_msa`\n    instead.\n\nThe returned future samples prompts with ``sample_prompt``. For a\ncomplex, join the chains of each row with ``:``, or use the a3m\n``#<lengths>    <cardinalities>`` header.\n\nParameters\n----------\nmsa_file : BinaryIO\n    The MSA as FASTA, a3m or a headerless CSV of names and sequences.\n\nReturns\n-------\nMSAFuture\n    Future for the upload.\n\nRaises\n------\nAPIError\n    If there is an issue with the API request.",
+     "doc": "Upload a ready-made MSA.\n\n.. deprecated:: 0.18.0\n    Use `session.data.MSA.create` and `MSA.sample_prompt`\n    instead.\n\nThe returned future samples prompts with ``sample_prompt``. For a\ncomplex, join the chains of each row with ``:``, or use the a3m\n``#<lengths>    <cardinalities>`` header.\n\nParameters\n----------\nmsa_file : BinaryIO\n    The MSA as FASTA, a3m or a headerless CSV of names and sequences.\n\nReturns\n-------\nMSAFuture\n    Future for the upload.\n\nRaises\n------\nAPIError\n    If there is an issue with the API request.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 365,
-      "end": 400
+      "line": 310,
+      "end": 345
      },
      "signature": "(msa_file)",
      "returns": "MSAFuture",
@@ -695,7 +689,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Upload a ready-made MSA.\n\n.. deprecated:: 0.18.0\n    Use `session.data.msa.create` and `session.data.prompts.sample_msa`\n    instead.\n\nThe returned future samples prompts with ``sample_prompt``. For a\ncomplex, join the chains of each row with ``:``, or use the a3m\n``#<lengths>    <cardinalities>`` header."
+       "text": "Upload a ready-made MSA.\n\n.. deprecated:: 0.18.0\n    Use `session.data.MSA.create` and `MSA.sample_prompt`\n    instead.\n\nThe returned future samples prompts with ``sample_prompt``. For a\ncomplex, join the chains of each row with ``:``, or use the a3m\n``#<lengths>    <cardinalities>`` header."
       },
       {
        "kind": "parameters",
@@ -756,8 +750,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 402,
-      "end": 429
+      "line": 347,
+      "end": 374
      },
      "signature": "(seed, pairing=Pairing.BOTH)",
      "returns": "MSAFuture",
@@ -845,8 +839,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 431,
-      "end": 454
+      "line": 376,
+      "end": 399
      },
      "signature": "(prompt_file)",
      "returns": null,
@@ -915,8 +909,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 456,
-      "end": 483
+      "line": 401,
+      "end": 428
      },
      "signature": "(job, prompt_index=None)",
      "returns": "Iterator[list[str]]",
@@ -1002,8 +996,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 485,
-      "end": 499
+      "line": 430,
+      "end": 444
      },
      "signature": "(job_id)",
      "returns": "str",
@@ -1072,8 +1066,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/align.py",
-      "line": 501,
-      "end": 515
+      "line": 446,
+      "end": 460
      },
      "signature": "(job_id)",
      "returns": "Iterator[tuple[str, str]]",
@@ -1163,11 +1157,16 @@
      }
     ]
    ],
-   "doc": "Represents a future for MSA (Multiple Sequence Alignment) results.",
+   "doc": "Represents a future for MSA (Multiple Sequence Alignment) results.\n\nSee Also\n--------\nopenprotein.data.MSA : A stored MSA. ``session.data.MSA`` uploads, lists and\n    loads MSAs.",
    "parsed": [
     {
      "kind": "text",
      "text": "Represents a future for MSA (Multiple Sequence Alignment) results."
+    },
+    {
+     "kind": "admonition",
+     "title": "See Also",
+     "text": "openprotein.data.MSA : A stored MSA. ``session.data.MSA`` uploads, lists and\n    loads MSAs."
     },
     {
      "kind": "parameters",
@@ -1217,7 +1216,7 @@
    "source": {
     "file": "openprotein/align/msa.py",
     "line": 26,
-    "end": 177
+    "end": 186
    },
    "members": [
     {
@@ -1228,8 +1227,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/msa.py",
-      "line": 83,
-      "end": 98
+      "line": 92,
+      "end": 107
      },
      "signature": "()",
      "returns": "dict",
@@ -1284,8 +1283,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/msa.py",
-      "line": 100,
-      "end": 113
+      "line": 109,
+      "end": 122
      },
      "signature": "()",
      "returns": "list[JobWarning]",
@@ -1340,8 +1339,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/msa.py",
-      "line": 115,
-      "end": 177
+      "line": 124,
+      "end": 186
      },
      "signature": "(num_sequences=None, num_residues=None, method=MSASamplingMethod.NEIGHBORS_NONGAP_NORM_NO_LIMIT, homology_level=0.8, max_similarity=1.0, min_similarity=0.0, always_include_seed_sequence=False, num_ensemble_prompts=1, random_seed=None)",
      "returns": "Prompt",
@@ -1520,8 +1519,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 382,
-      "end": 392
+      "line": 597,
+      "end": 607
      },
      "signature": "(verbose=False, **kwargs)",
      "returns": "Iterator[tuple[str, str]]",
@@ -1575,12 +1574,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

@@ -77,19 +77,19 @@
    "source": {
     "file": "openprotein/fold/boltz.py",
     "line": 43,
-    "end": 141
+    "end": 140
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with boltz model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "doc": "Request structure prediction with boltz model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
       "line": 58,
-      "end": 141
+      "end": 140
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, *, seed=None, **kwargs)",
      "returns": "FoldResultFuture",
@@ -188,7 +188,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         },
         {
          "name": "use_potentials",
@@ -230,12 +230,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

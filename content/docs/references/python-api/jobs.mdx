@@ -3,7 +3,7 @@ title: "openprotein.jobs"
 description: "Retrieve and monitor your jobs on our platform."
 pythonApi: true
 ---
-Use `session.jobs.list(...)` and `session.jobs.get_job(...)` to inspect job records. Use `session.jobs.get(...)` to load a future and read its results. A job record describes the submission and its status; the future provides the result-reading methods.
+Use `session.jobs.list(...)` and `session.jobs.get_job(...)` to inspect job records. Use `session.jobs.get(...)` to load the result reader. A job record describes the submission and its status; the reader provides methods to wait for and read results.
 
 `wait_until_done()` waits for a terminal status and does not establish success: a failed or canceled job is also done. It does not fetch results. Check the job status before interpreting completion; result readers have their own failure and timeout behavior.
 
@@ -30,7 +30,7 @@ except AuthError as error:
 
 `refresh()` updates the stored job record; `wait_until_done()` polls and updates it without reading results. The base `Future.get()` raises `JobFailedException` for `FAILURE`; some specialized readers have their own checks. `TimeoutException` covers polling timeouts. Network requests can also raise `requests.exceptions.Timeout`, an API `HTTPError`, or `openprotein.base.TimeoutError` for a gateway timeout. A timeout does not imply that the job was canceled.
 
-An API request can raise `APIError`; reading a failed position can also surface `APIError`. `FutureUnit.wait()` raises `RuntimeError` for a failed or canceled unit; `FutureUnit.get()` delegates to `get_item()` without that state check. For an output collection or page read (`job_output_page`), HTTP 409 is translated to `JobOutputsNotReady`; a per-position read (`job_output_get`) does not perform that translation and leaves the `HTTPError`. `InvalidJob` indicates a missing or invalid job. `NotPrepared` is exported, but no public method raises it. These paths do not imply that every result reader raises `JobFailedException`.
+`FutureUnit.get()` and `FutureUnit.wait()` raise `JobFailedException` when the unit is known to have failed or been canceled. A collection read can raise `JobOutputsNotReady` if the results are not ready; a direct position read can instead raise `HTTPError`. `InvalidJob` indicates a missing or invalid job.
 
 <PyGroup id="interface" title="Interface"
   anchors={[
@@ -50,11 +50,10 @@ An API request can raise `APIError`; reading a failed position can also surface 
     "openprotein.jobs.StreamingFuture",
     "openprotein.jobs.MappedFuture",
     "openprotein.jobs.JobType",
-    "openprotein.jobs.BatchJob",
   ]}
 >
 
-`wait_until_done()` returns true for any terminal status, including failure or cancellation, not only successful completion as the pinned member docstring says. Check `status` for success.
+[Future](#openprotein.jobs.Future) is the common job handle. `get()` and `wait()` read results according to the concrete future. For jobs that expose results by position, `Future` also provides named output selection and [per-position reads](#task-results).
 
 <PyClass path="openprotein.jobs.Job" />
 <PyClass path="openprotein.jobs.Future" />
@@ -62,37 +61,23 @@ An API request can raise `APIError`; reading a failed position can also surface 
 <PyClass path="openprotein.jobs.StreamingFuture" />
 <PyClass path="openprotein.jobs.MappedFuture" />
 <PyClass path="openprotein.jobs.JobType" />
-<PyClass path="openprotein.jobs.BatchJob" />
 
 </PyGroup>
 
 <PyGroup id="task-job-schemas" title="Task job schemas"
   anchors={[
-    "openprotein.jobs.Unit",
-    "openprotein.jobs.UnitState",
-    "openprotein.jobs.JobOutput",
+    "openprotein.jobs.BatchJob",
   ]}
 >
 
-Batch jobs, outputs and units describe submitted tasks and their results.
+A [BatchJob](#openprotein.jobs.BatchJob) records the batch size in `num_records` when known. A [FutureUnit](#openprotein.jobs.FutureUnit) gives the position, status and error for one unit. Unit status uses the same [JobStatus](#openprotein.jobs.JobStatus) enum as job status.
 
-| Record | Field | Meaning |
-| --- | --- | --- |
-| BatchJob | `num_records` | Number of records in the batch, when known. |
-| Unit | `position` | Position of this unit in the job. |
-| Unit | `unit_id` | Unit identifier. |
-| Unit | `state` | Current unit execution state. |
-| Unit | `error` | Error details, when present. |
-
-<PyClass path="openprotein.jobs.Unit" />
-<PyClass path="openprotein.jobs.UnitState" />
-<PyClass path="openprotein.jobs.JobOutput" />
+<PyClass path="openprotein.jobs.BatchJob" />
 
 </PyGroup>
 
 <PyGroup id="task-results" title="Task results"
   anchors={[
-    "openprotein.jobs.TaskFuture",
     "openprotein.jobs.FutureUnit",
     "openprotein.jobs.AttentionFuture",
     "openprotein.jobs.EmbeddingFuture",
@@ -134,7 +119,6 @@ print(embeddings[0].shape)
 
 See the [primary outputs and result types](/references/python-api/models#task-results) for other model tasks.
 
-<PyClass path="openprotein.jobs.TaskFuture" />
 <PyClass path="openprotein.jobs.FutureUnit" />
 <PyClass path="openprotein.jobs.AttentionFuture" />
 <PyClass path="openprotein.jobs.EmbeddingFuture" />
@@ -174,4 +158,4 @@ See the [primary outputs and result types](/references/python-api/models#task-re
 
 ## Job records and reloading
 
-Model-task records use [Job](#openprotein.jobs.Job). Supported task records reload through `session.jobs.get(...)` as the corresponding task future. A reloaded job does not always retain the exact future class returned at submission: GP training uses [PredictorModel](/references/python-api/predictor#openprotein.predictor.PredictorModel), GP cross-validation uses [CVResultFuture](/references/python-api/predictor#openprotein.predictor.validate.CVResultFuture), and prompt sampling uses the compatibility [Prompt](/references/python-api/prompt#openprotein.prompt.Prompt) reader. Refer to each reader's result contract.
+Model-task records use [Job](#openprotein.jobs.Job). Supported task records reload through `session.jobs.get(...)` as the corresponding task future. A reloaded job does not always retain the exact future class returned at submission: GP training uses [PredictorModel](/references/python-api/predictor#openprotein.predictor.PredictorModel), GP cross-validation uses [CVResultFuture](/references/python-api/predictor#openprotein.predictor.validate.CVResultFuture), and prompt sampling loads a stored [Prompt](/references/python-api/data#openprotein.data.Prompt). Refer to each reader's result contract.

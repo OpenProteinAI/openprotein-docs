@@ -6,9 +6,9 @@ Generated — do not hand-edit. Regenerate with:
 .venv-pyapi/bin/python scripts/pyapi/generate.py --upstream
 ```
 
-Measured against `openprotein-python 0.17.1.dev284+gc410c2fe4` (commit `c410c2fe442a`). These are reproduced faithfully in the rendered docs, because the docs are not the place to silently correct the SDK — but each is worth filing upstream.
+Measured against `openprotein-python 0.18.2` (commit `8a1da23492b0`). These are reproduced faithfully in the rendered docs, because the docs are not the place to silently correct the SDK — but each is worth filing upstream.
 
-## Return type drifts from the annotation (56)
+## Return type drifts from the annotation (61)
 
 napoleon prints the docstring's type, so the live Sphinx site published the left-hand
 column. `typing.List`/`Dict`/`Tuple`/`Set`/`Optional` spellings are normalised away first.
@@ -16,7 +16,10 @@ column. `typing.List`/`Dict`/`Tuple`/`Set`/`Optional` spellings are normalised a
 | member | docstring says | annotated as |
 |---|---|---|
 | `openprotein.clustering.HierarchicalClusteringFuture.wait` | `Any` | `V` |
+| `openprotein.data.Assay.create` | `Assay` | `Self` |
 | `openprotein.data.DataAPI.list` | `List[AssayDataset]` | `builtins.list[AssayDataset]` |
+| `openprotein.data.MSA.create` | `MSA` | `Self` |
+| `openprotein.data.Prompt.create` | `Prompt` | `Self` |
 | `openprotein.design.DesignAPI.list_designs` | `list of DesignFuture` | `list[DesignFuture]` |
 | `openprotein.design.DesignConstraint.as_dict` | `dict of int to list of str` | `dict[int, list[str]]` |
 | `openprotein.design.DesignConstraint.initialize` | `dict of int to set of str` | `dict[int, set[str]]` |
@@ -43,6 +46,7 @@ column. `typing.List`/`Dict`/`Tuple`/`Set`/`Optional` spellings are normalised a
 | `openprotein.fold.FoldResultFuture.stream` | `Generator` | `Iterator[Structure] \| Iterator[np.ndarray] \| Iterator[pd.DataFrame] \| Iterator[BoltzAffinity] \| Iterator[list[BoltzConfidence]] \| Iterator[list[ProtenixConfidence]] \| Iterator[list[ESMFold2Confidence]]` |
 | `openprotein.fold.FoldResultFuture.wait` | `Any` | `list[tuple[K, V]]` |
 | `openprotein.jobs.Future.wait` | `Any` | `V` |
+| `openprotein.jobs.FutureUnit.wait` | `Any` | `V` |
 | `openprotein.jobs.MappedFuture.stream` | `Generator` | `Iterator[tuple[K, V]]` |
 | `openprotein.jobs.MappedFuture.wait` | `Any` | `list[tuple[K, V]]` |
 | `openprotein.jobs.StreamingFuture.stream` | `Generator` | `Iterator[V]` |
@@ -51,6 +55,7 @@ column. `typing.List`/`Dict`/`Tuple`/`Set`/`Optional` spellings are normalised a
 | `openprotein.models.BoltzGenFuture.stream` | `Generator` | `Iterator[Complex]` |
 | `openprotein.models.BoltzGenFuture.wait` | `Any` | `list[tuple[K, V]]` |
 | `openprotein.models.GPModel.crossvalidate` | `CrossvalidateFuture` | `futures.CrossvalidateFuture` |
+| `openprotein.models.ModelsAPI.list_models` | `list of str or list of ModelMetadata` | `list[str] \| list[ModelMetadata]` |
 | `openprotein.models.RFdiffusion.generate` | `StructureDesignFuture` | `futures.StructureDesignFuture` |
 | `openprotein.models.RFdiffusionFuture.stream` | `Generator` | `Iterator[Complex]` |
 | `openprotein.models.RFdiffusionFuture.wait` | `Any` | `list[tuple[K, V]]` |
@@ -78,10 +83,10 @@ Raised on every `sync:pyapi`. A documented parameter that is not in the signatur
 documented parameter with no type.
 
 ```
-openprotein/align/align.py:492: Parameter 'job' does not appear in the function signature
-openprotein/align/align.py:508: Parameter 'job' does not appear in the function signature
-openprotein/base.py:177: No matching parameter for '\*\*kwargs'
-openprotein/base.py:177: Parameter '\*\*kwargs' does not appear in the function signature
+openprotein/align/align.py:437: Parameter 'job' does not appear in the function signature
+openprotein/align/align.py:453: Parameter 'job' does not appear in the function signature
+openprotein/base.py:260: No matching parameter for '\*\*kwargs'
+openprotein/base.py:260: Parameter '\*\*kwargs' does not appear in the function signature
 openprotein/embeddings/embeddings.py:158: Parameter 'model_id' does not appear in the function signature
 ```
 
@@ -119,7 +124,7 @@ return description is indented under the underline so the whole line reads as th
 | `openprotein.predictor.PredictorModel.get_assay` | `-> return` | `Assay dataset used for train job.` | `AssayDataset: Assay dataset used for train job.` |
 | `openprotein.svd.SVDModel.fit_umap` | `sequences` | `List[bytes]` | `list[bytes] \| list[str] \| None` |
 
-## Methods with an annotated return type and no `Returns:` section (357)
+## Methods with an annotated return type and no `Returns:` section (312)
 
 Not a defect in the SDK so much as a gap: `autodoc_typehints_description_target =
 "documented"` meant the live site **withheld** these return types, because only a
@@ -133,29 +138,22 @@ the two agree.
 - `openprotein.clustering.HierarchicalClusteringFuture.delete`
 - `openprotein.clustering.HierarchicalClusteringFuture.get`
 - `openprotein.clustering.HierarchicalClusteringFuture.redispatch`
+- `openprotein.data.Assay.delete`
+- `openprotein.data.Assay.list`
+- `openprotein.data.Assay.update`
 - `openprotein.data.MSA.delete`
-- `openprotein.data.MSA.download`
+- `openprotein.data.MSA.get`
+- `openprotein.data.MSA.list`
+- `openprotein.data.MSA.to_string`
 - `openprotein.data.MSA.update`
-- `openprotein.data.MSADataAPI.delete`
-- `openprotein.data.MSADataAPI.download`
-- `openprotein.data.MSADataAPI.get`
-- `openprotein.data.MSADataAPI.list`
-- `openprotein.data.MSADataAPI.update`
-- `openprotein.data.PromptsAPI.delete`
-- `openprotein.data.PromptsAPI.get`
-- `openprotein.data.PromptsAPI.list`
-- `openprotein.data.PromptsAPI.update`
-- `openprotein.data.prompts.Prompt.delete`
-- `openprotein.data.prompts.Prompt.download`
-- `openprotein.data.prompts.Prompt.replicates`
-- `openprotein.data.prompts.Prompt.update`
-- `openprotein.data.prompts.PromptFuture.get`
-- `openprotein.data.prompts.PromptFuture.get_item`
-- `openprotein.data.prompts.PromptFuture.iter_outputs`
-- `openprotein.data.prompts.PromptFuture.iter_units`
-- `openprotein.data.prompts.PromptFuture.stream`
-- `openprotein.data.prompts.PromptFuture.unit`
-- `openprotein.data.prompts.PromptFuture.wait`
+- `openprotein.data.MSA.wait`
+- `openprotein.data.Prompt.delete`
+- `openprotein.data.Prompt.done`
+- `openprotein.data.Prompt.get`
+- `openprotein.data.Prompt.list`
+- `openprotein.data.Prompt.refresh`
+- `openprotein.data.Prompt.update`
+- `openprotein.data.Prompt.wait`
 - `openprotein.design.DesignConstraint.allow`
 - `openprotein.design.DesignConstraint.remove`
 - `openprotein.design.DesignFuture.get`
@@ -171,129 +169,92 @@ the two agree.
 - `openprotein.fold.FoldResultFuture.get_ptm_batch`
 - `openprotein.jobs.AttentionFuture.get`
 - `openprotein.jobs.AttentionFuture.get_item`
-- `openprotein.jobs.AttentionFuture.iter_outputs`
-- `openprotein.jobs.AttentionFuture.iter_units`
 - `openprotein.jobs.AttentionFuture.stream`
 - `openprotein.jobs.AttentionFuture.unit`
 - `openprotein.jobs.AttentionFuture.wait`
 - `openprotein.jobs.CrossvalidateFuture.get`
 - `openprotein.jobs.CrossvalidateFuture.get_item`
-- `openprotein.jobs.CrossvalidateFuture.iter_outputs`
-- `openprotein.jobs.CrossvalidateFuture.iter_units`
 - `openprotein.jobs.CrossvalidateFuture.stream`
 - `openprotein.jobs.CrossvalidateFuture.unit`
 - `openprotein.jobs.CrossvalidateFuture.wait`
 - `openprotein.jobs.EmbeddingFuture.get`
 - `openprotein.jobs.EmbeddingFuture.get_item`
-- `openprotein.jobs.EmbeddingFuture.iter_outputs`
-- `openprotein.jobs.EmbeddingFuture.iter_units`
 - `openprotein.jobs.EmbeddingFuture.stream`
 - `openprotein.jobs.EmbeddingFuture.unit`
 - `openprotein.jobs.EmbeddingFuture.wait`
 - `openprotein.jobs.FitFuture.get`
 - `openprotein.jobs.FitFuture.wait`
 - `openprotein.jobs.Future.get`
-- `openprotein.jobs.FutureUnit.done`
+- `openprotein.jobs.Future.get_item`
+- `openprotein.jobs.Future.stream`
+- `openprotein.jobs.Future.unit`
 - `openprotein.jobs.FutureUnit.get`
-- `openprotein.jobs.FutureUnit.wait`
+- `openprotein.jobs.FutureUnit.refresh`
 - `openprotein.jobs.GPFitFuture.get`
 - `openprotein.jobs.GPFitFuture.get_item`
-- `openprotein.jobs.GPFitFuture.iter_outputs`
-- `openprotein.jobs.GPFitFuture.iter_units`
 - `openprotein.jobs.GPFitFuture.stream`
 - `openprotein.jobs.GPFitFuture.unit`
 - `openprotein.jobs.GPFitFuture.wait`
 - `openprotein.jobs.IndelScoreFuture.get`
 - `openprotein.jobs.IndelScoreFuture.get_item`
-- `openprotein.jobs.IndelScoreFuture.iter_outputs`
-- `openprotein.jobs.IndelScoreFuture.iter_units`
 - `openprotein.jobs.IndelScoreFuture.stream`
 - `openprotein.jobs.IndelScoreFuture.unit`
 - `openprotein.jobs.IndelScoreFuture.wait`
 - `openprotein.jobs.Job.create`
 - `openprotein.jobs.JobsAPI.get`
-- `openprotein.jobs.JobsAPI.get_job_output`
-- `openprotein.jobs.JobsAPI.iter_job_outputs`
-- `openprotein.jobs.JobsAPI.iter_job_units`
 - `openprotein.jobs.JobsAPI.list`
 - `openprotein.jobs.JobsAPI.update`
 - `openprotein.jobs.LogLikelihoodFuture.get`
 - `openprotein.jobs.LogLikelihoodFuture.get_item`
-- `openprotein.jobs.LogLikelihoodFuture.iter_outputs`
-- `openprotein.jobs.LogLikelihoodFuture.iter_units`
 - `openprotein.jobs.LogLikelihoodFuture.stream`
 - `openprotein.jobs.LogLikelihoodFuture.unit`
 - `openprotein.jobs.LogLikelihoodFuture.wait`
 - `openprotein.jobs.LogitsFuture.get`
 - `openprotein.jobs.LogitsFuture.get_item`
-- `openprotein.jobs.LogitsFuture.iter_outputs`
-- `openprotein.jobs.LogitsFuture.iter_units`
 - `openprotein.jobs.LogitsFuture.stream`
 - `openprotein.jobs.LogitsFuture.unit`
 - `openprotein.jobs.LogitsFuture.wait`
 - `openprotein.jobs.MappedFuture.get_item`
 - `openprotein.jobs.PredictionFuture.get`
 - `openprotein.jobs.PredictionFuture.get_item`
-- `openprotein.jobs.PredictionFuture.iter_outputs`
-- `openprotein.jobs.PredictionFuture.iter_units`
 - `openprotein.jobs.PredictionFuture.stream`
 - `openprotein.jobs.PredictionFuture.unit`
 - `openprotein.jobs.PredictionFuture.wait`
 - `openprotein.jobs.SVDFitFuture.embed`
 - `openprotein.jobs.SVDFitFuture.get`
 - `openprotein.jobs.SVDFitFuture.get_item`
-- `openprotein.jobs.SVDFitFuture.iter_outputs`
-- `openprotein.jobs.SVDFitFuture.iter_units`
 - `openprotein.jobs.SVDFitFuture.stream`
 - `openprotein.jobs.SVDFitFuture.transform`
 - `openprotein.jobs.SVDFitFuture.unit`
 - `openprotein.jobs.SVDFitFuture.wait`
 - `openprotein.jobs.SequenceGenerationFuture.get`
 - `openprotein.jobs.SequenceGenerationFuture.get_item`
-- `openprotein.jobs.SequenceGenerationFuture.iter_outputs`
-- `openprotein.jobs.SequenceGenerationFuture.iter_units`
 - `openprotein.jobs.SequenceGenerationFuture.stream`
 - `openprotein.jobs.SequenceGenerationFuture.unit`
 - `openprotein.jobs.SequenceGenerationFuture.wait`
 - `openprotein.jobs.SingleSitePredictionFuture.get`
 - `openprotein.jobs.SingleSitePredictionFuture.get_item`
-- `openprotein.jobs.SingleSitePredictionFuture.iter_outputs`
-- `openprotein.jobs.SingleSitePredictionFuture.iter_units`
 - `openprotein.jobs.SingleSitePredictionFuture.stream`
 - `openprotein.jobs.SingleSitePredictionFuture.unit`
 - `openprotein.jobs.SingleSitePredictionFuture.wait`
 - `openprotein.jobs.SingleSiteScoreFuture.get`
 - `openprotein.jobs.SingleSiteScoreFuture.get_item`
-- `openprotein.jobs.SingleSiteScoreFuture.iter_outputs`
-- `openprotein.jobs.SingleSiteScoreFuture.iter_units`
 - `openprotein.jobs.SingleSiteScoreFuture.stream`
 - `openprotein.jobs.SingleSiteScoreFuture.unit`
 - `openprotein.jobs.SingleSiteScoreFuture.wait`
 - `openprotein.jobs.StructureDesignFuture.get`
 - `openprotein.jobs.StructureDesignFuture.get_item`
-- `openprotein.jobs.StructureDesignFuture.iter_outputs`
-- `openprotein.jobs.StructureDesignFuture.iter_units`
 - `openprotein.jobs.StructureDesignFuture.stream`
 - `openprotein.jobs.StructureDesignFuture.unit`
 - `openprotein.jobs.StructureDesignFuture.wait`
 - `openprotein.jobs.StructurePredictionFuture.get`
 - `openprotein.jobs.StructurePredictionFuture.get_item`
-- `openprotein.jobs.StructurePredictionFuture.iter_outputs`
-- `openprotein.jobs.StructurePredictionFuture.iter_units`
 - `openprotein.jobs.StructurePredictionFuture.stream`
 - `openprotein.jobs.StructurePredictionFuture.unit`
 - `openprotein.jobs.StructurePredictionFuture.wait`
-- `openprotein.jobs.TaskFuture.get`
-- `openprotein.jobs.TaskFuture.get_item`
-- `openprotein.jobs.TaskFuture.iter_outputs`
-- `openprotein.jobs.TaskFuture.iter_units`
-- `openprotein.jobs.TaskFuture.stream`
-- `openprotein.jobs.TaskFuture.unit`
 - `openprotein.jobs.UMAPFitFuture.embed`
 - `openprotein.jobs.UMAPFitFuture.get`
 - `openprotein.jobs.UMAPFitFuture.get_item`
-- `openprotein.jobs.UMAPFitFuture.iter_outputs`
-- `openprotein.jobs.UMAPFitFuture.iter_units`
 - `openprotein.jobs.UMAPFitFuture.stream`
 - `openprotein.jobs.UMAPFitFuture.transform`
 - `openprotein.jobs.UMAPFitFuture.unit`
@@ -360,7 +321,6 @@ the two agree.
 - `openprotein.models.Model.score`
 - `openprotein.models.Model.single_site`
 - `openprotein.models.ModelsAPI.get_model`
-- `openprotein.models.ModelsAPI.list_models`
 - `openprotein.models.OpenDDE.fold`
 - `openprotein.models.PoET.embed`
 - `openprotein.models.PoET.fit_gp`

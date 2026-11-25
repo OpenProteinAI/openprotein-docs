@@ -27,6 +27,7 @@ const SEED = 'scripts/pyapi/seed_pages.py';
 const CATALOGUE = 'scripts/pyapi/models_catalogue.py';
 const REQS = 'scripts/pyapi/requirements.txt';
 const SDK = 'scripts/pyapi/sdk.py';
+const PIN = 'scripts/pyapi/sdk-pin.json';
 const REPO = 'OpenProteinAI/openprotein-python';
 
 const argv = process.argv.slice(2);
@@ -96,8 +97,9 @@ if (target === 'latest') {
 }
 console.log(`  installed: ${installed}   target: ${wanted}`);
 
-const sourcePinned = Boolean(target) && /^openprotein-python\s+@\s+git\+/m.test(readFileSync(REQS, 'utf8'));
-if (wanted !== installed || sourcePinned) {
+const requirements = readFileSync(REQS, 'utf8');
+const pinned = requirements.match(/^openprotein-python==(\S+)$/m)?.[1];
+if (target && (wanted !== pinned || wanted !== installed)) {
   if (CHECK) die(`--check cannot bump ${installed} -> ${wanted}; run without --check`);
 
   // ------------------------------------------------------------- 2. pin the exact tree
@@ -113,8 +115,8 @@ if (wanted !== installed || sourcePinned) {
       : tagObject;
   console.log(`  v${wanted} -> tag ${tagObject.slice(0, 12)} -> commit ${commit.slice(0, 12)}`);
 
-  let reqs = readFileSync(REQS, 'utf8');
-  reqs = repin(reqs, /^openprotein-python(?:==| @ ).*$/m, `openprotein-python==${wanted}`, 'requirements pin');
+  let reqs = repin(requirements, /^(?:openprotein-python(?:==| @ )|git\+).*$/m,
+    `openprotein-python==${wanted}`, 'requirements pin');
   reqs = repin(reqs, /^# (?:Source branch|openprotein-python) .*$/m,
     `# openprotein-python ${wanted} == commit ${commit} (tag v${wanted}).`, 'requirements provenance comment');
   reqs = reqs.replace(/^# Git authentication.*\n/m, '');
@@ -141,10 +143,12 @@ if (wanted !== installed || sourcePinned) {
     });
   const local = new Map(walk(`${site}/openprotein`, 'openprotein'));
   const bad = [];
+  const hashes = new Map();
   for (const [rel, path] of local) {
     const blob = readFileSync(path);
     const sha = createHash('sha1').update(`blob ${blob.length}\0`).update(blob).digest('hex');
     if (remote.get(rel) !== sha) bad.push(rel);
+    hashes.set(rel, createHash('sha256').update(blob).digest('hex'));
   }
   for (const rel of remote.keys()) if (!local.has(rel)) bad.push(`${rel} (absent from the wheel)`);
   if (bad.length) die(`the wheel differs from ${commit.slice(0, 12)}: ${bad.slice(0, 5).join(', ')}`);
@@ -156,8 +160,17 @@ if (wanted !== installed || sourcePinned) {
   sdk = repin(sdk, /^SDK_BRANCH(?:: str \| None)? = .*$/m, 'SDK_BRANCH: str | None = None', 'SDK_BRANCH');
   sdk = repin(sdk, /^REPO = ".*"$/m, `REPO = "https://github.com/${REPO}"`, 'REPO');
   writeFileSync(SDK, sdk);
-  console.log(`  wrote ${REQS} and ${SDK}`);
+  const files = Object.fromEntries([...hashes.keys()].sort().map((name) => [name, hashes.get(name)]));
+  const manifest = Object.entries(files).map(([name, hash]) => `${name}\t${hash}\n`).join('');
+  const packageDigest = createHash('sha256').update(manifest).digest('hex');
+  writeFileSync(PIN, JSON.stringify({
+    package: 'openprotein-python', version: wanted, commit, tag_object: tagObject,
+    package_sha256: packageDigest, files,
+  }, null, 1) + '\n');
+  console.log(`  wrote ${REQS}, ${SDK} and ${PIN}`);
 }
+
+run(PY, [GEN, '--verify-pin']);
 
 // ------------------------------------------------------------------ 4. regenerate
 if (MODELS) {
@@ -171,7 +184,6 @@ if (CHECK) {
   if (!run(PY, [CATALOGUE, '--check'], { soft: true })) fail.push('the Models sections or their derived fixtures are stale against the snapshot');
   if (!run(PY, [GEN, '--check'], { soft: true })) fail.push('specs/ is stale — run pnpm update:pyapi');
   if (!run(PY, [GEN, '--upstream', '--check'], { soft: true })) fail.push('UPSTREAM.md is stale');
-  if (!run(PY, [GEN, '--verify-pin'], { soft: true })) fail.push('the installed SDK is not the pinned tree');
   if (!run(PY, [SEED, '--sync', '--check'], { soft: true })) fail.push('a page body is stale against pages.json');
   if (!run(PY, [GEN, '--delta'], { soft: true })) fail.push('sdk-delta.json does not match the SDK');
   if (!run(PY, [GEN, '--holes'], { soft: true })) fail.push('a page prints an SDK class nothing documents');

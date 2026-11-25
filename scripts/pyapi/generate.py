@@ -13,6 +13,7 @@ from pages.json, not from the SDK.
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import logging
@@ -40,6 +41,7 @@ import griffe  # noqa: E402
 from members import (  # noqa: E402
     _sections,
     describe,
+    generic_bindings,
     pydantic_signature,
     parameter_sections,
     overload_contract,
@@ -54,6 +56,7 @@ from sdk import (  # noqa: E402
     SDK_COMMIT,
     SDK_BRANCH,
     SDK_TAG_OBJECT,
+    alias_target,
     deref,
     docstring_text,
     inherited_member,
@@ -146,7 +149,12 @@ def build_resolver(package: griffe.Module, manifest: dict):
             public = index[path]
             return {"path": public, "page": owner_page[public]}
         try:
-            canonical = getattr(deref(lookup(package, path)), "canonical_path", None)
+            obj = deref(lookup(package, path))
+            canonical = getattr(obj, "canonical_path", None)
+            if canonical not in index and getattr(obj, "is_attribute", False):
+                bound = deref(alias_target(obj.parent, obj))
+                if getattr(bound, "is_class", False):
+                    canonical = bound.canonical_path
         except (AttributeError, KeyError, griffe.GriffeError):
             canonical = None
         if canonical in index:
@@ -217,7 +225,11 @@ def emit_class(package, dotted: str, options: dict, resolve=None, link=None) -> 
     new = deref(target.members["__new__"]) if "__new__" in target.members else None
     constructors = getattr(new, "overloads", None) or []
     init = inherited_member(target, "__init__")
-    sections = parameter_sections(_sections(target, resolve, dotted, link), init, resolve) if init is not None else _sections(target, resolve, dotted, link)
+    sections = _sections(target, resolve, dotted, link)
+    if init is not None:
+        sections = parameter_sections(
+            sections, init, resolve, generic_bindings(target, getattr(init, "parent", None))
+        )
     if private_structure_field:
         for section in sections:
             if section["kind"] in {"parameters", "other parameters"}:
@@ -243,6 +255,23 @@ def emit_class(package, dotted: str, options: dict, resolve=None, link=None) -> 
             for name, member, extras in chosen
         ],
     }
+
+
+def add_examples(document: dict, examples: dict[str, str]) -> None:
+    targets = {member["name"]: member for member in document.get("members", [])}
+    targets["class"] = document
+    for name, code in examples.items():
+        if name not in targets:
+            raise ValueError(f"example targets unpublished member: {name}")
+        if not isinstance(code, str) or not code.strip() or "```" in code:
+            raise ValueError(f"invalid Python example for {name}")
+        ast.parse(code)
+        sections = targets[name]["parsed"]
+        section = next((item for item in sections if item["kind"] == "examples"), None)
+        if section is None:
+            section = {"kind": "examples", "items": []}
+            sections.append(section)
+        section["items"].append(f"```python\n{code.rstrip()}\n```")
 
 
 def emit_function(package, dotted: str, resolve=None, link=None) -> dict:
@@ -424,6 +453,19 @@ def source_metadata(sdk_version: str) -> dict[str, str]:
     return source
 
 
+def release_package_digest(packages: Path) -> str:
+    files = sorted(
+        path.relative_to(packages).as_posix()
+        for path in (packages / "openprotein").rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts
+    )
+    manifest = "".join(
+        f"{file}\t{hashlib.sha256((packages / file).read_bytes()).hexdigest()}\n"
+        for file in files
+    )
+    return hashlib.sha256(manifest.encode()).hexdigest()
+
+
 def verify_pin(packages: Path, online: bool = False) -> int:
     """Verify installed file hashes and, optionally, the authenticated source tree."""
     if SDK_BRANCH:
@@ -435,10 +477,24 @@ def verify_pin(packages: Path, online: bool = False) -> int:
     if pin.get("commit") != SDK_COMMIT:
         print(f"  FAIL sdk-pin.json pins {pin.get('commit')} but sdk.py says {SDK_COMMIT}")
         return 1
-    if SDK_BRANCH and (pin.get("repository") != REPO or pin.get("branch") != SDK_BRANCH
-                       or pin.get("version") != version("openprotein-python")):
-        print("  FAIL sdk-pin.json source identity or version does not match installed SDK")
-        return 1
+    if SDK_BRANCH:
+        if (pin.get("repository") != REPO or pin.get("branch") != SDK_BRANCH
+                or pin.get("version") != version("openprotein-python")):
+            print("  FAIL sdk-pin.json source identity or version does not match installed SDK")
+            return 1
+    else:
+        dist = distribution("openprotein-python")
+        if dist.read_text("direct_url.json") is not None:
+            print("  FAIL install the released SDK using requirements.txt, not a direct URL")
+            return 1
+        reqs = (HERE / "requirements.txt").read_text(encoding="utf-8")
+        if (f"openprotein-python=={dist.version}" not in reqs.splitlines()
+                or pin.get("version") != dist.version or pin.get("tag_object") != SDK_TAG_OBJECT):
+            print("  FAIL sdk-pin.json release version or tag does not match the pinned SDK")
+            return 1
+        if pin.get("package_sha256") != release_package_digest(packages):
+            print("  FAIL installed SDK package differs from the verified wheel")
+            return 1
     remote = None
     context = None
     if online and SDK_BRANCH:
@@ -494,6 +550,13 @@ def verify_pin(packages: Path, online: bool = False) -> int:
 
 def write_pin(packages: Path) -> None:
     """Recapture hashes from the installed SDK after generating specs."""
+    identity = (
+        {"repository": REPO, "branch": SDK_BRANCH}
+        if SDK_BRANCH else {
+            "tag_object": SDK_TAG_OBJECT,
+            "package_sha256": json.loads(PIN.read_text(encoding="utf-8"))["package_sha256"],
+        }
+    )
     files: dict[str, str] = {}
     for path in sorted(SPECS.glob("openprotein*.json")):
         document = json.loads(path.read_text(encoding="utf-8"))
@@ -513,7 +576,7 @@ def write_pin(packages: Path) -> None:
                 "package": "openprotein-python",
                 "version": version("openprotein-python"),
                 "commit": SDK_COMMIT,
-                **({"repository": REPO, "branch": SDK_BRANCH} if SDK_BRANCH else {"tag_object": SDK_TAG_OBJECT}),
+                **identity,
                 "note": "sha256 of every SDK file the specs line-link. Verify with `generate.py --verify-pin [--online]`.",
                 "files": dict(sorted(files.items())),
             },
@@ -633,6 +696,8 @@ def main() -> None:
             sys.exit("FAIL sdk-pin.json source identity does not match sdk.py")
     if args.verify_pin:
         sys.exit(verify_pin(packages, args.online))
+    if not SDK_BRANCH and verify_pin(packages):
+        sys.exit("FAIL released SDK pin verification")
     # Reads specs/, so it runs *after* a sync — the file list is "what the specs line-link".
     if args.write_pin:
         write_pin(packages)
@@ -665,6 +730,7 @@ def main() -> None:
                 try:
                     if entry["directive"] == "autoclass":
                         emitted = emit_class(package, dotted, entry["options"], resolve, link)
+                        add_examples(emitted, entry.get("examples", {}))
                     elif entry["directive"] == "autofunction":
                         emitted = emit_function(package, dotted, resolve, link)
                     else:

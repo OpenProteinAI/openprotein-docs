@@ -12,6 +12,9 @@ import generate as gen
 
 
 class BootstrapTransitionTests(unittest.TestCase):
+    def setUp(self):
+        self.enterContext(mock.patch.object(gen, "SDK_BRANCH", "preview"))
+
     def test_obsolete_source_path_does_not_control_bootstrap(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
