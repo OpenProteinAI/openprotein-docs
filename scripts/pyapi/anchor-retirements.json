@@ -178,243 +178,186 @@
     "anchor": "openprotein.data.prompts.future.PromptFuture",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture"
+      "anchor": "openprotein.data.Prompt"
     },
-    "reason": "PromptFuture is the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.args",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.args"
-    },
-    "reason": "The args member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.cancelled",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.cancelled"
-    },
-    "reason": "The cancelled member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.created_date",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.created_date"
-    },
-    "reason": "The created_date member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.dataset",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.dataset"
-    },
-    "reason": "The dataset member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.description",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.description"
-    },
-    "reason": "The description member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.done",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.done"
+      "anchor": "openprotein.data.Prompt.done"
     },
-    "reason": "The done member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Stored prompts expose a terminal readiness check."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.end_date",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.end_date"
-    },
-    "reason": "The end_date member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.get",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.get"
+      "anchor": "openprotein.data.Prompt.get"
     },
-    "reason": "The get member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.get_item",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.get_item"
-    },
-    "reason": "The get_item member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.id",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.id"
+      "anchor": "openprotein.data.Prompt.id"
     },
-    "reason": "The id member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.iter_outputs",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.iter_outputs"
-    },
-    "reason": "The iter_outputs member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.iter_units",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.iter_units"
-    },
-    "reason": "The iter_units member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.job",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.job"
-    },
-    "reason": "The inherited job attribute is the same Job-record attribute on the corresponding future."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.job_id",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.job_id"
+      "anchor": "openprotein.data.Prompt.job_id"
     },
-    "reason": "The job_id member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.job_type",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.job_type"
-    },
-    "reason": "The job_type member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.name",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.name"
-    },
-    "reason": "The name member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.outputs",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.outputs"
-    },
-    "reason": "The outputs member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.progress_counter",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.progress_counter"
-    },
-    "reason": "The progress_counter member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.refresh",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.refresh"
+      "anchor": "openprotein.data.Prompt.refresh"
     },
-    "reason": "The refresh member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Stored prompts can refresh their metadata."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.rename",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.rename"
-    },
-    "reason": "The rename member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.replicates",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.replicates"
+      "anchor": "openprotein.data.Prompt"
     },
-    "reason": "The replicates member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Iterate a stored Prompt to read its replicates."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.start_date",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.start_date"
-    },
-    "reason": "The start_date member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.status",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.status"
+      "anchor": "openprotein.data.Prompt.status"
     },
-    "reason": "The status member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.stream",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.stream"
-    },
-    "reason": "The stream member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.unit",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.unit"
-    },
-    "reason": "The unit member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.units",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.units"
-    },
-    "reason": "The units member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The stored Prompt provides resource reads and readiness, not this job-member interface.",
+    "removed": true
   },
   {
     "page": "data",
@@ -425,29 +368,26 @@
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.version",
-    "replacement": {
-      "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.version"
-    },
-    "reason": "The version member belongs to the same domain-owned prompt future at its public export."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.wait",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.wait"
+      "anchor": "openprotein.data.Prompt.wait"
     },
-    "reason": "The wait member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Prompt sampling returns a stored Prompt; get and wait return the handle itself."
   },
   {
     "page": "data",
     "anchor": "openprotein.data.prompts.future.PromptFuture.wait_until_done",
     "replacement": {
       "page": "data",
-      "anchor": "openprotein.data.prompts.PromptFuture.wait_until_done"
+      "anchor": "openprotein.data.Prompt.wait_until_done"
     },
-    "reason": "The wait_until_done member belongs to the same domain-owned prompt future at its public export."
+    "reason": "Stored prompts can wait for terminal readiness."
   },
   {
     "page": "models",
@@ -553,18 +493,18 @@
     "anchor": "openprotein.models.AttentionFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.AttentionFuture.iter_outputs"
+      "anchor": "openprotein.jobs.AttentionFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.AttentionFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.AttentionFuture.iter_units"
+      "anchor": "openprotein.jobs.AttentionFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -692,11 +632,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.AttentionFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.AttentionFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -820,18 +757,18 @@
     "anchor": "openprotein.models.CrossvalidateFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.CrossvalidateFuture.iter_outputs"
+      "anchor": "openprotein.jobs.CrossvalidateFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.CrossvalidateFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.CrossvalidateFuture.iter_units"
+      "anchor": "openprotein.jobs.CrossvalidateFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -959,11 +896,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.CrossvalidateFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.CrossvalidateFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -1087,18 +1021,18 @@
     "anchor": "openprotein.models.EmbeddingFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.EmbeddingFuture.iter_outputs"
+      "anchor": "openprotein.jobs.EmbeddingFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.EmbeddingFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.EmbeddingFuture.iter_units"
+      "anchor": "openprotein.jobs.EmbeddingFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -1226,11 +1160,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.EmbeddingFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.EmbeddingFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -1435,18 +1366,18 @@
     "anchor": "openprotein.models.GPFitFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.GPFitFuture.iter_outputs"
+      "anchor": "openprotein.jobs.GPFitFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.GPFitFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.GPFitFuture.iter_units"
+      "anchor": "openprotein.jobs.GPFitFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -1574,11 +1505,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.GPFitFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.GPFitFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -1702,18 +1630,18 @@
     "anchor": "openprotein.models.IndelScoreFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.IndelScoreFuture.iter_outputs"
+      "anchor": "openprotein.jobs.IndelScoreFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.IndelScoreFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.IndelScoreFuture.iter_units"
+      "anchor": "openprotein.jobs.IndelScoreFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -1841,11 +1769,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.IndelScoreFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.IndelScoreFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -1969,18 +1894,18 @@
     "anchor": "openprotein.models.LogLikelihoodFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.LogLikelihoodFuture.iter_outputs"
+      "anchor": "openprotein.jobs.LogLikelihoodFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.LogLikelihoodFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.LogLikelihoodFuture.iter_units"
+      "anchor": "openprotein.jobs.LogLikelihoodFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -2108,11 +2033,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.LogLikelihoodFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.LogLikelihoodFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -2236,18 +2158,18 @@
     "anchor": "openprotein.models.LogitsFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.LogitsFuture.iter_outputs"
+      "anchor": "openprotein.jobs.LogitsFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.LogitsFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.LogitsFuture.iter_units"
+      "anchor": "openprotein.jobs.LogitsFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -2375,11 +2297,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.LogitsFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.LogitsFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -2426,29 +2345,20 @@
   {
     "page": "models",
     "anchor": "openprotein.models.ModelsJob.path",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.Job.path"
-    },
-    "reason": "Job.path is the corresponding inherited record field on plain Job."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
     "anchor": "openprotein.models.ModelsJob.provider_id",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.Job.provider_id"
-    },
-    "reason": "Job.provider_id is the corresponding inherited record field on plain Job."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
     "anchor": "openprotein.models.ModelsJob.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.Job.version"
-    },
-    "reason": "Job.version is the corresponding inherited record field on plain Job."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -2554,18 +2464,18 @@
     "anchor": "openprotein.models.PredictionFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.PredictionFuture.iter_outputs"
+      "anchor": "openprotein.jobs.PredictionFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.PredictionFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.PredictionFuture.iter_units"
+      "anchor": "openprotein.jobs.PredictionFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -2693,11 +2603,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.PredictionFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.PredictionFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -2830,18 +2737,18 @@
     "anchor": "openprotein.models.SVDFitFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SVDFitFuture.iter_outputs"
+      "anchor": "openprotein.jobs.SVDFitFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.SVDFitFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SVDFitFuture.iter_units"
+      "anchor": "openprotein.jobs.SVDFitFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -2978,11 +2885,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.SVDFitFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.SVDFitFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -3106,18 +3010,18 @@
     "anchor": "openprotein.models.SequenceGenerationFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SequenceGenerationFuture.iter_outputs"
+      "anchor": "openprotein.jobs.SequenceGenerationFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.SequenceGenerationFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SequenceGenerationFuture.iter_units"
+      "anchor": "openprotein.jobs.SequenceGenerationFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -3245,11 +3149,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.SequenceGenerationFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.SequenceGenerationFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -3373,18 +3274,18 @@
     "anchor": "openprotein.models.SingleSitePredictionFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSitePredictionFuture.iter_outputs"
+      "anchor": "openprotein.jobs.SingleSitePredictionFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.SingleSitePredictionFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSitePredictionFuture.iter_units"
+      "anchor": "openprotein.jobs.SingleSitePredictionFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -3512,11 +3413,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.SingleSitePredictionFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSitePredictionFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -3640,18 +3538,18 @@
     "anchor": "openprotein.models.SingleSiteScoreFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSiteScoreFuture.iter_outputs"
+      "anchor": "openprotein.jobs.SingleSiteScoreFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.SingleSiteScoreFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSiteScoreFuture.iter_units"
+      "anchor": "openprotein.jobs.SingleSiteScoreFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -3779,11 +3677,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.SingleSiteScoreFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.SingleSiteScoreFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -3907,18 +3802,18 @@
     "anchor": "openprotein.models.StructureDesignFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.StructureDesignFuture.iter_outputs"
+      "anchor": "openprotein.jobs.StructureDesignFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.StructureDesignFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.StructureDesignFuture.iter_units"
+      "anchor": "openprotein.jobs.StructureDesignFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -4046,11 +3941,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.StructureDesignFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.StructureDesignFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -4174,18 +4066,18 @@
     "anchor": "openprotein.models.StructurePredictionFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.StructurePredictionFuture.iter_outputs"
+      "anchor": "openprotein.jobs.StructurePredictionFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.StructurePredictionFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.StructurePredictionFuture.iter_units"
+      "anchor": "openprotein.jobs.StructurePredictionFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -4313,11 +4205,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.StructurePredictionFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.StructurePredictionFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -4342,234 +4231,234 @@
     "anchor": "openprotein.models.TaskFuture",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture"
+      "anchor": "openprotein.jobs.Future"
     },
-    "reason": "TaskFuture is the corresponding actual Jobs task, result, fit, or unit interface."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.args",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.args"
+      "anchor": "openprotein.jobs.Future.args"
     },
-    "reason": "The args member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.cancelled",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.cancelled"
+      "anchor": "openprotein.jobs.Future.cancelled"
     },
-    "reason": "The cancelled member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.created_date",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.created_date"
+      "anchor": "openprotein.jobs.Future.created_date"
     },
-    "reason": "The created_date member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.dataset",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.dataset"
+      "anchor": "openprotein.jobs.Future.dataset"
     },
-    "reason": "The dataset member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.description",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.description"
+      "anchor": "openprotein.jobs.Future.description"
     },
-    "reason": "The description member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.done",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.done"
+      "anchor": "openprotein.jobs.Future.done"
     },
-    "reason": "The done member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.end_date",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.end_date"
+      "anchor": "openprotein.jobs.Future.end_date"
     },
-    "reason": "The end_date member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.get",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.get"
+      "anchor": "openprotein.jobs.Future.get"
     },
-    "reason": "The get member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.get_item",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.get_item"
+      "anchor": "openprotein.jobs.Future.get_item"
     },
-    "reason": "The get_item member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.id",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.id"
+      "anchor": "openprotein.jobs.Future.id"
     },
-    "reason": "The id member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.iter_outputs"
+      "anchor": "openprotein.jobs.Future.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.iter_units"
+      "anchor": "openprotein.jobs.Future.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.job",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.job"
+      "anchor": "openprotein.jobs.Future.job"
     },
-    "reason": "The inherited job attribute is the same Job-record attribute on the corresponding future."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.job_id",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.job_id"
+      "anchor": "openprotein.jobs.Future.job_id"
     },
-    "reason": "The job_id member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.job_type",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.job_type"
+      "anchor": "openprotein.jobs.Future.job_type"
     },
-    "reason": "The job_type member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.name",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.name"
+      "anchor": "openprotein.jobs.Future.name"
     },
-    "reason": "The name member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.outputs"
+      "anchor": "openprotein.jobs.Future.outputs"
     },
-    "reason": "The outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.progress_counter",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.progress_counter"
+      "anchor": "openprotein.jobs.Future.progress_counter"
     },
-    "reason": "The progress_counter member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.refresh",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.refresh"
+      "anchor": "openprotein.jobs.Future.refresh"
     },
-    "reason": "The refresh member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.rename",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.rename"
+      "anchor": "openprotein.jobs.Future.rename"
     },
-    "reason": "The rename member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.start_date",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.start_date"
+      "anchor": "openprotein.jobs.Future.start_date"
     },
-    "reason": "The start_date member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.status",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.status"
+      "anchor": "openprotein.jobs.Future.status"
     },
-    "reason": "The status member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.stream",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.stream"
+      "anchor": "openprotein.jobs.Future.stream"
     },
-    "reason": "The stream member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.unit",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.unit"
+      "anchor": "openprotein.jobs.Future.unit"
     },
-    "reason": "The unit member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.units"
+      "anchor": "openprotein.jobs.Future.units"
     },
-    "reason": "The units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
@@ -4580,29 +4469,26 @@
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.wait",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.wait"
+      "anchor": "openprotein.jobs.Future.wait"
     },
-    "reason": "The wait member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.TaskFuture.wait_until_done",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.TaskFuture.wait_until_done"
+      "anchor": "openprotein.jobs.Future.wait_until_done"
     },
-    "reason": "The wait_until_done member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Future is the shared job handle and provides this interface."
   },
   {
     "page": "models",
@@ -4717,18 +4603,18 @@
     "anchor": "openprotein.models.UMAPFitFuture.iter_outputs",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.UMAPFitFuture.iter_outputs"
+      "anchor": "openprotein.jobs.UMAPFitFuture.stream"
     },
-    "reason": "The iter_outputs member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use stream with an output name."
   },
   {
     "page": "models",
     "anchor": "openprotein.models.UMAPFitFuture.iter_units",
     "replacement": {
       "page": "jobs",
-      "anchor": "openprotein.jobs.UMAPFitFuture.iter_units"
+      "anchor": "openprotein.jobs.UMAPFitFuture.units"
     },
-    "reason": "The iter_units member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "Use units for handles to submitted positions."
   },
   {
     "page": "models",
@@ -4865,11 +4751,8 @@
   {
     "page": "models",
     "anchor": "openprotein.models.UMAPFitFuture.version",
-    "replacement": {
-      "page": "jobs",
-      "anchor": "openprotein.jobs.UMAPFitFuture.version"
-    },
-    "reason": "The version member is the corresponding actual Jobs task, result, fit, unit, status, or request member."
+    "reason": "The job interface does not expose this field.",
+    "removed": true
   },
   {
     "page": "models",
@@ -5719,5 +5602,422 @@
     "anchor": "openprotein.prompt.Prompt.units_digest",
     "removed": true,
     "reason": "The digest lookup is internal to the SDK."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.JobOutput",
+    "reason": "The public result readers return decoded values.",
+    "removed": true
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.JobsAPI.get_job_output",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.Future.get_item"
+    },
+    "reason": "Read a value by position on the future."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.JobsAPI.iter_job_outputs",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.Future.stream"
+    },
+    "reason": "Stream the selected output on the future."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.JobsAPI.iter_job_units",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.Future.units"
+    },
+    "reason": "Read the submitted positions on the future."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.Unit",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.FutureUnit"
+    },
+    "reason": "FutureUnit describes one submitted position."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.Unit.error",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.FutureUnit.error"
+    },
+    "reason": "Read the field on a FutureUnit."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.Unit.position",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.FutureUnit.position"
+    },
+    "reason": "Read the field on a FutureUnit."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.Unit.state",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.FutureUnit.status"
+    },
+    "reason": "Unit status uses JobStatus."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.Unit.unit_id",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.FutureUnit.unit_id"
+    },
+    "reason": "Read the field on a FutureUnit."
+  },
+  {
+    "page": "jobs",
+    "anchor": "openprotein.jobs.UnitState",
+    "replacement": {
+      "page": "jobs",
+      "anchor": "openprotein.jobs.JobStatus"
+    },
+    "reason": "Unit status uses JobStatus."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.get_first",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.get_first"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.get_slice",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.get_slice"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.job_id",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.job_id"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.list_models",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.list_models"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.status",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.status"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.AssayDataset.update",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Assay.update"
+    },
+    "reason": "Assay is the session-bound class for stored assay datasets."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSA.download",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.to_string"
+    },
+    "reason": "Use to_string for alignment text."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.download",
+    "reason": "A stored Prompt exposes its parsed replicates through iteration.",
+    "removed": true
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.replicates",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt"
+    },
+    "reason": "Iterate a stored Prompt to read its replicates."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.created_at",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.created_at"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.delete",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.delete"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.description",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.description"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.digest",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.digest"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.id",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.id"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.job_id",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.job_id"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.name",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.name"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.owner",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.owner"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.status",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.status"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.prompts.Prompt.update",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.update"
+    },
+    "reason": "Prompt is documented at its public path, openprotein.data.Prompt."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.DataAPI.msa",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.DataAPI.MSA"
+    },
+    "reason": "Use the session-bound MSA interface."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.DataAPI.prompts",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.DataAPI.Prompt"
+    },
+    "reason": "Use the session-bound Prompt interface."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA"
+    },
+    "reason": "Use the session-bound resource class."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.create",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.create"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.delete",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.delete"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.download",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.to_string"
+    },
+    "reason": "Use to_string for alignment text."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.get",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA"
+    },
+    "reason": "Load the stored resource with id= on its session-bound class."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.list",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.list"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.MSADataAPI.update",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.update"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt"
+    },
+    "reason": "Use the session-bound resource class."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.delete",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.delete"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.get",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt"
+    },
+    "reason": "Load the stored resource with id= on its session-bound class."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.list",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.list"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.sample_msa",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.MSA.sample_prompt"
+    },
+    "reason": "Sample a prompt from a stored MSA."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.update",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.update"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
+  },
+  {
+    "page": "data",
+    "anchor": "openprotein.data.PromptsAPI.upload",
+    "replacement": {
+      "page": "data",
+      "anchor": "openprotein.data.Prompt.create"
+    },
+    "reason": "Use the corresponding operation on the resource class or its handle."
   }
 ]

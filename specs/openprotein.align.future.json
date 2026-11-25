@@ -18,20 +18,20 @@
    "module": "openprotein.align.future",
    "source": {
     "file": "openprotein/align/future.py",
-    "line": 12,
-    "end": 57
+    "line": 13,
+    "end": 71
    },
    "members": [
     {
      "name": "get_input",
      "kind": "method",
-     "doc": "Retrieve input data for this alignment job.\n\nParameters\n----------\ninput_type : AlignType\n    The type of input data to retrieve.\n\nReturns\n-------\nIterator[list[str]]\n    An iterator over the input data rows.",
+     "doc": "Retrieve input data for this alignment job.\n\n.. deprecated:: 0.18.0\n    For ``AlignType.MSA``, use `MSAFuture.wait()` for the generated MSA, or\n    `session.data.MSA(id=...).to_string()`. For ``AlignType.PROMPT``, use\n    `Prompt.get()` for the replicates of a sampled prompt, indexed by\n    replicate. For ``AlignType.INPUT``, use\n    `MSAFuture.get_seed()` for the seed.\n\nParameters\n----------\ninput_type : AlignType\n    The type of input data to retrieve.\n\nReturns\n-------\nIterator[list[str]]\n    An iterator over the input data rows.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/future.py",
-      "line": 18,
-      "end": 34
+      "line": 19,
+      "end": 48
      },
      "signature": "(input_type)",
      "returns": null,
@@ -39,7 +39,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Retrieve input data for this alignment job."
+       "text": "Retrieve input data for this alignment job.\n\n.. deprecated:: 0.18.0\n    For ``AlignType.MSA``, use `MSAFuture.wait()` for the generated MSA, or\n    `session.data.MSA(id=...).to_string()`. For ``AlignType.PROMPT``, use\n    `Prompt.get()` for the replicates of a sampled prompt, indexed by\n    replicate. For ``AlignType.INPUT``, use\n    `MSAFuture.get_seed()` for the seed."
       },
       {
        "kind": "parameters",
@@ -84,8 +84,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/future.py",
-      "line": 36,
-      "end": 45
+      "line": 50,
+      "end": 59
      },
      "signature": "()",
      "returns": null,
@@ -120,8 +120,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/align/future.py",
-      "line": 48,
-      "end": 57
+      "line": 62,
+      "end": 71
      },
      "annotation": null,
      "annotation_parts": null,
@@ -155,12 +155,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

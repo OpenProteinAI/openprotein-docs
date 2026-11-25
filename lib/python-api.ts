@@ -159,7 +159,7 @@ function memberContract({ inherited_from, inherited_from_ref, ...contract }: PyM
 
 export function sharedTaskMembers(entry: PyEntry, document: PyDocument): Map<string, string> {
   const links = new Map<string, string>();
-  const base = document.entries.find((candidate) => candidate.path === 'openprotein.jobs.TaskFuture' && candidate.page === 'jobs' && !candidate.summary_only);
+  const base = document.entries.find((candidate) => candidate.path === 'openprotein.jobs.Future' && candidate.page === 'jobs' && !candidate.summary_only);
   if (!base || entry === base || entry.page !== 'jobs' || entry.section !== 'Task results') return links;
 
   for (const member of entry.members ?? []) {

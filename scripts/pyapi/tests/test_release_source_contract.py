@@ -77,7 +77,7 @@ class ReleaseSourceContractTests(unittest.TestCase):
         doc = ast.get_docstring(prompt_post) or ""
         self.assertIn("deprecated:: 0.18.0", doc)
         self.assertIn("MSAFuture.sample_prompt", doc)
-        self.assertIn("session.data.prompts.sample_msa", doc)
+        self.assertIn("or `MSA.sample_prompt`", doc)
         self.assertIn("removed_in='0.19.0'", ast.unparse(prompt_post))
         msa_id = definition(definition(module("align/schemas.py"), "MSAJob"), "msa_id")
         self.assertIn("or self.job_id", ast.unparse(msa_id))
@@ -93,7 +93,7 @@ class ReleaseSourceContractTests(unittest.TestCase):
         self.assertIn("request order with copies expanded", doc)
         self.assertIn("fold outputs", doc)
 
-    def test_stored_msa_reexport_resolves_to_its_public_home(self):
+    def test_stored_data_aliases_resolve_to_their_public_homes(self):
         import json
         import sys
         import sysconfig
@@ -111,5 +111,9 @@ class ReleaseSourceContractTests(unittest.TestCase):
         self.assertEqual(
             resolve("openprotein.data.msa.MSA"),
             {"path": "openprotein.data.MSA", "page": "data"},
+        )
+        self.assertEqual(
+            resolve("openprotein.data.AssayDataset"),
+            {"path": "openprotein.data.Assay", "page": "data"},
         )
         self.assertIsNone(resolve("openprotein.data.msa.NoSuchClass"))

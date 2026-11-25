@@ -147,6 +147,7 @@ class OverviewTests(unittest.TestCase):
             [
                 None,
                 "Interface",
+                "List models",
                 "Models",
                 *BASES,
                 "Model interfaces",
@@ -162,8 +163,9 @@ class OverviewTests(unittest.TestCase):
         expected = sdk_accessors()
         self.assertEqual(overview_rows(prose), expected)
         rendered = (ROOT / "content/docs/references/python-api/models.mdx").read_text()
-        for section in models["sections"][2 : 3 + len(BASES)]:
-            self.assertIn(section["prose"], rendered)
+        for section in models["sections"]:
+            if section["heading"] in {"List models", "Models", *BASES}:
+                self.assertIn(section["prose"], rendered)
         self.assertIn("**Trainable models**", prose)
         self.assertLess(
             rendered.index('title="PoET-2"'), rendered.index("| `poet-2` |")

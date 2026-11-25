@@ -18,7 +18,6 @@ Variables for `.env.local`:
 | `NEXT_PUBLIC_OP_APP_URL` | the web app: the header link and sign-in |
 | `NEXT_PUBLIC_OP_API_URL` | the platform API for the models catalogue, sign-in and the playground. Sign-in and the playground exist only when this and `NEXT_PUBLIC_OP_APP_URL` are set, and work only on a `*.openprotein.ai` origin or behind `OP_SERVER_PROXY` |
 | `OP_SERVER_PROXY` | the platform API: `pnpm dev` proxies `/api/v1/*` to it for local sign-in, `pnpm update:restapi` fetches the live REST specs from it and `pnpm update:pyapi:models` its models listing |
-| `OP_SDK_GIT_URL` | the unpublished SDK repository `pnpm update:pyapi` installs from, until 0.18 ships |
 | `NEXT_PUBLIC_OP_REPO_BRANCH` | the branch GitHub links ("Open in GitHub", notebook badges) point at. Use `main` |
 | `NEXT_PUBLIC_OP_GA_ID` | Google Analytics |
 
@@ -65,19 +64,14 @@ pnpm check:github            # GitHub and notebook links resolve (needs network)
 
 **For CI: only `types:check`, `build` and `check:links`.**
 
-## Pages preview
+## Static export
 
-Pushing to `develop`, or to a PR into it, publishes a static export to GitHub Pages via
-`.github/workflows/pages.yml`. The site shows whichever ran
-last, so a PR's preview stays up until the next push to `develop` or another PR. The site is
-private: viewers sign in to GitHub with read access to this repo. It builds against the repository
-variables `OP_APP_URL` and `OP_API_URL`: a reader signed in to that web app is signed in here too,
-and the playground runs against that API. `proxy.server.ts`'s redirects and the notebook routes need a server, so they don't
-exist there. `scripts/csp-static.mjs` adds a CSP to every exported page.
+A static export omits redirects and notebook routes that require a server.
+`scripts/csp-static.mjs` adds a CSP to every exported page.
 
 Files named `*.server.ts` read `cookies()` or `Request`; `*.static.ts` is the export-only
 counterpart. `next.config.mjs` registers one set or the other, so each build sees only its own.
-To reproduce the Pages build locally:
+To build a static export locally:
 
 ```bash
 BUILD_TARGET=static NEXT_PUBLIC_BUILD_TARGET=static \
@@ -235,21 +229,15 @@ if [ -e .venv-pyapi ] || [ -L .venv-pyapi ]; then
   echo 'Refusing to replace .venv-pyapi' >&2; exit 1
 fi
 python3.13 -m venv .venv-pyapi
-export OP_SDK_GIT_URL=<SDK repository URL>   # until 0.18 is published
 .venv-pyapi/bin/pip install -r scripts/pyapi/requirements.txt
 pnpm update:pyapi                # regenerate everything, then verify it
 pnpm update:pyapi --check        # verify only, write nothing
 ```
 
-The temporary pin is branch `release/v0.18.0` at commit `c410c2fe442a7949c0545614c070026031f4cb59`,
-not a released 0.18.0 wheel. Until it is published, pip installs it from `OP_SDK_GIT_URL`, which
-needs Git access; put it in `.env.local` too, for `pnpm update:pyapi`. `[source]` links point at the
-public `openprotein-python` repository and resolve once the commit is published there. This install reports `0.17.1.dev284+gc410c2fe4`; Git-derived package
-versions can change when remote tags change, while the pinned code stays fixed. The generator
-checks the installed PEP 610 Git identity and runs offline by default. To recheck source hashes
-against GitHub, run `.venv-pyapi/bin/python scripts/pyapi/generate.py --verify-pin --online`
-with `gh` authenticated. After SDK publication, switch to the actual public release and regenerate
-with `pnpm update:pyapi <released-version>`; this explicitly rebuilds the generator environment.
+The Python reference pins a published SDK wheel. `[source]` links point at the corresponding
+commit in the public SDK repository. To recheck source hashes against GitHub, run
+`.venv-pyapi/bin/python scripts/pyapi/generate.py --verify-pin --online`.
+Use `pnpm update:pyapi <released-version>` to change the pinned version.
 
 One command does all of it:
 

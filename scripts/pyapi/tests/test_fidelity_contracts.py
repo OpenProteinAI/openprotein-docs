@@ -43,14 +43,6 @@ class FidelityContractsTests(unittest.TestCase):
                 "RETRYING",
                 "CANCELED",
             },
-            "openprotein.jobs.UnitState": {
-                "PENDING",
-                "READY",
-                "RUNNING",
-                "SUCCESS",
-                "FAILED",
-                "CANCELED",
-            },
             "openprotein.predictor.KernelType": {
                 "LINEAR",
                 "RBF",
@@ -70,7 +62,13 @@ class FidelityContractsTests(unittest.TestCase):
                 "means",
                 "vars",
             },
-            "openprotein.jobs.JobOutput": {"position", "unit_id", "value"},
+            "openprotein.jobs.Future": {
+                "units",
+                "unit",
+                "outputs",
+                "get_item",
+                "stream",
+            },
             "openprotein.design.DesignFuture": {"get", "wait", "stream"},
         }
         for path, names in expected.items():

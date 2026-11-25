@@ -57,10 +57,11 @@ def rewrite_roles(text: str, owner: str | None, link=None) -> str:
     return ROLE.sub(replace, text)
 
 
-def _type_text(annotation) -> str | None:
+def _type_text(annotation, bindings=None) -> str | None:
     if annotation is None:
         return None
-    text = str(annotation).strip()
+    text = ("".join(part["text"] for part in type_parts(annotation, bindings=bindings) or [])
+            if bindings else str(annotation)).strip()
     return text or None
 
 
@@ -208,7 +209,7 @@ def overload_contract(func, package=None, resolve=None, bindings=None) -> dict:
             "returns": _type_text(returns), "returns_parts": type_parts(returns, resolve, getattr(func, "parent", None), bindings)}
 
 
-def parameter_sections(sections, func, resolve=None):
+def parameter_sections(sections, func, resolve=None, bindings=None, *, package=None):
     parameters = [p for p in (getattr(func, "parameters", None) or []) if p.name not in {"self", "cls"}]
     existing = {item.get("name", "").lstrip("*"): item for section in sections
                 if section["kind"] in {"parameters", "other parameters"} for item in section["items"]
@@ -222,14 +223,18 @@ def parameter_sections(sections, func, resolve=None):
         if item is not None:
             if not item.get("type"):
                 item["annotation_fallback"] = True
-                item["type"] = _type_text(annotation)
-                item["type_parts"] = type_parts(annotation, resolve, getattr(func, "parent", None))
+                item["type"] = _type_text(annotation, bindings)
+                item["type_parts"] = type_parts(annotation, resolve, getattr(func, "parent", None), bindings)
         else:
             kind = getattr(param.kind, "value", str(param.kind))
             prefix = "*" if kind == "variadic positional" else "**" if kind == "variadic keyword" else ""
-            additions.append({"name": prefix + param.name, "annotation_fallback": True, "type": _type_text(annotation),
-                              "type_parts": type_parts(annotation, resolve, getattr(func, "parent", None)),
-                              "default": str(param.default) if param.default is not None and not prefix else None, "text": None})
+            default = None
+            if param.default is not None and not prefix:
+                folded = constant_value(package, param.default) if package is not None else None
+                default = folded or str(param.default)
+            additions.append({"name": prefix + param.name, "annotation_fallback": True, "type": _type_text(annotation, bindings),
+                              "type_parts": type_parts(annotation, resolve, getattr(func, "parent", None), bindings),
+                              "default": default, "text": None})
     if additions:
         section = next((s for s in sections if s["kind"] == "parameters"), None)
         if section is None:
@@ -623,8 +628,8 @@ def describe(package, cls, name, member, extras, resolve=None, link=None) -> dic
         if defining and resolve is not None:
             out["inherited_from_ref"] = resolve(defining)
 
-    if kind in {"method"}:
-        bindings = generic_bindings(cls, getattr(target, "parent", None))
+    bindings = generic_bindings(cls, getattr(target, "parent", None))
+    if kind == "method":
         out["signature"] = signature_of(target, package)
         out["returns"] = _type_text(getattr(target, "returns", None))
         out["returns_parts"] = type_parts(getattr(target, "returns", None), resolve, bindings=bindings)
@@ -636,8 +641,8 @@ def describe(package, cls, name, member, extras, resolve=None, link=None) -> dic
         annotation = getattr(target, "annotation", None)
         if annotation is None and kind == "attribute":
             annotation = inherited_annotation(cls, name)
-        out["annotation"] = _type_text(annotation)
-        out["annotation_parts"] = type_parts(annotation, resolve)
+        out["annotation"] = _type_text(annotation, bindings)
+        out["annotation_parts"] = type_parts(annotation, resolve, bindings=bindings)
         value = getattr(target, "value", None)
         out["value"] = str(value) if value is not None else None
         if value is not None and re.match(r"^(pydantic\.)?Field\s*\(", str(value).strip()):
@@ -687,7 +692,7 @@ def describe(package, cls, name, member, extras, resolve=None, link=None) -> dic
             for section in sections:
                 if section["kind"] in {"parameters", "other parameters"}:
                     section["items"] = [item for item in section["items"] if item.get("name", "").lstrip("*") in names]
-        out["parsed"] = parameter_sections(sections, target, resolve)
+        out["parsed"] = parameter_sections(sections, target, resolve, package=package)
     else:
         out["parsed"] = sections
     return out

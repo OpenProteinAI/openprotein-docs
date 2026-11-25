@@ -686,19 +686,19 @@
    "source": {
     "file": "openprotein/fold/protenix.py",
     "line": 85,
-    "end": 167
+    "end": 166
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with Protenix.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
+     "doc": "Request structure prediction with Protenix.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/protenix.py",
       "line": 100,
-      "end": 167
+      "end": 166
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, templates=None, seed=None, **_)",
      "returns": "FoldResultFuture",
@@ -810,7 +810,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         }
        ]
       },
@@ -920,8 +920,8 @@
    "module": "openprotein.fold.protenix",
    "source": {
     "file": "openprotein/fold/protenix.py",
-    "line": 170,
-    "end": 177
+    "line": 169,
+    "end": 176
    },
    "members": [],
    "section": "Models",
@@ -1010,20 +1010,20 @@
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
-    "line": 144,
-    "end": 249
+    "line": 143,
+    "end": 247
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with Boltz-2 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : list[dict] | None = None\n    List of constraints.\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\nproperties: list[dict] | None = None\n    List of additional properties to predict. Should match the `BoltzProperties`\nmethod: str | None\n    The experimental method or supervision source used for the prediction. Defults to None.\n    Supported values (case-insensitive) include:\n    'MD', 'X-RAY DIFFRACTION', 'ELECTRON MICROSCOPY', 'SOLUTION NMR',\n    'SOLID-STATE NMR', 'NEUTRON DIFFRACTION', 'ELECTRON CRYSTALLOGRAPHY',\n    'FIBER DIFFRACTION', 'POWDER DIFFRACTION', 'INFRARED SPECTROSCOPY',\n    'FLUORESCENCE TRANSFER', 'EPR', 'THEORETICAL MODEL',\n    'SOLUTION SCATTERING', 'OTHER', 'AFDB', 'BOLTZ-1'.\n    View the documentation on Boltz for upstream details.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n     Future for the folding result.",
+     "doc": "Request structure prediction with Boltz-2 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : list[dict] | None = None\n    List of constraints.\ntemplates: list[Protein | Complex | Template] | None = None\n    List of templates to use for structure prediction.\nproperties: list[dict] | None = None\n    List of additional properties to predict. Should match the `BoltzProperties`\nmethod: str | None\n    The experimental method or supervision source used for the prediction. Defults to None.\n    Supported values (case-insensitive) include:\n    'MD', 'X-RAY DIFFRACTION', 'ELECTRON MICROSCOPY', 'SOLUTION NMR',\n    'SOLID-STATE NMR', 'NEUTRON DIFFRACTION', 'ELECTRON CRYSTALLOGRAPHY',\n    'FIBER DIFFRACTION', 'POWDER DIFFRACTION', 'INFRARED SPECTROSCOPY',\n    'FLUORESCENCE TRANSFER', 'EPR', 'THEORETICAL MODEL',\n    'SOLUTION SCATTERING', 'OTHER', 'AFDB', 'BOLTZ-1'.\n    View the documentation on Boltz for upstream details.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n     Future for the folding result.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 151,
-      "end": 249
+      "line": 150,
+      "end": 247
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, templates=None, properties=None, method=None, seed=None, **_)",
      "returns": "FoldResultFuture",
@@ -1190,7 +1190,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         }
        ]
       },
@@ -1308,20 +1308,20 @@
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
-    "line": 331,
-    "end": 390
+    "line": 328,
+    "end": 386
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with Boltz-1x model. Uses potentials with Boltz-1 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "doc": "Request structure prediction with Boltz-1x model. Uses potentials with Boltz-1 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 338,
-      "end": 390
+      "line": 335,
+      "end": 386
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=True, constraints=None, seed=None, **_)",
      "returns": "FoldResultFuture",
@@ -1420,7 +1420,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         },
         {
          "name": "use_potentials",
@@ -1542,20 +1542,20 @@
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
-    "line": 252,
-    "end": 328
+    "line": 250,
+    "end": 325
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with Boltz-1 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
+     "doc": "Request structure prediction with Boltz-1 model.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nstep_scale : float\n    Scaling factor for diffusion steps.\nuse_potentials: bool = False.\n    Whether or not to use potentials.\nconstraints : Optional[List[dict]]\n    List of constraints.\nseed : int | None\n    Seed for the prediction, from 0 to 2**31 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding complex result.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 259,
-      "end": 328
+      "line": 257,
+      "end": 325
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, seed=None, **_)",
      "returns": "FoldResultFuture",
@@ -1665,7 +1665,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 0 to 2**31 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 0 to 2**31 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         }
        ]
       },
@@ -1768,19 +1768,19 @@
    "source": {
     "file": "openprotein/fold/rosettafold3.py",
     "line": 23,
-    "end": 106
+    "end": 105
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with RosettaFold-3 model.\n\nParameters\n----------\nsequences: FoldInput | MSAFuture,\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nseed : int | None\n    Seed for the prediction, from 1 to 2**32 - 1. None draws a new\n    seed for each call, so every call is a fresh prediction; the job's\n    ``metadata.args[\"seed\"]`` records it. Folding the same input with\n    the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
+     "doc": "Request structure prediction with RosettaFold-3 model.\n\nParameters\n----------\nsequences: FoldInput | MSAFuture,\n    Complexes to fold, or a lone complex/protein/sequence. `Protein` objects must be tagged with an `msa`, which can be a `Protein.single_sequence_mode` for single sequence mode. Alternatively, supply an `MSAFuture` to use all query sequences as a multimer.\ndiffusion_samples: int\n    Number of diffusion samples to use\nnum_recycles : int\n    Number of recycling steps to use\nnum_steps : int\n    Number of sampling steps to use\nseed : int | None\n    Seed for the prediction, from 1 to 2**32 - 1. None lets the model\n    pick its own, so every call is a fresh prediction. Folding the\n    same input with the same seed returns the same structures.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/rosettafold3.py",
       "line": 38,
-      "end": 106
+      "end": 105
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=50, seed=None, **kwargs)",
      "returns": "FoldResultFuture",
@@ -1857,7 +1857,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the prediction, from 1 to 2**32 - 1. None draws a new\nseed for each call, so every call is a fresh prediction; the job's\n``metadata.args[\"seed\"]`` records it. Folding the same input with\nthe same seed returns the same structures."
+         "text": "Seed for the prediction, from 1 to 2**32 - 1. None lets the model\npick its own, so every call is a fresh prediction. Folding the\nsame input with the same seed returns the same structures."
         }
        ]
       },
@@ -5424,7 +5424,7 @@
     {
      "name": "args",
      "kind": "property",
-     "doc": "The registered job arguments.",
+     "doc": "The job's validated request, loaded on first access.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -5432,8 +5432,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 276,
-      "end": 278
+      "line": 300,
+      "end": 309
      },
      "annotation": "dict[str, Any]",
      "annotation_parts": [
@@ -5445,7 +5445,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "The registered job arguments."
+       "text": "The job's validated request, loaded on first access."
       }
      ]
     },
@@ -5460,8 +5460,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 291,
-      "end": 300
+      "line": 492,
+      "end": 501
      },
      "signature": "()",
      "returns": "bool",
@@ -5503,8 +5503,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 248,
-      "end": 250
+      "line": 280,
+      "end": 282
      },
      "annotation": "datetime",
      "annotation_parts": [
@@ -5531,8 +5531,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 238,
-      "end": 240
+      "line": 270,
+      "end": 272
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -5559,8 +5559,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 280,
-      "end": 289
+      "line": 481,
+      "end": 490
      },
      "signature": "()",
      "returns": "bool",
@@ -5602,8 +5602,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 258,
-      "end": 260
+      "line": 290,
+      "end": 292
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -5630,8 +5630,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -5658,8 +5658,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 228,
-      "end": 230
+      "line": 260,
+      "end": 262
      },
      "annotation": "str",
      "annotation_parts": [
@@ -5686,8 +5686,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 233,
-      "end": 235
+      "line": 265,
+      "end": 267
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -5714,8 +5714,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 263,
-      "end": 265
+      "line": 295,
+      "end": 297
      },
      "annotation": "int",
      "annotation_parts": [
@@ -5742,8 +5742,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 344,
-      "end": 346
+      "line": 551,
+      "end": 554
      },
      "signature": "()",
      "returns": null,
@@ -5766,8 +5766,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 348,
-      "end": 366
+      "line": 556,
+      "end": 574
      },
      "signature": "(name=None, description=None)",
      "returns": null,
@@ -5819,8 +5819,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 253,
-      "end": 255
+      "line": 285,
+      "end": 287
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -5847,8 +5847,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 243,
-      "end": 245
+      "line": 275,
+      "end": 277
      },
      "annotation": "JobStatus",
      "annotation_parts": [
@@ -5869,7 +5869,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
      "inherited_from_ref": {
       "path": "openprotein.jobs.MappedFuture",
@@ -5877,8 +5877,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 700,
-      "end": 707
+      "line": 970,
+      "end": 977
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "list[tuple[K, V]]",
@@ -5915,7 +5915,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -5951,13 +5951,49 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
-     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job reached a terminal status (success, failure or cancellation).\n\nNotes\n-----\nThis method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -5965,8 +6001,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 455,
-      "end": 484
+      "line": 694,
+      "end": 728
      },
      "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
@@ -6003,7 +6039,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -6029,14 +6065,14 @@
            "text": "bool"
           }
          ],
-         "text": "True if the job completed successfully."
+         "text": "True if the job reached a terminal status (success, failure or cancellation)."
         }
        ]
       },
       {
        "kind": "admonition",
        "title": "Notes",
-       "text": "This method does not fetch the job results, unlike `wait()`."
+       "text": "This method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`."
       }
      ]
     }
@@ -6195,8 +6231,8 @@
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
-    "line": 502,
-    "end": 544
+    "line": 498,
+    "end": 540
    },
    "members": [
     {
@@ -6207,8 +6243,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 534,
-      "end": 534
+      "line": 530,
+      "end": 530
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6227,8 +6263,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 535,
-      "end": 535
+      "line": 531,
+      "end": 531
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6247,8 +6283,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 536,
-      "end": 536
+      "line": 532,
+      "end": 532
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6267,8 +6303,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 537,
-      "end": 537
+      "line": 533,
+      "end": 533
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6287,8 +6323,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 538,
-      "end": 538
+      "line": 534,
+      "end": 534
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6307,8 +6343,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 539,
-      "end": 539
+      "line": 535,
+      "end": 535
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6327,8 +6363,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 540,
-      "end": 540
+      "line": 536,
+      "end": 536
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6347,8 +6383,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 541,
-      "end": 541
+      "line": 537,
+      "end": 537
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6367,8 +6403,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 542,
-      "end": 542
+      "line": 538,
+      "end": 538
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6387,8 +6423,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 543,
-      "end": 543
+      "line": 539,
+      "end": 539
      },
      "annotation": "dict[str, float]",
      "annotation_parts": [
@@ -6407,8 +6443,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 544,
-      "end": 544
+      "line": 540,
+      "end": 540
      },
      "annotation": "dict[str, dict[str, float]]",
      "annotation_parts": [
@@ -6482,8 +6518,8 @@
    "module": "openprotein.fold.boltz",
    "source": {
     "file": "openprotein/fold/boltz.py",
-    "line": 547,
-    "end": 566
+    "line": 543,
+    "end": 562
    },
    "members": [
     {
@@ -6494,8 +6530,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 562,
-      "end": 562
+      "line": 558,
+      "end": 558
      },
      "annotation": "float",
      "annotation_parts": [
@@ -6514,8 +6550,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/boltz.py",
-      "line": 563,
-      "end": 563
+      "line": 559,
+      "end": 559
      },
      "annotation": "float",
      "annotation_parts": [
@@ -7046,7 +7082,7 @@
    "name": "FoldJob",
    "path": "openprotein.fold.FoldJob",
    "kind": "class",
-   "signature": "(*, num_records=None, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)",
+   "signature": "(*, num_records=None, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, metadata=None, **extra_data)",
    "bases": [
     "Job",
     "BatchJob"
@@ -7344,19 +7380,19 @@
    "source": {
     "file": "openprotein/fold/opendde.py",
     "line": 90,
-    "end": 159
+    "end": 158
    },
    "members": [
     {
      "name": "fold",
      "kind": "method",
-     "doc": "Request structure prediction with OpenDDE.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    List of complexes to fold. `Protein` objects must be tagged with an\n    `msa`, which can be `Protein.single_sequence_mode` to fold without\n    one. Alternatively, supply an `MSAFuture` to use all its query\n    sequences as a multimer.\ndiffusion_samples : int\n    Number of diffusion samples to generate per prediction.\nnum_recycles : int\n    Number of recycling iterations to run.\nnum_steps : int\n    Number of diffusion sampling steps.\nseed : int | None\n    Seed for the diffusion sampling, from 0 to 2**32 - 1. None draws a\n    new seed for each call, so every call is a fresh prediction; the\n    job's ``metadata.args[\"seed\"]`` records it. Input preparation,\n    ligand conformers included, is not seeded, so folding the same\n    input with the same seed can still give different structures,\n    especially for complexes with a ligand.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
+     "doc": "Request structure prediction with OpenDDE.\n\nParameters\n----------\nsequences : FoldInput | MSAFuture\n    List of complexes to fold. `Protein` objects must be tagged with an\n    `msa`, which can be `Protein.single_sequence_mode` to fold without\n    one. Alternatively, supply an `MSAFuture` to use all its query\n    sequences as a multimer.\ndiffusion_samples : int\n    Number of diffusion samples to generate per prediction.\nnum_recycles : int\n    Number of recycling iterations to run.\nnum_steps : int\n    Number of diffusion sampling steps.\nseed : int | None\n    Seed for the diffusion sampling, from 0 to 2**32 - 1. None lets\n    the model pick its own, so every call is a fresh prediction.\n    Input preparation, ligand conformers included, is not seeded,\n    so folding the same input with the same seed can still give\n    different structures, especially for complexes with a ligand.\n\nReturns\n-------\nFoldResultFuture\n    Future for the folding results.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/fold/opendde.py",
       "line": 100,
-      "end": 159
+      "end": 158
      },
      "signature": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, seed=None, **_)",
      "returns": "FoldResultFuture",
@@ -7433,7 +7469,7 @@
           }
          ],
          "default": "None",
-         "text": "Seed for the diffusion sampling, from 0 to 2**32 - 1. None draws a\nnew seed for each call, so every call is a fresh prediction; the\njob's ``metadata.args[\"seed\"]`` records it. Input preparation,\nligand conformers included, is not seeded, so folding the same\ninput with the same seed can still give different structures,\nespecially for complexes with a ligand."
+         "text": "Seed for the diffusion sampling, from 0 to 2**32 - 1. None lets\nthe model pick its own, so every call is a fresh prediction.\nInput preparation, ligand conformers included, is not seeded,\nso folding the same input with the same seed can still give\ndifferent structures, especially for complexes with a ligand."
         }
        ]
       },
@@ -7535,8 +7571,8 @@
    "module": "openprotein.fold.opendde",
    "source": {
     "file": "openprotein/fold/opendde.py",
-    "line": 162,
-    "end": 170
+    "line": 161,
+    "end": 169
    },
    "members": [],
    "section": "Referenced types",
@@ -8100,12 +8136,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

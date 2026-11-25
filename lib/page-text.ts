@@ -218,7 +218,7 @@ async function entryText(dotted: string, anchored: boolean, depth: number): Prom
     const links = [...shared].map(([name, target]) =>
       `<a id="${dotted}.${name}"></a>[${codeSpan(name)}](#${target})`,
     );
-    out.push(`**Shared TaskFuture members:** ${links.join(' · ')}`);
+    out.push(`**Shared Future members:** ${links.join(' · ')}`);
   }
   return out.join('\n\n');
 }

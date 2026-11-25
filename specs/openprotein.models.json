@@ -38,7 +38,7 @@
    "source": {
     "file": "openprotein/models/models.py",
     "line": 79,
-    "end": 451
+    "end": 460
    },
    "members": [
     {
@@ -1466,13 +1466,13 @@
     {
      "name": "list_models",
      "kind": "method",
-     "doc": "List models served by the models API.\n\nA ``path`` value matches any method path containing it, e.g.\n``embeddings``.",
+     "doc": "List the system models served by the models API.\n\nParameters\n----------\nverbose : bool, optional\n    Return each model's metadata rather than its id.\npath : list of str, optional\n    Keep models with a method whose path contains one of these values,\n    ignoring case. Method paths are listed in each model's\n    ``metadata.methods``, e.g. ``batch/embeddings`` or\n    ``generate/sequences``, so ``[\"embeddings\"]`` keeps embedding\n    models and ``[\"generate\"]`` keeps models that generate sequences\n    or structures.\n\nReturns\n-------\nlist of str or list of ModelMetadata\n    Model ids, or their metadata with ``verbose``.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/models.py",
-      "line": 402,
-      "end": 413
+      "line": 397,
+      "end": 422
      },
      "signature": "(verbose=False, *, path=None)",
      "returns": "list[str] | list[ModelMetadata]",
@@ -1492,14 +1492,13 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "List models served by the models API.\n\nA ``path`` value matches any method path containing it, e.g.\n``embeddings``."
+       "text": "List the system models served by the models API."
       },
       {
        "kind": "parameters",
        "items": [
         {
          "name": "verbose",
-         "annotation_fallback": true,
          "type": "bool",
          "type_parts": [
           {
@@ -1507,19 +1506,33 @@
           }
          ],
          "default": "False",
-         "text": null
+         "text": "Return each model's metadata rather than its id."
         },
         {
          "name": "path",
-         "annotation_fallback": true,
-         "type": "list[str] | None",
+         "type": "list of str",
          "type_parts": [
           {
-           "text": "list[str] | None"
+           "text": "list of str"
           }
          ],
          "default": "None",
-         "text": null
+         "text": "Keep models with a method whose path contains one of these values,\nignoring case. Method paths are listed in each model's\n``metadata.methods``, e.g. ``batch/embeddings`` or\n``generate/sequences``, so ``[\"embeddings\"]`` keeps embedding\nmodels and ``[\"generate\"]`` keeps models that generate sequences\nor structures."
+        }
+       ]
+      },
+      {
+       "kind": "returns",
+       "items": [
+        {
+         "name": null,
+         "type": "list of str or list of ModelMetadata",
+         "type_parts": [
+          {
+           "text": "list of str or list of ModelMetadata"
+          }
+         ],
+         "text": "Model ids, or their metadata with ``verbose``."
         }
        ]
       }
@@ -1533,8 +1546,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/models.py",
-      "line": 415,
-      "end": 444
+      "line": 424,
+      "end": 453
      },
      "signature": "(model_id)",
      "returns": "Model",
@@ -1664,8 +1677,8 @@
    "module": "openprotein.models.foundational.poet2",
    "source": {
     "file": "openprotein/models/foundational/poet2.py",
-    "line": 18,
-    "end": 177
+    "line": 19,
+    "end": 212
    },
    "members": [
     {
@@ -1676,8 +1689,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 29,
-      "end": 42
+      "line": 30,
+      "end": 48
      },
      "signature": "(sequences, reduction='MEAN', prompt=None, query=None, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -1709,7 +1722,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -1776,8 +1789,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 44,
-      "end": 52
+      "line": 50,
+      "end": 64
      },
      "signature": "(sequences, prompt=None, query=None, **params)",
      "returns": "futures.LogitsFuture",
@@ -1859,8 +1872,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 54,
-      "end": 62
+      "line": 66,
+      "end": 78
      },
      "signature": "(sequences, prompt=None, query=None, **params)",
      "returns": "futures.AttentionFuture",
@@ -1942,8 +1955,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 64,
-      "end": 72
+      "line": 80,
+      "end": 94
      },
      "signature": "(sequences, prompt=None, query=None, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -2025,8 +2038,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 74,
-      "end": 84
+      "line": 96,
+      "end": 110
      },
      "signature": "(base_sequence, prompt=None, query=None, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -2103,13 +2116,13 @@
     {
      "name": "generate",
      "kind": "method",
-     "doc": "Sample sequences (``generate/sequences``).\n\n``query`` is one or a list, and ``design``, a finished\nstructure-generation job, adds one query per design.",
+     "doc": "Sample sequences (``generate/sequences``).\n\n``query`` is one or a list. ``design``, an RFdiffusion or BoltzGen job or\nits id, in any state, takes the place of ``query``: its designed\nstructures are the queries, and the job runs once the design has\nfinished.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 86,
-      "end": 108
+      "line": 112,
+      "end": 139
      },
      "signature": "(prompt=None, query=None, design=None, **params)",
      "returns": "futures.SequenceGenerationFuture",
@@ -2126,7 +2139,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Sample sequences (``generate/sequences``).\n\n``query`` is one or a list, and ``design``, a finished\nstructure-generation job, adds one query per design."
+       "text": "Sample sequences (``generate/sequences``).\n\n``query`` is one or a list. ``design``, an RFdiffusion or BoltzGen job or\nits id, in any state, takes the place of ``query``: its designed\nstructures are the queries, and the job runs once the design has\nfinished."
       },
       {
        "kind": "parameters",
@@ -2191,8 +2204,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 110,
-      "end": 127
+      "line": 141,
+      "end": 160
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, prompt=None, query=None, **params)",
      "returns": "SVDFitFuture",
@@ -2307,8 +2320,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 129,
-      "end": 150
+      "line": 162,
+      "end": 185
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, prompt=None, query=None, **params)",
      "returns": "UMAPFitFuture",
@@ -2447,8 +2460,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet2.py",
-      "line": 152,
-      "end": 177
+      "line": 187,
+      "end": 212
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, prompt=None, query=None, **params)",
      "returns": "GPFitFuture",
@@ -2614,8 +2627,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 75,
-      "end": 88
+      "line": 98,
+      "end": 115
      },
      "signature": "(base_sequence, insert=None, delete=None, prompt=None, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -2712,8 +2725,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -2742,8 +2755,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -2862,7 +2875,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -2951,8 +2964,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -2981,8 +2994,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -3027,11 +3040,11 @@
      }
     ]
    ],
-   "doc": "RFdiffusion, for de novo backbones, scaffolding and binder design.\n\n``Protein.from_expr(n)`` as the query designs ``n`` residues de novo. Its\ncheckpoint is ``rfdiffusion``.",
+   "doc": "RFdiffusion, for de novo backbones, scaffolding and binder design.\n\n``Protein.from_expr(n)`` as the query designs ``n`` residues de novo. The\nquery has a fixed length. Its checkpoint is ``rfdiffusion``.",
    "parsed": [
     {
      "kind": "text",
-     "text": "RFdiffusion, for de novo backbones, scaffolding and binder design.\n\n``Protein.from_expr(n)`` as the query designs ``n`` residues de novo. Its\ncheckpoint is ``rfdiffusion``."
+     "text": "RFdiffusion, for de novo backbones, scaffolding and binder design.\n\n``Protein.from_expr(n)`` as the query designs ``n`` residues de novo. The\nquery has a fixed length. Its checkpoint is ``rfdiffusion``."
     },
     {
      "kind": "parameters",
@@ -3101,7 +3114,7 @@
      "source": {
       "file": "openprotein/models/generative/base.py",
       "line": 16,
-      "end": 47
+      "end": 48
      },
      "signature": "(query=None, **params)",
      "returns": "futures.StructureDesignFuture",
@@ -3175,8 +3188,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -3205,8 +3218,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -3324,8 +3337,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -3386,8 +3399,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -3419,7 +3432,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -3465,8 +3478,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -3608,8 +3621,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -3703,8 +3716,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -3822,8 +3835,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -3884,8 +3897,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -3914,8 +3927,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -3950,8 +3963,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 37,
-      "end": 44
+      "line": 38,
+      "end": 45
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -4078,8 +4091,8 @@
    "module": "openprotein.models.foundational.proteinmpnn",
    "source": {
     "file": "openprotein/models/foundational/proteinmpnn.py",
-    "line": 14,
-    "end": 36
+    "line": 15,
+    "end": 40
    },
    "members": [
     {
@@ -4090,8 +4103,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/proteinmpnn.py",
-      "line": 24,
-      "end": 36
+      "line": 25,
+      "end": 40
      },
      "signature": "(sequences, query=None, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -4123,7 +4136,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -4173,13 +4186,13 @@
     {
      "name": "generate",
      "kind": "method",
-     "doc": "Design sequences for the query's backbone (``generate/sequences``).\n\n``design``, a finished structure-generation job, adds one query per\ndesign.",
+     "doc": "Design sequences for a backbone (``generate/sequences``).\n\nPass ``query``, the backbone, or ``design``, an RFdiffusion or BoltzGen\njob or its id, in any state. A design's job runs once the design has\nfinished, with ``num_samples`` per designed structure.\n\n.. deprecated:: 0.18.0\n    ``seed=`` is removed in 0.19.0; pass ``random_seed``.",
      "inherited_from": "openprotein.models.foundational._inverse_folding._InverseFoldingModel",
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 50,
-      "end": 66
+      "line": 94,
+      "end": 127
      },
      "signature": "(query=None, design=None, **params)",
      "returns": "futures.SequenceGenerationFuture",
@@ -4196,7 +4209,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Design sequences for the query's backbone (``generate/sequences``).\n\n``design``, a finished structure-generation job, adds one query per\ndesign."
+       "text": "Design sequences for a backbone (``generate/sequences``).\n\nPass ``query``, the backbone, or ``design``, an RFdiffusion or BoltzGen\njob or its id, in any state. A design's job runs once the design has\nfinished, with ``num_samples`` per designed structure.\n\n.. deprecated:: 0.18.0\n    ``seed=`` is removed in 0.19.0; pass ``random_seed``."
       },
       {
        "kind": "parameters",
@@ -4252,8 +4265,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -4282,8 +4295,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -4315,8 +4328,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 35,
-      "end": 39
+      "line": 57,
+      "end": 67
      },
      "signature": "(sequences, query=None, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -4381,15 +4394,15 @@
     {
      "name": "single_site",
      "kind": "method",
-     "doc": "Score every single-site mutant of ``base_sequence`` on the query's backbone.",
+     "doc": "Score every single-site mutant of ``base_sequence`` on the query's backbone.\n\n.. deprecated:: 0.18.0\n    ``sequence=`` is removed in 0.19.0; pass ``base_sequence``.",
      "inherited_from": "openprotein.models.foundational._inverse_folding._InverseFoldingModel",
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 41,
-      "end": 48
+      "line": 69,
+      "end": 92
      },
-     "signature": "(base_sequence, query=None, **params)",
+     "signature": "(base_sequence=None, query=None, **params)",
      "returns": "futures.SingleSiteScoreFuture",
      "returns_parts": [
       {
@@ -4404,7 +4417,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Score every single-site mutant of ``base_sequence`` on the query's backbone."
+       "text": "Score every single-site mutant of ``base_sequence`` on the query's backbone.\n\n.. deprecated:: 0.18.0\n    ``sequence=`` is removed in 0.19.0; pass ``base_sequence``."
       },
       {
        "kind": "parameters",
@@ -4412,13 +4425,13 @@
         {
          "name": "base_sequence",
          "annotation_fallback": true,
-         "type": "str | bytes",
+         "type": "str | bytes | None",
          "type_parts": [
           {
-           "text": "str | bytes"
+           "text": "str | bytes | None"
           }
          ],
-         "default": null,
+         "default": "None",
          "text": null
         },
         {
@@ -4544,7 +4557,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -4633,8 +4646,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -4663,8 +4676,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -4772,13 +4785,13 @@
     {
      "name": "generate",
      "kind": "method",
-     "doc": "Design sequences for the query's backbone (``generate/sequences``).\n\n``design``, a finished structure-generation job, adds one query per\ndesign.",
+     "doc": "Design sequences for a backbone (``generate/sequences``).\n\nPass ``query``, the backbone, or ``design``, an RFdiffusion or BoltzGen\njob or its id, in any state. A design's job runs once the design has\nfinished, with ``num_samples`` per designed structure.\n\n.. deprecated:: 0.18.0\n    ``seed=`` is removed in 0.19.0; pass ``random_seed``.",
      "inherited_from": "openprotein.models.foundational._inverse_folding._InverseFoldingModel",
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 50,
-      "end": 66
+      "line": 94,
+      "end": 127
      },
      "signature": "(query=None, design=None, **params)",
      "returns": "futures.SequenceGenerationFuture",
@@ -4795,7 +4808,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Design sequences for the query's backbone (``generate/sequences``).\n\n``design``, a finished structure-generation job, adds one query per\ndesign."
+       "text": "Design sequences for a backbone (``generate/sequences``).\n\nPass ``query``, the backbone, or ``design``, an RFdiffusion or BoltzGen\njob or its id, in any state. A design's job runs once the design has\nfinished, with ``num_samples`` per designed structure.\n\n.. deprecated:: 0.18.0\n    ``seed=`` is removed in 0.19.0; pass ``random_seed``."
       },
       {
        "kind": "parameters",
@@ -4851,8 +4864,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -4881,8 +4894,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -4914,8 +4927,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 35,
-      "end": 39
+      "line": 57,
+      "end": 67
      },
      "signature": "(sequences, query=None, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -4980,15 +4993,15 @@
     {
      "name": "single_site",
      "kind": "method",
-     "doc": "Score every single-site mutant of ``base_sequence`` on the query's backbone.",
+     "doc": "Score every single-site mutant of ``base_sequence`` on the query's backbone.\n\n.. deprecated:: 0.18.0\n    ``sequence=`` is removed in 0.19.0; pass ``base_sequence``.",
      "inherited_from": "openprotein.models.foundational._inverse_folding._InverseFoldingModel",
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/_inverse_folding.py",
-      "line": 41,
-      "end": 48
+      "line": 69,
+      "end": 92
      },
-     "signature": "(base_sequence, query=None, **params)",
+     "signature": "(base_sequence=None, query=None, **params)",
      "returns": "futures.SingleSiteScoreFuture",
      "returns_parts": [
       {
@@ -5003,7 +5016,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "Score every single-site mutant of ``base_sequence`` on the query's backbone."
+       "text": "Score every single-site mutant of ``base_sequence`` on the query's backbone.\n\n.. deprecated:: 0.18.0\n    ``sequence=`` is removed in 0.19.0; pass ``base_sequence``."
       },
       {
        "kind": "parameters",
@@ -5011,13 +5024,13 @@
         {
          "name": "base_sequence",
          "annotation_fallback": true,
-         "type": "str | bytes",
+         "type": "str | bytes | None",
          "type_parts": [
           {
-           "text": "str | bytes"
+           "text": "str | bytes | None"
           }
          ],
-         "default": null,
+         "default": "None",
          "text": null
         },
         {
@@ -5142,8 +5155,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -5204,8 +5217,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -5237,7 +5250,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -5283,8 +5296,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -5426,8 +5439,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -5521,8 +5534,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -5640,8 +5653,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -5702,8 +5715,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -5732,8 +5745,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -5768,8 +5781,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 37,
-      "end": 44
+      "line": 38,
+      "end": 45
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -5914,7 +5927,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -6003,8 +6016,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -6033,8 +6046,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -6153,7 +6166,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -6242,8 +6255,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -6272,8 +6285,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -6391,8 +6404,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -6424,7 +6437,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -6470,8 +6483,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -6613,8 +6626,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -6708,8 +6721,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -6827,8 +6840,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -6889,8 +6902,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -6919,8 +6932,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -6955,8 +6968,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 37,
-      "end": 44
+      "line": 38,
+      "end": 45
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -7101,7 +7114,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -7190,8 +7203,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -7220,8 +7233,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -7266,11 +7279,11 @@
      }
     ]
    ],
-   "doc": "BoltzGen, an all-atom model that designs binders.\n\nIt designs protein binders against proteins, nucleic acids or small\nmolecules. Its checkpoint is ``boltzgen``.",
+   "doc": "BoltzGen, an all-atom model that designs binders.\n\nIt designs protein binders against proteins, nucleic acids or small\nmolecules. The query has a fixed length. Its checkpoint is ``boltzgen``.",
    "parsed": [
     {
      "kind": "text",
-     "text": "BoltzGen, an all-atom model that designs binders.\n\nIt designs protein binders against proteins, nucleic acids or small\nmolecules. Its checkpoint is ``boltzgen``."
+     "text": "BoltzGen, an all-atom model that designs binders.\n\nIt designs protein binders against proteins, nucleic acids or small\nmolecules. The query has a fixed length. Its checkpoint is ``boltzgen``."
     },
     {
      "kind": "parameters",
@@ -7340,7 +7353,7 @@
      "source": {
       "file": "openprotein/models/generative/base.py",
       "line": 16,
-      "end": 47
+      "end": 48
      },
      "signature": "(query=None, **params)",
      "returns": "futures.StructureDesignFuture",
@@ -7414,8 +7427,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -7444,8 +7457,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -7490,11 +7503,11 @@
      }
     ]
    ],
-   "doc": "RosettaFold-3, an all-atom structure prediction model.\n\nIt predicts protein, DNA, RNA and ligand complexes. Its checkpoint is\n``rosettafold-3``.",
+   "doc": "RosettaFold-3, an all-atom structure prediction model.\n\nIt predicts protein and ligand complexes; DNA and RNA chains are left out\nwith a warning. Its checkpoint is ``rosettafold-3``.",
    "parsed": [
     {
      "kind": "text",
-     "text": "RosettaFold-3, an all-atom structure prediction model.\n\nIt predicts protein, DNA, RNA and ligand complexes. Its checkpoint is\n``rosettafold-3``."
+     "text": "RosettaFold-3, an all-atom structure prediction model.\n\nIt predicts protein and ligand complexes; DNA and RNA chains are left out\nwith a warning. Its checkpoint is ``rosettafold-3``."
     },
     {
      "kind": "parameters",
@@ -7564,7 +7577,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -7653,8 +7666,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -7683,8 +7696,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -7803,7 +7816,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -7892,8 +7905,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -7922,8 +7935,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -8042,7 +8055,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -8131,8 +8144,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -8161,8 +8174,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -8281,7 +8294,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -8370,8 +8383,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -8400,8 +8413,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -8519,8 +8532,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -8581,8 +8594,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -8614,7 +8627,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -8660,8 +8673,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -8803,8 +8816,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -8898,8 +8911,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -9017,8 +9030,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -9079,8 +9092,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -9109,8 +9122,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -9145,8 +9158,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 37,
-      "end": 44
+      "line": 38,
+      "end": 45
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -9290,8 +9303,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -9323,7 +9336,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -9369,8 +9382,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -9512,8 +9525,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -9607,8 +9620,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -9726,8 +9739,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -9756,8 +9769,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -9876,7 +9889,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -9965,8 +9978,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -9995,8 +10008,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -10099,8 +10112,8 @@
    "module": "openprotein.models.foundational.poet",
    "source": {
     "file": "openprotein/models/foundational/poet.py",
-    "line": 18,
-    "end": 163
+    "line": 19,
+    "end": 196
    },
    "members": [
     {
@@ -10111,8 +10124,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 43,
-      "end": 55
+      "line": 47,
+      "end": 62
      },
      "signature": "(sequences, reduction='MEAN', prompt=None, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -10144,7 +10157,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -10199,8 +10212,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 57,
-      "end": 61
+      "line": 64,
+      "end": 72
      },
      "signature": "(sequences, prompt=None, **params)",
      "returns": "futures.LogitsFuture",
@@ -10270,8 +10283,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 63,
-      "end": 67
+      "line": 74,
+      "end": 84
      },
      "signature": "(sequences, prompt=None, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -10341,8 +10354,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 69,
-      "end": 73
+      "line": 86,
+      "end": 96
      },
      "signature": "(base_sequence, prompt=None, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -10412,8 +10425,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 75,
-      "end": 88
+      "line": 98,
+      "end": 115
      },
      "signature": "(base_sequence, insert=None, delete=None, prompt=None, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -10507,8 +10520,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 90,
-      "end": 97
+      "line": 117,
+      "end": 126
      },
      "signature": "(prompt=None, **params)",
      "returns": "futures.SequenceGenerationFuture",
@@ -10566,8 +10579,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 99,
-      "end": 115
+      "line": 128,
+      "end": 146
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, prompt=None, **params)",
      "returns": "SVDFitFuture",
@@ -10670,8 +10683,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 117,
-      "end": 137
+      "line": 148,
+      "end": 170
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, prompt=None, **params)",
      "returns": "UMAPFitFuture",
@@ -10798,8 +10811,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/poet.py",
-      "line": 139,
-      "end": 163
+      "line": 172,
+      "end": 196
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, prompt=None, **params)",
      "returns": "GPFitFuture",
@@ -10953,8 +10966,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -10983,8 +10996,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -11102,8 +11115,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -11164,8 +11177,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -11197,7 +11210,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -11243,8 +11256,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -11386,8 +11399,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -11481,8 +11494,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -11600,8 +11613,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -11662,8 +11675,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -11692,8 +11705,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -11811,8 +11824,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -11873,8 +11886,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -11906,7 +11919,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -11952,8 +11965,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -12095,8 +12108,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -12190,8 +12203,8 @@
      },
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -12309,8 +12322,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -12371,8 +12384,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -12401,8 +12414,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -12511,8 +12524,8 @@
    "module": "openprotein.models.model",
    "source": {
     "file": "openprotein/models/model.py",
-    "line": 60,
-    "end": 226
+    "line": 91,
+    "end": 261
    },
    "members": [
     {
@@ -12523,8 +12536,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 85,
-      "end": 85
+      "line": 116,
+      "end": 116
      },
      "annotation": null,
      "annotation_parts": null,
@@ -12539,8 +12552,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -12566,8 +12579,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -12599,8 +12612,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 127,
-      "end": 146
+      "line": 164,
+      "end": 183
      },
      "signature": "(sequences, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -12632,7 +12645,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -12663,8 +12676,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -12722,8 +12735,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -12781,8 +12794,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 166,
-      "end": 175
+      "line": 203,
+      "end": 212
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -12840,11 +12853,11 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 177,
-      "end": 185
+      "line": 214,
+      "end": 220
      },
      "signature": "(base_sequence, **params)",
-     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | TaskFuture",
+     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -12866,8 +12879,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -12915,8 +12928,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 187,
-      "end": 194
+      "line": 222,
+      "end": 229
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -12974,11 +12987,11 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 196,
-      "end": 200
+      "line": 231,
+      "end": 235
      },
      "signature": "(**params)",
-     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | TaskFuture",
+     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -13000,8 +13013,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -13037,8 +13050,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 202,
-      "end": 209
+      "line": 237,
+      "end": 244
      },
      "signature": "(complexes, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -13096,8 +13109,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 211,
-      "end": 220
+      "line": 246,
+      "end": 255
      },
      "signature": "(sequences, **params)",
      "returns": "futures.PredictionFuture",
@@ -13226,8 +13239,8 @@
    "module": "openprotein.models.foundational.base",
    "source": {
     "file": "openprotein/models/foundational/base.py",
-    "line": 17,
-    "end": 119
+    "line": 18,
+    "end": 122
    },
    "members": [
     {
@@ -13238,8 +13251,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 26,
-      "end": 35
+      "line": 27,
+      "end": 36
      },
      "signature": "(sequences, reduction='MEAN', **params)",
      "returns": "futures.EmbeddingFuture",
@@ -13271,7 +13284,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -13314,8 +13327,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 37,
-      "end": 44
+      "line": 38,
+      "end": 45
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.SingleSiteScoreFuture",
@@ -13373,8 +13386,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 46,
-      "end": 65
+      "line": 47,
+      "end": 67
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction=None, **params)",
      "returns": "SVDFitFuture",
@@ -13465,8 +13478,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 67,
-      "end": 90
+      "line": 69,
+      "end": 93
      },
      "signature": "(sequences=None, assay=None, n_components=None, reduction='MEAN', n_neighbors=None, min_dist=None, **params)",
      "returns": "UMAPFitFuture",
@@ -13581,8 +13594,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/foundational/base.py",
-      "line": 92,
-      "end": 119
+      "line": 95,
+      "end": 122
      },
      "signature": "(assay, properties, reduction, name=None, description=None, kernel='rbf', period=None, alpha=None, **params)",
      "returns": "GPFitFuture",
@@ -13724,8 +13737,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -13786,11 +13799,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 196,
-      "end": 200
+      "line": 231,
+      "end": 235
      },
      "signature": "(**params)",
-     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | TaskFuture",
+     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -13812,8 +13825,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -13852,8 +13865,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 187,
-      "end": 194
+      "line": 222,
+      "end": 229
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -13914,8 +13927,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -13976,8 +13989,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -14006,8 +14019,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -14042,8 +14055,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 166,
-      "end": 175
+      "line": 203,
+      "end": 212
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -14173,7 +14186,7 @@
    "source": {
     "file": "openprotein/models/folding/base.py",
     "line": 85,
-    "end": 189
+    "end": 188
    },
    "members": [
     {
@@ -14185,7 +14198,7 @@
      "source": {
       "file": "openprotein/models/folding/base.py",
       "line": 96,
-      "end": 189
+      "end": 188
      },
      "signature": "(complexes, templates=None, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -14274,8 +14287,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -14304,8 +14317,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -14409,7 +14422,7 @@
    "source": {
     "file": "openprotein/models/generative/base.py",
     "line": 13,
-    "end": 47
+    "end": 48
    },
    "members": [
     {
@@ -14421,7 +14434,7 @@
      "source": {
       "file": "openprotein/models/generative/base.py",
       "line": 16,
-      "end": 47
+      "end": 48
      },
      "signature": "(query=None, **params)",
      "returns": "futures.StructureDesignFuture",
@@ -14495,8 +14508,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -14525,8 +14538,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -14701,8 +14714,8 @@
    "module": "openprotein.models.estimators",
    "source": {
     "file": "openprotein/models/estimators.py",
-    "line": 131,
-    "end": 194
+    "line": 170,
+    "end": 239
    },
    "members": [
     {
@@ -14713,8 +14726,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 149,
-      "end": 183
+      "line": 188,
+      "end": 222
      },
      "signature": "(X=None, *, model=None, sequences=None, assay=None, **params)",
      "returns": "SVDFitFuture",
@@ -14805,8 +14818,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 185,
-      "end": 187
+      "line": 224,
+      "end": 226
      },
      "signature": "(X=None, **kwargs)",
      "returns": "SVDFitFuture",
@@ -14856,15 +14869,15 @@
     {
      "name": "list",
      "kind": "method",
-     "doc": "A page of the caller's SVDs, newest first.",
+     "doc": "List the caller's fitted SVDs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 189,
-      "end": 194
+      "line": 228,
+      "end": 239
      },
-     "signature": "(limit=None, offset=None)",
+     "signature": "(limit=100, offset=None)",
      "returns": "builtins.list[SVDModel]",
      "returns_parts": [
       {
@@ -14882,7 +14895,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "A page of the caller's SVDs, newest first."
+       "text": "List the caller's fitted SVDs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``."
       },
       {
        "kind": "parameters",
@@ -14896,7 +14909,7 @@
            "text": "int | None"
           }
          ],
-         "default": "None",
+         "default": "100",
          "text": null
         },
         {
@@ -15093,8 +15106,8 @@
    "module": "openprotein.models.estimators",
    "source": {
     "file": "openprotein/models/estimators.py",
-    "line": 197,
-    "end": 273
+    "line": 242,
+    "end": 324
    },
    "members": [
     {
@@ -15105,8 +15118,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 224,
-      "end": 262
+      "line": 269,
+      "end": 307
      },
      "signature": "(X=None, *, model=None, sequences=None, assay=None, **params)",
      "returns": "UMAPFitFuture",
@@ -15197,8 +15210,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 264,
-      "end": 266
+      "line": 309,
+      "end": 311
      },
      "signature": "(X=None, **kwargs)",
      "returns": "UMAPFitFuture",
@@ -15248,15 +15261,15 @@
     {
      "name": "list",
      "kind": "method",
-     "doc": "A page of the caller's UMAPs, newest first.",
+     "doc": "List the caller's fitted UMAPs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 268,
-      "end": 273
+      "line": 313,
+      "end": 324
      },
-     "signature": "(limit=None, offset=None)",
+     "signature": "(limit=100, offset=None)",
      "returns": "builtins.list[UMAPModel]",
      "returns_parts": [
       {
@@ -15274,7 +15287,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "A page of the caller's UMAPs, newest first."
+       "text": "List the caller's fitted UMAPs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``."
       },
       {
        "kind": "parameters",
@@ -15288,7 +15301,7 @@
            "text": "int | None"
           }
          ],
-         "default": "None",
+         "default": "100",
          "text": null
         },
         {
@@ -15539,8 +15552,8 @@
    "module": "openprotein.models.estimators",
    "source": {
     "file": "openprotein/models/estimators.py",
-    "line": 299,
-    "end": 380
+    "line": 350,
+    "end": 445
    },
    "members": [
     {
@@ -15551,8 +15564,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 332,
-      "end": 373
+      "line": 383,
+      "end": 432
      },
      "signature": "(X=None, *, model=None, assay=None, property=None, **params)",
      "returns": "GPFitFuture",
@@ -15638,15 +15651,15 @@
     {
      "name": "list",
      "kind": "method",
-     "doc": "A page of the caller's GPs, newest first.",
+     "doc": "List the caller's fitted GPs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``.",
      "inherited_from": null,
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/estimators.py",
-      "line": 375,
-      "end": 380
+      "line": 434,
+      "end": 445
      },
-     "signature": "(limit=None, offset=None)",
+     "signature": "(limit=100, offset=None)",
      "returns": "builtins.list[GPModel]",
      "returns_parts": [
       {
@@ -15664,7 +15677,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "A page of the caller's GPs, newest first."
+       "text": "List the caller's fitted GPs newest first, starting at ``offset``.\n\nBy default, return up to 100 models and warn if the limit is reached.\nPass ``limit=None`` to read all pages from ``offset``."
       },
       {
        "kind": "parameters",
@@ -15678,7 +15691,7 @@
            "text": "int | None"
           }
          ],
-         "default": "None",
+         "default": "100",
          "text": null
         },
         {
@@ -15705,7 +15718,7 @@
    "name": "SVDModel",
    "path": "openprotein.models.SVDModel",
    "kind": "class",
-   "signature": "(session, model_id, metadata=None, record=None)",
+   "signature": "(session, model_id, metadata=None)",
    "bases": [
     "Model"
    ],
@@ -15769,18 +15782,6 @@
        ],
        "default": "None",
        "text": null
-      },
-      {
-       "name": "record",
-       "annotation_fallback": true,
-       "type": "_SVDRecord | dict | None",
-       "type_parts": [
-        {
-         "text": "_SVDRecord | dict | None"
-        }
-       ],
-       "default": "None",
-       "text": null
       }
      ]
     }
@@ -15789,7 +15790,7 @@
    "source": {
     "file": "openprotein/models/svd.py",
     "line": 88,
-    "end": 189
+    "end": 188
    },
    "members": [
     {
@@ -15800,8 +15801,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 121,
-      "end": 123
+      "line": 120,
+      "end": 122
      },
      "annotation": "SVDEmbeddingSource | None",
      "annotation_parts": [
@@ -15830,8 +15831,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 126,
-      "end": 128
+      "line": 125,
+      "end": 127
      },
      "annotation": "int | None",
      "annotation_parts": [
@@ -15855,8 +15856,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 131,
-      "end": 133
+      "line": 130,
+      "end": 132
      },
      "annotation": "int | None",
      "annotation_parts": [
@@ -15880,8 +15881,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 135,
-      "end": 139
+      "line": 134,
+      "end": 138
      },
      "signature": "(data)",
      "returns": "futures.EmbeddingFuture",
@@ -15913,7 +15914,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -15932,8 +15933,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 141,
-      "end": 160
+      "line": 140,
+      "end": 159
      },
      "signature": "(sequences=None, assay=None, n_components=None, n_neighbors=None, min_dist=None)",
      "returns": "futures.UMAPFitFuture",
@@ -15974,7 +15975,7 @@
          "type_parts": [
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           },
           {
@@ -16040,8 +16041,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 162,
-      "end": 185
+      "line": 161,
+      "end": 184
      },
      "signature": "(assay, properties, name=None, description=None, kernel='rbf', period=None, alpha=None)",
      "returns": "futures.GPFitFuture",
@@ -16070,7 +16071,7 @@
          "type_parts": [
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           },
           {
@@ -16172,8 +16173,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/models/svd.py",
-      "line": 187,
-      "end": 189
+      "line": 186,
+      "end": 188
      },
      "signature": "()",
      "returns": "None",
@@ -16200,8 +16201,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -16262,8 +16263,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 127,
-      "end": 146
+      "line": 164,
+      "end": 183
      },
      "signature": "(sequences, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -16295,7 +16296,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -16329,8 +16330,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 202,
-      "end": 209
+      "line": 237,
+      "end": 244
      },
      "signature": "(complexes, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -16391,11 +16392,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 196,
-      "end": 200
+      "line": 231,
+      "end": 235
      },
      "signature": "(**params)",
-     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | TaskFuture",
+     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -16417,8 +16418,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -16457,8 +16458,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 187,
-      "end": 194
+      "line": 222,
+      "end": 229
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -16519,8 +16520,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -16581,8 +16582,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -16611,8 +16612,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -16647,8 +16648,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 211,
-      "end": 220
+      "line": 246,
+      "end": 255
      },
      "signature": "(sequences, **params)",
      "returns": "futures.PredictionFuture",
@@ -16709,8 +16710,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 166,
-      "end": 175
+      "line": 203,
+      "end": 212
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -16771,11 +16772,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 177,
-      "end": 185
+      "line": 214,
+      "end": 220
      },
      "signature": "(base_sequence, **params)",
-     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | TaskFuture",
+     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -16797,8 +16798,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -17012,7 +17013,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -17034,8 +17035,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -17096,8 +17097,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 127,
-      "end": 146
+      "line": 164,
+      "end": 183
      },
      "signature": "(sequences, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -17129,7 +17130,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -17163,8 +17164,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 202,
-      "end": 209
+      "line": 237,
+      "end": 244
      },
      "signature": "(complexes, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -17225,11 +17226,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 196,
-      "end": 200
+      "line": 231,
+      "end": 235
      },
      "signature": "(**params)",
-     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | TaskFuture",
+     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -17251,8 +17252,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -17291,8 +17292,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 187,
-      "end": 194
+      "line": 222,
+      "end": 229
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -17353,8 +17354,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -17415,8 +17416,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -17445,8 +17446,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -17481,8 +17482,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 211,
-      "end": 220
+      "line": 246,
+      "end": 255
      },
      "signature": "(sequences, **params)",
      "returns": "futures.PredictionFuture",
@@ -17543,8 +17544,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 166,
-      "end": 175
+      "line": 203,
+      "end": 212
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -17605,11 +17606,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 177,
-      "end": 185
+      "line": 214,
+      "end": 220
      },
      "signature": "(base_sequence, **params)",
-     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | TaskFuture",
+     "returns": "futures.SingleSiteScoreFuture | futures.SingleSitePredictionFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -17631,8 +17632,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -18161,8 +18162,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 157,
-      "end": 164
+      "line": 194,
+      "end": 201
      },
      "signature": "(sequences, **params)",
      "returns": "futures.AttentionFuture",
@@ -18223,8 +18224,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 127,
-      "end": 146
+      "line": 164,
+      "end": 183
      },
      "signature": "(sequences, **params)",
      "returns": "futures.EmbeddingFuture",
@@ -18256,7 +18257,7 @@
           },
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -18290,8 +18291,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 202,
-      "end": 209
+      "line": 237,
+      "end": 244
      },
      "signature": "(complexes, **params)",
      "returns": "futures.StructurePredictionFuture",
@@ -18352,11 +18353,11 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 196,
-      "end": 200
+      "line": 231,
+      "end": 235
      },
      "signature": "(**params)",
-     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | TaskFuture",
+     "returns": "futures.SequenceGenerationFuture | futures.StructureDesignFuture | Future",
      "returns_parts": [
       {
        "text": "futures."
@@ -18378,8 +18379,8 @@
        "text": " | "
       },
       {
-       "text": "TaskFuture",
-       "path": "openprotein.jobs.TaskFuture",
+       "text": "Future",
+       "path": "openprotein.jobs.Future",
        "page": "jobs"
       }
      ],
@@ -18418,8 +18419,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 187,
-      "end": 194
+      "line": 222,
+      "end": 229
      },
      "signature": "(base_sequence, **params)",
      "returns": "futures.IndelScoreFuture",
@@ -18480,8 +18481,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 148,
-      "end": 155
+      "line": 185,
+      "end": 192
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogitsFuture",
@@ -18542,8 +18543,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 90,
-      "end": 94
+      "line": 121,
+      "end": 125
      },
      "annotation": "ModelMetadata",
      "annotation_parts": [
@@ -18572,8 +18573,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 97,
-      "end": 99
+      "line": 128,
+      "end": 130
      },
      "annotation": "list[MethodDescriptor]",
      "annotation_parts": [
@@ -18608,8 +18609,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 211,
-      "end": 220
+      "line": 246,
+      "end": 255
      },
      "signature": "(sequences, **params)",
      "returns": "futures.PredictionFuture",
@@ -18670,8 +18671,8 @@
      },
      "source": {
       "file": "openprotein/models/model.py",
-      "line": 166,
-      "end": 175
+      "line": 203,
+      "end": 212
      },
      "signature": "(sequences, **params)",
      "returns": "futures.LogLikelihoodFuture",
@@ -19697,7 +19698,7 @@
    "name": "StructureGenerationJob",
    "path": "openprotein.models.StructureGenerationJob",
    "kind": "class",
-   "signature": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)",
+   "signature": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, metadata=None, **extra_data)",
    "bases": [
     "Job"
    ],
@@ -19974,7 +19975,7 @@
     {
      "name": "args",
      "kind": "property",
-     "doc": "The registered job arguments.",
+     "doc": "The job's validated request, loaded on first access.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -19982,8 +19983,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 276,
-      "end": 278
+      "line": 300,
+      "end": 309
      },
      "annotation": "dict[str, Any]",
      "annotation_parts": [
@@ -19995,7 +19996,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "The registered job arguments."
+       "text": "The job's validated request, loaded on first access."
       }
      ]
     },
@@ -20010,8 +20011,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 291,
-      "end": 300
+      "line": 492,
+      "end": 501
      },
      "signature": "()",
      "returns": "bool",
@@ -20053,8 +20054,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 248,
-      "end": 250
+      "line": 280,
+      "end": 282
      },
      "annotation": "datetime",
      "annotation_parts": [
@@ -20081,8 +20082,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 238,
-      "end": 240
+      "line": 270,
+      "end": 272
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -20109,8 +20110,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 280,
-      "end": 289
+      "line": 481,
+      "end": 490
      },
      "signature": "()",
      "returns": "bool",
@@ -20152,8 +20153,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 258,
-      "end": 260
+      "line": 290,
+      "end": 292
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -20180,8 +20181,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 382,
-      "end": 392
+      "line": 597,
+      "end": 607
      },
      "signature": "(verbose=False, **kwargs)",
      "returns": "V",
@@ -20221,8 +20222,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -20249,8 +20250,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -20277,8 +20278,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 228,
-      "end": 230
+      "line": 260,
+      "end": 262
      },
      "annotation": "str",
      "annotation_parts": [
@@ -20305,8 +20306,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 233,
-      "end": 235
+      "line": 265,
+      "end": 267
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -20333,8 +20334,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 263,
-      "end": 265
+      "line": 295,
+      "end": 297
      },
      "annotation": "int",
      "annotation_parts": [
@@ -20361,8 +20362,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 344,
-      "end": 346
+      "line": 551,
+      "end": 554
      },
      "signature": "()",
      "returns": null,
@@ -20385,8 +20386,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 348,
-      "end": 366
+      "line": 556,
+      "end": 574
      },
      "signature": "(name=None, description=None)",
      "returns": null,
@@ -20438,8 +20439,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 253,
-      "end": 255
+      "line": 285,
+      "end": 287
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -20466,8 +20467,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 243,
-      "end": 245
+      "line": 275,
+      "end": 277
      },
      "annotation": "JobStatus",
      "annotation_parts": [
@@ -20488,7 +20489,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
      "inherited_from_ref": {
       "path": "openprotein.jobs.MappedFuture",
@@ -20496,8 +20497,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 700,
-      "end": 707
+      "line": 970,
+      "end": 977
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "list[tuple[K, V]]",
@@ -20534,7 +20535,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -20570,13 +20571,49 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
-     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job reached a terminal status (success, failure or cancellation).\n\nNotes\n-----\nThis method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -20584,8 +20621,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 455,
-      "end": 484
+      "line": 694,
+      "end": 728
      },
      "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
@@ -20622,7 +20659,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -20648,14 +20685,14 @@
            "text": "bool"
           }
          ],
-         "text": "True if the job completed successfully."
+         "text": "True if the job reached a terminal status (success, failure or cancellation)."
         }
        ]
       },
       {
        "kind": "admonition",
        "title": "Notes",
-       "text": "This method does not fetch the job results, unlike `wait()`."
+       "text": "This method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`."
       }
      ]
     }
@@ -21352,7 +21389,7 @@
     {
      "name": "args",
      "kind": "property",
-     "doc": "The registered job arguments.",
+     "doc": "The job's validated request, loaded on first access.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -21360,8 +21397,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 276,
-      "end": 278
+      "line": 300,
+      "end": 309
      },
      "annotation": "dict[str, Any]",
      "annotation_parts": [
@@ -21373,7 +21410,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "The registered job arguments."
+       "text": "The job's validated request, loaded on first access."
       }
      ]
     },
@@ -21388,8 +21425,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 291,
-      "end": 300
+      "line": 492,
+      "end": 501
      },
      "signature": "()",
      "returns": "bool",
@@ -21431,8 +21468,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 248,
-      "end": 250
+      "line": 280,
+      "end": 282
      },
      "annotation": "datetime",
      "annotation_parts": [
@@ -21459,8 +21496,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 238,
-      "end": 240
+      "line": 270,
+      "end": 272
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -21487,8 +21524,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 280,
-      "end": 289
+      "line": 481,
+      "end": 490
      },
      "signature": "()",
      "returns": "bool",
@@ -21530,8 +21567,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 258,
-      "end": 260
+      "line": 290,
+      "end": 292
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -21558,8 +21595,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 382,
-      "end": 392
+      "line": 597,
+      "end": 607
      },
      "signature": "(verbose=False, **kwargs)",
      "returns": "V",
@@ -21646,8 +21683,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -21699,8 +21736,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -21727,8 +21764,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 228,
-      "end": 230
+      "line": 260,
+      "end": 262
      },
      "annotation": "str",
      "annotation_parts": [
@@ -21755,8 +21792,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 233,
-      "end": 235
+      "line": 265,
+      "end": 267
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -21783,8 +21820,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 263,
-      "end": 265
+      "line": 295,
+      "end": 297
      },
      "annotation": "int",
      "annotation_parts": [
@@ -21811,8 +21848,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 344,
-      "end": 346
+      "line": 551,
+      "end": 554
      },
      "signature": "()",
      "returns": null,
@@ -21835,8 +21872,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 348,
-      "end": 366
+      "line": 556,
+      "end": 574
      },
      "signature": "(name=None, description=None)",
      "returns": null,
@@ -21881,15 +21918,15 @@
      "name": "session",
      "kind": "attribute",
      "doc": null,
-     "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.jobs.MappedFuture",
+      "path": "openprotein.jobs.Future",
       "page": "jobs"
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 626,
-      "end": 626
+      "line": 133,
+      "end": 133
      },
      "annotation": "APISession",
      "annotation_parts": [
@@ -21913,8 +21950,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 253,
-      "end": 255
+      "line": 285,
+      "end": 287
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -21941,8 +21978,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 243,
-      "end": 245
+      "line": 275,
+      "end": 277
      },
      "annotation": "JobStatus",
      "annotation_parts": [
@@ -22014,7 +22051,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
      "inherited_from_ref": {
       "path": "openprotein.jobs.MappedFuture",
@@ -22022,8 +22059,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 700,
-      "end": 707
+      "line": 970,
+      "end": 977
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "list[tuple[K, V]]",
@@ -22060,7 +22097,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -22096,13 +22133,49 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
-     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job reached a terminal status (success, failure or cancellation).\n\nNotes\n-----\nThis method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -22110,8 +22183,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 455,
-      "end": 484
+      "line": 694,
+      "end": 728
      },
      "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
@@ -22148,7 +22221,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -22174,14 +22247,14 @@
            "text": "bool"
           }
          ],
-         "text": "True if the job completed successfully."
+         "text": "True if the job reached a terminal status (success, failure or cancellation)."
         }
        ]
       },
       {
        "kind": "admonition",
        "title": "Notes",
-       "text": "This method does not fetch the job results, unlike `wait()`."
+       "text": "This method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`."
       }
      ]
     }
@@ -22223,7 +22296,7 @@
     {
      "name": "args",
      "kind": "property",
-     "doc": "The registered job arguments.",
+     "doc": "The job's validated request, loaded on first access.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -22231,8 +22304,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 276,
-      "end": 278
+      "line": 300,
+      "end": 309
      },
      "annotation": "dict[str, Any]",
      "annotation_parts": [
@@ -22244,7 +22317,7 @@
      "parsed": [
       {
        "kind": "text",
-       "text": "The registered job arguments."
+       "text": "The job's validated request, loaded on first access."
       }
      ]
     },
@@ -22259,8 +22332,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 291,
-      "end": 300
+      "line": 492,
+      "end": 501
      },
      "signature": "()",
      "returns": "bool",
@@ -22302,8 +22375,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 248,
-      "end": 250
+      "line": 280,
+      "end": 282
      },
      "annotation": "datetime",
      "annotation_parts": [
@@ -22330,8 +22403,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 238,
-      "end": 240
+      "line": 270,
+      "end": 272
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -22358,8 +22431,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 280,
-      "end": 289
+      "line": 481,
+      "end": 490
      },
      "signature": "()",
      "returns": "bool",
@@ -22401,8 +22474,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 258,
-      "end": 260
+      "line": 290,
+      "end": 292
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -22429,8 +22502,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 382,
-      "end": 392
+      "line": 597,
+      "end": 607
      },
      "signature": "(verbose=False, **kwargs)",
      "returns": "V",
@@ -22517,8 +22590,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -22570,8 +22643,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 221,
-      "end": 223
+      "line": 253,
+      "end": 255
      },
      "annotation": "str",
      "annotation_parts": [
@@ -22598,8 +22671,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 228,
-      "end": 230
+      "line": 260,
+      "end": 262
      },
      "annotation": "str",
      "annotation_parts": [
@@ -22626,8 +22699,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 233,
-      "end": 235
+      "line": 265,
+      "end": 267
      },
      "annotation": "str | None",
      "annotation_parts": [
@@ -22654,8 +22727,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 263,
-      "end": 265
+      "line": 295,
+      "end": 297
      },
      "annotation": "int",
      "annotation_parts": [
@@ -22682,8 +22755,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 344,
-      "end": 346
+      "line": 551,
+      "end": 554
      },
      "signature": "()",
      "returns": null,
@@ -22706,8 +22779,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 348,
-      "end": 366
+      "line": 556,
+      "end": 574
      },
      "signature": "(name=None, description=None)",
      "returns": null,
@@ -22752,15 +22825,15 @@
      "name": "session",
      "kind": "attribute",
      "doc": null,
-     "inherited_from": "openprotein.jobs.futures.MappedFuture",
+     "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
-      "path": "openprotein.jobs.MappedFuture",
+      "path": "openprotein.jobs.Future",
       "page": "jobs"
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 626,
-      "end": 626
+      "line": 133,
+      "end": 133
      },
      "annotation": "APISession",
      "annotation_parts": [
@@ -22784,8 +22857,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 253,
-      "end": 255
+      "line": 285,
+      "end": 287
      },
      "annotation": "datetime | None",
      "annotation_parts": [
@@ -22812,8 +22885,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 243,
-      "end": 245
+      "line": 275,
+      "end": 277
      },
      "annotation": "JobStatus",
      "annotation_parts": [
@@ -22885,7 +22958,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.MappedFuture",
      "inherited_from_ref": {
       "path": "openprotein.jobs.MappedFuture",
@@ -22893,8 +22966,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 700,
-      "end": 707
+      "line": 970,
+      "end": 977
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "list[tuple[K, V]]",
@@ -22931,7 +23004,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -22967,13 +23040,49 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     },
     {
      "name": "wait_until_done",
      "kind": "method",
-     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job completed successfully.\n\nNotes\n-----\nThis method does not fetch the job results, unlike `wait()`.",
+     "doc": "Wait for the job to complete.\n\nParameters\n----------\ninterval : float, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n\nReturns\n-------\nbool\n    True if the job reached a terminal status (success, failure or cancellation).\n\nNotes\n-----\nThis method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`.",
      "inherited_from": "openprotein.jobs.futures.Future",
      "inherited_from_ref": {
       "path": "openprotein.jobs.Future",
@@ -22981,8 +23090,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 455,
-      "end": 484
+      "line": 694,
+      "end": 728
      },
      "signature": "(interval=5, timeout=None, verbose=False)",
      "returns": "bool",
@@ -23019,7 +23128,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -23045,14 +23154,14 @@
            "text": "bool"
           }
          ],
-         "text": "True if the job completed successfully."
+         "text": "True if the job reached a terminal status (success, failure or cancellation)."
         }
        ]
       },
       {
        "kind": "admonition",
        "title": "Notes",
-       "text": "This method does not fetch the job results, unlike `wait()`."
+       "text": "This method refreshes the stored job but does not fetch results, unlike\n`wait()`. Check `status` for success or failure. A polling timeout raises\n`TimeoutException`."
       }
      ]
     }
@@ -23063,12 +23172,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

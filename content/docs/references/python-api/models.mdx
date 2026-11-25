@@ -3,7 +3,7 @@ title: "openprotein.models"
 description: "Unified access to models on the OpenProtein AI platform."
 pythonApi: true
 ---
-Use `session.models` to run a model. If you know which model you want, use a named accessor such as `session.models.esm2`. To browse available models, call `session.models.list_models()`. To look up a model by ID, call `session.models.get_model(model_id)`.
+Use `session.models` to run a model. If you know which model you want, use a named accessor such as `session.models.esm2`. To browse available system models, see [List models](#list-models). To look up a model by ID, call `session.models.get_model(model_id)`.
 
 <PyGroup id="interface" title="Interface"
   anchors={[
@@ -25,6 +25,28 @@ See [Task results](#task-results) for result types and [Jobs](/references/python
 <PyClass path="openprotein.models.ModelsAPI" />
 
 </PyGroup>
+
+## List models
+
+[`session.models.list_models()`](#openprotein.models.ModelsAPI.list_models) lists the system models available on the platform. By default it returns model IDs (`list[str]`). Set `verbose=True` for [model cards](#openprotein.models.ModelMetadata), which include display names and supported methods. Use `path` to filter by method; `path=["embeddings"]` matches models with an embedding method.
+
+```python
+model_ids = session.models.list_models()
+print(model_ids[:5])
+
+cards = session.models.list_models(verbose=True, path=["embeddings"])
+for card in cards[:5]:
+    print(card.model_id, card.name)
+```
+
+System model listings exclude your fitted models. Use [`session.models.GP.list()`](#openprotein.models.GP.list), [`session.models.SVD.list()`](#openprotein.models.SVD.list), or [`session.models.UMAP.list()`](#openprotein.models.UMAP.list) to list your fitted models by family. Since SDK 0.18.1, these methods return up to 100 fitted models by default and warn when a default call returns 100. Pass `limit=None` to read every page from `offset`, or set an explicit `limit` to cap the total. Set `offset` to skip results.
+
+```python
+fitted_gps = session.models.GP.list(limit=100)
+print([gp.id for gp in fitted_gps])
+if len(fitted_gps) == 100:
+    next_gps = session.models.GP.list(limit=100, offset=100)
+```
 
 ## Models
 
@@ -977,7 +999,7 @@ Use `session.models.SVD`, `session.models.UMAP` and `session.models.GP` to creat
 Replace `your-assay-id` with the ID of an existing [assay dataset](/references/python-api/data). All three estimators fit on the same embeddings job for the assay's sequences. Set `new_sequences` to the sequences you want to transform or predict on after fitting. For the UMAP example, use an assay with more than five distinct sequences.
 
 ```python
-assay = session.data.get(assay_id="your-assay-id")
+assay = session.data.Assay(id="your-assay-id")
 embedding_job = session.models.esm2.embed(assay, reduction="MEAN")
 new_sequences = ["ACDEFGHIK", "ACDEYGHIK"]
 ```

@@ -42,7 +42,7 @@ class Panel2ContentTests(unittest.TestCase):
             self.assertIn(value, align)
         prompt = self.prose("prompt", None)
         for value in (
-            "PromptFuture",
+            "stored Data `Prompt`",
             "prompt=prompt",
             "/references/python-api/models#openprotein.models.PoET",
         ):
@@ -80,9 +80,11 @@ class Panel2ContentTests(unittest.TestCase):
             n.name: ast.unparse(n) for n in unit.body if isinstance(n, ast.FunctionDef)
         }
         self.assertIn("get_item", methods["get"])
-        self.assertNotIn("UnitState", methods["get"])
-        for token in ("RuntimeError", "UnitState.FAILED", "UnitState.CANCELED"):
-            self.assertIn(token, methods["wait"])
+        for operation in ("get", "wait"):
+            self.assertIn("self._raise_if_unsuccessful()", methods[operation])
+        check = methods["_raise_if_unsuccessful"]
+        for token in ("JobFailedException", "JobStatus.FAILURE", "JobStatus.CANCELED"):
+            self.assertIn(token, check)
 
     def test_error_and_member_publication(self):
         for name in (
@@ -105,17 +107,13 @@ class Panel2ContentTests(unittest.TestCase):
             published = {member["name"] for member in self.entries[path]["members"]}
             self.assertTrue(set(members) <= published, path)
         jobs = self.prose("jobs", None)
-        for value in ("JobOutputsNotReady", "NotPrepared", "APIError", "RuntimeError"):
-            self.assertIn(value, jobs)
-        self.assertIn("terminal status", self.prose("jobs", "Classes"))
-        for qualifier in (
-            "`FutureUnit.wait()` raises `RuntimeError`",
-            "`FutureUnit.get()` delegates to `get_item()` without that state check",
-            "output collection or page read (`job_output_page`)",
-            "per-position read (`job_output_get`)",
-            "does not perform that translation and leaves the `HTTPError`",
+        for value in (
+            "JobOutputsNotReady",
+            "terminal status",
+            "`FutureUnit.get()` and `FutureUnit.wait()` raise `JobFailedException`",
+            "a direct position read can instead raise `HTTPError`",
         ):
-            self.assertIn(qualifier, jobs)
+            self.assertIn(value, jobs)
 
 
 if __name__ == "__main__":

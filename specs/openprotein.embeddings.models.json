@@ -154,12 +154,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

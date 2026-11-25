@@ -603,8 +603,8 @@
    "module": "openprotein.base",
    "source": {
     "file": "openprotein/base.py",
-    "line": 97,
-    "end": 400
+    "line": 172,
+    "end": 488
    },
    "members": [
     {
@@ -615,8 +615,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/base.py",
-      "line": 176,
-      "end": 192
+      "line": 259,
+      "end": 275
      },
      "signature": "(url, data=None, json=None, **kwargs)",
      "returns": null,
@@ -669,8 +669,8 @@
      "inherited_from_ref": null,
      "source": {
       "file": "openprotein/base.py",
-      "line": 194,
-      "end": 206
+      "line": 277,
+      "end": 289
      },
      "signature": "(username, password)",
      "returns": null,
@@ -738,8 +738,8 @@
    "module": "openprotein.errors",
    "source": {
     "file": "openprotein/errors.py",
-    "line": 121,
-    "end": 126
+    "line": 125,
+    "end": 130
    },
    "members": [],
    "section": "Errors",
@@ -748,12 +748,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }

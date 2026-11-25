@@ -66,7 +66,7 @@ export async function PyClass({ path }: { path: string }) {
       ) : null}
       {shared.size ? (
         <div className="not-prose mt-4 border-t border-fd-border pt-3 text-sm">
-          <p className="font-medium">Shared TaskFuture members</p>
+          <p className="font-medium">Shared Future members</p>
           <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
             {[...shared].map(([name, target]) => (
               <li key={name}>

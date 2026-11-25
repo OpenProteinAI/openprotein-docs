@@ -183,7 +183,7 @@
          "type_parts": [
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -1290,7 +1290,7 @@
      "annotation_parts": [
       {
        "text": "AssayDataset",
-       "path": "openprotein.data.AssayDataset",
+       "path": "openprotein.data.Assay",
        "page": "data"
       }
      ],
@@ -1696,7 +1696,7 @@
      "returns_parts": [
       {
        "text": "AssayDataset",
-       "path": "openprotein.data.AssayDataset",
+       "path": "openprotein.data.Assay",
        "page": "data"
       }
      ],
@@ -1714,7 +1714,7 @@
          "type_parts": [
           {
            "text": "AssayDataset",
-           "path": "openprotein.data.AssayDataset",
+           "path": "openprotein.data.Assay",
            "page": "data"
           }
          ],
@@ -1727,7 +1727,7 @@
     {
      "name": "wait",
      "kind": "method",
-     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.",
+     "doc": "Wait for the job to complete, then fetch results.\n\nParameters\n----------\ninterval : int, optional\n    Time in seconds between polling. Defaults to `config.POLLING_INTERVAL`.\ntimeout : int | None, optional\n    Maximum time in seconds to wait. Defaults to None. The timeout is\n    checked between polls, and a stalled poll is retried before it\n    fails, so the wait can run past it.\nverbose : bool, optional\n    Verbosity flag. Defaults to False.\n**kwargs\n    Keyword arguments passed to `get`.\n\nReturns\n-------\nAny\n    The results of the job.\n\nRaises\n------\nTimeoutException\n    If polling exceeds the timeout.\nJobFailedException\n    If the job was canceled and is a result future or stores outputs.\n    A failed job raises on the read.\n\nNotes\n-----\nA terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader.",
      "inherited_from": "openprotein.jobs.futures.StreamingFuture",
      "inherited_from_ref": {
       "path": "openprotein.jobs.StreamingFuture",
@@ -1735,8 +1735,8 @@
      },
      "source": {
       "file": "openprotein/jobs/futures.py",
-      "line": 585,
-      "end": 592
+      "line": 854,
+      "end": 861
      },
      "signature": "(interval=5, timeout=None, verbose=False, **kwargs)",
      "returns": "list[V]",
@@ -1773,7 +1773,7 @@
           }
          ],
          "default": "None",
-         "text": "Maximum time in seconds to wait. Defaults to None."
+         "text": "Maximum time in seconds to wait. Defaults to None. The timeout is\nchecked between polls, and a stalled poll is retried before it\nfails, so the wait can run past it."
         },
         {
          "name": "verbose",
@@ -1809,6 +1809,42 @@
          "text": "The results of the job."
         }
        ]
+      },
+      {
+       "kind": "raises",
+       "items": [
+        {
+         "name": null,
+         "type": "TimeoutException",
+         "type_parts": [
+          {
+           "text": "TimeoutException",
+           "path": "openprotein.errors.TimeoutException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If polling exceeds the timeout."
+        },
+        {
+         "name": null,
+         "type": "JobFailedException",
+         "type_parts": [
+          {
+           "text": "JobFailedException",
+           "path": "openprotein.errors.JobFailedException",
+           "page": "openprotein"
+          }
+         ],
+         "default": null,
+         "text": "If the job was canceled and is a result future or stores outputs.\nA failed job raises on the read."
+        }
+       ]
+      },
+      {
+       "kind": "admonition",
+       "title": "Notes",
+       "text": "A terminal status does not necessarily mean success. This method\nupdates the stored job and calls ``get``, whose errors depend on the\nresult reader."
       }
      ]
     }
@@ -1819,12 +1855,12 @@
  ],
  "sdk": {
   "package": "openprotein-python",
-  "version": "0.17.1.dev284+gc410c2fe4"
+  "version": "0.18.2"
  },
  "source": {
   "repository": "https://github.com/OpenProteinAI/openprotein-python",
-  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
-  "branch": "release/v0.18.0"
+  "ref": "8a1da23492b02037001b1636807185dc72951c8f",
+  "tag": "v0.18.2"
  },
  "generator": "scripts/pyapi + griffe 2.2.0"
 }
