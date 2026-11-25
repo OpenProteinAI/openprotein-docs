@@ -135,9 +135,7 @@ Upload an aligned FASTA file:
 
 ```python
 with open("myAlignment.fasta", "rb") as handle:
-    myMsa = session.align.upload_msa(handle)
-
-myMsa.wait_until_done(verbose=True)
+    myMsa = session.data.MSA.create(handle.read(), format="fasta")
 ```
 
 </Tab>
@@ -387,6 +385,23 @@ print("Context ID:", myContext.id)
 ```
 
 The job runs asynchronously on the platform.
+
+An MSA uploaded with `session.data.MSA.create` takes its own names for the same settings:
+
+```python
+myContext = myMsa.sample_prompt(
+    method=mySampling["method"],
+    homology_level=mySampling["homology_level"],
+    min_similarity=mySampling["min_similarity"],
+    max_similarity=mySampling["max_similarity"],
+    force_include_first=mySampling["always_include_seed_sequence"],
+    max_msa_tokens=mySampling.get("num_residues"),
+    max_msa_sequences=mySampling.get("num_sequences"),
+    replicates=mySampling["num_ensemble_prompts"],
+    seed=mySampling["random_seed"],
+)
+myContext.wait_until_done(verbose=True)
+```
 
 </Tab>
 

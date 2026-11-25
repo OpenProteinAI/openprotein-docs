@@ -48,7 +48,7 @@ Upload the dataset. Once uploaded, the dataset metadata lists dataset properties
 
 ```
 # upload the dataset
-assay = session.data.create(dataset,                    # DataFrame to upload
+assay = session.data.Assay.create(dataset,              # DataFrame to upload
     "Dataset name",                                     # dataset name
     "Dataset description")                              # optional description
 assay_id = assay.id                                     # save the ID to load the dataset later
@@ -126,10 +126,10 @@ assay.get_first()                                       # first rows of the uplo
 assay.get_slice(0, 100)                                 # a range of rows
 
 # reload, list and rename datasets
-assay = session.data.get(assay_id)                      # load the dataset by ID
-session.data.list()                                     # list all your assay datasets
-assay.update(assay_name="New name",                     # rename the dataset
-    assay_description="New description")                # update the description
+assay = session.data.Assay(id=assay_id)                 # load the dataset by ID
+session.data.Assay.list()                               # list all your assay datasets
+assay.update(name="New name",                           # rename the dataset
+    description="New description")                      # update the description
 ```
 
   </Tab>
