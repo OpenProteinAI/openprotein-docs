@@ -1,0 +1,42 @@
+---
+title: "openprotein.prompt"
+description: "Create prompts to be used with PoET models, along with queries which opens up use-cases like inverse folding with PoET-2."
+pythonApi: true
+---
+Create prompts and queries for [PoET models](/references/python-api/models#openprotein.models.PoET). The Models interface accepts a prompt ID, a compatibility `Prompt`, a stored Data `Prompt`, or a Data `PromptFuture` as `prompt=` (or `None`). If you already have a stored alignment, see [sample a prompt from a stored MSA](/references/python-api/data#alignments-and-sampled-prompts).
+
+```python
+msa = session.align.create_msa("ACDEFGHIK")
+prompt = msa.sample_prompt(num_sequences=10)
+job = session.models.poet.embed(["ACDEFGHIK"], prompt=prompt)
+```
+
+Some pinned SDK docstrings still link to the deprecated embedding interface.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.prompt.PromptAPI",
+  ]}
+>
+
+<PyClass path="openprotein.prompt.PromptAPI" />
+
+</PyGroup>
+
+<PyGroup id="classes" title="Classes"
+  anchors={[
+    "openprotein.prompt.Prompt",
+    "openprotein.prompt.Query",
+    "openprotein.prompt.PromptMetadata",
+    "openprotein.prompt.QueryMetadata",
+    "openprotein.prompt.PromptJob",
+  ]}
+>
+
+<PyClass path="openprotein.prompt.Prompt" />
+<PyClass path="openprotein.prompt.Query" />
+<PyClass path="openprotein.prompt.PromptMetadata" />
+<PyClass path="openprotein.prompt.QueryMetadata" />
+<PyClass path="openprotein.prompt.PromptJob" />
+
+</PyGroup>

@@ -1,0 +1,20 @@
+---
+title: "openprotein.predictor"
+description: "Deprecated compatibility interface for training property predictors."
+status: deprecated
+pythonApi: true
+---
+This compatibility interface is deprecated. Use [`session.models`](/references/python-api/models) for model access.
+
+Train property predictors from your datasets to enable predictions for new sequences! Use crossvalidation on the trained predictors to estimate uncertainty. Trained predictors can be used to design new sequences based on design goals for properties.
+
+<PyClass path="openprotein.predictor.PredictorAPI" />
+<PyClass path="openprotein.predictor.PredictorModel" />
+<PyClass path="openprotein.predictor.PredictionResultFuture" />
+<PyClass path="openprotein.predictor.validate.CVResultFuture" />
+<PyClass path="openprotein.predictor.KernelType" />
+<PyClass path="openprotein.common.FeatureType" />
+
+## Fitted kernels
+
+See the [trained kernels](/references/python-api/models#fitted-kernels) documented with fitted models. Retained predictor reexports: [`openprotein.predictor.TrainedKernel`](/references/python-api/models#openprotein.models.TrainedKernel), [`openprotein.predictor.LinearKernel`](/references/python-api/models#openprotein.models.LinearKernel), [`openprotein.predictor.RBFKernel`](/references/python-api/models#openprotein.models.RBFKernel), [`openprotein.predictor.Matern12Kernel`](/references/python-api/models#openprotein.models.Matern12Kernel), [`openprotein.predictor.Matern32Kernel`](/references/python-api/models#openprotein.models.Matern32Kernel), [`openprotein.predictor.Matern52Kernel`](/references/python-api/models#openprotein.models.Matern52Kernel), [`openprotein.predictor.PeriodicKernel`](/references/python-api/models#openprotein.models.PeriodicKernel), [`openprotein.predictor.RationalQuadraticKernel`](/references/python-api/models#openprotein.models.RationalQuadraticKernel).

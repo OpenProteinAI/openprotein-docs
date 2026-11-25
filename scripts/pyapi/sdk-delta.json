@@ -1,0 +1,300 @@
+{
+ "oracle_version": "0.16.1",
+ "sdk_version": "0.17.1.dev284+gc410c2fe4",
+ "note": "Reviewed SDK, curation, and extraction differences from the frozen Sphinx reference in golden/. Unlisted differences remain unexpected; update only after source and historical-link review.",
+ "members_added": {
+  "openprotein.align.MSAFuture": [
+   "get_antibody_schema",
+   "get_warnings"
+  ],
+  "openprotein.data.AssayDataset": [
+   "job_id",
+   "status"
+  ],
+  "openprotein.data.DataAPI": [
+   "msa",
+   "prompts"
+  ],
+  "openprotein.embeddings.AbLang2Model": [
+   "single_site"
+  ],
+  "openprotein.embeddings.ESMModel": [
+   "single_site"
+  ],
+  "openprotein.embeddings.EmbeddingsGenerateFuture": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.embeddings.EmbeddingsResultFuture": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.embeddings.EmbeddingsScoreFuture": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.fold.FoldAPI": [
+   "opendde",
+   "opendde_abag"
+  ],
+  "openprotein.fold.FoldResultFuture": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.jobs.Job": [
+   "create",
+   "created_date",
+   "description",
+   "end_date",
+   "failure_message",
+   "job_id",
+   "job_type",
+   "metadata",
+   "name",
+   "outputs",
+   "path",
+   "prerequisite_job_id",
+   "progress_counter",
+   "progress_message",
+   "provider_id",
+   "sequence_length",
+   "start_date",
+   "status",
+   "unit_count",
+   "units_digest",
+   "version"
+  ],
+  "openprotein.jobs.JobsAPI": [
+   "get_job_output",
+   "iter_job_outputs",
+   "iter_job_units",
+   "update"
+  ],
+  "openprotein.models.BoltzGenFuture": [
+   "description",
+   "get",
+   "job",
+   "name",
+   "rename",
+   "session"
+  ],
+  "openprotein.models.ModelsAPI": [
+   "GP",
+   "SVD",
+   "UMAP",
+   "ablang2",
+   "af2",
+   "alphafold2",
+   "boltz1",
+   "boltz1x",
+   "boltz2",
+   "boltz_1",
+   "boltz_1x",
+   "boltz_2",
+   "boltzgen",
+   "esm1b",
+   "esm1b_t33_650M_UR50S",
+   "esm1v",
+   "esm1v_t33_650M_UR90S_1",
+   "esm1v_t33_650M_UR90S_2",
+   "esm1v_t33_650M_UR90S_3",
+   "esm1v_t33_650M_UR90S_4",
+   "esm1v_t33_650M_UR90S_5",
+   "esm2",
+   "esm2_t12_35M_UR50D",
+   "esm2_t30_150M_UR50D",
+   "esm2_t33_650M_UR50D",
+   "esm2_t36_3B_UR50D",
+   "esm2_t6_8M_UR50D",
+   "esm_if1",
+   "esmc_300m",
+   "esmc_600m",
+   "esmc_6b",
+   "esmfold",
+   "esmfold2",
+   "esmfold2_fast",
+   "esmif1",
+   "get_model",
+   "list_models",
+   "minifold",
+   "opendde",
+   "opendde_abag",
+   "poet",
+   "poet2",
+   "poet_2",
+   "prot_seq",
+   "proteinmpnn",
+   "protenix",
+   "protenix_v2",
+   "prott5_xl",
+   "rf3",
+   "rfdiffusion",
+   "rosettafold_3",
+   "rotaprot_large_uniref50w",
+   "rotaprot_large_uniref90_ft",
+   "solublempnn"
+  ],
+  "openprotein.models.RFdiffusionFuture": [
+   "description",
+   "get",
+   "job",
+   "name",
+   "rename",
+   "session"
+  ],
+  "openprotein.molecules.Complex": [
+   "clear",
+   "copy",
+   "get_chain",
+   "get_chain_ids",
+   "get_chains",
+   "insert_chain",
+   "remove_chain",
+   "set_chain",
+   "update"
+  ],
+  "openprotein.predictor.PredictorModel": [
+   "description",
+   "kernel",
+   "mean",
+   "name",
+   "noise",
+   "rename"
+  ],
+  "openprotein.prompt.Prompt": [
+   "rename"
+  ],
+  "openprotein.prompt.PromptAPI": [
+   "human_antibody_vh",
+   "human_antibody_vh_v1",
+   "human_antibody_vh_vl",
+   "human_antibody_vh_vl_v1",
+   "human_antibody_vl",
+   "human_antibody_vl_v1",
+   "human_antibody_vl_vh",
+   "human_antibody_vl_vh_v1"
+  ],
+  "openprotein.svd.SVDModel": [
+   "description",
+   "name",
+   "rename"
+  ],
+  "openprotein.umap.UMAPModel": [
+   "description",
+   "name",
+   "rename"
+  ]
+ },
+ "members_removed": {},
+ "signatures_changed": {
+  "openprotein.align.AlignAPI.abnumber": {
+   "sphinx": "(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)",
+   "ours": "(sequences, names=None, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False, unnumbered_policy=UnnumberedPolicy.ERROR)"
+  },
+  "openprotein.align.AlignAPI.abnumber_file": {
+   "sphinx": "(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False)",
+   "ours": "(file, scheme=AbNumberScheme.CHOTHIA, drop_minority_chains=False, unnumbered_policy=UnnumberedPolicy.ERROR)"
+  },
+  "openprotein.align.AlignAPI.create_msa": {
+   "sphinx": "(seed)",
+   "ours": "(seed, pairing=Pairing.BOTH)"
+  },
+  "openprotein.data.AssayDataset.get_slice": {
+   "sphinx": "(start, end)",
+   "ours": "(start, end, include_metadata=False)"
+  },
+  "openprotein.data.AssayMetadata": {
+   "sphinx": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False)",
+   "ours": "(*, assay_name, assay_description, assay_id, original_filename, created_date, num_rows, num_entries, measurement_names, sequence_length=None, has_name_column=False, metadata_names=None, status=JobStatus.SUCCESS, align_job_id=None)"
+  },
+  "openprotein.data.DataAPI.create": {
+   "sphinx": "(table, name, description=None)",
+   "ours": "(table, name, description=None, metadata_columns=None)"
+  },
+  "openprotein.embeddings.EmbeddingsGenerateFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.embeddings.EmbeddingsResultFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.embeddings.EmbeddingsScoreFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.fold.Boltz1Model.fold": {
+   "sphinx": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, **_)",
+   "ours": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, seed=None, **_)"
+  },
+  "openprotein.fold.Boltz1xModel.fold": {
+   "sphinx": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=True, constraints=None, **_)",
+   "ours": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=True, constraints=None, seed=None, **_)"
+  },
+  "openprotein.fold.Boltz2Model.fold": {
+   "sphinx": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, templates=None, properties=None, method=None, **_)",
+   "ours": "(sequences, diffusion_samples=1, num_recycles=3, num_steps=200, step_scale=1.638, use_potentials=False, constraints=None, templates=None, properties=None, method=None, seed=None, **_)"
+  },
+  "openprotein.fold.FoldResultFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.fold.ProtenixModel.fold": {
+   "sphinx": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, templates=None, **_)",
+   "ours": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=200, templates=None, seed=None, **_)"
+  },
+  "openprotein.fold.RosettaFold3Model.fold": {
+   "sphinx": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=50, **kwargs)",
+   "ours": "(sequences, diffusion_samples=1, num_recycles=10, num_steps=50, seed=None, **kwargs)"
+  },
+  "openprotein.jobs.Future.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.jobs.Job": {
+   "sphinx": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
+   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)"
+  },
+  "openprotein.jobs.JobsAPI.list": {
+   "sphinx": "(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None)",
+   "ours": "(status=None, job_type=None, assay_id=None, more_recent_than=None, page_size=None, page_offset=None, limit=None, *, name=None)"
+  },
+  "openprotein.models.BoltzGenFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.models.RFdiffusionFuture.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.molecules.Protein.msa": {
+   "sphinx": "str | MSAFuture | None | Type[NullMSA]",
+   "ours": "str | MSAFuture | MSA | None | Type[NullMSA]"
+  },
+  "openprotein.prompt.Prompt.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  },
+  "openprotein.prompt.PromptJob": {
+   "sphinx": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, **extra_data)",
+   "ours": "(*, job_id, job_type, status, created_date, start_date=None, end_date=None, prerequisite_job_id=None, progress_message=None, progress_counter=None, sequence_length=None, failure_message=None, name=None, description=None, units_digest=None, unit_count=None, provider_id=None, path=None, version=None, outputs=None, metadata=None, **extra_data)"
+  },
+  "openprotein.umap.UMAPModel.wait": {
+   "sphinx": "(interval=5, timeout=None, verbose=False)",
+   "ours": "(interval=5, timeout=None, verbose=False, **kwargs)"
+  }
+ }
+}

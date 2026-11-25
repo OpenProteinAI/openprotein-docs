@@ -1,0 +1,140 @@
+---
+title: "How to upload an assay dataset"
+description: "Upload a table of protein sequence variants and their measured properties to the platform."
+---
+In this how-to guide, we will upload an assay dataset to the platform. An assay dataset is a table of protein sequence variants paired with measurement values from an experiment, such as activity, binding or stability. The platform then enables training of custom property predictor models  on this data. This guide will focus on solely the uploading of the assay dataset; to see how to train a model on assay data, see here.
+
+# Before starting
+- Have or create an existing project. Learn how to create a project in our quickstart guide.
+- Have an assay dataset to be uploaded, formatted as a `.csv`.
+
+# Upload dataset
+<Tabs items={['App', 'Python']}>
+<Tab value="App">
+- Select **Upload**, followed by **Assay** and choose the file to be uploaded. Use **Choose file** to pick a different file.
+- Enter a dataset name or keep the default, and optionally add a description. 
+- Check each column type. The app tags the column type by mapping it with the column names in the csv file. If detection is wrong, set it with the Column type dropdown.
+
+| Column type | Use it for |
+| --- | --- |
+| Identifier | IDs for each sequence |
+| Property | Measurements to optimize, one property per column |
+| Sequence | Protein sequences | (only one of these per row is allowed right?)
+| Mutant | Mutation codes (requires a parent sequence) |
+| Metadata | Additional information about the sequence |
+| Ignored | Columns to leave out of the upload |
+
+- For datasets with mutation codes only: enter the wild-type sequence in the Parent sequence field, then set the column to Mutant. The platform then shows the full sequence of each variant.
+- Click on **Preview** tab to view a preview of the dataset that will be uploaded. 
+- Select Upload.
+
+<Figure src="/_static/how_to/upload-assay/upload-assay-preview.png" />
+
+</Tab>
+<Tab value="Python">
+Format the CSV before upload. The column names decide each column type: name the variant sequence column `sequence` and the identifier column `Name`. Every other column is read as a property. Drop columns you want to leave out. If your sequences are expressed as mutation codes, convert them to full variant sequences. 
+
+```
+# load and preview the dataset
+import pandas as pd
+
+dataset = pd.read_csv("./example_dataset.csv")
+dataset = dataset.rename(columns={"seq": "sequence"})   # set column type
+dataset = dataset.drop(columns=["notes"])               # leave out a column
+dataset.head()                                          # preview the first rows
+```
+
+Upload the dataset. Once uploaded, the dataset metadata lists dataset properties `assay_id`, `num_rows`, `measurement_names`, `metadata_names` and `sequence_length`.
+
+```
+# upload the dataset
+assay = session.data.create(dataset,                    # DataFrame to upload
+    "Dataset name",                                     # dataset name
+    "Dataset description")                              # optional description
+assay_id = assay.id                                     # save the ID to load the dataset later
+
+```
+</Tab>
+</Tabs>
+
+# Handle replicates
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    When the same property was measured more than once, group the columns as replicates. Pick one option.
+
+**Option A: name them in the CSV**
+
+- Name columns `PropertyName_1`, `PropertyName_2`, `PropertyName_3`, and so on. The property name must match *exactly*.
+
+**Option B: group them after upload**
+
+1. Set each replicate column's *Column type* to **Property**.
+2. Enter the *same* **Property name** for every replicate column. For example, replicate 1 (CSV column `mutation_effect_prediction_vae_1`) and replicate 2 (CSV column `mutation_effect_prediction_vae_2`) both get the **Property name** `mutation_effect_prediction_vae`.
+3. To create a new replicate grouping, under **Property name** column, type a name in the **New property**  field. To rename a group, edit the header of any column in it.
+
+<Figure src="/_static/how_to/upload-assay/upload-assay-rename-replicate.png" />
+
+To see summary values, open **Table Settings**, go to the **Property replicate** menu, and select **Show mean and standard deviation**.
+
+<Figure src="/_static/how_to/upload-assay/upload-assay-replicate-summary.png" />
+
+  </Tab>
+  <Tab value="Python">
+Python requires the naming of columns to follow the convention `PropertyName_1`, `PropertyName_2`, `PropertyName_3`. Rename the replicate columns before upload:
+
+```
+# group replicates by naming them PropertyName_1, PropertyName_2, ...
+dataset = dataset.rename(columns={
+    "activity_rep1": "activity_1",
+    "activity_rep2": "activity_2",
+    "activity_rep3": "activity_3",
+})
+
+# mean and standard deviation across replicates, per variant
+replicates = dataset.filter(regex=r"^activity_\d+$")
+replicates.agg(["mean", "std"], axis=1)
+```
+    
+  </Tab>
+</Tabs>
+
+
+# Handle missing values
+Missing measurements are acceptable in an uploaded dataset. The platform accepts missing cells in the CSV, so leave a cell empty where a measurement is missing
+# Multimeric sequences
+Separate the chains of a multimeric sequence with a colon (`:`). The colon tells the system that the sequence is made of subunits.
+Place the full colon-separated sequence in the sequence column, as in this heavy and light chain antibody:
+```
+EVQLVETGGGLVQPGGSLRLSCAASGFTLNSYGISWVRQAPGKGPEWVSVIYSDGRRTFYGDSVKGRFTISRDTSTNTVYLQMNSLRVEDTAVYYCAKGRAAGTFDSWGQGTLVTVSS:DVVMTQSPESLAVSLGERATISCKSSQSVLYESRNKNSVAWYQQKAGQPPKLLIYWASTRESGVPDRFSGSGSGTDFTLTISSLQAEDAAVYYCQQYHRLPLSFGGGTKVEIK
+```
+# Check the data after upload
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+- **UMAP:** each point is one sequence variant. This low-dimensional projection of the sequences lets you identify clusters of similar variants in your dataset and explore trends between them. Learn more Visualizations > UMAP
+- **Joint plot:** shows pairwise relationships between properties. Select properties to see their distributions.
+- **Replicate joint plot:** compares values across replicates.
+- **Data table (Dataset page):** Browse the uploaded variants and their measurements as a table. Learn more about table settings under ‘Reference’
+</Tab>
+  <Tab value="Python">
+    Once uploaded, you can view the data, reload the dataset by ID, and rename it.
+
+```
+# inspect the uploaded data
+assay.get_first()                                       # first rows of the uploaded data
+assay.get_slice(0, 100)                                 # a range of rows
+
+# reload, list and rename datasets
+assay = session.data.get(assay_id)                      # load the dataset by ID
+session.data.list()                                     # list all your assay datasets
+assay.update(assay_name="New name",                     # rename the dataset
+    assay_description="New description")                # update the description
+```
+
+  </Tab>
+</Tabs>
+
+## Next steps
+- [Train a property predictor](/tutorials/learn/training-property-predictors)
+- References: [Table settings](/references/app/datasets/table-settings)

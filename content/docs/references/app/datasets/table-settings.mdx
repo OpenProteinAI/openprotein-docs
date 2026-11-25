@@ -1,0 +1,74 @@
+---
+title: "Table settings"
+description: "Table settings control how rows and sequences display in a dataset's Table view. They change the display only and do not edit the underlying data."
+---
+
+## **Opening table settings**
+
+Select **Table** in the toolbar above the table, to the right of **Dataset Info** and **Consensus**. The button's tooltip reads "Table settings". The panel opens between the toolbar and the table and contains four groups.
+
+| Group | Controls |
+| :---- | :---- |
+| Table view | Wrap sequence column, Show conservation histogram, Antibody annotation |
+| Dataset settings | Show unique sequences |
+| Reference sequence | Set Reference Sequence, Sequence View Options, Show mutation codes |
+| Row selection | Highlight selected, Pin selected, Show selected |
+
+Select **Table** again to close the panel. Settings stay applied when the panel is closed. They persist across all dataset tables, as long as the table has sequences.
+
+## **Settings**
+
+Defaults below are the values shown when the panel is first opened on a dataset with no reference sequence set.
+
+### **Table View**
+
+| Setting | Control | Default | Effect |
+| :---- | :---- | :---- | :---- |
+| Wrap sequence column | Checkbox | Off | Wraps each sequence over several lines so the full sequence is visible. Rows grow taller. When off, each sequence sits on one line and is truncated at the column edge. |
+| Show conservation histogram | Checkbox | On | Shows the conservation histogram for the dataset. |
+| Antibody annotation | On / Off toggle | Off | Turns antibody annotation on for the sequence column. Applies to antibody datasets only; on other datasets no annotations display. |
+
+### **Dataset Settings**
+
+| Setting | Control | Default | Effect |
+| :---- | :---- | :---- | :---- |
+| Show unique sequences | Checkbox | Off | Hides duplicate sequences so each sequence appears once. Adds a UNIQUE Sequence filter to the Filters panel, and the row count updates (for example, Showing 6479/6819 rows). |
+
+### **Reference Sequence**
+
+| Setting | Control | Default | Effect |
+| :---- | :---- | :---- | :---- |
+| Set Reference Sequence | Button | No reference | Sets the sequence that other rows are compared against. The reference is pinned as the first row, marked with a pin icon. Once set, the button reads **Edit Reference Sequence** and an **X** button clears the reference. |
+| Sequence View Options | Segmented control: Mutations only, Full sequence | Mutations only (after a reference is set) | **Mutations only** shows a dot for each residue that matches the reference and the residue letter only where it differs. **Full sequence** shows every residue. Disabled until a reference is set. |
+| Show mutation codes | Checkbox | On (after a reference is set) | Adds two columns after Sequence. **Mutant** lists substitutions relative to the reference, such as \`W1Y\` or \`W1M\`; \`R2F\`; identical rows read (same). **No. of Mutations** gives the count. Also adds the **Collapse** control to the toolbar. Disabled until a reference is set. |
+
+You can also set a reference from the table: right-click a sequence cell and select **Set as reference sequence**.
+
+You can also use the consensus sequence as the reference: open **Consensus** and turn on **Add to table**.
+
+### **Row Selection**
+
+| Setting | Control | Default | Effect |
+| :---- | :---- | :---- | :---- |
+| Highlight selected | Segmented option | Selected | Selected rows are highlighted in place. All rows stay visible. |
+| Pin selected | Segmented option | Not selected | Selected rows are pinned to the top of the table. |
+| Show selected | Segmented option | Not selected | Only selected rows are shown; non-selected rows are filtered out. |
+
+### **Collapse**
+
+**Collapse** appears in the toolbar, to the right of **Table**, only while a reference is set and **Show mutation codes** is on.
+
+| Option | Effect |
+| :---- | :---- |
+| None | Default. One row per sequence. |
+| No. of Mutations | Groups rows by mutation count. Each group shows as one row with an expand arrow, and the row count reflects the number of groups (for example, Showing 3/6819 rows). The toolbar button shows the active option. |
+
+## **Dependencies between settings**
+
+| Setting | Requires | Notes |
+| :---- | :---- | :---- |
+| Sequence View Options | A reference sequence | Greyed out until a reference is set. Switches to Mutations only when a reference is set. |
+| Show mutation codes | A reference sequence | Greyed out until a reference is set. Independent of Sequence View Options; works with Mutations only or Full sequence. |
+| Collapse | A reference sequence and Show mutation codes on | Disappears from the toolbar when Show mutation codes is turned off or the reference is cleared. |
+| Show unique sequences | None | Applied as a filter, so it combines with any other filters in |
+

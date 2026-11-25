@@ -1,0 +1,34 @@
+---
+title: "Prompt – context"
+description: "Understand how protein examples in a prompt context guide PoET-2 toward a protein family and inform generation, scoring, and embeddings."
+---
+
+*A protein foundation model prompt consists of two optional components – the context and query – that together define the protein family and the specific design constraints.*
+
+The **context** is an unordered collection of protein sequences, optionally paired with corresponding 3D protein structures. These examples help the model focus on the design space of interest, shaping its outputs to share similar characteristics. For instance, for enzyme engineering, the context could comprise homologs of a target enzyme across organisms, which all catalyse a given reaction class. For antibody engineering, it could be general examples of human antibodies from the Observed Antibody Space (OAS) database, or an immunized antibody pool with antigen-specific binding.
+
+Importantly, the context conditions the outputs *implicitly* through examples, rather than through explicit constraints. By reading across the supplied proteins, the model infers patterns that are difficult to specify directly, like which residue combinations co-evolve, or what substitutions and insertions are tolerated. For an enzyme, this might include epistatic couplings between active site residues and the surrounding hydrophobic core – where a mutation at one position is only tolerated in the presence of a specific residue at another. For an antibody, this might include which combinations of residues across the CDR loops are jointly compatible with productive antigen binding. These constraints are naturally encoded across a set of related sequences but would be difficult to specify with hardcoded per-position rules.
+
+Choosing the context is a form of **prompt engineering**. In practice, the context is populated by searching a sequence database for homologs of the target protein and sampling from the results. The similarity range of included proteins determines how narrowly or broadly the model defines the family, while context size – controlled via the number of sequences or total residues – determines how much family signal the model receives. As a starting point, sampling the context from a homology search of the reference sequence to be optimize generally works well. Ensembling multiple contexts, each sampled independently from the same homolog pool, consistently improves performance. The number of prompts to ensemble is configurable, with higher values giving improved predictions at the cost of additional computation.
+
+
+<Callout type="idea">
+## In depth: How it works in PoET-2
+
+PoET-2 is an encoder-decoder transformer. The encoder reads the entire prompt – context proteins and query alike – and produces a set of residue-level representations summarizing it. The decoder then uses those representations to score, generate, or embed a target sequence.
+
+### Encoding the context
+
+Each protein sequence and optional structure in the context is tokenized, and sequence and structure information are fused into a per-residue representation at the input of the encoder. The encoder then processes all context proteins together through a two-stage hierarchical attention mechanism that repeats across twelve layers.
+
+*Self-attention.* In the first stage, attention operates within each protein individually, with a pairwise Cα distance bias applied to the attention scores to highlight spatially proximal residue pairs. This builds a geometry-aware representation of each protein on its own.
+
+*Cross-attention.* In the second stage, attention operates across all proteins in the prompt simultaneously, allowing residues in one protein to attend to corresponding positions in other family members. This is where conservation patterns, co-evolving positions, and family-specific structural preferences are captured – without requiring the proteins to be explicitly aligned as in a multiple sequence alignment.
+
+The encoder is designed to be equivariant to the ordering of proteins in the context, so shuffling the order of context proteins produces identical representations. This encoded representation implicitly captures family evolutionary constraints and traits – which positions are conserved, which co-vary, what common structural configurations, and what sequence diversity the family tolerates. These representations are what the decoder attends to when generating, scoring and embedding sequences.
+
+### How the decoder uses the encoded context
+
+The encoded context does not directly modify the candidate sequence being generated, scored, or embedded. Instead, it conditions the decoder via cross-attention at every layer: the candidate sequence attends to the full set of encoded prompt proteins at each decoding step, drawing on whatever family-level patterns are most relevant at each position. This gives the decoder continuous access to the evolutionary and structural information captured by the encoder throughout the entire decoding process.
+
+</Callout>

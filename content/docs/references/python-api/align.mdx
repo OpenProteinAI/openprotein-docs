@@ -1,0 +1,88 @@
+---
+title: "openprotein.align"
+description: "Create alignments and multiple sequence alignments for supported workflows."
+pythonApi: true
+---
+Some tools (e.g. PoET, AlphaFold2) require an MSA to be generated. The tools below will help you achieve this.
+
+Create an alignment, inspect its first few rows, and attach it to a protein:
+
+```python
+from itertools import islice
+
+from openprotein.molecules import Protein
+
+sequence = "ACDEFGHIK"
+msa = session.align.create_msa(sequence)
+for name, aligned_sequence in islice(msa.wait(timeout=600), 3):
+    print(name, aligned_sequence)
+
+protein = Protein(sequence)
+protein.msa = msa
+```
+
+`wait()` returns an iterator of `(name, aligned_sequence)` pairs. Attach the future `msa` itself; reading the rows is optional. `Protein.msa` also accepts a stored MSA handle or an ID. For a single-sequence model, `protein.msa = Protein.single_sequence_mode` explicitly selects no MSA; do not use that sentinel in place of an alignment for an MSA-requiring model. Model support varies.
+
+For prompt sampling, `MSAFuture.sample_prompt` uses `num_sequences` and `num_residues`; `session.data.prompts.sample_msa` calls the corresponding limits `max_msa_sequences` and `max_msa_tokens`. Their defaults and validation differ.
+
+<PyGroup id="interface" title="Interface"
+  anchors={[
+    "openprotein.align.AlignAPI",
+  ]}
+>
+
+<PyClass path="openprotein.align.AlignAPI" />
+
+</PyGroup>
+
+<PyGroup id="abnumber-schemes" title="AbNumber schemes"
+  anchors={[
+    "openprotein.align.schemas.AbNumberScheme",
+    "openprotein.align.schemas.UnnumberedPolicy",
+  ]}
+>
+
+AbNumber supports the following schemes:
+
+<PyClass path="openprotein.align.schemas.AbNumberScheme" />
+<PyClass path="openprotein.align.schemas.UnnumberedPolicy" />
+
+</PyGroup>
+
+<PyGroup id="classes" title="Classes"
+  anchors={[
+    "openprotein.align.schemas.MSASamplingMethod",
+    "openprotein.align.schemas.JobWarning",
+    "openprotein.align.schemas.AlignType",
+  ]}
+>
+
+<PyClass path="openprotein.align.schemas.MSASamplingMethod" />
+<PyClass path="openprotein.align.schemas.JobWarning" />
+<PyClass path="openprotein.align.schemas.AlignType" />
+
+</PyGroup>
+
+<PyGroup id="results" title="Results"
+  anchors={[
+    "openprotein.align.MSAFuture",
+    "openprotein.align.future.AlignFuture",
+  ]}
+>
+
+<PyClass path="openprotein.align.MSAFuture" />
+<PyClass path="openprotein.align.future.AlignFuture" />
+
+</PyGroup>
+
+<PyGroup id="referenced-types" title="Referenced types"
+  anchors={[
+    "openprotein.align.schemas.Pairing",
+  ]}
+>
+
+Types referenced by the interfaces above.
+
+<PyClass path="openprotein.align.schemas.Pairing" />
+
+</PyGroup>

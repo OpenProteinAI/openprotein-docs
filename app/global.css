@@ -1,0 +1,2006 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+@import 'fumadocs-openapi/css/preset.css';
+@import '../components/models/models.css';
+@import '../components/mdx/platform-diagram.css';
+
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../node_modules/fumadocs-openapi/dist/**/*.js';
+/* Lightning CSS rejects ::highlight(); unused here. */
+@source not inline('[&_::highlight(fd-search)]:text-fd-primary [&_::highlight(fd-search)]:underline');
+
+/* Object Sans has no 600/700, which fall through to Heavy; remap to Medium. */
+@theme {
+  --font-weight-semibold: 500;
+  --font-weight-bold: 500;
+}
+
+/* The type scale; see TYPOGRAPHY.md. Closed: other steps generate nothing. */
+@theme {
+  --text-*: initial;
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: calc(16 / 11);
+  --text-xs: 0.75rem;
+  --text-xs--line-height: calc(16 / 12);
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: calc(20 / 13);
+  --text-base: 0.875rem;
+  --text-base--line-height: calc(22 / 14);
+  --text-lg: 1rem;
+  --text-lg--line-height: calc(22 / 16);
+  --text-xl: 1.125rem;
+  --text-xl--line-height: calc(24 / 18);
+  --text-2xl: 1.375rem;
+  --text-2xl--line-height: calc(28 / 22);
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: calc(34 / 28);
+
+  --leading-prose: 1.7;
+  --tracking-caps: 0.08em;
+  --tracking-tight: -0.025em;
+}
+
+body {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+}
+
+/* Header pills fit beside the search box from this width; rem so it sorts after lg/xl. */
+@theme {
+  --breakpoint-nav: 92.5rem;
+}
+
+/* ink: text on the page, changes with theme. fill: a background, fixed. */
+:root {
+  --brand-1-fill: #225edb;
+  --brand-2-fill: #bf3298;
+  --brand-3-fill: #ffba68;
+  --brand-navy-fill: #00012d;
+
+  --brand-1-ink: #225edb;
+  --brand-1-ink-hover: #16337a;
+  --brand-2-ink: #bf3298;
+  --brand-2-ink-hover: #8f2472;
+  --brand-3-ink: #a46a17;
+
+  /* Magenta stops at 70% so the tail stays saturated. */
+  --brand-gradient: linear-gradient(130deg, var(--brand-1-fill) 0%, var(--brand-2-fill) 70%);
+  /* The gradient's colour at a square's centre, for icon knockouts. */
+  --brand-gradient-mid: color-mix(in oklab, var(--brand-2-fill) 71%, var(--brand-1-fill));
+
+  /* Workflow tabs' active-item grey, same in both themes. */
+  --op-select-fill: #8f8f8f;
+
+  --op-connector: var(--brand-navy-fill);
+
+  /* Opaque, since an icon knocks its own background out of overlapping strokes. */
+  --op-icon-bg: #f2f5f8;
+
+  /* Gradient strength on a resting badge; shared by overlay and knockout. */
+  --op-icon-tint: 14%;
+  /* Resting badge wash as a solid; on :root so .dark's --op-icon-bg applies. */
+  --op-icon-knockout: color-mix(in oklab, var(--brand-gradient-mid) var(--op-icon-tint), var(--op-icon-bg));
+
+  /* The diagram's recessed panel; not .grey-card, which is raised. */
+  --op-panel-bg: #f6f6f6;
+}
+
+/* Lifted to ~6:1 contrast on the dark body. */
+.dark {
+  --brand-1-ink: #65a3ff;
+  --brand-1-ink-hover: #7ab9ff;
+  --brand-2-ink: #f771cc;
+  --brand-2-ink-hover: #ff8de7;
+  --brand-3-ink: #ffba68;
+
+  /* Navy vanishes on the dark panel. */
+  --op-connector: #9aa4b8;
+  --op-icon-bg: #2b3035;
+  /* Darker than the page, so it still reads as recessed. */
+  --op-panel-bg: #1a1e21;
+}
+
+/* Unlayered, to beat neutral.css's @layer theme. */
+:root {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #212529;
+
+  /* The app's panel-header grey, flattened to opaque. */
+  --color-fd-card: #f7f7f7;
+  --color-fd-card-foreground: #212529;
+  --color-fd-card-border: #e5e7eb;
+  --color-fd-muted: #f2f5f8;
+  --color-fd-muted-foreground: #6c757d;
+  /* Page lead only; 3.9:1 on white, below AA on purpose. */
+  --color-fd-description: #7a828a;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #212529;
+  --color-fd-secondary: #e9ecef;
+  --color-fd-secondary-foreground: #212529;
+
+  --color-fd-border: #ced4da;
+
+  --color-fd-primary: var(--brand-1-ink);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-ring: var(--brand-1-ink);
+
+  --color-fd-accent: #dbe6fb;
+  --color-fd-accent-foreground: #16337a;
+
+  --color-fd-info: #0aaaca;
+  --color-fd-warning: #fd7e14;
+  --color-fd-error: #dc3545;
+  --color-fd-success: #198754;
+}
+
+.dark {
+  --color-fd-background: #212529;
+  --color-fd-foreground: #dee2e6;
+
+  --color-fd-card: #2a2f34;
+  --color-fd-card-foreground: #dee2e6;
+  --color-fd-card-border: #495057;
+  --color-fd-muted: #2b3035;
+  --color-fd-muted-foreground: #adb5bd;
+  --color-fd-description: #969da4;
+  --color-fd-popover: #2a2f34;
+  --color-fd-popover-foreground: #dee2e6;
+  --color-fd-secondary: #343a40;
+  --color-fd-secondary-foreground: #dee2e6;
+
+  --color-fd-border: #495057;
+
+  --color-fd-accent: #33415a;
+  --color-fd-accent-foreground: #cfe2ff;
+
+  /* Restated: neutral.css sets these on .dark. */
+  --color-fd-primary: var(--brand-1-ink);
+  --color-fd-primary-foreground: #10233f;
+  --color-fd-ring: var(--brand-1-ink);
+
+  --color-fd-info: #3fd0ea;
+  --color-fd-warning: #ffa94d;
+  --color-fd-error: #ea868f;
+  --color-fd-success: #75b798;
+}
+
+/* neutral.css re-tints the sidebar above .dark. */
+.dark #nd-sidebar {
+  --color-fd-muted: #2b3035;
+  --color-fd-secondary: #343a40;
+  --color-fd-muted-foreground: #adb5bd;
+}
+
+:root {
+  --fd-layout-width: 95rem;
+  --fd-nav-height: 3.75rem;
+  --fd-sidebar-width: 17.125rem;
+  --fd-toc-width: 15.375rem;
+}
+
+/* The header places its nav by --fd-sidebar-width. */
+#nd-home-layout {
+  --fd-layout-width: 95rem;
+  --fd-sidebar-width: 16.75rem;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0 !important;
+  --removed-body-scroll-bar-size: 0rem !important;
+}
+
+/* Full-bleed rule; no position here, it would break the header's sticky. */
+#nd-subnav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid var(--color-fd-border);
+  pointer-events: none;
+}
+
+#nd-subnav a {
+  white-space: nowrap;
+}
+
+/* Platform control hover, not fumadocs' accent fill. */
+[data-search-full] {
+  --control-border: var(--color-fd-border);
+  --control-accent: var(--color-fd-border);
+
+  border-color: var(--control-border);
+  border-bottom-color: var(--control-accent);
+  transition: all ease 300ms;
+}
+
+[data-search-full]:hover {
+  --control-border: color-mix(in srgb, var(--color-fd-border) 80%, black 20%);
+  --control-accent: color-mix(in srgb, var(--color-fd-primary) 75%, transparent);
+
+  background-color: var(--color-fd-background);
+  color: var(--color-fd-muted-foreground);
+}
+
+[data-search-full]:active {
+  --control-border: color-mix(in srgb, var(--color-fd-border) 80%, white 20%);
+  --control-accent: color-mix(in srgb, var(--color-fd-primary) 60%, white 40%);
+
+  transition: all ease 150ms;
+}
+
+/* Tailwind 4's Preflight dropped v3's button cursor reset. */
+button:not(:disabled),
+input:where([type='button'], [type='reset'], [type='submit']):not(:disabled),
+[role='button']:not([aria-disabled='true']),
+summary {
+  cursor: pointer;
+}
+
+/* Squircles; Chrome-only, falls back to border-radius. */
+@supports (corner-shape: superellipse(1.5)) {
+  :where(button, a, input, .fd-squircle, [class*='rounded']) {
+    corner-shape: superellipse(1.5);
+  }
+}
+
+/* Port of the platform UI's op-btn; layered so callers' utilities win. */
+@layer components {
+  .op-btn {
+    /* The one knob each fill re-points at its own hue. */
+    --btn-shadow-color: rgb(33 37 41 / 0.15);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 0.75em; /* --bs-border-radius */
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    user-select: none;
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      0 0 0 0 transparent;
+    transition: all 300ms ease;
+  }
+
+  /* The press moves the label, not the frame. */
+  .op-btn__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: transform 300ms ease;
+  }
+
+  .op-btn:hover {
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      0 1px 2px 0 var(--btn-shadow-color);
+  }
+
+  .op-btn:active {
+    transition-duration: 50ms;
+    filter: brightness(0.85);
+    box-shadow:
+      inset 0 0.5px 0 0 rgb(0 0 0 / 0.15),
+      0 1px 1px 0 var(--btn-shadow-color);
+  }
+
+  .op-btn:active .op-btn__content {
+    transition-duration: 50ms;
+    transform: translateY(0.0625rem);
+  }
+
+  /* No content wrapper to sink (third-party markup), so sink the frame. */
+  .op-btn:not(:has(.op-btn__content)):active {
+    transform: translateY(0.0625rem);
+  }
+
+  .op-btn:disabled,
+  .op-btn[data-readonly='true'] {
+    pointer-events: none;
+  }
+
+  .op-btn:disabled {
+    filter: none;
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      0 0 0 0 transparent;
+  }
+
+  .op-btn:disabled .op-btn__content {
+    opacity: 0.6;
+    transform: none;
+  }
+
+  .op-btn[data-readonly='true'] .op-btn__content {
+    opacity: 1;
+  }
+
+  /* Fixed brand fills: white on the dark-lifted blue fails contrast. */
+  .op-btn--main {
+    --btn-shadow-color: color-mix(in srgb, var(--brand-1-fill) 35%, transparent);
+
+    color: #fff;
+    background-color: var(--brand-2-fill);
+    background-image: var(--brand-gradient);
+    /* Oversized so hover slides the gradient. */
+    background-size: 160% 110%;
+    background-position: -1px -1px;
+    border-color: transparent;
+  }
+
+  .op-btn--main:not(:disabled):hover {
+    filter: brightness(1.05);
+    background-size: 120% 120%;
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      0 2px 6px 0 var(--btn-shadow-color);
+  }
+
+  .op-btn--main:not(:disabled):active {
+    filter: brightness(0.9);
+    background-size: 200% 120%;
+    box-shadow:
+      inset 0 0 0 0 transparent,
+      0 2px 5px 0 var(--btn-shadow-color);
+  }
+
+  .op-btn--main:disabled {
+    border-color: transparent;
+    background-size: 160% 110%;
+    opacity: 0.55;
+  }
+
+  .op-btn--primary {
+    color: #fff;
+    background-color: var(--brand-1-fill);
+    border-color: transparent;
+  }
+
+  .op-btn--primary:not(:disabled):hover {
+    background-color: color-mix(in srgb, var(--brand-1-fill) 88%, black);
+  }
+
+  /* 300ms on press, reproducing the UI's quirk. */
+  .op-btn--primary:not(:disabled):active {
+    transition-duration: 300ms;
+    background-color: color-mix(in srgb, var(--brand-1-fill) 80%, black);
+  }
+
+  /* Mix toward the page, not white, so it recedes in dark too. */
+  .op-btn--primary:disabled {
+    background-color: color-mix(in srgb, var(--brand-1-fill) 55%, var(--color-fd-background));
+    border-color: transparent;
+  }
+
+  .op-btn--secondary {
+    /* Bootstrap greys; --color-fd-muted is a shade too blue. */
+    --btn-outline-hover: #f8f9fa;
+    --btn-outline-active: #e9ecef;
+
+    color: var(--color-fd-foreground);
+    background-color: transparent;
+    background-image: none;
+    border-color: var(--color-fd-border);
+  }
+
+  .dark .op-btn--secondary {
+    --btn-outline-hover: #2b3035;
+    --btn-outline-active: #343a40;
+  }
+
+  .op-btn--secondary:not(:disabled):hover {
+    background-color: var(--btn-outline-hover);
+  }
+
+  .op-btn--secondary:not(:disabled):active {
+    transition-duration: 300ms;
+    background-color: var(--btn-outline-active);
+  }
+
+  /* The UI's border vanishes on dark, so dark inverts it. */
+  .op-btn--secondary:disabled {
+    color: #343a40;
+    background-color: var(--btn-outline-hover);
+    border-color: rgb(0 0 0 / 0.025);
+  }
+
+  .dark .op-btn--secondary:disabled {
+    color: var(--color-fd-muted-foreground);
+    border-color: rgb(255 255 255 / 0.04);
+  }
+
+  /* Carries its own padding, so it takes no size class. */
+  .op-btn--text {
+    justify-content: flex-start;
+    padding: 0.5rem 0;
+    border-color: transparent;
+    background-color: transparent;
+    font-weight: 400;
+    color: var(--color-fd-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+  }
+
+  .op-btn--text:hover,
+  .op-btn--text:active {
+    box-shadow: none;
+  }
+
+  /* Not the UI's brightness(1.3), which washes out the dark blue. */
+  .op-btn--text:not(:disabled):hover {
+    color: var(--brand-1-ink-hover);
+    text-decoration-thickness: 0.15em;
+  }
+
+  .op-btn--text:disabled {
+    background-color: transparent;
+  }
+
+  /* Body ink at low alpha, so it flips with the theme. */
+  .op-btn--flat {
+    --btn-flat-rgb: 33 37 41; /* --bs-dark-rgb */
+
+    color: var(--color-fd-foreground);
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: none;
+  }
+
+  .dark .op-btn--flat {
+    --btn-flat-rgb: 222 226 230;
+  }
+
+  .op-btn--flat:not(:disabled):hover {
+    background-color: rgb(var(--btn-flat-rgb) / 0.1);
+    box-shadow: none;
+  }
+
+  .op-btn--flat:not(:disabled):active {
+    background-color: rgb(var(--btn-flat-rgb) / 0.2);
+    box-shadow: none;
+  }
+
+  .op-btn--flat[data-selected='true'] {
+    background-color: rgb(var(--btn-flat-rgb) / 0.22);
+    box-shadow: inset 0 0 0 1px rgb(var(--btn-flat-rgb) / 0.06);
+  }
+
+  .op-btn--flat[data-selected='true']:not(:disabled):hover {
+    background-color: rgb(var(--btn-flat-rgb) / 0.18);
+  }
+
+  .op-btn--flat:disabled {
+    background-color: transparent;
+  }
+
+  /* Underline marking the current item. */
+  .op-btn--flat[data-highlighted='true']::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 40%;
+    height: 0.25rem;
+    border-radius: 0.75em;
+    background-color: var(--color-fd-primary);
+  }
+
+  /* Carries its own padding and radius, so it takes no size class. */
+  .op-btn--contour-white {
+    padding: 0.5rem;
+    border-radius: calc(0.75em * 1.25);
+    border-color: transparent;
+    background-color: var(--color-fd-popover);
+    text-decoration: none;
+  }
+
+  .op-btn--contour-white:not(:disabled):hover {
+    border-color: color-mix(in srgb, var(--brand-1-ink) 75%, transparent);
+  }
+
+  .op-btn--contour-white:not(:disabled):active,
+  .op-btn--contour-white[data-selected='true'] {
+    border-color: var(--brand-1-ink);
+    background-color: color-mix(in srgb, var(--brand-1-ink) 10%, transparent);
+  }
+
+  /* Last, to beat each variant's hover and active shadows. */
+  .op-btn:focus-visible {
+    outline: none;
+    border-color: var(--color-fd-foreground);
+    box-shadow:
+      inset 0 0 0 1px var(--color-fd-foreground),
+      0 1px 2px 0 var(--btn-shadow-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-btn,
+  .op-btn__content,
+  .op-btn:active .op-btn__content {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Port of the platform UI's tooltip, for components/ui/tooltip.tsx. */
+@layer components {
+  .op-tooltip {
+    --op-tooltip-ink: 33 37 41; /* --bs-dark-rgb */
+
+    z-index: 50;
+    max-width: min(25rem, var(--radix-tooltip-content-available-width, 25rem));
+    padding: 0.21875rem 0.4375rem;
+    border: 1px solid rgb(var(--op-tooltip-ink) / 0.15);
+    border-radius: 0.65625rem;
+    background-color: rgb(242 245 248 / 0.8); /* --bs-light-rgb */
+    box-shadow:
+      0px 10px 25px -15px rgb(0 0 0 / 0.3),
+      0 0 5px -5px #000;
+    backdrop-filter: saturate(180%) blur(20px);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: rgb(var(--op-tooltip-ink));
+    overflow-wrap: break-word;
+    transform-origin: var(--radix-tooltip-content-transform-origin);
+  }
+
+  .dark .op-tooltip {
+    --op-tooltip-ink: 222 226 230;
+
+    background-color: rgb(43 48 53 / 0.9);
+    box-shadow:
+      0px 10px 25px -15px rgb(0 0 0 / 0.8),
+      0 0 5px -5px #000;
+  }
+
+  /* Radix keeps a closing tooltip mounted until its animation ends. */
+  .op-tooltip:is([data-state='delayed-open'], [data-state='instant-open']) {
+    animation: op-tooltip-in 150ms ease-out;
+  }
+
+  .op-tooltip[data-state='closed'] {
+    animation: op-tooltip-out 100ms ease-in forwards;
+  }
+
+  @keyframes op-tooltip-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes op-tooltip-out {
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-tooltip {
+    animation: none;
+  }
+}
+
+/* One compact row for every dropdown menu; layered so callers' colours win. */
+@layer components {
+  .op-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    text-align: start;
+    transition-property: background-color, color;
+    transition-duration: 150ms;
+  }
+
+  .op-menu-item > :is(svg, img) {
+    flex-shrink: 0;
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+/* Port of the platform UI's ProgressBar, for components/ui/progress.tsx. */
+@layer components {
+  .op-progress-bar {
+    --pgb-color: var(--color-fd-primary);
+    --pgb-faint: color-mix(in srgb, var(--pgb-color) 20%, transparent);
+
+    display: block;
+    height: 0.1875rem;
+    border-radius: 0.375rem; /* --bs-border-radius */
+    background-color: rgb(242 245 248); /* --bs-light */
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pgb-color) 10%, transparent);
+    overflow: hidden;
+  }
+
+  /* Departure: the app is light-only. */
+  .dark .op-progress-bar {
+    background-color: var(--color-fd-secondary);
+  }
+
+  .op-progress-bar__value {
+    height: 100%;
+    border-radius: inherit;
+    background-image: linear-gradient(
+      90deg,
+      var(--pgb-color) 0%,
+      var(--pgb-color) 40%,
+      color-mix(in srgb, var(--pgb-color) 25%, transparent) 50%,
+      var(--pgb-color) 50%,
+      var(--pgb-color) 100%
+    );
+    background-size: 250% 250%;
+    animation: op-progress 2s ease infinite;
+    transition: width 2s ease;
+  }
+
+  /* The platform UI's `intermediate`. */
+  .op-progress-bar[data-state='indeterminate'] .op-progress-bar__value {
+    width: 100%;
+    background-image: linear-gradient(
+      90deg,
+      var(--pgb-faint) 0%,
+      var(--pgb-faint) 40%,
+      var(--pgb-color) 45%,
+      var(--pgb-color) 55%,
+      var(--pgb-faint) 60%,
+      var(--pgb-faint) 100%
+    );
+    animation-duration: 1.5s;
+  }
+
+  @keyframes op-progress {
+    from {
+      background-position: 100% 50%;
+    }
+    to {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes op-progress-in {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-progress-bar__value {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+/* The platform UI's Loader and LoadingSection. */
+@layer components {
+  .op-loader {
+    width: 4.0625rem;
+    height: 4.0625rem;
+  }
+
+  .op-loader > circle:last-child {
+    will-change: stroke-dashoffset, stroke-dasharray;
+    animation: op-loader 1200ms linear infinite;
+  }
+
+  .op-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: op-loading-in 500ms linear forwards;
+  }
+
+  @keyframes op-loader {
+    0% {
+      stroke-dashoffset: 306;
+    }
+    50% {
+      stroke-dasharray: 40, 134;
+    }
+    100% {
+      stroke-dasharray: 1, 174;
+      stroke-dashoffset: 132;
+    }
+  }
+
+  @keyframes op-loading-in {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-loader > circle:last-child {
+    animation: none;
+    stroke-dasharray: 40, 134;
+  }
+}
+
+/* Layered so per-card hover utilities still win. */
+@layer components {
+  .grey-card {
+    background: var(--color-fd-card);
+    border: 1px solid var(--color-fd-card-border);
+  }
+
+  [data-card] {
+    border-color: var(--color-fd-card-border);
+  }
+}
+
+/* Unlayered, to beat fumadocs' blue hover:bg-fd-accent/80. */
+a[data-card] {
+  transition:
+    border-color 200ms,
+    box-shadow 200ms,
+    transform 200ms;
+}
+
+a[data-card]:hover {
+  background-color: var(--color-fd-card);
+  border-color: var(--color-fd-border);
+  box-shadow: 0 4px 10px -2px rgb(0 0 0 / 0.06);
+  transform: translateY(-0.0625rem);
+}
+
+.dark a[data-card]:hover {
+  box-shadow: 0 4px 10px -2px rgb(0 0 0 / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[data-card]:hover {
+    transform: none;
+  }
+}
+
+/* Icon tile as the home page badge; unlayered to beat fumadocs' utilities. */
+[data-card] > div:has(> svg):first-child {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.75rem;
+  background: var(--op-icon-bg);
+  box-shadow: none;
+  color: var(--color-fd-foreground);
+  transition: color 150ms;
+}
+
+/* Gradient on its own layer, since a background-image cannot fade. */
+[data-card] > div:has(> svg):first-child::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--brand-gradient);
+  opacity: var(--op-icon-tint);
+  transition: opacity 150ms;
+}
+
+[data-card] > div:has(> svg):first-child > svg {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+a[data-card]:hover > div:has(> svg):first-child {
+  color: white;
+}
+
+a[data-card]:hover > div:has(> svg):first-child::before {
+  opacity: 1;
+}
+
+.cards-centered [data-card] {
+  text-align: center;
+}
+
+.cards-centered [data-card] > div:has(> svg):first-child {
+  margin-inline: auto;
+}
+
+/* Grey on the header band only; unlayered to beat fumadocs' utilities. */
+div:has(> div > [data-accordion-value]) {
+  background: var(--color-fd-background);
+  border-color: var(--color-fd-border);
+  border-radius: 0.75rem;
+}
+
+div:has(> div > [data-accordion-value]) > div + div {
+  border-top-color: var(--code-divider);
+}
+
+/* Same grey as code blocks, so they read as one surface. */
+[data-accordion-value] {
+  background: var(--code-surface);
+}
+
+[data-accordion-value][data-state='open'] {
+  border-bottom: 1px solid var(--code-divider);
+}
+
+/* fumadocs' pb-2 leaves content hugging the bottom edge. */
+[data-accordion-value] + div > div {
+  padding-block: 0.75rem 1rem;
+}
+
+.fd-page-footer {
+  border-top: 1px solid var(--color-fd-border);
+  padding-block-start: 1.5rem;
+  margin-block-start: 2rem;
+}
+
+/* A lone card takes half the row, on its own side. */
+.fd-page-footer:has(> a:only-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@container (width >= 32rem) {
+  .fd-page-footer > a.text-end:only-child {
+    grid-column-start: 2;
+  }
+}
+
+/* Hover lifts instead of filling; class set in app/(docs)/[...slug]/page.tsx. */
+.fd-page-footer > a {
+  justify-content: center;
+  transition:
+    border-color 200ms,
+    box-shadow 200ms,
+    transform 200ms;
+}
+
+/* An empty description still takes the flex gap. */
+.fd-page-footer > a > p:empty {
+  display: none;
+}
+
+.fd-page-footer > a:hover {
+  background-color: transparent;
+  border-color: var(--color-fd-border);
+  color: inherit;
+  box-shadow: 0 6px 16px -6px rgb(0 0 0 / 0.1);
+  transform: translateY(-0.0625rem);
+}
+
+.dark .fd-page-footer > a:hover {
+  border-color: var(--color-fd-muted-foreground);
+  box-shadow: 0 6px 16px -6px rgb(0 0 0 / 0.4);
+}
+
+.fd-page-footer > a svg {
+  transition: transform 200ms;
+}
+
+.fd-page-footer > a:not(.text-end):hover svg {
+  transform: translateX(-0.125rem);
+}
+
+.fd-page-footer > a.text-end:hover svg {
+  transform: translateX(0.125rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-page-footer > a:hover,
+  .fd-page-footer > a:hover svg {
+    transform: none;
+  }
+}
+
+:root {
+  --code-surface: #f8f8f9;
+  --code-divider: #e3e5e8;
+  --code-radius: 0.5rem;
+}
+
+.dark {
+  --code-surface: #2a2f34;
+  --code-divider: #3b4147;
+}
+
+/* Navy reads as a hole on the dark body. */
+:root {
+  --footer-surface: var(--brand-navy-fill);
+}
+
+.dark {
+  --footer-surface: #2a2f34;
+}
+
+/* One top line for all three columns. */
+:root {
+  --docs-column-top: 1.5rem;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --docs-column-top: 2rem;
+  }
+}
+
+#nd-page,
+#nd-toc {
+  padding-top: var(--docs-column-top);
+}
+
+@media (width >= 64rem) {
+  #nd-sidebar [data-radix-scroll-area-viewport] {
+    /* Clears the TOC bar below xl; -0.3125rem offsets the links' padding. */
+    padding-top: calc(var(--docs-column-top) + var(--fd-toc-popover-height, 0rem) - 0.3125rem);
+  }
+}
+
+/* Compact rails. Unlayered: beats fumadocs' text-sm and padding. */
+#nd-sidebar [data-radix-scroll-area-viewport] :is(a, button),
+#nd-sidebar [data-radix-scroll-area-viewport] div[data-disabled]:not([id]) > div:first-child {
+  padding-block: 0.3125rem;
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+/* Folder contents. */
+#nd-sidebar [data-radix-scroll-area-viewport] div[data-state][id] > div {
+  gap: 0;
+  padding-top: 0;
+}
+
+#nd-sidebar [data-radix-scroll-area-viewport] a[data-active='true']::before {
+  inset-block: 0.4375rem;
+}
+
+/* A rail under every folder level, as fumadocs draws for the first. */
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] div[data-state][id] {
+  --op-rail: calc(2.5 * var(--spacing));
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] div[data-state][id] div[data-state][id] {
+  --op-rail: calc(5.5 * var(--spacing));
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile)
+  [data-radix-scroll-area-viewport]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id] {
+  --op-rail: calc(8.5 * var(--spacing));
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile)
+  [data-radix-scroll-area-viewport]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id] {
+  --op-rail: calc(11.5 * var(--spacing));
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile)
+  [data-radix-scroll-area-viewport]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id]
+  div[data-state][id] {
+  --op-rail: calc(14.5 * var(--spacing));
+}
+
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] div[data-state][id] div[data-state][id]::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.25rem;
+  inset-inline-start: var(--op-rail);
+  width: 1px;
+  background: var(--color-fd-border);
+}
+
+/* The active mark sits on its own folder's rail. */
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] div[data-state][id] a[data-active='true']::before {
+  inset-inline-start: var(--op-rail);
+}
+
+#toc-title {
+  font-size: var(--text-xs);
+}
+
+#toc-title svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+#nd-toc a[data-active] {
+  padding-block: 0.1875rem;
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+#nd-toc a[data-active]:first-of-type {
+  padding-top: 0;
+}
+
+#nd-toc a[data-active]:last-of-type {
+  padding-bottom: 0;
+}
+
+/* Top-level sidebar folders as uppercase group headers. */
+#nd-sidebar:not(.op-models-sidebar) [data-radix-scroll-area-viewport] > div > div > :is(button, a),
+#nd-sidebar:not(.op-models-sidebar) [data-radix-scroll-area-viewport] > div > div[data-disabled]:not([id]) > div:first-child {
+  margin-top: 0.25rem;
+  font-size: var(--text-2xs);
+  line-height: var(--text-2xs--line-height);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+}
+
+#nd-sidebar:not(.op-models-sidebar) [data-radix-scroll-area-viewport] > div > div > :is(button, a:not([data-active='true'])):hover {
+  background: transparent;
+  color: var(--color-fd-foreground);
+}
+
+#nd-sidebar:not(.op-models-sidebar) [data-radix-scroll-area-viewport] > div > div > a[data-active='true'] {
+  color: var(--color-fd-primary);
+}
+
+/* Separators (fumadocs renders them as p) label groups of those headers. */
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] p {
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: -0.25rem;
+}
+
+/* MobileNav shows the page tree below lg, so hide fumadocs' copy. */
+@media (width < 64rem) {
+  :is(#nd-sidebar, #nd-sidebar-mobile) [data-radix-scroll-area-viewport] > div > :not(:has(> [data-mobile-nav])) {
+    display: none;
+  }
+}
+
+figure.shiki {
+  background: var(--code-surface);
+  border: 0;
+  border-radius: var(--code-radius);
+  box-shadow: none;
+}
+
+/* Beats the codeblock's hard-coded text-[0.8125rem]. */
+figure.shiki pre {
+  font-size: var(--text-sm);
+}
+
+/* :has() skips the copy-button wrapper, first child on untitled blocks. */
+figure.shiki > div:first-child:has(figcaption) {
+  border-bottom-color: var(--code-divider);
+}
+
+/* Code block language icon. */
+figure.shiki > div:first-child > svg,
+figure.shiki > div:first-child > span:has(> svg) {
+  color: var(--brand-2-ink);
+}
+
+/* Sidebar status badge must not wrap. */
+#nd-sidebar [data-radix-scroll-area-viewport] a > span:last-child {
+  white-space: nowrap;
+}
+
+/* Unlayered, to beat the typography fork. */
+.prose {
+  --tw-prose-links: var(--color-fd-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-prose);
+  /* Long tokens, e.g. sequences, break instead of overflowing. */
+  overflow-wrap: break-word;
+}
+
+/* Keeps paragraph gaps under one line-height. */
+.prose :where(p, ul, ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose :where(h1):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--line-height);
+}
+
+.prose :where(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+}
+
+.prose :where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.prose :where(h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+/* Inline code; the fork's is a fixed 13px whatever the text around it. */
+.prose :where(code):not(:where(pre *, [class~='not-prose'], [class~='not-prose'] *)) {
+  font-size: 0.875em;
+}
+
+/* The unlayered margins above beat the fork's edge reset; restore it. */
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose
+  :where(img, picture, video, figure):not(
+    :where([class~='not-prose'], [class~='not-prose'] *)
+  ) {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+/* The fork hard-codes heading weights, bypassing the @theme remap. */
+.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-weight: 500;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) strong {
+  font-weight: 500;
+}
+
+.prose :where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  font-weight: 500;
+}
+
+.prose
+  :where(a:not([data-card])):not(
+    :where(
+      [class~='not-prose'],
+      [class~='not-prose'] *,
+      h1 *,
+      h2 *,
+      h3 *,
+      h4 *,
+      h5 *,
+      h6 *
+    )
+  ) {
+  font-weight: 400;
+  text-decoration: none;
+  text-underline-offset: 0.25rem;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The site's link: underlined on hover, as the home hero's are. */
+.prose
+  :where(a:not([data-card])):not(
+    :where(
+      [class~='not-prose'],
+      [class~='not-prose'] *,
+      h1 *,
+      h2 *,
+      h3 *,
+      h4 *,
+      h5 *,
+      h6 *
+    )
+  ):hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* .prose-no-margin: MDX tables and notebook prose; output tables are .nb-html. */
+:root {
+  --table-head-ink: #495057;
+  --table-head-rule: #ced4da;
+  --table-row-rule: #eceef1;
+  --table-row-hover: #f6f8fb;
+}
+
+.dark {
+  --table-head-ink: #ced4da;
+  --table-head-rule: #495057;
+  --table-row-rule: #343a40;
+  --table-row-hover: #2a2f34;
+}
+
+/* Replaces the wrapper's my-6. */
+.prose-no-margin:has(> table) {
+  margin-block: 1.25rem;
+}
+
+.prose-no-margin table {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-collapse: collapse;
+  background: transparent;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose-no-margin th,
+.prose-no-margin td {
+  border: none;
+  border-bottom: 1px solid var(--table-row-rule);
+  padding: 0.4rem 1rem;
+  text-align: start;
+  /* Baseline, so first lines align when a cell wraps. */
+  vertical-align: baseline;
+  text-wrap: pretty;
+}
+
+.prose-no-margin tr > :first-child {
+  padding-inline-start: 0;
+}
+
+.prose-no-margin tr > :last-child {
+  padding-inline-end: 0;
+}
+
+.prose-no-margin thead th {
+  background: transparent;
+  color: var(--table-head-ink);
+  border-bottom: 1px solid var(--table-head-rule);
+  padding-block: 0.3rem 0.45rem;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.prose-no-margin tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-no-margin tbody tr {
+  transition: background-color 120ms ease;
+}
+
+.prose-no-margin tbody tr:hover {
+  background: var(--table-row-hover);
+  box-shadow:
+    -0.5rem 0 0 var(--table-row-hover),
+    0.5rem 0 0 var(--table-row-hover);
+}
+
+/* lib/markdown.ts's align attribute alone loses to text-align: start. */
+.prose-no-margin th[align='right'],
+.prose-no-margin td[align='right'] {
+  text-align: right;
+}
+
+.prose-no-margin th[align='center'],
+.prose-no-margin td[align='center'] {
+  text-align: center;
+}
+
+/* Numeric tables share one fixed grid. */
+.prose-no-margin
+  table:has(thead th[style*='right'], thead th[align='right']):has(
+    thead th:nth-child(2):last-child
+  ) {
+  table-layout: fixed;
+  max-width: 30rem;
+}
+
+/* Index tables (linked title, short tag) share one fixed grid. */
+.prose-no-margin table:has(td:first-child > a:only-child):has(thead th:nth-child(2):last-child) {
+  table-layout: fixed;
+}
+
+.prose-no-margin
+  table:has(td:first-child > a:only-child):has(thead th:nth-child(2):last-child)
+  th:first-child {
+  /* Flattest split for the current titles. */
+  width: 52%;
+}
+
+/* Fixed layout has no content minimum, so let long tokens break. */
+.prose-no-margin table:has(td:first-child > a:only-child) td {
+  overflow-wrap: break-word;
+}
+
+/* Notebook cells are HTML strings, outside the MDX component map. */
+.prose-no-margin > :first-child {
+  margin-top: 0;
+}
+
+.prose-no-margin > :last-child {
+  margin-bottom: 0;
+}
+
+/* Inherited 1.75rem leading made wrapped titles overlap. */
+.prose-no-margin h1,
+.prose-no-margin h2,
+.prose-no-margin h3,
+.prose-no-margin h4 {
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-fd-foreground);
+  scroll-margin-top: 6rem;
+}
+
+.prose-no-margin h1 {
+  font-size: var(--text-2xl);
+  margin: 1.75rem 0 0.75rem;
+}
+
+.prose-no-margin h2 {
+  font-size: var(--text-xl);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.prose-no-margin h3 {
+  font-size: var(--text-lg);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.prose-no-margin h4 {
+  font-size: var(--text-base);
+  margin: 1rem 0 0.5rem;
+}
+
+.prose-no-margin p,
+.prose-no-margin ul,
+.prose-no-margin ol {
+  margin: 0.75rem 0;
+  line-height: var(--leading-prose);
+  color: var(--color-fd-foreground);
+}
+
+/* fumadocs hard-codes 15px on tab panels and accordion bodies. */
+.nb-body .prose-no-margin,
+[role='tabpanel'].prose-no-margin,
+[data-accordion-value] + div > div {
+  font-size: var(--text-base);
+}
+
+.prose-no-margin ul {
+  list-style: disc;
+  padding-inline-start: 1.5rem;
+}
+
+.prose-no-margin ol {
+  list-style: decimal;
+  padding-inline-start: 1.5rem;
+}
+
+.prose-no-margin li {
+  margin: 0.25rem 0;
+}
+
+.prose-no-margin a {
+  color: var(--color-fd-primary);
+  text-decoration: none;
+  text-underline-offset: 0.25rem;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prose-no-margin a:hover {
+  text-decoration: underline;
+}
+
+.prose-no-margin code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-fd-muted);
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+}
+
+.prose-no-margin pre {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+}
+
+.prose-no-margin pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.prose-no-margin strong {
+  color: var(--color-fd-foreground);
+  font-weight: 500;
+}
+
+.prose-no-margin img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* Raw shiki fragments in injected prose get no surface of their own. */
+.prose-no-margin pre.shiki {
+  overflow-x: auto;
+  margin-block: 0.75rem;
+  border: 0;
+  border-radius: var(--code-radius);
+  background: var(--code-surface);
+  /* Vertical only; shiki already pads each line. */
+  padding-block: 0.75rem;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* Drop the fork's inline-code box inside <pre>. */
+.prose-no-margin pre.shiki code {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.prose-no-margin pre.shiki code::before,
+.prose-no-margin pre.shiki code::after {
+  content: none;
+}
+
+/* Follow .dark, not prefers-color-scheme. */
+.dark .prose-no-margin .shiki,
+.dark .prose-no-margin .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/* pandas DataFrames; lib/notebook.ts marks the numeric columns. */
+.nb-html table {
+  width: auto;
+  border-collapse: collapse;
+  background: transparent;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.nb-html th,
+.nb-html td {
+  border: none;
+  border-bottom: 1px solid var(--table-row-rule);
+  padding: 0.35rem 1rem;
+  text-align: start;
+  /* Baseline, so a spanning MultiIndex label doesn't float. */
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+/* Matches a text output's px-3. */
+.nb-html tr > :first-child {
+  padding-inline-start: 0.75rem;
+}
+
+.nb-html tr > :last-child {
+  padding-inline-end: 0.75rem;
+}
+
+.nb-html thead th {
+  color: var(--table-head-ink);
+  border-bottom: 1px solid var(--table-head-rule);
+  font-weight: 500;
+}
+
+/* MultiIndex header: rule on the last row only. */
+.nb-html thead tr:not(:last-child) th {
+  border-bottom: none;
+}
+
+.nb-html tbody th {
+  font-weight: 400;
+  color: var(--table-head-ink);
+}
+
+/* A spanning label would draw a stray rule. */
+.nb-html tbody th[rowspan] {
+  border-bottom: none;
+}
+
+.nb-html tbody td {
+  color: var(--color-fd-foreground);
+}
+
+.nb-html tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.nb-html tbody tr {
+  transition: background-color 120ms ease;
+}
+
+.nb-html tbody tr:hover {
+  background: var(--table-row-hover);
+}
+
+.nb-html [align='right'] {
+  text-align: right;
+}
+
+/* Notebook pages hide the title, so the leading h1 stands in. */
+.nb-body > .prose-no-margin:first-child h1:first-child {
+  margin-top: 0;
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Port of the platform UI's FormToggleBtns, default variant; dark values are departures. */
+@layer components {
+  .op-toggle-btns {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  .op-toggle-btn {
+    --toggle-bg: #f8f9fa; /* --bs-gray-100 */
+    --toggle-bg-hover: #e9ecef; /* --bs-gray-200 */
+    --toggle-bg-active: #dee2e6; /* --bs-gray-300 */
+    --toggle-border: rgb(0 0 0 / 0.15);
+    --toggle-border-hover: #ced4da; /* --bs-gray-400 */
+    --toggle-shadow: rgb(33 37 41 / 0.15);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem; /* --bs-control-min-height */
+    padding: 0 0.609375rem;
+    border: 1px solid var(--toggle-border);
+    color: #343a40; /* --bs-gray-800 */
+    background-color: var(--toggle-bg);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      all 300ms ease,
+      color 0ms;
+  }
+
+  .dark .op-toggle-btn {
+    --toggle-bg: #2b3035;
+    --toggle-bg-hover: #343a40;
+    --toggle-bg-active: #3b4147;
+    --toggle-border: rgb(255 255 255 / 0.15);
+    --toggle-border-hover: rgb(255 255 255 / 0.25);
+    --toggle-shadow: rgb(0 0 0 / 0.4);
+
+    color: var(--color-fd-foreground);
+  }
+
+  .op-toggle-btn:first-child {
+    border-start-start-radius: 0.75em; /* --bs-border-radius */
+    border-end-start-radius: 0.75em;
+  }
+
+  .op-toggle-btn:last-child {
+    border-start-end-radius: 0.75em;
+    border-end-end-radius: 0.75em;
+  }
+
+  /* Departure: one border between neighbours, as op-btn-group's. */
+  .op-toggle-btn + .op-toggle-btn {
+    margin-inline-start: -1px;
+  }
+
+  .op-toggle-btn:hover,
+  .op-toggle-btn.is--selected {
+    z-index: 1;
+  }
+
+  .op-toggle-btn input {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .op-toggle-btn__content {
+    transition: transform 300ms ease;
+  }
+
+  .op-toggle-btn:hover {
+    background-color: var(--toggle-bg-hover);
+    border-color: var(--toggle-border-hover);
+    box-shadow: 0 1px 2px 0 var(--toggle-shadow);
+  }
+
+  .op-toggle-btn:active {
+    transition-duration: 50ms;
+    filter: brightness(0.85);
+    background-color: var(--toggle-bg-active);
+    border-color: var(--toggle-border-hover);
+  }
+
+  .op-toggle-btn:active .op-toggle-btn__content {
+    transition-duration: 50ms;
+    transform: translateY(0.0625rem);
+  }
+
+  /* Keyboard only: the app's :focus-within also rings a clicked one. */
+  .op-toggle-btn:has(input:focus-visible) {
+    z-index: 1;
+    border-color: var(--color-fd-foreground);
+  }
+
+  .op-toggle-btn.is--selected,
+  :root:not([data-tutorial-client='python']) .op-client-toggle:not([data-client]) .op-toggle-btn[data-value='app'],
+  :root[data-tutorial-client='python'] .op-client-toggle:not([data-client]) .op-toggle-btn[data-value='python'] {
+    --toggle-shadow: color-mix(in srgb, var(--brand-1-fill) 35%, transparent);
+    --toggle-bg: var(--brand-1-fill);
+    --toggle-bg-hover: color-mix(in srgb, var(--brand-1-fill) 88%, black);
+    --toggle-bg-active: color-mix(in srgb, var(--brand-1-fill) 80%, black);
+    --toggle-border: var(--brand-1-fill);
+    --toggle-border-hover: var(--toggle-bg-hover);
+
+    color: #fff;
+  }
+}
+
+/* Both versions render until hydration; show the pre-paint pick. */
+:root:not([data-tutorial-client='python']) .op-client-panes[data-pending] > [data-client-pane='python'],
+:root[data-tutorial-client='python'] .op-client-panes[data-pending] > [data-client-pane='app'] {
+  display: none;
+}
+
+/* Field anchor ids aren't unique; hide theirs (ours is lucide-link-2). */
+[data-rest-api] button:has(> svg.lucide-link) {
+  display: none;
+}
+
+[data-rest-api] [class*='shadow-md'],
+[data-rest-api] [class*='shadow-sm'] {
+  box-shadow: none;
+}
+
+/* Playground panel sits on the code shelf. */
+[data-rest-api] form {
+  background: var(--code-surface);
+  border: 0;
+  border-radius: var(--code-radius);
+}
+
+/* Server URL band, with its label as a quiet section label. */
+[data-rest-api] form > button:first-child {
+  background: transparent;
+  border-bottom-color: var(--code-divider);
+  color: var(--color-fd-muted-foreground);
+}
+
+[data-rest-api] form > button:first-child:hover {
+  background: color-mix(in srgb, var(--color-fd-foreground) 4%, transparent);
+  color: var(--color-fd-muted-foreground);
+}
+
+[data-rest-api] form > button:first-child > span:first-child {
+  margin-inline-start: 0;
+  border: 0;
+  background: transparent;
+  padding-inline: 0;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+}
+
+/* Section triggers as labels, so field names stay loudest. */
+[data-rest-api] form [data-type] > button:first-child {
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+}
+
+/* Fields ported from the app's controlNormal(). */
+[data-rest-api] form input,
+[data-rest-api] form textarea,
+.op-field {
+  --control-border: var(--color-fd-border);
+  --control-accent: var(--color-fd-border);
+
+  min-height: 2rem;
+  border: 1px solid var(--control-border);
+  border-bottom-color: var(--control-accent);
+  border-radius: 0.75em;
+  background: color-mix(in srgb, var(--color-fd-background) 75%, transparent);
+  padding: 0.25rem 0.5rem;
+  box-shadow: none;
+  transition: all ease 300ms;
+}
+
+/* Selects match the fields beside them; unlayered to beat fumadocs' p-2. */
+[data-rest-api] form button[role='combobox'] {
+  min-height: 2rem;
+  padding-block: 0.25rem;
+}
+
+/* One field box holding an input and attached buttons, each behind a divider. */
+.op-field-group {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+}
+
+.op-field-group > input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 0.4rem 0.5rem;
+  outline: none;
+}
+
+.op-field-group > button {
+  display: grid;
+  flex: none;
+  width: 2.25rem;
+  place-items: center;
+  border-inline-start: 1px solid var(--control-border);
+  color: var(--color-fd-muted-foreground);
+  transition: all ease 300ms;
+}
+
+.op-field-group > button:hover:not(:disabled),
+.op-field-group > button[aria-expanded='true'] {
+  background: color-mix(in srgb, var(--color-fd-primary) 8%, transparent);
+  color: var(--color-fd-foreground);
+}
+
+.op-field-group > button:focus-visible {
+  outline: 2px solid var(--color-fd-ring);
+  outline-offset: -2px;
+}
+
+[data-rest-api] form input:hover:not(:disabled),
+[data-rest-api] form input:focus:not(:disabled),
+[data-rest-api] form textarea:hover:not(:disabled),
+[data-rest-api] form textarea:focus:not(:disabled),
+.op-field:hover:not(:disabled),
+.op-field:focus:not(:disabled),
+.op-field-group:focus-within {
+  --control-border: color-mix(in srgb, var(--color-fd-border) 80%, black 20%);
+  --control-accent: color-mix(in srgb, var(--color-fd-primary) 75%, transparent);
+}
+
+[data-rest-api] form input:active:not(:disabled),
+[data-rest-api] form textarea:active:not(:disabled),
+.op-field:active:not(:disabled) {
+  --control-border: color-mix(in srgb, var(--color-fd-border) 80%, white 20%);
+  --control-accent: color-mix(in srgb, var(--color-fd-primary) 60%, white 40%);
+
+  transition: all ease 150ms;
+}
+
+[data-rest-api] form input:focus-visible,
+[data-rest-api] form textarea:focus-visible,
+.op-field:focus-visible {
+  outline: none;
+}
+
+/* The editor fills the window: no footer, no page scrollbar gutter. */
+body:has([data-op-editor]) > footer {
+  display: none;
+}
+
+html:has([data-op-editor]) {
+  scrollbar-gutter: auto;
+}
+
+/* The header's 100vw rule overhangs a scrollbar. */
+#nd-home-layout:has([data-op-editor]) {
+  overflow-x: clip;
+}
+
+/* Editor preview: its block wrappers are display: contents. */
+.op-preview > [data-block]:first-child > :first-child {
+  margin-top: 0;
+}
+
+.op-preview > [data-block]:last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* base-ui's accordion panel; the indent carries the nesting. */
+[data-rest-api] [role='region'][data-index] {
+  border: 0;
+  border-radius: 0;
+}
+
+/* TypeScript Definitions box takes the code shelf. */
+[data-rest-api] div[class*='justify-between'][class*='bg-fd-card'][class*='rounded-xl'] {
+  border: 0;
+  border-radius: var(--code-radius);
+  background: var(--code-surface);
+}
+
+/* Its Copy button, flattened like .op-btn--flat. */
+[data-rest-api] div[class*='justify-between'][class*='bg-fd-card'][class*='rounded-xl'] > button {
+  --btn-flat-rgb: 33 37 41; /* --bs-dark-rgb */
+
+  min-height: 1.875rem; /* --bs-control-min-height-compact */
+  padding: 0.25rem 0.75rem;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  border-radius: 0.75em;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  font-weight: 500;
+  color: var(--color-fd-foreground);
+  transition: all ease 300ms;
+}
+
+.dark
+  [data-rest-api]
+  div[class*='justify-between'][class*='bg-fd-card'][class*='rounded-xl']
+  > button {
+  --btn-flat-rgb: 222 226 230;
+}
+
+[data-rest-api]
+  div[class*='justify-between'][class*='bg-fd-card'][class*='rounded-xl']
+  > button:not(:disabled):hover {
+  background-color: rgb(var(--btn-flat-rgb) / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(var(--btn-flat-rgb) / 0.05);
+  color: var(--color-fd-foreground);
+}
+
+[data-rest-api]
+  div[class*='justify-between'][class*='bg-fd-card'][class*='rounded-xl']
+  > button:not(:disabled):active {
+  background-color: rgb(var(--btn-flat-rgb) / 0.2);
+  box-shadow: inset 0 0 0 1px rgb(var(--btn-flat-rgb) / 0.05);
+  transition: all ease 50ms;
+}
+
+/* Filter Properties as a field; rounded-md skips the in-popover variant. */
+[data-rest-api] div[class*='rounded-md']:has(> input[data-object-search-input]) {
+  --control-border: var(--color-fd-border);
+  --control-accent: var(--color-fd-border);
+
+  min-height: 2rem;
+  border: 1px solid var(--control-border);
+  border-bottom-color: var(--control-accent);
+  border-radius: 0.75em;
+  background: color-mix(in srgb, var(--color-fd-background) 75%, transparent);
+  padding-inline-start: 0.5rem;
+  box-shadow: none;
+  transition: all ease 300ms;
+}
+
+[data-rest-api] div[class*='rounded-md']:has(> input[data-object-search-input]):hover,
+[data-rest-api] div[class*='rounded-md']:has(> input[data-object-search-input]):focus-within {
+  --control-border: color-mix(in srgb, var(--color-fd-border) 80%, black 20%);
+  --control-accent: color-mix(in srgb, var(--color-fd-primary) 75%, transparent);
+}
+
+[data-rest-api]
+  div[class*='rounded-md']:has(> input[data-object-search-input]):focus-within
+  > svg {
+  color: var(--color-fd-primary);
+}
+
+/* Constraint tags in the accent tint; fill + shadow-md match only these. */
+[data-rest-api] [class*='bg-fd-secondary'][class*='shadow-md'] {
+  background: var(--color-fd-accent);
+  border: 0;
+  color: var(--color-fd-accent-foreground);
+}
+
+/* Value chip on the page background; bg-fd-muted smudges on the tint. */
+[data-rest-api] [class*='bg-fd-secondary'][class*='shadow-md'] code {
+  background: var(--color-fd-background);
+}
+
+/* One accent per Python API member kind. */
+:root {
+  --py-class: oklch(0.52 0.19 264);
+  --py-function: oklch(0.52 0.19 264);
+  --py-method: oklch(0.48 0.15 200);
+  --py-property: oklch(0.5 0.13 155);
+  --py-attribute: oklch(0.52 0.11 60);
+  --py-type: oklch(0.5 0.12 300);
+}
+
+.dark {
+  --py-class: oklch(0.78 0.14 264);
+  --py-function: oklch(0.78 0.14 264);
+  --py-method: oklch(0.78 0.12 200);
+  --py-property: oklch(0.78 0.11 155);
+  --py-attribute: oklch(0.8 0.1 60);
+  --py-type: oklch(0.79 0.1 300);
+}
+
+/* Preflight makes svg a block. */
+mjx-container[jax='SVG'] > svg {
+  display: inline;
+}
+
+/* Editor: a failed equation. */
+.op-math-error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-block: 1em;
+  padding: 0.625rem 0.75rem;
+  border: 1px dashed var(--color-fd-error);
+  border-radius: 0.6em;
+  background: color-mix(in oklab, var(--color-fd-error) 8%, var(--color-fd-background));
+}
+
+.op-math-error__message {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-fd-error);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.op-math-error__icon {
+  flex: none;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.op-math-error > code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--text-xs);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.op-math-error[data-inline] {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 0.25em;
+  margin: 0;
+  padding: 0 0.35em;
+  border-radius: 0.4em;
+  color: var(--color-fd-error);
+  vertical-align: baseline;
+}

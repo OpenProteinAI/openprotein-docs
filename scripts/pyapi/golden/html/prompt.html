@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>openprotein.prompt &#8212; OpenProtein-Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=7cd56286" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/swagger-ui.css?v=735245e7" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/swagger-ui-bundle.js?v=a8827483"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SS7ET8W19C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SS7ET8W19C');
+            </script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-api/api-reference/prompt';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="openprotein.embeddings" href="embedding.html" />
+    <link rel="prev" title="openprotein.align" href="align.html" />
+    <script type="module" src="../../_static/js/getSwaggerJson.js"></script>
+    <script type="module" src="../../_static/js/addSwaggerEndpointsToTOC.js"></script>
+    <script type="module" src="../../_static/js/getEnvironment.js"></script>
+    <script type="module" src="../../_static/js/getBackendUrl.js"></script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="OpenProtein-Docs  documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="OpenProtein-Docs  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../web-app/index.html">
+    Web App
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Python API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../rest-api/index.html">
+    REST API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../walkthroughs/index.html">
+    Walkthroughs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../resources/index.html">
+    Resources
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><!-- navbar-custom.html -->
+<div class="navbar-custom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="https://app.openprotein.ai/">Log in</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.openprotein.ai/contact">Contact</a>
+        </li>
+    </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../foundation-models/index.html">Foundation Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/model-metadata.html">Model metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/SVD-embeddings.html">SVD and embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/logits.html">Logits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/attention-maps.html">Attention maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../foundation-models/Using_AbLang2.html">Using AbLang2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../poet/index.html">PoET</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-MSA.html"> Creating an MSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/creating-prompt.html"> Creating a prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/scoring-sequences.html"> Scoring sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/single-site-analysis.html"> Single site analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poet/generating-sequences.html"> Generating sequences</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../property-regression-models/index.html">Property Regression Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/uploading-data.html"> Uploading data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/training-models.html">Training models</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/designing-sequences.html"> Designing sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/predicting-sequences.html"> Predicting sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../property-regression-models/single-site-analysis.html"> Single site analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-prediction/index.html">Structure Prediction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Examining_structure_prediction_models.html">Examining structure prediction models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_ESMFold2.html">Using ESMFold2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_AlphaFold2.html">Using AlphaFold2</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Boltz_1_and_Boltz_2.html">Using Boltz-1 and Boltz-2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_Protenix-v2.html">Using Protenix-v2</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-prediction/Using_RosettaFold3.html">Using RosettaFold-3</a></li>
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structure-generation/index.html">Structure Generation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_RFdiffusion.html">Using RFdiffusion</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../structure-generation/Using_BoltzGen.html">Using BoltzGen</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="openprotein.html">openprotein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molecules.html">openprotein.molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">openprotein.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobs.html">openprotein.jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="align.html">openprotein.align</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">openprotein.prompt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embedding.html">openprotein.embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="predictor.html">openprotein.predictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">openprotein.design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fold.html">openprotein.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">openprotein.models</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Python API Documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">openprotein.prompt</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openprotein-prompt">
+<h1>openprotein.prompt<a class="headerlink" href="#openprotein-prompt" title="Link to this heading">#</a></h1>
+<p>Create prompts to be used with <a class="reference internal" href="embedding.html#openprotein.embeddings.PoETModel"><span class="std std-ref">PoET</span></a> models, along with queries which opens up use-cases like <a class="reference internal" href="../../walkthroughs/PoET-2_inverse_folding.html"><span class="doc">inverse folding</span></a> with <a class="reference internal" href="embedding.html#openprotein.embeddings.PoET2Model"><span class="std std-ref">PoET-2</span></a>.</p>
+<section id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">PromptAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI" title="Link to this definition">#</a></dt>
+<dd><p>Prompt API providing the interface to create prompts for use with PoET models.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI.create_prompt">
+<span class="sig-name descname"><span class="pre">create_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI.create_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI.create_prompt" title="Link to this definition">#</a></dt>
+<dd><p>Create a prompt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Context</em><em> | </em><em>Sequence</em><em>[</em><em>Context</em><em>]</em>) – Context or list of contexts. Each context is a sequence of entries
+where each entry is a raw sequence (<code class="docutils literal notranslate"><span class="pre">bytes</span></code>/<code class="docutils literal notranslate"><span class="pre">str</span></code>, optionally with
+<code class="docutils literal notranslate"><span class="pre">:</span></code> chain breaks for multichain), <code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code>, or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>. Currently only protein chains are accepted;
+passing a Complex with DNA, RNA, or Ligand chains raises
+<code class="xref py py-class docutils literal notranslate"><span class="pre">InvalidParameterError</span></code>. This restriction may be relaxed
+in the future.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the prompt.</p></li>
+<li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Description of the prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created prompt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.prompt.Prompt" title="openprotein.prompt.Prompt">Prompt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI.get_prompt">
+<span class="sig-name descname"><span class="pre">get_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI.get_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI.get_prompt" title="Link to this definition">#</a></dt>
+<dd><p>Get the prompt for a given prompt ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompt_id</strong> (<em>str</em>) – The prompt ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prompt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.prompt.Prompt" title="openprotein.prompt.Prompt">Prompt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI.list_prompts">
+<span class="sig-name descname"><span class="pre">list_prompts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI.list_prompts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI.list_prompts" title="Link to this definition">#</a></dt>
+<dd><p>List all prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of prompts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="#openprotein.prompt.Prompt" title="openprotein.prompt.Prompt">Prompt</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI.create_query">
+<span class="sig-name descname"><span class="pre">create_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_structure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI.create_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI.create_query" title="Link to this definition">#</a></dt>
+<dd><p>Create a query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>bytes</em><em> or </em><em>str</em><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><em>Protein</em></a><em> or </em><a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><em>Complex</em></a>) – A query protein or complex. Raw <code class="docutils literal notranslate"><span class="pre">bytes</span></code>/<code class="docutils literal notranslate"><span class="pre">str</span></code> inputs may include
+<code class="docutils literal notranslate"><span class="pre">:</span></code> chain breaks to denote a multichain protein. Currently only
+protein chains are accepted; passing a Complex with DNA, RNA, or
+Ligand chains raises <code class="xref py py-class docutils literal notranslate"><span class="pre">InvalidParameterError</span></code>. This
+restriction may be relaxed in the future.</p></li>
+<li><p><strong>force_structure</strong> (<em>bool</em><em>, </em><em>optional</em>) – Optionally force a query to be interpreted with a structure.
+Useful for creating structure prediction queries which can have
+no structure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created query.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.prompt.Query" title="openprotein.prompt.Query">Query</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptAPI.get_query">
+<span class="sig-name descname"><span class="pre">get_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/prompt.html#PromptAPI.get_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptAPI.get_query" title="Link to this definition">#</a></dt>
+<dd><p>Get the query for a given query ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query_id</strong> (<em>str</em>) – The query ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The query.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#openprotein.prompt.Query" title="openprotein.prompt.Query">Query</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">Prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Prompt" title="Link to this definition">#</a></dt>
+<dd><p>Prompt which contains a set of sequences and/or structures used to condition the PoET models.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.get_as_complexes">
+<span class="sig-name descname"><span class="pre">get_as_complexes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Prompt.get_as_complexes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Prompt.get_as_complexes" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the prompt context with every entry as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>.</p>
+<p>Single-chain entries are wrapped as <code class="docutils literal notranslate"><span class="pre">Complex({&quot;A&quot;:</span> <span class="pre">protein})</span></code> so the
+return type is uniform regardless of chain count.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.get_as_proteins">
+<span class="sig-name descname"><span class="pre">get_as_proteins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Prompt.get_as_proteins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Prompt.get_as_proteins" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the prompt context with every entry as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code>.</p>
+<p>Raises <code class="xref py py-class docutils literal notranslate"><span class="pre">InvalidParameterError</span></code> if any entry is multichain — use
+<a class="reference internal" href="#openprotein.prompt.Prompt.get_as_complexes" title="openprotein.prompt.Prompt.get_as_complexes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_as_complexes()</span></code></a> instead when multichain entries may be present.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the prompt.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.name" title="Link to this definition">#</a></dt>
+<dd><p>The name of the prompt.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.description">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.description" title="Link to this definition">#</a></dt>
+<dd><p>The description of the prompt.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.created_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_date</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.created_date" title="Link to this definition">#</a></dt>
+<dd><p>The timestamp when the prompt was created.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.num_replicates">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_replicates</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.num_replicates" title="Link to this definition">#</a></dt>
+<dd><p>The number of replicates in the prompt for an ensemble prompt.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.status">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#openprotein.prompt.Prompt.status" title="Link to this definition">#</a></dt>
+<dd><p>The status of the prompt if sampling from an <a class="reference internal" href="align.html#openprotein.align.MSAFuture" title="openprotein.align.MSAFuture"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSAFuture</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.args">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openprotein.prompt.Prompt.args" title="Link to this definition">#</a></dt>
+<dd><p>The registered job arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.cancelled">
+<span class="sig-name descname"><span class="pre">cancelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.prompt.Prompt.cancelled" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has been cancelled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is cancelled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.prompt.Prompt.done" title="Link to this definition">#</a></dt>
+<dd><p>Check if the job has completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the job is done, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.end_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.prompt.Prompt.end_date" title="Link to this definition">#</a></dt>
+<dd><p>The end timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.job_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.prompt.Prompt.job_id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.job_type">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openprotein.prompt.Prompt.job_type" title="Link to this definition">#</a></dt>
+<dd><p>The type of the job.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.progress_counter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress_counter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openprotein.prompt.Prompt.progress_counter" title="Link to this definition">#</a></dt>
+<dd><p>The progress counter of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.prompt.Prompt.refresh" title="Link to this definition">#</a></dt>
+<dd><p>Refresh the job status and internal job object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.start_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openprotein.prompt.Prompt.start_date" title="Link to this definition">#</a></dt>
+<dd><p>The start timestamp of the job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.prompt.Prompt.wait" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete, then fetch results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The results of the job.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Prompt.wait_until_done">
+<span class="sig-name descname"><span class="pre">wait_until_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openprotein.prompt.Prompt.wait_until_done" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the job to complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Time in seconds between polling. Defaults to <cite>config.POLLING_INTERVAL</cite>.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum time in seconds to wait. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbosity flag. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the job completed successfully.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method does not fetch the job results, unlike <cite>wait()</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.Query">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Query" title="Link to this definition">#</a></dt>
+<dd><p>Query containing a sequence/structure used to query the design models which opens up new workflows.</p>
+<p>Create a query with a masked sequence using <a class="reference internal" href="molecules.html#openprotein.molecules.Protein.mask_sequence_at" title="openprotein.molecules.Protein.mask_sequence_at"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mask_sequence_at()</span></code></a> for <a class="reference internal" href="embedding.html#openprotein.embeddings.PoET2Model" title="openprotein.embeddings.PoET2Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">PoET2Model</span></code></a> to run inverse folding.</p>
+<p>Create a query with a masked structure using <a class="reference internal" href="molecules.html#openprotein.molecules.Protein.mask_structure_at" title="openprotein.molecules.Protein.mask_structure_at"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mask_structure_at()</span></code></a> for <a class="reference internal" href="models.html#openprotein.models.RFdiffusionModel" title="openprotein.models.RFdiffusionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFdiffusionModel</span></code></a> to run inverse folding.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Query.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Query.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Query.get" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the query as a <a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.Protein"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code></a> or  <a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.Complex"><code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code></a>.</p>
+<p>Single-chain queries collapse to <code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code>; multichain queries are
+returned as <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>. For a uniform return type, see
+<a class="reference internal" href="#openprotein.prompt.Query.get_as_complex" title="openprotein.prompt.Query.get_as_complex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_as_complex()</span></code></a> or <a class="reference internal" href="#openprotein.prompt.Query.get_as_protein" title="openprotein.prompt.Query.get_as_protein"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_as_protein()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Protein or Complex representing the query</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="molecules.html#openprotein.molecules.Protein" title="openprotein.molecules.protein.Protein"><em>Protein</em></a> | <a class="reference internal" href="molecules.html#openprotein.molecules.Complex" title="openprotein.molecules.complex.Complex"><em>Complex</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Query.get_as_complex">
+<span class="sig-name descname"><span class="pre">get_as_complex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Query.get_as_complex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Query.get_as_complex" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the query as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Complex</span></code>.</p>
+<p>A single-chain <code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code> result is wrapped as
+<code class="docutils literal notranslate"><span class="pre">Complex({&quot;A&quot;:</span> <span class="pre">protein})</span></code> so the return type is uniform.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openprotein.prompt.Query.get_as_protein">
+<span class="sig-name descname"><span class="pre">get_as_protein</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/models.html#Query.get_as_protein"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.Query.get_as_protein" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the query as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Protein</span></code>.</p>
+<p>Raises <code class="xref py py-class docutils literal notranslate"><span class="pre">InvalidParameterError</span></code> if the query is multichain — use
+<a class="reference internal" href="#openprotein.prompt.Query.get_as_complex" title="openprotein.prompt.Query.get_as_complex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_as_complex()</span></code></a> instead when multichain queries may be present.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Query.id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#openprotein.prompt.Query.id" title="Link to this definition">#</a></dt>
+<dd><p>The unique identifier of the query.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.Query.created_date">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_date</span></span><a class="headerlink" href="#openprotein.prompt.Query.created_date" title="Link to this definition">#</a></dt>
+<dd><p>The timestamp when the query was created.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptMetadata">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">PromptMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_replicates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/schemas.html#PromptMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptMetadata" title="Link to this definition">#</a></dt>
+<dd><p>Metadata about a prompt.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.QueryMetadata">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">QueryMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/schemas.html#QueryMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.QueryMetadata" title="Link to this definition">#</a></dt>
+<dd><p>Metadata about a query.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptJob">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openprotein.prompt.</span></span><span class="sig-name descname"><span class="pre">PromptJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prerequisite_job_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openprotein/prompt/schemas.html#PromptJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openprotein.prompt.PromptJob" title="Link to this definition">#</a></dt>
+<dd><p>A representation of a prompt job.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptJob.msa_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msa_id</span></span><a class="headerlink" href="#openprotein.prompt.PromptJob.msa_id" title="Link to this definition">#</a></dt>
+<dd><p>ID of the underlying MSA.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="openprotein.prompt.PromptJob.prompt_id">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prompt_id</span></span><a class="headerlink" href="#openprotein.prompt.PromptJob.prompt_id" title="Link to this definition">#</a></dt>
+<dd><p>Prompt ID.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI"><code class="docutils literal notranslate"><span class="pre">PromptAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI.create_prompt"><code class="docutils literal notranslate"><span class="pre">PromptAPI.create_prompt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI.get_prompt"><code class="docutils literal notranslate"><span class="pre">PromptAPI.get_prompt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI.list_prompts"><code class="docutils literal notranslate"><span class="pre">PromptAPI.list_prompts()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI.create_query"><code class="docutils literal notranslate"><span class="pre">PromptAPI.create_query()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptAPI.get_query"><code class="docutils literal notranslate"><span class="pre">PromptAPI.get_query()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt"><code class="docutils literal notranslate"><span class="pre">Prompt</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.get_as_complexes"><code class="docutils literal notranslate"><span class="pre">Prompt.get_as_complexes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.get_as_proteins"><code class="docutils literal notranslate"><span class="pre">Prompt.get_as_proteins()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.id"><code class="docutils literal notranslate"><span class="pre">Prompt.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.name"><code class="docutils literal notranslate"><span class="pre">Prompt.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.description"><code class="docutils literal notranslate"><span class="pre">Prompt.description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.created_date"><code class="docutils literal notranslate"><span class="pre">Prompt.created_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.num_replicates"><code class="docutils literal notranslate"><span class="pre">Prompt.num_replicates</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.status"><code class="docutils literal notranslate"><span class="pre">Prompt.status</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.args"><code class="docutils literal notranslate"><span class="pre">Prompt.args</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.cancelled"><code class="docutils literal notranslate"><span class="pre">Prompt.cancelled()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.done"><code class="docutils literal notranslate"><span class="pre">Prompt.done()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.end_date"><code class="docutils literal notranslate"><span class="pre">Prompt.end_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.job_id"><code class="docutils literal notranslate"><span class="pre">Prompt.job_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.job_type"><code class="docutils literal notranslate"><span class="pre">Prompt.job_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.progress_counter"><code class="docutils literal notranslate"><span class="pre">Prompt.progress_counter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.refresh"><code class="docutils literal notranslate"><span class="pre">Prompt.refresh()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.start_date"><code class="docutils literal notranslate"><span class="pre">Prompt.start_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.wait"><code class="docutils literal notranslate"><span class="pre">Prompt.wait()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Prompt.wait_until_done"><code class="docutils literal notranslate"><span class="pre">Prompt.wait_until_done()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query.get"><code class="docutils literal notranslate"><span class="pre">Query.get()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query.get_as_complex"><code class="docutils literal notranslate"><span class="pre">Query.get_as_complex()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query.get_as_protein"><code class="docutils literal notranslate"><span class="pre">Query.get_as_protein()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query.id"><code class="docutils literal notranslate"><span class="pre">Query.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.Query.created_date"><code class="docutils literal notranslate"><span class="pre">Query.created_date</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptMetadata"><code class="docutils literal notranslate"><span class="pre">PromptMetadata</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.QueryMetadata"><code class="docutils literal notranslate"><span class="pre">QueryMetadata</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptJob"><code class="docutils literal notranslate"><span class="pre">PromptJob</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptJob.msa_id"><code class="docutils literal notranslate"><span class="pre">PromptJob.msa_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#openprotein.prompt.PromptJob.prompt_id"><code class="docutils literal notranslate"><span class="pre">PromptJob.prompt_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, NE47 Bio – All Rights Reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

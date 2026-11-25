@@ -1,0 +1,44 @@
+---
+title: Property predictors
+description: Property predictors predict properties of a protein from its sequence or structure. 
+---
+
+A property predictor is a model that predicts a property of a protein from its sequence or structure. These can be pre-trained predictors, or predictors trained on your data. 
+On our platform, we use a particular type of model, Gaussian Process models, for training specialized property predictors on your assay data. 
+
+## Gaussian process
+
+Our platform trains specialized property predictors on your assay data using Gaussian Process (GP) models. 
+
+Formally, a Gaussian Process is a collection of random values, such that any finite subset of them follows a multivariate normal distribution. A GP is specified by a mean function,
+which gives the expected value of the function at each input, and a covariance function, $k(x, x')$, also called the kernel, which defines how correlated the function values are 
+at two different inputs. Here, $x$ is the embedding vector of a protein sequence given by a foundation model. 
+
+A few properties of GPs make them well-suited to protein engineering. 
+- **GPs predict distributions, not point values**: GPs predict both mean and uncertainty. This is important for our downstream Bayesian optimization algorithms so that we can trade-off on *exploitation* and *exploration*.
+- **GPs work well with small datasets**: GPs are designed to leverage prior knowledge through their covariance kernel.
+- **GPs naturally handle new data without retraining**: GPs 'add new data' simply by conditioning on them. 
+
+### Covariance kernels
+
+The covariance kernel describes how similarity in the embedding space translates into correlation in the property space. 
+
+An an example, the default kernel (and a popular one) is the **radial basis function (RBF)** kernel, also called the squared exponential or Gaussian kernel. This kernel expresses the 
+assumption that sequences whose embeddings are close together have correlated property values. This correlation then decays with embedding distance. The RBF kernel has two hyperparameters, 
+both fitted during model training: the lengthscale, which sets how far two embedding vectors must be before their property values are effectively independent, and sigma, which sets the scale of 
+variation of the property. 
+
+Other kernels encode different assumptions. We support several other standard kernels, including the Linear, Matérn and Rational quadratic kernels. To learn more about different kernels, we recommend taking a look at scikit-learn’s 
+[documentation on Gaussian Process kernels](https://scikit-learn.org/stable/modules/gaussian_process.html#gp-kernels). We encourage users to experiment with different kernels
+when training their models to find the one that best suits their application 
+
+### Mean and uncertainty
+
+For each sequence, a GP property predictor returns both the posterior mean and variance of the property. This is crucial for the **Design** step of our multi-objective design algorithm, 
+which uses this information to balance proposing sequences that the model thinks will maximize your design objective, with sequences in unknown regions that the model has not yet 
+explored. This also provides us with a principled framework to evaluate the probability of success of a given library. 
+
+## Related pages 
+
+- Concepts: [Evaluating models](/concepts/models/evaluating-models)
+- Tutorial: [Train a specialized property predictor](/tutorials/learn/training-property-predictors)

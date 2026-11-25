@@ -1,0 +1,71 @@
+---
+title: Evaluating models
+description: Metrics describe the quality of a model and its predictions
+---
+
+After training, models (such as [property predictors](/concepts/models/property-predictors)) output a few useful metrics: cross-validation, which measures 
+prediction accuracy, calibration, which measures whether the mode's uncertainty estimates
+are reliable, and a training curve that shows whether training has converged. Users should
+review all three before using a model. 
+
+## Cross-validation 
+
+Cross-validation is used to evaluate how well the model will generalize to unseen data. 
+In practice, this means splitting your data into k folds, training on all but one fold, 
+then predicting on the held-out fold. By default, our platform runs 5-fold cross-validation. 
+
+Two correlation metrics are reported: **Spearman's rho**, which measures rank correlation, 
+and **Pearson's r**, which measures linear association. Use **Spearman's rho** if your data is ordinal, skewed, contains outliers, or follows a non-linear but strictly 
+increasing or decreasing trend. Otherwise, if your data follows a normal distribution, use 
+Pearson's r. Correlation values range from -1 to 1. 1 indicates perfect positive correlation, 
+while -1 indicates eprfect negative correlation and 0 indicates no correlation. 
+
+<Figure src="/_static/concepts/models/evaluating-models/01_cross_validation.png" width={400} align="left"/>
+
+### Troubleshooting 
+
+Several factors affect your model's cross-validation performance, which may result 
+in lower-than-desired correlation. 
+- Measurement noise is a fundamental limitation, so even a perfect model will not 
+have a correlation of 1.0. Working with limited data also introduces uncertainty into 
+the sequence-function relationship that limits the predictive power of the model. 
+- Our models are uncertainty-aware: they output a standard deviation indicating 
+confidence in the prediction. More data will generally lead to a better model with 
+higher confidences, but a model with high uncertainty can still guide designs 
+towards sequence variants that are most likely to have the best properties. In 
+this case, more sequences likely need to be tested because the sequence-function 
+library isn't fully understood. This will also be reflected in the [success 
+probabilities of variants and libraries](/concepts/design/bayesian-optimization). 
+
+## Model calibration 
+
+Calibration measures whether a model's uncertainty estimates are reliable. This means
+that the predictive intervals it outputs should contain the true property value 
+with the stated probability: a reported 70% credible interval should contain the true value 70%
+of the time. 
+
+The calibration plot visualizes this by comparing predicted probability to observed
+frequency. The diagonal line represents perfect calibration. To quantify this, we
+compute and reported the **Expected Calibration Error (ECE)**: the weighted average 
+of the absolute difference between predicted coverage and observed frequency across 
+bins. Lower ECE values indicate better calibration. 
+
+Calibration matters because our downstream design algorithms account for uncertainty 
+when proposing new libraries. 
+
+<Figure src="/_static/concepts/models/evaluating-models/02_model_calibration.png" width={400} align="left"/>
+
+## Training curves 
+
+Training curves display how the model's loss changes during the training process. Lower values
+indicate better performance. In general, we should expect the loss curve to decrease quickly at the 
+start, and then flatten as the model performance plateaus. A curve that does not flatten suggests 
+underfitting, while a rising curve could suggest overfitting. 
+
+<Figure src="/_static/concepts/models/evaluating-models/03_training_curve.png" width={800} align="left"/>
+
+## Related pages 
+
+- Concepts: [Property predictors](/concepts/models/property-predictors)
+- How-to: [Design a combinatorial library](/how-tos/design/design-a-combinatorial-library)
+- Concepts: [Bayesian optimization](/concepts/design/bayesian-optimization)

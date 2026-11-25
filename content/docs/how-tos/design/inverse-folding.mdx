@@ -1,0 +1,320 @@
+---
+title: "How to generate sequences that fold into a protein structure with inverse folding"
+description: "Design sequences for a protein backbone using ProteinMPNN or PoET-2, define redesign constraints, and evaluate generated candidates."
+---
+
+
+This guide will show you how to design sequences that fold into a given protein backbone structure. The [OpenProtein.AI](http://openprotein.ai) platform offers inverse folding models that allow you to define which residues to fix or change, generate compatible amino acid sequences, and shortlist designs for further testing.
+
+## Before starting
+
+- Have a protein structure in a CIF or PDB file containing backbone coordinates. The structure can be experimental, predicted, or generated.
+
+- Identify any residues or chains whose sequences must remain fixed.
+
+- Decide on a design goal, such as redesigning an interface, generating alternatives for a fold, or preserving a scaffold while changing selected regions.
+
+- Have a protein-family context if using PoET-2 to guide generation.
+
+## Setup
+
+The Python examples require SDK version 0.18 or later.
+
+Choose a sequence generation model:
+
+- **ProteinMPNN:** Use for general sequence redesign conditioned on a backbone.
+
+- **PoET-2 with context:** Use to also guide generation toward a protein family. For example, use an appropriate VH or VHH context when redesigning antibody framework regions and CDRs.
+
+Start with a small number of sequences, such as 10 per backbone. Scale up after inspecting the initial results.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Navigate to the **Generate** tool and select the sequence generator. For PoET-2, also supply the relevant context. Use the existing backbone as the structural input.
+
+</Tab>
+
+<Tab value="Python">
+
+Start from an authenticated session and import the molecular objects used below.
+
+
+```python
+import openprotein
+
+from openprotein.molecules import Protein, Complex, Structure
+session = openprotein.connect()
+```
+
+The Python examples below follow a single-chain workflow, with a separate example for preparing a multichain ProteinMPNN input.
+
+</Tab>
+
+</Tabs>
+
+## Specify the input structure
+
+Select a structure containing the chain or chains to redesign. If an interface is relevant, retain the interacting chains in their intended relative positions.
+
+Check for:
+
+- Missing backbone coordinates and expression artifacts such as His-tags
+
+- Unrelated chains or tags that they fall outside the design goal – these can be removed
+
+- Missing backbone coordinates – obtain or model these before redesigning those regions.
+
+Only delete unresolved residues if excluding them is consistent with the intended design.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Upload the structure into the query box. This can be done by either loading a CIF or PDB file directly, or typing `/` followed by `pdb <pdb_id>` in the input box, if a structure in PDB can be directly used. Remove unnecessary chains using the × icon beside each chain. Inspect the sequence tracks and structure viewer to confirm that the intended chains and backbone coordinates are present. Refer to the [inverse folding tutorial](/tutorials/design/generate/inverse-folding) or [nanobody binder design walkthrough (App)](/tutorials/design/generate/boltzgen?client=app#step-1-binder-design-problem-specification) for guided examples.
+
+</Tab>
+
+<Tab value="Python">
+
+Load the chain from a local structure file:
+
+
+```python
+myProtein = Protein.from_filepath(
+    "myStructure.cif",
+    chain_id="A",
+)
+```
+
+Alternatively, retrieve a structure from the PDB, via its PDB_ID, input as a string argument:
+
+```python
+myStructure = Structure.from_pdb_id(PDB_ID)
+myProtein = myStructure[0].get_protein(chain_id="A")
+```
+
+Inspect the sequence and positions with undefined structure:
+
+```python
+print(myProtein.formatted(include=("sequence", "structure_mask")))
+```
+
+Keep `myProtein` as the unmodified reference for later comparisons.
+
+For a multichain ProteinMPNN input, load the structure as a `Complex` and retain the required chains. For example, select chains A and B:
+
+```python
+from openprotein.molecules import Structure, Complex
+
+myStructure = Structure.from_filepath("myStructure.cif")
+myComplex = Complex(chains={
+    chain_id: myStructure[0].get_chain(chain_id)
+    for chain_id in ("A", "B")
+})
+```
+
+Include interacting partners when their interface is relevant to the design. The selected chains retain their coordinates and relative placement.
+
+Refer to the [nanobody design walkthrough with ProteinMPNN (Python)](/tutorials/design/generate/boltzgen?client=python#generate-sequences) for a walkthrough.
+
+</Tab>
+
+</Tabs>
+
+## Define which residues to design
+
+Decide on the scope of redesign:
+
+- **Design the entire protein:** Explore sequences compatible with the full backbone structure when no residue identities need to remain fixed.
+
+- **Design an entire chain:** Generate sequences for one chain while retaining other chains as structural context.
+
+- **Redesign selected regions:** Change loops, interfaces, or other sites while retaining the surrounding sequence. Fixed positions could include catalytic residues, antibody framework residues, or residues required for target binding.
+
+Mask the sequence positions to generate while retaining their backbone coordinates.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Replace designable sequence positions with X. To mask the entire sequence, use the “Mask Query Sequence” button at the top of the query editor. To mask only selected residues, we can either select these directly in the query editor, or select inverse of those. We would then click “Mask Selected Residues” or “Mask Unselected Residues” respectively. Leave required residue identities unchanged and keep the corresponding backbone structure unmasked.
+
+</Tab>
+
+<Tab value="Python">
+
+Copy the reference before applying masks. To design the entire chain:
+
+
+```python
+myQuery = myProtein.copy()
+myQuery.mask_sequence()
+myQuery.mask_structure(side_chain_only=True)
+```
+
+To design selected positions instead:
+
+```python
+designPositions = [27, 28, 29, 30]  # replace with the intended positions
+
+myQuery = myProtein.copy()
+myQuery.mask_sequence_at(designPositions)
+myQuery.mask_structure_at(
+    designPositions,
+    side_chain_only=True,
+)
+```
+
+To preserve selected residue identities and redesign everything else:
+
+```python
+fixedPositions = [10, 25, 48]  # replace with the required fixed positions
+
+myQuery = myProtein.copy()
+myQuery.mask_sequence_except_at(fixedPositions)
+myQuery.mask_structure_except_at(
+    fixedPositions,
+    side_chain_only=True,
+)
+```
+
+Positions in the `*_at()` methods are **1-indexed positions in the loaded protein**, which may differ from the original PDB residue numbering. Use `side_chain_only=True` to remove side-chain coordinates while preserving the backbone.
+
+For a multichain ProteinMPNN input, mask the chain to redesign and retain the others to condition on the interface. For example, if chain B contains the sequence to be redesigned:
+
+```python
+myComplex = myStructure[0].copy()
+myDesignChain = myComplex.get_protein(chain_id="B").copy()
+
+myDesignChain.mask_sequence()
+myDesignChain.mask_structure(side_chain_only=True)
+
+myComplex.set_chain("B", myDesignChain)
+myQuery = myComplex
+```
+
+Inspect the final query before submission to verify the alignment of the sequence and structure tracks.
+
+```python
+print(myDesignChain.formatted(include=("sequence", "structure_mask")))
+```
+
+</Tab>
+
+</Tabs>
+
+## Choose settings and generate sequences
+
+Set the sample count and temperature. For ProteinMPNN, start with a temperature of **0.1**; for PoET-2, start with a temperature of **0.5**. Increase temperature if the results offer too little diversity; lower it to make sampling more concentrated. Begin with a small number of sequences (e.g. **10 sequences**), and increase this after checking that the initial results are acceptable.
+
+Set a random seed when reproducing or comparing runs.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Configure the sample count and model-specific sampling settings. Configure refolding before clicking **Run** if evaluating structures within the same workflow.
+
+</Tab>
+
+<Tab value="Python">
+
+Submit the prepared query to ProteinMPNN:
+
+
+```python
+sequence_job = session.models.proteinmpnn.generate(
+    query=myQuery,
+    num_samples=10,
+    temperature=0.1,
+    random_seed=42,
+)
+
+sequence_job.wait_until_done(verbose=True)
+mySequences = sequence_job.get()
+```
+
+Alternatively, generate with PoET-2 and a saved context:
+
+```python
+myContext = session.prompt.get_prompt("YOUR_CONTEXT_ID")
+
+sequence_job = session.embedding.poet2.generate(
+    prompt=myContext,
+    query=myQuery,
+    num_samples=10,
+    temperature=0.5,
+    seed=42,
+)
+
+sequence_job.wait_until_done(verbose=True)
+mySequences = [
+    record.sequence.decode() if isinstance(record.sequence, bytes) else record.sequence
+    for record in sequence_job.get()
+]
+```
+
+Both jobs run asynchronously on the platform. Refer to the [ProteinMPNN API reference](/references/python-api/models#proteinmpnn), [PoET-2 API reference](https://docs.openprotein.ai/python-api/api-reference/embedding.html#openprotein.embeddings.PoET2Model), and [inverse folding tutorial](/tutorials/design/generate/inverse-folding) for further execution details.
+
+</Tab>
+
+</Tabs>
+
+## Refold the generated sequences
+
+For complexes, retain the partner chains when predicting the structure so that the interface can be evaluated. Choose whether to provide a structural template. For an initial check of whether the designed sequence adopts the intended fold, we recommend against providing a template, as refolding filtering is generally done without templates.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Select a structure prediction model and template option under **Refolding Settings**.
+
+</Tab>
+
+<Tab value="Python">
+
+For the single-chain workflow, deduplicate the sequence strings returned by the chosen branch:
+
+
+```python
+mySequences = list(dict.fromkeys(mySequences)) # deduplicate sequences
+```
+
+Create sequence-only inputs and refold with ESMFold2:
+
+```python
+myFoldInputs = []
+for mySequence in mySequences:
+    myInput = Protein(mySequence)
+    myInput.msa = Protein.single_sequence_mode
+    myFoldInputs.append(Complex({"A": myInput}))
+
+fold_job = session.fold.esmfold2.fold(
+    myFoldInputs,
+    diffusion_samples=1,
+)
+fold_job.wait_until_done(verbose=True)
+
+myPredictions = [s[0] for s in fold_job.get()]
+```
+
+This example uses single-sequence mode and supplies no template. For multichain designs, reconstruct each `Complex` with its designed and fixed chains before folding. Refer to the [structure prediction tutorial with ESMFold2](https://docs.openprotein.ai/python-api/structure-prediction/Using_ESMFold2.html).
+
+</Tab>
+
+</Tabs>
+
+## Analyze and shortlist designs
+
+Compare predicted structures with the input backbone, then apply filters relevant to the design goal:
+
+- **Fold agreement:** We recommend filtering by backbone RMSD. An RMSD below 2.5 is a typical threshold.
+
+- **Local confidence:** Inspect confidence in the redesigned regions alongside the whole-protein average.
+
+- **Interface agreement:** For complexes, inspect the predicted interaction and interface confidence.
+
+- **Sequence diversity:** Compare designs with the reference sequence, with one another, and with context sequences if PoET-2 was used.

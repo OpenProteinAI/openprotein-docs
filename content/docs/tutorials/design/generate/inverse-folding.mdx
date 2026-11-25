@@ -1,0 +1,256 @@
+---
+title: "Design sequences for a backbone structure with Inverse Folding"
+sidebarTitle: Inverse folding
+description: "Use ProteinMPNN to design sequences for a ubiquitin backbone, from loading and masking the structure to inspecting and saving designs."
+---
+
+In this tutorial, we will use ProteinMPNN on OpenProtein.AI to generate sequences for an existing protein backbone. We will load a structure, mask its sequence, generate sequences compatible with the backbone, and inspect the results.
+
+We will use ubiquitin, PDB entry 1UBQ. This is a small, single-chain protein with 76 modeled residues. [View the structure on RCSB PDB](https://www.rcsb.org/structure/1UBQ).
+
+## Before starting, you need:
+
+- SDK version 0.18 or later for the Python examples.
+
+- [1UBQ structure file in CIF format](https://files.rcsb.org/download/1UBQ.pdb).
+
+## Load the protein structure
+
+We will start by loading chain A of 1UBQ. Keeping the original protein lets us compare the generated sequences with the reference later.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        In the top navigation bar, select Tools > De novo design.
+      </Step>
+      <Step>
+        If you have the PDB file saved locally, click the “upload files” button above the input box, and upload 1UBQ.cif into the query.
+
+        Refer to the tutorial for  [how to create a query](https://docs.openprotein.ai/web-app/poet/prompts.html#creating-a-query) for uploading and editing a structure query.
+
+        ![OpenProtein.AI interface screenshot](/_static/tutorials/design/denovo/inverse-folding/ubiquitin-backbone-query.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management), then load the structure from file:
+
+    ```python lineNumbers
+    import openprotein
+    from openprotein.molecules import Structure, Protein
+
+    session = openprotein.connect()
+
+    reference = Protein.from_filepath(path=STRUCTURE_FILEPATH, chain_id="A")
+    ```
+
+    Check that the correct structure is loaded.
+
+    ```python lineNumbers
+    print("Residues:", len(reference))
+    print(reference.sequence.decode())
+    ```
+
+    Expected output:
+
+    ```text
+    Residues: 76
+    MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG
+    ```
+
+    Check that no positions have entirely undefined structural coordinates:
+
+    ```python lineNumbers
+    assert not reference.get_structure_mask().any()
+    ```
+
+    See the [molecular object reference](https://docs.openprotein.ai/python-api/api-reference/molecules.html) for structure loading and inspection.
+  </Tab>
+</Tabs>
+
+## Mask the sequence and preserve the backbone
+
+We will redesign all 76 positions. The sequence mask tells ProteinMPNN where to generate amino acids; the retained backbone supplies the structural constraints.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        Use Mask Sequence to replace the query sequence with X at every position.
+      </Step>
+      <Step>
+        Confirm that all 76 sequence positions are masked.
+      </Step>
+      <Step>
+        Keep the structure track unmasked. Do not mask or delete the backbone. The structure track is in the third row of the sequence displayed, and unmasked residues are annotated with `S`.
+      </Step>
+      <Step>
+        Confirm that the structure remains visible.
+
+        At this point, the query should contain an unknown sequence and a known structure. The [query editor documentation](https://docs.openprotein.ai/web-app/poet/prompts.html#sequence-editor-tools) describes the masking controls.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Copy the reference, mask its sequence, and remove side-chain coordinates while retaining the backbone:
+
+    ```python lineNumbers
+    query = reference.copy()
+    query.mask_sequence()
+    query.mask_structure(side_chain_only=True)
+
+    print(query.formatted(include=["sequence", "structure_mask"]))
+    ```
+
+    Expected output:
+
+    ```text
+    0     SEQUENCE       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    0     STRUCTURE_MASK
+
+    60    SEQUENCE       XXXXXXXXXXXXXXXX
+    60    STRUCTURE_MASK
+    ```
+
+    The sequence track should contain only X characters. The structure mask should indicate that the backbone remains available.
+
+    Use side_chain_only=True here: calling mask_structure() without it would remove the structural information needed for inverse folding. See the [masking implementation](https://docs.openprotein.ai/_modules/openprotein/molecules/protein.html).
+  </Tab>
+</Tabs>
+
+## Generate sequences with ProteinMPNN
+
+We will use a temperature of 0.1, the ProteinMPNN default, and request 10 samples. We will also set the random seed to 42 for reproducibility.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        From the Sequence Generator dropdown on the top left of the page, select the ProteinMPNN model.
+      </Step>
+      <Step>
+        Use the uploaded backbone as the structural input.
+      </Step>
+      <Step>
+        Fill in the Number of sequences to generate. Here, we will use the default of 10.
+      </Step>
+      <Step>
+        Click Next to go to Step 2: Sampling Settings.
+      </Step>
+      <Step>
+        Edit the Backbone noise (Å) and Temperature fields to your desired settings. The backbone noise controls the standard deviation of Gaussian noise added to the backbone atoms. Temperature controls the randomness in amino acid selection at each step. Here, we will use the default parameters: set the Backbone noise to 0 and Temperature to 0.1.
+      </Step>
+      <Step>
+        Click Next to go to Step 3: Refolding Settings.
+      </Step>
+      <Step>
+        From the Structure prediction model dropdown, select the ESMFold2 model – we will use this to refold the ProteinMPNN-generated amino acid sequence into a structure. Do not use the input query structure as a template.
+      </Step>
+      <Step>
+        Click Run.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Submit the masked query:
+
+    ```python lineNumbers
+    job = session.models.proteinmpnn.generate(
+        query=query,
+        num_samples=10,
+        temperature=0.1,
+        random_seed=42,
+    )
+
+    print("Job ID:", job.job_id)
+
+    job.wait_until_done(verbose=True)
+    results = list(job.get())
+
+    print("Returned samples:", len(results))
+    ```
+
+    Expect 10 returned samples. Sampling can produce duplicate sequences, so the number of unique designs may be smaller.
+
+    See the [ProteinMPNN API reference](/references/python-api/models#proteinmpnn) for the generation arguments.
+  </Tab>
+</Tabs>
+
+## Inspect the generated sequences
+
+We will inspect the sequences generated to check that the results are complete.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    <Steps>
+      <Step>
+        Open the generated sequence results.
+      </Step>
+      <Step>
+        Inspect the sequences generated. The Log-likelihood score predicts how likely the sequence is relative to the original masked sequence. The higher the score, the more likely the model thinks it is.
+      </Step>
+      <Step>
+        The pLDDT, RMSD and TM Score are the predicted cofolding confidence metrics, obtained by comparing the structure predicted from the generated sequence to the input PDB. Click on the Align dropdown at the top of the table to select whether to align the generated sequences to the reference by structure, sequence, or to turn Alignment off.
+      </Step>
+      <Step>
+        To toggle the mini structure viewer on, hover over the right side of the table.  Then mouse over each sequence row to view its corresponding co-folded structure overlaid with the input query structure.
+      </Step>
+      <Step>
+        To inspect each sequence more closely, click on the sequence row to navigate to the full-page interactive structure view.
+
+        ![OpenProtein.AI interface screenshot](/_static/tutorials/design/denovo/inverse-folding/ubiquitin-proteinmpnn-results.png)
+
+        ![OpenProtein.AI interface screenshot](/_static/tutorials/design/denovo/inverse-folding/ubiquitin-refolding-structure-comparison.png)
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab value="Python">
+    Build a summary containing each sequence:
+
+    ```python lineNumbers
+    records = []
+
+    for index, sequence in enumerate(results, start=1):
+        records.append({
+            "name": f"ubiquitin_design_{index:02d}",
+            "sequence": sequence,
+        })
+
+    for record in records:
+        print(
+            record["name"],
+            record["sequence"],
+        )
+
+    print("Unique sequences:", len({r["sequence"] for r in records}))
+    ```
+  </Tab>
+</Tabs>
+
+## Save the designs
+
+Finally, we will save the generated sequences for further sequence engineering or library construction.
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Download the generated sequences using the results export control. Save the input structure and generation settings alongside them.
+  </Tab>
+  <Tab value="Python">
+    Write the sequences to a FASTA file:
+
+    ```python lineNumbers
+    from pathlib import Path
+
+    output_path = Path("ubiquitin_proteinmpnn.fasta")
+
+    with output_path.open("w") as handle:
+        for record in records:
+            handle.write(f'>{record["name"]}\n{record["sequence"]}\n')
+
+    print("Saved:", output_path.resolve())
+    ```
+
+    Congratulations on completing the tutorial! We now have a set of candidate sequences generated from the same ubiquitin backbone. As a next step, predict their structures and compare them with 1UBQ to assess whether they are predicted to adopt the intended fold. The [inverse-folding walkthrough with PoET-2](https://docs.openprotein.ai/walkthroughs/PoET-2_inverse_folding.html#validate-the-structures-of-generated-sequences-in-silico-with-esmfold) demonstrates this evaluation.
+  </Tab>
+</Tabs>

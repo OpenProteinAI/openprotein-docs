@@ -1,0 +1,460 @@
+---
+title: "How to build a prompt context"
+description: "Build a prompt context from homologs, curated examples, or saved prompts, and choose sampling settings suited to your protein design goal."
+---
+
+
+A prompt is an input that directs the model to produce the desired protein sequences. It is made up of two components, a context and a query. This guide will show you how to build a context to guide retrieval-augmented models like PoET-2 toward a protein family or a curated set of examples with the desired characteristics.
+
+For background, see the concepts page on [Prompt — Context](/concepts/prompts/context). Explore a specific usage example in the tutorial on [Building a prompt context](/tutorials/learn/in-context-learning). To specify position-specific constraints instead, refer to [How to build a prompt query](/how-tos/dataset/build-a-query).
+
+## Before starting
+
+- Decide on a goal for building the context. This could be:
+
+  - Representing a protein family, for example homologous enzymes which perform a similar class of reactions
+
+  - Focusing on a subfamily, for example affinity matured antibodies from a germline, or
+
+  - Providing curated examples, for example scaffolds that contain a similar structural motif.
+
+- Have at least one of the following:
+
+  - a seed sequence
+
+  - an existing multiple sequence alignment (MSA)
+
+  - a curated collection of sequences or structures, or
+
+  - a saved context.
+
+## Setup
+
+Choose a source that represents the intended sequence space:
+
+- **New MSA from a seed:** Search for homologs when a representative seed sequence is available but no suitable sequence set or MSA is available yet. Sampling selects examples from the resulting MSA to build the context supplied to PoET-2.
+
+- **Existing MSA:** An MSA is an alignment of related sequences. We can build a prompt by sampling from an alignment that already covers the intended protein family and domains. This route is recommended when a well-curated MSA is available.
+
+- **Custom examples:** Create a context directly from selected sequences or structures when specific examples should guide the model. An MSA is not required for this route.
+
+- **Saved context or system prompt:** Reuse an existing context or a [System Prompt](/concepts/prompts/system-prompts) when its examples already suit the task. This also keeps comparisons between analyses obtained with the same context-prompted model consistent.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Under context definition, select **Create New Prompt** – which then allows you to upload an MSA or perform a homology search to build an MSA, or select from a list of existing project prompts or system prompts. Refer to [context source options](/tutorials/learn/in-context-learning).
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context1.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Start from an authenticated session:
+
+```python
+import openprotein
+from openprotein import fasta
+from openprotein.molecules import Protein
+
+session = openprotein.connect()
+```
+
+Then follow the relevant source preparation option below. For a saved or directly curated context, skip the MSA sampling steps and proceed to **Review and save the context**.
+
+</Tab>
+
+</Tabs>
+
+## Prepare the source examples
+
+### Build a new MSA from a seed
+
+Select a seed that represents the intended family and sequence region. Remove unrelated tags or domains when they fall outside the task. Review the resulting homologs before sampling a context.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Select **Homology Search** and run homology search using a single seed sequence.
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context2.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Load a seed from a FASTA file containing one sequence, then search for homologs:
+
+
+```python
+with open("mySeed.fasta") as handle:
+    myNames, mySequences = fasta.parse(handle.readlines())
+
+assert len(mySequences) == 1, "Provide one seed sequence."
+mySeed = mySequences[0]
+
+myMsa = session.align.create_msa(mySeed)
+myMsa.wait_until_done(verbose=True)
+```
+
+Inspect the returned alignment:
+
+```python
+myMsaRows = list(myMsa.get())
+
+print("MSA entries:", len(myMsaRows))
+for name, sequence in myMsaRows[:5]:
+    print(name, sequence)
+```
+
+</Tab>
+
+</Tabs>
+
+### Use an existing MSA
+
+Inspect the alignment for fragments, excessive gaps, unrelated domains, and excessive duplication, and filter it to improve the MSA quality, if needed. Check that the examples cover the region of interest.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Select **Build From MSA**, then choose an existing alignment or upload an MSA file in `.fasta` or `.a3m` format.
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context3.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Upload an aligned FASTA file:
+
+
+```python
+with open("myAlignment.fasta", "rb") as handle:
+    myMsa = session.align.upload_msa(handle)
+
+myMsa.wait_until_done(verbose=True)
+```
+
+</Tab>
+
+</Tabs>
+
+### Create a context from curated examples
+
+Select examples with a clear reason for inclusion. For a narrow subfamily goal, avoid mixing in proteins with incompatible functions or architectures. Remove accidental duplicates that would overrepresent particular examples. Examples can include sequences, structures, or a combination of both.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Select **Upload Prompt**, then upload sequence or structure files directly. For structure files, select the intended protein chain.
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context4.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Load curated sequences from FASTA and create the context directly:
+
+
+```python
+with open("myContextSequences.fasta") as handle:
+    myNames, mySequences = fasta.parse(handle.readlines())
+
+myContext = session.prompt.create_prompt(
+    context=mySequences,
+    name="Curated family context",
+    description="Selected examples representing the intended subfamily.",
+)
+```
+
+Alternatively, create a context containing structural examples:
+
+```python
+myExamples = [
+    Protein.from_filepath("example1.cif", chain_id="A"),
+    Protein.from_filepath("example2.cif", chain_id="A"),
+]
+
+myContext = session.prompt.create_prompt(
+    context=myExamples,
+    name="Structure-informed family context",
+)
+```
+
+To combine sequence-only and structural examples in one context, unpack the sequence list with `*` and include the structure-loaded proteins in the same list.
+
+```python
+myExamples = [
+    *mySequences,
+    Protein.from_filepath("example1.cif", chain_id="A"),
+    Protein.from_filepath("example2.cif", chain_id="A"),
+]
+```
+
+Refer to the [prompt API reference](https://docs.openprotein.ai/python-api/api-reference/prompt.html) for supported context inputs.
+
+</Tab>
+
+</Tabs>
+
+### Reuse a saved context or system prompt
+
+Check that the context represents the intended family, domain arrangement, and biological scope. Reuse it when those choices remain appropriate.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+When setting the prompt context, instead of selecting the option “Create new prompt”, select one of the existing prompts that were previously created in the project, or a relevant system prompt instead.
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context5.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+To retrieve a custom prompt, use its prompt ID:
+
+```python
+myContext = session.prompt.get_prompt("YOUR_CONTEXT_ID")
+```
+
+To access a system prompt, use its named property:
+
+```python
+myContext = session.prompt.human_antibody_vh_v1
+```
+
+</Tab>
+
+</Tabs>
+
+## Build context by sampling from MSA
+
+### Set sampling method
+
+To create the context prompt from an MSA, the platform offers several methods of sampling from the MSA sequences:
+
+- **Neighbors:** Downweight sequences with many similar neighbors. Use this to improve representation across an unevenly sampled family. This is the recommended method for reducing the influence of redundant groups,
+
+- **Random:** Sample entries uniformly without replacement. Use this when the pool’s existing composition is intentional; abundant groups can still dominate.
+
+- **Top:** Select entries in MSA order. Use this when the ordering is deliberate. Do not assume the first entries are the most biologically relevant.
+
+Sampling determines the representation of the available pool in the prompt. It cannot supply examples missing from that pool.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Configure **Prompt Sampling Method**.
+
+<Figure src="/_static/how_to/dataset/prompt-context/prompt-context6.png" />
+
+</Tab>
+
+<Tab value="Python">
+
+Select a method for the sampling call:
+
+
+```python
+from openprotein.align.schemas import MSASamplingMethod
+
+myMethod = MSASamplingMethod.NEIGHBORS
+```
+
+For uniform random sampling, use MSASamplingMethod.RANDOM. For selection in MSA order, use MSASamplingMethod.TOP.
+
+</Tab>
+
+</Tabs>
+
+### Set sequence similarity filters
+
+Start with the documented defaults, then adjust after inspecting an initial sample:
+
+- **Minimum similarity to seed — 0.0:** Raise this to exclude distant sequences and focus on the local sequence space closer to the seed. A higher threshold can remove useful family diversity.
+
+- **Maximum similarity to seed — 1.0:** Lower this to exclude very close matches. This can reduce near-seed redundancy but may also remove relevant examples.
+
+- **Homology level — 0.8:** Set the threshold used to identify neighbors for redundancy weighting. This controls similarity among examples under Neighbors; it does not set their similarity to the seed.
+
+Avoid tightening the filters so far that few or no examples remain.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Configure **Homology level**, **Minimum similarity to seed sequence**, and **Maximum similarity to seed sequence**.
+
+</Tab>
+
+<Tab value="Python">
+
+Collect the settings for the sampling call:
+
+
+```python
+mySampling = {
+    "method": myMethod,
+    "homology_level": 0.8,
+    "min_similarity": 0.0,
+    "max_similarity": 1.0,
+    "always_include_seed_sequence": False,
+}
+```
+
+Leave always_include_seed_sequence=False unless the seed should explicitly appear in every sampled context.
+
+</Tab>
+
+</Tabs>
+
+### Set context size and ensemble count
+
+Choose a size limit:
+
+- **Maximum total number of residues:** Limit the cumulative sequence length. Prefer this when example lengths vary. This must be less than 24577.
+
+- **Maximum number of sequences:** Limit the number of examples. Use this when a particular count matters. This must be less than 100.
+
+Specify either parameter, not both. Treat these as upper limits, as filtering may leave fewer examples than requested. Start with a moderate budget – the default of 12288 maximum total residues works well. Increase it to include additional relevant examples. Note that additional near-duplicates may add little useful information.
+
+Use **3–5 ensembled prompts** for routine analyses where averaging across context samples is useful. An ensemble of up to 15 prompts is supported. More replicates can reduce dependence on a single sample, at the cost of additional computation.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Set **Maximum total number of residues** or **Maximum number of sequences**, and **Number of prompts to ensemble**.
+
+</Tab>
+
+<Tab value="Python">
+
+Set one size limit, the replicate count, and a random seed:
+
+
+```python
+mySampling.update({
+    "num_residues": 12000,
+    "num_ensemble_prompts": 3,
+    "random_seed": 42,
+})
+```
+
+To use a sequence-count limit instead:
+
+```python
+del mySampling["num_residues"]
+mySampling["num_sequences"] = 50
+```
+
+</Tab>
+
+</Tabs>
+
+## Sample the context
+
+Apply the selected settings to the prepared MSA. Set a random seed when reproducing sampling or comparing alternative settings against the same source pool.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Create the prompt from the MSA using the configured sampling settings.
+
+</Tab>
+
+<Tab value="Python">
+
+Submit the sampling job and wait for completion:
+
+
+```python
+myContext = myMsa.sample_prompt(**mySampling)
+myContext.wait_until_done(verbose=True)
+
+print("Context ID:", myContext.id)
+```
+
+The job runs asynchronously on the platform.
+
+</Tab>
+
+</Tabs>
+
+## Review and save the context
+
+Inspect the actual examples selected, including every ensemble replicate. Check for:
+
+- Empty or unexpectedly small samples.
+
+- Overrepresentation of a single subgroup.
+
+- Fragments or unrelated domains.
+
+- Loss of examples important to the goal.
+
+If the context is too narrow, relax the minimum similarity filter or broaden the source pool. If it contains unsuitable examples, curate the pool or tighten the relevant filter.
+
+<Tabs items={['App', 'Python']}>
+
+<Tab value="App">
+
+Review the context preview and give the saved prompt a descriptive name. Record its source and intended use.
+
+</Tab>
+
+<Tab value="Python">
+
+For single-chain examples, retrieve the replicates and inspect their sizes:
+
+
+```python
+myReplicates = myContext.get_as_proteins()
+
+for index, myExamples in enumerate(myReplicates, start=1):
+    print(
+        f"Replicate {index}:",
+        len(myExamples),
+        "examples;",
+        sum(len(protein) for protein in myExamples),
+        "residues",
+    )
+
+    for protein in myExamples[:3]:
+        print(protein.name, protein.sequence.decode())
+```
+
+Use `get_as_complexes()` instead if the context contains multichain entries.
+
+Save the ID to retrieve the same context later:
+
+```python
+from pathlib import Path
+
+Path("context_id.txt").write_text(str(myContext.id))
+```
+
+Reload it in a subsequent session:
+
+```python
+myContext = session.prompt.get_prompt(
+    Path("context_id.txt").read_text().strip()
+)
+```
+
+Retain the source files or MSA ID, seed sequence, and sampling settings alongside the context ID. Reuse the saved context when comparing model outputs, and change one context-building choice at a time when assessing alternatives.
+
+</Tab>
+
+</Tabs>

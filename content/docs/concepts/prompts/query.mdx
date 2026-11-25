@@ -1,0 +1,91 @@
+---
+title: "Prompt – query"
+description: "Understand how a prompt query specifies sequence identities, structural constraints, and length to guide protein generation."
+---
+
+*A protein foundation model prompt consists of two optional components – the context and query – that together define the protein family and the specific design constraints.*
+
+The **query** is the constraint-defining component: a single partially-specified protein that tells the model what must be present in the sequence it generates or scores. Similar to a fill-in-the-blank template, we would specify positions to be “pinned” – by sequence, structure, or both. Everything else is left to the model, guided by the context of the supplied protein family. In other words, the query explicitly describes the subset of a protein to be fixed.
+
+## Sequence constraints
+
+- We can fix exact amino acids at any positions – for example, an active site triad, a disulfide-forming cysteine pair, an N-terminal anchor.
+
+- Positions we would like to leave free are filled with a mask token (X), which tells the model that a single residue goes there but its identity is unconstrained.
+
+## Structure constraints
+
+- At any residue, we can provide backbone coordinates (N, Cα, and C atoms) without specifying the sequence identity.
+
+- This tells the model what the protein must look like geometrically at those positions, while leaving the sequence free.
+
+- In the limit, we can provide the entire backbone of a reference protein with no sequence at all. This is the inverse folding mode, which generates sequences likely to fold into that structure.
+
+## Length constraint
+
+- Filling the entire query with X tokens fixes the output length without constraining any residue identity. This is a simple way to control sequence length for de novo generation independently of content.
+
+Sequence, structure and length constraints can be combined flexibly. For example, a query might fix a signal peptide at the N-terminus, require a specific backbone geometry at a binding interface, allow a variable-length loop via a gap token, and leave everything else as X — all in the same query.
+
+**Related pages**
+- Concept: [Prompt – Context](/concepts/prompts/context)
+
+<Callout type="idea" title="In depth: How it works in PoET-2">
+
+PoET-2 is an encoder-decoder transformer. The encoder reads the entire prompt – context proteins and query alike – and produces a set of residue-level representations summarizing it. The decoder then uses those representations to score, generate, or embed a target sequence.
+
+### Encoding the query
+
+The query is tokenized alongside the context, and sequence and structure information are fused into a per-residue representation at the input of the encoder. Context and query are then encoded together through a two-stage hierarchical attention mechanism that repeats across twelve layers.
+
+*Self-attention.* In the first stage, attention operates within each protein individually, with a pairwise Cα distance bias applied to the attention scores to highlight spatially proximal residue pairs. This builds a geometry-aware representation of each protein on its own.
+
+*Cross-attention.* In the second stage, attention operates across all proteins in the prompt simultaneously, allowing residues in one protein to attend to corresponding positions in other family members. This is where conservation patterns, co-evolving positions, and family-specific structural preferences are captured – without requiring the proteins to be explicitly aligned as in a multiple sequence alignment.
+
+Therefore, during processing by the encoder, the query sits alongside the context proteins in the prompt, contributing to a same set of representations at the output of the encoder. What makes the query special is how it is used downstream in the decoder for generating, scoring and embedding sequences.
+
+### How decoder uses the encoded query
+
+Once encoding is complete, the query is flagged to the decoder by index. Before any decoder layers run, the decoder's input representation at each residue position is set to the average of the candidate sequence embedding and the encoder's embedding of the corresponding query residue:
+
+```text
+decoder input at position i = 0.5 × (candidate embedding at i) + 0.5 × (query encoder embedding at i)
+```
+
+This blending happens once at the decoder input, so query constraints are present from the first layer and propagate through the entire stack. Positions specified in the query are pulled toward satisfying those constraints throughout decoding; masked positions are unaffected.
+
+PoET-2 has two decoders – an autoregressive decoder and a bidirectional decoder – which use these query-conditioned representations in distinct ways.
+
+### Generation and scoring
+
+- These use the autoregressive decoder, which predicts sequence left-to-right modeling the full joint probability P(sequence | prompt).
+
+- At each step, it attends to the encoded context via cross-attention while respecting query constraints injected at the input.
+
+- For variant scoring, this becomes a log likelihood ratio log P(variant | prompt) − log P(WT | prompt); because the full joint is modeled, epistatic interactions and indels are handled naturally.
+
+- For inverse folding sequence generation, where the query is a complete backbone with no sequence, the decoder scores the likelihood that a candidate folds into that structure.
+
+### Representation learning
+
+- This uses the bidirectional decoder, which reads the full sequence in both directions to produce per-residue embeddings conditioned on both the candidate sequence and the full encoded prompt.
+
+- These embeddings implicitly encode evolutionary and structural context from the supplied family which contains both context and query, and serve as the primary input to supervised downstream models when experimental fitness data is available.
+
+### A flexible vocabulary for expressing different constraints in the query
+
+The query's expressiveness comes from the combination of sequence tokens and optional structural inputs it can carry at each position:
+
+| **Constraint** | **How it's specified** | **Typical use** |
+| --- | --- | --- |
+| Fixed sequence residue | Amino acid token at position (unmasked) | Active site, signal peptide, disulfide bond |
+| Local structure | Supply backbone coordinates at selected positions; leave other structural positions unspecified. | Hold a helix, pocket, or binding epitope geometry in place |
+| Free sequence or structural residue | `X` mask token | Any position with unconstrained identity |
+| Fixed length | All positions filled with `X` | Control output length without constraining sequence for de novo generation |
+| Full fold (inverse folding) | Supply the complete backbone and mask the sequence positions with `X` to redesign. | Generate sequences that adopt a reference fold, e.g. for stability-sensitive design |
+
+### Soft versus hard constraints
+
+The query blending is a soft conditioning mechanism, not a hard constraint. The model is strongly steered toward satisfying the specified positions, but the decoder is probabilistic, with no hard filter applied after generation. This means that exact satisfaction of the constraints is not guaranteed but highly favored via the decoding process. In practice, the recommendation is to verify generated sequences against the query specification, particularly when precise active site geometry or exact sequence motifs are critical.
+
+</Callout>

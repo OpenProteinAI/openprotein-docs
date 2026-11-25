@@ -1,0 +1,10 @@
+{
+  "title": "Predict",
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "plm",
+    "user-models",
+    "structure"
+  ]
+}

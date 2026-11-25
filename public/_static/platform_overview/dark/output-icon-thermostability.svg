@@ -1,0 +1,26 @@
+<svg width="59" height="61" viewBox="0 0 59 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_186_2456)">
+<path d="M8.39941 9.42586C9.72699 0.378043 19.02 -0.605416 23.5717 4.11518" stroke-width="1.6" stroke-linecap="round" stroke="#ECEBF8"/>
+<rect x="16.702" y="4.57988" width="12.7263" height="50.1512" rx="6.36316" fill="#4F7FF0" stroke-width="1.6" stroke="#ECEBF8"/>
+<path d="M54.5225 6.61963C56.2612 6.61963 57.6709 8.0293 57.6709 9.76807V30.0669C58.8873 31.0086 59.6709 32.4828 59.6709 34.1401C59.6707 36.9833 57.3657 39.2885 54.5225 39.2886C51.6792 39.2886 49.3743 36.9833 49.374 34.1401C49.374 32.4828 50.1576 31.0086 51.374 30.0669V9.76807C51.374 8.02932 52.7837 6.61967 54.5225 6.61963Z" fill="#31353C" stroke-width="1.6" stroke="#ECEBF8"/>
+<rect x="1.53008" y="8.62578" width="13.7378" height="48.1283" rx="6.86891" fill="#3A3EBA" stroke-width="1.6" stroke="#ECEBF8"/>
+<rect x="30.8631" y="11.6604" width="12.7263" height="45.0938" rx="6.36316" fill="#3A3EBA" stroke-width="1.6" stroke="#ECEBF8"/>
+<line x1="19.739" y1="16.4512" x2="26.3791" y2="18.121" stroke-width="1.2" stroke-linecap="round" stroke="#EFCBDA"/>
+<rect x="53.916" y="17.5176" width="2.02297" height="17.1952" rx="1.01148" fill="#C92C6D"/>
+<line x1="5.43684" y1="21.4681" x2="12.1534" y2="23.1514" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<line x1="33.8206" y1="23.6057" x2="40.7752" y2="25.1386" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<line x1="19.8111" y1="27.5928" x2="26.4245" y2="29.3507" stroke-width="1.2" stroke-linecap="round" stroke="#EFCBDA"/>
+<ellipse cx="54.9268" cy="34.2074" rx="4.04594" ry="4.55168" fill="#C92C6D"/>
+<line x1="5.38574" y1="32.7735" x2="12.2364" y2="34.326" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<line x1="33.8559" y1="34.7363" x2="40.7343" y2="36.397" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<line x1="19.6182" y1="38.8742" x2="26.4291" y2="40.56" stroke-width="1.2" stroke-linecap="round" stroke="#EFCBDA"/>
+<line x1="5.40749" y1="43.9147" x2="12.2005" y2="45.5522" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<line x1="33.8359" y1="46.0375" x2="40.7543" y2="47.5734" stroke-width="1.2" stroke-linecap="round" stroke="white"/>
+<path d="M23.5713 53.9312C25.0619 60.2795 34.0055 61.9599 37.7321 57.4787" stroke-width="1.6" stroke-linecap="round" stroke="#ECEBF8"/>
+</g>
+<defs>
+<clipPath id="clip0_186_2456">
+<rect width="59" height="61" fill="white"/>
+</clipPath>
+</defs>
+</svg>

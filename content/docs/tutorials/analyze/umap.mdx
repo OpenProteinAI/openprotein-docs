@@ -1,0 +1,134 @@
+---
+title: "Exploring assay datasets using UMAP"
+sidebarTitle: UMAP
+description: "This tutorial visualizes an antibody affinity dataset as a UMAP, so you can read how a variant library is spread across sequence space, color points by binding affinity, select a cluster, and reproduce the projection with the Python API."
+---
+
+# Before starting
+
+- Create a project. See the [quickstart guide](/quickstart).
+- Upload the tutorial dataset as an assay dataset. The upload steps, column types, and preview are covered in Upload and explore an assay dataset; follow that tutorial to load the file, then return here. Set `sequence` as the Sequence column and `log_kdnm` as a Property.
+- Download the tutorial file [14H_affinities.csv](https://docs.google.com/spreadsheets/d/e/2PACX-1vTAOBJ93FWOiwpl1yMCwaU3yjpW9lXzJK1r5QSpdqIvGR2tbld5ZryxkbIKQLvEKavJxZAX4NwNANjw/pubhtml).
+
+# About the dataset
+
+The dataset is the 14H heavy-chain library from Li et al. (2023). The parent is a candidate antibody raised against a SARS-CoV-2 peptide, and the library is a random mutagenesis panel of its heavy-chain variable region, with mutations confined to the three heavy-chain complementarity-determining regions (CDR-H1, CDR-H2, and CDR-H3). Binding affinity was measured with an AlphaSeq assay.
+
+The file holds 7,476 variants, all with unique sequences.Lower log_kdnm means tighter binding. The parent sequence scores 0.65. Across the library, values run from -0.49 for the tightest binder to 5.78 for the weakest. The variants are 373 single, 1,342 double, and 5,760 triple mutants of the parent, so almost every sequence differs from the parent at one, two, or three CDR positions.
+
+This structure is what makes the dataset worth visualizing. A UMAP shows whether the library is spread widely across sequence space or collapsed onto a few points, and whether tight binders sit together or scatter throughout.
+
+# What a UMAP is
+
+A UMAP (Uniform Manifold Approximation and Projection) reduces high-dimensional data to two dimensions for plotting. Each sequence is first turned into a numeric embedding by a protein language model, which places sequences with similar patterns near each other in a space of hundreds of dimensions. UMAP then compresses that space to a 2D map that keeps neighbors close.
+
+Each point in the plot is one sequence variant. Distance on the map approximates similarity: nearby points are variants the model reads as alike, and separated groups mark distinct regions of the library. Only relative position carries meaning. The axes have no units, and the absolute orientation of the plot is arbitrary.
+
+After an assay dataset is uploaded, the platform embeds the sequences and queues a UMAP job automatically.
+
+# Step 1: Open the dataset
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Open the 14H affinities dataset from the project. The dataset opens in the UMAP view as the default.
+
+    <Figure src="/_static/tutorials/analyze/umap/dataset-table.png" />
+  </Tab>
+  <Tab value="Python">
+    Follow the Python API reference to [set up a Python SDK session](/references/python-api#session-management), then load the data and fit the UMAP. The web app runs this automatically on upload; in Python you call `fit_umap` yourself.
+
+    ```py lineNumbers
+    import openprotein
+    import pandas as pd
+
+    session = openprotein.connect()
+
+    df = pd.read_csv("14H_affinities.csv")
+    sequences = df["sequence"].tolist()
+
+    model = session.embedding.get_model("rotaprot-large-uniref90-ft")
+    umap_model = session.umap.fit_umap(
+        model=model,
+        reduction="MEAN",
+        sequences=sequences,
+        n_components=2,
+        n_neighbors=15,
+        min_dist=0.1,
+    )
+    ```
+
+    `n_neighbors` sets how much of the neighborhood each point considers, `min_dist` how tightly points may pack, and `n_components` the number of output dimensions (2 for a plot).
+  </Tab>
+</Tabs>
+
+# Step 2: Color by affinity
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Color the points by `log_kdnm` to see how binding affinity is laid out across sequence space.
+
+    <Figure src="/_static/tutorials/analyze/umap/dataset-color.png" />
+  </Tab>
+  <Tab value="Python">
+    Retrieve the 2D coordinates and plot them colored by `log_kdnm`.
+
+    ```py lineNumbers
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    coords = umap_model.embed(sequences).wait()  # list of 2D arrays, one per sequence
+    z = np.vstack(coords)
+
+    fig, ax = plt.subplots(figsize=(8, 8))
+    sc = ax.scatter(z[:, 0], z[:, 1], c=df["log_kdnm"], s=3, cmap="viridis")
+    fig.colorbar(sc, ax=ax, label="log_kdnm")
+    ax.set_xticks([]); ax.set_yticks([])
+    ax.set_xlabel("UMAP1"); ax.set_ylabel("UMAP2")
+    plt.show()
+
+    ```
+
+    `n_neighbors` sets how much of the neighborhood each point considers, `min_dist` how tightly points may pack, and `n_components` the number of output dimensions (2 for a plot).
+  </Tab>
+</Tabs>
+
+# Step 3: Select a cluster
+
+<Tabs items={['App', 'Python']}>
+  <Tab value="App">
+    Press *Shift* on the keyboard and drag the cursor across a group of points to select it. The matching rows highlight in the data table, so the sequences and corresponding affinity values can be viewed.
+
+    <Figure src="/_static/tutorials/analyze/umap/umap-select.png" />
+
+    Switch back to the **Table** view to inspect the selected variants. In the **Table** settings, click on **Pin selected** in the section **Row selection**.
+
+    <Figure src="/_static/tutorials/analyze/umap/pin-selected.png" />
+
+    To keep a selection in view, open **Table Settings** and select **Pin selected** under **Row Selection**. The pinned sequences move to the top of the table.
+  </Tab>
+  <Tab value="Python">
+    Filter to a region of the map with a coordinate mask, then save or reuse those rows.
+
+    ```py lineNumbers
+    xmin, xmax, ymin, ymax = 0, 5, 0, 5  # bounds of the cluster you want
+    mask = (z[:, 0] > xmin) & (z[:, 0] < xmax) & (z[:, 1] > ymin) & (z[:, 1] < ymax)
+    cluster = df[mask]
+    cluster.to_csv("cluster.csv", index=False)
+    ```
+  </Tab>
+</Tabs>
+
+# What we've done
+
+We visualized a 7,476-variant antibody library as a UMAP, where each point is one sequence and distance approximates similarity. We colored the points by binding affinity, selected a cluster, and traced it back to the data table, then reproduced the projection with the Python API.
+
+# Next steps
+
+- Train a [property predictor](/tutorials/learn/training-property-predictors) on log_kdnm to score new variants
+- [Design a variant library](/tutorials/design/active-learning/bayesian-optimization) and overlay the designs on the UMAP to check their coverage
+
+# Reference
+
+Li, L., Gupta, E., Spaeth, J., et al. (2023). Machine learning optimization of candidate antibody yields highly diverse sub-nanomolar affinity antibody libraries. Nature Communications, 14, 3454. [doi.org/10.1038/s41467-023-39022-2](https://doi.org/10.1038/s41467-023-39022-2)
+
+Engelhart, E., Emerson, R., Shing, L., et al. (2022). A dataset comprised of binding interactions for 104,972 antibodies against a SARS-CoV-2 peptide. Scientific Data, 9, 653. [doi.org/10.1038/s41597-022-01779-4](https://doi.org/10.1038/s41597-022-01779-4)

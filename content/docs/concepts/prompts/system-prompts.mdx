@@ -1,0 +1,27 @@
+---
+title: "System prompts"
+description: "Understand OpenProtein.AI’s curated system prompts and choose a human antibody context with the appropriate heavy- and light-chain configuration."
+---
+
+A **system prompt** is a context curated by OpenProtein.AI as a ready-to-use option on the platform. Currently available options include [system prompts tailored to antibodies](/concepts/prompts/system-prompts/#human-antibody-system-prompts).
+
+Like custom user-built contexts, a system prompt also conditions the model through the patterns represented in its examples, guiding the model toward a particular biological space. The distinction is in how the context is prepared: a custom context is assembled for a particular task, while a system prompt provides a shared, curated starting point that might be applicable to different tasks. Reusing the same context also helps keep comparisons between analyses consistent.
+
+In the App, system prompts appear alongside saved project prompts and are identified by a **System** badge. System prompts are available through the Python client as named properties – the full list is documented in the [prompt reference](/references/python-api/prompt#openprotein.prompt.PromptAPI).
+
+## Human antibody system prompts
+
+The human antibody system prompts represent variable domains from naïve human antibody repertoires. They use sequences from the **Observed Antibody Space (OAS)** paired antibody database, clustered at 70% sequence identity. Each sampled prompt contains an ensemble of 10 replicates, with 200 examples per replicate.
+
+The four options shown in the platform correspond to different chain configurations:
+
+| **System prompt** | **Examples represented** |
+| --- | --- |
+| **Human Antibody VH** | Heavy-chain variable domains |
+| **Human Antibody VL** | Light-chain variable domains |
+| **Human Antibody VH-VL** | Paired variable domains, with the heavy chain first |
+| **Human Antibody VL-VH** | Paired variable domains, with the light chain first |
+
+The paired prompts retain heavy–light pairing within each example, providing information about both domains together. The VH-VL and VL-VH options differ in chain order; the single-chain options represent one variable domain independently.
+
+These examples provide a general human antibody context. Because they come from naïve repertoires, they do not by themselves establish specificity for a chosen antigen. An antigen-specific collection would represent a different biological space.

@@ -1,0 +1,10 @@
+{
+  "title": "Models",
+  "pages": [
+    "property-predictors",
+    "evaluating-models",
+    "foundation-models"
+  ],
+  "defaultOpen": true,
+  "collapsible": false
+}

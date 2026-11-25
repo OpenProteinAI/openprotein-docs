@@ -1,0 +1,8 @@
+{
+  "title": "Get started",
+  "root": true,
+  "pages": [
+    "...overview",
+    "...quickstart"
+  ]
+}

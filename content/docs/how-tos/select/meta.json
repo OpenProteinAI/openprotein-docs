@@ -1,0 +1,8 @@
+{
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "hit-selection",
+    "antibody-hit-selection-ngs"
+  ]
+}

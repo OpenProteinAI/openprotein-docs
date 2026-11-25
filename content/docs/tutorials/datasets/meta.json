@@ -1,0 +1,9 @@
+{
+  "title": "Datasets",
+  "defaultOpen": true,
+  "collapsible": false,
+  "pages": [
+    "msa",
+    "assay"
+  ]
+}

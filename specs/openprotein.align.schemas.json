@@ -1,0 +1,852 @@
+{
+ "module": "openprotein.align.schemas",
+ "entries": [
+  {
+   "name": "AbNumberScheme",
+   "path": "openprotein.align.schemas.AbNumberScheme",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "Antibody numbering scheme.\n\nAttributes\n----------\nIMGT : str\n    IMGT numbering scheme, a standardized system unifying numbering across\n    all immunoglobulin and T-cell receptor variable domains.\nCHOTHIA : str\n    Chothia numbering scheme, based on the structural location of\n    canonical loops in antibody variable domains.\nKABAT : str\n    Kabat numbering scheme, based on sequence variability across\n    antibody variable domains.\nAHO : str\n    AHo numbering scheme, a structure-based unified numbering scheme\n    for antibody variable domains.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Antibody numbering scheme."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "IMGT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "IMGT numbering scheme, a standardized system unifying numbering across\nall immunoglobulin and T-cell receptor variable domains."
+      },
+      {
+       "name": "CHOTHIA",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Chothia numbering scheme, based on the structural location of\ncanonical loops in antibody variable domains."
+      },
+      {
+       "name": "KABAT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Kabat numbering scheme, based on sequence variability across\nantibody variable domains."
+      },
+      {
+       "name": "AHO",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "AHo numbering scheme, a structure-based unified numbering scheme\nfor antibody variable domains."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 194,
+    "end": 217
+   },
+   "members": [
+    {
+     "name": "IMGT",
+     "kind": "attribute",
+     "doc": "IMGT numbering scheme, a standardized system unifying numbering across\nall immunoglobulin and T-cell receptor variable domains.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 214,
+      "end": 214
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'imgt'",
+     "parsed": []
+    },
+    {
+     "name": "CHOTHIA",
+     "kind": "attribute",
+     "doc": "Chothia numbering scheme, based on the structural location of\ncanonical loops in antibody variable domains.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 215,
+      "end": 215
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'chothia'",
+     "parsed": []
+    },
+    {
+     "name": "KABAT",
+     "kind": "attribute",
+     "doc": "Kabat numbering scheme, based on sequence variability across\nantibody variable domains.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 216,
+      "end": 216
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'kabat'",
+     "parsed": []
+    },
+    {
+     "name": "AHO",
+     "kind": "attribute",
+     "doc": "AHo numbering scheme, a structure-based unified numbering scheme\nfor antibody variable domains.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 217,
+      "end": 217
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'aho'",
+     "parsed": []
+    }
+   ],
+   "section": "AbNumber schemes",
+   "page": "align"
+  },
+  {
+   "name": "UnnumberedPolicy",
+   "path": "openprotein.align.schemas.UnnumberedPolicy",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "What to do with residues the numbering scheme gives no antibody position.\n\nANARCI numbers one variable domain per sequence. Residues outside it -- a\nconstant/Fc region, an N-terminal tag -- have no antibody position and\ncannot share the numbering coordinate system.\n\nAttributes\n----------\nERROR : str\n    Fail the job if any sequence carries unnumbered residues.\nDROP : str\n    Align the numbered residues only, discarding the rest.\nRETAIN : str\n    Keep the unnumbered residues, padded against the numbered-domain\n    boundary. They are preserved, not aligned to each other.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "What to do with residues the numbering scheme gives no antibody position.\n\nANARCI numbers one variable domain per sequence. Residues outside it -- a\nconstant/Fc region, an N-terminal tag -- have no antibody position and\ncannot share the numbering coordinate system."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "ERROR",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Fail the job if any sequence carries unnumbered residues."
+      },
+      {
+       "name": "DROP",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Align the numbered residues only, discarding the rest."
+      },
+      {
+       "name": "RETAIN",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Keep the unnumbered residues, padded against the numbered-domain\nboundary. They are preserved, not aligned to each other."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 220,
+    "end": 241
+   },
+   "members": [
+    {
+     "name": "ERROR",
+     "kind": "attribute",
+     "doc": "Fail the job if any sequence carries unnumbered residues.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 239,
+      "end": 239
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'error'",
+     "parsed": []
+    },
+    {
+     "name": "DROP",
+     "kind": "attribute",
+     "doc": "Align the numbered residues only, discarding the rest.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 240,
+      "end": 240
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'drop'",
+     "parsed": []
+    },
+    {
+     "name": "RETAIN",
+     "kind": "attribute",
+     "doc": "Keep the unnumbered residues, padded against the numbered-domain\nboundary. They are preserved, not aligned to each other.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 241,
+      "end": 241
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'retain'",
+     "parsed": []
+    }
+   ],
+   "section": "AbNumber schemes",
+   "page": "align"
+  },
+  {
+   "name": "MSASamplingMethod",
+   "path": "openprotein.align.schemas.MSASamplingMethod",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "Enumeration of MSA sampling methods.\n\nAttributes\n----------\nRANDOM : str\n    Random sampling.\nNEIGHBORS : str\n    Sampling based on neighbors.\nNEIGHBORS_NO_LIMIT : str\n    Neighbor sampling without limit.\nNEIGHBORS_NONGAP_NORM_NO_LIMIT : str\n    Neighbor sampling without gap normalization and without limit.\nTOP : str\n    Top scoring sampling.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Enumeration of MSA sampling methods."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "RANDOM",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Random sampling."
+      },
+      {
+       "name": "NEIGHBORS",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Sampling based on neighbors."
+      },
+      {
+       "name": "NEIGHBORS_NO_LIMIT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Neighbor sampling without limit."
+      },
+      {
+       "name": "NEIGHBORS_NONGAP_NORM_NO_LIMIT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Neighbor sampling without gap normalization and without limit."
+      },
+      {
+       "name": "TOP",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Top scoring sampling."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 44,
+    "end": 66
+   },
+   "members": [
+    {
+     "name": "RANDOM",
+     "kind": "attribute",
+     "doc": "Random sampling.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 62,
+      "end": 62
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'RANDOM'",
+     "parsed": []
+    },
+    {
+     "name": "NEIGHBORS",
+     "kind": "attribute",
+     "doc": "Sampling based on neighbors.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 63,
+      "end": 63
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'NEIGHBORS'",
+     "parsed": []
+    },
+    {
+     "name": "NEIGHBORS_NO_LIMIT",
+     "kind": "attribute",
+     "doc": "Neighbor sampling without limit.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 64,
+      "end": 64
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'NEIGHBORS_NO_LIMIT'",
+     "parsed": []
+    },
+    {
+     "name": "NEIGHBORS_NONGAP_NORM_NO_LIMIT",
+     "kind": "attribute",
+     "doc": "Neighbor sampling without gap normalization and without limit.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 65,
+      "end": 65
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'NEIGHBORS_NONGAP_NORM_NO_LIMIT'",
+     "parsed": []
+    },
+    {
+     "name": "TOP",
+     "kind": "attribute",
+     "doc": "Top scoring sampling.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 66,
+      "end": 66
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'TOP'",
+     "parsed": []
+    }
+   ],
+   "section": "Classes",
+   "page": "align"
+  },
+  {
+   "name": "JobWarning",
+   "path": "openprotein.align.schemas.JobWarning",
+   "kind": "class",
+   "signature": "(*, code, message, metadata=None)",
+   "bases": [
+    "BaseModel"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "BaseModel"
+     }
+    ]
+   ],
+   "doc": "Something a job reports about its own output while still succeeding.\n\nAttributes\n----------\ncode : str\n    Machine-readable identifier, e.g. ``UNNUMBERED_RESIDUES_DROPPED``.\nmessage : str\n    Human-readable description.\nmetadata : dict or None\n    Code-specific detail. For the unnumbered-residue codes this carries a\n    ``chains`` list, one entry per affected chain position.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Something a job reports about its own output while still succeeding."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "code",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Machine-readable identifier, e.g. ``UNNUMBERED_RESIDUES_DROPPED``."
+      },
+      {
+       "name": "message",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Human-readable description."
+      },
+      {
+       "name": "metadata",
+       "type": "dict or None",
+       "type_parts": [
+        {
+         "text": "dict or None"
+        }
+       ],
+       "default": null,
+       "text": "Code-specific detail. For the unnumbered-residue codes this carries a\n``chains`` list, one entry per affected chain position."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 244,
+    "end": 261
+   },
+   "members": [
+    {
+     "name": "code",
+     "kind": "attribute",
+     "doc": "Machine-readable identifier, e.g. ``UNNUMBERED_RESIDUES_DROPPED``.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 259,
+      "end": 259
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "message",
+     "kind": "attribute",
+     "doc": "Human-readable description.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 260,
+      "end": 260
+     },
+     "annotation": "str",
+     "annotation_parts": [
+      {
+       "text": "str"
+      }
+     ],
+     "value": null,
+     "parsed": []
+    },
+    {
+     "name": "metadata",
+     "kind": "attribute",
+     "doc": "Code-specific detail. For the unnumbered-residue codes this carries a\n``chains`` list, one entry per affected chain position.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 261,
+      "end": 261
+     },
+     "annotation": "dict | None",
+     "annotation_parts": [
+      {
+       "text": "dict | None"
+      }
+     ],
+     "value": "None",
+     "parsed": []
+    }
+   ],
+   "section": "Classes",
+   "page": "align"
+  },
+  {
+   "name": "AlignType",
+   "path": "openprotein.align.schemas.AlignType",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "Enumeration of alignment types.\n\nAttributes\n----------\nINPUT : str\n    Raw input alignment.\nMSA : str\n    Generated multiple sequence alignment.\nPROMPT : str\n    Prompt-based alignment.",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Enumeration of alignment types."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "INPUT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Raw input alignment."
+      },
+      {
+       "name": "MSA",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Generated multiple sequence alignment."
+      },
+      {
+       "name": "PROMPT",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Prompt-based alignment."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 25,
+    "end": 41
+   },
+   "members": [
+    {
+     "name": "INPUT",
+     "kind": "attribute",
+     "doc": "Raw input alignment.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 39,
+      "end": 39
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'RAW'",
+     "parsed": []
+    },
+    {
+     "name": "MSA",
+     "kind": "attribute",
+     "doc": "Generated multiple sequence alignment.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 40,
+      "end": 40
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'GENERATED'",
+     "parsed": []
+    },
+    {
+     "name": "PROMPT",
+     "kind": "attribute",
+     "doc": "Prompt-based alignment.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 41,
+      "end": 41
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'PROMPT'",
+     "parsed": []
+    }
+   ],
+   "section": "Classes",
+   "page": "align"
+  },
+  {
+   "name": "Pairing",
+   "path": "openprotein.align.schemas.Pairing",
+   "kind": "class",
+   "signature": "()",
+   "bases": [
+    "str",
+    "Enum"
+   ],
+   "bases_parts": [
+    [
+     {
+      "text": "str"
+     }
+    ],
+    [
+     {
+      "text": "Enum"
+     }
+    ]
+   ],
+   "doc": "Cross-chain pairing strategy for a complex (multi-chain) MSA search.\n\nHas no effect on a single-chain query.\n\nAttributes\n----------\nUNPAIRED : str\n    Search each chain independently.\nPAIRED : str\n    Keep only cross-chain paired hits.\nBOTH : str\n    Return both paired and unpaired hits (the default).",
+   "parsed": [
+    {
+     "kind": "text",
+     "text": "Cross-chain pairing strategy for a complex (multi-chain) MSA search.\n\nHas no effect on a single-chain query."
+    },
+    {
+     "kind": "attributes",
+     "items": [
+      {
+       "name": "UNPAIRED",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Search each chain independently."
+      },
+      {
+       "name": "PAIRED",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Keep only cross-chain paired hits."
+      },
+      {
+       "name": "BOTH",
+       "type": "str",
+       "type_parts": [
+        {
+         "text": "str"
+        }
+       ],
+       "default": null,
+       "text": "Return both paired and unpaired hits (the default)."
+      }
+     ]
+    }
+   ],
+   "module": "openprotein.align.schemas",
+   "source": {
+    "file": "openprotein/align/schemas.py",
+    "line": 69,
+    "end": 87
+   },
+   "members": [
+    {
+     "name": "UNPAIRED",
+     "kind": "attribute",
+     "doc": "Search each chain independently.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 85,
+      "end": 85
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'unpaired'",
+     "parsed": []
+    },
+    {
+     "name": "PAIRED",
+     "kind": "attribute",
+     "doc": "Keep only cross-chain paired hits.",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 86,
+      "end": 86
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'paired'",
+     "parsed": []
+    },
+    {
+     "name": "BOTH",
+     "kind": "attribute",
+     "doc": "Return both paired and unpaired hits (the default).",
+     "inherited_from": null,
+     "inherited_from_ref": null,
+     "source": {
+      "file": "openprotein/align/schemas.py",
+      "line": 87,
+      "end": 87
+     },
+     "annotation": null,
+     "annotation_parts": null,
+     "value": "'both'",
+     "parsed": []
+    }
+   ],
+   "section": "Referenced types",
+   "page": "align"
+  }
+ ],
+ "sdk": {
+  "package": "openprotein-python",
+  "version": "0.17.1.dev284+gc410c2fe4"
+ },
+ "source": {
+  "repository": "https://github.com/OpenProteinAI/openprotein-python",
+  "ref": "c410c2fe442a7949c0545614c070026031f4cb59",
+  "branch": "release/v0.18.0"
+ },
+ "generator": "scripts/pyapi + griffe 2.2.0"
+}

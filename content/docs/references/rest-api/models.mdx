@@ -1,0 +1,31 @@
+---
+title: Models
+description: The Models API is a single, consistent way to call any model on the platform and to discover what each model can do.
+openapi: models
+---
+It unifies foundation models, property predictors, structure predictors, and structure/sequence generators behind one namespace.
+
+Discovery is driven by model metadata. Each model publishes the methods it supports, so clients can build request forms and model cards from the catalogue.
+
+## Core concepts
+
+A model's `model_id` is its path under `/api/v1/models`:
+
+- **System models** have a slug id, such as `prot-seq`, and `type: null`.
+- **Fitted instances** have an id of the form `{type}/{uuid}`, such as `gp/<uuid>`, where `type` is `gp`, `svd`, or `umap`.
+
+Each method has one `path`, such as `batch/embeddings` or `crossvalidate`. Run it at `/api/v1/models/{model_id}/{path}`. Model ids and paths can contain slashes; keep them when constructing a request URL.
+
+A method descriptor lists its named `outputs` and `default_output`. Fetch its request JSON Schema from `.../{path}/params`. A `POST` to `.../{path}` returns a job handle; retrieve the results from the jobs service when the job completes.
+
+The endpoints include:
+
+- **List models** — `GET /api/v1/models` returns model ids. Use `verbose=true` for full metadata, and filter with `scope`, `type`, `path`, or `query`. For `scope=mine`, paginate with `limit` and `offset`; `X-Total-Count` reports the filtered fitted-model total.
+- **List model families** — `GET /api/v1/models/families`. A model belongs to the family whose `id` matches its `family_id`.
+- **Get a model family** — `GET /api/v1/models/families/{family}`, matched case-insensitively.
+- **Get model metadata** — `GET /api/v1/models/{model_id}`.
+- **Get a method's params** — `GET /api/v1/models/{model_id}/{path}/params`.
+- **Run a method** — `POST /api/v1/models/{model_id}/{path}`. The reference below lists each model's methods with their request bodies, grouped by base model.
+- **Fit a model** — `POST /api/v1/models/gp`, `/svd`, or `/umap`. Name the features by an earlier embeddings job, SVD projection or SVD fit (`embeddings_job_id`), or by the model to embed with (`model_id`, inside `features` for a GP). SVD and UMAP take `sequences` or an `assay_id` with a `model_id`; a GP trains on its `training_dataset`.
+- **Get a fit's params** — `GET /api/v1/models/{type}/params`, where `type` is `gp`, `svd`, or `umap`.
+- **Inspect fitted GP evaluations or training** — `GET /api/v1/models/gp/{uuid}/evaluations` or `GET /api/v1/models/gp/{uuid}/training`.

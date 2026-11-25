@@ -15,59 +15,92 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up pixi
-        uses: prefix-dev/setup-pixi@v0.9.6
-        with:
-          pixi-version: v0.68.1
 
-          cache: true
-      - name: Install pandoc
-        run: |
-          sudo curl -L https://github.com/jgm/pandoc/releases/download/3.2/pandoc-3.2-1-amd64.deb -o /pandoc.deb
-          sudo dpkg -i /pandoc.deb
-      - name: Install dependencies
-        run: pixi install
-      - name: Get bucket name
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Pick bucket, distribution and platform
+        id: target
         shell: bash
         run: |
-          branch=$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}); \
-          if [ $branch == 'develop' ]; \
-          then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-dev; \
-          elif [ $branch == 'main' ]; \
-          then bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-prod; \
-          else exit 1; fi; \
-          echo $bucket; \
-          echo "bucket=$bucket" >> $GITHUB_OUTPUT
-        id: bucket_name
-      - name: Get cloudfront distribution name
+          branch=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
+          if [ "$branch" == 'develop' ]; then
+            echo "bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-dev" >> "$GITHUB_OUTPUT"
+            echo "distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "app_url=${{ vars.OP_APP_URL_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "api_url=${{ vars.OP_API_URL_DEV }}" >> "$GITHUB_OUTPUT"
+          elif [ "$branch" == 'main' ]; then
+            echo "bucket=${{ vars.AWS_S3_BUCKET_PREFIX }}-prod" >> "$GITHUB_OUTPUT"
+            echo "distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_PROD }}" >> "$GITHUB_OUTPUT"
+            echo "app_url=${{ vars.OP_APP_URL }}" >> "$GITHUB_OUTPUT"
+            echo "api_url=${{ vars.OP_API_URL }}" >> "$GITHUB_OUTPUT"
+            echo "ga_id=${{ vars.OP_GA_ID }}" >> "$GITHUB_OUTPUT"
+          else
+            exit 1
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Build static export
+        env:
+          BUILD_TARGET: static
+          NEXT_PUBLIC_BUILD_TARGET: static
+          NEXT_PUBLIC_OP_REPO_BRANCH: ${{ steps.target.outputs.branch }}
+          NEXT_PUBLIC_OP_APP_URL: ${{ steps.target.outputs.app_url }}
+          NEXT_PUBLIC_OP_API_URL: ${{ steps.target.outputs.api_url }}
+          NEXT_PUBLIC_OP_GA_ID: ${{ steps.target.outputs.ga_id }}
         shell: bash
         run: |
-          branch=$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}); \
-          if [ $branch == 'develop' ]; \
-          then distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_DEV }}; \
-          elif [ $branch == 'main' ]; \
-          then distribution=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_PROD }}; \
-          else exit 1; fi; \
-          echo $distribution; \
-          echo "distribution=$distribution" >> $GITHUB_OUTPUT
-        id: cloudfront_distribution_name
-      - name: Render Sphinx
-        run: pixi run build
+          if [ -z "$NEXT_PUBLIC_OP_API_URL" ]; then
+            echo "::error::the platform API URL variable for $NEXT_PUBLIC_OP_REPO_BRANCH is not set"
+            exit 1
+          fi
+          set -o pipefail
+          pnpm build 2>&1 | tee build.log
+          if grep -iqE 'warn|error' build.log; then
+            echo "::error::build emitted warnings or errors"
+            grep -inE 'warn|error' build.log
+            exit 1
+          fi
+
+      - name: Resolve old Sphinx URLs
+        run: node scripts/s3-redirects.mjs out > redirects.tsv
+
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
       - name: Sync to S3
         env:
-          AWS_S3_BUCKET: ${{ steps.bucket_name.outputs.bucket }}
+          AWS_S3_BUCKET: ${{ steps.target.outputs.bucket }}
         shell: bash
         run: |
-          aws s3 sync build s3://${AWS_S3_BUCKET}
-      - name: Invalid Cloudfront
+          aws s3 sync out "s3://${AWS_S3_BUCKET}" --delete
+
+      - name: Redirect old Sphinx URLs
         env:
-          AWS_S3_CLOUDFRONT_DISTRIBUTION: ${{ steps.cloudfront_distribution_name.outputs.distribution }}
+          AWS_S3_BUCKET: ${{ steps.target.outputs.bucket }}
         shell: bash
         run: |
-          aws cloudfront create-invalidation --distribution-id ${AWS_S3_CLOUDFRONT_DISTRIBUTION} --paths "/*"
+          while IFS=$'\t' read -r key to; do
+            aws s3api put-object --bucket "$AWS_S3_BUCKET" --key "$key" \
+              --website-redirect-location "$to" --content-type text/html > /dev/null
+          done < redirects.tsv
+          echo "$(wc -l < redirects.tsv) redirects written"
+
+      - name: Invalidate CloudFront
+        env:
+          AWS_S3_CLOUDFRONT_DISTRIBUTION: ${{ steps.target.outputs.distribution }}
+        shell: bash
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${AWS_S3_CLOUDFRONT_DISTRIBUTION}" --paths "/*"

@@ -1,0 +1,328 @@
+---
+title: "Python API reference"
+description: "Every class and function in the openprotein Python client, by module."
+pythonApi: true
+---
+## Session management
+
+After [installing the SDK](/quickstart#installation), authenticate with the username and password for your OpenProtein.AI account. [`openprotein.connect()`](/references/python-api/openprotein#openprotein.connect) looks up each credential in this order:
+
+1. **Function arguments:** `username` and `password` passed to `openprotein.connect()`.
+2. **Environment variables:** `OPENPROTEIN_USERNAME` and `OPENPROTEIN_PASSWORD` set in the environment where you run Python.
+3. **Configuration file:** `~/.openprotein/config.toml` in your home directory.
+
+Use environment variables or a configuration file to keep credentials out of scripts and notebooks. To use a configuration file, create the `.openprotein` folder in your home directory and save this as `config.toml`, replacing the placeholders with your credentials:
+
+```toml
+username = "your_username"
+password = "your_password"
+```
+
+The file stores your password in plain text. Keep it private and out of version control.
+
+Once you've set the environment variables or created the file, connect without passing credentials:
+
+```python
+import openprotein
+
+session = openprotein.connect()
+```
+
+If authentication fails, check your credentials and whether environment variables are overriding the file. Use the `session` to [run your first model](/references/python-api/models#interface). Full reference: [`openprotein`](/references/python-api/openprotein).
+
+<PySummary
+  paths={[
+    "openprotein.connect",
+    "openprotein.OpenProtein",
+    "openprotein.APISession",
+    "openprotein.errors.APIError",
+    "openprotein.errors.HTTPError",
+    "openprotein.DeprecationError",
+    "openprotein.errors.InvalidParameterError",
+    "openprotein.errors.MissingParameterError",
+    "openprotein.errors.AuthError",
+    "openprotein.errors.JobFailedException",
+    "openprotein.errors.JobOutputsNotReady",
+    "openprotein.errors.InvalidJob",
+    "openprotein.errors.NotPrepared",
+    "openprotein.errors.TimeoutException",
+  ]}
+/>
+
+## Data primitives
+
+Create and manipulate molecular primitives that can be used on our platform for doing protein engineering tasks like structure prediction and binder design. Full reference: [`openprotein.molecules`](/references/python-api/molecules).
+
+<PySummary
+  paths={[
+    "openprotein.molecules.Protein",
+    "openprotein.molecules.Complex",
+    "openprotein.molecules.Structure",
+    "openprotein.molecules.Ligand",
+    "openprotein.molecules.DNA",
+    "openprotein.molecules.RNA",
+    "openprotein.molecules.Template",
+  ]}
+/>
+
+## Data
+
+Upload and store your datasets on our platform to use with your protein engineering tasks. Full reference: [`openprotein.data`](/references/python-api/data).
+
+<PySummary
+  paths={[
+    "openprotein.data.DataAPI",
+    "openprotein.data.AssayDataset",
+    "openprotein.data.AssayMetadata",
+    "openprotein.data.MSADataAPI",
+    "openprotein.data.PromptsAPI",
+    "openprotein.data.MSA",
+    "openprotein.data.MSAMetadata",
+    "openprotein.data.prompts.Prompt",
+    "openprotein.data.prompts.PromptFuture",
+  ]}
+/>
+
+## Models
+
+Use [`session.models`](/references/python-api/models) to discover and run models.
+
+[Embed with ESM2](/references/python-api/models#esm2) · [Fold with ESMFold](/references/python-api/models#esmfold) · [Score with PoET](/references/python-api/models#poet) · [Design from an assay](/references/python-api/design#criteria) Full reference: [`openprotein.models`](/references/python-api/models).
+
+<PySummary
+  paths={[
+    "openprotein.models.ModelsAPI",
+    "openprotein.models.PoET2",
+    "openprotein.models.Boltz2",
+    "openprotein.models.RFdiffusion",
+    "openprotein.models.ESM2",
+    "openprotein.models.ProteinMPNN",
+    "openprotein.models.OpenDDE",
+    "openprotein.models.ESMIF1",
+    "openprotein.models.ESMC",
+    "openprotein.models.ESMFold2",
+    "openprotein.models.ProtenixV2",
+    "openprotein.models.AbLang2",
+    "openprotein.models.Protenix",
+    "openprotein.models.BoltzGen",
+    "openprotein.models.RosettaFold3",
+    "openprotein.models.MiniFold",
+    "openprotein.models.Boltz1",
+    "openprotein.models.ESMFold",
+    "openprotein.models.ESM1",
+    "openprotein.models.ProtT5",
+    "openprotein.models.AlphaFold2",
+    "openprotein.models.PoET",
+    "openprotein.models.ProtSeq",
+    "openprotein.models.RotaProt",
+    "openprotein.models.Model",
+    "openprotein.models.ProteinLanguageModel",
+    "openprotein.models.StructurePredictionModel",
+    "openprotein.models.StructureGenerativeModel",
+    "openprotein.models.SVD",
+    "openprotein.models.UMAP",
+    "openprotein.models.GP",
+    "openprotein.models.SVDModel",
+    "openprotein.models.UMAPModel",
+    "openprotein.models.GPModel",
+    "openprotein.models.svd.SVDEmbeddingSource",
+    "openprotein.models.ModelDescription",
+    "openprotein.models.MethodDescriptor",
+    "openprotein.models.ModelMetadata",
+    "openprotein.models.StructureGenerationJob",
+    "openprotein.models.StructureGenerationFuture",
+    "openprotein.models.TrainedKernel",
+    "openprotein.models.LinearKernel",
+    "openprotein.models.RBFKernel",
+    "openprotein.models.Matern12Kernel",
+    "openprotein.models.Matern32Kernel",
+    "openprotein.models.Matern52Kernel",
+    "openprotein.models.PeriodicKernel",
+    "openprotein.models.RationalQuadraticKernel",
+    "openprotein.models.RFdiffusionFuture",
+    "openprotein.models.BoltzGenFuture",
+  ]}
+/>
+
+## Design
+
+Design novel protein sequences based on your assay datasets and trained models, optimizing toward your design criteria. Full reference: [`openprotein.design`](/references/python-api/design).
+
+<PySummary
+  paths={[
+    "openprotein.design.DesignAPI",
+    "openprotein.design.Criteria",
+    "openprotein.design.Criterion",
+    "openprotein.design.Subcriterion",
+    "openprotein.design.DesignConstraint",
+    "openprotein.design.schemas.DesignAlgorithm",
+    "openprotein.design.ModelCriterion",
+    "openprotein.design.schemas.NMutationCriterion",
+    "openprotein.design.schemas.CriterionType",
+    "openprotein.design.DesignFuture",
+    "openprotein.design.schemas.DesignResult",
+  ]}
+/>
+
+## Jobs
+
+Retrieve and monitor your jobs. Full reference: [`openprotein.jobs`](/references/python-api/jobs).
+
+<PySummary
+  paths={[
+    "openprotein.jobs.JobsAPI",
+    "openprotein.jobs.Job",
+    "openprotein.jobs.Future",
+    "openprotein.jobs.JobStatus",
+    "openprotein.jobs.StreamingFuture",
+    "openprotein.jobs.MappedFuture",
+    "openprotein.jobs.JobType",
+    "openprotein.jobs.BatchJob",
+    "openprotein.jobs.Unit",
+    "openprotein.jobs.UnitState",
+    "openprotein.jobs.JobOutput",
+    "openprotein.jobs.TaskFuture",
+    "openprotein.jobs.FutureUnit",
+    "openprotein.jobs.AttentionFuture",
+    "openprotein.jobs.EmbeddingFuture",
+    "openprotein.jobs.IndelScoreFuture",
+    "openprotein.jobs.LogLikelihoodFuture",
+    "openprotein.jobs.LogitsFuture",
+    "openprotein.jobs.PredictionFuture",
+    "openprotein.jobs.SequenceGenerationFuture",
+    "openprotein.jobs.SingleSitePredictionFuture",
+    "openprotein.jobs.SingleSiteScoreFuture",
+    "openprotein.jobs.StructureDesignFuture",
+    "openprotein.jobs.StructurePredictionFuture",
+    "openprotein.jobs.SVDFitFuture",
+    "openprotein.jobs.UMAPFitFuture",
+    "openprotein.jobs.GPFitFuture",
+    "openprotein.jobs.CrossvalidateFuture",
+    "openprotein.jobs.CrossvalidateResults",
+    "openprotein.jobs.FitFuture",
+  ]}
+/>
+
+## Clustering
+
+Cluster sequences using the session clustering interface. Full reference: [`openprotein.clustering`](/references/python-api/clustering).
+
+<PySummary
+  paths={[
+    "openprotein.clustering.ClusteringAPI",
+    "openprotein.clustering.HierarchicalClusteringFuture",
+    "openprotein.clustering.HierarchicalClusteringResult",
+    "openprotein.clustering.ClusteringMetadata",
+  ]}
+/>
+
+## Align
+
+Align your protein sequences or look up multiple sequence alignments. Full reference: [`openprotein.align`](/references/python-api/align).
+
+<PySummary
+  paths={[
+    "openprotein.align.AlignAPI",
+    "openprotein.align.schemas.AbNumberScheme",
+    "openprotein.align.schemas.UnnumberedPolicy",
+    "openprotein.align.schemas.MSASamplingMethod",
+    "openprotein.align.schemas.JobWarning",
+    "openprotein.align.schemas.AlignType",
+    "openprotein.align.MSAFuture",
+    "openprotein.align.future.AlignFuture",
+    "openprotein.align.schemas.Pairing",
+  ]}
+/>
+
+## Prompt
+
+Create prompts using sequences and structures to condition our proprietary high-performance PoET foundation models. Prompt creation and alignment remain available; see [Models](/references/python-api/models) for model execution. Full reference: [`openprotein.prompt`](/references/python-api/prompt).
+
+<PySummary
+  paths={[
+    "openprotein.prompt.PromptAPI",
+    "openprotein.prompt.Prompt",
+    "openprotein.prompt.Query",
+    "openprotein.prompt.PromptMetadata",
+    "openprotein.prompt.QueryMetadata",
+    "openprotein.prompt.PromptJob",
+  ]}
+/>
+
+## Foundation models
+
+The compatibility interface is deprecated. Use foundation models to produce embeddings and logits with your protein sequences, then reduce the embeddings with SVD or UMAP for visualization and training workflows. For model execution use [Models](/references/python-api/models); the compatibility interface and SVD/UMAP workflows remain documented here. Full reference: [`openprotein.embeddings`](/references/python-api/embedding).
+
+<PySummary
+  paths={[
+    "openprotein.embeddings.EmbeddingsAPI",
+    "openprotein.embeddings.PoET2Model",
+    "openprotein.embeddings.PoETModel",
+    "openprotein.embeddings.AbLang2Model",
+    "openprotein.embeddings.OpenProteinModel",
+    "openprotein.embeddings.ESMModel",
+    "openprotein.embeddings.EmbeddingModel",
+    "openprotein.embeddings.models.AttnModel",
+    "openprotein.svd.SVDModel",
+    "openprotein.umap.UMAPModel",
+    "openprotein.svd.SVDAPI",
+    "openprotein.umap.UMAPAPI",
+    "openprotein.common.ReductionType",
+    "openprotein.common.ModelMetadata",
+    "openprotein.embeddings.EmbeddingsResultFuture",
+    "openprotein.embeddings.EmbeddingsScoreFuture",
+    "openprotein.embeddings.future.EmbeddingsScoreSingleSiteFuture",
+    "openprotein.embeddings.EmbeddingsGenerateFuture",
+    "openprotein.embeddings.future.BaseScoreFuture",
+    "openprotein.svd.SVDEmbeddingsResultFuture",
+    "openprotein.umap.UMAPEmbeddingsResultFuture",
+  ]}
+/>
+
+## Predictor
+
+The compatibility interface is deprecated. Train predictors from your assay datasets and use them to make predictions on novel sequences. For new training workflows see [Models](/references/python-api/models); the predictor interface remains available for compatible jobs. Full reference: [`openprotein.predictor`](/references/python-api/predictor).
+
+<PySummary
+  paths={[
+    "openprotein.predictor.PredictorAPI",
+    "openprotein.predictor.PredictorModel",
+    "openprotein.predictor.PredictionResultFuture",
+    "openprotein.predictor.validate.CVResultFuture",
+    "openprotein.predictor.KernelType",
+    "openprotein.common.FeatureType",
+  ]}
+/>
+
+## Fold
+
+The compatibility interface is deprecated. Make structure predictions on your protein sequences. For model discovery and folding see [Models](/references/python-api/models); the fold interface remains available for compatible workflows. Full reference: [`openprotein.fold`](/references/python-api/fold).
+
+<PySummary
+  paths={[
+    "openprotein.fold.FoldAPI",
+    "openprotein.fold.ProtenixModel",
+    "openprotein.fold.ProtenixV2Model",
+    "openprotein.fold.Boltz2Model",
+    "openprotein.fold.Boltz1xModel",
+    "openprotein.fold.Boltz1Model",
+    "openprotein.fold.RosettaFold3Model",
+    "openprotein.fold.AlphaFold2Model",
+    "openprotein.fold.ESMFoldModel",
+    "openprotein.fold.ESMFold2Model",
+    "openprotein.fold.ESMFold2FastModel",
+    "openprotein.fold.MiniFoldModel",
+    "openprotein.fold.FoldModel",
+    "openprotein.fold.boltz.BoltzModel",
+    "openprotein.fold.ESMFold2Confidence",
+    "openprotein.fold.FoldResultFuture",
+    "openprotein.fold.BoltzConfidence",
+    "openprotein.fold.BoltzAffinity",
+    "openprotein.fold.ProtenixConfidence",
+    "openprotein.fold.FoldJob",
+    "openprotein.fold.FoldMetadata",
+    "openprotein.fold.OpenDDEModel",
+    "openprotein.fold.OpenDDEAbagModel",
+    "openprotein.fold.OpenDDEConfidence",
+  ]}
+/>
